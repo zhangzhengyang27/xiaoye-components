@@ -1,0 +1,31 @@
+.xy-tooltip {
+  display: inline-flex;
+}
+
+.xy-tooltip:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline-offset: 2px;
+}
+
+.xy-tooltip__content {
+  position: fixed;
+  max-width: 240px;
+  padding: 10px 12px;
+  border-radius: var(--xy-radius-md);
+  background: #0f172a;
+  color: white;
+  font-size: var(--xy-font-size-sm);
+  box-shadow: var(--xy-shadow-sm);
+  pointer-events: auto;
+}
+
+.xy-fade-enter-active,
+.xy-fade-leave-active {
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.xy-fade-enter-from,
+.xy-fade-leave-to {
+  opacity: 0;
+  transform: translateY(4px);
+}

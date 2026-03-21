@@ -1,0 +1,11 @@
+.xy-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.xy-icon.is-spin svg {
+  animation: xy-spin 1s linear infinite;
+}
+

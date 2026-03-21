@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "baseUrl": "..",
+    "types": ["node"],
+    "paths": {
+      "@xiaoye/components": ["packages/components/index.ts"],
+      "@xiaoye/components/*": ["packages/components/*"],
+      "@xiaoye/composables": ["packages/composables/index.ts"],
+      "@xiaoye/utils": ["packages/utils/index.ts"],
+      "@xiaoye/theme": ["packages/theme/index.css"],
+      "@xiaoye/tokens": ["packages/tokens/src/index.ts"],
+      "xiaoye-components": ["packages/xiaoye-components/index.ts"],
+      "xiaoye-components/style.css": ["packages/xiaoye-components/style.css"]
+    }
+  }
+}

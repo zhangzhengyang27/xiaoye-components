@@ -1,0 +1,59 @@
+.xy-table {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-bg-color);
+}
+
+.xy-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.xy-table th,
+.xy-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--xy-border-color);
+}
+
+.xy-table th {
+  background: var(--xy-bg-color-muted);
+  color: var(--xy-text-color-secondary);
+  font-weight: 600;
+}
+
+.xy-table__row {
+  transition: background-color 0.16s ease;
+}
+
+.xy-table.is-clickable .xy-table__row {
+  cursor: pointer;
+}
+
+.xy-table__row:hover {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 48%, white);
+}
+
+.xy-table.is-clickable .xy-table__row:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 35%, transparent);
+  outline-offset: -2px;
+}
+
+.xy-table.is-striped tbody tr:nth-child(2n) {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 70%, white);
+}
+
+.xy-table__loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+.xy-table__empty {
+  padding: 20px 0;
+}

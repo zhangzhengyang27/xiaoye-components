@@ -1,0 +1,31 @@
+.xy-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--xy-space-2);
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-empty__illustration {
+  display: grid;
+  grid-template-columns: repeat(3, 16px);
+  gap: 8px;
+}
+
+.xy-empty__illustration span {
+  display: block;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--xy-border-color), var(--xy-bg-color-muted));
+}
+
+.xy-empty__title {
+  color: var(--xy-text-color);
+}
+
+.xy-empty__description {
+  margin: 0;
+}
+

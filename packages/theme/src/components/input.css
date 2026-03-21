@@ -1,0 +1,60 @@
+.xy-input {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.xy-input:focus-within {
+  border-color: var(--xy-color-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--xy-color-primary) 14%, transparent);
+}
+
+.xy-input--sm {
+  min-height: 36px;
+  padding: 0 10px;
+}
+
+.xy-input--md {
+  min-height: 40px;
+  padding: 0 12px;
+}
+
+.xy-input--lg {
+  min-height: 46px;
+  padding: 0 14px;
+}
+
+.xy-input input {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--xy-text-color);
+}
+
+.xy-input input::placeholder {
+  color: var(--xy-text-color-muted);
+}
+
+.xy-input__clear {
+  border: 0;
+  background: transparent;
+  color: var(--xy-text-color-muted);
+  cursor: pointer;
+}
+
+.xy-input.is-error {
+  border-color: var(--xy-color-danger);
+}
+
+.xy-input.is-disabled {
+  background: var(--xy-bg-color-muted);
+  opacity: 0.7;
+}
+

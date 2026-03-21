@@ -1,0 +1,48 @@
+.xy-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: var(--xy-radius-pill);
+  min-height: 28px;
+  font-size: var(--xy-font-size-sm);
+  background: var(--xy-bg-color-muted);
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-tag--sm {
+  min-height: 24px;
+}
+
+.xy-tag--lg {
+  min-height: 32px;
+}
+
+.xy-tag--primary {
+  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+}
+
+.xy-tag--success {
+  color: var(--xy-color-success);
+  background: color-mix(in srgb, var(--xy-color-success) 12%, white);
+}
+
+.xy-tag--warning {
+  color: var(--xy-color-warning);
+  background: color-mix(in srgb, var(--xy-color-warning) 14%, white);
+}
+
+.xy-tag--danger {
+  color: var(--xy-color-danger);
+  background: color-mix(in srgb, var(--xy-color-danger) 12%, white);
+}
+
+.xy-tag__close {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+}
+

@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "."
+  },
+  "include": ["env.d.ts", "packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.vue"],
+  "exclude": ["packages/**/__tests__/**", "apps/**", "tests/**"]
+}

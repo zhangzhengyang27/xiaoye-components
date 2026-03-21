@@ -1,0 +1,31 @@
+{
+  "name": "xiaoye-components",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "面向中后台系统的 Vue 3 组件库",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "sideEffects": [
+    "*.css",
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.6.13",
+    "async-validator": "^4.2.5"
+  }
+}
+

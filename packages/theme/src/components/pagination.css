@@ -1,0 +1,36 @@
+.xy-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--xy-space-3);
+  flex-wrap: wrap;
+}
+
+.xy-pagination__pager {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.xy-pagination__pager button,
+.xy-pagination__size select {
+  border: 1px solid var(--xy-border-color);
+  background: var(--xy-bg-color);
+  color: var(--xy-text-color);
+  border-radius: var(--xy-radius-md);
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.xy-pagination__pager button.is-active {
+  color: white;
+  background: var(--xy-color-primary);
+  border-color: var(--xy-color-primary);
+}
+
+.xy-pagination__size {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--xy-text-color-secondary);
+}
+

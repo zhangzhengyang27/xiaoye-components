@@ -1,0 +1,12 @@
+{
+  "extends": "./base.json",
+  "include": [
+    "../env.d.ts",
+    "../apps/**/*.ts",
+    "../apps/**/*.tsx",
+    "../apps/**/*.d.ts",
+    "../apps/**/*.vue",
+    "../apps/**/*.md",
+    "../apps/**/*.mts"
+  ]
+}

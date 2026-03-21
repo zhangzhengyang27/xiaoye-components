@@ -1,0 +1,37 @@
+:root,
+[data-theme="light"] {
+  --xy-color-primary: #2563eb;
+  --xy-color-primary-hover: #1d4ed8;
+  --xy-color-success: #059669;
+  --xy-color-warning: #d97706;
+  --xy-color-danger: #dc2626;
+  --xy-text-color: #1e293b;
+  --xy-text-color-secondary: #64748b;
+  --xy-text-color-muted: #94a3b8;
+  --xy-border-color: #e2e8f0;
+  --xy-border-color-strong: #cbd5e1;
+  --xy-bg-color: #ffffff;
+  --xy-bg-color-muted: #f8fafc;
+  --xy-bg-color-elevated: #ffffff;
+  --xy-overlay-color: rgba(15, 23, 42, 0.56);
+  --xy-radius-sm: 8px;
+  --xy-radius-md: 12px;
+  --xy-radius-lg: 16px;
+  --xy-radius-pill: 999px;
+  --xy-space-1: 4px;
+  --xy-space-2: 8px;
+  --xy-space-3: 12px;
+  --xy-space-4: 16px;
+  --xy-space-5: 24px;
+  --xy-space-6: 32px;
+  --xy-shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --xy-shadow-md: 0 16px 48px rgba(15, 23, 42, 0.12);
+  --xy-shadow-lg: 0 24px 64px rgba(15, 23, 42, 0.18);
+  --xy-font-size-sm: 12px;
+  --xy-font-size-md: 14px;
+  --xy-font-size-lg: 16px;
+  --xy-line-height: 1.5;
+  --xy-z-dropdown: 1050;
+  --xy-z-tooltip: 1100;
+  --xy-z-modal: 1200;
+}

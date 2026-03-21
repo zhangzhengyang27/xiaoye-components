@@ -1,0 +1,8 @@
+.xy-space {
+  display: inline-flex;
+}
+
+.xy-space--vertical {
+  flex-direction: column;
+}
+

@@ -1,0 +1,108 @@
+.xy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--xy-space-2);
+  border: 1px solid transparent;
+  border-radius: var(--xy-radius-md);
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  white-space: nowrap;
+}
+
+.xy-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.xy-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline-offset: 2px;
+}
+
+.xy-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.xy-button--sm {
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: var(--xy-font-size-sm);
+}
+
+.xy-button--md {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: var(--xy-font-size-md);
+}
+
+.xy-button--lg {
+  min-height: 46px;
+  padding: 0 20px;
+  font-size: var(--xy-font-size-lg);
+}
+
+.xy-button--solid {
+  color: #fff;
+}
+
+.xy-button--solid.xy-button--primary {
+  background: var(--xy-color-primary);
+}
+
+.xy-button--solid.xy-button--success {
+  background: var(--xy-color-success);
+}
+
+.xy-button--solid.xy-button--warning {
+  background: var(--xy-color-warning);
+}
+
+.xy-button--solid.xy-button--danger {
+  background: var(--xy-color-danger);
+}
+
+.xy-button--outline,
+.xy-button--ghost,
+.xy-button--text {
+  color: var(--xy-text-color);
+  background: var(--xy-bg-color);
+  border-color: var(--xy-border-color);
+}
+
+.xy-button--text {
+  background: transparent;
+  border-color: transparent;
+}
+
+.xy-button.is-block {
+  display: inline-flex;
+  width: 100%;
+}
+
+.xy-button__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: xy-spin 0.8s linear infinite;
+}
+
+.xy-button--outline .xy-button__spinner,
+.xy-button--ghost .xy-button__spinner,
+.xy-button--text .xy-button__spinner {
+  border-color: rgba(37, 99, 235, 0.22);
+  border-top-color: var(--xy-color-primary);
+}
+
+@keyframes xy-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

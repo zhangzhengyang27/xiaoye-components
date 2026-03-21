@@ -1,0 +1,25 @@
+name: Bug report
+description: 反馈组件缺陷
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 请描述预期行为与实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现方式
+      description: 请尽量提供最小复现
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本信息
+      placeholder: 例如 xiaoye-components 0.1.0
+

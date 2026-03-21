@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig/base.json",
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig/packages.json"
+    },
+    {
+      "path": "./tsconfig/apps.json"
+    },
+    {
+      "path": "./tests/types/tsconfig.json"
+    }
+  ]
+}

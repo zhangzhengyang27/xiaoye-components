@@ -1,0 +1,14 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "include": [
+    "../env.d.ts",
+    "../packages/**/*.ts",
+    "../packages/**/*.tsx",
+    "../packages/**/*.d.ts",
+    "../packages/**/*.vue",
+    "../vite.config.ts"
+  ]
+}
