@@ -10,9 +10,7 @@ import AdminFlowDemo from "../.vitepress/theme/components/AdminFlowDemo.vue";
 
 # 管理后台闭环示例
 
-<p class="xy-doc-lead">
-  这个页面不是为了“秀组件数量”，而是验证筛选、列表、行操作、侧边编辑和状态反馈能不能在同一页里自然协作。
-</p>
+这个页面不是为了“秀组件数量”，而是验证筛选、列表、行操作、侧边编辑和状态反馈能不能在同一页里自然协作。
 
 ## 这个示例覆盖了什么
 

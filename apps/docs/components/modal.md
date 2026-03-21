@@ -6,9 +6,7 @@ outline: deep
 
 # Modal 弹窗
 
-<p class="xy-doc-lead">
-  `xy-modal` 用于承载阻断式录入、确认和强提示。当前版本重点保证焦点转移、`Escape` 关闭、遮罩关闭和关闭后焦点恢复这几类基础行为。
-</p>
+`xy-modal` 用于承载阻断式录入、确认和强提示。当前版本重点保证焦点转移、`Escape` 关闭、遮罩关闭和关闭后焦点恢复这几类基础行为。
 
 ## 基础用法
 
@@ -47,30 +45,30 @@ const open = ref(false);
 
 ## 属性
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` | 是否打开弹窗 | `boolean` | `false` |
-| `title` | 弹窗标题 | `string` | `''` |
-| `width` | 面板宽度 | `string \| number` | `560` |
-| `close-on-overlay` | 点击遮罩是否关闭 | `boolean` | `true` |
-| `close-on-esc` | 按下 `Escape` 是否关闭 | `boolean` | `true` |
-| `destroy-on-close` | 关闭后是否销毁内容 | `boolean` | `false` |
+| 属性               | 说明                   | 类型               | 默认值  |
+| ------------------ | ---------------------- | ------------------ | ------- |
+| `model-value`      | 是否打开弹窗           | `boolean`          | `false` |
+| `title`            | 弹窗标题               | `string`           | `''`    |
+| `width`            | 面板宽度               | `string \| number` | `560`   |
+| `close-on-overlay` | 点击遮罩是否关闭       | `boolean`          | `true`  |
+| `close-on-esc`     | 按下 `Escape` 是否关闭 | `boolean`          | `true`  |
+| `destroy-on-close` | 关闭后是否销毁内容     | `boolean`          | `false` |
 
 ## 事件
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件                 | 说明                   | 参数      |
+| -------------------- | ---------------------- | --------- |
 | `update:model-value` | 弹窗开关状态变化时触发 | `boolean` |
-| `open` | 弹窗打开后触发 | — |
-| `close` | 弹窗关闭时触发 | — |
+| `open`               | 弹窗打开后触发         | —         |
+| `close`              | 弹窗关闭时触发         | —         |
 
 ## 插槽
 
-| 插槽 | 说明 |
-| --- | --- |
-| `default` | 弹窗主体内容 |
-| `header` | 自定义头部内容 |
-| `footer` | 自定义底部操作区 |
+| 插槽      | 说明             |
+| --------- | ---------------- |
+| `default` | 弹窗主体内容     |
+| `header`  | 自定义头部内容   |
+| `footer`  | 自定义底部操作区 |
 
 ## 可访问性与行为约定
 

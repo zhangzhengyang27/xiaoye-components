@@ -6,9 +6,7 @@ outline: deep
 
 # Button 按钮
 
-<p class="xy-doc-lead">
-  `xy-button` 用来触发即时操作。它不追求复杂变体，而是优先覆盖后台页面里最常见的主按钮、次按钮、危险按钮和加载按钮。
-</p>
+`xy-button` 用来触发即时操作。它不追求复杂变体，而是优先覆盖后台页面里最常见的主按钮、次按钮、危险按钮和加载按钮。
 
 ## 基础用法
 
@@ -43,7 +41,8 @@ outline: deep
     <xy-button size="lg">大号按钮</xy-button>
   </xy-space>
 
-  <xy-button block>整行保存</xy-button>
+<xy-button block>整行保存</xy-button>
+
 </div>
 
 对于后台页面，通常把最关键的动作放在 `solid + primary`，把取消、重置、导出这类次要操作放在 `outline`。
@@ -79,29 +78,29 @@ outline: deep
 
 ## 属性
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `variant` | 按钮视觉风格 | `'solid' \| 'outline' \| 'ghost' \| 'text'` | `'solid'` |
-| `status` | 状态语义，决定颜色风格 | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'primary'` |
-| `size` | 按钮尺寸 | `'sm' \| 'md' \| 'lg'` | 跟随全局配置 |
-| `disabled` | 是否禁用交互 | `boolean` | `false` |
-| `loading` | 是否显示加载态，并阻止点击 | `boolean` | `false` |
-| `block` | 是否占满整行宽度 | `boolean` | `false` |
-| `native-type` | 原生按钮类型 | `'button' \| 'submit' \| 'reset'` | `'button'` |
+| 属性          | 说明                       | 类型                                                           | 默认值       |
+| ------------- | -------------------------- | -------------------------------------------------------------- | ------------ |
+| `variant`     | 按钮视觉风格               | `'solid' \| 'outline' \| 'ghost' \| 'text'`                    | `'solid'`    |
+| `status`      | 状态语义，决定颜色风格     | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'primary'`  |
+| `size`        | 按钮尺寸                   | `'sm' \| 'md' \| 'lg'`                                         | 跟随全局配置 |
+| `disabled`    | 是否禁用交互               | `boolean`                                                      | `false`      |
+| `loading`     | 是否显示加载态，并阻止点击 | `boolean`                                                      | `false`      |
+| `block`       | 是否占满整行宽度           | `boolean`                                                      | `false`      |
+| `native-type` | 原生按钮类型               | `'button' \| 'submit' \| 'reset'`                              | `'button'`   |
 
 ## 事件
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件    | 说明                                                  | 参数         |
+| ------- | ----------------------------------------------------- | ------------ |
 | `click` | 点击按钮时触发；当 `loading` 或 `disabled` 时不会触发 | `MouseEvent` |
 
 ## 插槽
 
-| 插槽 | 说明 |
-| --- | --- |
-| `default` | 按钮主内容 |
-| `prefix` | 按钮前缀内容，通常用于图标 |
-| `suffix` | 按钮后缀内容，通常用于图标或补充提示 |
+| 插槽      | 说明                                 |
+| --------- | ------------------------------------ |
+| `default` | 按钮主内容                           |
+| `prefix`  | 按钮前缀内容，通常用于图标           |
+| `suffix`  | 按钮后缀内容，通常用于图标或补充提示 |
 
 ## 可访问性与行为约定
 

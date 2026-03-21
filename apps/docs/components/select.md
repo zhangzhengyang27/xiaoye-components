@@ -19,9 +19,7 @@ const options = [
 
 # Select 选择器
 
-<p class="xy-doc-lead">
-  `xy-select` 用于单值选择，当前版本优先覆盖后台筛选栏和表单枚举值录入，重点是“单选 + 搜索 + 清空 + 键盘导航”。
-</p>
+`xy-select` 用于单值选择，当前版本优先覆盖后台筛选栏和表单枚举值录入，重点是“单选 + 搜索 + 清空 + 键盘导航”。
 
 ## 基础用法
 
@@ -35,11 +33,7 @@ const options = [
 </div>
 
 ```vue
-<xy-select
-  v-model="status"
-  :options="options"
-  placeholder="请选择状态"
-/>
+<xy-select v-model="status" :options="options" placeholder="请选择状态" />
 ```
 
 ## 搜索、清空与描述文案
@@ -75,43 +69,43 @@ const options = [
 
 ## 属性
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` | 当前选中值 | `string \| number \| null` | `null` |
-| `options` | 选项列表 | `SelectOption<T>[]` | — |
-| `placeholder` | 未选择时的占位提示 | `string` | `'请选择'` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `clearable` | 是否允许清空当前选中值 | `boolean` | `false` |
-| `searchable` | 是否启用搜索输入 | `boolean` | `false` |
-| `size` | 组件尺寸 | `'sm' \| 'md' \| 'lg'` | 跟随全局配置 |
-| `no-data-text` | 无选项时的文案 | `string` | `'暂无选项'` |
-| `no-match-text` | 搜索无结果时的文案 | `string` | `'没有匹配项'` |
+| 属性            | 说明                   | 类型                       | 默认值         |
+| --------------- | ---------------------- | -------------------------- | -------------- |
+| `model-value`   | 当前选中值             | `string \| number \| null` | `null`         |
+| `options`       | 选项列表               | `SelectOption<T>[]`        | —              |
+| `placeholder`   | 未选择时的占位提示     | `string`                   | `'请选择'`     |
+| `disabled`      | 是否禁用               | `boolean`                  | `false`        |
+| `clearable`     | 是否允许清空当前选中值 | `boolean`                  | `false`        |
+| `searchable`    | 是否启用搜索输入       | `boolean`                  | `false`        |
+| `size`          | 组件尺寸               | `'sm' \| 'md' \| 'lg'`     | 跟随全局配置   |
+| `no-data-text`  | 无选项时的文案         | `string`                   | `'暂无选项'`   |
+| `no-match-text` | 搜索无结果时的文案     | `string`                   | `'没有匹配项'` |
 
 ## 事件
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
-| `update:model-value` | 选中值变化时触发 | `string \| number \| null` |
-| `change` | 选中值确认变化时触发 | `string \| number \| null` |
-| `clear` | 点击清空按钮时触发 | — |
-| `visible-change` | 下拉打开或关闭时触发 | `boolean` |
-| `focus` | 下拉打开时触发 | — |
-| `blur` | 下拉关闭时触发 | — |
+| 事件                 | 说明                 | 参数                       |
+| -------------------- | -------------------- | -------------------------- |
+| `update:model-value` | 选中值变化时触发     | `string \| number \| null` |
+| `change`             | 选中值确认变化时触发 | `string \| number \| null` |
+| `clear`              | 点击清空按钮时触发   | —                          |
+| `visible-change`     | 下拉打开或关闭时触发 | `boolean`                  |
+| `focus`              | 下拉打开时触发       | —                          |
+| `blur`               | 下拉关闭时触发       | —                          |
 
 ## 插槽
 
-| 插槽 | 说明 |
-| --- | --- |
-| — | 当前版本无公开插槽，选项展示通过 `options` 的 `label / description / disabled` 字段控制 |
+| 插槽 | 说明                                                                                    |
+| ---- | --------------------------------------------------------------------------------------- |
+| —    | 当前版本无公开插槽，选项展示通过 `options` 的 `label / description / disabled` 字段控制 |
 
 ## 选项结构
 
-| 字段 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `label` | 选项展示文案 | `string` | — |
-| `value` | 选项值 | `string \| number` | — |
-| `disabled` | 是否禁用该选项 | `boolean` | `false` |
-| `description` | 辅助描述信息 | `string` | `undefined` |
+| 字段          | 说明           | 类型               | 默认值      |
+| ------------- | -------------- | ------------------ | ----------- |
+| `label`       | 选项展示文案   | `string`           | —           |
+| `value`       | 选项值         | `string \| number` | —           |
+| `disabled`    | 是否禁用该选项 | `boolean`          | `false`     |
+| `description` | 辅助描述信息   | `string`           | `undefined` |
 
 ## 可访问性与行为约定
 

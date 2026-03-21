@@ -15,11 +15,16 @@ interface FormInstance {
   resetFields: (props?: string | string[]) => void
 }
 
-const open = ref(false)
+const modalOpen = ref(false)
+const drawerOpen = ref(false)
 const activeTab = ref("members")
 const formRef = ref<FormInstance | null>(null)
 const saveFeedback = ref("待提交")
 const activeRow = ref<MemberRow | null>(null)
+const drawerDraft = reactive({
+  name: "",
+  role: ""
+})
 
 const filters = reactive({
   keyword: "",
@@ -69,6 +74,13 @@ const roleOptions = [
   { label: "访客", value: "guest" }
 ]
 
+const rowActionItems = [
+  { key: "view", label: "查看详情", description: "在侧边抽屉里查看和编辑" },
+  { key: "copy", label: "复制链接", description: "复制当前成员页面链接" },
+  { key: "disable", label: "停用账号", disabled: true, description: "演示禁用项行为" },
+  { key: "delete", label: "删除成员", danger: true }
+]
+
 const filteredRows = computed(() => {
   const keyword = filters.keyword.trim().toLowerCase()
 
@@ -83,13 +95,79 @@ const filteredRows = computed(() => {
   })
 })
 
+const tableColumns = [
+  { key: "name", title: "项目名称", dataIndex: "name" },
+  { key: "owner", title: "负责人", dataIndex: "owner" },
+  { key: "role", title: "角色", dataIndex: "role" },
+  { key: "status", title: "状态", dataIndex: "status" },
+  { key: "actions", title: "操作", slot: "actions", align: "right" as const, width: 180 }
+]
+
+function syncDrawerDraft(row: MemberRow) {
+  drawerDraft.name = row.name
+  drawerDraft.role = row.role
+}
+
 function handleOpenCreate() {
-  open.value = true
+  modalOpen.value = true
   saveFeedback.value = "请填写成员信息"
 }
 
 function handleRowClick(row: MemberRow) {
   activeRow.value = row
+  syncDrawerDraft(row)
+}
+
+function openDrawerForRow(row: MemberRow, intent = "查看详情") {
+  activeRow.value = row
+  syncDrawerDraft(row)
+  drawerOpen.value = true
+  saveFeedback.value = `${intent}：${row.name}`
+}
+
+function handleRowAction(action: { key: string; label: string }, row: MemberRow) {
+  switch (action.key) {
+    case "view":
+      openDrawerForRow(row, "查看成员")
+      break
+    case "copy":
+      saveFeedback.value = `已模拟复制链接：${row.name}`
+      break
+    case "delete":
+      saveFeedback.value = `已标记危险操作：${row.name}`
+      break
+    default:
+      saveFeedback.value = `已触发操作：${action.label}`
+      break
+  }
+}
+
+function handleSaveDrawer() {
+  if (!activeRow.value) {
+    drawerOpen.value = false
+    return
+  }
+
+  rows.value = rows.value.map((row) =>
+    row.id === activeRow.value?.id
+      ? {
+          ...row,
+          name: drawerDraft.name,
+          role: drawerDraft.role || row.role,
+          updatedAt: "2026-03-22"
+        }
+      : row
+  )
+
+  const updated = rows.value.find((row) => row.id === activeRow.value?.id)
+
+  if (updated) {
+    activeRow.value = updated
+    syncDrawerDraft(updated)
+    saveFeedback.value = `已从侧边抽屉更新：${updated.name}`
+  }
+
+  drawerOpen.value = false
 }
 
 function rowClassName(row: MemberRow) {
@@ -116,13 +194,14 @@ async function handleSave() {
     owner: "Xiaoye",
     role: memberForm.role ?? "member",
     status: "待启用",
-    updatedAt: "2026-03-21"
+    updatedAt: "2026-03-22"
   }
 
   rows.value = [nextRow, ...rows.value]
   activeRow.value = nextRow
+  syncDrawerDraft(nextRow)
   saveFeedback.value = `已创建成员：${memberForm.name}`
-  open.value = false
+  modalOpen.value = false
   formRef.value?.resetFields()
 }
 </script>
@@ -135,7 +214,7 @@ async function handleSave() {
           <xy-tag status="primary">MVP Playground</xy-tag>
           <h1>把中后台高频交互收敛成一个稳定的 Vue 3 组件库基线</h1>
           <p>
-            这里不只展示组件长什么样，还用真实页面把 `Tabs / Select / Table / Modal / Form / Tooltip`
+            这里不只展示组件长什么样，还用真实页面把 `Tabs / Select / Table / Modal / Drawer / Dropdown / Popover / Tooltip`
             串成回归样板。
           </p>
         </div>
@@ -143,7 +222,16 @@ async function handleSave() {
           <xy-tooltip content="打开弹窗后，焦点会自动进入弹窗；按 Escape 可关闭并返回触发按钮。">
             <xy-button @click="handleOpenCreate">新建成员</xy-button>
           </xy-tooltip>
-          <xy-button variant="outline">导出数据</xy-button>
+          <xy-dropdown
+            :items="[
+              { key: 'export', label: '导出当前视图' },
+              { key: 'archive', label: '归档筛选条件', description: '演示说明型菜单项' },
+              { key: 'danger', label: '危险操作', danger: true }
+            ]"
+            @select="(item) => (saveFeedback = `工具栏操作：${item.label}`)"
+          >
+            <xy-button variant="outline">更多操作</xy-button>
+          </xy-dropdown>
         </xy-space>
       </section>
 
@@ -153,7 +241,10 @@ async function handleSave() {
           <xy-tag :status="activeRow ? 'primary' : 'neutral'">
             当前行：{{ activeRow ? activeRow.name : '未选择' }}
           </xy-tag>
-          <xy-tag :status="saveFeedback.includes('已创建') ? 'success' : 'warning'">
+          <xy-tag :status="drawerOpen ? 'warning' : 'neutral'">
+            抽屉：{{ drawerOpen ? '打开中' : '未打开' }}
+          </xy-tag>
+          <xy-tag :status="saveFeedback.includes('已') ? 'success' : 'warning'">
             {{ saveFeedback }}
           </xy-tag>
         </div>
@@ -182,22 +273,41 @@ async function handleSave() {
                   no-match-text="没有符合条件的角色"
                   :options="roleOptions"
                 />
+                <xy-popover title="筛选说明">
+                  <template #trigger>
+                    <xy-button variant="outline">筛选说明</xy-button>
+                  </template>
+                  <div class="popover-stack">
+                    <p>角色筛选会和关键字搜索一起生效。</p>
+                    <p>Popover 适合承载多段说明，而不是只有一句提示。</p>
+                    <xy-button variant="text" @click="resetFilters">顺手重置筛选</xy-button>
+                  </div>
+                </xy-popover>
                 <xy-button variant="outline" @click="resetFilters">重置筛选</xy-button>
               </xy-space>
 
               <xy-table
-                :columns="[
-                  { key: 'name', title: '项目名称', dataIndex: 'name' },
-                  { key: 'owner', title: '负责人', dataIndex: 'owner' },
-                  { key: 'role', title: '角色', dataIndex: 'role' },
-                  { key: 'status', title: '状态', dataIndex: 'status' }
-                ]"
+                :columns="tableColumns"
                 :data="filteredRows"
                 row-key="id"
                 :row-class-name="rowClassName"
                 striped
                 @row-click="handleRowClick"
               >
+                <template #cell-actions="{ row }">
+                  <xy-space align="center">
+                    <xy-button variant="text" @click.stop="openDrawerForRow(row, '查看成员')">
+                      查看
+                    </xy-button>
+                    <xy-dropdown
+                      :items="rowActionItems"
+                      @select="(item) => handleRowAction(item, row)"
+                    >
+                      <xy-button variant="text">更多</xy-button>
+                    </xy-dropdown>
+                  </xy-space>
+                </template>
+
                 <template #empty>
                   <xy-empty title="没有匹配成员" description="换个关键字或重置筛选试试">
                     <xy-button variant="outline" @click="resetFilters">恢复默认数据</xy-button>
@@ -211,7 +321,7 @@ async function handleSave() {
         </xy-tabs>
       </section>
 
-      <xy-modal v-model="open" title="新建成员">
+      <xy-modal v-model="modalOpen" title="新建成员">
         <xy-form ref="formRef" :model="memberForm" :rules="rules">
           <xy-form-item
             label="成员名称"
@@ -232,11 +342,46 @@ async function handleSave() {
 
         <template #footer>
           <xy-space>
-            <xy-button variant="outline" @click="open = false">取消</xy-button>
+            <xy-button variant="outline" @click="modalOpen = false">取消</xy-button>
             <xy-button @click="handleSave">保存</xy-button>
           </xy-space>
         </template>
       </xy-modal>
+
+      <xy-drawer v-model="drawerOpen" title="侧边编辑成员">
+        <div class="drawer-stack">
+          <xy-tag :status="activeRow ? 'primary' : 'neutral'">
+            当前编辑：{{ activeRow ? activeRow.name : '未选择成员' }}
+          </xy-tag>
+          <xy-input
+            v-model="drawerDraft.name"
+            placeholder="成员名称"
+          />
+          <xy-select
+            v-model="drawerDraft.role"
+            searchable
+            clearable
+            no-match-text="没有符合条件的角色"
+            :options="roleOptions"
+            placeholder="角色"
+          />
+          <xy-popover title="为什么这里用 Drawer">
+            <template #trigger>
+              <xy-button variant="outline">查看编辑说明</xy-button>
+            </template>
+            <div class="popover-stack">
+              <p>Drawer 更适合保留列表上下文，同时承载更长的编辑表单。</p>
+              <p>它和 Modal 共用同一套焦点与 Escape 关闭基线。</p>
+            </div>
+          </xy-popover>
+        </div>
+        <template #footer>
+          <xy-space>
+            <xy-button variant="outline" @click="drawerOpen = false">取消</xy-button>
+            <xy-button @click="handleSaveDrawer">保存抽屉修改</xy-button>
+          </xy-space>
+        </template>
+      </xy-drawer>
     </main>
   </xy-config-provider>
 </template>
@@ -285,10 +430,17 @@ async function handleSave() {
   margin-bottom: 16px;
 }
 
-.stack {
+.stack,
+.drawer-stack,
+.popover-stack {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.popover-stack p {
+  margin: 0;
+  color: #64748b;
 }
 
 :deep(.playground-row-active td) {
