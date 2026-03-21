@@ -6,5 +6,7 @@ dist
 coverage
 apps/docs/.vitepress/cache
 apps/docs/.vitepress/dist
+apps/docs/.vitepress/.temp
 apps/playground/dist
+*.tsbuildinfo
 *.local

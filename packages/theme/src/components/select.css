@@ -51,16 +51,14 @@
 }
 
 .xy-select__dropdown {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 8px);
   padding: 8px;
   border: 1px solid var(--xy-border-color);
   border-radius: var(--xy-radius-lg);
   background: var(--xy-bg-color);
   box-shadow: var(--xy-shadow-md);
   z-index: var(--xy-z-dropdown);
+  max-height: 320px;
+  overflow: auto;
 }
 
 .xy-select__search {

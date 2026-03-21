@@ -5,43 +5,77 @@
   --vp-font-family-base: "IBM Plex Sans", "PingFang SC", sans-serif;
 }
 
-.hero-layout {
+.xy-home-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-  gap: 24px;
-  align-items: stretch;
-  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
 }
 
-.hero-card,
-.demo-card {
+.xy-home-panel,
+.xy-home-demo,
+.demo-card,
+.xy-doc-grid > div {
   border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 28px;
-  padding: 24px;
+  border-radius: 24px;
+  padding: 20px;
   background:
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 42%),
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.1), transparent 42%),
     #fff;
   box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
 }
 
-.hero-card h2,
-.demo-card h3 {
-  margin-top: 0;
-}
-
-.hero-meta {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-
-.hero-meta span {
-  padding: 6px 12px;
+.xy-home-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
-  background: #eff6ff;
+  background: #dbeafe;
   color: #1d4ed8;
   font-size: 13px;
+  font-weight: 700;
+}
+
+.xy-home-panel h3,
+.xy-home-demo__intro h3,
+.xy-doc-grid h3,
+.demo-card h3 {
+  margin: 14px 0 8px;
+}
+
+.xy-home-panel p,
+.xy-home-demo__intro p,
+.xy-doc-grid p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+}
+
+.xy-home-panel a {
+  display: inline-flex;
+  margin-top: 16px;
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.xy-home-panel a:hover {
+  color: var(--vp-c-brand-2);
+}
+
+.xy-home-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.xy-doc-lead {
+  margin: 12px 0 24px;
+  color: var(--vp-c-text-2);
+  font-size: 16px;
+  line-height: 1.75;
 }
 
 .xy-doc-stack {
@@ -56,16 +90,9 @@
   gap: 16px;
 }
 
-.xy-doc-grid > div {
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  padding: 18px;
-  background: #fff;
-}
-
 @media (max-width: 960px) {
-  .hero-layout {
+  .xy-home-grid,
+  .xy-doc-grid {
     grid-template-columns: 1fr;
   }
 }
-

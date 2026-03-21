@@ -12,5 +12,8 @@
 @import "./src/components/input.css";
 @import "./src/components/tooltip.css";
 @import "./src/components/modal.css";
+@import "./src/components/drawer.css";
+@import "./src/components/dropdown.css";
+@import "./src/components/popover.css";
 @import "./src/components/select.css";
 @import "./src/components/form.css";

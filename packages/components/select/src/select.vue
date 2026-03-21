@@ -1,8 +1,14 @@
 <script setup lang="ts" generic="T extends string | number">
-import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, inject, nextTick, ref, watch } from "vue";
 import type { ComponentSize, SelectOption } from "@xiaoye/utils";
-import { bindClickOutside } from "@xiaoye/utils";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import {
+  useConfig,
+  useDismissibleLayer,
+  useFloatingPanel,
+  useListNavigation,
+  useNamespace,
+  useOverlayStack
+} from "@xiaoye/composables";
 import { formItemKey } from "../../form/src/context";
 
 export interface SelectProps<T = string | number> {
@@ -43,19 +49,14 @@ const { size: globalSize } = useConfig();
 const mergedSize = computed(() => props.size ?? globalSize.value);
 const rootRef = ref<HTMLElement | null>(null);
 const triggerRef = ref<HTMLElement | null>(null);
+const dropdownRef = ref<HTMLElement | null>(null);
 const searchInputRef = ref<HTMLInputElement | null>(null);
-const searchValue = ref("");
 const open = ref(false);
-const activeIndex = ref(-1);
+const searchValue = ref("");
 const listboxId = `xy-select-listbox-${Math.random().toString(36).slice(2, 10)}`;
 const selectedValue = ref<T | null>(props.modelValue);
-let cleanup: (() => void) | null = null;
+const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 
-const selectedOption = computed(() =>
-  props.options.find((item) => item.value === selectedValue.value) ?? null
-);
-
-const displayLabel = computed(() => selectedOption.value?.label ?? props.placeholder);
 const filteredOptions = computed(() => {
   if (!props.searchable || !searchValue.value.trim()) {
     return props.options;
@@ -64,59 +65,52 @@ const filteredOptions = computed(() => {
   const keyword = searchValue.value.trim().toLowerCase();
   return props.options.filter((item) => item.label.toLowerCase().includes(keyword));
 });
+
 const emptyText = computed(() =>
   props.searchable && searchValue.value.trim() ? props.noMatchText : props.noDataText
 );
-const activeOption = computed(() => filteredOptions.value[activeIndex.value] ?? null);
 
-function findEnabledIndex(startIndex: number, step: 1 | -1) {
-  const options = filteredOptions.value;
+const selectedOption = computed(
+  () => props.options.find((item) => item.value === selectedValue.value) ?? null
+);
 
-  if (!options.length) {
-    return -1;
+const displayLabel = computed(() => selectedOption.value?.label ?? props.placeholder);
+
+const navigation = useListNavigation(() => filteredOptions.value, {
+  loop: true
+});
+
+const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
+  triggerRef,
+  dropdownRef,
+  {
+    placement: "bottom-start",
+    offset: 8,
+    matchTriggerWidth: true,
+    zIndex
   }
+);
 
-  let index = startIndex;
-
-  while (index >= 0 && index < options.length) {
-    if (!options[index]?.disabled) {
-      return index;
-    }
-
-    index += step;
-  }
-
-  return -1;
-}
+const activeOption = computed(() => navigation.activeItem.value);
 
 function syncActiveIndex() {
   const selectedIndex = filteredOptions.value.findIndex((item) => item.value === selectedValue.value);
 
   if (selectedIndex >= 0 && !filteredOptions.value[selectedIndex]?.disabled) {
-    activeIndex.value = selectedIndex;
+    navigation.setActiveIndex(selectedIndex);
     return;
   }
 
-  activeIndex.value = findEnabledIndex(0, 1);
+  navigation.activateFirst();
 }
 
-function scrollActiveOptionIntoView() {
-  if (!open.value || activeIndex.value < 0) {
+async function focusSearchInput() {
+  if (!props.searchable) {
     return;
   }
 
-  const activeOptionElement = rootRef.value?.querySelector(
-    `[id="${listboxId}-${activeIndex.value}"]`
-  );
-
-  if (
-    activeOptionElement instanceof HTMLElement &&
-    typeof activeOptionElement.scrollIntoView === "function"
-  ) {
-    activeOptionElement.scrollIntoView({
-      block: "nearest"
-    });
-  }
+  await nextTick();
+  searchInputRef.value?.focus();
 }
 
 async function openDropdown() {
@@ -127,17 +121,16 @@ async function openDropdown() {
   open.value = true;
   emit("visibleChange", true);
   emit("focus");
+  openLayer();
   syncActiveIndex();
 
   await nextTick();
-  scrollActiveOptionIntoView();
-
-  if (props.searchable) {
-    searchInputRef.value?.focus();
-  }
+  await updatePosition();
+  startAutoUpdate();
+  await focusSearchInput();
 }
 
-async function closeDropdown(shouldValidate = false) {
+async function closeDropdown(shouldValidate = false, restoreFocus = false) {
   if (!open.value) {
     return;
   }
@@ -145,13 +138,22 @@ async function closeDropdown(shouldValidate = false) {
   open.value = false;
   emit("visibleChange", false);
   emit("blur");
+  stopAutoUpdate();
+  closeLayer();
+  searchValue.value = "";
+  navigation.setActiveIndex(-1);
+
+  if (restoreFocus) {
+    await nextTick();
+    triggerRef.value?.focus();
+  }
 
   if (shouldValidate) {
     await formItem?.validate("blur");
   }
 }
 
-async function toggle() {
+async function toggleDropdown() {
   if (open.value) {
     await closeDropdown(true);
     return;
@@ -168,14 +170,14 @@ async function selectOption(option: SelectOption<T>) {
   selectedValue.value = option.value;
   emit("update:modelValue", option.value);
   emit("change", option.value);
-  searchValue.value = "";
-  await closeDropdown(false);
+  await closeDropdown(false, true);
   await formItem?.validate("change");
 }
 
 async function clearValue(event: MouseEvent) {
-  event.stopPropagation();
   event.preventDefault();
+  event.stopPropagation();
+
   selectedValue.value = null;
   emit("update:modelValue", null);
   emit("change", null);
@@ -183,41 +185,7 @@ async function clearValue(event: MouseEvent) {
   await formItem?.validate("change");
 }
 
-watch(open, (value) => {
-  if (!value) {
-    searchValue.value = "";
-    activeIndex.value = -1;
-  }
-});
-
-watch(
-  () => props.modelValue,
-  (value) => {
-    selectedValue.value = value;
-  }
-);
-
-watch(
-  () => filteredOptions.value,
-  () => {
-    if (open.value) {
-      syncActiveIndex();
-      nextTick(scrollActiveOptionIntoView);
-    }
-  }
-);
-
-watch(
-  () => props.modelValue,
-  () => {
-    if (open.value) {
-      syncActiveIndex();
-      nextTick(scrollActiveOptionIntoView);
-    }
-  }
-);
-
-async function handleTriggerKeydown(event: KeyboardEvent) {
+async function handleKeydown(event: KeyboardEvent) {
   if (props.disabled) {
     return;
   }
@@ -227,35 +195,47 @@ async function handleTriggerKeydown(event: KeyboardEvent) {
       event.preventDefault();
       if (!open.value) {
         await openDropdown();
-        return;
+      } else {
+        navigation.moveNext();
       }
-      activeIndex.value = findEnabledIndex(activeIndex.value + 1, 1);
-      nextTick(scrollActiveOptionIntoView);
       break;
     case "ArrowUp":
       event.preventDefault();
       if (!open.value) {
         await openDropdown();
-        return;
+      } else {
+        navigation.movePrev();
       }
-      activeIndex.value = findEnabledIndex(activeIndex.value - 1, -1);
-      nextTick(scrollActiveOptionIntoView);
+      break;
+    case "Home":
+      event.preventDefault();
+      if (!open.value) {
+        await openDropdown();
+      }
+      navigation.activateFirst();
+      break;
+    case "End":
+      event.preventDefault();
+      if (!open.value) {
+        await openDropdown();
+      }
+      navigation.activateLast();
       break;
     case "Enter":
     case " ":
       event.preventDefault();
       if (!open.value) {
         await openDropdown();
-        return;
+        break;
       }
+
       if (activeOption.value) {
         await selectOption(activeOption.value);
       }
       break;
     case "Escape":
       event.preventDefault();
-      await closeDropdown(true);
-      triggerRef.value?.focus();
+      await closeDropdown(true, true);
       break;
     case "Tab":
       await closeDropdown(true);
@@ -265,22 +245,37 @@ async function handleTriggerKeydown(event: KeyboardEvent) {
   }
 }
 
-onMounted(() => {
-  if (!rootRef.value) {
+watch(
+  () => props.modelValue,
+  (value) => {
+    selectedValue.value = value;
+  }
+);
+
+watch(filteredOptions, () => {
+  if (open.value) {
+    syncActiveIndex();
+  }
+});
+
+watch(open, async (value) => {
+  if (!value) {
     return;
   }
 
-  cleanup = bindClickOutside(rootRef.value, async () => {
-    if (!open.value) {
-      return;
-    }
-
-    await closeDropdown(true);
-  });
+  await nextTick();
+  await updatePosition();
 });
 
-onBeforeUnmount(() => {
-  cleanup?.();
+useDismissibleLayer({
+  enabled: open,
+  refs: [triggerRef, dropdownRef],
+  closeOnEscape: true,
+  closeOnOutside: true,
+  isTopMost: () => isTopMost.value,
+  onDismiss: async (reason) => {
+    await closeDropdown(reason === "outside", reason === "escape");
+  }
 });
 </script>
 
@@ -304,11 +299,15 @@ onBeforeUnmount(() => {
       :aria-disabled="props.disabled"
       :aria-expanded="open"
       :aria-controls="listboxId"
-      :aria-activedescendant="activeOption ? `${listboxId}-${activeIndex}` : undefined"
+      :aria-activedescendant="
+        open && navigation.activeIndex.value >= 0
+          ? `${listboxId}-${navigation.activeIndex.value}`
+          : undefined
+      "
       :aria-describedby="formItem?.message.value ? formItem.messageId : undefined"
       :aria-invalid="formItem?.validateState.value === 'error'"
-      @click="toggle"
-      @keydown="handleTriggerKeydown"
+      @click="toggleDropdown"
+      @keydown="handleKeydown"
     >
       <span :class="selectedOption ? 'is-selected' : 'is-placeholder'">
         {{ displayLabel }}
@@ -327,37 +326,48 @@ onBeforeUnmount(() => {
       </span>
     </div>
 
-    <div v-if="open" :id="listboxId" class="xy-select__dropdown" role="listbox">
-      <div v-if="props.searchable" class="xy-select__search">
-        <input
-          ref="searchInputRef"
-          v-model="searchValue"
-          type="text"
-          placeholder="搜索选项"
-          @keydown="handleTriggerKeydown"
-        />
-      </div>
-      <button
-        v-for="option in filteredOptions"
-        :id="`${listboxId}-${filteredOptions.indexOf(option)}`"
-        :key="`${option.value}`"
-        type="button"
-        class="xy-select__option"
-        :class="[
-          option.disabled ? 'is-disabled' : '',
-          option.value === selectedValue ? 'is-selected' : '',
-          filteredOptions.indexOf(option) === activeIndex ? 'is-active' : ''
-        ]"
-        role="option"
-        :aria-selected="option.value === selectedValue"
-        :disabled="option.disabled"
-        @mouseenter="activeIndex = filteredOptions.indexOf(option)"
-        @click="selectOption(option)"
-      >
-        <span>{{ option.label }}</span>
-        <small v-if="option.description">{{ option.description }}</small>
-      </button>
-      <div v-if="!filteredOptions.length" class="xy-select__empty">{{ emptyText }}</div>
-    </div>
+    <teleport to="body">
+      <transition name="xy-fade">
+        <div
+          v-if="open"
+          :id="listboxId"
+          ref="dropdownRef"
+          class="xy-select__dropdown"
+          :style="floatingStyle"
+          role="listbox"
+        >
+          <div v-if="props.searchable" class="xy-select__search">
+            <input
+              ref="searchInputRef"
+              v-model="searchValue"
+              type="text"
+              placeholder="搜索选项"
+              @keydown="handleKeydown"
+            />
+          </div>
+          <button
+            v-for="(option, index) in filteredOptions"
+            :id="`${listboxId}-${index}`"
+            :key="`${option.value}`"
+            type="button"
+            class="xy-select__option"
+            :class="[
+              option.disabled ? 'is-disabled' : '',
+              option.value === selectedValue ? 'is-selected' : '',
+              navigation.activeIndex.value === index ? 'is-active' : ''
+            ]"
+            role="option"
+            :aria-selected="option.value === selectedValue"
+            :disabled="option.disabled"
+            @mouseenter="navigation.setActiveIndex(index)"
+            @click="selectOption(option)"
+          >
+            <span>{{ option.label }}</span>
+            <small v-if="option.description">{{ option.description }}</small>
+          </button>
+          <div v-if="!filteredOptions.length" class="xy-select__empty">{{ emptyText }}</div>
+        </div>
+      </transition>
+    </teleport>
   </div>
 </template>

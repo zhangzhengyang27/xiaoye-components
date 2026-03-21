@@ -25,6 +25,7 @@
     "clean": "rimraf packages/xiaoye-components/dist apps/docs/.vitepress/dist apps/playground/dist"
   },
   "devDependencies": {
+    "@iconify/vue": "^5.0.0",
     "@floating-ui/dom": "^1.7.4",
     "@changesets/cli": "^2.29.4",
     "@commitlint/cli": "^19.8.1",

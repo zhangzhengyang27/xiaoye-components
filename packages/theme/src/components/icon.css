@@ -5,7 +5,10 @@
   line-height: 1;
 }
 
-.xy-icon.is-spin svg {
-  animation: xy-spin 1s linear infinite;
+.xy-icon > * {
+  display: block;
 }
 
+.xy-icon.is-spin > * {
+  animation: xy-spin 1s linear infinite;
+}

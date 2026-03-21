@@ -47,7 +47,7 @@ export default defineConfig({
     outDir: resolvePath("./packages/xiaoye-components/dist"),
     emptyOutDir: true,
     rollupOptions: {
-      external: ["vue", "@floating-ui/dom", "async-validator"],
+      external: ["vue", "@iconify/vue", "@floating-ui/dom", "async-validator"],
       output: {
         globals: {
           vue: "Vue"
