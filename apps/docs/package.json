@@ -2,6 +2,9 @@
   "name": "@xiaoye/docs",
   "private": true,
   "type": "module",
+  "devDependencies": {
+    "markdown-it-container": "^4.0.0"
+  },
   "scripts": {
     "docs:dev": "rimraf node_modules/vue && vitepress dev .",
     "docs:build": "rimraf node_modules/vue && vitepress build .",

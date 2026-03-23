@@ -87,7 +87,11 @@ importers:
         specifier: ^2.2.8
         version: 2.2.12(typescript@5.9.3)
 
-  apps/docs: {}
+  apps/docs:
+    devDependencies:
+      markdown-it-container:
+        specifier: ^4.0.0
+        version: 4.0.0
 
   apps/playground: {}
 
@@ -2175,6 +2179,9 @@ packages:
 
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
+
+  markdown-it-container@4.0.0:
+    resolution: {integrity: sha512-HaNccxUH0l7BNGYbFbjmGpf5aLHAMTinqRZQAEQbMr2cdD3z91Q6kIo1oUn1CQndkT03jat6ckrdRYuwwqLlQw==}
 
   mdast-util-to-hast@13.2.1:
     resolution: {integrity: sha512-cctsq2wp5vTsLIcaymblUriiTcZd0CwWtCbLvrOzYCDZoWyMNV8sZ7krj09FSnsiJi3WVsHLM4k6Dq/yaPyCXA==}
@@ -5131,6 +5138,8 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   mark.js@8.11.1: {}
+
+  markdown-it-container@4.0.0: {}
 
   mdast-util-to-hast@13.2.1:
     dependencies:

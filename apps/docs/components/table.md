@@ -67,29 +67,25 @@ function handleRowClick(row: { id: number }) {
 
 <div class="xy-doc-stack">
   <xy-space wrap>
-    <xy-button variant="outline" @click="loading = !loading">
+    <xy-button plain @click="loading = !loading">
       {{ loading ? "关闭加载态" : "开启加载态" }}
     </xy-button>
   </xy-space>
-
-<xy-table
-:columns="[
-{ key: 'name', title: '项目名称', dataIndex: 'name' },
-{ key: 'owner', title: '负责人', dataIndex: 'owner' }
-]"
-:data="loading ? rows : []"
-:loading="loading"
-loading-text="正在加载项目列表"
-
->
-
+  <xy-table
+    :columns="[
+      { key: 'name', title: '项目名称', dataIndex: 'name' },
+      { key: 'owner', title: '负责人', dataIndex: 'owner' }
+    ]"
+    :data="loading ? rows : []"
+    :loading="loading"
+    loading-text="正在加载项目列表"
+  >
     <template #loading>
       正在同步项目数据，请稍候...
     </template>
     <template #empty>
-      <xy-empty title="暂无项目" description="当前筛选条件没有返回结果" />
+      <xy-empty title="暂无项目" description="当前筛选条件没有返回结果"></xy-empty>
     </template>
-
   </xy-table>
 </div>
 

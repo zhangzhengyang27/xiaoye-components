@@ -59,7 +59,8 @@ function clearValidate(props?: string | string[]) {
 provide(formKey, {
   props,
   addField,
-  removeField
+  removeField,
+  resetFields
 });
 
 defineExpose({

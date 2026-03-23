@@ -7,4 +7,3 @@ export interface SelectOption<T = string | number> {
   disabled?: boolean;
   description?: string;
 }
-

@@ -13,12 +13,12 @@ title: Empty 空状态
 ## 带操作入口
 
 <xy-empty title="暂无工单" description="可以先创建第一条工单">
-  <xy-button variant="outline">立即创建</xy-button>
+  <xy-button plain>立即创建</xy-button>
 </xy-empty>
 
 ```vue
 <xy-empty title="暂无工单" description="可以先创建第一条工单">
-  <xy-button variant="outline">立即创建</xy-button>
+  <xy-button plain>立即创建</xy-button>
 </xy-empty>
 ```
 

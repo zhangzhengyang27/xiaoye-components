@@ -96,8 +96,8 @@ features:
       placeholder="角色筛选"
       clearable
     />
-    <xy-button>新建成员</xy-button>
-    <xy-button variant="outline">导出数据</xy-button>
+    <xy-button type="primary">新建成员</xy-button>
+    <xy-button plain>导出数据</xy-button>
   </xy-space>
 </div>
 

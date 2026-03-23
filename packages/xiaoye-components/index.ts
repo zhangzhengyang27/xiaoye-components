@@ -3,7 +3,10 @@ import "@xiaoye/theme";
 export type { ComponentSize, ComponentStatus, SelectOption } from "@xiaoye/utils";
 import {
   XyButton,
+  XyButtonGroup,
+  XyCol,
   XyConfigProvider,
+  XyDatePicker,
   XyDrawer,
   XyDropdown,
   XyEmpty,
@@ -12,19 +15,24 @@ import {
   XyModal,
   XyPagination,
   XyPopover,
+  XyRow,
   XySelect,
   XySpace,
   XyTable,
   XyTabs,
   XyTag,
   XyTooltip,
+  XyUpload,
   XyForm,
   XyFormItem
 } from "@xiaoye/components";
 
 const components = [
   XyButton,
+  XyButtonGroup,
+  XyCol,
   XyConfigProvider,
+  XyDatePicker,
   XyDrawer,
   XyDropdown,
   XyEmpty,
@@ -33,12 +41,14 @@ const components = [
   XyModal,
   XyPagination,
   XyPopover,
+  XyRow,
   XySelect,
   XySpace,
   XyTable,
   XyTabs,
   XyTag,
   XyTooltip,
+  XyUpload,
   XyForm,
   XyFormItem
 ];
@@ -51,7 +61,10 @@ export function install(app: App) {
 
 export {
   XyButton,
+  XyButtonGroup,
+  XyCol,
   XyConfigProvider,
+  XyDatePicker,
   XyDrawer,
   XyDropdown,
   XyEmpty,
@@ -60,12 +73,14 @@ export {
   XyModal,
   XyPagination,
   XyPopover,
+  XyRow,
   XySelect,
   XySpace,
   XyTable,
   XyTabs,
   XyTag,
   XyTooltip,
+  XyUpload,
   XyForm,
   XyFormItem
 };

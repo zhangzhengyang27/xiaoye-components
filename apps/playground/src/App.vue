@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue"
+import type { UploadFileItem } from "xiaoye-components"
 
 interface MemberRow {
   id: number
@@ -15,6 +16,11 @@ interface FormInstance {
   resetFields: (props?: string | string[]) => void
 }
 
+interface ActionItem {
+  key: string
+  label: string
+}
+
 const modalOpen = ref(false)
 const drawerOpen = ref(false)
 const activeTab = ref("members")
@@ -23,7 +29,9 @@ const saveFeedback = ref("待提交")
 const activeRow = ref<MemberRow | null>(null)
 const drawerDraft = reactive({
   name: "",
-  role: ""
+  role: "",
+  dueDate: "",
+  attachments: [] as UploadFileItem[]
 })
 
 const filters = reactive({
@@ -33,12 +41,15 @@ const filters = reactive({
 
 const memberForm = reactive({
   name: "",
-  role: null as string | null
+  role: null as string | null,
+  startDate: null as string | null,
+  attachments: [] as UploadFileItem[]
 })
 
 const rules = {
   name: [{ required: true, message: "请输入成员名称", trigger: "blur" as const }],
-  role: [{ required: true, message: "请选择角色", trigger: "change" as const }]
+  role: [{ required: true, message: "请选择角色", trigger: "change" as const }],
+  startDate: [{ required: true, message: "请选择开始日期", trigger: "change" as const }]
 }
 
 const rows = ref<MemberRow[]>([
@@ -106,6 +117,8 @@ const tableColumns = [
 function syncDrawerDraft(row: MemberRow) {
   drawerDraft.name = row.name
   drawerDraft.role = row.role
+  drawerDraft.dueDate = row.updatedAt
+  drawerDraft.attachments = []
 }
 
 function handleOpenCreate() {
@@ -140,6 +153,10 @@ function handleRowAction(action: { key: string; label: string }, row: MemberRow)
       saveFeedback.value = `已触发操作：${action.label}`
       break
   }
+}
+
+function handleToolbarAction(item: ActionItem) {
+  saveFeedback.value = `工具栏操作：${item.label}`
 }
 
 function handleSaveDrawer() {
@@ -194,7 +211,7 @@ async function handleSave() {
     owner: "Xiaoye",
     role: memberForm.role ?? "member",
     status: "待启用",
-    updatedAt: "2026-03-22"
+    updatedAt: memberForm.startDate ?? "2026-03-22"
   }
 
   rows.value = [nextRow, ...rows.value]
@@ -220,7 +237,7 @@ async function handleSave() {
         </div>
         <xy-space wrap>
           <xy-tooltip content="打开弹窗后，焦点会自动进入弹窗；按 Escape 可关闭并返回触发按钮。">
-            <xy-button @click="handleOpenCreate">新建成员</xy-button>
+            <xy-button type="primary" @click="handleOpenCreate">新建成员</xy-button>
           </xy-tooltip>
           <xy-dropdown
             :items="[
@@ -228,9 +245,9 @@ async function handleSave() {
               { key: 'archive', label: '归档筛选条件', description: '演示说明型菜单项' },
               { key: 'danger', label: '危险操作', danger: true }
             ]"
-            @select="(item) => (saveFeedback = `工具栏操作：${item.label}`)"
+            @select="handleToolbarAction"
           >
-            <xy-button variant="outline">更多操作</xy-button>
+            <xy-button plain>更多操作</xy-button>
           </xy-dropdown>
         </xy-space>
       </section>
@@ -275,15 +292,15 @@ async function handleSave() {
                 />
                 <xy-popover title="筛选说明">
                   <template #trigger>
-                    <xy-button variant="outline">筛选说明</xy-button>
+                    <xy-button plain>筛选说明</xy-button>
                   </template>
                   <div class="popover-stack">
                     <p>角色筛选会和关键字搜索一起生效。</p>
                     <p>Popover 适合承载多段说明，而不是只有一句提示。</p>
-                    <xy-button variant="text" @click="resetFilters">顺手重置筛选</xy-button>
+                    <xy-button text @click="resetFilters">顺手重置筛选</xy-button>
                   </div>
                 </xy-popover>
-                <xy-button variant="outline" @click="resetFilters">重置筛选</xy-button>
+                <xy-button plain @click="resetFilters">重置筛选</xy-button>
               </xy-space>
 
               <xy-table
@@ -296,21 +313,21 @@ async function handleSave() {
               >
                 <template #cell-actions="{ row }">
                   <xy-space align="center">
-                    <xy-button variant="text" @click.stop="openDrawerForRow(row, '查看成员')">
+                    <xy-button text @click.stop="openDrawerForRow(row, '查看成员')">
                       查看
                     </xy-button>
                     <xy-dropdown
                       :items="rowActionItems"
-                      @select="(item) => handleRowAction(item, row)"
+                      @select="(item: ActionItem) => handleRowAction(item, row)"
                     >
-                      <xy-button variant="text">更多</xy-button>
+                      <xy-button text>更多</xy-button>
                     </xy-dropdown>
                   </xy-space>
                 </template>
 
                 <template #empty>
                   <xy-empty title="没有匹配成员" description="换个关键字或重置筛选试试">
-                    <xy-button variant="outline" @click="resetFilters">恢复默认数据</xy-button>
+                    <xy-button plain @click="resetFilters">恢复默认数据</xy-button>
                   </xy-empty>
                 </template>
               </xy-table>
@@ -338,12 +355,29 @@ async function handleSave() {
               :options="roleOptions"
             />
           </xy-form-item>
+          <xy-form-item label="开始日期" prop="startDate">
+            <xy-date-picker
+              v-model="memberForm.startDate"
+              clearable
+              min="2026-03-01"
+              max="2026-12-31"
+            ></xy-date-picker>
+          </xy-form-item>
+          <xy-form-item label="附件">
+            <xy-upload
+              v-model="memberForm.attachments"
+              drag
+              multiple
+              :max-count="2"
+              tip="支持拖拽上传，最多 2 个附件"
+            ></xy-upload>
+          </xy-form-item>
         </xy-form>
 
         <template #footer>
           <xy-space>
-            <xy-button variant="outline" @click="modalOpen = false">取消</xy-button>
-            <xy-button @click="handleSave">保存</xy-button>
+            <xy-button plain @click="modalOpen = false">取消</xy-button>
+            <xy-button type="primary" @click="handleSave">保存</xy-button>
           </xy-space>
         </template>
       </xy-modal>
@@ -365,9 +399,21 @@ async function handleSave() {
             :options="roleOptions"
             placeholder="角色"
           />
+          <xy-date-picker
+            v-model="drawerDraft.dueDate"
+            clearable
+            min="2026-03-01"
+            max="2026-12-31"
+          ></xy-date-picker>
+          <xy-upload
+            v-model="drawerDraft.attachments"
+            :max-count="3"
+            drag
+            tip="侧边编辑里也可以补充附件"
+          ></xy-upload>
           <xy-popover title="为什么这里用 Drawer">
             <template #trigger>
-              <xy-button variant="outline">查看编辑说明</xy-button>
+              <xy-button plain>查看编辑说明</xy-button>
             </template>
             <div class="popover-stack">
               <p>Drawer 更适合保留列表上下文，同时承载更长的编辑表单。</p>
@@ -377,8 +423,8 @@ async function handleSave() {
         </div>
         <template #footer>
           <xy-space>
-            <xy-button variant="outline" @click="drawerOpen = false">取消</xy-button>
-            <xy-button @click="handleSaveDrawer">保存抽屉修改</xy-button>
+            <xy-button plain @click="drawerOpen = false">取消</xy-button>
+            <xy-button type="primary" @click="handleSaveDrawer">保存抽屉修改</xy-button>
           </xy-space>
         </template>
       </xy-drawer>

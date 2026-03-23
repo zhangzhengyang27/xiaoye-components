@@ -18,14 +18,14 @@ const open = ref(false);
 </script>
 
 <template>
-  <xy-button @click="open = true">打开弹窗</xy-button>
+  <xy-button type="primary" @click="open = true">打开弹窗</xy-button>
   <xy-modal v-model="open" title="新建成员">
     <p>这里可以放表单、说明文本或二次确认内容。</p>
 
     <template #footer>
       <xy-space>
-        <xy-button variant="outline" @click="open = false">取消</xy-button>
-        <xy-button @click="open = false">确认</xy-button>
+        <xy-button plain @click="open = false">取消</xy-button>
+        <xy-button type="primary" @click="open = false">确认</xy-button>
       </xy-space>
     </template>
   </xy-modal>

@@ -31,6 +31,7 @@ export interface FormContext {
   props: FormProps;
   addField: (field: FormFieldContext) => void;
   removeField: (field: FormFieldContext) => void;
+  resetFields: (props?: string | string[]) => void;
 }
 
 export interface FormItemContext {

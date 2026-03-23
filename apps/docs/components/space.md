@@ -9,8 +9,8 @@ title: Space 间距
 ## 基础用法
 
 <xy-space>
-  <xy-button>保存</xy-button>
-  <xy-button variant="outline">取消</xy-button>
+  <xy-button type="primary">保存</xy-button>
+  <xy-button plain>取消</xy-button>
 </xy-space>
 
 ## 方向与换行

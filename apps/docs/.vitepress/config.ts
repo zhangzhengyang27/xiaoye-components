@@ -1,5 +1,7 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitepress";
+import { demoMdPlugin } from "./plugins/demo";
+import { markdownTransform } from "./plugins/markdown-transform";
 
 const resolvePath = (target: string) => fileURLToPath(new URL(target, import.meta.url));
 
@@ -14,6 +16,9 @@ export default defineConfig({
     },
     outlineTitle: "本页导航",
     lastUpdatedText: "最近更新",
+    repo: "xiaoye/xiaoye-components",
+    docsBranch: "main",
+    docsDir: "apps/docs",
     docFooter: {
       prev: "上一页",
       next: "下一页"
@@ -49,7 +54,10 @@ export default defineConfig({
           text: "API 与行为约定",
           items: [
             { text: "Button 按钮", link: "/components/button" },
+            { text: "Row / Col 栅格", link: "/components/row" },
+            { text: "DatePicker 日期选择器", link: "/components/date-picker" },
             { text: "Select 选择器", link: "/components/select" },
+            { text: "Upload 上传", link: "/components/upload" },
             { text: "Table 表格", link: "/components/table" },
             { text: "Modal 弹窗", link: "/components/modal" },
             { text: "Tabs 标签页", link: "/components/tabs" },
@@ -66,13 +74,17 @@ export default defineConfig({
     },
     socialLinks: [{ icon: "github", link: "https://github.com/xiaoye/xiaoye-components" }]
   },
+  markdown: {
+    config(md) {
+      demoMdPlugin(md);
+    }
+  },
   vite: {
+    plugins: [markdownTransform()],
     resolve: {
       alias: {
         "xiaoye-components": resolvePath("../../../packages/xiaoye-components/index.ts"),
-        "xiaoye-components/style.css": resolvePath(
-          "../../../packages/xiaoye-components/style.css"
-        ),
+        "xiaoye-components/style.css": resolvePath("../../../packages/xiaoye-components/style.css"),
         "@xiaoye/components": resolvePath("../../../packages/components/index.ts"),
         "@xiaoye/composables": resolvePath("../../../packages/composables/index.ts"),
         "@xiaoye/utils": resolvePath("../../../packages/utils/index.ts"),

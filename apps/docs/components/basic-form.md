@@ -6,10 +6,13 @@ outline: deep
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
+import type { UploadFileItem } from "xiaoye-components";
 
 const keyword = ref("");
 const selectValue = ref<string | null>("active");
 const drawerVisible = ref(false);
+const dateValue = ref<string | null>("2026-03-22");
+const uploadFiles = ref<UploadFileItem[]>([]);
 const formModel = reactive({
   name: "",
   role: null as string | null
@@ -58,30 +61,32 @@ function resetRoleField() {
 ### 基础用法
 
 <xy-space wrap>
-  <xy-button>默认动作</xy-button>
-  <xy-button status="success">通过</xy-button>
-  <xy-button status="danger">删除</xy-button>
-  <xy-button variant="outline">次要按钮</xy-button>
+  <xy-button type="primary">默认动作</xy-button>
+  <xy-button type="success">通过</xy-button>
+  <xy-button type="danger">删除</xy-button>
+  <xy-button plain>次要按钮</xy-button>
 </xy-space>
 
-对于后台页面，通常把最关键的动作放在 `solid + primary`，把次要动作放在 `outline`，把低强调度操作放在 `ghost` 或 `text`。
+对于后台页面，通常把最关键的动作显式写成 `type="primary"`，把次要动作写成 `plain`，把低强调度操作写成 `text` 或 `link`。
 
 ### 选择哪种按钮风格
 
-- `solid`：主操作，例如保存、创建、提交。
-- `outline`：次要操作，例如取消、重置、导出。
-- `ghost`：需要保留按钮形态，但不想抢主视觉时使用。
+- `type="primary"`：主操作，例如保存、创建、提交。
+- `plain`：次要操作，例如取消、重置、导出。
 - `text`：放在表格操作列或段落上下文里，适合轻量动作。
+- `link`：在信息流或说明区域里放弱操作时使用。
 
 ### Button API 摘要
 
 | 属性          | 说明                       | 类型                                                           | 默认值       |
 | ------------- | -------------------------- | -------------------------------------------------------------- | ------------ |
-| `variant`     | 按钮视觉风格               | `'solid' \| 'outline' \| 'ghost' \| 'text'`                    | `solid`      |
-| `status`      | 状态语义                   | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `primary`    |
+| `type`        | 按钮类型                   | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `default`    |
 | `size`        | 按钮尺寸                   | `'sm' \| 'md' \| 'lg'`                                         | 跟随全局配置 |
 | `disabled`    | 是否禁用                   | `boolean`                                                      | `false`      |
 | `loading`     | 是否显示加载态，并阻止点击 | `boolean`                                                      | `false`      |
+| `plain`       | 是否为朴素按钮             | `boolean`                                                      | `false`      |
+| `text`        | 是否为文本按钮             | `boolean`                                                      | `false`      |
+| `link`        | 是否为链接按钮             | `boolean`                                                      | `false`      |
 | `block`       | 是否撑满整行               | `boolean`                                                      | `false`      |
 | `native-type` | 原生按钮类型               | `'button' \| 'submit' \| 'reset'`                              | `button`     |
 
@@ -190,6 +195,26 @@ function resetRoleField() {
 
 更多示例和完整表格见 [Select 选择器](/components/select)。
 
+## DatePicker 日期选择器
+
+日期选择器适合筛选栏里的时间条件，也适合表单中的单日期录入。
+
+<div class="xy-doc-stack">
+  <xy-date-picker
+    v-model="dateValue"
+    clearable
+    min="2026-03-01"
+    max="2026-03-31"
+  ></xy-date-picker>
+  <xy-tag status="primary">当前日期：{{ dateValue ?? "未选择" }}</xy-tag>
+</div>
+
+- 当前版本优先覆盖单日期选择。
+- 支持 `Enter / Space / ArrowDown` 打开面板。
+- 面板中支持方向键移动日期、`Enter` 选择、`Escape` 关闭。
+
+完整 API 见 [DatePicker 日期选择器](/components/date-picker)。
+
 ## Form / FormItem 表单
 
 表单适合弹窗录入、局部保存和字段级交互。相比“整表一次性提交”，`validateField / clearValidate / resetFields` 更适合后台页面的局部流程。
@@ -215,9 +240,9 @@ function resetRoleField() {
   </xy-form>
 
   <xy-space wrap>
-    <xy-button variant="outline" @click="validateNameField">只校验名称字段</xy-button>
-    <xy-button variant="outline" @click="clearNameValidate">清空名称校验</xy-button>
-    <xy-button variant="outline" @click="resetRoleField">重置角色字段</xy-button>
+    <xy-button plain @click="validateNameField">只校验名称字段</xy-button>
+    <xy-button plain @click="clearNameValidate">清空名称校验</xy-button>
+    <xy-button plain @click="resetRoleField">重置角色字段</xy-button>
   </xy-space>
 
   <xy-tag :status="formFeedback.includes('通过') ? 'success' : 'warning'">
@@ -268,7 +293,7 @@ function resetRoleField() {
 
 <div class="xy-doc-stack">
   <xy-space wrap>
-    <xy-button @click="drawerVisible = true">打开侧边编辑</xy-button>
+    <xy-button type="primary" @click="drawerVisible = true">打开侧边编辑</xy-button>
     <xy-tag status="warning">适合大表单、详情侧滑编辑和保留列表上下文</xy-tag>
   </xy-space>
 
@@ -292,8 +317,8 @@ function resetRoleField() {
 
     <template #footer>
       <xy-space>
-        <xy-button variant="outline" @click="drawerVisible = false">取消</xy-button>
-        <xy-button @click="drawerVisible = false">保存</xy-button>
+        <xy-button plain @click="drawerVisible = false">取消</xy-button>
+        <xy-button type="primary" @click="drawerVisible = false">保存</xy-button>
       </xy-space>
     </template>
 
@@ -307,3 +332,24 @@ function resetRoleField() {
 - 详情查看和编辑天然是“侧边进入”的交互路径。
 
 完整 API 见 [Drawer 抽屉](/components/drawer)。
+
+## Upload 上传
+
+Upload 适合附件、图片或补充材料上传。当前版本先聚焦本地文件选择、拖拽和文件列表管理。
+
+<div class="xy-doc-stack">
+  <xy-upload
+    v-model="uploadFiles"
+    multiple
+    drag
+    :max-count="2"
+    tip="最多上传 2 个文件，支持拖拽到上传区域"
+  ></xy-upload>
+  <xy-tag status="neutral">当前文件数：{{ uploadFiles.length }}</xy-tag>
+</div>
+
+- `drag` 适合后台表单里的大面积上传入口。
+- `max-count` 用于控制附件上限。
+- 与 `Form` 配合时，会自动走字段校验链路。
+
+完整 API 见 [Upload 上传](/components/upload)。

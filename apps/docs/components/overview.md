@@ -12,13 +12,13 @@ description: 按页面任务和单组件入口浏览当前能力。
 <div class="xy-doc-grid">
   <div>
     <h3>基础操作</h3>
-    <p>Button、Tag、Space、Icon、Tabs</p>
-    <p>适合页面主操作、状态标记、Iconify 图标接入、分区切换和工具栏排布。</p>
+    <p>Button、Tag、Space、Icon、Tabs、Row / Col</p>
+    <p>适合页面主操作、状态标记、Iconify 图标接入、分区切换、工具栏排布和基础栅格布局。</p>
   </div>
   <div>
     <h3>表单录入</h3>
-    <p>Input、Select、Form、Modal、Config Provider</p>
-    <p>适合筛选栏、弹窗录入、字段校验和全局默认值配置。</p>
+    <p>Input、DatePicker、Select、Upload、Form、Modal、Config Provider</p>
+    <p>适合筛选栏、时间选择、文件上传、弹窗录入、字段校验和全局默认值配置。</p>
   </div>
   <div>
     <h3>反馈提示</h3>
@@ -34,15 +34,18 @@ description: 按页面任务和单组件入口浏览当前能力。
 
 ## 再按组件查
 
-| 组件    | 主要用途                             | 详情页                                  |
-| ------- | ------------------------------------ | --------------------------------------- |
-| Button  | 页面主操作、次要操作、轻量文本动作   | [Button 按钮](/components/button)       |
-| Select  | 条件筛选、枚举值选择、表单单选       | [Select 选择器](/components/select)     |
-| Table   | 列表展示、行点击、自定义空态和加载态 | [Table 表格](/components/table)         |
-| Modal   | 承载阻断式录入、确认和强提示         | [Modal 弹窗](/components/modal)         |
-| Tabs    | 页面分区、视图切换                   | [Tabs 标签页](/components/tabs)         |
-| Icon    | 基于 Iconify 的图标渲染与轻量装饰    | [Icon 图标](/components/icon)           |
-| Tooltip | 轻量补充说明                         | [Tooltip 文字提示](/components/tooltip) |
+| 组件       | 主要用途                             | 详情页                                           |
+| ---------- | ------------------------------------ | ------------------------------------------------ |
+| Button     | 页面主操作、次要操作、轻量文本动作   | [Button 按钮](/components/button)                |
+| Row / Col  | 24 栅格布局、卡片分栏、筛选区编排    | [Row / Col 栅格](/components/row)                |
+| DatePicker | 单日期选择、时间筛选、表单日期录入   | [DatePicker 日期选择器](/components/date-picker) |
+| Select     | 条件筛选、枚举值选择、表单单选       | [Select 选择器](/components/select)              |
+| Upload     | 附件上传、图片上传、补充材料提交     | [Upload 上传](/components/upload)                |
+| Table      | 列表展示、行点击、自定义空态和加载态 | [Table 表格](/components/table)                  |
+| Modal      | 承载阻断式录入、确认和强提示         | [Modal 弹窗](/components/modal)                  |
+| Tabs       | 页面分区、视图切换                   | [Tabs 标签页](/components/tabs)                  |
+| Icon       | 基于 Iconify 的图标渲染与轻量装饰    | [Icon 图标](/components/icon)                    |
+| Tooltip    | 轻量补充说明                         | [Tooltip 文字提示](/components/tooltip)          |
 
 ## 推荐阅读方式
 

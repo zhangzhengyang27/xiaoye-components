@@ -58,8 +58,8 @@ function handleResetRole() {
   </xy-form>
 
   <xy-space wrap>
-    <xy-button variant="outline" @click="handleValidateName">校验名称字段</xy-button>
-    <xy-button variant="outline" @click="handleResetRole">重置角色字段</xy-button>
+    <xy-button plain @click="handleValidateName">校验名称字段</xy-button>
+    <xy-button plain @click="handleResetRole">重置角色字段</xy-button>
   </xy-space>
 
   <xy-tag :status="feedback.includes('通过') ? 'success' : 'warning'">

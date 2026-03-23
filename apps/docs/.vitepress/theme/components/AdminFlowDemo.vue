@@ -29,7 +29,7 @@ const drawerOpen = ref(false);
               no-match-text="没有匹配角色"
             ></xy-select>
             <xy-tooltip content="这里适合放一句话提示">
-              <xy-button variant="outline">Tooltip 提示</xy-button>
+            <xy-button plain>Tooltip 提示</xy-button>
             </xy-tooltip>
             <xy-popover title="筛选说明">
               <p>如果你需要解释筛选逻辑、权限差异或数据范围，Popover 比 Tooltip 更合适。</p>
@@ -45,7 +45,7 @@ const drawerOpen = ref(false);
                 }
               ]"
             ></xy-dropdown>
-            <xy-button @click="drawerOpen = true">新建成员</xy-button>
+            <xy-button type="primary" @click="drawerOpen = true">新建成员</xy-button>
           </xy-space>
 
           <xy-table
@@ -77,8 +77,8 @@ const drawerOpen = ref(false);
           placeholder="角色"
         ></xy-select>
         <xy-space>
-          <xy-button variant="outline" @click="drawerOpen = false">取消</xy-button>
-          <xy-button @click="drawerOpen = false">保存</xy-button>
+          <xy-button plain @click="drawerOpen = false">取消</xy-button>
+          <xy-button type="primary" @click="drawerOpen = false">保存</xy-button>
         </xy-space>
       </div>
     </xy-drawer>

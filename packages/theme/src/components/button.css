@@ -5,6 +5,8 @@
   gap: var(--xy-space-2);
   border: 1px solid transparent;
   border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color);
+  color: var(--xy-text-color);
   cursor: pointer;
   transition:
     background-color 0.18s ease,
@@ -12,10 +14,18 @@
     transform 0.18s ease,
     box-shadow 0.18s ease;
   white-space: nowrap;
+  position: relative;
+  font-weight: 500;
+  user-select: none;
+  text-decoration: none;
 }
 
-.xy-button:hover:not(:disabled) {
+.xy-button:hover:not(:disabled):not(.is-disabled) {
   transform: translateY(-1px);
+}
+
+.xy-button:active:not(:disabled):not(.is-disabled) {
+  transform: translateY(0);
 }
 
 .xy-button:focus-visible {
@@ -23,7 +33,8 @@
   outline-offset: 2px;
 }
 
-.xy-button:disabled {
+.xy-button:disabled,
+.xy-button.is-disabled {
   cursor: not-allowed;
   opacity: 0.56;
 }
@@ -46,37 +57,266 @@
   font-size: var(--xy-font-size-lg);
 }
 
-.xy-button--solid {
-  color: #fff;
-}
-
-.xy-button--solid.xy-button--primary {
-  background: var(--xy-color-primary);
-}
-
-.xy-button--solid.xy-button--success {
-  background: var(--xy-color-success);
-}
-
-.xy-button--solid.xy-button--warning {
-  background: var(--xy-color-warning);
-}
-
-.xy-button--solid.xy-button--danger {
-  background: var(--xy-color-danger);
-}
-
-.xy-button--outline,
-.xy-button--ghost,
-.xy-button--text {
-  color: var(--xy-text-color);
-  background: var(--xy-bg-color);
+.xy-button--default {
   border-color: var(--xy-border-color);
 }
 
-.xy-button--text {
+.xy-button--default:hover:not(:disabled):not(.is-disabled) {
+  background: var(--xy-bg-color-muted);
+  border-color: var(--xy-border-color-strong);
+  box-shadow: var(--xy-shadow-sm);
+}
+
+.xy-button--default:active:not(:disabled):not(.is-disabled) {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
+}
+
+.xy-button--primary,
+.xy-button--success,
+.xy-button--warning,
+.xy-button--danger {
+  color: #fff;
+}
+
+.xy-button--primary {
+  background: var(--xy-color-primary);
+  border-color: var(--xy-color-primary);
+}
+
+.xy-button--primary:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-primary) 88%, black);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 88%, black);
+  box-shadow: var(--xy-shadow-sm);
+}
+
+.xy-button--primary:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-primary) 78%, black);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 78%, black);
+}
+
+.xy-button--success {
+  background: var(--xy-color-success);
+  border-color: var(--xy-color-success);
+}
+
+.xy-button--success:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-success) 88%, black);
+  border-color: color-mix(in srgb, var(--xy-color-success) 88%, black);
+  box-shadow: var(--xy-shadow-sm);
+}
+
+.xy-button--success:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-success) 78%, black);
+  border-color: color-mix(in srgb, var(--xy-color-success) 78%, black);
+}
+
+.xy-button--warning {
+  background: var(--xy-color-warning);
+  border-color: var(--xy-color-warning);
+}
+
+.xy-button--warning:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-warning) 88%, black);
+  border-color: color-mix(in srgb, var(--xy-color-warning) 88%, black);
+  box-shadow: var(--xy-shadow-sm);
+}
+
+.xy-button--warning:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-warning) 78%, black);
+  border-color: color-mix(in srgb, var(--xy-color-warning) 78%, black);
+}
+
+.xy-button--danger {
+  background: var(--xy-color-danger);
+  border-color: var(--xy-color-danger);
+}
+
+.xy-button--danger:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-danger) 88%, black);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 88%, black);
+  box-shadow: var(--xy-shadow-sm);
+}
+
+.xy-button--danger:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
+    .is-link
+  ) {
+  background: color-mix(in srgb, var(--xy-color-danger) 78%, black);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 78%, black);
+}
+
+.xy-button.is-plain {
+  background: var(--xy-bg-color);
+}
+
+.xy-button.is-plain.xy-button--default {
+  background: var(--xy-bg-color-muted);
+}
+
+.xy-button.is-plain:hover:not(:disabled):not(.is-disabled) {
+  box-shadow: var(--xy-shadow-sm);
+}
+
+.xy-button.is-plain.xy-button--primary {
+  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 26%, white);
+}
+
+.xy-button.is-plain.xy-button--success {
+  color: var(--xy-color-success);
+  background: color-mix(in srgb, var(--xy-color-success) 12%, white);
+  border-color: color-mix(in srgb, var(--xy-color-success) 28%, white);
+}
+
+.xy-button.is-plain.xy-button--warning {
+  color: var(--xy-color-warning);
+  background: color-mix(in srgb, var(--xy-color-warning) 14%, white);
+  border-color: color-mix(in srgb, var(--xy-color-warning) 30%, white);
+}
+
+.xy-button.is-plain.xy-button--danger {
+  color: var(--xy-color-danger);
+  background: color-mix(in srgb, var(--xy-color-danger) 12%, white);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 28%, white);
+}
+
+.xy-button.is-plain.xy-button--primary:hover:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: var(--xy-color-primary);
+  border-color: var(--xy-color-primary);
+}
+
+.xy-button.is-plain.xy-button--primary:active:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: color-mix(in srgb, var(--xy-color-primary) 84%, black);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 84%, black);
+}
+
+.xy-button.is-plain.xy-button--success:hover:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: var(--xy-color-success);
+  border-color: var(--xy-color-success);
+}
+
+.xy-button.is-plain.xy-button--success:active:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: color-mix(in srgb, var(--xy-color-success) 84%, black);
+  border-color: color-mix(in srgb, var(--xy-color-success) 84%, black);
+}
+
+.xy-button.is-plain.xy-button--warning:hover:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: var(--xy-color-warning);
+  border-color: var(--xy-color-warning);
+}
+
+.xy-button.is-plain.xy-button--warning:active:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: color-mix(in srgb, var(--xy-color-warning) 84%, black);
+  border-color: color-mix(in srgb, var(--xy-color-warning) 84%, black);
+}
+
+.xy-button.is-plain.xy-button--danger:hover:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: var(--xy-color-danger);
+  border-color: var(--xy-color-danger);
+}
+
+.xy-button.is-plain.xy-button--danger:active:not(:disabled):not(.is-disabled) {
+  color: #fff;
+  background: color-mix(in srgb, var(--xy-color-danger) 84%, black);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 84%, black);
+}
+
+.xy-button.is-text,
+.xy-button.is-link {
   background: transparent;
   border-color: transparent;
+  box-shadow: none;
+}
+
+.xy-button.is-text:hover:not(:disabled):not(.is-disabled),
+.xy-button.is-link:hover:not(:disabled):not(.is-disabled) {
+  transform: none;
+}
+
+.xy-button.is-text.xy-button--default,
+.xy-button.is-link.xy-button--default {
+  color: var(--xy-text-color);
+}
+
+.xy-button.is-text.xy-button--primary,
+.xy-button.is-link.xy-button--primary {
+  color: var(--xy-color-primary);
+}
+
+.xy-button.is-text.xy-button--success,
+.xy-button.is-link.xy-button--success {
+  color: var(--xy-color-success);
+}
+
+.xy-button.is-text.xy-button--warning,
+.xy-button.is-link.xy-button--warning {
+  color: var(--xy-color-warning);
+}
+
+.xy-button.is-text.xy-button--danger,
+.xy-button.is-link.xy-button--danger {
+  color: var(--xy-color-danger);
+}
+
+.xy-button.is-text.is-has-bg {
+  background: var(--xy-bg-color-muted);
+}
+
+.xy-button.is-text:hover:not(:disabled):not(.is-disabled) {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 72%, white);
+}
+
+.xy-button.is-text:active:not(:disabled):not(.is-disabled) {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 88%, white);
+}
+
+.xy-button.is-link {
+  padding-inline: 0;
+}
+
+.xy-button.is-link:hover:not(:disabled):not(.is-disabled) {
+  text-decoration: underline;
+}
+
+.xy-button.is-round {
+  border-radius: var(--xy-radius-pill);
+}
+
+.xy-button.is-circle {
+  padding-inline: 0;
+}
+
+.xy-button--sm.is-circle {
+  width: 32px;
+}
+
+.xy-button--md.is-circle {
+  width: 40px;
+}
+
+.xy-button--lg.is-circle {
+  width: 46px;
 }
 
 .xy-button.is-block {
@@ -84,20 +324,108 @@
   width: 100%;
 }
 
-.xy-button__spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: currentColor;
-  border-radius: 50%;
-  animation: xy-spin 0.8s linear infinite;
+.xy-button__icon,
+.xy-button__label {
+  display: inline-flex;
+  align-items: center;
 }
 
-.xy-button--outline .xy-button__spinner,
-.xy-button--ghost .xy-button__spinner,
-.xy-button--text .xy-button__spinner {
-  border-color: rgba(37, 99, 235, 0.22);
-  border-top-color: var(--xy-color-primary);
+.xy-button.is-icon-only {
+  gap: 0;
+}
+
+.xy-button__label {
+  min-width: 0;
+}
+
+.xy-button-group {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+  isolation: isolate;
+}
+
+.xy-button-group--vertical {
+  flex-direction: column;
+}
+
+.xy-button-group > .xy-button {
+  border-radius: 0;
+  position: relative;
+  flex: none;
+}
+
+.xy-button-group > .xy-button:first-child {
+  border-top-left-radius: var(--xy-radius-md);
+  border-bottom-left-radius: var(--xy-radius-md);
+}
+
+.xy-button-group > .xy-button:last-child {
+  border-top-right-radius: var(--xy-radius-md);
+  border-bottom-right-radius: var(--xy-radius-md);
+}
+
+.xy-button-group > .xy-button + .xy-button {
+  margin-left: -1px;
+}
+
+.xy-button-group > .xy-button:hover:not(.is-disabled),
+.xy-button-group > .xy-button:focus-visible,
+.xy-button-group > .xy-button:active:not(.is-disabled) {
+  z-index: 2;
+}
+
+.xy-button-group > .xy-button:focus-visible {
+  outline-offset: -1px;
+}
+
+.xy-button-group > .xy-button.is-link + .xy-button,
+.xy-button-group > .xy-button.is-text + .xy-button,
+.xy-button-group > .xy-button + .xy-button.is-link,
+.xy-button-group > .xy-button + .xy-button.is-text {
+  margin-left: 0;
+}
+
+.xy-button-group--vertical > .xy-button:first-child {
+  border-top-right-radius: var(--xy-radius-md);
+  border-bottom-left-radius: 0;
+}
+
+.xy-button-group--vertical > .xy-button:last-child {
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--xy-radius-md);
+}
+
+.xy-button-group--vertical > .xy-button + .xy-button {
+  margin-top: -1px;
+  margin-left: 0;
+}
+
+.xy-button-group > .xy-button:focus-visible:first-child {
+  border-top-left-radius: var(--xy-radius-md);
+  border-bottom-left-radius: var(--xy-radius-md);
+}
+
+.xy-button-group > .xy-button:focus-visible:last-child {
+  border-top-right-radius: var(--xy-radius-md);
+  border-bottom-right-radius: var(--xy-radius-md);
+}
+
+.xy-button-group--vertical > .xy-button:focus-visible:first-child {
+  border-top-right-radius: var(--xy-radius-md);
+  border-bottom-left-radius: 0;
+}
+
+.xy-button-group--vertical > .xy-button:focus-visible:last-child {
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--xy-radius-md);
+}
+
+.xy-button-group--vertical > .xy-button.is-link + .xy-button,
+.xy-button-group--vertical > .xy-button.is-text + .xy-button,
+.xy-button-group--vertical > .xy-button + .xy-button.is-link,
+.xy-button-group--vertical > .xy-button + .xy-button.is-text {
+  margin-top: 0;
 }
 
 @keyframes xy-spin {
@@ -105,4 +433,3 @@
     transform: rotate(360deg);
   }
 }
-

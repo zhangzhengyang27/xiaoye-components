@@ -1,0 +1,82 @@
+.xy-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.xy-upload__input {
+  display: none;
+}
+
+.xy-upload__trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 128px;
+  padding: 20px;
+  border: 1px dashed var(--xy-border-color-strong);
+  border-radius: var(--xy-radius-lg);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 70%, white);
+  text-align: center;
+  cursor: pointer;
+}
+
+.xy-upload__trigger:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline-offset: 2px;
+}
+
+.xy-upload.is-drag-over .xy-upload__trigger {
+  border-color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+}
+
+.xy-upload.is-disabled .xy-upload__trigger {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.xy-upload__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.xy-upload__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color);
+}
+
+.xy-upload__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.xy-upload__meta span {
+  color: var(--xy-text-color-secondary);
+  font-size: var(--xy-font-size-sm);
+}
+
+.xy-upload__item button {
+  border: 0;
+  background: transparent;
+  color: var(--xy-color-danger);
+  cursor: pointer;
+}
+
+.xy-upload.is-error .xy-upload__trigger {
+  border-color: var(--xy-color-danger);
+}
+

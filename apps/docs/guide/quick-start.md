@@ -49,8 +49,8 @@ app.mount("#app");
 ```vue [App.vue]
 <template>
   <xy-space>
-    <xy-button>保存</xy-button>
-    <xy-button variant="outline">取消</xy-button>
+    <xy-button type="primary">保存</xy-button>
+    <xy-button plain>取消</xy-button>
   </xy-space>
 </template>
 ```
@@ -72,8 +72,8 @@ import "xiaoye-components/style.css";
 
 <template>
   <xy-space>
-    <xy-button>保存</xy-button>
-    <xy-button variant="outline">取消</xy-button>
+    <xy-button type="primary">保存</xy-button>
+    <xy-button plain>取消</xy-button>
   </xy-space>
 </template>
 ```
