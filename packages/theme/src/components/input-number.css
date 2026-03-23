@@ -1,0 +1,121 @@
+.xy-input-number {
+  --xy-input-number-control-size: 40px;
+  position: relative;
+  display: inline-flex;
+  width: 180px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.xy-input-number--sm {
+  --xy-input-number-control-size: 36px;
+}
+
+.xy-input-number--lg {
+  --xy-input-number-control-size: 46px;
+}
+
+.xy-input-number .xy-input {
+  width: 100%;
+}
+
+.xy-input-number:not(.is-without-controls):not(.is-controls-right) .xy-input__wrapper {
+  padding-left: calc(var(--xy-input-number-control-size) + 8px);
+  padding-right: calc(var(--xy-input-number-control-size) + 8px);
+}
+
+.xy-input-number.is-controls-right .xy-input__wrapper {
+  padding-right: calc(var(--xy-input-number-control-size) + 8px);
+}
+
+.xy-input-number.is-left .xy-input__inner {
+  text-align: left;
+}
+
+.xy-input-number.is-center .xy-input__inner {
+  text-align: center;
+}
+
+.xy-input-number.is-right .xy-input__inner {
+  text-align: right;
+}
+
+.xy-input-number__increase,
+.xy-input-number__decrease {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--xy-input-number-control-size);
+  border: 0;
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 78%, white);
+  color: var(--xy-text-color-secondary);
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.xy-input-number__increase:hover,
+.xy-input-number__decrease:hover {
+  color: var(--xy-color-primary);
+}
+
+.xy-input-number__decrease {
+  left: 1px;
+  border-right: 1px solid var(--xy-border-color);
+  border-top-left-radius: var(--xy-radius-md);
+  border-bottom-left-radius: var(--xy-radius-md);
+}
+
+.xy-input-number__increase {
+  right: 1px;
+  border-left: 1px solid var(--xy-border-color);
+  border-top-right-radius: var(--xy-radius-md);
+  border-bottom-right-radius: var(--xy-radius-md);
+}
+
+.xy-input-number.is-controls-right .xy-input-number__increase,
+.xy-input-number.is-controls-right .xy-input-number__decrease {
+  left: auto;
+  height: calc(50% - 1px);
+  width: var(--xy-input-number-control-size);
+}
+
+.xy-input-number.is-controls-right .xy-input-number__increase {
+  top: 1px;
+  bottom: auto;
+  right: 1px;
+  border-bottom: 1px solid var(--xy-border-color);
+  border-left: 1px solid var(--xy-border-color);
+  border-top-right-radius: var(--xy-radius-md);
+  border-bottom-right-radius: 0;
+}
+
+.xy-input-number.is-controls-right .xy-input-number__decrease {
+  top: auto;
+  right: 1px;
+  bottom: 1px;
+  border-left: 1px solid var(--xy-border-color);
+  border-right: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: var(--xy-radius-md);
+}
+
+.xy-input-number__increase.is-disabled,
+.xy-input-number__decrease.is-disabled,
+.xy-input-number.is-disabled .xy-input-number__increase,
+.xy-input-number.is-disabled .xy-input-number__decrease {
+  color: var(--xy-text-color-muted);
+  cursor: not-allowed;
+}
+
+.xy-input-number.is-disabled .xy-input-number__increase,
+.xy-input-number.is-disabled .xy-input-number__decrease {
+  background: var(--xy-bg-color-muted);
+}

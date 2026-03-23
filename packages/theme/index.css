@@ -16,6 +16,12 @@
 @import "./src/components/pagination.css";
 @import "./src/components/table.css";
 @import "./src/components/input.css";
+@import "./src/components/switch.css";
+@import "./src/components/radio.css";
+@import "./src/components/input-tag.css";
+@import "./src/components/input-number.css";
+@import "./src/components/rate.css";
+@import "./src/components/slider.css";
 @import "./src/components/date-picker.css";
 @import "./src/components/tooltip.css";
 @import "./src/components/modal.css";

@@ -1,0 +1,95 @@
+.xy-rate {
+  --xy-rate-icon-size: 22px;
+  --xy-rate-gap: 6px;
+  --xy-rate-fill-color: var(--xy-color-warning);
+  --xy-rate-void-color: #dbe4f0;
+  --xy-rate-disabled-void-color: #e5edf7;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--xy-rate-gap);
+  vertical-align: middle;
+  color: var(--xy-text-color);
+  outline: none;
+}
+
+.xy-rate--sm {
+  --xy-rate-icon-size: 18px;
+  --xy-rate-gap: 4px;
+}
+
+.xy-rate--lg {
+  --xy-rate-icon-size: 26px;
+  --xy-rate-gap: 8px;
+}
+
+.xy-rate__item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--xy-rate-icon-size);
+  height: var(--xy-rate-icon-size);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.xy-rate__item:hover,
+.xy-rate__item.is-hover {
+  transform: translateY(-1px) scale(1.06);
+}
+
+.xy-rate.is-focused .xy-rate__item.is-current {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 32%, transparent);
+  outline-offset: 3px;
+  border-radius: var(--xy-radius-sm);
+}
+
+.xy-rate__icon-layer {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.xy-rate__icon-layer .xy-icon,
+.xy-rate__icon-layer .xy-icon svg {
+  width: var(--xy-rate-icon-size);
+  height: var(--xy-rate-icon-size);
+}
+
+.xy-rate__icon-layer--void {
+  color: var(--xy-rate-void-color);
+}
+
+.xy-rate__icon-layer--filled {
+  justify-content: flex-start;
+  color: var(--xy-rate-fill-color);
+}
+
+.xy-rate.is-disabled {
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-rate.is-disabled .xy-rate__item {
+  cursor: not-allowed;
+  transform: none;
+}
+
+.xy-rate.is-disabled .xy-rate__icon-layer--void {
+  color: var(--xy-rate-disabled-void-color);
+}
+
+.xy-rate__text {
+  margin-left: var(--xy-space-2);
+  font-size: var(--xy-font-size-md);
+  color: var(--xy-text-color-secondary);
+  white-space: nowrap;
+}

@@ -9,6 +9,7 @@ const keyword = ref("");
     <xy-space wrap>
       <xy-input v-model="keyword" placeholder="请输入关键字" />
       <xy-input placeholder="支持清空" clearable />
+      <xy-input type="textarea" placeholder="支持 textarea" :rows="3" />
     </xy-space>
     <xy-tag status="primary">当前值：{{ keyword || "空" }}</xy-tag>
   </div>

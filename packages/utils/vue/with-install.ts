@@ -15,8 +15,13 @@ export function withInstall<T>(component: T, name: string) {
   const installable = component as SFCWithInstall<T>;
 
   installable.install = (app: App) => {
-    app.component(name, installable as never);
-    app.component(toKebabCase(name), installable as never);
+    const aliases = Array.from(new Set([name, toKebabCase(name)]));
+
+    aliases.forEach((alias) => {
+      if (!app.component(alias)) {
+        app.component(alias, installable as never);
+      }
+    });
   };
 
   return installable;

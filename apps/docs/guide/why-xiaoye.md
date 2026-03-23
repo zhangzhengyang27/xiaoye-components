@@ -64,5 +64,5 @@ outline: deep
 ## 推荐怎么继续读
 
 1. 如果你想先确认这套库覆盖了哪些能力，继续看 [组件总览](/components/overview)。
-2. 如果你更关心真实页面怎么组合组件，直接看 [基础与表单组件](/components/basic-form) 和 [反馈与数据展示](/components/feedback-data)。
+2. 如果你更关心真实页面怎么组合组件，直接看 [Form 表单](/components/form)、[Table 表格](/components/table) 和 [管理后台闭环示例](/examples/admin)。
 3. 如果你已经准备开始接入项目，回到 [快速开始](/guide/quick-start)。

@@ -83,7 +83,12 @@ async function validate(trigger?: FormTrigger) {
     return Array.isArray(rule.trigger) ? rule.trigger.includes(trigger) : rule.trigger === trigger;
   });
 
-  if (!filtered.length) {
+  const normalizedRules = filtered.map((rule) => {
+    const { trigger: _trigger, ...validatorRule } = rule;
+    return validatorRule;
+  });
+
+  if (!normalizedRules.length) {
     validateState.value = "idle";
     validateMessage.value = "";
     return true;
@@ -91,7 +96,7 @@ async function validate(trigger?: FormTrigger) {
 
   validateState.value = "validating";
   const validator = new AsyncValidator({
-    [props.prop]: filtered
+    [props.prop]: normalizedRules
   });
 
   try {

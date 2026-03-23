@@ -25,15 +25,15 @@ outline: deep
   <section class="xy-overview-card">
     <span class="xy-overview-kicker">02</span>
     <h3>表单录入</h3>
-    <p>Input、DatePicker、Select、Form、Upload、Config Provider 负责筛选栏、录入表单和字段校验。</p>
-    <a href="/components/basic-form">进入录入场景</a>
+    <p>Input、Radio、Switch、InputTag、Input Number、Rate、Slider、DatePicker、Select、Form、Upload、Config Provider 负责筛选栏、录入表单和字段校验。</p>
+    <a href="/components/form">进入表单组件</a>
   </section>
 
   <section class="xy-overview-card">
     <span class="xy-overview-kicker">03</span>
     <h3>反馈与浮层</h3>
     <p>Tooltip、Popover、Dropdown、Empty、Modal、Drawer 负责提示、菜单、空态和上下文切换。</p>
-    <a href="/components/feedback-data">进入反馈场景</a>
+    <a href="/components/empty">进入反馈组件</a>
   </section>
 
   <section class="xy-overview-card">
@@ -78,6 +78,12 @@ outline: deep
     <div class="xy-overview-links">
       <a href="/components/config-provider">Config Provider 全局配置</a>
       <a href="/components/input">Input 输入框</a>
+      <a href="/components/radio">Radio 单选框</a>
+      <a href="/components/switch">Switch 开关</a>
+      <a href="/components/input-tag">InputTag 标签输入框</a>
+      <a href="/components/input-number">Input Number 数字输入框</a>
+      <a href="/components/rate">Rate 评分</a>
+      <a href="/components/slider">Slider 滑块</a>
       <a href="/components/date-picker">DatePicker 日期选择器</a>
       <a href="/components/select">Select 选择器</a>
       <a href="/components/form">Form 表单</a>
@@ -116,8 +122,8 @@ outline: deep
 ## 推荐阅读顺序
 
 :::tip 阅读建议
-如果你正在搭筛选栏或录入弹窗，优先阅读 [基础与表单组件](/components/basic-form)。  
-如果你正在搭列表页或空态页，优先阅读 [反馈与数据展示](/components/feedback-data)。  
+如果你正在搭筛选栏或录入弹窗，优先阅读 [Form 表单](/components/form) 和 [Select 选择器](/components/select)。  
+如果你正在搭列表页或空态页，优先阅读 [Table 表格](/components/table) 和 [Empty 空状态](/components/empty)。  
 如果你已经明确要查某个组件的完整 API，直接进入对应的单组件页会更快。
 :::
 
@@ -126,6 +132,6 @@ outline: deep
 1. [Button 按钮](/components/button)：先建立主次操作和视觉层级。
 2. [Link 文字链接](/components/link)：补齐正文跳转和弱操作语义。
 3. [Text 文本](/components/text)：补齐正文强调、截断和语义标签能力。
-4. [基础与表单组件](/components/basic-form)：把录入链路串起来理解。
-5. [反馈与数据展示](/components/feedback-data)：把列表页主干串起来理解。
+4. [Form 表单](/components/form)：把录入链路串起来理解。
+5. [Table 表格](/components/table)：把列表页主干串起来理解。
 6. [管理后台闭环示例](/examples/admin)：把这些组件放回一个真实页面片段里看。

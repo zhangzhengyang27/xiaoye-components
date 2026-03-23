@@ -35,7 +35,12 @@ const emit = defineEmits<{
 const ns = useNamespace("splitter-bar");
 const isHorizontal = computed(() => props.layout === "horizontal");
 
-const barClasses = computed(() => [ns.base.value, `${ns.base.value}--${props.layout}`]);
+const barClasses = computed(() => [
+  ns.base.value,
+  `${ns.base.value}--${props.layout}`,
+  props.active ? "is-active" : "",
+  props.lazy ? "is-lazy" : ""
+]);
 const draggerClasses = computed(() => [
   `${ns.base.value}__dragger`,
   `${ns.base.value}__dragger--${props.layout}`,
@@ -48,14 +53,14 @@ const draggerStyles = computed(() => {
 
   return isHorizontal.value
     ? {
-        width: "16px",
+        width: "20px",
         height: "100%",
         cursor: props.resizable ? "col-resize" : "default",
         transform: `translate(calc(-50% + ${translate}px), -50%)`
       }
     : {
         width: "100%",
-        height: "16px",
+        height: "20px",
         cursor: props.resizable ? "row-resize" : "default",
         transform: `translate(-50%, calc(-50% + ${translate}px))`
       };
@@ -217,7 +222,9 @@ onBeforeUnmount(() => {
       @mousedown="handleMouseDown"
       @touchstart="handleTouchStart"
       @keydown="handleKeydown"
-    />
+    >
+      <span :class="`${ns.base.value}__grip`" aria-hidden="true" />
+    </button>
 
     <button
       v-if="endCollapsible"

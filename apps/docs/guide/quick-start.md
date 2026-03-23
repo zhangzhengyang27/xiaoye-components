@@ -110,7 +110,7 @@ const locale = {
 ## 推荐阅读顺序
 
 1. 先看 [组件总览](/components/overview)，确认当前版本覆盖了哪些页面任务。
-2. 再看 [基础与表单组件](/components/basic-form)，优先掌握最常用的录入和操作控件。
+2. 再看 [Form 表单](/components/form) 和 [Select 选择器](/components/select)，优先掌握最常用的录入和操作控件。
 3. 最后看 [管理后台闭环示例](/examples/admin)，把组件用法放回真实页面里理解。
 
 ## 接入建议

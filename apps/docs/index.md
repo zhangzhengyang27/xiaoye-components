@@ -65,12 +65,12 @@ features:
   <div>
     <h3>表单录入</h3>
     <p>Input、Select、Form、Modal 已经可以串成完整的筛选栏和录入流程。</p>
-    <a href="/components/basic-form">看场景组合</a>
+    <a href="/components/form">看 Form</a>
   </div>
   <div>
     <h3>数据视图</h3>
     <p>Table、Pagination 已覆盖列表页最常见的行点击、空态、加载态和翻页需求。</p>
-    <a href="/components/feedback-data">看列表页主干</a>
+    <a href="/components/table">看 Table</a>
   </div>
 </div>
 
@@ -78,7 +78,7 @@ features:
 
 1. 从 [快速开始](/guide/quick-start) 了解安装、注册和模板命名约定。
 2. 在 [组件总览](/components/overview) 里先建立组件能力地图。
-3. 再进入 [基础与表单组件](/components/basic-form) 或 [反馈与数据展示](/components/feedback-data)，按页面任务阅读具体用法。
+3. 再进入 [Form 表单](/components/form) 或 [Table 表格](/components/table)，按当前任务查具体用法。
 4. 最后看 [管理后台闭环示例](/examples/admin)，确认这些组件在真实页面里的组合方式。
 
 ## 两分钟感受组件组合方式
@@ -112,10 +112,6 @@ features:
       <div>
         <strong>18+</strong>
         <span>单组件文档</span>
-      </div>
-      <div>
-        <strong>2</strong>
-        <span>场景组合页</span>
       </div>
       <div>
         <strong>1</strong>

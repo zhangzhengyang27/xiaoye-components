@@ -12,10 +12,18 @@ import {
   XyEmpty,
   XyIcon,
   XyInput,
+  XySwitch,
+  XyInputTag,
+  XyInputNumber,
+  XyRate,
+  XySlider,
   XyLink,
   XyModal,
   XyPagination,
   XyPopover,
+  XyRadio,
+  XyRadioButton,
+  XyRadioGroup,
   XyRow,
   XyScrollbar,
   XySelect,
@@ -32,6 +40,8 @@ import {
   XyFormItem
 } from "@xiaoye/components";
 
+const INSTALL_KEY = Symbol.for("xiaoye-components:installed");
+
 const components = [
   XyButton,
   XyButtonGroup,
@@ -43,10 +53,18 @@ const components = [
   XyEmpty,
   XyIcon,
   XyInput,
+  XySwitch,
+  XyInputTag,
+  XyInputNumber,
+  XyRate,
+  XySlider,
   XyLink,
   XyModal,
   XyPagination,
   XyPopover,
+  XyRadio,
+  XyRadioButton,
+  XyRadioGroup,
   XyRow,
   XyScrollbar,
   XySelect,
@@ -64,6 +82,16 @@ const components = [
 ];
 
 export function install(app: App) {
+  const appWithInstallFlag = app as App & {
+    [INSTALL_KEY]?: boolean;
+  };
+
+  if (appWithInstallFlag[INSTALL_KEY]) {
+    return;
+  }
+
+  appWithInstallFlag[INSTALL_KEY] = true;
+
   components.forEach((component) => {
     app.use(component);
   });
@@ -80,10 +108,18 @@ export {
   XyEmpty,
   XyIcon,
   XyInput,
+  XySwitch,
+  XyInputTag,
+  XyInputNumber,
+  XyRate,
+  XySlider,
   XyLink,
   XyModal,
   XyPagination,
   XyPopover,
+  XyRadio,
+  XyRadioButton,
+  XyRadioGroup,
   XyRow,
   XyScrollbar,
   XySelect,

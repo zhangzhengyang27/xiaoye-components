@@ -6,7 +6,7 @@ outline: deep
 
 # Select 选择器
 
-`xy-select` 用于单值选择，当前版本优先覆盖后台筛选栏和表单枚举值录入，重点是“单选 + 搜索 + 清空 + 键盘导航”。
+`xy-select` 用于单值选择，当前版本优先覆盖后台筛选栏和表单枚举值录入，重点是“单选 + 搜索 + 清空 + 键盘导航”，并补齐了分组选项、加载态和面板插槽。
 
 ## 基础用法
 
@@ -20,10 +20,40 @@ select/basic
 select/search
 :::
 
+## 禁用态
+
+:::demo 既可以整体禁用 Select，也可以只禁用部分选项。禁用项适合表达“当前条件下不可选”的状态。
+select/disabled
+:::
+
+## 分组选项
+
+:::demo 当枚举值很多时，可以把选项按业务域或角色域分组，降低认知负担。
+select/grouped
+:::
+
+## 面板插槽与加载态
+
+:::demo `header / footer / empty / option` 适合把 Select 下拉面板变成更完整的业务选择面板。
+select/panel-slots
+:::
+
+## 独立加载态
+
+:::demo 如果你只需要标准加载态，而不想自定义整块面板，可以直接使用 `loading / loading-text`。
+select/loading
+:::
+
 ## 表单场景
 
 :::demo 放在 `xy-form-item` 内部时，Select 会自动关联错误消息并参与 `change / blur` 校验。
 select/form
+:::
+
+## 方法控制
+
+:::demo 通过 expose 的 `focus / blur / open / close`，可以把 Select 接进更复杂的筛选条或快捷操作面板。
+select/methods
 :::
 
 ## 键盘与行为约定
@@ -37,17 +67,23 @@ select/form
 
 ### Select Attributes
 
-| 属性            | 说明                   | 类型                       | 默认值         |
-| --------------- | ---------------------- | -------------------------- | -------------- |
-| `model-value`   | 当前选中值             | `string \| number \| null` | `null`         |
-| `options`       | 选项列表               | `SelectOption<T>[]`        | —              |
-| `placeholder`   | 未选择时的占位提示     | `string`                   | `'请选择'`     |
-| `disabled`      | 是否禁用               | `boolean`                  | `false`        |
-| `clearable`     | 是否允许清空当前选中值 | `boolean`                  | `false`        |
-| `searchable`    | 是否启用搜索输入       | `boolean`                  | `false`        |
-| `size`          | 组件尺寸               | `'sm' \| 'md' \| 'lg'`     | 跟随全局配置   |
-| `no-data-text`  | 无选项时的文案         | `string`                   | `'暂无选项'`   |
-| `no-match-text` | 搜索无结果时的文案     | `string`                   | `'没有匹配项'` |
+| 属性                 | 说明                   | 类型                                          | 默认值               |
+| -------------------- | ---------------------- | --------------------------------------------- | -------------------- |
+| `model-value`        | 当前选中值             | `string \| number \| null`                    | `null`               |
+| `options`            | 选项列表               | `(SelectOption<T> \| SelectOptionGroup<T>)[]` | —                    |
+| `placeholder`        | 未选择时的占位提示     | `string`                                      | `'请选择'`           |
+| `disabled`           | 是否禁用               | `boolean`                                     | `false`              |
+| `clearable`          | 是否允许清空当前选中值 | `boolean`                                     | `false`              |
+| `searchable`         | 是否启用搜索输入       | `boolean`                                     | `false`              |
+| `size`               | 组件尺寸               | `'sm' \| 'md' \| 'lg'`                        | 跟随全局配置         |
+| `no-data-text`       | 无选项时的文案         | `string`                                      | `'暂无选项'`         |
+| `no-match-text`      | 搜索无结果时的文案     | `string`                                      | `'没有匹配项'`       |
+| `loading`            | 是否处于加载态         | `boolean`                                     | `false`              |
+| `loading-text`       | 加载态文案             | `string`                                      | `'加载中'`           |
+| `search-placeholder` | 搜索输入占位文案       | `string`                                      | `'搜索选项'`         |
+| `prefix-icon`        | 触发器前置图标         | `string`                                      | `''`                 |
+| `suffix-icon`        | 触发器后置图标         | `string`                                      | `'mdi:chevron-down'` |
+| `clear-icon`         | 清空图标               | `string`                                      | `'mdi:close-circle'` |
 
 ### Select Events
 
@@ -68,3 +104,32 @@ select/form
 | `value`       | 选项值         | `string \| number` | —           |
 | `disabled`    | 是否禁用该选项 | `boolean`          | `false`     |
 | `description` | 辅助描述信息   | `string`           | `undefined` |
+
+### Select Option Group
+
+| 字段       | 说明         | 类型                | 默认值  |
+| ---------- | ------------ | ------------------- | ------- |
+| `label`    | 分组标题     | `string`            | —       |
+| `options`  | 分组下的选项 | `SelectOption<T>[]` | —       |
+| `disabled` | 是否禁用整组 | `boolean`           | `false` |
+
+### Select Slots
+
+| 插槽      | 说明                                                |
+| --------- | --------------------------------------------------- |
+| `prefix`  | 触发器前缀内容                                      |
+| `suffix`  | 自定义触发器后缀图标                                |
+| `header`  | 下拉面板头部内容                                    |
+| `footer`  | 下拉面板底部内容                                    |
+| `loading` | 自定义加载态内容                                    |
+| `empty`   | 自定义空态内容                                      |
+| `option`  | 自定义选项内容，接收 `{ option, selected, active }` |
+
+### Select Exposes
+
+| 暴露项  | 说明               | 类型                  |
+| ------- | ------------------ | --------------------- |
+| `focus` | 聚焦触发器         | `() => void`          |
+| `blur`  | 关闭并让触发器失焦 | `() => Promise<void>` |
+| `open`  | 打开下拉面板       | `() => Promise<void>` |
+| `close` | 关闭下拉面板       | `() => Promise<void>` |

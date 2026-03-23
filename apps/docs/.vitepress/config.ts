@@ -45,13 +45,6 @@ export default defineConfig({
           items: [{ text: "组件总览", link: "/components/overview" }]
         },
         {
-          text: "按场景查看",
-          items: [
-            { text: "基础与表单组件", link: "/components/basic-form" },
-            { text: "反馈与数据展示", link: "/components/feedback-data" }
-          ]
-        },
-        {
           text: "基础组件",
           items: [
             { text: "Button 按钮", link: "/components/button" },
@@ -71,6 +64,12 @@ export default defineConfig({
           items: [
             { text: "Config Provider 全局配置", link: "/components/config-provider" },
             { text: "Input 输入框", link: "/components/input" },
+            { text: "Radio 单选框", link: "/components/radio" },
+            { text: "Switch 开关", link: "/components/switch" },
+            { text: "InputTag 标签输入框", link: "/components/input-tag" },
+            { text: "Input Number 数字输入框", link: "/components/input-number" },
+            { text: "Rate 评分", link: "/components/rate" },
+            { text: "Slider 滑块", link: "/components/slider" },
             { text: "DatePicker 日期选择器", link: "/components/date-picker" },
             { text: "Select 选择器", link: "/components/select" },
             { text: "Form 表单", link: "/components/form" },

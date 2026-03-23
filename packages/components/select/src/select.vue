@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends string | number">
-import { computed, inject, nextTick, ref, watch } from "vue";
-import type { ComponentSize, SelectOption } from "@xiaoye/utils";
+import { computed, inject, nextTick, ref, useSlots, watch } from "vue";
+import type { SelectOption } from "@xiaoye/utils";
 import {
   useConfig,
   useDismissibleLayer,
@@ -9,18 +9,15 @@ import {
   useNamespace,
   useOverlayStack
 } from "@xiaoye/composables";
+import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
+import { DEFAULT_CLEAR_ICON, DEFAULT_LOADING_ICON, DEFAULT_SUFFIX_ICON } from "./select";
+import type { FlatSelectOption, SelectOptionGroup, SelectOptionItem, SelectProps } from "./select";
 
-export interface SelectProps<T = string | number> {
-  modelValue?: T | null;
-  options: SelectOption<T>[];
-  placeholder?: string;
-  disabled?: boolean;
-  clearable?: boolean;
-  searchable?: boolean;
-  size?: ComponentSize;
-  noDataText?: string;
-  noMatchText?: string;
+interface SelectRenderGroup<T> {
+  label?: string;
+  isGroup: boolean;
+  options: FlatSelectOption<T>[];
 }
 
 const props = withDefaults(defineProps<SelectProps<T>>(), {
@@ -31,7 +28,13 @@ const props = withDefaults(defineProps<SelectProps<T>>(), {
   searchable: false,
   size: undefined,
   noDataText: "暂无选项",
-  noMatchText: "没有匹配项"
+  noMatchText: "没有匹配项",
+  loading: false,
+  loadingText: "加载中",
+  searchPlaceholder: "搜索选项",
+  prefixIcon: "",
+  suffixIcon: DEFAULT_SUFFIX_ICON,
+  clearIcon: DEFAULT_CLEAR_ICON
 });
 
 const emit = defineEmits<{
@@ -43,11 +46,11 @@ const emit = defineEmits<{
   blur: [];
 }>();
 
+const slots = useSlots();
 const formItem = inject(formItemKey, null);
 const ns = useNamespace("select");
 const { size: globalSize } = useConfig();
 const mergedSize = computed(() => props.size ?? globalSize.value);
-const rootRef = ref<HTMLElement | null>(null);
 const triggerRef = ref<HTMLElement | null>(null);
 const dropdownRef = ref<HTMLElement | null>(null);
 const searchInputRef = ref<HTMLInputElement | null>(null);
@@ -57,21 +60,89 @@ const listboxId = `xy-select-listbox-${Math.random().toString(36).slice(2, 10)}`
 const selectedValue = ref<T | null>(props.modelValue);
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 
-const filteredOptions = computed(() => {
-  if (!props.searchable || !searchValue.value.trim()) {
-    return props.options;
-  }
+function isOptionGroup(option: SelectOptionItem<T>): option is SelectOptionGroup<T> {
+  return Array.isArray((option as SelectOptionGroup<T>).options);
+}
 
-  const keyword = searchValue.value.trim().toLowerCase();
-  return props.options.filter((item) => item.label.toLowerCase().includes(keyword));
+const allOptions = computed(() => {
+  const flattened: Array<Omit<FlatSelectOption<T>, "flatIndex">> = [];
+
+  props.options.forEach((item) => {
+    if (isOptionGroup(item)) {
+      item.options.forEach((option) => {
+        flattened.push({
+          ...option,
+          disabled: Boolean(item.disabled) || Boolean(option.disabled),
+          groupLabel: item.label
+        });
+      });
+      return;
+    }
+
+    flattened.push(item);
+  });
+
+  return flattened;
 });
 
-const emptyText = computed(() =>
-  props.searchable && searchValue.value.trim() ? props.noMatchText : props.noDataText
-);
+const groupedOptions = computed<SelectRenderGroup<T>[]>(() => {
+  const keyword = searchValue.value.trim().toLowerCase();
+  const shouldFilter = props.searchable && keyword.length > 0;
+  let runningIndex = 0;
+  const groups: SelectRenderGroup<T>[] = [];
+
+  props.options.forEach((item) => {
+    if (isOptionGroup(item)) {
+      const options = item.options
+        .filter((option) => (shouldFilter ? option.label.toLowerCase().includes(keyword) : true))
+        .map((option) => ({
+          ...option,
+          disabled: Boolean(item.disabled) || Boolean(option.disabled),
+          groupLabel: item.label,
+          flatIndex: runningIndex++
+        }));
+
+      if (options.length) {
+        groups.push({
+          label: item.label,
+          isGroup: true,
+          options
+        });
+      }
+
+      return;
+    }
+
+    if (shouldFilter && !item.label.toLowerCase().includes(keyword)) {
+      return;
+    }
+
+    groups.push({
+      isGroup: false,
+      options: [
+        {
+          ...item,
+          flatIndex: runningIndex++
+        }
+      ]
+    });
+  });
+
+  return groups;
+});
+
+const filteredOptions = computed(() => groupedOptions.value.flatMap((group) => group.options));
+
+const emptyText = computed(() => {
+  if (props.loading) {
+    return props.loadingText;
+  }
+
+  return props.searchable && searchValue.value.trim() ? props.noMatchText : props.noDataText;
+});
 
 const selectedOption = computed(
-  () => props.options.find((item) => item.value === selectedValue.value) ?? null
+  () => allOptions.value.find((item) => item.value === selectedValue.value) ?? null
 );
 
 const displayLabel = computed(() => selectedOption.value?.label ?? props.placeholder);
@@ -94,7 +165,9 @@ const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFl
 const activeOption = computed(() => navigation.activeItem.value);
 
 function syncActiveIndex() {
-  const selectedIndex = filteredOptions.value.findIndex((item) => item.value === selectedValue.value);
+  const selectedIndex = filteredOptions.value.findIndex(
+    (item) => item.value === selectedValue.value
+  );
 
   if (selectedIndex >= 0 && !filteredOptions.value[selectedIndex]?.disabled) {
     navigation.setActiveIndex(selectedIndex);
@@ -162,7 +235,7 @@ async function toggleDropdown() {
   await openDropdown();
 }
 
-async function selectOption(option: SelectOption<T>) {
+async function selectOption(option: FlatSelectOption<T>) {
   if (option.disabled) {
     return;
   }
@@ -245,6 +318,15 @@ async function handleKeydown(event: KeyboardEvent) {
   }
 }
 
+function focus() {
+  triggerRef.value?.focus();
+}
+
+async function blur() {
+  triggerRef.value?.blur();
+  await closeDropdown(true);
+}
+
 watch(
   () => props.modelValue,
   (value) => {
@@ -277,11 +359,17 @@ useDismissibleLayer({
     await closeDropdown(reason === "outside", reason === "escape");
   }
 });
+
+defineExpose({
+  focus,
+  blur,
+  open: openDropdown,
+  close: closeDropdown
+});
 </script>
 
 <template>
   <div
-    ref="rootRef"
     :class="[
       ns.base.value,
       `${ns.base.value}--${mergedSize}`,
@@ -309,9 +397,20 @@ useDismissibleLayer({
       @click="toggleDropdown"
       @keydown="handleKeydown"
     >
-      <span :class="selectedOption ? 'is-selected' : 'is-placeholder'">
+      <span v-if="$slots.prefix || props.prefixIcon" class="xy-select__prefix">
+        <slot name="prefix" />
+        <XyIcon
+          v-if="props.prefixIcon"
+          class="xy-select__icon"
+          :icon="props.prefixIcon"
+          :size="16"
+        />
+      </span>
+
+      <span class="xy-select__selection" :class="selectedOption ? 'is-selected' : 'is-placeholder'">
         {{ displayLabel }}
       </span>
+
       <span class="xy-select__actions">
         <button
           v-if="props.clearable && selectedOption && !props.disabled"
@@ -320,9 +419,13 @@ useDismissibleLayer({
           aria-label="clear"
           @click="clearValue"
         >
-          ×
+          <XyIcon :icon="props.clearIcon" :size="16" />
         </button>
-        <span class="xy-select__caret">⌄</span>
+        <span class="xy-select__caret">
+          <slot name="suffix">
+            <XyIcon class="xy-select__icon" :icon="props.suffixIcon" :size="16" />
+          </slot>
+        </span>
       </span>
     </div>
 
@@ -336,36 +439,76 @@ useDismissibleLayer({
           :style="floatingStyle"
           role="listbox"
         >
+          <div v-if="$slots.header" class="xy-select__header" @click.stop>
+            <slot name="header" />
+          </div>
+
           <div v-if="props.searchable" class="xy-select__search">
             <input
               ref="searchInputRef"
               v-model="searchValue"
               type="text"
-              placeholder="搜索选项"
+              :placeholder="props.searchPlaceholder"
               @keydown="handleKeydown"
             />
           </div>
-          <button
-            v-for="(option, index) in filteredOptions"
-            :id="`${listboxId}-${index}`"
-            :key="`${option.value}`"
-            type="button"
-            class="xy-select__option"
-            :class="[
-              option.disabled ? 'is-disabled' : '',
-              option.value === selectedValue ? 'is-selected' : '',
-              navigation.activeIndex.value === index ? 'is-active' : ''
-            ]"
-            role="option"
-            :aria-selected="option.value === selectedValue"
-            :disabled="option.disabled"
-            @mouseenter="navigation.setActiveIndex(index)"
-            @click="selectOption(option)"
-          >
-            <span>{{ option.label }}</span>
-            <small v-if="option.description">{{ option.description }}</small>
-          </button>
-          <div v-if="!filteredOptions.length" class="xy-select__empty">{{ emptyText }}</div>
+
+          <div v-if="props.loading" class="xy-select__loading">
+            <slot name="loading">
+              <XyIcon :icon="DEFAULT_LOADING_ICON" :size="16" spin />
+              <span>{{ props.loadingText }}</span>
+            </slot>
+          </div>
+
+          <template v-else-if="filteredOptions.length">
+            <div
+              v-for="group in groupedOptions"
+              :key="group.label ?? `group-${group.options[0]?.flatIndex ?? 0}`"
+              class="xy-select__group"
+            >
+              <div v-if="group.isGroup" class="xy-select__group-label">
+                {{ group.label }}
+              </div>
+
+              <button
+                v-for="option in group.options"
+                :id="`${listboxId}-${option.flatIndex}`"
+                :key="`${option.value}`"
+                type="button"
+                class="xy-select__option"
+                :class="[
+                  option.disabled ? 'is-disabled' : '',
+                  option.value === selectedValue ? 'is-selected' : '',
+                  navigation.activeIndex.value === option.flatIndex ? 'is-active' : ''
+                ]"
+                role="option"
+                :aria-selected="option.value === selectedValue"
+                :disabled="option.disabled"
+                @mouseenter="navigation.setActiveIndex(option.flatIndex)"
+                @click="selectOption(option)"
+              >
+                <slot
+                  name="option"
+                  :option="option"
+                  :selected="option.value === selectedValue"
+                  :active="navigation.activeIndex.value === option.flatIndex"
+                >
+                  <span>{{ option.label }}</span>
+                  <small v-if="option.description">{{ option.description }}</small>
+                </slot>
+              </button>
+            </div>
+          </template>
+
+          <div v-else class="xy-select__empty">
+            <slot name="empty">
+              <span>{{ emptyText }}</span>
+            </slot>
+          </div>
+
+          <div v-if="$slots.footer" class="xy-select__footer" @click.stop>
+            <slot name="footer" />
+          </div>
         </div>
       </transition>
     </teleport>

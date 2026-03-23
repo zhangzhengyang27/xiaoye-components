@@ -1,0 +1,166 @@
+.xy-input-tag {
+  width: 100%;
+  font-size: var(--xy-font-size-md);
+}
+
+.xy-input-tag__wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+  cursor: text;
+}
+
+.xy-input-tag.is-focus .xy-input-tag__wrapper {
+  border-color: var(--xy-color-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--xy-color-primary) 14%, transparent);
+}
+
+.xy-input-tag__inner {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px 12px;
+}
+
+.xy-input-tag__prefix,
+.xy-input-tag__suffix {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-input-tag__prefix {
+  padding-left: 12px;
+}
+
+.xy-input-tag__suffix {
+  gap: 8px;
+  padding-right: 12px;
+}
+
+.xy-input-tag__tag {
+  max-width: 100%;
+}
+
+.xy-input-tag.is-draggable .xy-input-tag__tag {
+  cursor: grab;
+}
+
+.xy-input-tag.is-draggable .xy-input-tag__tag:active {
+  cursor: grabbing;
+}
+
+.xy-input-tag__tag .xy-tag__content {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xy-input-tag__drop-indicator {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--xy-color-primary);
+  pointer-events: none;
+}
+
+.xy-input-tag__input-wrap {
+  flex: 1 0 96px;
+  min-width: 72px;
+}
+
+.xy-input-tag__input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--xy-text-color);
+  font: inherit;
+  line-height: inherit;
+  padding: 0;
+}
+
+.xy-input-tag__input::placeholder {
+  color: var(--xy-text-color-muted);
+}
+
+.xy-input-tag__icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--xy-text-color-muted);
+  cursor: pointer;
+  padding: 0;
+}
+
+.xy-input-tag__icon-button:hover {
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-input-tag.is-disabled .xy-input-tag__wrapper {
+  background: var(--xy-bg-color-muted);
+  cursor: not-allowed;
+}
+
+.xy-input-tag.is-disabled {
+  opacity: 0.76;
+}
+
+.xy-input-tag.is-disabled .xy-input-tag__input {
+  cursor: not-allowed;
+}
+
+.xy-input-tag.is-error .xy-input-tag__wrapper {
+  border-color: var(--xy-color-danger);
+}
+
+.xy-input-tag.is-success .xy-input-tag__wrapper {
+  border-color: var(--xy-color-success);
+}
+
+.xy-input-tag--sm .xy-input-tag__wrapper {
+  min-height: 36px;
+}
+
+.xy-input-tag--sm .xy-input-tag__inner {
+  padding: 5px 10px;
+  gap: 4px;
+}
+
+.xy-input-tag--md .xy-input-tag__wrapper {
+  min-height: 40px;
+}
+
+.xy-input-tag--md .xy-input-tag__inner {
+  padding: 6px 12px;
+}
+
+.xy-input-tag--lg .xy-input-tag__wrapper {
+  min-height: 46px;
+}
+
+.xy-input-tag--lg .xy-input-tag__inner {
+  padding: 8px 14px;
+  gap: 8px;
+}
