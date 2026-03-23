@@ -10,40 +10,29 @@ outline: deep
 
 ## 基础用法
 
-```vue
-<script setup lang="ts">
-import { ref } from "vue";
+:::demo 最常见的场景是弹窗表单录入或二次确认，并通过 `footer` 插槽放一组操作按钮。
+modal/basic
+:::
 
-const open = ref(false);
-</script>
+## 自定义头部与关闭策略
 
-<template>
-  <xy-button type="primary" @click="open = true">打开弹窗</xy-button>
-  <xy-modal v-model="open" title="新建成员">
-    <p>这里可以放表单、说明文本或二次确认内容。</p>
+:::demo 当内容更偏强提示或配置确认时，可以自定义头部，并关闭遮罩点击退出。
+modal/custom
+:::
 
-    <template #footer>
-      <xy-space>
-        <xy-button plain @click="open = false">取消</xy-button>
-        <xy-button type="primary" @click="open = false">确认</xy-button>
-      </xy-space>
-    </template>
-  </xy-modal>
-</template>
-```
-
-## 常见场景
+## 何时使用
 
 - 弹窗表单录入，例如新建成员、编辑信息。
 - 二次确认，例如删除、停用、归档。
 - 强提示或阻断式阅读，例如重要配置确认。
 
 :::tip 使用建议
-如果你的内容只是补充说明或轻量交互，不需要阻断主页面时，优先使用 `xy-tooltip`。  
-只有在需要强制用户处理当前任务时，再使用 `xy-modal`。
+如果内容只是补充说明或轻量交互，不需要阻断主页面时，优先使用 `xy-popover`。只有在需要强制用户处理当前任务时，再使用 `xy-modal`。
 :::
 
-## 属性
+## API
+
+### Modal Attributes
 
 | 属性               | 说明                   | 类型               | 默认值  |
 | ------------------ | ---------------------- | ------------------ | ------- |
@@ -54,7 +43,7 @@ const open = ref(false);
 | `close-on-esc`     | 按下 `Escape` 是否关闭 | `boolean`          | `true`  |
 | `destroy-on-close` | 关闭后是否销毁内容     | `boolean`          | `false` |
 
-## 事件
+### Modal Events
 
 | 事件                 | 说明                   | 参数      |
 | -------------------- | ---------------------- | --------- |
@@ -62,18 +51,10 @@ const open = ref(false);
 | `open`               | 弹窗打开后触发         | —         |
 | `close`              | 弹窗关闭时触发         | —         |
 
-## 插槽
+### Modal Slots
 
-| 插槽      | 说明             |
-| --------- | ---------------- |
-| `default` | 弹窗主体内容     |
-| `header`  | 自定义头部内容   |
+| 插槽      | 说明           |
+| --------- | -------------- |
+| `default` | 弹窗主体内容   |
+| `header`  | 自定义头部内容 |
 | `footer`  | 自定义底部操作区 |
-
-## 可访问性与行为约定
-
-- 使用 `dialog` 和 `aria-modal="true"` 语义。
-- 打开后会把焦点带入弹窗内部的第一个可聚焦元素。
-- `Tab / Shift+Tab` 会在弹窗内部循环。
-- 关闭后会尝试把焦点恢复到触发弹窗的元素。
-- 当设置了 `title` 时，会自动补齐 `aria-labelledby`；主体内容会通过 `aria-describedby` 关联。

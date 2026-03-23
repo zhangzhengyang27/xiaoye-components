@@ -1,40 +1,55 @@
 ---
 title: Popover 气泡卡片
 description: 用于承载轻量说明或交互内容，比 Tooltip 更重，比 Modal 更轻。
+outline: deep
 ---
 
 # Popover 气泡卡片
 
-## Props
+`xy-popover` 用来承载比 Tooltip 更重一点的说明或轻交互内容。它不是纯提示，也不需要像 Modal 那样阻断页面。
 
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| `modelValue` | `boolean` | `false` | 是否打开 |
-| `title` | `string` | `""` | 标题 |
-| `placement` | `Placement` | `"bottom"` | 浮层位置 |
-| `width` | `string \| number` | `320` | 面板宽度 |
-| `closeOnOutside` | `boolean` | `true` | 点击外部是否关闭 |
-| `closeOnEsc` | `boolean` | `true` | `Escape` 是否关闭 |
+## 基础用法
 
-## Events
+:::demo 最常见的场景是放一段说明文案和一个轻量按钮，让用户在原地完成理解或确认。
+popover/basic
+:::
 
-| 事件 | 参数 | 说明 |
-| --- | --- | --- |
-| `update:modelValue` | `(value: boolean)` | 开关状态变化 |
-| `open` | `()` | 打开时触发 |
-| `close` | `()` | 关闭时触发 |
+## 自定义头部与宽度
 
-## Slots
+:::demo Popover 支持自定义触发区、头部和内容宽度，适合做一张轻量操作卡片。
+popover/custom
+:::
 
-| 插槽 | 说明 |
-| --- | --- |
-| `trigger` | 触发区域 |
-| `header` | 自定义头部 |
-| `default` | 面板主体内容 |
+## Tooltip 和 Popover 的边界
 
-## 可访问性约定
+- `Tooltip`：短文案、解释性提示、不承载操作。
+- `Popover`：多段说明、轻量交互、外部点击和 `Escape` 可关闭。
 
-- 当前实现优先服务点击触发的轻量交互。
-- 打开后会把焦点带到内容区的首个可聚焦元素。
-- `Escape` 和外部点击可关闭气泡。
+## API
 
+### Popover Attributes
+
+| 属性               | 说明                 | 类型               | 默认值      |
+| ------------------ | -------------------- | ------------------ | ----------- |
+| `model-value`      | 是否打开             | `boolean`          | `false`     |
+| `title`            | 标题                 | `string`           | `''`        |
+| `placement`        | 浮层位置             | `Placement`        | `'bottom'`  |
+| `width`            | 面板宽度             | `string \| number` | `320`       |
+| `close-on-outside` | 点击外部是否关闭     | `boolean`          | `true`      |
+| `close-on-esc`     | `Escape` 是否关闭    | `boolean`          | `true`      |
+
+### Popover Events
+
+| 事件                 | 说明           | 参数      |
+| -------------------- | -------------- | --------- |
+| `update:model-value` | 开关状态变化   | `boolean` |
+| `open`               | 打开时触发     | —         |
+| `close`              | 关闭时触发     | —         |
+
+### Popover Slots
+
+| 插槽      | 说明           |
+| --------- | -------------- |
+| `trigger` | 触发区域       |
+| `header`  | 自定义头部     |
+| `default` | 面板主体内容   |

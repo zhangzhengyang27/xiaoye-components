@@ -10,7 +10,22 @@ import AdminFlowDemo from "../.vitepress/theme/components/AdminFlowDemo.vue";
 
 # 管理后台闭环示例
 
-这个页面不是为了“秀组件数量”，而是验证筛选、列表、行操作、侧边编辑和状态反馈能不能在同一页里自然协作。
+这页用一个最小后台页面片段，把筛选、列表、行操作、侧边编辑和状态反馈放回同一条真实链路里。
+
+<div class="xy-scene-strip">
+  <div>
+    <strong>筛选栏</strong>
+    <span>Input / Select / Tooltip / Popover</span>
+  </div>
+  <div>
+    <strong>列表主干</strong>
+    <span>Table / Pagination / Dropdown</span>
+  </div>
+  <div>
+    <strong>侧边编辑</strong>
+    <span>Drawer / Form / Button</span>
+  </div>
+</div>
 
 ## 这个示例覆盖了什么
 
@@ -33,6 +48,18 @@ import AdminFlowDemo from "../.vitepress/theme/components/AdminFlowDemo.vue";
   </div>
 </div>
 
+## 推荐怎么读
+
+<p class="xy-section-lead">
+  如果你是第一次看这个页面，建议直接先看下面的页面片段，再回过头看上面的能力拆分。
+</p>
+
+## 页面片段
+
+<div class="xy-scene-frame">
+  <AdminFlowDemo />
+</div>
+
 ## 交互约定
 
 - `Tabs` 支持 `ArrowLeft / ArrowRight / Home / End`
@@ -40,10 +67,6 @@ import AdminFlowDemo from "../.vitepress/theme/components/AdminFlowDemo.vue";
 - `Dropdown` 支持 `ArrowUp / ArrowDown / Home / End`
 - `Tooltip / Popover` 都支持键盘路径，但用途不同
 - `Drawer` 和 `Modal` 一样会恢复焦点到触发位置
-
-## 页面片段
-
-<AdminFlowDemo />
 
 ## 从这个页面可以直接复用什么
 

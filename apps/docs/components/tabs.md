@@ -1,42 +1,51 @@
 ---
 title: Tabs 标签页
 description: 页面分区、局部导航和视图切换的基础页签组件。
+outline: deep
 ---
 
 # Tabs 标签页
 
-## Props
+`xy-tabs` 适合做页面分区、局部导航和视图切换。当前版本强调键盘可达性、禁用项跳过和插槽化面板内容。
 
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| `modelValue` | `string` | `首个可用项` | 当前激活项 |
-| `items` | `TabItem[]` | `[]` | 页签项配置 |
+## 基础用法
 
-`TabItem` 结构：
+:::demo 最常见的用法是传一组 `items`，再通过默认插槽渲染当前激活面板内容。
+tabs/basic
+:::
 
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `key` | `string` | 唯一标识 |
-| `label` | `string` | 展示文案 |
-| `disabled` | `boolean` | 是否禁用 |
+## 禁用页签
 
-## Events
+:::demo 禁用页签会被键盘导航自动跳过，适合放“暂未开放”或当前不可切换的面板。
+tabs/disabled
+:::
 
-| 事件 | 参数 | 说明 |
-| --- | --- | --- |
-| `update:modelValue` | `(value: string)` | 激活项变化 |
-| `change` | `(value: string)` | 切换页签时触发 |
+## API
 
-## Slots
+### Tabs Attributes
 
-| 插槽 | 说明 |
-| --- | --- |
-| `default` | 面板内容，暴露 `activeKey` 与 `activeItem` |
+| 属性          | 说明         | 类型        | 默认值       |
+| ------------- | ------------ | ----------- | ------------ |
+| `model-value` | 当前激活项   | `string`    | 首个可用项   |
+| `items`       | 页签项配置   | `TabItem[]` | `[]`         |
 
-## 可访问性约定
+### TabItem
 
-- 使用 `tablist / tab / tabpanel` 语义。
-- 支持方向键切换。
-- `Home / End` 快速跳到首尾可用项。
-- 遇到禁用项时自动跳过。
+| 字段       | 说明       | 类型      | 默认值  |
+| ---------- | ---------- | --------- | ------- |
+| `key`      | 唯一标识   | `string`  | —       |
+| `label`    | 展示文案   | `string`  | —       |
+| `disabled` | 是否禁用   | `boolean` | `false` |
 
+### Tabs Events
+
+| 事件                 | 说明           | 参数       |
+| -------------------- | -------------- | ---------- |
+| `update:model-value` | 激活项变化     | `string`   |
+| `change`             | 切换页签时触发 | `string`   |
+
+### Tabs Slots
+
+| 插槽      | 说明                                          |
+| --------- | --------------------------------------------- |
+| `default` | 面板内容，暴露 `activeKey` 与 `activeItem`    |

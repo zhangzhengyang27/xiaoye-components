@@ -1,54 +1,47 @@
 ---
 title: Pagination 分页
+description: 列表页底部的分页切换组件。
+outline: deep
 ---
-
-<script setup lang="ts">
-import { ref } from "vue";
-
-const currentPage = ref(1);
-const pageSize = ref(10);
-</script>
 
 # Pagination 分页
 
-用于列表页分页切换，支持当前页、每页条数和总条数联动。
+`xy-pagination` 用于列表页分页切换，支持当前页、每页条数和总条数联动。
 
 ## 基础用法
 
-<xy-pagination
-  v-model:current-page="currentPage"
-  v-model:page-size="pageSize"
-  :total="86"
-/>
+:::demo 最常见的场景是把它放在 `xy-table` 底部，并用双向绑定接住页码与每页条数。
+pagination/basic
+:::
 
-```vue
-<xy-pagination
-  v-model:current-page="currentPage"
-  v-model:page-size="pageSize"
-  :total="86"
-/>
-```
+## 禁用状态
 
-## 适合放在哪
+:::demo 当列表处于整体只读、加载中或没有权限切页时，可以统一禁用分页交互。
+pagination/disabled
+:::
+
+## 何时使用
 
 - 列表页底部。
 - 查询结果页的内容区域下方。
 - 与 `xy-table` 组合成后台列表闭环。
 
-## 属性
+## API
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `current-page` | 当前页码 | `number` | `1` |
-| `page-size` | 每页条数 | `number` | `10` |
-| `total` | 总条数 | `number` | — |
-| `page-sizes` | 可选每页条数 | `number[]` | `[10, 20, 50]` |
-| `disabled` | 是否禁用分页操作 | `boolean` | `false` |
+### Pagination Attributes
 
-## 事件
+| 属性            | 说明               | 类型       | 默认值         |
+| --------------- | ------------------ | ---------- | -------------- |
+| `current-page`  | 当前页码           | `number`   | `1`            |
+| `page-size`     | 每页条数           | `number`   | `10`           |
+| `total`         | 总条数             | `number`   | —              |
+| `page-sizes`    | 可选每页条数       | `number[]` | `[10, 20, 50]` |
+| `disabled`      | 是否禁用分页操作   | `boolean`  | `false`        |
 
-| 事件 | 说明 |
-| --- | --- |
-| `update:currentPage` | 当前页变化时触发 |
-| `update:pageSize` | 每页条数变化时触发 |
-| `change` | 页码或页大小变化时统一触发 |
+### Pagination Events
+
+| 事件                  | 说明                         | 参数                 |
+| --------------------- | ---------------------------- | -------------------- |
+| `update:current-page` | 当前页变化时触发             | `number`             |
+| `update:page-size`    | 每页条数变化时触发           | `number`             |
+| `change`              | 页码或每页条数变化时统一触发 | `(page, pageSize)`   |

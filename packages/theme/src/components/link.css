@@ -1,0 +1,100 @@
+.xy-link.xy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--xy-text-color);
+  font-size: var(--xy-font-size-md);
+  font-weight: 500;
+  line-height: var(--xy-line-height);
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    opacity 0.18s ease,
+    text-decoration-color 0.18s ease;
+  text-decoration-line: none;
+}
+
+.xy-link.xy-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline-offset: 2px;
+  border-radius: var(--xy-radius-sm);
+}
+
+.xy-link.is-disabled {
+  color: var(--xy-text-color-muted);
+  cursor: not-allowed;
+}
+
+.xy-link.is-hover-underline:hover:not(.is-disabled),
+.xy-link.is-underline {
+  text-decoration-line: underline;
+}
+
+.xy-link.xy-link--default {
+  color: var(--xy-text-color);
+}
+
+.xy-link.xy-link--default:hover:not(.is-disabled) {
+  color: var(--xy-color-primary);
+}
+
+.xy-link.xy-link--primary {
+  color: var(--xy-color-primary);
+}
+
+.xy-link.xy-link--primary:hover:not(.is-disabled) {
+  color: var(--xy-color-primary-hover);
+}
+
+.xy-link.xy-link--success {
+  color: var(--xy-color-success);
+}
+
+.xy-link.xy-link--success:hover:not(.is-disabled) {
+  color: color-mix(in srgb, var(--xy-color-success) 84%, black);
+}
+
+.xy-link.xy-link--warning {
+  color: var(--xy-color-warning);
+}
+
+.xy-link.xy-link--warning:hover:not(.is-disabled) {
+  color: color-mix(in srgb, var(--xy-color-warning) 84%, black);
+}
+
+.xy-link.xy-link--info {
+  color: var(--xy-color-info);
+}
+
+.xy-link.xy-link--info:hover:not(.is-disabled) {
+  color: var(--xy-color-info-hover);
+}
+
+.xy-link.xy-link--danger {
+  color: var(--xy-color-danger);
+}
+
+.xy-link.xy-link--danger:hover:not(.is-disabled) {
+  color: color-mix(in srgb, var(--xy-color-danger) 84%, black);
+}
+
+.xy-link.is-disabled:hover {
+  text-decoration: none;
+}
+
+.xy-link.is-icon-only {
+  gap: 0;
+}
+
+.xy-link__inner,
+.xy-link__icon {
+  display: inline-flex;
+  align-items: center;
+}

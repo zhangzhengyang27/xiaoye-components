@@ -1,0 +1,68 @@
+.xy-scrollbar {
+  position: relative;
+  overflow: hidden;
+}
+
+.xy-scrollbar__wrap {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.xy-scrollbar__wrap--hidden-default {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.xy-scrollbar__wrap--hidden-default::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.xy-scrollbar__view {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.xy-scrollbar__bar {
+  position: absolute;
+  z-index: 1;
+  border-radius: 999px;
+  background: transparent;
+  user-select: none;
+}
+
+.xy-scrollbar__bar.is-vertical {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  width: 8px;
+}
+
+.xy-scrollbar__bar.is-horizontal {
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  height: 8px;
+}
+
+.xy-scrollbar__thumb {
+  position: relative;
+  display: block;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--xy-text-color-muted) 74%, transparent);
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.xy-scrollbar__thumb:hover {
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 78%, transparent);
+}
+
+.xy-scrollbar__bar.is-vertical .xy-scrollbar__thumb {
+  width: 100%;
+}
+
+.xy-scrollbar__bar.is-horizontal .xy-scrollbar__thumb {
+  height: 100%;
+}

@@ -35,6 +35,7 @@ const zIndex = ref(next());
 const titleId = `xy-modal-title-${Math.random().toString(36).slice(2, 10)}`;
 const bodyId = `xy-modal-body-${Math.random().toString(36).slice(2, 10)}`;
 let lastFocusedElement: HTMLElement | null = null;
+const isClient = typeof document !== "undefined";
 
 const dialogStyle = computed(() => ({
   width: typeof props.width === "number" ? `${props.width}px` : props.width,
@@ -105,7 +106,7 @@ function handleKeydown(event: KeyboardEvent) {
 
   const first = focusableElements[0];
   const last = focusableElements[focusableElements.length - 1];
-  const active = document.activeElement as HTMLElement | null;
+  const active = isClient ? (document.activeElement as HTMLElement | null) : null;
 
   if (event.shiftKey && active === first) {
     event.preventDefault();
@@ -122,9 +123,12 @@ watch(
     if (value) {
       rendered.value = true;
       zIndex.value = next();
-      lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      lastFocusedElement =
+        isClient && document.activeElement instanceof HTMLElement ? document.activeElement : null;
       lockBodyScroll();
-      document.addEventListener("keydown", handleKeydown);
+      if (isClient) {
+        document.addEventListener("keydown", handleKeydown);
+      }
       emit("open");
       await nextTick();
       focusFirstElement();
@@ -132,7 +136,9 @@ watch(
     }
 
     unlockBodyScroll();
-    document.removeEventListener("keydown", handleKeydown);
+    if (isClient) {
+      document.removeEventListener("keydown", handleKeydown);
+    }
     await nextTick();
     restoreFocus();
 
@@ -147,7 +153,9 @@ watch(
 
 onBeforeUnmount(() => {
   unlockBodyScroll();
-  document.removeEventListener("keydown", handleKeydown);
+  if (isClient) {
+    document.removeEventListener("keydown", handleKeydown);
+  }
 });
 </script>
 

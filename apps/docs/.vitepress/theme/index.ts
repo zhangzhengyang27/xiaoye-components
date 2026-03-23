@@ -2,6 +2,7 @@ import DefaultTheme from "vitepress/theme";
 import type { Theme } from "vitepress";
 import XiaoyeComponents from "xiaoye-components";
 import Demo from "./components/Demo.vue";
+import ProjectIconGallery from "./components/ProjectIconGallery.vue";
 import "../../../../packages/xiaoye-components/style.css";
 import "./style.css";
 
@@ -10,6 +11,7 @@ const theme: Theme = {
   enhanceApp({ app }) {
     app.use(XiaoyeComponents);
     app.component("Demo", Demo);
+    app.component("ProjectIconGallery", ProjectIconGallery);
   }
 };
 

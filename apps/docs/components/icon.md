@@ -1,37 +1,45 @@
 ---
 title: Icon 图标
+description: 基于 Iconify 的图标渲染组件，适合搭配按钮、提示和状态说明使用。
+outline: deep
 ---
 
 # Icon 图标
 
-用于渲染基于 Iconify 的图标标识，适合搭配按钮、提示和状态说明使用。
+`xy-icon` 用于渲染基于 Iconify 的图标标识，适合搭配按钮、提示和状态说明使用。
 
 ## 基础用法
 
-<xy-space>
-  <xy-icon icon="mdi:magnify" />
-  <xy-icon icon="mdi:information-outline" />
-  <xy-icon icon="mdi:close" />
-  <xy-icon icon="mdi:chevron-down" />
-  <xy-icon icon="mdi:loading" spin />
-</xy-space>
+:::demo 最常见的用法是直接传入 Iconify 图标标识，例如 `mdi:magnify`、`mdi:loading`。
+icon/basic
+:::
 
-```vue
-<xy-icon icon="mdi:magnify" />
-<xy-icon icon="mdi:loading" spin />
-```
+## 尺寸、旋转与动画
 
-## 使用说明
+:::demo 你可以直接通过 `size`、`rotate` 和 `spin` 控制图标的展示状态，不需要额外包一层样式。
+icon/size
+:::
 
-- `icon` 需要传入 Iconify 图标标识，例如 `mdi:magnify`。
-- 当前文档示例统一使用 `mdi` 图标集。
-- 默认方案依赖客户端渲染，不在本次范围内处理 SSR 首屏 SVG、离线图标包和严格 CSP 场景。
+## MDI 全量图标合集
 
-## 属性
+下面的图标合集会加载 Iconify `mdi` 图标集的全量图标。页面先拿图标名称和分类，再按当前页批量加载 SVG 数据，避免一次性渲染几千个节点导致文档页卡顿。当前页保留了方案 B 的标签筛选，并按常见 UI 场景把热门分类前置，剩余分类折叠到“更多分类”；同时支持“清空筛选”、选中标签自动滚动定位，以及长列表的渐隐滚动提示，方便在长标签列表里来回切换。默认复制 `xy-icon` 代码，也可以切换成只复制 `icon` 值。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `icon` | Iconify 图标标识 | `string` | - |
-| `size` | 图标尺寸 | `number \| string` | `16` |
-| `rotate` | 旋转角度 | `number` | `0` |
-| `spin` | 是否旋转动画 | `boolean` | `false` |
+<ProjectIconGallery />
+
+## 使用建议
+
+- 文档示例统一使用 `mdi` 图标集，便于直接复制。
+- 图标合集支持搜索、热门分类标签筛选、“更多分类”折叠、清空筛选、选中标签自动定位、长列表滚动提示和分页浏览，适合在选型时快速定位图标名。
+- 纯展示图标建议配合语义文本，不要只靠颜色表达状态。
+- 用在按钮里的纯图标场景时，应补上 `aria-label`。
+
+## API
+
+### Icon Attributes
+
+| 属性     | 说明               | 类型                | 默认值 |
+| -------- | ------------------ | ------------------- | ------ |
+| `icon`   | Iconify 图标标识   | `string`            | —      |
+| `size`   | 图标尺寸           | `number \| string`  | `16`   |
+| `rotate` | 旋转角度           | `number`            | `0`    |
+| `spin`   | 是否启用旋转动画   | `boolean`           | `false` |

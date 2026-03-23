@@ -1,0 +1,174 @@
+.xy-splitter {
+  --xy-splitter-offset: 0px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.xy-splitter--horizontal {
+  flex-direction: row;
+}
+
+.xy-splitter--vertical {
+  flex-direction: column;
+}
+
+.xy-splitter__mask {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.xy-splitter__mask--horizontal {
+  cursor: col-resize;
+}
+
+.xy-splitter__mask--vertical {
+  cursor: row-resize;
+}
+
+.xy-splitter-panel {
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.xy-splitter-bar {
+  position: relative;
+  flex: none;
+  user-select: none;
+}
+
+.xy-splitter-bar--horizontal {
+  width: 0;
+}
+
+.xy-splitter-bar--vertical {
+  height: 0;
+}
+
+.xy-splitter-bar__dragger {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  touch-action: none;
+}
+
+.xy-splitter-bar__dragger::before,
+.xy-splitter-bar__dragger::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: color-mix(in srgb, var(--xy-border-color-strong) 84%, white);
+  transform: translate(-50%, -50%);
+  transition:
+    background-color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.xy-splitter-bar__dragger::after {
+  opacity: 0;
+}
+
+.xy-splitter-bar__dragger--horizontal::before,
+.xy-splitter-bar__dragger--horizontal::after {
+  width: 2px;
+  height: 100%;
+}
+
+.xy-splitter-bar__dragger--vertical::before,
+.xy-splitter-bar__dragger--vertical::after {
+  width: 100%;
+  height: 2px;
+}
+
+.xy-splitter-bar__dragger:hover::before,
+.xy-splitter-bar__dragger:focus-visible::before,
+.xy-splitter-bar__dragger.is-active::before {
+  background: var(--xy-color-primary);
+}
+
+.xy-splitter-bar__dragger.is-active::after {
+  opacity: 0.3;
+  background: var(--xy-color-primary);
+}
+
+.xy-splitter-bar__dragger.is-disabled {
+  cursor: default;
+}
+
+.xy-splitter-bar__dragger.is-disabled::before,
+.xy-splitter-bar__dragger.is-disabled::after {
+  background: color-mix(in srgb, var(--xy-border-color) 88%, white);
+}
+
+.xy-splitter-bar__collapse {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--xy-bg-color) 92%, white);
+  color: var(--xy-text-color-secondary);
+  box-shadow: var(--xy-shadow-sm);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-splitter-bar:hover .xy-splitter-bar__collapse,
+.xy-splitter-bar__collapse:focus-visible {
+  opacity: 1;
+}
+
+.xy-splitter-bar__collapse:hover {
+  color: var(--xy-color-primary);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 24%, white);
+}
+
+.xy-splitter-bar__collapse--horizontal.xy-splitter-bar__collapse--start {
+  top: 50%;
+  left: -12px;
+  transform: translate(-50%, -50%);
+}
+
+.xy-splitter-bar__collapse--horizontal.xy-splitter-bar__collapse--end {
+  top: 50%;
+  left: 12px;
+  transform: translate(-50%, -50%);
+}
+
+.xy-splitter-bar__collapse--vertical.xy-splitter-bar__collapse--start {
+  top: -12px;
+  left: 50%;
+  width: 24px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+}
+
+.xy-splitter-bar__collapse--vertical.xy-splitter-bar__collapse--end {
+  top: 12px;
+  left: 50%;
+  width: 24px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+}

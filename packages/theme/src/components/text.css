@@ -1,0 +1,59 @@
+.xy-text {
+  margin: 0;
+  padding: 0;
+  font-size: var(--xy-font-size-md);
+  line-height: var(--xy-line-height);
+  color: var(--xy-text-color);
+  overflow-wrap: break-word;
+}
+
+.xy-text--sm {
+  font-size: var(--xy-font-size-sm);
+}
+
+.xy-text--lg {
+  font-size: var(--xy-font-size-lg);
+}
+
+.xy-text--default {
+  color: var(--xy-text-color);
+}
+
+.xy-text--primary {
+  color: var(--xy-color-primary);
+}
+
+.xy-text--success {
+  color: var(--xy-color-success);
+}
+
+.xy-text--info {
+  color: var(--xy-color-info);
+}
+
+.xy-text--warning {
+  color: var(--xy-color-warning);
+}
+
+.xy-text--danger {
+  color: var(--xy-color-danger);
+}
+
+.xy-text.is-truncated {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.xy-text.is-line-clamp {
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.xy-text > .xy-icon {
+  vertical-align: -2px;
+}

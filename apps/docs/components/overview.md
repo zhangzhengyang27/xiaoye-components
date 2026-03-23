@@ -1,56 +1,131 @@
 ---
 title: 组件总览
-description: 按页面任务和单组件入口浏览当前能力。
+description: 按页面任务和组件类别浏览当前能力。
+outline: deep
 ---
 
 # 组件总览
 
-当前文档同时保留两种阅读方式：一种按后台页面任务查看组合方式，另一种直接进入单组件页查看完整属性、事件和插槽表。
+这页先帮你建立一张“能力地图”。建议先按页面任务找入口，再按组件类别进入单组件页查完整 API，而不是从头逐页扫过去。
 
-## 先按任务找
+## 先按任务进入
 
-<div class="xy-doc-grid">
-  <div>
+<p class="xy-section-lead">
+  如果你正在搭一个真实后台页面，不需要先通读所有组件。先定位自己处在“操作、录入、反馈还是展示”哪条链路里，阅读效率会更高。
+</p>
+
+<div class="xy-overview-grid">
+  <section class="xy-overview-card">
+    <span class="xy-overview-kicker">01</span>
     <h3>基础操作</h3>
-    <p>Button、Tag、Space、Icon、Tabs、Row / Col</p>
-    <p>适合页面主操作、状态标记、Iconify 图标接入、分区切换、工具栏排布和基础栅格布局。</p>
-  </div>
-  <div>
+    <p>Button、Link、Text、Tag、Space、Icon、Tabs、Row / Col、Scrollbar、Splitter 负责主操作、弱跳转、正文强调、状态标记和布局骨架。</p>
+    <a href="/components/button">进入基础组件</a>
+  </section>
+
+  <section class="xy-overview-card">
+    <span class="xy-overview-kicker">02</span>
     <h3>表单录入</h3>
-    <p>Input、DatePicker、Select、Upload、Form、Modal、Config Provider</p>
-    <p>适合筛选栏、时间选择、文件上传、弹窗录入、字段校验和全局默认值配置。</p>
-  </div>
-  <div>
-    <h3>反馈提示</h3>
-    <p>Tooltip、Empty</p>
-    <p>适合补充说明、空结果提示和操作后的信息兜底。</p>
-  </div>
-  <div>
+    <p>Input、DatePicker、Select、Form、Upload、Config Provider 负责筛选栏、录入表单和字段校验。</p>
+    <a href="/components/basic-form">进入录入场景</a>
+  </section>
+
+  <section class="xy-overview-card">
+    <span class="xy-overview-kicker">03</span>
+    <h3>反馈与浮层</h3>
+    <p>Tooltip、Popover、Dropdown、Empty、Modal、Drawer 负责提示、菜单、空态和上下文切换。</p>
+    <a href="/components/feedback-data">进入反馈场景</a>
+  </section>
+
+  <section class="xy-overview-card">
+    <span class="xy-overview-kicker">04</span>
     <h3>数据展示</h3>
-    <p>Table、Pagination</p>
-    <p>适合后台列表页、行交互、加载态和分页切换。</p>
-  </div>
+    <p>Table、Pagination 先覆盖后台列表页最常见的行交互、空态、加载态和分页切换。</p>
+    <a href="/components/table">进入数据组件</a>
+  </section>
 </div>
 
-## 再按组件查
+## 再按组件类别进入
 
-| 组件       | 主要用途                             | 详情页                                           |
-| ---------- | ------------------------------------ | ------------------------------------------------ |
-| Button     | 页面主操作、次要操作、轻量文本动作   | [Button 按钮](/components/button)                |
-| Row / Col  | 24 栅格布局、卡片分栏、筛选区编排    | [Row / Col 栅格](/components/row)                |
-| DatePicker | 单日期选择、时间筛选、表单日期录入   | [DatePicker 日期选择器](/components/date-picker) |
-| Select     | 条件筛选、枚举值选择、表单单选       | [Select 选择器](/components/select)              |
-| Upload     | 附件上传、图片上传、补充材料提交     | [Upload 上传](/components/upload)                |
-| Table      | 列表展示、行点击、自定义空态和加载态 | [Table 表格](/components/table)                  |
-| Modal      | 承载阻断式录入、确认和强提示         | [Modal 弹窗](/components/modal)                  |
-| Tabs       | 页面分区、视图切换                   | [Tabs 标签页](/components/tabs)                  |
-| Icon       | 基于 Iconify 的图标渲染与轻量装饰    | [Icon 图标](/components/icon)                    |
-| Tooltip    | 轻量补充说明                         | [Tooltip 文字提示](/components/tooltip)          |
+<p class="xy-section-lead">
+  如果你已经知道自己要查哪个组件，直接从下面的分类索引进入会更快。
+</p>
 
-## 推荐阅读方式
+<div class="xy-overview-sections">
+  <section class="xy-overview-section">
+    <div class="xy-overview-section__head">
+      <h3>基础组件</h3>
+      <p>建立页面骨架、主次操作和轻量状态表达。</p>
+    </div>
+    <div class="xy-overview-links">
+      <a href="/components/button">Button 按钮</a>
+      <a href="/components/link">Link 文字链接</a>
+      <a href="/components/text">Text 文本</a>
+      <a href="/components/row">Row / Col 栅格</a>
+      <a href="/components/scrollbar">Scrollbar 滚动条</a>
+      <a href="/components/splitter">Splitter 分隔面板</a>
+      <a href="/components/icon">Icon 图标</a>
+      <a href="/components/tag">Tag 标签</a>
+      <a href="/components/space">Space 间距</a>
+      <a href="/components/tabs">Tabs 标签页</a>
+    </div>
+  </section>
+
+  <section class="xy-overview-section">
+    <div class="xy-overview-section__head">
+      <h3>表单与录入</h3>
+      <p>用于筛选栏、录入弹窗、字段校验和文件补充上传。</p>
+    </div>
+    <div class="xy-overview-links">
+      <a href="/components/config-provider">Config Provider 全局配置</a>
+      <a href="/components/input">Input 输入框</a>
+      <a href="/components/date-picker">DatePicker 日期选择器</a>
+      <a href="/components/select">Select 选择器</a>
+      <a href="/components/form">Form 表单</a>
+      <a href="/components/upload">Upload 上传</a>
+      <a href="/components/pagination">Pagination 分页</a>
+    </div>
+  </section>
+
+  <section class="xy-overview-section">
+    <div class="xy-overview-section__head">
+      <h3>反馈与浮层</h3>
+      <p>用于解释按钮、收纳轻操作、承接空结果和切换编辑上下文。</p>
+    </div>
+    <div class="xy-overview-links">
+      <a href="/components/empty">Empty 空状态</a>
+      <a href="/components/tooltip">Tooltip 文字提示</a>
+      <a href="/components/popover">Popover 气泡卡片</a>
+      <a href="/components/dropdown">Dropdown 下拉菜单</a>
+      <a href="/components/modal">Modal 弹窗</a>
+      <a href="/components/drawer">Drawer 抽屉</a>
+    </div>
+  </section>
+
+  <section class="xy-overview-section">
+    <div class="xy-overview-section__head">
+      <h3>数据展示</h3>
+      <p>用于列表页主干和分页联动。</p>
+    </div>
+    <div class="xy-overview-links">
+      <a href="/components/table">Table 表格</a>
+      <a href="/components/pagination">Pagination 分页</a>
+    </div>
+  </section>
+</div>
+
+## 推荐阅读顺序
 
 :::tip 阅读建议
 如果你正在搭筛选栏或录入弹窗，优先阅读 [基础与表单组件](/components/basic-form)。  
 如果你正在搭列表页或空态页，优先阅读 [反馈与数据展示](/components/feedback-data)。  
 如果你已经明确要查某个组件的完整 API，直接进入对应的单组件页会更快。
 :::
+
+## 当前最值得先看的页面
+
+1. [Button 按钮](/components/button)：先建立主次操作和视觉层级。
+2. [Link 文字链接](/components/link)：补齐正文跳转和弱操作语义。
+3. [Text 文本](/components/text)：补齐正文强调、截断和语义标签能力。
+4. [基础与表单组件](/components/basic-form)：把录入链路串起来理解。
+5. [反馈与数据展示](/components/feedback-data)：把列表页主干串起来理解。
+6. [管理后台闭环示例](/examples/admin)：把这些组件放回一个真实页面片段里看。

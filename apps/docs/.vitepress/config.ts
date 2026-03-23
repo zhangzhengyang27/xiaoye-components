@@ -34,7 +34,8 @@ export default defineConfig({
           text: "开始",
           items: [
             { text: "快速开始", link: "/guide/quick-start" },
-            { text: "设计理念", link: "/guide/why-xiaoye" }
+            { text: "设计理念", link: "/guide/why-xiaoye" },
+            { text: "可访问性约定", link: "/guide/accessibility" }
           ]
         }
       ],
@@ -51,17 +52,47 @@ export default defineConfig({
           ]
         },
         {
-          text: "API 与行为约定",
+          text: "基础组件",
           items: [
             { text: "Button 按钮", link: "/components/button" },
+            { text: "Link 文字链接", link: "/components/link" },
+            { text: "Text 文本", link: "/components/text" },
             { text: "Row / Col 栅格", link: "/components/row" },
+            { text: "Scrollbar 滚动条", link: "/components/scrollbar" },
+            { text: "Splitter 分隔面板", link: "/components/splitter" },
+            { text: "Icon 图标", link: "/components/icon" },
+            { text: "Tag 标签", link: "/components/tag" },
+            { text: "Space 间距", link: "/components/space" },
+            { text: "Tabs 标签页", link: "/components/tabs" }
+          ]
+        },
+        {
+          text: "表单与录入",
+          items: [
+            { text: "Config Provider 全局配置", link: "/components/config-provider" },
+            { text: "Input 输入框", link: "/components/input" },
             { text: "DatePicker 日期选择器", link: "/components/date-picker" },
             { text: "Select 选择器", link: "/components/select" },
-            { text: "Upload 上传", link: "/components/upload" },
-            { text: "Table 表格", link: "/components/table" },
+            { text: "Form 表单", link: "/components/form" },
+            { text: "Upload 上传", link: "/components/upload" }
+          ]
+        },
+        {
+          text: "反馈与浮层",
+          items: [
+            { text: "Empty 空状态", link: "/components/empty" },
+            { text: "Tooltip 文字提示", link: "/components/tooltip" },
+            { text: "Popover 气泡卡片", link: "/components/popover" },
+            { text: "Dropdown 下拉菜单", link: "/components/dropdown" },
             { text: "Modal 弹窗", link: "/components/modal" },
-            { text: "Tabs 标签页", link: "/components/tabs" },
-            { text: "Tooltip 文字提示", link: "/components/tooltip" }
+            { text: "Drawer 抽屉", link: "/components/drawer" }
+          ]
+        },
+        {
+          text: "数据展示",
+          items: [
+            { text: "Table 表格", link: "/components/table" },
+            { text: "Pagination 分页", link: "/components/pagination" }
           ]
         }
       ],

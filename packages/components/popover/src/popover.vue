@@ -33,6 +33,7 @@ const triggerRef = ref<HTMLElement | null>(null);
 const panelRef = ref<HTMLElement | null>(null);
 const open = ref(props.modelValue);
 let lastFocusedElement: HTMLElement | null = null;
+const isClient = typeof document !== "undefined";
 
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
@@ -62,7 +63,8 @@ async function openPopover() {
     return;
   }
 
-  lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  lastFocusedElement =
+    isClient && document.activeElement instanceof HTMLElement ? document.activeElement : null;
   open.value = true;
   emit("update:modelValue", true);
   emit("open");

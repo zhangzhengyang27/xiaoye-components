@@ -1,6 +1,8 @@
 export * from "./config-provider";
 export * from "./icon";
 export * from "./button";
+export * from "./link";
+export * from "./text";
 export * from "./input";
 export * from "./date-picker";
 export * from "./select";
@@ -14,6 +16,8 @@ export * from "./popover";
 export * from "./dropdown";
 export * from "./tabs";
 export * from "./tag";
+export * from "./scrollbar";
+export * from "./splitter";
 export * from "./row";
 export * from "./col";
 export * from "./pagination";

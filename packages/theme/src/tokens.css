@@ -2,6 +2,8 @@
 [data-theme="light"] {
   --xy-color-primary: #2563eb;
   --xy-color-primary-hover: #1d4ed8;
+  --xy-color-info: #64748b;
+  --xy-color-info-hover: #475569;
   --xy-color-success: #059669;
   --xy-color-warning: #d97706;
   --xy-color-danger: #dc2626;

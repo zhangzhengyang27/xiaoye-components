@@ -1,32 +1,47 @@
 ---
 title: Tooltip 文字提示
 description: 用于承载简短说明，不承载复杂交互内容。
+outline: deep
 ---
 
 # Tooltip 文字提示
 
-## Props
+`xy-tooltip` 用来承载一两句补充说明。当前实现同时覆盖 hover 和 focus 路径，适合按钮解释、表头提示和轻量说明文案。
 
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| `content` | `string` | `""` | 纯文本提示内容 |
-| `placement` | `"top" \| "bottom" \| "left" \| "right"` | `"top"` | 浮层位置 |
-| `disabled` | `boolean` | `false` | 是否禁用 |
-| `openDelay` | `number` | `80` | 打开延迟 |
-| `closeDelay` | `number` | `60` | 关闭延迟 |
-| `enterable` | `boolean` | `true` | 鼠标能否进入提示层继续停留 |
+## 基础用法
 
-## Slots
+:::demo Tooltip 不只服务鼠标悬停，也支持焦点进入触发区域时打开。
+tooltip/basic
+:::
 
-| 插槽 | 说明 |
-| --- | --- |
-| `default` | 触发区域 |
+## 不同方向
+
+:::demo `placement` 用于控制浮层方向，适合根据页面空间决定提示出现的位置。
+tooltip/placement
+:::
+
+## 自定义内容
+
+:::demo 如果内容不只是单行文本，可以用 `content` 插槽渲染一小段说明，但仍然不建议承载复杂交互。
+tooltip/custom
+:::
+
+## API
+
+### Tooltip Attributes
+
+| 属性          | 说明                   | 类型                                                   | 默认值  |
+| ------------- | ---------------------- | ------------------------------------------------------ | ------- |
+| `content`     | 纯文本提示内容         | `string`                                               | `''`    |
+| `placement`   | 浮层方向               | `'top' \| 'bottom' \| 'left' \| 'right'`               | `'top'` |
+| `disabled`    | 是否禁用               | `boolean`                                              | `false` |
+| `open-delay`  | 打开延迟，单位毫秒     | `number`                                               | `80`    |
+| `close-delay` | 关闭延迟，单位毫秒     | `number`                                               | `60`    |
+| `enterable`   | 浮层是否允许鼠标进入   | `boolean`                                              | `true`  |
+
+### Tooltip Slots
+
+| 插槽      | 说明           |
+| --------- | -------------- |
+| `default` | 触发区域       |
 | `content` | 自定义提示内容 |
-
-## 可访问性约定
-
-- 支持 `focus` 打开，而不是只支持 hover。
-- `Escape` 可关闭当前提示层。
-- 触发器通过 `aria-describedby` 关联提示层。
-- 如果内容里需要操作按钮，应改用 [Popover 气泡卡片](/components/popover)。
-

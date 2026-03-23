@@ -1,21 +1,42 @@
 .xy-tag {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 10px;
-  border-radius: var(--xy-radius-pill);
+  gap: 0;
+  padding: 0 9px;
+  border-radius: 4px;
   min-height: 28px;
   font-size: var(--xy-font-size-sm);
   background: var(--xy-bg-color-muted);
   color: var(--xy-text-color-secondary);
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .xy-tag--sm {
   min-height: 24px;
+  padding-inline: 7px;
+  border-radius: 4px;
 }
 
 .xy-tag--lg {
   min-height: 32px;
+  padding-inline: 11px;
+  border-radius: 6px;
+}
+
+.xy-tag.is-round,
+.xy-tag--sm.is-round,
+.xy-tag--lg.is-round {
+  border-radius: var(--xy-radius-pill);
+  padding-inline: 14px;
+}
+
+.xy-tag--sm.is-round {
+  padding-inline: 12px;
+}
+
+.xy-tag--lg.is-round {
+  padding-inline: 16px;
 }
 
 .xy-tag--primary {
@@ -38,11 +59,69 @@
   background: color-mix(in srgb, var(--xy-color-danger) 12%, white);
 }
 
+.xy-tag__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.xy-tag--sm .xy-tag__content {
+  gap: 4px;
+}
+
+.xy-tag--lg .xy-tag__content {
+  gap: 8px;
+}
+
+.xy-tag__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .xy-tag__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   background: transparent;
   cursor: pointer;
   color: inherit;
   padding: 0;
+  margin-left: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    opacity 0.18s ease;
 }
 
+.xy-tag--sm .xy-tag__close {
+  margin-left: 4px;
+}
+
+.xy-tag--lg .xy-tag__close {
+  margin-left: 8px;
+}
+
+.xy-tag__close:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.xy-tag__close:focus-visible {
+  outline: 2px solid color-mix(in srgb, currentColor 32%, white);
+  outline-offset: 2px;
+}
+
+.xy-tag.is-closable {
+  padding-right: 8px;
+}
+
+.xy-tag--sm.is-closable {
+  padding-right: 6px;
+}
+
+.xy-tag--lg.is-closable {
+  padding-right: 10px;
+}
