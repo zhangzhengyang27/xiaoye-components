@@ -10,13 +10,12 @@ const options = [
 </script>
 
 <template>
-  <div class="xy-doc-stack">
+  <div class="xy-doc-field">
     <xy-select
       v-model="value"
       :options="options"
       placeholder="请选择状态"
       prefix-icon="mdi:magnify"
     />
-    <xy-tag status="primary">当前值：{{ value ?? "未选择" }}</xy-tag>
   </div>
 </template>

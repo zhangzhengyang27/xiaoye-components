@@ -11,11 +11,27 @@ const options = [
 </script>
 
 <template>
-  <div class="xy-doc-stack">
-    <xy-space wrap>
-      <xy-select v-model="value" :options="options" disabled placeholder="禁用选择器" />
-      <xy-select :options="options" placeholder="包含禁用项" />
-    </xy-space>
-    <xy-tag status="primary">当前值：{{ value ?? "未选择" }}</xy-tag>
+  <div class="demo-select-grid xy-doc-field xy-doc-field--wide">
+    <xy-select
+      v-model="value"
+      :options="options"
+      disabled
+      placeholder="禁用选择器"
+    />
+    <xy-select :options="options" placeholder="包含禁用项" />
   </div>
 </template>
+
+<style scoped>
+.demo-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 680px) {
+  .demo-select-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

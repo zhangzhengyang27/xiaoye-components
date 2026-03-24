@@ -19,7 +19,9 @@ const options = [
 
 <template>
   <div class="demo-radio-options">
-    <xy-radio-group v-model="value" :options="options" direction="vertical" />
+    <div class="xy-doc-field">
+      <xy-radio-group v-model="value" :options="options" direction="vertical" />
+    </div>
     <xy-text size="sm" type="info">禁用项不会触发切换，适合表达暂未开放的接入方式。</xy-text>
   </div>
 </template>
@@ -29,6 +31,5 @@ const options = [
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 420px;
 }
 </style>

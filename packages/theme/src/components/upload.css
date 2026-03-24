@@ -4,6 +4,22 @@
   gap: 12px;
 }
 
+.xy-upload--sm {
+  gap: 10px;
+}
+
+.xy-upload--lg {
+  gap: 14px;
+}
+
+.xy-upload__content {
+  position: relative;
+}
+
+.xy-upload__content.is-disabled {
+  cursor: not-allowed;
+}
+
 .xy-upload__input {
   display: none;
 }
@@ -21,24 +37,73 @@
   background: color-mix(in srgb, var(--xy-bg-color-muted) 70%, white);
   text-align: center;
   cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
 }
 
-.xy-upload__trigger:focus-visible {
+.xy-upload__trigger:focus-visible,
+.xy-upload__content:focus-visible .xy-upload__trigger {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
   outline-offset: 2px;
 }
 
-.xy-upload.is-drag-over .xy-upload__trigger {
+.xy-upload__content:hover .xy-upload__trigger {
+  border-color: color-mix(in srgb, var(--xy-color-primary) 38%, var(--xy-border-color-strong));
+}
+
+.xy-upload__content.is-drag .xy-upload__trigger {
+  min-height: 152px;
+}
+
+.xy-upload__content.is-drag-over .xy-upload__trigger {
   border-color: var(--xy-color-primary);
   background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
 }
 
-.xy-upload.is-disabled .xy-upload__trigger {
+.xy-upload__content--picture-card .xy-upload__trigger {
+  min-height: 0;
+  width: 112px;
+  height: 112px;
+  padding: 0;
+  border-style: dashed;
+  gap: 2px;
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 86%, white);
+}
+
+.xy-upload__content--picture-card:hover .xy-upload__trigger {
+  border-color: var(--xy-color-primary);
+}
+
+.xy-upload__picture-card-trigger {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-upload__picture-card-plus {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.xy-upload.is-disabled .xy-upload__trigger,
+.xy-upload__content.is-disabled .xy-upload__trigger {
   cursor: not-allowed;
   opacity: 0.56;
 }
 
-.xy-upload__list {
+.xy-upload__tip {
+  color: var(--xy-text-color-secondary);
+  font-size: var(--xy-font-size-sm);
+}
+
+.xy-upload-list {
+  display: block;
+}
+
+.xy-upload-list__items {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -47,10 +112,9 @@
   padding: 0;
 }
 
-.xy-upload__item {
+.xy-upload-list__item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
   padding: 10px 12px;
   border: 1px solid var(--xy-border-color);
@@ -58,25 +122,259 @@
   background: var(--xy-bg-color);
 }
 
-.xy-upload__meta {
+.xy-upload-list__item.is-uploading {
+  border-color: color-mix(in srgb, var(--xy-color-primary) 28%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary) 5%, white);
+}
+
+.xy-upload-list__item.is-fail {
+  border-color: color-mix(in srgb, var(--xy-color-danger) 36%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-danger) 4%, white);
+}
+
+.xy-upload-list__item.is-picture {
+  align-items: center;
+}
+
+.xy-upload-list__thumb,
+.xy-upload-list__preview {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-md);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
+}
+
+.xy-upload-list__thumb {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+}
+
+.xy-upload-list__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.xy-upload-list__placeholder {
+  font-size: 24px;
+  color: var(--xy-text-color-muted);
+}
+
+.xy-upload-list__meta {
   display: flex;
+  flex: 1;
+  min-width: 0;
   flex-direction: column;
   gap: 4px;
 }
 
-.xy-upload__meta span {
+.xy-upload-list__name {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--xy-text-color);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.xy-upload-list__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   color: var(--xy-text-color-secondary);
   font-size: var(--xy-font-size-sm);
 }
 
-.xy-upload__item button {
+.xy-upload-list__progress {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--xy-radius-pill);
+  background: color-mix(in srgb, var(--xy-border-color) 70%, white);
+}
+
+.xy-upload-list__progress-bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    var(--xy-color-primary),
+    color-mix(in srgb, var(--xy-color-primary) 72%, white)
+  );
+}
+
+.xy-upload-list__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.xy-upload-list__action {
   border: 0;
   background: transparent;
-  color: var(--xy-color-danger);
+  color: var(--xy-color-primary);
   cursor: pointer;
+}
+
+.xy-upload-list__action.is-danger {
+  color: var(--xy-color-danger);
+}
+
+.xy-upload-list--picture-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.xy-upload-list__card {
+  position: relative;
+  overflow: hidden;
+  width: 112px;
+  height: 112px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-lg);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
+  box-shadow: var(--xy-shadow-sm);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.xy-upload-list__card:hover,
+.xy-upload-list__card:focus-within {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 30%, var(--xy-border-color));
+  box-shadow: var(--xy-shadow-md);
+}
+
+.xy-upload-list__card .xy-upload-list__preview {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.xy-upload-list__card-mask {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.58);
+  color: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.xy-upload-list__card:hover .xy-upload-list__card-mask,
+.xy-upload-list__card:focus-within .xy-upload-list__card-mask {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.xy-upload-list__card-status {
+  font-size: 12px;
+}
+
+.xy-upload-list__card-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.xy-upload-list__card-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-upload-list__card-action:hover,
+.xy-upload-list__card-action:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.04);
+  outline: none;
+}
+
+.xy-upload-list__card-action .xy-icon {
+  color: inherit;
+}
+
+.xy-upload__preview {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.68);
+}
+
+.xy-upload__preview-shell {
+  position: relative;
+  max-width: min(80vw, 960px);
+  max-height: min(80vh, 720px);
+  padding: 20px;
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-bg-color);
+  box-shadow: var(--xy-shadow-lg);
+  outline: none;
+}
+
+.xy-upload__preview-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+  color: var(--xy-text-color);
+  cursor: pointer;
+}
+
+.xy-upload__preview-image {
+  display: block;
+  max-width: min(72vw, 900px);
+  max-height: min(70vh, 680px);
+  object-fit: contain;
+  border-radius: var(--xy-radius-md);
+}
+
+.xy-upload__preview-title {
+  margin: 12px 0 0;
+  color: var(--xy-text-color-secondary);
+  text-align: center;
+  font-size: var(--xy-font-size-sm);
 }
 
 .xy-upload.is-error .xy-upload__trigger {
   border-color: var(--xy-color-danger);
 }
-

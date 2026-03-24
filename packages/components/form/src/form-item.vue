@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AsyncValidator from "async-validator";
-import { computed, inject, onBeforeUnmount, onMounted, provide, ref } from "vue";
+import { computed, inject, onBeforeUnmount, onMounted, provide, ref, toRaw } from "vue";
 import { useNamespace } from "@xiaoye/composables";
 import type {
   FormFieldContext,
@@ -38,11 +38,13 @@ function cloneValue<T>(value: T): T {
     return value;
   }
 
+  const rawValue = toRaw(value);
+
   if (typeof globalThis.structuredClone === "function") {
-    return globalThis.structuredClone(value);
+    return globalThis.structuredClone(rawValue);
   }
 
-  return JSON.parse(JSON.stringify(value)) as T;
+  return JSON.parse(JSON.stringify(rawValue)) as T;
 }
 
 const initialValue = ref(

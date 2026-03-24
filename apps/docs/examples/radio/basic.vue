@@ -6,11 +6,13 @@ const channel = ref<string | number | boolean>("email");
 
 <template>
   <div class="demo-radio-block">
-    <xy-radio-group v-model="channel">
-      <xy-radio value="email">邮件通知</xy-radio>
-      <xy-radio value="sms">短信通知</xy-radio>
-      <xy-radio value="webhook">Webhook</xy-radio>
-    </xy-radio-group>
+    <div class="xy-doc-field">
+      <xy-radio-group v-model="channel">
+        <xy-radio value="email">邮件通知</xy-radio>
+        <xy-radio value="sms">短信通知</xy-radio>
+        <xy-radio value="webhook">Webhook</xy-radio>
+      </xy-radio-group>
+    </div>
 
     <div class="demo-radio-panel">
       当前选择：<strong>{{ channel }}</strong>

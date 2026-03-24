@@ -2,7 +2,12 @@
 import { nextTick, ref, watch } from "vue";
 import type { Placement } from "@floating-ui/dom";
 import { focusFirstDescendant } from "@xiaoye/utils";
-import { useDismissibleLayer, useFloatingPanel, useOverlayStack, useNamespace } from "@xiaoye/composables";
+import {
+  useDismissibleLayer,
+  useFloatingPanel,
+  useOverlayStack,
+  useNamespace
+} from "@xiaoye/composables";
 
 export interface PopoverProps {
   modelValue?: boolean;
@@ -40,7 +45,7 @@ const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFl
   triggerRef,
   panelRef,
   {
-    placement: props.placement,
+    placement: () => props.placement,
     zIndex
   }
 );

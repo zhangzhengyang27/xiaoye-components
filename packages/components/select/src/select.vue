@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="T extends string | number">
 import { computed, inject, nextTick, ref, useSlots, watch } from "vue";
+import type { StyleValue } from "vue";
 import type { SelectOption } from "@xiaoye/utils";
 import {
   useConfig,
@@ -34,7 +35,17 @@ const props = withDefaults(defineProps<SelectProps<T>>(), {
   searchPlaceholder: "搜索选项",
   prefixIcon: "",
   suffixIcon: DEFAULT_SUFFIX_ICON,
-  clearIcon: DEFAULT_CLEAR_ICON
+  clearIcon: DEFAULT_CLEAR_ICON,
+  teleported: true,
+  appendTo: "body",
+  placement: "bottom-start",
+  offset: 12,
+  popperClass: "",
+  popperStyle: "",
+  fitTriggerWidth: true,
+  fitInputWidth: undefined,
+  dropdownMinWidth: undefined,
+  dropdownMaxWidth: undefined
 });
 
 const emit = defineEmits<{
@@ -53,12 +64,14 @@ const { size: globalSize } = useConfig();
 const mergedSize = computed(() => props.size ?? globalSize.value);
 const triggerRef = ref<HTMLElement | null>(null);
 const dropdownRef = ref<HTMLElement | null>(null);
+const dropdownArrowRef = ref<HTMLElement | null>(null);
 const searchInputRef = ref<HTMLInputElement | null>(null);
 const open = ref(false);
 const searchValue = ref("");
 const listboxId = `xy-select-listbox-${Math.random().toString(36).slice(2, 10)}`;
 const selectedValue = ref<T | null>(props.modelValue);
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
+const resolvedFitInputWidth = computed(() => props.fitInputWidth ?? props.fitTriggerWidth);
 
 function isOptionGroup(option: SelectOptionItem<T>): option is SelectOptionGroup<T> {
   return Array.isArray((option as SelectOptionGroup<T>).options);
@@ -151,18 +164,38 @@ const navigation = useListNavigation(() => filteredOptions.value, {
   loop: true
 });
 
-const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
+const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
   triggerRef,
   dropdownRef,
   {
-    placement: "bottom-start",
-    offset: 8,
-    matchTriggerWidth: true,
+    arrowRef: dropdownArrowRef,
+    placement: computed(() => props.placement),
+    offset: computed(() => props.offset),
+    matchTriggerWidth: resolvedFitInputWidth,
     zIndex
   }
 );
 
 const activeOption = computed(() => navigation.activeItem.value);
+
+function addUnit(value: string | number | undefined) {
+  if (value === undefined || value === null || value === "") {
+    return undefined;
+  }
+
+  return typeof value === "number" ? `${value}px` : value;
+}
+
+const dropdownStyle = computed<StyleValue>(() => [
+  floatingStyle.value,
+  props.dropdownMinWidth || props.dropdownMaxWidth
+    ? {
+        minWidth: addUnit(props.dropdownMinWidth),
+        maxWidth: addUnit(props.dropdownMaxWidth)
+      }
+    : undefined,
+  props.popperStyle
+]);
 
 function syncActiveIndex() {
   const selectedIndex = filteredOptions.value.findIndex(
@@ -429,16 +462,18 @@ defineExpose({
       </span>
     </div>
 
-    <teleport to="body">
+    <teleport :to="props.appendTo" :disabled="!props.teleported">
       <transition name="xy-fade">
         <div
           v-if="open"
           :id="listboxId"
           ref="dropdownRef"
-          class="xy-select__dropdown"
-          :style="floatingStyle"
+          :class="['xy-select__dropdown', props.popperClass]"
+          :style="dropdownStyle"
+          :data-placement="actualPlacement"
           role="listbox"
         >
+          <span ref="dropdownArrowRef" class="xy-popper__arrow" :style="arrowStyle" />
           <div v-if="$slots.header" class="xy-select__header" @click.stop>
             <slot name="header" />
           </div>
@@ -453,57 +488,59 @@ defineExpose({
             />
           </div>
 
-          <div v-if="props.loading" class="xy-select__loading">
-            <slot name="loading">
-              <XyIcon :icon="DEFAULT_LOADING_ICON" :size="16" spin />
-              <span>{{ props.loadingText }}</span>
-            </slot>
-          </div>
-
-          <template v-else-if="filteredOptions.length">
-            <div
-              v-for="group in groupedOptions"
-              :key="group.label ?? `group-${group.options[0]?.flatIndex ?? 0}`"
-              class="xy-select__group"
-            >
-              <div v-if="group.isGroup" class="xy-select__group-label">
-                {{ group.label }}
-              </div>
-
-              <button
-                v-for="option in group.options"
-                :id="`${listboxId}-${option.flatIndex}`"
-                :key="`${option.value}`"
-                type="button"
-                class="xy-select__option"
-                :class="[
-                  option.disabled ? 'is-disabled' : '',
-                  option.value === selectedValue ? 'is-selected' : '',
-                  navigation.activeIndex.value === option.flatIndex ? 'is-active' : ''
-                ]"
-                role="option"
-                :aria-selected="option.value === selectedValue"
-                :disabled="option.disabled"
-                @mouseenter="navigation.setActiveIndex(option.flatIndex)"
-                @click="selectOption(option)"
-              >
-                <slot
-                  name="option"
-                  :option="option"
-                  :selected="option.value === selectedValue"
-                  :active="navigation.activeIndex.value === option.flatIndex"
-                >
-                  <span>{{ option.label }}</span>
-                  <small v-if="option.description">{{ option.description }}</small>
-                </slot>
-              </button>
+          <div class="xy-select__content">
+            <div v-if="props.loading" class="xy-select__loading">
+              <slot name="loading">
+                <XyIcon :icon="DEFAULT_LOADING_ICON" :size="16" spin />
+                <span>{{ props.loadingText }}</span>
+              </slot>
             </div>
-          </template>
 
-          <div v-else class="xy-select__empty">
-            <slot name="empty">
-              <span>{{ emptyText }}</span>
-            </slot>
+            <template v-else-if="filteredOptions.length">
+              <div
+                v-for="group in groupedOptions"
+                :key="group.label ?? `group-${group.options[0]?.flatIndex ?? 0}`"
+                class="xy-select__group"
+              >
+                <div v-if="group.isGroup" class="xy-select__group-label">
+                  {{ group.label }}
+                </div>
+
+                <button
+                  v-for="option in group.options"
+                  :id="`${listboxId}-${option.flatIndex}`"
+                  :key="`${option.value}`"
+                  type="button"
+                  class="xy-select__option"
+                  :class="[
+                    option.disabled ? 'is-disabled' : '',
+                    option.value === selectedValue ? 'is-selected' : '',
+                    navigation.activeIndex.value === option.flatIndex ? 'is-active' : ''
+                  ]"
+                  role="option"
+                  :aria-selected="option.value === selectedValue"
+                  :disabled="option.disabled"
+                  @mouseenter="navigation.setActiveIndex(option.flatIndex)"
+                  @click="selectOption(option)"
+                >
+                  <slot
+                    name="option"
+                    :option="option"
+                    :selected="option.value === selectedValue"
+                    :active="navigation.activeIndex.value === option.flatIndex"
+                  >
+                    <span>{{ option.label }}</span>
+                    <small v-if="option.description">{{ option.description }}</small>
+                  </slot>
+                </button>
+              </div>
+            </template>
+
+            <div v-else class="xy-select__empty">
+              <slot name="empty">
+                <span>{{ emptyText }}</span>
+              </slot>
+            </div>
           </div>
 
           <div v-if="$slots.footer" class="xy-select__footer" @click.stop>

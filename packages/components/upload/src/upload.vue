@@ -1,223 +1,531 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch } from "vue";
+defineOptions({
+  inheritAttrs: false
+});
+
+import { computed, inject, nextTick, onBeforeUnmount, shallowRef, useAttrs, watch } from "vue";
 import { useConfig, useNamespace } from "@xiaoye/composables";
-import type { ComponentSize } from "@xiaoye/utils";
 import { formItemKey } from "../../form/src/context";
-
-export interface UploadFileItem {
-  uid: string;
-  name: string;
-  size: number;
-  type?: string;
-  status?: "ready";
-  raw?: File;
-}
-
-export interface UploadProps {
-  modelValue?: UploadFileItem[];
-  accept?: string;
-  multiple?: boolean;
-  maxCount?: number;
-  disabled?: boolean;
-  drag?: boolean;
-  tip?: string;
-  size?: ComponentSize;
-}
+import UploadContent from "./upload-content.vue";
+import UploadList from "./upload-list.vue";
+import { genFileId } from "./upload";
+import type {
+  UploadFileItem,
+  UploadProgressEvent,
+  UploadProps,
+  UploadRawFile
+} from "./upload";
 
 const props = withDefaults(defineProps<UploadProps>(), {
-  modelValue: () => [],
+  fileList: () => [],
+  action: "#",
+  headers: () => ({}),
+  method: "post",
+  data: () => ({}),
+  name: "file",
   accept: "",
   multiple: false,
-  maxCount: undefined,
+  limit: undefined,
   disabled: false,
   drag: false,
   tip: "",
-  size: undefined
+  size: undefined,
+  autoUpload: true,
+  showFileList: true,
+  withCredentials: false,
+  listType: "text",
+  beforeUpload: undefined,
+  beforeRemove: undefined,
+  onRemove: undefined,
+  onChange: undefined,
+  onPreview: undefined,
+  onSuccess: undefined,
+  onProgress: undefined,
+  onError: undefined,
+  onExceed: undefined,
+  httpRequest: undefined
 });
 
 const emit = defineEmits<{
-  "update:modelValue": [value: UploadFileItem[]];
-  change: [value: UploadFileItem[]];
-  remove: [file: UploadFileItem];
-  exceed: [files: File[]];
+  "update:fileList": [value: UploadFileItem[]];
 }>();
 
+type UploadContentExpose = {
+  abort: (file?: UploadFileItem) => void;
+  upload: (rawFile: UploadRawFile) => Promise<void>;
+};
+
+const attrs = useAttrs();
 const formItem = inject(formItemKey, null);
 const ns = useNamespace("upload");
 const { size: globalSize } = useConfig();
+
+const uploadRef = shallowRef<UploadContentExpose | null>(null);
+const generatedObjectUrls = new Map<string, { url: string; raw?: UploadRawFile }>();
+const files = shallowRef<UploadFileItem[]>([]);
+const previewImageUrl = shallowRef("");
+const previewImageName = shallowRef("");
+const previewShellRef = shallowRef<HTMLElement | null>(null);
+
 const mergedSize = computed(() => props.size ?? globalSize.value);
-const inputRef = ref<HTMLInputElement | null>(null);
-const isDragOver = ref(false);
-const files = ref<UploadFileItem[]>([...props.modelValue]);
+const isPictureCard = computed(() => props.listType === "picture-card");
+const limit = computed(() => props.limit);
 
-function createFileItem(file: File): UploadFileItem {
-  return {
-    uid: `${file.name}-${file.size}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    name: file.name,
-    size: file.size,
-    type: file.type,
-    status: "ready",
-    raw: file
-  };
+const uploadKls = computed(() => [
+  ns.base.value,
+  `${ns.base.value}--${mergedSize.value}`,
+  props.drag ? "is-drag" : "",
+  props.disabled ? "is-disabled" : "",
+  formItem?.validateState.value === "error" ? "is-error" : "",
+  attrs.class
+]);
+
+function getSourceFileList() {
+  return props.fileList;
 }
 
-function formatSize(size: number) {
-  if (size < 1024) {
-    return `${size} B`;
+function isImageFile(file: UploadFileItem) {
+  const type = file.raw?.type || file.type || "";
+
+  if (type.startsWith("image/")) {
+    return true;
   }
 
-  if (size < 1024 * 1024) {
-    return `${(size / 1024).toFixed(1)} KB`;
+  const source = `${file.url ?? ""} ${file.name}`.toLowerCase();
+  return /\.(png|jpe?g|gif|webp|bmp|svg)(\?|#|$)/.test(source) || source.includes("data:image/");
+}
+
+function ensurePreviewUrl(file: UploadFileItem) {
+  const existed = generatedObjectUrls.get(file.uid);
+
+  if (file.url) {
+    if (existed) {
+      revokePreviewUrl(file);
+    }
+
+    return file.url;
   }
 
-  return `${(size / 1024 / 1024).toFixed(1)} MB`;
+  if (!file.raw || !isImageFile(file)) {
+    if (existed) {
+      revokePreviewUrl(file);
+    }
+
+    return file.url;
+  }
+
+  if (existed?.raw === file.raw) {
+    return existed.url;
+  }
+
+  if (existed) {
+    revokePreviewUrl(file);
+  }
+
+  const previewUrl = URL.createObjectURL(file.raw);
+  generatedObjectUrls.set(file.uid, {
+    url: previewUrl,
+    raw: file.raw
+  });
+  return previewUrl;
 }
 
-async function syncFiles(nextFiles: UploadFileItem[]) {
-  files.value = nextFiles;
-  emit("update:modelValue", nextFiles);
-  emit("change", nextFiles);
-  await formItem?.validate("change");
-}
+function revokePreviewUrl(file: UploadFileItem) {
+  const previewRecord = generatedObjectUrls.get(file.uid);
 
-async function appendFiles(selectedFiles: File[]) {
-  if (props.disabled || !selectedFiles.length) {
+  if (!previewRecord) {
     return;
   }
 
-  let nextFiles = [...files.value];
+  URL.revokeObjectURL(previewRecord.url);
+  generatedObjectUrls.delete(file.uid);
+}
 
-  if (props.maxCount !== undefined) {
-    const available = props.maxCount - nextFiles.length;
+function normalizeFileItem(file: UploadFileItem): UploadFileItem {
+  const normalized: UploadFileItem = {
+    ...file,
+    uid: file.uid || genFileId(),
+    status: file.status ?? (file.raw ? "ready" : "success"),
+    percentage: file.percentage ?? (file.status === "success" ? 100 : 0)
+  };
 
-    if (available <= 0) {
-      emit("exceed", selectedFiles);
+  const previewUrl = ensurePreviewUrl(normalized);
+
+  if (previewUrl) {
+    normalized.url = previewUrl;
+  }
+
+  return normalized;
+}
+
+function normalizeFileList(list: UploadFileItem[]) {
+  return list.map(normalizeFileItem);
+}
+
+function getDisplayFiles() {
+  return files.value.map((file) => ({ ...file }));
+}
+
+function emitChangeEvent(file: UploadFileItem, displayFiles: UploadFileItem[]) {
+  props.onChange?.(file, displayFiles);
+}
+
+async function syncFileList(nextFiles: UploadFileItem[], validate = false) {
+  files.value = nextFiles;
+  const displayFiles = getDisplayFiles();
+  emit("update:fileList", displayFiles);
+
+  if (validate) {
+    await formItem?.validate("change");
+  }
+
+  return displayFiles;
+}
+
+async function updateFile(uid: string, patch: Partial<UploadFileItem>) {
+  const nextFiles = files.value.map((file) => {
+    if (file.uid !== uid) {
+      return file;
+    }
+
+    const nextFile = normalizeFileItem({
+      ...file,
+      ...patch
+    });
+
+    return nextFile;
+  });
+
+  return syncFileList(nextFiles);
+}
+
+async function replaceRawFile(uid: string, rawFile: UploadRawFile) {
+  await updateFile(uid, {
+    raw: rawFile,
+    name: rawFile.name,
+    size: rawFile.size,
+    type: rawFile.type
+  });
+}
+
+function findFile(file: UploadFileItem | UploadRawFile) {
+  const uid = "uid" in file ? file.uid : "";
+  return files.value.find((item) => item.uid === uid) ?? null;
+}
+
+async function handleStart(rawFile: UploadRawFile) {
+  const nextFile = normalizeFileItem({
+    uid: rawFile.uid,
+    name: rawFile.name,
+    size: rawFile.size,
+    type: rawFile.type,
+    status: "ready",
+    percentage: 0,
+    raw: rawFile
+  });
+
+  const nextFiles = files.value.concat(nextFile);
+  const displayFiles = await syncFileList(nextFiles);
+  emitChangeEvent(nextFile, displayFiles);
+}
+
+async function handleProgress(event: UploadProgressEvent, rawFile: UploadRawFile) {
+  const nextFiles = await updateFile(rawFile.uid, {
+    status: "uploading",
+    percentage: event.percent
+  });
+  const file = findFile(rawFile);
+
+  if (file && nextFiles) {
+    props.onProgress?.(event, file, nextFiles);
+  }
+}
+
+async function handleSuccess(response: unknown, rawFile: UploadRawFile) {
+  const nextFiles = await updateFile(rawFile.uid, {
+    status: "success",
+    percentage: 100,
+    response
+  });
+  const file = findFile(rawFile);
+
+  if (file && nextFiles) {
+    props.onSuccess?.(response, file, nextFiles);
+    emitChangeEvent(file, nextFiles);
+  }
+}
+
+async function handleError(error: Error, rawFile: UploadRawFile) {
+  const nextFiles = await updateFile(rawFile.uid, {
+    status: "fail"
+  });
+  const file = findFile(rawFile);
+
+  if (file && nextFiles) {
+    props.onError?.(error, file, nextFiles);
+    emitChangeEvent(file, nextFiles);
+  }
+}
+
+async function handleRemove(
+  file: UploadFileItem | UploadRawFile,
+  options?: { skipBeforeRemove?: boolean; emitRemove?: boolean }
+) {
+  const targetFile = findFile(file);
+
+  if (!targetFile) {
+    return;
+  }
+
+  if (!options?.skipBeforeRemove && props.beforeRemove) {
+    const allowed = await props.beforeRemove(targetFile, getDisplayFiles());
+
+    if (!allowed) {
       return;
     }
-
-    if (selectedFiles.length > available) {
-      emit("exceed", selectedFiles.slice(available));
-      selectedFiles = selectedFiles.slice(0, available);
-    }
   }
 
-  nextFiles = nextFiles.concat(selectedFiles.map(createFileItem));
-  await syncFiles(nextFiles);
-}
+  revokePreviewUrl(targetFile);
 
-async function handleInputChange(event: Event) {
-  const target = event.target as HTMLInputElement;
-  const selectedFiles = target.files ? [...target.files] : [];
+  const nextFiles = files.value.filter((item) => item.uid !== targetFile.uid);
+  const displayFiles = await syncFileList(nextFiles, true);
 
-  await appendFiles(selectedFiles);
-
-  if (target) {
-    target.value = "";
+  if (options?.emitRemove ?? true) {
+    props.onRemove?.(targetFile, displayFiles);
   }
 }
 
-function openDialog() {
-  if (props.disabled) {
+function handlePreview(file: UploadFileItem) {
+  props.onPreview?.(file);
+
+  if (isImageFile(file) && file.url) {
+    previewImageUrl.value = file.url;
+    previewImageName.value = file.name;
+  }
+}
+
+function closePreview() {
+  previewImageUrl.value = "";
+  previewImageName.value = "";
+}
+
+function handlePreviewKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closePreview();
+  }
+}
+
+async function handleRetry(file: UploadFileItem) {
+  if (!file.raw) {
     return;
   }
 
-  inputRef.value?.click();
+  await uploadRef.value?.upload(file.raw);
 }
 
-async function removeFile(file: UploadFileItem) {
-  const nextFiles = files.value.filter((item) => item.uid !== file.uid);
-
-  files.value = nextFiles;
-  emit("remove", file);
-  emit("update:modelValue", nextFiles);
-  emit("change", nextFiles);
-  await formItem?.validate("change");
+function handleExceed(exceedFiles: File[], currentFiles: UploadFileItem[]) {
+  props.onExceed?.(exceedFiles, currentFiles);
 }
 
-function handleDragOver(event: DragEvent) {
-  if (!props.drag || props.disabled) {
-    return;
+async function submit() {
+  const readyFiles = files.value.filter((file) => file.status === "ready" && file.raw);
+
+  for (const file of readyFiles) {
+    await uploadRef.value?.upload(file.raw as UploadRawFile);
   }
-
-  event.preventDefault();
-  isDragOver.value = true;
 }
 
-function handleDragLeave() {
-  isDragOver.value = false;
+function abort(file?: UploadFileItem) {
+  uploadRef.value?.abort(file);
 }
 
-async function handleDrop(event: DragEvent) {
-  if (!props.drag || props.disabled) {
-    return;
-  }
-
-  event.preventDefault();
-  isDragOver.value = false;
-  const dropped = event.dataTransfer?.files ? [...event.dataTransfer.files] : [];
-  await appendFiles(dropped);
+async function clearFiles() {
+  abort();
+  files.value.forEach(revokePreviewUrl);
+  await syncFileList([], true);
 }
 
 watch(
-  () => props.modelValue,
+  () => getSourceFileList(),
   (value) => {
-    files.value = [...value];
+    const nextFiles = normalizeFileList(value);
+    const nextIds = new Set(nextFiles.map((file) => file.uid));
+
+    files.value.forEach((file) => {
+      if (!nextIds.has(file.uid)) {
+        revokePreviewUrl(file);
+      }
+    });
+
+    files.value = nextFiles;
   },
   {
-    deep: true
+    deep: true,
+    immediate: true
   }
 );
+
+watch(previewImageUrl, async (value) => {
+  if (!value) {
+    return;
+  }
+
+  await nextTick();
+  previewShellRef.value?.focus();
+});
+
+onBeforeUnmount(() => {
+  abort();
+  files.value.forEach(revokePreviewUrl);
+});
+
+defineExpose({
+  submit,
+  abort,
+  clearFiles,
+  handleStart,
+  handleRemove
+});
 </script>
 
 <template>
-  <div
-    :class="[
-      ns.base.value,
-      `${ns.base.value}--${mergedSize}`,
-      props.drag ? 'is-drag' : '',
-      isDragOver ? 'is-drag-over' : '',
-      props.disabled ? 'is-disabled' : '',
-      formItem?.validateState.value === 'error' ? 'is-error' : ''
-    ]"
-  >
-    <input
-      :id="formItem?.inputId"
-      ref="inputRef"
-      class="xy-upload__input"
-      type="file"
-      :accept="props.accept"
-      :multiple="props.multiple"
+  <div :class="uploadKls" :style="attrs.style">
+    <upload-list
+      v-if="isPictureCard && props.showFileList"
+      :files="files"
+      :list-type="props.listType"
       :disabled="props.disabled"
-      :aria-describedby="formItem?.message.value ? formItem.messageId : undefined"
-      :aria-invalid="formItem?.validateState.value === 'error'"
-      @change="handleInputChange"
-    />
-
-    <div
-      class="xy-upload__trigger"
-      role="button"
-      :tabindex="props.disabled ? -1 : 0"
-      @click="openDialog"
-      @keydown.enter.prevent="openDialog"
-      @keydown.space.prevent="openDialog"
-      @dragover="handleDragOver"
-      @dragleave="handleDragLeave"
-      @drop="handleDrop"
+      @preview="handlePreview"
+      @remove="handleRemove"
+      @retry="handleRetry"
     >
-      <strong>{{ props.drag ? "拖拽文件到此处" : "点击选择文件" }}</strong>
-      <p>{{ props.drag ? "或点击选择文件" : "支持本地文件上传" }}</p>
-      <small v-if="props.tip">{{ props.tip }}</small>
+      <template v-if="$slots.file" #default="{ file, index }">
+        <slot name="file" :file="file" :index="index" />
+      </template>
+      <template #append>
+        <upload-content
+          ref="uploadRef"
+          :input-id="formItem?.inputId"
+          :action="props.action"
+          :headers="props.headers"
+          :method="props.method"
+          :data="props.data"
+          :name="props.name"
+          :multiple="props.multiple"
+          :accept="props.accept"
+          :drag="props.drag"
+          :with-credentials="props.withCredentials"
+          :auto-upload="props.autoUpload"
+          :disabled="props.disabled"
+          :limit="limit"
+          :before-upload="props.beforeUpload"
+          :http-request="props.httpRequest"
+          :file-list="files"
+          :list-type="props.listType"
+          :on-start="handleStart"
+          :on-progress="handleProgress"
+          :on-success="handleSuccess"
+          :on-error="handleError"
+          :on-remove="handleRemove"
+          :on-update-raw-file="replaceRawFile"
+          :on-exceed="handleExceed"
+        >
+          <slot v-if="$slots.trigger" name="trigger" />
+          <slot v-else-if="$slots.default" />
+          <div v-else class="xy-upload__picture-card-trigger">
+            <span class="xy-upload__picture-card-plus">+</span>
+            <small>上传</small>
+          </div>
+        </upload-content>
+      </template>
+    </upload-list>
+
+    <upload-content
+      v-if="!isPictureCard || (isPictureCard && !props.showFileList)"
+      ref="uploadRef"
+      :input-id="formItem?.inputId"
+      :action="props.action"
+      :headers="props.headers"
+      :method="props.method"
+      :data="props.data"
+      :name="props.name"
+      :multiple="props.multiple"
+      :accept="props.accept"
+      :drag="props.drag"
+      :with-credentials="props.withCredentials"
+      :auto-upload="props.autoUpload"
+      :disabled="props.disabled"
+      :limit="limit"
+      :before-upload="props.beforeUpload"
+      :http-request="props.httpRequest"
+      :file-list="files"
+      :list-type="props.listType"
+      :on-start="handleStart"
+      :on-progress="handleProgress"
+      :on-success="handleSuccess"
+      :on-error="handleError"
+      :on-remove="handleRemove"
+      :on-update-raw-file="replaceRawFile"
+      :on-exceed="handleExceed"
+    >
+      <slot v-if="$slots.trigger" name="trigger" />
+      <slot v-else-if="$slots.default" />
+      <template v-else>
+        <strong>{{ props.drag ? "拖拽文件到此处" : "点击选择文件" }}</strong>
+        <p>{{ props.drag ? "或点击选择文件" : "支持本地文件上传" }}</p>
+      </template>
+    </upload-content>
+
+    <div v-if="$slots.tip || props.tip" class="xy-upload__tip">
+      <slot name="tip">
+        {{ props.tip }}
+      </slot>
     </div>
 
-    <ul v-if="files.length" class="xy-upload__list">
-      <li v-for="file in files" :key="file.uid" class="xy-upload__item">
-        <div class="xy-upload__meta">
-          <strong>{{ file.name }}</strong>
-          <span>{{ formatSize(file.size) }}</span>
+    <upload-list
+      v-if="!isPictureCard && props.showFileList"
+      :files="files"
+      :list-type="props.listType"
+      :disabled="props.disabled"
+      @preview="handlePreview"
+      @remove="handleRemove"
+      @retry="handleRetry"
+    >
+      <template v-if="$slots.file" #default="{ file, index }">
+        <slot name="file" :file="file" :index="index" />
+      </template>
+    </upload-list>
+
+    <teleport to="body">
+      <transition name="xy-fade">
+        <div
+          v-if="previewImageUrl"
+          class="xy-upload__preview"
+          role="dialog"
+          aria-modal="true"
+          @click="closePreview"
+        >
+          <div
+            ref="previewShellRef"
+            class="xy-upload__preview-shell"
+            tabindex="-1"
+            @click.stop
+            @keydown="handlePreviewKeydown"
+          >
+            <button
+              type="button"
+              class="xy-upload__preview-close"
+              aria-label="关闭预览"
+              @click="closePreview"
+            >
+              ×
+            </button>
+            <img :src="previewImageUrl" :alt="previewImageName" class="xy-upload__preview-image" />
+            <p class="xy-upload__preview-title">{{ previewImageName }}</p>
+          </div>
         </div>
-        <button type="button" aria-label="remove" @click="removeFile(file)">移除</button>
-      </li>
-    </ul>
+      </transition>
+    </teleport>
   </div>
 </template>
-

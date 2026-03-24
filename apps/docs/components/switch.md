@@ -26,6 +26,12 @@ switch/text
 switch/slots
 :::
 
+## 方法与可访问性
+
+:::demo `xy-switch` 暴露了 `focus` 和 `checked`，适合接入步骤流、快捷键聚焦和无障碍引导。
+switch/methods
+:::
+
 ## 禁用、加载与切换前校验
 
 :::demo `loading` 会临时锁定交互，`before-change` 适合异步确认或前置校验。
@@ -44,6 +50,7 @@ switch/form
 - `Space` 使用原生 checkbox 语义切换，`Enter` 也支持手动触发切换。
 - `loading` 和 `disabled` 都会阻止交互。
 - `before-change` 返回 `false`，或返回的 Promise reject 时，不会切换状态。
+- 建议在无可见文案时补 `aria-label`，便于读屏和自动化测试识别。
 
 ## API
 

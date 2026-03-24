@@ -219,4 +219,55 @@ describe("XyRadio", () => {
     expect(buttons[1].classes()).toContain("is-active");
     expect(wrapper.text()).toContain("系统集成");
   });
+
+  it("支持 options 模式下通过 option 插槽自定义内容", async () => {
+    const value = ref<string | number | boolean>("stable");
+
+    const wrapper = mount(XyRadioGroup, {
+      props: {
+        modelValue: value.value,
+        direction: "vertical",
+        options: [
+          {
+            label: "稳定版",
+            value: "stable",
+            description: "适合大多数正式环境"
+          },
+          {
+            label: "预览版",
+            value: "preview",
+            description: "包含最新交互和实验特性"
+          }
+        ],
+        "onUpdate:modelValue": (nextValue: string | number | boolean) => {
+          value.value = nextValue;
+        }
+      },
+      slots: {
+        option: ({
+          option,
+          checked
+        }: {
+          option: { label: string; description?: string };
+          checked: boolean;
+        }) =>
+          h("div", { class: "slot-option" }, [
+            h("strong", option.label),
+            h("span", checked ? "当前" : option.description)
+          ])
+      }
+    });
+
+    expect(wrapper.findAll(".slot-option")).toHaveLength(2);
+    expect(wrapper.text()).toContain("当前");
+    expect(wrapper.text()).toContain("包含最新交互和实验特性");
+
+    await wrapper.findAll('.xy-radio input[type="radio"]')[1].setValue(true);
+    await wrapper.setProps({
+      modelValue: value.value
+    });
+    await nextTick();
+
+    expect(value.value).toBe("preview");
+  });
 });

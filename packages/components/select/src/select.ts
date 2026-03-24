@@ -1,3 +1,5 @@
+import type { StyleValue } from "vue";
+import type { Placement } from "@floating-ui/dom";
 import type { ComponentSize, SelectOption } from "@xiaoye/utils";
 
 export interface SelectOptionGroup<T = string | number> {
@@ -29,6 +31,16 @@ export interface SelectProps<T = string | number> {
   prefixIcon?: string;
   suffixIcon?: string;
   clearIcon?: string;
+  teleported?: boolean;
+  appendTo?: string | HTMLElement;
+  placement?: Placement;
+  offset?: number;
+  popperClass?: string;
+  popperStyle?: StyleValue;
+  fitTriggerWidth?: boolean;
+  fitInputWidth?: boolean;
+  dropdownMinWidth?: string | number;
+  dropdownMaxWidth?: string | number;
 }
 
 export const DEFAULT_CLEAR_ICON = "mdi:close-circle";

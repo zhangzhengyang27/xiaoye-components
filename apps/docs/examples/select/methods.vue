@@ -30,22 +30,23 @@ async function closeDropdown() {
       <xy-button plain @click="closeDropdown">close()</xy-button>
     </xy-space>
 
-    <xy-select
-      ref="selectRef"
-      v-model="value"
-      :options="[
-        { label: '管理员', value: 'admin' },
-        { label: '成员', value: 'member' },
-        { label: '访客', value: 'guest' }
-      ]"
-      clearable
-      placeholder="方法控制下拉面板"
-      @visible-change="visible = $event ? '打开' : '关闭'"
-    />
+    <div class="xy-doc-field">
+      <xy-select
+        ref="selectRef"
+        v-model="value"
+        :options="[
+          { label: '管理员', value: 'admin' },
+          { label: '成员', value: 'member' },
+          { label: '访客', value: 'guest' }
+        ]"
+        clearable
+        placeholder="方法控制下拉面板"
+        @visible-change="visible = $event ? '打开' : '关闭'"
+      />
+    </div>
 
-    <xy-space wrap>
-      <xy-tag status="primary">当前值：{{ value ?? "未选择" }}</xy-tag>
-      <xy-tag :status="visible === '打开' ? 'success' : 'neutral'">面板：{{ visible }}</xy-tag>
-    </xy-space>
+    <xy-text size="sm" type="info">
+      当前值：{{ value ?? "未选择" }}，面板状态：{{ visible }}
+    </xy-text>
   </div>
 </template>

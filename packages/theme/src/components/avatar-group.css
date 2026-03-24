@@ -1,0 +1,28 @@
+.xy-avatar-group {
+  --xy-avatar-group-gap: -8px;
+  --xy-avatar-group-collapse-gap: 4px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.xy-avatar-group > * {
+  position: relative;
+  display: inline-flex;
+}
+
+.xy-avatar-group > *:not(:first-child) {
+  margin-left: var(--xy-avatar-group-gap);
+}
+
+.xy-avatar-group .xy-avatar {
+  border: 2px solid var(--xy-bg-color);
+}
+
+.xy-avatar-group__collapse-avatars {
+  display: inline-flex;
+  align-items: center;
+}
+
+.xy-avatar-group__collapse-avatars > *:not(:first-child) {
+  margin-left: var(--xy-avatar-group-collapse-gap);
+}

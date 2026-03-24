@@ -5,7 +5,6 @@
 .xy-date-picker__trigger {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   width: 100%;
   border: 1px solid var(--xy-border-color);
@@ -36,13 +35,74 @@
 }
 
 .xy-date-picker__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 100%;
   border: 0;
   background: transparent;
   color: var(--xy-text-color-muted);
   cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.xy-date-picker__selection {
+  display: inline-flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xy-date-picker__selection.is-placeholder {
+  color: var(--xy-text-color-muted);
+}
+
+.xy-date-picker__selection.is-value {
+  color: var(--xy-text-color);
+}
+
+.xy-date-picker__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  align-self: stretch;
+  min-height: 100%;
+  margin-left: auto;
+}
+
+.xy-date-picker__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xy-date-picker__caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 100%;
+  color: var(--xy-text-color-secondary);
+  line-height: 1;
+  transition: transform 0.18s ease;
+}
+
+.xy-date-picker__clear:hover {
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-date-picker.is-open .xy-date-picker__caret {
+  transform: rotate(180deg);
 }
 
 .xy-date-picker__panel {
+  position: absolute;
   width: 308px;
   border: 1px solid var(--xy-border-color);
   border-radius: var(--xy-radius-lg);
@@ -50,6 +110,7 @@
   box-shadow: var(--xy-shadow-md);
   padding: 12px;
   outline: none;
+  overflow: visible;
 }
 
 .xy-date-picker__header,
@@ -122,4 +183,3 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
-

@@ -7,7 +7,7 @@ const files = ref<UploadFileItem[]>([]);
 
 <template>
   <xy-upload
-    v-model="files"
+    v-model:file-list="files"
     drag
     multiple
     tip="拖拽上传适合补充材料、附件批量提交等场景"

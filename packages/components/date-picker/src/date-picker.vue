@@ -8,6 +8,7 @@ import {
   useNamespace,
   useOverlayStack
 } from "@xiaoye/composables";
+import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 
 interface CalendarCell {
@@ -54,6 +55,7 @@ const { size: globalSize } = useConfig();
 const mergedSize = computed(() => props.size ?? globalSize.value);
 const triggerRef = ref<HTMLElement | null>(null);
 const panelRef = ref<HTMLElement | null>(null);
+const panelArrowRef = ref<HTMLElement | null>(null);
 const open = ref(false);
 const selectedValue = ref<string | null>(props.modelValue);
 const today = new Date();
@@ -62,10 +64,11 @@ const focusedDate = ref(stripTime(parseDate(props.modelValue) ?? today));
 const panelId = `xy-date-panel-${Math.random().toString(36).slice(2, 10)}`;
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 
-const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
+const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
   triggerRef,
   panelRef,
   {
+    arrowRef: panelArrowRef,
     placement: "bottom-start",
     offset: 8,
     zIndex
@@ -343,6 +346,7 @@ useDismissibleLayer({
     :class="[
       ns.base.value,
       `${ns.base.value}--${mergedSize}`,
+      open ? 'is-open' : '',
       props.disabled ? 'is-disabled' : '',
       formItem?.validateState.value === 'error' ? 'is-error' : ''
     ]"
@@ -359,17 +363,23 @@ useDismissibleLayer({
       @click="openPanel"
       @keydown="handleTriggerKeydown"
     >
-      <span :class="selectedValue ? 'is-value' : 'is-placeholder'">{{ displayLabel }}</span>
-      <button
-        v-if="props.clearable && selectedValue && !props.disabled"
-        type="button"
-        class="xy-date-picker__clear"
-        aria-label="clear"
-        @click="clearValue"
-      >
-        ×
-      </button>
-      <span class="xy-date-picker__caret">⌄</span>
+      <span class="xy-date-picker__selection" :class="selectedValue ? 'is-value' : 'is-placeholder'">
+        {{ displayLabel }}
+      </span>
+      <span class="xy-date-picker__actions">
+        <button
+          v-if="props.clearable && selectedValue && !props.disabled"
+          type="button"
+          class="xy-date-picker__clear"
+          aria-label="clear"
+          @click="clearValue"
+        >
+          <XyIcon class="xy-date-picker__icon" icon="mdi:close-circle" :size="16" />
+        </button>
+        <span class="xy-date-picker__caret">
+          <XyIcon class="xy-date-picker__icon" icon="mdi:chevron-down" :size="16" />
+        </span>
+      </span>
     </div>
 
     <teleport to="body">
@@ -380,10 +390,12 @@ useDismissibleLayer({
           ref="panelRef"
           class="xy-date-picker__panel"
           :style="floatingStyle"
+          :data-placement="actualPlacement"
           role="dialog"
           tabindex="-1"
           @keydown="handlePanelKeydown"
         >
+          <span ref="panelArrowRef" class="xy-popper__arrow" :style="arrowStyle" />
           <header class="xy-date-picker__header">
             <button type="button" @click="moveMonth(-1)">‹</button>
             <strong>{{ formatMonthLabel(currentMonth) }}</strong>
@@ -421,4 +433,3 @@ useDismissibleLayer({
     </teleport>
   </div>
 </template>
-

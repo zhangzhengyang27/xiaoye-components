@@ -7,7 +7,7 @@ const files = ref<UploadFileItem[]>([]);
 
 <template>
   <xy-upload
-    v-model="files"
+    v-model:file-list="files"
     tip="支持 png、jpg、pdf 等常见格式"
     accept=".png,.jpg,.jpeg,.pdf"
   />

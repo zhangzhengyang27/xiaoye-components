@@ -20,6 +20,12 @@ popover/basic
 popover/custom
 :::
 
+## 嵌套浮层
+
+:::demo 当轻量说明需要升级成阻断确认时，可以在 Popover 内把处理链路升级到 Modal。
+popover/nested-overlay
+:::
+
 ## Tooltip 和 Popover 的边界
 
 - `Tooltip`：短文案、解释性提示、不承载操作。
@@ -29,27 +35,27 @@ popover/custom
 
 ### Popover Attributes
 
-| 属性               | 说明                 | 类型               | 默认值      |
-| ------------------ | -------------------- | ------------------ | ----------- |
-| `model-value`      | 是否打开             | `boolean`          | `false`     |
-| `title`            | 标题                 | `string`           | `''`        |
-| `placement`        | 浮层位置             | `Placement`        | `'bottom'`  |
-| `width`            | 面板宽度             | `string \| number` | `320`       |
-| `close-on-outside` | 点击外部是否关闭     | `boolean`          | `true`      |
-| `close-on-esc`     | `Escape` 是否关闭    | `boolean`          | `true`      |
+| 属性               | 说明              | 类型               | 默认值     |
+| ------------------ | ----------------- | ------------------ | ---------- |
+| `model-value`      | 是否打开          | `boolean`          | `false`    |
+| `title`            | 标题              | `string`           | `''`       |
+| `placement`        | 浮层位置          | `Placement`        | `'bottom'` |
+| `width`            | 面板宽度          | `string \| number` | `320`      |
+| `close-on-outside` | 点击外部是否关闭  | `boolean`          | `true`     |
+| `close-on-esc`     | `Escape` 是否关闭 | `boolean`          | `true`     |
 
 ### Popover Events
 
-| 事件                 | 说明           | 参数      |
-| -------------------- | -------------- | --------- |
-| `update:model-value` | 开关状态变化   | `boolean` |
-| `open`               | 打开时触发     | —         |
-| `close`              | 关闭时触发     | —         |
+| 事件                 | 说明         | 参数      |
+| -------------------- | ------------ | --------- |
+| `update:model-value` | 开关状态变化 | `boolean` |
+| `open`               | 打开时触发   | —         |
+| `close`              | 关闭时触发   | —         |
 
 ### Popover Slots
 
-| 插槽      | 说明           |
-| --------- | -------------- |
-| `trigger` | 触发区域       |
-| `header`  | 自定义头部     |
-| `default` | 面板主体内容   |
+| 插槽      | 说明         |
+| --------- | ------------ |
+| `trigger` | 触发区域     |
+| `header`  | 自定义头部   |
+| `default` | 面板主体内容 |

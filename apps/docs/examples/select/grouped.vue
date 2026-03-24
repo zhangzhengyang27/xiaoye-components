@@ -21,8 +21,12 @@ const options = [
 </script>
 
 <template>
-  <div class="xy-doc-stack">
-    <xy-select v-model="value" :options="options" searchable placeholder="请选择角色分组" />
-    <xy-tag :status="value ? 'success' : 'neutral'">当前角色：{{ value ?? "未选择" }}</xy-tag>
+  <div class="xy-doc-field">
+    <xy-select
+      v-model="value"
+      :options="options"
+      searchable
+      placeholder="请选择角色分组"
+    />
   </div>
 </template>

@@ -1,5 +1,6 @@
 import {
   autoUpdate,
+  arrow as floatingArrow,
   computePosition,
   flip,
   offset,
@@ -11,9 +12,11 @@ import type { Placement } from "@floating-ui/dom";
 import type { MaybeRefOrGetter, Ref } from "vue";
 
 export interface FloatingPanelOptions {
-  placement?: Placement;
-  offset?: number;
-  matchTriggerWidth?: boolean;
+  placement?: MaybeRefOrGetter<Placement>;
+  offset?: MaybeRefOrGetter<number>;
+  matchTriggerWidth?: MaybeRefOrGetter<boolean>;
+  arrowRef?: Ref<HTMLElement | null>;
+  arrowPadding?: number;
   zIndex?: MaybeRefOrGetter<number>;
 }
 
@@ -22,7 +25,9 @@ export function useFloatingPanel(
   floatingRef: Ref<HTMLElement | null>,
   options: FloatingPanelOptions = {}
 ) {
+  const arrowStyle = ref<Record<string, string>>({});
   const floatingStyle = ref<Record<string, string>>({});
+  const actualPlacement = ref<Placement>(toValue(options.placement) ?? "bottom-start");
   let cleanup: (() => void) | null = null;
 
   async function updatePosition() {
@@ -30,9 +35,9 @@ export function useFloatingPanel(
       return;
     }
 
-    const middleware = [offset(options.offset ?? 10), flip(), shift({ padding: 8 })];
+    const middleware = [offset(toValue(options.offset) ?? 10), flip(), shift({ padding: 8 })];
 
-    if (options.matchTriggerWidth) {
+    if (toValue(options.matchTriggerWidth)) {
       middleware.push(
         floatingSize({
           apply({ rects, elements }) {
@@ -42,15 +47,47 @@ export function useFloatingPanel(
       );
     }
 
-    const { x, y } = await computePosition(referenceRef.value, floatingRef.value, {
-      placement: options.placement ?? "bottom-start",
+    if (options.arrowRef?.value) {
+      middleware.push(
+        floatingArrow({
+          element: options.arrowRef.value,
+          padding: options.arrowPadding ?? 8
+        })
+      );
+    }
+
+    const { x, y, placement, middlewareData } = await computePosition(
+      referenceRef.value,
+      floatingRef.value,
+      {
+      placement: toValue(options.placement) ?? "bottom-start",
       middleware
-    });
+      }
+    );
+
+    actualPlacement.value = placement;
+
+    const { x: arrowX, y: arrowY } = middlewareData.arrow ?? {};
+    const staticSideMap: Record<string, string> = {
+      top: "bottom",
+      right: "left",
+      bottom: "top",
+      left: "right"
+    };
+    const staticSide = staticSideMap[placement.split("-")[0] ?? "bottom"];
+
+    arrowStyle.value = {
+      left: arrowX != null ? `${arrowX}px` : "",
+      top: arrowY != null ? `${arrowY}px` : "",
+      right: "",
+      bottom: "",
+      [staticSide]: "-5px"
+    };
 
     floatingStyle.value = {
       left: `${x}px`,
       top: `${y}px`,
-      position: "fixed",
+      position: "absolute",
       zIndex: `${toValue(options.zIndex) ?? 2000}`
     };
   }
@@ -71,6 +108,8 @@ export function useFloatingPanel(
   }
 
   return {
+    actualPlacement,
+    arrowStyle,
     floatingStyle,
     updatePosition,
     startAutoUpdate,

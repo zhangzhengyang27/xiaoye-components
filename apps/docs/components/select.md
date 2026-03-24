@@ -84,6 +84,15 @@ select/methods
 | `prefix-icon`        | 触发器前置图标         | `string`                                      | `''`                 |
 | `suffix-icon`        | 触发器后置图标         | `string`                                      | `'mdi:chevron-down'` |
 | `clear-icon`         | 清空图标               | `string`                                      | `'mdi:close-circle'` |
+| `teleported`         | 是否把下拉面板传送到 `body` | `boolean`                                 | `true`               |
+| `append-to`          | 下拉面板挂载目标       | `string \| HTMLElement`                       | `'body'`             |
+| `placement`          | 下拉面板弹出位置       | `Placement`                                   | `'bottom-start'`     |
+| `offset`             | 下拉面板偏移量         | `number`                                      | `8`                  |
+| `popper-class`       | 下拉面板自定义类名     | `string`                                      | `''`                 |
+| `popper-style`       | 下拉面板自定义样式     | `StyleValue`                                  | `''`                 |
+| `fit-input-width`    | 是否让下拉面板跟随触发器宽度 | `boolean`                                 | `true`               |
+| `dropdown-min-width` | 下拉面板最小宽度       | `string \| number`                            | —                    |
+| `dropdown-max-width` | 下拉面板最大宽度       | `string \| number`                            | —                    |
 
 ### Select Events
 

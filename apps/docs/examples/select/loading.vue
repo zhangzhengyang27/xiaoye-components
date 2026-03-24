@@ -28,18 +28,20 @@ async function reload() {
   <div class="xy-doc-stack">
     <xy-space wrap>
       <xy-button plain @click="reload">刷新选项</xy-button>
-      <xy-tag :status="loading ? 'warning' : 'success'">
-        {{ loading ? "加载中" : "已加载" }}
-      </xy-tag>
+      <xy-text size="sm" type="info">
+        {{ loading ? "正在同步项目列表..." : "点击上方按钮重新拉取选项" }}
+      </xy-text>
     </xy-space>
 
-    <xy-select
-      v-model="value"
-      :options="options"
-      :loading="loading"
-      loading-text="正在同步项目列表"
-      clearable
-      placeholder="选择项目"
-    />
+    <div class="xy-doc-field">
+      <xy-select
+        v-model="value"
+        :options="options"
+        :loading="loading"
+        loading-text="正在同步项目列表"
+        clearable
+        placeholder="选择项目"
+      />
+    </div>
   </div>
 </template>

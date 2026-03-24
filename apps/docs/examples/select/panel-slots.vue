@@ -26,33 +26,35 @@ async function refresh() {
 
 <template>
   <div class="xy-doc-stack">
-    <xy-select
-      v-model="value"
-      :options="options"
-      :loading="loading"
-      searchable
-      clearable
-      placeholder="选择项目"
-    >
-      <template #header>
-        <xy-text size="sm" type="info">项目列表会在这里承接筛选说明或快捷操作。</xy-text>
-      </template>
+    <div class="xy-doc-field xy-doc-field--popper-demo">
+      <xy-select
+        v-model="value"
+        :options="options"
+        :loading="loading"
+        searchable
+        clearable
+        placeholder="选择项目"
+      >
+        <template #header>
+          <xy-text size="sm" type="info">项目列表会在这里承接筛选说明或快捷操作。</xy-text>
+        </template>
 
-      <template #option="{ option, selected }">
-        <span class="demo-select-option">
-          <strong>{{ option.label }}</strong>
-          <small>{{ selected ? "已选中" : option.description }}</small>
-        </span>
-      </template>
+        <template #option="{ option, selected }">
+          <span class="demo-select-option">
+            <strong>{{ option.label }}</strong>
+            <small>{{ selected ? "已选中" : option.description }}</small>
+          </span>
+        </template>
 
-      <template #empty>
-        <xy-empty title="没有匹配项目" description="可以尝试切换关键词或刷新数据" />
-      </template>
+        <template #empty>
+          <xy-empty title="没有匹配项目" description="可以尝试切换关键词或刷新数据" />
+        </template>
 
-      <template #footer>
-        <xy-button text bg @click.stop="refresh">刷新项目列表</xy-button>
-      </template>
-    </xy-select>
+        <template #footer>
+          <xy-button text bg @click.stop="refresh">刷新项目列表</xy-button>
+        </template>
+      </xy-select>
+    </div>
   </div>
 </template>
 

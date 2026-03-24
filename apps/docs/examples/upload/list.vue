@@ -18,8 +18,8 @@ const files = ref<UploadFileItem[]>([
 
 <template>
   <xy-upload
-    v-model="files"
-    :max-count="3"
+    v-model:file-list="files"
+    :limit="3"
     tip="预设文件列表适合编辑态回显和继续补充上传"
   />
 </template>

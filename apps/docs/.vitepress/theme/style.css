@@ -11,6 +11,7 @@
   --xy-doc-card-border-hover: rgba(37, 99, 235, 0.22);
   --xy-doc-card-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
   --xy-doc-card-shadow-hover: 0 26px 64px rgba(15, 23, 42, 0.12);
+  --xy-z-dropdown: 90;
   --xy-doc-card-bg:
     radial-gradient(circle at top left, rgba(37, 99, 235, 0.1), transparent 42%), #fff;
 }
@@ -41,6 +42,12 @@
   background-size: 4px 4px;
   backdrop-filter: saturate(50%) blur(4px);
   -webkit-backdrop-filter: saturate(50%) blur(4px);
+  position: relative;
+  z-index: 2001 !important;
+}
+
+.VPNav {
+  z-index: 2000 !important;
 }
 
 @media (min-width: 960px) {
@@ -434,6 +441,15 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.xy-doc-field {
+  width: 100%;
+  max-width: 460px;
+}
+
+.xy-doc-field--wide {
+  max-width: 720px;
 }
 
 .xy-doc-grid {

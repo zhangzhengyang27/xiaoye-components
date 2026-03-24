@@ -20,6 +20,12 @@ radio/basic
 radio/options
 :::
 
+## 自定义 option 插槽
+
+:::demo 当 `options` 模式下需要更复杂的内容结构时，可以通过 `option` 插槽自定义每项展示，同时继续复用选中和禁用逻辑。
+radio/custom-option
+:::
+
 ## border 风格
 
 :::demo 给单选项加上 `border` 后，可点击区域会更明确，适合设置面板或强调型筛选栏。
@@ -113,3 +119,10 @@ radio/form
 | -------------------- | ------------------ | ---------------------------------- |
 | `update:model-value` | 选中值变化时触发   | `string \| number \| boolean`      |
 | `change`             | 用户切换选项时触发 | `string \| number \| boolean`      |
+
+### RadioGroup Slots
+
+| 插槽      | 说明                                                                      |
+| --------- | ------------------------------------------------------------------------- |
+| `default` | 自定义渲染 `xy-radio` / `xy-radio-button`                                 |
+| `option`  | `options` 模式下自定义每个选项内容，暴露 `option`、`checked`、`disabled`、`type` |

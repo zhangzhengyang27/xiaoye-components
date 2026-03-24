@@ -18,14 +18,14 @@ outline: deep
   <section class="xy-overview-card">
     <span class="xy-overview-kicker">01</span>
     <h3>基础操作</h3>
-    <p>Button、Link、Text、Tag、Space、Icon、Tabs、Row / Col、Scrollbar、Splitter 负责主操作、弱跳转、正文强调、状态标记和布局骨架。</p>
+    <p>Button、Link、Text、Badge、Avatar、Tag、Space、Icon、Tabs、Row、Col、Scrollbar、Splitter 负责主操作、弱跳转、正文强调、角标提醒、身份展示、状态标记和布局骨架。</p>
     <a href="/components/button">进入基础组件</a>
   </section>
 
   <section class="xy-overview-card">
     <span class="xy-overview-kicker">02</span>
     <h3>表单录入</h3>
-    <p>Input、Radio、Switch、InputTag、Input Number、Rate、Slider、DatePicker、Select、Form、Upload、Config Provider 负责筛选栏、录入表单和字段校验。</p>
+    <p>Input、Radio、Checkbox、Switch、InputTag、Input Number、Rate、Slider、DatePicker、TimePicker、TimeSelect、Select、Form、Upload、Config Provider 负责筛选栏、录入表单和字段校验。</p>
     <a href="/components/form">进入表单组件</a>
   </section>
 
@@ -60,7 +60,10 @@ outline: deep
       <a href="/components/button">Button 按钮</a>
       <a href="/components/link">Link 文字链接</a>
       <a href="/components/text">Text 文本</a>
-      <a href="/components/row">Row / Col 栅格</a>
+      <a href="/components/badge">Badge 徽章</a>
+      <a href="/components/avatar">Avatar 头像</a>
+      <a href="/components/row">Row 栅格行</a>
+      <a href="/components/col">Col 栅格列</a>
       <a href="/components/scrollbar">Scrollbar 滚动条</a>
       <a href="/components/splitter">Splitter 分隔面板</a>
       <a href="/components/icon">Icon 图标</a>
@@ -79,12 +82,15 @@ outline: deep
       <a href="/components/config-provider">Config Provider 全局配置</a>
       <a href="/components/input">Input 输入框</a>
       <a href="/components/radio">Radio 单选框</a>
+      <a href="/components/checkbox">Checkbox 复选框</a>
       <a href="/components/switch">Switch 开关</a>
       <a href="/components/input-tag">InputTag 标签输入框</a>
       <a href="/components/input-number">Input Number 数字输入框</a>
       <a href="/components/rate">Rate 评分</a>
       <a href="/components/slider">Slider 滑块</a>
       <a href="/components/date-picker">DatePicker 日期选择器</a>
+      <a href="/components/time-picker">TimePicker 时间选择器</a>
+      <a href="/components/time-select">TimeSelect 时间选择</a>
       <a href="/components/select">Select 选择器</a>
       <a href="/components/form">Form 表单</a>
       <a href="/components/upload">Upload 上传</a>

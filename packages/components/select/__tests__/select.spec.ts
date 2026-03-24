@@ -211,6 +211,159 @@ describe("XySelect", () => {
     expect(document.body.querySelector(".xy-select__dropdown")).toBeNull();
   });
 
+  it("支持关闭 teleport 后在本地容器内渲染下拉", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        teleported: false,
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    await nextTick();
+
+    expect(wrapper.find(".xy-select__dropdown").exists()).toBe(true);
+    expect(wrapper.element.querySelector(".xy-select__dropdown")).not.toBeNull();
+  });
+
+  it("支持通过 dropdownMaxWidth 控制下拉面板最大宽度", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        dropdownMaxWidth: 260,
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    await nextTick();
+
+    const dropdown = document.body.querySelector(".xy-select__dropdown") as HTMLElement | null;
+
+    expect(dropdown).not.toBeNull();
+    expect(dropdown?.style.maxWidth).toBe("260px");
+  });
+
+  it("支持通过 dropdownMinWidth 控制下拉面板最小宽度", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        dropdownMinWidth: 320,
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    await nextTick();
+
+    const dropdown = document.body.querySelector(".xy-select__dropdown") as HTMLElement | null;
+
+    expect(dropdown).not.toBeNull();
+    expect(dropdown?.style.minWidth).toBe("320px");
+  });
+
+  it("支持关闭 fitInputWidth 后不强制跟随触发器宽度", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        fitInputWidth: false,
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    await nextTick();
+
+    const dropdown = document.body.querySelector(".xy-select__dropdown") as HTMLElement | null;
+
+    expect(dropdown).not.toBeNull();
+    expect(dropdown?.style.width).toBe("");
+  });
+
+  it("支持通过 appendTo 指定 dropdown 挂载目标", async () => {
+    const host = document.createElement("div");
+    host.id = "select-host";
+    document.body.appendChild(host);
+
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        appendTo: "#select-host",
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    await nextTick();
+
+    expect(host.querySelector(".xy-select__dropdown")).not.toBeNull();
+  });
+
+  it("下拉面板带有箭头标识和实际 placement 属性", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    await nextTick();
+    await nextTick();
+
+    const dropdown = document.body.querySelector(".xy-select__dropdown") as HTMLElement | null;
+
+    expect(dropdown).not.toBeNull();
+    expect(dropdown?.querySelector(".xy-popper__arrow")).not.toBeNull();
+    expect(dropdown?.getAttribute("data-placement")).toContain("bottom");
+  });
+
+  it("支持 placement / offset / popperClass / popperStyle", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        placement: "top-start",
+        offset: 16,
+        popperClass: "custom-popper",
+        popperStyle: {
+          borderColor: "rgb(29, 78, 216)"
+        },
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    await nextTick();
+
+    const dropdown = document.body.querySelector(".xy-select__dropdown") as HTMLElement | null;
+
+    expect(dropdown).not.toBeNull();
+    expect(dropdown?.classList.contains("custom-popper")).toBe(true);
+    expect(dropdown?.style.borderColor).toBe("rgb(29, 78, 216)");
+  });
+
   it("在可搜索模式下支持键盘关闭下拉", async () => {
     const wrapper = mountSelect(XySelect, {
       attachTo: document.body,

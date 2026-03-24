@@ -128,20 +128,28 @@ provide(radioGroupContextKey, {
         :value="option.value"
         :disabled="option.disabled"
       >
-        <span
-          :class="[
-            `${ns.base.value}-group__option`,
-            option.description ? 'has-description' : ''
-          ]"
+        <slot
+          name="option"
+          :option="option"
+          :checked="props.modelValue === option.value"
+          :disabled="Boolean(props.disabled || option.disabled)"
+          :type="props.type"
         >
-          <span :class="`${ns.base.value}-group__option-label`">{{ option.label }}</span>
           <span
-            v-if="option.description"
-            :class="`${ns.base.value}-group__option-description`"
+            :class="[
+              `${ns.base.value}-group__option`,
+              option.description ? 'has-description' : ''
+            ]"
           >
-            {{ option.description }}
+            <span :class="`${ns.base.value}-group__option-label`">{{ option.label }}</span>
+            <span
+              v-if="option.description"
+              :class="`${ns.base.value}-group__option-description`"
+            >
+              {{ option.description }}
+            </span>
           </span>
-        </span>
+        </slot>
       </component>
     </slot>
   </div>

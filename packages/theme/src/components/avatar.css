@@ -1,0 +1,69 @@
+.xy-avatar {
+  --xy-avatar-size: 40px;
+  --xy-avatar-icon-size: 18px;
+  --xy-avatar-text-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--xy-avatar-size);
+  height: var(--xy-avatar-size);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  color: var(--xy-text-color-secondary);
+  font-size: var(--xy-avatar-text-size);
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  user-select: none;
+}
+
+.xy-avatar--circle {
+  border-radius: 50%;
+}
+
+.xy-avatar--square {
+  border-radius: var(--xy-radius-md);
+}
+
+.xy-avatar--sm {
+  --xy-avatar-size: 24px;
+  --xy-avatar-icon-size: 12px;
+  --xy-avatar-text-size: 12px;
+}
+
+.xy-avatar--md {
+  --xy-avatar-size: 40px;
+  --xy-avatar-icon-size: 18px;
+  --xy-avatar-text-size: 16px;
+}
+
+.xy-avatar--lg {
+  --xy-avatar-size: 56px;
+  --xy-avatar-icon-size: 24px;
+  --xy-avatar-text-size: 22px;
+}
+
+.xy-avatar__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.xy-avatar__icon {
+  color: inherit;
+  font-size: var(--xy-avatar-icon-size);
+}
+
+.xy-avatar__text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

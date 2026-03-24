@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from "vue";
 import type { Placement } from "@floating-ui/dom";
-import { useDismissibleLayer, useFloatingPanel, useListNavigation, useOverlayStack, useNamespace } from "@xiaoye/composables";
+import {
+  useDismissibleLayer,
+  useFloatingPanel,
+  useListNavigation,
+  useOverlayStack,
+  useNamespace
+} from "@xiaoye/composables";
 
 export interface DropdownItem {
   key: string;
@@ -40,7 +46,7 @@ const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFl
   triggerRef,
   menuRef,
   {
-    placement: props.placement,
+    placement: () => props.placement,
     zIndex
   }
 );

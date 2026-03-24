@@ -10,7 +10,7 @@ const options = [
 </script>
 
 <template>
-  <div class="xy-doc-stack">
+  <div class="xy-doc-field">
     <xy-select
       v-model="value"
       :options="options"
@@ -19,6 +19,5 @@ const options = [
       placeholder="角色筛选"
       no-match-text="没有符合条件的角色"
     />
-    <xy-tag :status="value ? 'success' : 'neutral'">当前筛选：{{ value ?? "未选择" }}</xy-tag>
   </div>
 </template>

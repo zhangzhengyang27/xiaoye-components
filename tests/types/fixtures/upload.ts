@@ -9,15 +9,23 @@ const files: UploadFileItem[] = [
 ];
 
 const props: UploadProps = {
-  modelValue: files,
-  multiple: true
+  fileList: files,
+  multiple: true,
+  autoUpload: false,
+  limit: 2,
+  beforeUpload: (file) => file.size < 2_000_000,
+  beforeRemove: () => true,
+  onPreview: (file) => file.name,
+  onChange: (_file, nextFiles) => nextFiles.length,
+  httpRequest: () => Promise.resolve({ ok: true }),
+  listType: "picture"
 };
 
 void props;
 
 const invalidProps: UploadProps = {
-  // @ts-expect-error invalid maxCount type
-  maxCount: "2"
+  // @ts-expect-error invalid list type
+  listType: "gallery"
 };
 
 void invalidProps;
