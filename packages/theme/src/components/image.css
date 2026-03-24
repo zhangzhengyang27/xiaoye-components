@@ -1,0 +1,370 @@
+.xy-image {
+  --xy-image-placeholder-bg: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
+  --xy-image-error-bg: color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
+  --xy-image-error-color: var(--xy-text-color-secondary);
+  --xy-image-viewer-mask: rgba(15, 23, 42, 0.82);
+  --xy-image-viewer-btn-bg: rgba(15, 23, 42, 0.64);
+
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.xy-image__inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  opacity: 1;
+  transition: opacity 0.18s ease;
+}
+
+.xy-image__inner.is-loading {
+  opacity: 0;
+}
+
+.xy-image__preview {
+  cursor: zoom-in;
+}
+
+.xy-image__wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.xy-image__placeholder,
+.xy-image__error {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.xy-image__placeholder {
+  background: var(--xy-image-placeholder-bg);
+}
+
+.xy-image__error {
+  min-width: 120px;
+  min-height: 80px;
+  padding: 16px;
+  background: var(--xy-image-error-bg);
+  color: var(--xy-image-error-color);
+  font-size: var(--xy-font-size-sm);
+}
+
+.xy-image-viewer {
+  position: fixed;
+  inset: 0;
+}
+
+.xy-image-viewer__mask {
+  position: absolute;
+  inset: 0;
+  background: var(--xy-image-viewer-mask);
+}
+
+.xy-image-viewer__canvas {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 88px 108px;
+  box-sizing: border-box;
+}
+
+.xy-image-viewer__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--xy-font-size-sm);
+  background: rgba(15, 23, 42, 0.18);
+  pointer-events: none;
+}
+
+.xy-image-viewer__image,
+.xy-image-viewer__error {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.xy-image-viewer__image {
+  display: block;
+  object-fit: contain;
+  box-shadow: var(--xy-shadow-lg);
+  transform-origin: center center;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.xy-image-viewer__image.is-loading {
+  opacity: 0;
+}
+
+.xy-image-viewer__image.is-draggable {
+  cursor: grab;
+  touch-action: none;
+}
+
+.xy-image-viewer__image.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.xy-image-viewer__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-width: 240px;
+  min-height: 160px;
+  padding: 24px;
+  border-radius: var(--xy-radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  text-align: center;
+}
+
+.xy-image-viewer__retry {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: var(--xy-radius-pill);
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.xy-image-viewer__retry:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.xy-image-viewer__close,
+.xy-image-viewer__arrow {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.76), rgba(15, 23, 42, 0.64)),
+    radial-gradient(circle at top, rgba(45, 212, 191, 0.1), transparent 55%);
+  color: rgba(248, 250, 252, 0.9);
+  cursor: pointer;
+  box-shadow:
+    0 14px 32px rgba(15, 23, 42, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  opacity: 0.84;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.xy-image-viewer__close:hover {
+  transform: translateY(-1px);
+  border-color: rgba(191, 219, 254, 0.22);
+  color: #ffffff;
+  opacity: 1;
+}
+
+.xy-image-viewer__close {
+  top: 22px;
+  right: 22px;
+  width: 40px;
+  height: 40px;
+  box-shadow:
+    0 12px 26px rgba(15, 23, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.xy-image-viewer__arrow {
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  transform: translateY(-50%);
+  box-shadow:
+    0 14px 32px rgba(15, 23, 42, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.xy-image-viewer__arrow:hover:not(:disabled) {
+  transform: translateY(calc(-50% - 1px));
+  border-color: rgba(191, 219, 254, 0.22);
+  color: #ffffff;
+  opacity: 1;
+}
+
+.xy-image-viewer__arrow--prev {
+  left: 22px;
+}
+
+.xy-image-viewer__arrow--next {
+  right: 22px;
+}
+
+.xy-image-viewer__arrow:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.xy-image-viewer__progress {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 82px;
+  transform: translateX(-50%);
+  padding: 9px 14px;
+  border: 1px solid rgba(191, 219, 254, 0.18);
+  border-radius: var(--xy-radius-pill);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.76), rgba(15, 23, 42, 0.64)),
+    radial-gradient(circle at top, rgba(45, 212, 191, 0.08), transparent 55%);
+  color: white;
+  box-shadow:
+    0 12px 28px rgba(15, 23, 42, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  font-size: var(--xy-font-size-sm);
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(12px);
+  opacity: 0.9;
+  transition:
+    opacity 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-image-viewer__progress.is-floating {
+  bottom: 24px;
+}
+
+.xy-image-viewer__progress-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.xy-image-viewer__progress-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(191, 219, 254, 0.78);
+}
+
+.xy-image-viewer__progress-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(191, 219, 254, 0.22);
+}
+
+.xy-image-viewer__progress-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.xy-image-viewer__actions {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--xy-radius-pill);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.66)),
+    radial-gradient(circle at top, rgba(45, 212, 191, 0.1), transparent 55%);
+  transform: translateX(-50%);
+  box-shadow:
+    0 16px 34px rgba(15, 23, 42, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  opacity: 0.92;
+  transition:
+    opacity 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-image-viewer__actions.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px);
+}
+
+.xy-image-viewer__progress:hover,
+.xy-image-viewer__progress:focus-within,
+.xy-image-viewer__actions:hover,
+.xy-image-viewer__actions:focus-within {
+  opacity: 1;
+  border-color: rgba(191, 219, 254, 0.22);
+}
+
+.xy-image-viewer__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(241, 245, 249, 0.94);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.xy-image-viewer__action-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(148, 163, 184, 0.22);
+}
+
+.xy-image-viewer__action:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.xy-image-viewer__action:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.xy-image-viewer__action--accent {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(45, 212, 191, 0.22));
+  color: #ccfbf1;
+}
+
+.xy-image-viewer__action--accent:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.34), rgba(45, 212, 191, 0.3));
+  color: #ecfeff;
+}

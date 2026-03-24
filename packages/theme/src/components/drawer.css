@@ -4,6 +4,10 @@
   display: flex;
 }
 
+.xy-drawer.is-penetrable {
+  pointer-events: none;
+}
+
 .xy-drawer--right {
   justify-content: flex-end;
 }
@@ -12,10 +16,22 @@
   justify-content: flex-start;
 }
 
+.xy-drawer--top {
+  align-items: flex-start;
+}
+
+.xy-drawer--bottom {
+  align-items: flex-end;
+}
+
 .xy-drawer__overlay {
   position: absolute;
   inset: 0;
   background: var(--xy-overlay-color);
+}
+
+.xy-drawer__overlay.is-transparent {
+  background: transparent;
 }
 
 .xy-drawer__panel {
@@ -23,6 +39,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
+  pointer-events: auto;
   width: min(100%, 420px);
   height: 100%;
   background: var(--xy-bg-color);
@@ -42,6 +59,10 @@
   flex: 1;
   padding: 0 24px 24px;
   overflow: auto;
+}
+
+.xy-drawer__body.is-without-header {
+  padding-top: 24px;
 }
 
 .xy-drawer__title {

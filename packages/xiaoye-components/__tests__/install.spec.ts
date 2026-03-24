@@ -18,6 +18,11 @@ describe("XiaoyeComponents", () => {
     XiaoyeComponents.install(app);
 
     expect(app.component("xy-button")).toBeTruthy();
+    expect(app.component("xy-image")).toBeTruthy();
+    expect(app.component("xy-progress")).toBeTruthy();
+    expect(app.component("xy-skeleton")).toBeTruthy();
+    expect(app.component("xy-skeleton-item")).toBeTruthy();
+    expect(app.component("xy-result")).toBeTruthy();
     expect(app.component("xy-radio-group")).toBeTruthy();
     expect(
       warnSpy.mock.calls.some((args) =>

@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { computed, defineComponent, h, nextTick } from "vue";
+import { defineComponent, h } from "vue";
 import { describe, expect, it } from "vitest";
 import { XyBadge, XyButton } from "@xiaoye/components";
 
@@ -42,29 +42,21 @@ describe("XyBadge", () => {
   });
 
   it("支持 hidden 和 max", async () => {
-    const wrapper = mount(
-      defineComponent({
-        setup() {
-          const state = computed(() => ({
-            hidden: false,
-            value: 200
-          }));
-
-          return () =>
-            h(XyBadge, {
-              hidden: state.value.hidden,
-              value: state.value.value,
-              max: 99
-            });
-        }
-      })
-    );
+    const wrapper = mount(XyBadge, {
+      props: {
+        hidden: false,
+        value: 200,
+        max: 99
+      }
+    });
 
     expect(wrapper.find(".xy-badge__content").text()).toBe("99+");
 
     await wrapper.setProps({
       hidden: true
     });
+
+    expect(wrapper.find(".xy-badge__content").exists()).toBe(false);
   });
 
   it("支持 showZero 隐藏 0", async () => {

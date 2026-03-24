@@ -1,104 +1,148 @@
 <script setup lang="ts">
-import { autoUpdate, computePosition, flip, offset, shift } from "@floating-ui/dom";
-import { nextTick, onBeforeUnmount, ref, watch } from "vue";
-import { useNamespace, useZIndex } from "@xiaoye/composables";
+import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
+import type { StyleValue } from "vue";
+import {
+  useDismissibleLayer,
+  useFloatingPanel,
+  useFloatingVisibility,
+  useNamespace,
+  useOverlayStack
+} from "@xiaoye/composables";
+
+type TooltipPlacement =
+  | "top"
+  | "top-start"
+  | "top-end"
+  | "bottom"
+  | "bottom-start"
+  | "bottom-end"
+  | "left"
+  | "right";
 
 export interface TooltipProps {
+  modelValue?: boolean;
   content?: string;
-  placement?: "top" | "bottom" | "left" | "right";
+  placement?: TooltipPlacement;
   disabled?: boolean;
   openDelay?: number;
   closeDelay?: number;
+  showAfter?: number;
+  hideAfter?: number;
   enterable?: boolean;
+  trigger?: "hover" | "click" | "focus" | "manual";
+  offset?: number;
+  showArrow?: boolean;
+  maxWidth?: number | string;
+  teleported?: boolean;
+  appendTo?: string | HTMLElement;
+  persistent?: boolean;
+  popperClass?: string;
+  popperStyle?: StyleValue;
+  closeOnEsc?: boolean;
+  closeOnOutside?: boolean;
 }
 
 const props = withDefaults(defineProps<TooltipProps>(), {
+  modelValue: false,
   content: "",
   placement: "top",
   disabled: false,
   openDelay: 80,
   closeDelay: 60,
-  enterable: true
+  showAfter: undefined,
+  hideAfter: undefined,
+  enterable: true,
+  trigger: "hover",
+  offset: 10,
+  showArrow: true,
+  maxWidth: 240,
+  teleported: true,
+  appendTo: "body",
+  persistent: false,
+  popperClass: "",
+  popperStyle: undefined,
+  closeOnEsc: true,
+  closeOnOutside: true
 });
 
+const emit = defineEmits<{
+  "update:modelValue": [value: boolean];
+  open: [];
+  close: [];
+}>();
+
 const ns = useNamespace("tooltip");
-const { next } = useZIndex();
-const visible = ref(false);
+const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 const triggerRef = ref<HTMLElement | null>(null);
 const contentRef = ref<HTMLElement | null>(null);
-const floatingStyle = ref<Record<string, string>>({});
+const arrowRef = ref<HTMLElement | null>(null);
 const tooltipId = `xy-tooltip-${Math.random().toString(36).slice(2, 10)}`;
-let openTimer: number | null = null;
-let closeTimer: number | null = null;
-let cleanup: (() => void) | null = null;
+const teleportTarget = computed(() => props.appendTo ?? "body");
+const { visible, rendered, open, close, toggle, clearTimers, handleAfterLeave } =
+  useFloatingVisibility({
+    modelValue: () => props.modelValue,
+    disabled: () => props.disabled,
+    persistent: () => props.persistent,
+    openDelay: () => props.showAfter ?? props.openDelay,
+    closeDelay: () => props.hideAfter ?? props.closeDelay,
+    emitModelValue: (value) => {
+      emit("update:modelValue", value);
+    },
+    onOpen: () => {
+      emit("open");
+      openLayer();
+    },
+    onClose: () => {
+      emit("close");
+      closeLayer();
+      stopAutoUpdate();
+    }
+  });
 
-function clearTimers() {
-  if (openTimer) {
-    window.clearTimeout(openTimer);
-    openTimer = null;
-  }
-
-  if (closeTimer) {
-    window.clearTimeout(closeTimer);
-    closeTimer = null;
-  }
-}
-
-function open() {
-  if (props.disabled) {
-    return;
-  }
-
-  clearTimers();
-
-  if (visible.value) {
-    return;
-  }
-
-  openTimer = window.setTimeout(() => {
-    visible.value = true;
-  }, props.openDelay);
-}
-
-function close() {
-  clearTimers();
-  closeTimer = window.setTimeout(() => {
-    visible.value = false;
-  }, props.closeDelay);
-}
-
-function closeImmediately() {
-  clearTimers();
-  visible.value = false;
-}
+const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } =
+  useFloatingPanel(triggerRef, contentRef, {
+    placement: () => props.placement,
+    strategy: "fixed",
+    offset: () => props.offset,
+    arrowRef,
+    zIndex
+  });
 
 function handleKeydown(event: KeyboardEvent) {
   if (event.key === "Escape") {
     event.preventDefault();
-    closeImmediately();
+    close({
+      immediate: true
+    });
   }
 }
 
-async function updatePosition() {
-  if (!triggerRef.value || !contentRef.value) {
+function handleOpen() {
+  if (props.trigger === "manual") {
     return;
   }
 
-  const { x, y } = await computePosition(triggerRef.value, contentRef.value, {
-    placement: props.placement,
-    middleware: [offset(10), flip(), shift({ padding: 8 })]
-  });
+  open();
+}
 
-  floatingStyle.value = {
-    left: `${x}px`,
-    top: `${y}px`,
-    zIndex: `${next()}`
-  };
+function handleClose() {
+  if (props.trigger === "manual") {
+    return;
+  }
+
+  close();
+}
+
+function handleToggleByClick() {
+  if (props.disabled || props.trigger !== "click") {
+    return;
+  }
+
+  toggle();
 }
 
 watch(visible, async (value) => {
-  cleanup?.();
-  cleanup = null;
+  stopAutoUpdate();
 
   if (!value) {
     return;
@@ -106,15 +150,26 @@ watch(visible, async (value) => {
 
   await nextTick();
   await updatePosition();
+  startAutoUpdate();
+});
 
-  if (triggerRef.value && contentRef.value) {
-    cleanup = autoUpdate(triggerRef.value, contentRef.value, updatePosition);
+useDismissibleLayer({
+  enabled: () => visible.value && props.trigger === "click",
+  refs: [triggerRef, contentRef],
+  closeOnEscape: props.closeOnEsc,
+  closeOnOutside: props.closeOnOutside,
+  isTopMost: () => isTopMost.value,
+  onDismiss: () => {
+    close({
+      immediate: true
+    });
   }
 });
 
 onBeforeUnmount(() => {
   clearTimers();
-  cleanup?.();
+  stopAutoUpdate();
+  closeLayer();
 });
 </script>
 
@@ -123,26 +178,44 @@ onBeforeUnmount(() => {
     ref="triggerRef"
     :class="ns.base.value"
     :aria-describedby="visible ? tooltipId : undefined"
-    @mouseenter="open"
-    @mouseleave="close"
-    @focusin="open"
-    @focusout="close"
+    @mouseenter="props.trigger === 'hover' ? handleOpen() : undefined"
+    @mouseleave="props.trigger === 'hover' ? handleClose() : undefined"
+    @focusin="props.trigger === 'focus' || props.trigger === 'hover' ? handleOpen() : undefined"
+    @focusout="props.trigger === 'focus' || props.trigger === 'hover' ? handleClose() : undefined"
+    @click="handleToggleByClick"
     @keydown="handleKeydown"
   >
     <slot />
-    <teleport to="body">
-      <transition name="xy-fade">
+    <teleport :to="teleportTarget" :disabled="!props.teleported">
+      <transition name="xy-fade" @after-leave="handleAfterLeave">
         <div
-          v-if="visible"
+          v-if="rendered"
+          v-show="visible"
           :id="tooltipId"
           ref="contentRef"
           role="tooltip"
-          :class="`${ns.base.value}__content`"
-          :style="floatingStyle"
-          @mouseenter="props.enterable ? open() : undefined"
-          @mouseleave="props.enterable ? close() : undefined"
+          :class="[
+            `${ns.base.value}__content`,
+            `${ns.base.value}__content--${actualPlacement.split('-')[0]}`,
+            props.popperClass
+          ]"
+          :style="[
+            floatingStyle,
+            {
+              maxWidth: typeof props.maxWidth === 'number' ? `${props.maxWidth}px` : props.maxWidth
+            },
+            props.popperStyle
+          ]"
+          @mouseenter="props.enterable && props.trigger === 'hover' ? handleOpen() : undefined"
+          @mouseleave="props.enterable && props.trigger === 'hover' ? handleClose() : undefined"
           @keydown="handleKeydown"
         >
+          <span
+            v-if="props.showArrow"
+            ref="arrowRef"
+            :class="`${ns.base.value}__arrow`"
+            :style="arrowStyle"
+          />
           <slot name="content">
             {{ props.content }}
           </slot>

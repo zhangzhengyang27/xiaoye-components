@@ -1,16 +1,32 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from "vue";
-import { lockBodyScroll, unlockBodyScroll } from "@xiaoye/utils";
-import { useDismissibleLayer, useFocusTrap, useOverlayStack, useNamespace } from "@xiaoye/composables";
+import { computed, ref } from "vue";
+import { useDismissibleLayer, useFocusTrap, useNamespace } from "@xiaoye/composables";
+import { useDialog } from "../../modal/src/use-dialog";
+
+type DrawerDirection = "ltr" | "rtl" | "ttb" | "btt";
 
 export interface DrawerProps {
   modelValue?: boolean;
   title?: string;
   size?: string | number;
-  placement?: "left" | "right";
+  placement?: "left" | "right" | "top" | "bottom";
+  direction?: DrawerDirection;
   closeOnOverlay?: boolean;
+  closeOnClickModal?: boolean;
   closeOnEsc?: boolean;
+  closeOnPressEscape?: boolean;
   destroyOnClose?: boolean;
+  showClose?: boolean;
+  lockScroll?: boolean;
+  withHeader?: boolean;
+  beforeClose?: (done: (cancel?: boolean) => void) => void | Promise<void>;
+  appendToBody?: boolean;
+  appendTo?: string | HTMLElement;
+  modal?: boolean;
+  modalClass?: string;
+  modalPenetrable?: boolean;
+  openDelay?: number;
+  closeDelay?: number;
 }
 
 const props = withDefaults(defineProps<DrawerProps>(), {
@@ -20,101 +36,183 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   placement: "right",
   closeOnOverlay: true,
   closeOnEsc: true,
-  destroyOnClose: false
+  destroyOnClose: false,
+  showClose: true,
+  lockScroll: true,
+  withHeader: true,
+  appendToBody: true,
+  appendTo: "body",
+  modal: true,
+  modalClass: "",
+  modalPenetrable: false,
+  openDelay: 0,
+  closeDelay: 0
 });
 
 const emit = defineEmits<{
   "update:modelValue": [value: boolean];
   open: [];
+  opened: [];
   close: [];
+  closed: [];
 }>();
 
 const ns = useNamespace("drawer");
-const rendered = ref(props.modelValue);
 const panelRef = ref<HTMLElement | null>(null);
-const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
-
-const panelStyle = computed(() => ({
-  width: typeof props.size === "number" ? `${props.size}px` : props.size,
+const titleId = `xy-drawer-title-${Math.random().toString(36).slice(2, 10)}`;
+const bodyId = `xy-drawer-body-${Math.random().toString(36).slice(2, 10)}`;
+let isClosing = false;
+const directionMap: Record<DrawerDirection, DrawerProps["placement"]> = {
+  ltr: "left",
+  rtl: "right",
+  ttb: "top",
+  btt: "bottom"
+};
+const resolvedPlacement = computed(() => props.direction ? directionMap[props.direction] : props.placement);
+const allowOverlayClose = computed(() => props.closeOnClickModal ?? props.closeOnOverlay);
+const allowEscClose = computed(() => props.closeOnPressEscape ?? props.closeOnEsc);
+const drawerRootStyle = computed(() => ({
   zIndex: `${zIndex.value}`
 }));
-
-function closeDrawer() {
-  emit("update:modelValue", false);
-  emit("close");
-}
-
-useFocusTrap(panelRef, {
-  active: () => props.modelValue,
-  autoFocus: "first",
-  restoreFocus: true
-});
-
-useDismissibleLayer({
-  enabled: () => props.modelValue,
-  refs: [panelRef],
-  closeOnEscape: props.closeOnEsc,
-  closeOnOutside: false,
-  isTopMost: () => isTopMost.value,
-  onDismiss: () => {
-    closeDrawer();
+const {
+  appendTo,
+  handleAfterEnter,
+  handleAfterLeave,
+  isPenetrable,
+  isTopMost,
+  rendered,
+  showModal,
+  teleportDisabled,
+  visible,
+  zIndex
+} = useDialog(props, {
+  onOpen: () => {
+    emit("open");
+  },
+  onClose: () => {
+    emit("close");
+  },
+  onOpened: () => {
+    emit("opened");
+  },
+  onClosed: () => {
+    emit("closed");
   }
 });
 
-watch(
-  () => props.modelValue,
-  (value) => {
-    if (value) {
-      rendered.value = true;
-      lockBodyScroll();
-      openLayer();
-      emit("open");
+const panelStyle = computed(() => {
+  const dimension = typeof props.size === "number" ? `${props.size}px` : props.size;
+  const isVertical = resolvedPlacement.value === "left" || resolvedPlacement.value === "right";
+
+  return {
+    width: isVertical ? dimension : "100%",
+    height: isVertical ? "100%" : dimension
+  };
+});
+
+function emitClose() {
+  emit("update:modelValue", false);
+}
+
+function requestClose() {
+  if (isClosing) {
+    return;
+  }
+
+  if (!props.beforeClose) {
+    emitClose();
+    return;
+  }
+
+  isClosing = true;
+  let doneCalled = false;
+  const done = (cancel?: boolean) => {
+    if (doneCalled) {
       return;
     }
 
-    unlockBodyScroll();
-    closeLayer();
+    doneCalled = true;
+    isClosing = false;
 
-    if (props.destroyOnClose) {
-      rendered.value = false;
+    if (cancel) {
+      return;
     }
-  },
-  {
-    immediate: true
-  }
-);
 
-onBeforeUnmount(() => {
-  unlockBodyScroll();
-  closeLayer();
+    emitClose();
+  };
+
+  try {
+    const result = props.beforeClose(done);
+    if (result && typeof (result as Promise<void>).catch === "function") {
+      void (result as Promise<void>).catch(() => {
+        isClosing = false;
+      });
+    }
+  } catch {
+    isClosing = false;
+  }
+}
+
+useDismissibleLayer({
+  enabled: () => visible.value,
+  refs: [panelRef],
+  closeOnEscape: allowEscClose.value,
+  closeOnOutside: allowOverlayClose.value,
+  isTopMost: () => isTopMost.value,
+  onDismiss: () => {
+    requestClose();
+  }
+});
+const focusTrap = useFocusTrap(panelRef, {
+  active: () => visible.value,
+  autoFocus: "first",
+  restoreFocus: true
 });
 </script>
 
 <template>
-  <teleport to="body">
-    <transition name="xy-fade">
-      <div v-if="rendered && props.modelValue" :class="[ns.base.value, `${ns.base.value}--${props.placement}`]">
-        <div
-          class="xy-drawer__overlay"
-          @click="props.closeOnOverlay ? closeDrawer() : undefined"
-        />
+  <teleport :to="appendTo" :disabled="teleportDisabled">
+    <transition name="xy-fade" @after-enter="handleAfterEnter" @after-leave="handleAfterLeave">
+      <div
+        v-if="rendered"
+        v-show="visible"
+        :class="[
+          ns.base.value,
+          `${ns.base.value}--${resolvedPlacement}`,
+          props.modalClass,
+          !showModal ? 'is-without-mask' : '',
+          isPenetrable ? 'is-penetrable' : ''
+        ]"
+        :style="drawerRootStyle"
+      >
+        <div v-if="showModal" class="xy-drawer__overlay" />
         <aside
           ref="panelRef"
           :class="`${ns.base.value}__panel`"
           :style="panelStyle"
           role="dialog"
-          aria-modal="true"
+          :aria-modal="showModal ? 'true' : 'false'"
+          :aria-labelledby="props.withHeader && props.title ? titleId : undefined"
+          :aria-label="!props.withHeader && props.title ? props.title : undefined"
+          :aria-describedby="bodyId"
           tabindex="-1"
+          @keydown.capture="focusTrap.handleKeydown"
         >
-          <header class="xy-drawer__header">
+          <header v-if="props.withHeader" class="xy-drawer__header">
             <slot name="header">
-              <h3 class="xy-drawer__title">{{ props.title }}</h3>
+              <h3 :id="titleId" class="xy-drawer__title">{{ props.title }}</h3>
             </slot>
-            <button type="button" class="xy-drawer__close" aria-label="close" @click="closeDrawer">
+            <button
+              v-if="props.showClose"
+              type="button"
+              class="xy-drawer__close"
+              aria-label="close"
+              @click="requestClose"
+            >
               ×
             </button>
           </header>
-          <div class="xy-drawer__body">
+          <div :id="bodyId" :class="['xy-drawer__body', props.withHeader ? '' : 'is-without-header']">
             <slot />
           </div>
           <footer v-if="$slots.footer" class="xy-drawer__footer">

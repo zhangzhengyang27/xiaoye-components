@@ -1,0 +1,92 @@
+.xy-scheduler {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.xy-scheduler__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.xy-scheduler__nav-group,
+.xy-scheduler__view-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.xy-scheduler__nav-button,
+.xy-scheduler__view-button {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color);
+  color: var(--xy-text-color);
+  font-size: var(--xy-font-size-sm);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.xy-scheduler__nav-button:hover,
+.xy-scheduler__view-button:hover {
+  border-color: color-mix(in srgb, var(--xy-color-primary) 28%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary) 8%, var(--xy-bg-color));
+}
+
+.xy-scheduler__nav-button:focus-visible,
+.xy-scheduler__view-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 55%, white);
+  outline-offset: 2px;
+}
+
+.xy-scheduler__nav-button--today,
+.xy-scheduler__view-button.is-active {
+  border-color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
+  color: var(--xy-color-primary);
+}
+
+.xy-scheduler__title {
+  font-size: var(--xy-font-size-lg);
+  font-weight: 600;
+  color: var(--xy-text-color);
+}
+
+.xy-scheduler__surface {
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-xl);
+  background: #fff;
+  box-shadow: var(--xy-shadow-sm);
+  padding: 12px;
+  overflow: auto;
+}
+
+.xy-scheduler .fc {
+  --fc-now-indicator-color: var(--xy-color-danger);
+  color: var(--xy-text-color);
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .xy-scheduler__toolbar {
+    align-items: flex-start;
+  }
+
+  .xy-scheduler__title {
+    width: 100%;
+    order: -1;
+  }
+
+  .xy-scheduler__surface {
+    padding: 12px;
+  }
+}

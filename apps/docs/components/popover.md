@@ -20,6 +20,12 @@ popover/basic
 popover/custom
 :::
 
+## 触发方式与内部关闭
+
+:::demo `trigger`、`content` 和默认插槽暴露的 `close` 方法，适合做 hover 说明卡片或在卡片内部主动关闭。
+popover/trigger-close
+:::
+
 ## 嵌套浮层
 
 :::demo 当轻量说明需要升级成阻断确认时，可以在 Popover 内把处理链路升级到 Modal。
@@ -39,10 +45,25 @@ popover/nested-overlay
 | ------------------ | ----------------- | ------------------ | ---------- |
 | `model-value`      | 是否打开          | `boolean`          | `false`    |
 | `title`            | 标题              | `string`           | `''`       |
+| `content`          | 纯文本内容        | `string`           | `''`       |
 | `placement`        | 浮层位置          | `Placement`        | `'bottom'` |
 | `width`            | 面板宽度          | `string \| number` | `320`      |
 | `close-on-outside` | 点击外部是否关闭  | `boolean`          | `true`     |
 | `close-on-esc`     | `Escape` 是否关闭 | `boolean`          | `true`     |
+| `disabled`         | 是否禁用          | `boolean`          | `false`    |
+| `trigger`          | 触发方式          | `'click' \| 'hover' \| 'focus' \| 'manual'` | `'click'` |
+| `open-delay`       | 打开延迟          | `number`           | `80`       |
+| `close-delay`      | 关闭延迟          | `number`           | `60`       |
+| `show-after`       | 打开延迟别名，优先级高于 `open-delay` | `number` | `undefined` |
+| `hide-after`       | 关闭延迟别名，优先级高于 `close-delay` | `number` | `undefined` |
+| `enterable`        | 浮层是否允许进入  | `boolean`          | `true`     |
+| `offset`           | 浮层偏移量        | `number`           | `10`       |
+| `show-arrow`       | 是否显示箭头      | `boolean`          | `true`     |
+| `teleported`       | 是否通过 Teleport 挂载到外层容器 | `boolean` | `true` |
+| `append-to`        | Teleport 的挂载目标 | `string \| HTMLElement` | `'body'` |
+| `persistent`       | 关闭后是否保留 DOM | `boolean` | `false` |
+| `popper-class`     | 浮层容器自定义类名 | `string` | `''` |
+| `popper-style`     | 浮层容器自定义样式 | `StyleValue` | `undefined` |
 
 ### Popover Events
 
@@ -54,8 +75,9 @@ popover/nested-overlay
 
 ### Popover Slots
 
-| 插槽      | 说明         |
-| --------- | ------------ |
-| `trigger` | 触发区域     |
-| `header`  | 自定义头部   |
-| `default` | 面板主体内容 |
+| 插槽        | 说明         |
+| ----------- | ------------ |
+| `reference` | 推荐的触发区域插槽 |
+| `trigger`   | 兼容的触发区域插槽 |
+| `header`    | 自定义头部   |
+| `default`   | 面板主体内容，插槽参数为 `{ close }` |

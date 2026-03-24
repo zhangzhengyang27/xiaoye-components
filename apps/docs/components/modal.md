@@ -6,7 +6,7 @@ outline: deep
 
 # Modal 弹窗
 
-`xy-modal` 用于承载阻断式录入、确认和强提示。当前版本重点保证焦点转移、`Escape` 关闭、遮罩关闭和关闭后焦点恢复这几类基础行为。
+`xy-modal` 用于承载阻断式录入、确认和强提示。除了基础的焦点转移、`Escape` 关闭和遮罩关闭，它也支持 `before-close`、头部裁剪和滚动锁定控制。
 
 ## 基础用法
 
@@ -26,6 +26,12 @@ modal/async-confirm
 modal/custom
 :::
 
+## 关闭控制与结构裁剪
+
+:::demo `before-close`、`show-close`、`with-header` 和 `lock-scroll` 更适合做严格确认或简化头部结构的弹窗。
+modal/close-control
+:::
+
 ## 何时使用
 
 - 弹窗表单录入，例如新建成员、编辑信息。
@@ -40,14 +46,27 @@ modal/custom
 
 ### Modal Attributes
 
-| 属性               | 说明                   | 类型               | 默认值  |
-| ------------------ | ---------------------- | ------------------ | ------- |
-| `model-value`      | 是否打开弹窗           | `boolean`          | `false` |
-| `title`            | 弹窗标题               | `string`           | `''`    |
-| `width`            | 面板宽度               | `string \| number` | `560`   |
-| `close-on-overlay` | 点击遮罩是否关闭       | `boolean`          | `true`  |
-| `close-on-esc`     | 按下 `Escape` 是否关闭 | `boolean`          | `true`  |
-| `destroy-on-close` | 关闭后是否销毁内容     | `boolean`          | `false` |
+| 属性                   | 说明                   | 类型               | 默认值  |
+| ---------------------- | ---------------------- | ------------------ | ------- |
+| `model-value`          | 是否打开弹窗           | `boolean`          | `false` |
+| `title`                | 弹窗标题               | `string`           | `''`    |
+| `width`                | 面板宽度               | `string \| number` | `560`   |
+| `append-to-body`       | 是否默认 teleport 到 body | `boolean`       | `true`  |
+| `append-to`            | teleport 挂载目标      | `string \| HTMLElement` | `'body'` |
+| `modal`                | 是否显示遮罩层         | `boolean`          | `true`  |
+| `modal-class`          | 遮罩层自定义类名       | `string`           | `''`    |
+| `modal-penetrable`     | 无遮罩时是否允许穿透点击背景 | `boolean`     | `false` |
+| `close-on-overlay`     | 点击遮罩是否关闭       | `boolean`          | `true`  |
+| `close-on-click-modal` | 点击遮罩是否关闭，别名配置 | `boolean`      | `undefined` |
+| `close-on-esc`         | 按下 `Escape` 是否关闭 | `boolean`          | `true`  |
+| `close-on-press-escape`| 按下 `Escape` 是否关闭，别名配置 | `boolean` | `undefined` |
+| `open-delay`           | 打开延迟，单位毫秒     | `number`           | `0`     |
+| `close-delay`          | 关闭延迟，单位毫秒     | `number`           | `0`     |
+| `destroy-on-close`     | 关闭后是否销毁内容     | `boolean`          | `false` |
+| `show-close`           | 是否显示右上角关闭按钮 | `boolean`          | `true`  |
+| `lock-scroll`          | 打开时是否锁定 body 滚动 | `boolean`        | `true`  |
+| `with-header`          | 是否渲染默认头部区域   | `boolean`          | `true`  |
+| `before-close`         | 关闭前拦截函数         | `(done: (cancel?: boolean) => void) => void \| Promise<void>` | `undefined` |
 
 ### Modal Events
 
@@ -55,7 +74,9 @@ modal/custom
 | -------------------- | ---------------------- | --------- |
 | `update:model-value` | 弹窗开关状态变化时触发 | `boolean` |
 | `open`               | 弹窗打开后触发         | —         |
+| `opened`             | 弹窗进入完成后触发     | —         |
 | `close`              | 弹窗关闭时触发         | —         |
+| `closed`             | 弹窗离开完成后触发     | —         |
 
 ### Modal Slots
 

@@ -14,6 +14,9 @@ hero:
       text: 组件总览
       link: /components/overview
     - theme: alt
+      text: Scheduler 场景
+      link: /examples/scheduler
+    - theme: alt
       text: 页面示例
       link: /examples/admin
 features:
@@ -50,6 +53,26 @@ features:
   </section>
 </div>
 
+## 当前推荐入口
+
+<div class="xy-doc-grid">
+  <div>
+    <h3>Scheduler 排期日历</h3>
+    <p>如果你要查 `xy-scheduler` 的 props、events、slots、payload 类型和接入顺序，先从组件页进入。</p>
+    <a href="/components/scheduler">查看 Scheduler API</a>
+  </div>
+  <div>
+    <h3>Scheduler 场景示例</h3>
+    <p>如果你想直接看整块日历、月 / 周 / 日切换、框选创建、拖拽改期和外部拖入，先从场景页进入。</p>
+    <a href="/examples/scheduler">查看 Scheduler 场景示例</a>
+  </div>
+  <div>
+    <h3>Scheduler 业务接入模板</h3>
+    <p>如果你已经准备接接口、抽屉和回写逻辑，直接看业务接入模板会更快。</p>
+    <a href="/examples/scheduler-template">查看业务接入模板</a>
+  </div>
+</div>
+
 ## 当前阶段能直接解决什么
 
 <p class="xy-section-lead">
@@ -69,7 +92,7 @@ features:
   </div>
   <div>
     <h3>数据视图</h3>
-    <p>Table、Pagination 已覆盖列表页最常见的行点击、空态、加载态和翻页需求。</p>
+    <p>Table、Pagination 和 Scheduler 已覆盖列表页、排期面板里最常见的展示、翻页和时间编排需求。</p>
     <a href="/components/table">看 Table</a>
   </div>
 </div>
@@ -78,8 +101,9 @@ features:
 
 1. 从 [快速开始](/guide/quick-start) 了解安装、注册和模板命名约定。
 2. 在 [组件总览](/components/overview) 里先建立组件能力地图。
-3. 再进入 [Form 表单](/components/form) 或 [Table 表格](/components/table)，按当前任务查具体用法。
-4. 最后看 [管理后台闭环示例](/examples/admin)，确认这些组件在真实页面里的组合方式。
+3. 如果你在做排期面板，先看 [Scheduler 排期日历](/components/scheduler) 和 [Scheduler 场景示例](/examples/scheduler)。
+4. 再进入 [Form 表单](/components/form) 或 [Table 表格](/components/table)，按当前任务查具体用法。
+5. 最后看 [管理后台闭环示例](/examples/admin)，确认这些组件在真实页面里的组合方式。
 
 ## 两分钟感受组件组合方式
 

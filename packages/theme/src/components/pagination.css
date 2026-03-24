@@ -2,35 +2,295 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--xy-space-3);
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--xy-text-color-secondary);
+  font-size: var(--xy-font-size-md);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.xy-pagination__main,
+.xy-pagination__right {
+  display: flex;
+  align-items: center;
+  gap: 0;
   flex-wrap: wrap;
 }
 
-.xy-pagination__pager {
+.xy-pagination__right {
+  margin-left: auto;
+}
+
+.xy-pagination__button,
+.xy-pagination__pager-item,
+.xy-pagination__jumper input {
   display: inline-flex;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--xy-text-color-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 32px;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: inherit;
 }
 
-.xy-pagination__pager button,
-.xy-pagination__size select {
-  border: 1px solid var(--xy-border-color);
-  background: var(--xy-bg-color);
-  color: var(--xy-text-color);
-  border-radius: var(--xy-radius-md);
-  min-height: 36px;
-  padding: 0 12px;
+.xy-pagination__button,
+.xy-pagination__pager-item {
+  cursor: pointer;
 }
 
-.xy-pagination__pager button.is-active {
-  color: white;
+.xy-pagination__button > span,
+.xy-pagination__pager-item > span {
+  display: block;
+  line-height: 1;
+  translate: 0 -0.5px;
+}
+
+.xy-pagination__button:hover:not(:disabled),
+.xy-pagination__pager-item:hover:not(:disabled) {
+  color: var(--xy-color-primary);
+}
+
+.xy-pagination__button:focus-visible,
+.xy-pagination__pager-item:focus-visible,
+.xy-pagination__jumper input:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--xy-color-primary) 72%, white);
+  outline-offset: -1px;
+}
+
+.xy-pagination__button:disabled,
+.xy-pagination__pager-item:disabled,
+.xy-pagination__jumper input:disabled {
+  color: var(--xy-text-color-muted);
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.xy-pagination .xy-pagination__pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  margin-block: 0;
+  padding: 0;
+  padding-inline-start: 0;
+  list-style: none;
+  font-size: 0;
+}
+
+.xy-pagination .xy-pagination__pager li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.xy-pagination .xy-pagination__pager li::marker {
+  content: "";
+}
+
+.xy-pagination__pager-item.is-active {
+  color: var(--xy-color-primary);
+  font-weight: 700;
+}
+
+.xy-pagination__pager-item.is-more {
+  min-width: 28px;
+}
+
+.xy-pagination.is-background .xy-pagination__button,
+.xy-pagination.is-background .xy-pagination__pager-item {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
+  margin: 0 4px;
+}
+
+.xy-pagination.is-background .xy-pagination__pager-item.is-active {
   background: var(--xy-color-primary);
-  border-color: var(--xy-color-primary);
+  color: white;
 }
 
-.xy-pagination__size {
+.xy-pagination.is-background .xy-pagination__button:hover:not(:disabled),
+.xy-pagination.is-background .xy-pagination__pager-item:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 72%, white);
+}
+
+.xy-pagination.is-background .xy-pagination__button:disabled,
+.xy-pagination.is-background .xy-pagination__pager-item:disabled {
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 92%, white);
+  color: var(--xy-text-color-muted);
+  opacity: 1;
+}
+
+.xy-pagination__total,
+.xy-pagination__sizes,
+.xy-pagination__jumper {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  margin-left: 16px;
+  font-weight: 400;
   color: var(--xy-text-color-secondary);
 }
 
+.xy-pagination__jumper input {
+  width: 56px;
+  border: 1px solid var(--xy-border-color);
+  background: var(--xy-bg-color);
+  color: var(--xy-text-color);
+  padding: 0 10px;
+  border-radius: var(--xy-radius-md);
+  box-shadow: none;
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.xy-pagination__jumper input:hover:not(:disabled),
+.xy-pagination__sizes .xy-select__trigger:hover:not(:disabled) {
+  border-color: var(--xy-border-color-strong);
+}
+
+.xy-pagination__sizes .xy-select {
+  width: 108px;
+}
+
+.xy-pagination__sizes .xy-select__trigger {
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: var(--xy-radius-md);
+  box-shadow: none;
+}
+
+.xy-pagination__sizes .xy-select__selection {
+  color: var(--xy-text-color);
+}
+
+.xy-pagination__sizes .xy-select__actions {
+  gap: 4px;
+}
+
+.xy-pagination__sizes .xy-select__caret {
+  width: 14px;
+}
+
+.xy-pagination__jumper input:hover:not(:disabled) {
+  border-color: var(--xy-border-color-strong);
+}
+
+.xy-pagination__jumper input::-webkit-inner-spin-button,
+.xy-pagination__jumper input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.xy-pagination__slot {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.xy-pagination__button--prev,
+.xy-pagination__button--next {
+  min-width: 32px;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-pagination__button--prev {
+  margin-right: 4px;
+}
+
+.xy-pagination__button--next {
+  margin-left: 4px;
+}
+
+.xy-pagination__button--prev > span,
+.xy-pagination__button--next > span {
+  font-size: 22px;
+  font-weight: 300;
+  translate: 0 -1px;
+}
+
+.xy-pagination__total {
+  font-size: var(--xy-font-size-md);
+}
+
+.xy-pagination__sizes span,
+.xy-pagination__jumper span {
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-pagination.is-disabled .xy-pagination__total,
+.xy-pagination.is-disabled .xy-pagination__sizes span,
+.xy-pagination.is-disabled .xy-pagination__jumper span {
+  color: var(--xy-text-color-muted);
+}
+
+.xy-pagination--sm {
+  font-size: var(--xy-font-size-sm);
+}
+
+.xy-pagination--sm .xy-pagination__button,
+.xy-pagination--sm .xy-pagination__pager-item,
+.xy-pagination--sm .xy-pagination__jumper input {
+  min-width: 28px;
+  height: 28px;
+  font-size: 12px;
+  line-height: 28px;
+  border-radius: 6px;
+}
+
+.xy-pagination--sm .xy-pagination__button--prev > span,
+.xy-pagination--sm .xy-pagination__button--next > span {
+  font-size: 18px;
+}
+
+.xy-pagination--sm .xy-pagination__sizes .xy-select {
+  width: 96px;
+}
+
+.xy-pagination--sm .xy-pagination__sizes .xy-select__trigger {
+  min-height: 28px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.xy-pagination--lg .xy-pagination__button,
+.xy-pagination--lg .xy-pagination__pager-item,
+.xy-pagination--lg .xy-pagination__jumper input {
+  min-width: 36px;
+  height: 36px;
+  font-size: 15px;
+  line-height: 36px;
+  border-radius: 10px;
+}
+
+.xy-pagination--lg .xy-pagination__button--prev > span,
+.xy-pagination--lg .xy-pagination__button--next > span {
+  font-size: 24px;
+}
+
+.xy-pagination--lg .xy-pagination__sizes .xy-select {
+  width: 132px;
+}
+
+.xy-pagination--lg .xy-pagination__sizes .xy-select__trigger {
+  min-height: 36px;
+  font-size: 15px;
+  border-radius: 10px;
+}

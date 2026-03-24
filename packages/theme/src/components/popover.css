@@ -15,12 +15,23 @@
 }
 
 .xy-popover__panel {
+  position: absolute;
   border: 1px solid var(--xy-border-color);
   border-radius: var(--xy-radius-lg);
   background: var(--xy-bg-color);
   box-shadow: var(--xy-shadow-md);
   padding: 16px;
   outline: none;
+}
+
+.xy-popover__arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  rotate: 45deg;
+  border-top: 1px solid var(--xy-border-color);
+  border-left: 1px solid var(--xy-border-color);
+  background: var(--xy-bg-color);
 }
 
 .xy-popover__header {
@@ -31,4 +42,3 @@
 .xy-popover__body {
   color: var(--xy-text-color-secondary);
 }
-

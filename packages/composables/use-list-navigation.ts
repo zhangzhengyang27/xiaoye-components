@@ -49,7 +49,20 @@ export function useListNavigation<T extends ListNavigationItem>(
   }
 
   function setActiveIndex(index: number) {
+    if (index < 0 || index >= items().length) {
+      activeIndex.value = -1;
+      return;
+    }
+
+    if (items()[index]?.disabled) {
+      return;
+    }
+
     activeIndex.value = index;
+  }
+
+  function clearActiveIndex() {
+    activeIndex.value = -1;
   }
 
   function activateFirst() {
@@ -73,10 +86,10 @@ export function useListNavigation<T extends ListNavigationItem>(
     activeItem,
     findEnabledIndex,
     setActiveIndex,
+    clearActiveIndex,
     activateFirst,
     activateLast,
     moveNext,
     movePrev
   };
 }
-

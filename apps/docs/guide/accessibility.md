@@ -19,6 +19,7 @@ outline: deep
 | `Tabs` | `ArrowLeft / ArrowRight / ArrowUp / ArrowDown` 切换，`Home / End` 快速跳到首尾可用项 |
 | `Select` | `ArrowUp / ArrowDown` 移动高亮，`Enter / Space` 选择，`Escape` 关闭并回到触发器 |
 | `Dropdown` | `ArrowUp / ArrowDown / Home / End` 遍历菜单项，`Enter / Space` 选择 |
+| `Collapse` | `Enter / Space` 切换当前面板 |
 | `Modal` | 打开后焦点带入弹层，`Tab / Shift+Tab` 在内部循环，`Escape` 关闭 |
 | `Drawer` | 与 `Modal` 保持一致：焦点带入、焦点恢复、`Escape` 关闭 |
 | `Tooltip` | 支持 `focus` 打开，`Escape` 关闭 |
@@ -38,6 +39,7 @@ outline: deep
 | Tabs | `tablist / tab / tabpanel` |
 | Select | `combobox / listbox / option` |
 | Dropdown | `menu / menuitem` |
+| Collapse | `button / region` |
 | Tooltip | `tooltip` |
 | Modal / Drawer | `dialog` + `aria-modal="true"` |
 | Popover | `dialog`，但不强制模态 |
@@ -52,6 +54,7 @@ outline: deep
 
 - [Select 选择器](/components/select)
 - [Tabs 标签页](/components/tabs)
+- [Collapse 折叠面板](/components/collapse)
 - [Tooltip 文字提示](/components/tooltip)
 - [Modal 弹窗](/components/modal)
 - [Dropdown 下拉菜单](/components/dropdown)

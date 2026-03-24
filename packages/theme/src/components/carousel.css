@@ -1,0 +1,524 @@
+.xy-carousel {
+  position: relative;
+  outline: none;
+}
+
+.xy-carousel.is-thumbs-top,
+.xy-carousel.is-thumbs-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.xy-carousel.is-thumbs-left,
+.xy-carousel.is-thumbs-right {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.xy-carousel.is-thumbs-left {
+  flex-direction: row;
+}
+
+.xy-carousel.is-thumbs-right {
+  flex-direction: row-reverse;
+}
+
+.xy-carousel--horizontal,
+.xy-carousel--vertical {
+  overflow: hidden;
+}
+
+.xy-carousel.is-centered .xy-carousel__container {
+  overflow: hidden;
+}
+
+.xy-carousel.is-vertical-outside {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.xy-carousel__main {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+}
+
+.xy-carousel.is-vertical-outside .xy-carousel__container {
+  flex: 1;
+}
+
+.xy-carousel__container {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  transition: height 0.28s ease;
+}
+
+.xy-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: var(--xy-z-dropdown);
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, #0f172a 64%, transparent);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition:
+    opacity 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-carousel__arrow:hover {
+  background: color-mix(in srgb, #0f172a 78%, transparent);
+}
+
+.xy-carousel__arrow--left {
+  left: 16px;
+}
+
+.xy-carousel__arrow--right {
+  right: 16px;
+}
+
+.xy-carousel__indicators {
+  z-index: calc(var(--xy-z-dropdown) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: 0;
+}
+
+.xy-carousel__indicators--horizontal {
+  flex-direction: row;
+  max-width: min(calc(100% - 48px), 560px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.xy-carousel__indicators--vertical {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.xy-carousel__indicators--horizontal::-webkit-scrollbar {
+  display: none;
+}
+
+.xy-carousel__indicators--vertical.xy-carousel__indicators--outside {
+  margin-left: 0;
+}
+
+.xy-carousel__indicators--labels .xy-carousel__button {
+  width: auto;
+  height: auto;
+  padding: 2px 14px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.xy-carousel__indicator {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+}
+
+.xy-carousel__indicator::marker {
+  content: "";
+}
+
+.xy-carousel__indicator--horizontal {
+  padding: 0;
+}
+
+.xy-carousel__indicator--vertical {
+  padding: 0;
+  width: auto;
+}
+
+.xy-carousel__indicator:hover .xy-carousel__button {
+  opacity: 0.72;
+}
+
+.xy-carousel__indicator.is-active .xy-carousel__button {
+  opacity: 1;
+}
+
+.xy-carousel__button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: white;
+  opacity: 0.48;
+  cursor: pointer;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.xy-carousel__button--custom,
+.xy-carousel__button--label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 24px;
+  height: auto;
+  min-height: 24px;
+  border-radius: 0;
+  background: transparent;
+  opacity: 1;
+  overflow: visible;
+}
+
+.xy-carousel--indicator-dot .xy-carousel__button--custom,
+.xy-carousel__indicator--vertical .xy-carousel__button--custom,
+.xy-carousel__indicators--outside .xy-carousel__button--custom {
+  width: auto;
+  height: auto;
+  min-width: 24px;
+  min-height: 24px;
+  background: transparent;
+  opacity: 1;
+}
+
+.xy-carousel__indicator:hover .xy-carousel__button--custom,
+.xy-carousel__indicator.is-active .xy-carousel__button--custom {
+  opacity: 1;
+}
+
+.xy-carousel--indicator-dot .xy-carousel__button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.xy-carousel__indicator--vertical .xy-carousel__button {
+  width: 3px;
+  height: 18px;
+}
+
+.xy-carousel--indicator-dot .xy-carousel__indicator--vertical .xy-carousel__button {
+  width: 8px;
+  height: 8px;
+}
+
+.xy-carousel__indicator.is-active .xy-carousel__button:not(.xy-carousel__button--custom):not(.xy-carousel__button--label) {
+  transform: scale(1.04);
+}
+
+.xy-carousel__indicators--labels .xy-carousel__indicator--vertical .xy-carousel__button {
+  width: auto;
+  height: auto;
+  min-height: 30px;
+  padding: 8px 10px;
+}
+
+.xy-carousel__indicators--outside .xy-carousel__button {
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, white);
+  opacity: 0.24;
+}
+
+.xy-carousel__indicators--outside .xy-carousel__button--custom,
+.xy-carousel__indicators--outside .xy-carousel__button--label {
+  background: transparent;
+  opacity: 1;
+}
+
+.xy-carousel__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--xy-z-dropdown) + 2);
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.xy-carousel__progress:not(.xy-carousel__progress--indicator) {
+  bottom: 0;
+}
+
+.xy-carousel__progress--top {
+  top: 0;
+  bottom: auto;
+}
+
+.xy-carousel__progress--bottom {
+  bottom: 0;
+}
+
+.xy-carousel__progress-bar {
+  display: block;
+  width: var(--xy-carousel-progress-percent, 0%);
+  height: 100%;
+  background: var(--xy-carousel-progress-color, var(--xy-color-primary));
+  transition: width 0.08s linear;
+}
+
+.xy-carousel__progress--indicator {
+  position: static;
+  width: min(180px, 100%);
+  margin-top: 8px;
+}
+
+.xy-carousel__controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  z-index: calc(var(--xy-z-dropdown) + 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.xy-carousel__controls > * {
+  pointer-events: auto;
+}
+
+.xy-carousel__controls--horizontal {
+  justify-content: center;
+}
+
+.xy-carousel__controls--vertical {
+  top: 50%;
+  right: 16px;
+  left: auto;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+.xy-carousel__controls--inside .xy-carousel__indicators {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #0f172a 18%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.xy-carousel__controls--inside.xy-carousel__controls--vertical .xy-carousel__indicators {
+  padding: 10px 7px;
+}
+
+.xy-carousel__controls--outside {
+  position: static;
+  right: auto;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  margin-top: 14px;
+}
+
+.xy-carousel__controls--outside.xy-carousel__controls--vertical {
+  margin-top: 0;
+  margin-left: 12px;
+}
+
+.xy-carousel.is-vertical-outside .xy-carousel__main {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.xy-carousel.is-vertical-outside .xy-carousel__container {
+  min-width: 0;
+}
+
+.xy-carousel.is-vertical-outside .xy-carousel__controls--outside.xy-carousel__controls--vertical {
+  flex: none;
+  margin-left: 0;
+  justify-content: center;
+}
+
+.xy-carousel__thumbs {
+  min-width: 0;
+}
+
+.xy-carousel__thumbs-track {
+  display: grid;
+  gap: var(--xy-carousel-thumbs-gap, 8px);
+  min-width: 0;
+  width: 100%;
+}
+
+.xy-carousel__thumbs--top,
+.xy-carousel__thumbs--bottom {
+  overflow-x: auto;
+}
+
+.xy-carousel__thumbs--left,
+.xy-carousel__thumbs--right {
+  overflow-y: auto;
+  max-width: 140px;
+}
+
+.xy-carousel__thumb {
+  flex: 0 0 var(--xy-carousel-thumbs-basis, 20%);
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: var(--xy-text-color-secondary);
+  min-width: 0;
+}
+
+.xy-carousel__thumb:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 36%, white);
+  outline-offset: 2px;
+}
+
+.xy-carousel__thumb--line {
+  width: 32px;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, white);
+  opacity: 0.32;
+}
+
+.xy-carousel__thumb.is-active .xy-carousel__thumb--line,
+.xy-carousel__thumb--line.is-active {
+  opacity: 1;
+  background: var(--xy-color-primary);
+}
+
+.xy-carousel__thumb--dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, white);
+  opacity: 0.36;
+}
+
+.xy-carousel__thumb.is-active .xy-carousel__thumb--dot,
+.xy-carousel__thumb--dot.is-active {
+  opacity: 1;
+  background: var(--xy-color-primary);
+}
+
+.xy-carousel__thumb--thumbnail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
+  white-space: nowrap;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.xy-carousel__thumb.is-active .xy-carousel__thumb--thumbnail,
+.xy-carousel__thumb--thumbnail.is-active {
+  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
+  color: var(--xy-color-primary);
+}
+
+.xy-carousel__item {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.xy-carousel__item.is-active {
+  z-index: 2;
+}
+
+.xy-carousel__item.is-dragging,
+.xy-carousel__item--card.is-dragging {
+  transition: none !important;
+}
+
+.xy-carousel__item.is-animating {
+  transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.xy-carousel__item--fade {
+  transition-property: opacity;
+}
+
+.xy-carousel__item--card {
+  width: 50%;
+  transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.xy-carousel__item--card-vertical {
+  width: 100%;
+  height: 50%;
+}
+
+.xy-carousel__item--card.is-in-stage {
+  z-index: var(--xy-z-dropdown);
+  cursor: pointer;
+}
+
+.xy-carousel__item--card.is-active {
+  z-index: calc(var(--xy-z-dropdown) + 1);
+}
+
+.xy-carousel__mask {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0.24;
+  transition: opacity 0.24s ease;
+}
+
+.xy-carousel__item--card.is-in-stage:hover .xy-carousel__mask {
+  opacity: 0.12;
+}
+
+.xy-carousel-arrow-left-enter-active,
+.xy-carousel-arrow-left-leave-active,
+.xy-carousel-arrow-right-enter-active,
+.xy-carousel-arrow-right-leave-active {
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-carousel-arrow-left-enter-from,
+.xy-carousel-arrow-left-leave-to {
+  opacity: 0;
+  transform: translateY(-50%) translateX(-10px);
+}
+
+.xy-carousel-arrow-right-enter-from,
+.xy-carousel-arrow-right-leave-to {
+  opacity: 0;
+  transform: translateY(-50%) translateX(10px);
+}

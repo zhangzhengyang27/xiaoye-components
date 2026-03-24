@@ -8,11 +8,12 @@ import {
   size as floatingSize
 } from "@floating-ui/dom";
 import { ref, toValue } from "vue";
-import type { Placement } from "@floating-ui/dom";
+import type { Placement, ReferenceElement, Strategy } from "@floating-ui/dom";
 import type { MaybeRefOrGetter, Ref } from "vue";
 
 export interface FloatingPanelOptions {
   placement?: MaybeRefOrGetter<Placement>;
+  strategy?: MaybeRefOrGetter<Strategy>;
   offset?: MaybeRefOrGetter<number>;
   matchTriggerWidth?: MaybeRefOrGetter<boolean>;
   arrowRef?: Ref<HTMLElement | null>;
@@ -21,7 +22,7 @@ export interface FloatingPanelOptions {
 }
 
 export function useFloatingPanel(
-  referenceRef: Ref<HTMLElement | null>,
+  referenceRef: Ref<ReferenceElement | null>,
   floatingRef: Ref<HTMLElement | null>,
   options: FloatingPanelOptions = {}
 ) {
@@ -60,8 +61,9 @@ export function useFloatingPanel(
       referenceRef.value,
       floatingRef.value,
       {
-      placement: toValue(options.placement) ?? "bottom-start",
-      middleware
+        placement: toValue(options.placement) ?? "bottom-start",
+        strategy: toValue(options.strategy) ?? "absolute",
+        middleware
       }
     );
 
@@ -87,7 +89,7 @@ export function useFloatingPanel(
     floatingStyle.value = {
       left: `${x}px`,
       top: `${y}px`,
-      position: "absolute",
+      position: toValue(options.strategy) ?? "absolute",
       zIndex: `${toValue(options.zIndex) ?? 2000}`
     };
   }

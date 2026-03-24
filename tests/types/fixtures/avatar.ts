@@ -42,7 +42,7 @@ void avatarGroupProps;
 
 const invalidPlacement: AvatarGroupProps = {
   // @ts-expect-error invalid placement should be rejected
-  placement: "bottom-start"
+  placement: "center"
 };
 
 void invalidPlacement;

@@ -11,3 +11,4 @@ apps/docs/.vitepress/.temp
 apps/playground/dist
 *.tsbuildinfo
 *.local
+.playwright-cli/

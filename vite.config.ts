@@ -34,7 +34,8 @@ export default defineConfig({
       "@xiaoye/composables": resolvePath("./packages/composables/index.ts"),
       "@xiaoye/utils": resolvePath("./packages/utils/index.ts"),
       "@xiaoye/theme": resolvePath("./packages/theme/index.css"),
-      "@xiaoye/tokens": resolvePath("./packages/tokens/src/index.ts")
+      "@xiaoye/tokens": resolvePath("./packages/tokens/src/index.ts"),
+      rrule: resolvePath("./packages/utils/compat/rrule.js")
     }
   },
   build: {
@@ -47,7 +48,18 @@ export default defineConfig({
     outDir: resolvePath("./packages/xiaoye-components/dist"),
     emptyOutDir: true,
     rollupOptions: {
-      external: ["vue", "@iconify/vue", "@floating-ui/dom", "async-validator"],
+      external: [
+        "vue",
+        "@iconify/vue",
+        "@floating-ui/dom",
+        "async-validator",
+        "@fullcalendar/core",
+        "@fullcalendar/core/locales/zh-cn",
+        "@fullcalendar/daygrid",
+        "@fullcalendar/interaction",
+        "@fullcalendar/timegrid",
+        "@fullcalendar/vue3"
+      ],
       output: {
         globals: {
           vue: "Vue"

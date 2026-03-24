@@ -52,6 +52,9 @@ export default defineConfig({
             { text: "Text 文本", link: "/components/text" },
             { text: "Badge 徽章", link: "/components/badge" },
             { text: "Avatar 头像", link: "/components/avatar" },
+            { text: "Image 图片", link: "/components/image" },
+            { text: "Card 卡片", link: "/components/card" },
+            { text: "Carousel 走马灯", link: "/components/carousel" },
             { text: "Row 栅格行", link: "/components/row" },
             { text: "Col 栅格列", link: "/components/col" },
             { text: "Scrollbar 滚动条", link: "/components/scrollbar" },
@@ -85,7 +88,10 @@ export default defineConfig({
         {
           text: "反馈与浮层",
           items: [
+            { text: "Collapse 折叠面板", link: "/components/collapse" },
             { text: "Empty 空状态", link: "/components/empty" },
+            { text: "Skeleton 骨架屏", link: "/components/skeleton" },
+            { text: "Result 结果", link: "/components/result" },
             { text: "Tooltip 文字提示", link: "/components/tooltip" },
             { text: "Popover 气泡卡片", link: "/components/popover" },
             { text: "Dropdown 下拉菜单", link: "/components/dropdown" },
@@ -96,6 +102,8 @@ export default defineConfig({
         {
           text: "数据展示",
           items: [
+            { text: "Progress 进度条", link: "/components/progress" },
+            { text: "Scheduler 排期日历", link: "/components/scheduler" },
             { text: "Table 表格", link: "/components/table" },
             { text: "Pagination 分页", link: "/components/pagination" }
           ]
@@ -104,7 +112,12 @@ export default defineConfig({
       "/examples/": [
         {
           text: "页面示例",
-          items: [{ text: "管理后台闭环示例", link: "/examples/admin" }]
+          items: [
+            { text: "管理后台闭环示例", link: "/examples/admin" },
+            { text: "Skeleton 场景示例", link: "/examples/skeleton" },
+            { text: "Scheduler 场景示例", link: "/examples/scheduler" },
+            { text: "Scheduler 业务接入模板", link: "/examples/scheduler-template" }
+          ]
         }
       ]
     },
@@ -125,7 +138,8 @@ export default defineConfig({
         "@xiaoye/composables": resolvePath("../../../packages/composables/index.ts"),
         "@xiaoye/utils": resolvePath("../../../packages/utils/index.ts"),
         "@xiaoye/theme": resolvePath("../../../packages/theme/index.css"),
-        "@xiaoye/tokens": resolvePath("../../../packages/tokens/src/index.ts")
+        "@xiaoye/tokens": resolvePath("../../../packages/tokens/src/index.ts"),
+        rrule: resolvePath("../../../packages/utils/compat/rrule.js")
       }
     }
   }

@@ -14,6 +14,7 @@ export default defineConfig({
       "@xiaoye/theme": resolvePath("./packages/theme/index.css"),
       "@xiaoye/utils": resolvePath("./packages/utils/index.ts"),
       "@xiaoye/tokens": resolvePath("./packages/tokens/src/index.ts"),
+      rrule: resolvePath("./packages/utils/compat/rrule.js"),
       "xiaoye-components": resolvePath("./packages/xiaoye-components/index.ts"),
       "xiaoye-components/style.css": resolvePath("./packages/xiaoye-components/style.css")
     }

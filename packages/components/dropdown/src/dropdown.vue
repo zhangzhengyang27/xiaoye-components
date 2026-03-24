@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
+import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
 import {
   useDismissibleLayer,
   useFloatingPanel,
+  useFloatingVisibility,
   useListNavigation,
   useOverlayStack,
   useNamespace
@@ -15,74 +17,155 @@ export interface DropdownItem {
   disabled?: boolean;
   danger?: boolean;
   description?: string;
+  command?: string | number | Record<string, unknown>;
 }
 
 export interface DropdownProps {
+  modelValue?: boolean;
   items: DropdownItem[];
   placement?: Placement;
   disabled?: boolean;
   closeOnSelect?: boolean;
+  role?: "menu" | "navigation";
+  trigger?: "click" | "hover" | "contextmenu";
+  openDelay?: number;
+  closeDelay?: number;
+  showAfter?: number;
+  hideAfter?: number;
+  maxHeight?: string | number;
+  teleported?: boolean;
+  appendTo?: string | HTMLElement;
+  persistent?: boolean;
+  popperClass?: string;
+  popperStyle?: StyleValue;
 }
 
 const props = withDefaults(defineProps<DropdownProps>(), {
+  modelValue: false,
   placement: "bottom-start",
   disabled: false,
-  closeOnSelect: true
+  closeOnSelect: true,
+  role: "menu",
+  trigger: "hover",
+  openDelay: 80,
+  closeDelay: 120,
+  showAfter: undefined,
+  hideAfter: undefined,
+  maxHeight: "",
+  teleported: true,
+  appendTo: "body",
+  persistent: false,
+  popperClass: "",
+  popperStyle: undefined
 });
 
 const emit = defineEmits<{
+  "update:modelValue": [value: boolean];
   select: [item: DropdownItem];
+  command: [command: DropdownItem["command"] | DropdownItem["key"], item: DropdownItem];
   visibleChange: [value: boolean];
 }>();
 
 const ns = useNamespace("dropdown");
 const triggerRef = ref<HTMLElement | null>(null);
 const menuRef = ref<HTMLElement | null>(null);
-const open = ref(false);
 const listId = `xy-dropdown-${Math.random().toString(36).slice(2, 10)}`;
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 const navigation = useListNavigation(() => props.items, { loop: true });
+const itemRole = computed(() => props.role === "navigation" ? "link" : "menuitem");
+const teleportTarget = computed(() => props.appendTo ?? "body");
+const { visible, rendered, open: openFloating, close: closeFloating, toggle, clearTimers, handleAfterLeave } =
+  useFloatingVisibility({
+    modelValue: () => props.modelValue,
+    disabled: () => props.disabled,
+    persistent: () => props.persistent,
+    openDelay: () => props.showAfter ?? props.openDelay,
+    closeDelay: () => props.hideAfter ?? props.closeDelay,
+    emitModelValue: (value) => {
+      emit("update:modelValue", value);
+    },
+    onOpen: () => {
+      emit("visibleChange", true);
+      openLayer();
+      navigation.activateFirst();
+    },
+    onClose: () => {
+      emit("visibleChange", false);
+      stopAutoUpdate();
+      closeLayer();
+    }
+  });
 const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
   triggerRef,
   menuRef,
   {
     placement: () => props.placement,
+    strategy: "fixed",
     zIndex
   }
 );
+const menuMaxHeightStyle = computed(() => ({
+  maxHeight:
+    props.maxHeight === "" || props.maxHeight == null
+      ? undefined
+      : typeof props.maxHeight === "number"
+        ? `${props.maxHeight}px`
+        : props.maxHeight
+}));
 
-async function openMenu() {
-  if (props.disabled || open.value) {
-    return;
-  }
-
-  open.value = true;
-  emit("visibleChange", true);
-  openLayer();
-  navigation.activateFirst();
-  await nextTick();
-  await updatePosition();
-  startAutoUpdate();
+async function openMenu(immediate = props.trigger !== "hover") {
+  openFloating({
+    immediate
+  });
 }
 
-function closeMenu() {
-  if (!open.value) {
-    return;
-  }
-
-  open.value = false;
-  emit("visibleChange", false);
-  stopAutoUpdate();
-  closeLayer();
+function closeMenu(immediate = props.trigger !== "hover") {
+  closeFloating({
+    immediate
+  });
 }
 
 function toggleMenu() {
-  if (open.value) {
-    closeMenu();
+  toggle();
+}
+
+function scheduleOpen() {
+  if (props.trigger !== "hover") {
     return;
   }
 
-  void openMenu();
+  openFloating();
+}
+
+function scheduleClose() {
+  if (props.trigger !== "hover") {
+    return;
+  }
+
+  closeFloating();
+}
+
+function handleTriggerClick() {
+  if (props.trigger !== "click") {
+    return;
+  }
+
+  toggleMenu();
+}
+
+function handleContextMenu(event: MouseEvent) {
+  if (props.trigger !== "contextmenu") {
+    return;
+  }
+
+  event.preventDefault();
+
+  if (visible.value) {
+    closeMenu(true);
+    return;
+  }
+
+  void openMenu(true);
 }
 
 function handleSelect(item: DropdownItem) {
@@ -91,9 +174,12 @@ function handleSelect(item: DropdownItem) {
   }
 
   emit("select", item);
+  emit("command", item.command ?? item.key, item);
 
   if (props.closeOnSelect) {
-    closeMenu();
+    closeFloating({
+      immediate: true
+    });
     triggerRef.value?.focus();
   }
 }
@@ -117,8 +203,8 @@ async function handleKeydown(event: KeyboardEvent) {
   switch (event.key) {
     case "ArrowDown":
       event.preventDefault();
-      if (!open.value) {
-        await openMenu();
+      if (!visible.value) {
+        await openMenu(true);
       } else {
         navigation.moveNext();
         focusActiveItem();
@@ -126,8 +212,8 @@ async function handleKeydown(event: KeyboardEvent) {
       break;
     case "ArrowUp":
       event.preventDefault();
-      if (!open.value) {
-        await openMenu();
+      if (!visible.value) {
+        await openMenu(true);
       } else {
         navigation.movePrev();
         focusActiveItem();
@@ -146,8 +232,8 @@ async function handleKeydown(event: KeyboardEvent) {
     case "Enter":
     case " ":
       event.preventDefault();
-      if (!open.value) {
-        await openMenu();
+      if (!visible.value) {
+        await openMenu(true);
         break;
       }
 
@@ -156,32 +242,53 @@ async function handleKeydown(event: KeyboardEvent) {
       }
       break;
     case "Escape":
-      closeMenu();
+      closeFloating({
+        immediate: true
+      });
       triggerRef.value?.focus();
+      break;
+    case "Tab":
+      closeFloating({
+        immediate: true
+      });
+      if (event.shiftKey) {
+        triggerRef.value?.focus();
+      }
       break;
     default:
       break;
   }
 }
 
-watch(open, async (value) => {
+watch(visible, async (value) => {
+  stopAutoUpdate();
+
   if (!value) {
     return;
   }
 
   await nextTick();
+  await updatePosition();
+  startAutoUpdate();
   focusActiveItem();
 });
 
 useDismissibleLayer({
-  enabled: open,
+  enabled: () => visible.value,
   refs: [triggerRef, menuRef],
   closeOnEscape: true,
   closeOnOutside: true,
   isTopMost: () => isTopMost.value,
   onDismiss: () => {
-    closeMenu();
+    closeFloating({
+      immediate: true
+    });
   }
+});
+
+onBeforeUnmount(() => {
+  clearTimers();
+  stopAutoUpdate();
 });
 </script>
 
@@ -192,32 +299,44 @@ useDismissibleLayer({
       class="xy-dropdown__trigger"
       role="button"
       :tabindex="props.disabled ? -1 : 0"
-      :aria-expanded="open"
+      :aria-expanded="visible"
       :aria-controls="listId"
-      @click="toggleMenu"
+      :aria-haspopup="props.role === 'menu' ? 'menu' : undefined"
+      @click="handleTriggerClick"
+      @contextmenu="handleContextMenu"
+      @mouseenter="scheduleOpen"
+      @mouseleave="scheduleClose"
       @keydown="handleKeydown"
     >
       <slot>
         <button type="button" class="xy-dropdown__default-trigger">更多操作</button>
       </slot>
     </span>
-    <teleport to="body">
-      <transition name="xy-fade">
+    <teleport :to="teleportTarget" :disabled="!props.teleported">
+      <transition name="xy-fade" @after-leave="handleAfterLeave">
         <div
-          v-if="open"
+          v-if="rendered"
+          v-show="visible"
           :id="listId"
           ref="menuRef"
-          :class="ns.base.value + '__menu'"
-          :style="floatingStyle"
-          role="menu"
+          :class="[ns.base.value + '__menu', props.popperClass]"
+          :style="[floatingStyle, menuMaxHeightStyle, props.popperStyle]"
+          :role="props.role"
+          tabindex="-1"
+          @mouseenter="scheduleOpen"
+          @mouseleave="scheduleClose"
+          @keydown="handleKeydown"
         >
           <button
             v-for="(item, index) in props.items"
             :key="item.key"
+            :id="`${listId}-item-${index}`"
             :data-index="index"
             type="button"
-            role="menuitem"
+            :role="itemRole"
+            :tabindex="navigation.activeIndex.value === index ? 0 : -1"
             :disabled="item.disabled"
+            :aria-disabled="item.disabled ? 'true' : undefined"
             :class="[
               'xy-dropdown__item',
               item.danger ? 'is-danger' : '',
@@ -225,6 +344,7 @@ useDismissibleLayer({
               navigation.activeIndex.value === index ? 'is-active' : ''
             ]"
             @mouseenter="navigation.setActiveIndex(index)"
+            @focus="navigation.setActiveIndex(index)"
             @click="handleSelect(item)"
           >
             <span>{{ item.label }}</span>

@@ -8,7 +8,7 @@
 }
 
 .xy-tooltip__content {
-  position: fixed;
+  position: absolute;
   max-width: 240px;
   padding: 10px 12px;
   border-radius: var(--xy-radius-md);
@@ -17,6 +17,15 @@
   font-size: var(--xy-font-size-sm);
   box-shadow: var(--xy-shadow-sm);
   pointer-events: auto;
+}
+
+.xy-tooltip__arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  rotate: 45deg;
+  border-radius: 2px;
+  background: inherit;
 }
 
 .xy-fade-enter-active,
