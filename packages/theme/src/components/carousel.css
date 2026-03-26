@@ -1,6 +1,7 @@
 .xy-carousel {
   position: relative;
   outline: none;
+  --xy-carousel-radius: var(--xy-radius-lg);
 }
 
 .xy-carousel.is-thumbs-top,
@@ -54,6 +55,7 @@
   position: relative;
   height: 300px;
   overflow: hidden;
+  border-radius: var(--xy-carousel-radius);
   transition: height 0.28s ease;
 }
 
@@ -90,7 +92,7 @@
   right: 16px;
 }
 
-.xy-carousel__indicators {
+.xy-carousel .xy-carousel__indicators {
   z-index: calc(var(--xy-z-dropdown) + 1);
   display: flex;
   align-items: center;
@@ -100,9 +102,10 @@
   margin: 0;
   padding: 0;
   padding-inline-start: 0;
+  padding-left: 0;
 }
 
-.xy-carousel__indicators--horizontal {
+.xy-carousel .xy-carousel__indicators--horizontal {
   flex-direction: row;
   max-width: min(calc(100% - 48px), 560px);
   overflow-x: auto;
@@ -110,55 +113,61 @@
   scrollbar-width: none;
 }
 
-.xy-carousel__indicators--vertical {
+.xy-carousel .xy-carousel__indicators--vertical {
   flex-direction: column;
   gap: 8px;
 }
 
-.xy-carousel__indicators--horizontal::-webkit-scrollbar {
+.xy-carousel .xy-carousel__indicators--horizontal::-webkit-scrollbar {
   display: none;
 }
 
-.xy-carousel__indicators--vertical.xy-carousel__indicators--outside {
+.xy-carousel .xy-carousel__indicators--vertical.xy-carousel__indicators--outside {
   margin-left: 0;
 }
 
-.xy-carousel__indicators--labels .xy-carousel__button {
+.xy-carousel .xy-carousel__indicators--labels .xy-carousel__button {
   width: auto;
   height: auto;
   padding: 2px 14px;
   font-size: 12px;
   line-height: 1.4;
   white-space: nowrap;
+  color: var(--xy-text-color);
 }
 
-.xy-carousel__indicator {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator {
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   cursor: pointer;
+  margin: 0;
 }
 
-.xy-carousel__indicator::marker {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator + .xy-carousel__indicator {
+  margin-top: 0;
+}
+
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator::marker {
   content: "";
 }
 
-.xy-carousel__indicator--horizontal {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator--horizontal {
   padding: 0;
 }
 
-.xy-carousel__indicator--vertical {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator--vertical {
   padding: 0;
   width: auto;
 }
 
-.xy-carousel__indicator:hover .xy-carousel__button {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator:hover .xy-carousel__button {
   opacity: 0.72;
 }
 
-.xy-carousel__indicator.is-active .xy-carousel__button {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator.is-active .xy-carousel__button {
   opacity: 1;
 }
 
@@ -181,8 +190,7 @@
     background-color 0.18s ease;
 }
 
-.xy-carousel__button--custom,
-.xy-carousel__button--label {
+.xy-carousel__button--custom {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -207,8 +215,8 @@
   opacity: 1;
 }
 
-.xy-carousel__indicator:hover .xy-carousel__button--custom,
-.xy-carousel__indicator.is-active .xy-carousel__button--custom {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator:hover .xy-carousel__button--custom,
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator.is-active .xy-carousel__button--custom {
   opacity: 1;
 }
 
@@ -228,7 +236,7 @@
   height: 8px;
 }
 
-.xy-carousel__indicator.is-active .xy-carousel__button:not(.xy-carousel__button--custom):not(.xy-carousel__button--label) {
+.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator.is-active .xy-carousel__button:not(.xy-carousel__button--custom) {
   transform: scale(1.04);
 }
 
@@ -244,8 +252,7 @@
   opacity: 0.24;
 }
 
-.xy-carousel__indicators--outside .xy-carousel__button--custom,
-.xy-carousel__indicators--outside .xy-carousel__button--label {
+.xy-carousel__indicators--outside .xy-carousel__button--custom {
   background: transparent;
   opacity: 1;
 }
@@ -317,10 +324,10 @@
 }
 
 .xy-carousel__controls--inside .xy-carousel__indicators {
-  padding: 7px 10px;
-  border-radius: 999px;
-  background: color-mix(in srgb, #0f172a 18%, transparent);
-  backdrop-filter: blur(10px);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
 }
 
 .xy-carousel__controls--inside.xy-carousel__controls--vertical .xy-carousel__indicators {
@@ -449,6 +456,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border-radius: var(--xy-carousel-radius);
   z-index: 1;
   backface-visibility: hidden;
   will-change: transform;

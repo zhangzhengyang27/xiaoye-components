@@ -209,12 +209,17 @@ const root = ref<HTMLElement | null>(null);
 const viewport = ref<HTMLElement | null>(null);
 const viewportSize = ref(0);
 const internalActiveIndex = ref(-1);
+const visualIndex = ref(0);
 const previousIndex = ref(-1);
 const items = ref<import("./context").CarouselItemRegistration[]>([]);
 const hover = ref(false);
 const initialized = ref(false);
 const dragging = ref(false);
 const autoplaySuspended = ref(false);
+const loopTransitionDirection = ref<"next" | "prev" | null>(null);
+const loopTeleporting = ref(false);
+const queuedTarget = ref<number | string | null>(null);
+const restartTimerAfterLoop = ref(false);
 const dragOffset = ref(0);
 const dragMoved = ref(false);
 const dragPointerId = ref<number | null>(null);
@@ -226,10 +231,13 @@ const autoHeight = ref(0);
 const thumbRefs = new Map<number, HTMLElement>();
 let timer: ReturnType<typeof setTimeout> | null = null;
 let autoplayResumeTimer: ReturnType<typeof setTimeout> | null = null;
+let loopResetTimer: ReturnType<typeof setTimeout> | null = null;
+let loopTeleportFrame: ReturnType<typeof setTimeout> | null = null;
 let resizeObserver: ResizeObserver | null = null;
 let progressStart = 0;
 let progressDuration = 0;
 let timerToken = 0;
+let loopResetToken = 0;
 
 function toPxNumber(value: string | number) {
   if (typeof value === "number") {
@@ -257,6 +265,17 @@ const isFadeEffect = computed(
     slidesPerViewValue.value === 1 &&
     !props.centered
 );
+const seamlessLoop = computed(
+  () =>
+    props.loop &&
+    !isCardType.value &&
+    !isFadeEffect.value &&
+    slidesPerViewValue.value === 1 &&
+    slidesPerGroupValue.value === 1 &&
+    !props.centered
+);
+const loopBoundaryDuration = computed(() => Math.max(Math.round(props.duration * 0.9), 120));
+const loopBoundaryEasing = computed(() => "linear");
 const thumbsEnabled = computed(() => props.thumbs && !isCardType.value);
 const hasLabel = computed(() => items.value.some((item) => `${item.props.label ?? ""}`.length > 0));
 const arrowDisplay = computed(() => props.arrow !== "never" && !isVertical.value);
@@ -523,12 +542,14 @@ function updateViewportSize() {
   viewportSize.value = isVertical.value ? viewport.value.offsetHeight : viewport.value.offsetWidth;
 }
 
-function clearProgress() {
+function clearProgress(resetPercent = true) {
   if (progressFrame.value !== null) {
     cancelAnimationFrame(progressFrame.value);
     progressFrame.value = null;
   }
-  progressPercent.value = 0;
+  if (resetPercent) {
+    progressPercent.value = 0;
+  }
 }
 
 function updateProgressFrame(timestamp: number) {
@@ -545,13 +566,20 @@ function updateProgressFrame(timestamp: number) {
   }
 }
 
-function pauseTimer() {
+function pauseTimer(options?: {
+  preserveProgress?: boolean;
+  progressPercent?: number | null;
+}) {
   timerToken += 1;
   if (timer) {
     clearTimeout(timer);
     timer = null;
   }
-  clearProgress();
+  clearProgress(!options?.preserveProgress);
+
+  if (options?.preserveProgress && options.progressPercent !== undefined && options.progressPercent !== null) {
+    progressPercent.value = options.progressPercent;
+  }
 }
 
 function clearAutoplayResumeTimer() {
@@ -559,6 +587,81 @@ function clearAutoplayResumeTimer() {
     clearTimeout(autoplayResumeTimer);
     autoplayResumeTimer = null;
   }
+}
+
+function clearLoopResetTimer() {
+  if (loopResetTimer) {
+    clearTimeout(loopResetTimer);
+    loopResetTimer = null;
+  }
+
+  if (loopTeleportFrame) {
+    clearTimeout(loopTeleportFrame);
+    loopTeleportFrame = null;
+  }
+}
+
+function syncVisualIndex() {
+  visualIndex.value = resolvedActiveIndex.value < 0 ? 0 : resolvedActiveIndex.value;
+}
+
+function cancelLoopTransition() {
+  loopResetToken += 1;
+  clearLoopResetTimer();
+  loopTransitionDirection.value = null;
+  loopTeleporting.value = false;
+  restartTimerAfterLoop.value = false;
+  syncVisualIndex();
+}
+
+function finalizeLoopBoundaryTransition(currentToken: number) {
+  if (currentToken !== loopResetToken) {
+    return;
+  }
+
+  loopResetTimer = null;
+  loopTeleporting.value = true;
+  // Clear boundary semantics before syncing the visual track so the teleport
+  // frame lands on the real slide positions instead of the cloned edge track.
+  loopTransitionDirection.value = null;
+  syncVisualIndex();
+
+  nextTick(() => {
+    loopTeleportFrame = setTimeout(() => {
+      if (currentToken !== loopResetToken) {
+        return;
+      }
+
+      loopTeleportFrame = null;
+      loopTeleporting.value = false;
+
+      if (queuedTarget.value !== null) {
+        const nextTarget = queuedTarget.value;
+        queuedTarget.value = null;
+        setActiveItem(nextTarget);
+      } else if (restartTimerAfterLoop.value) {
+        restartTimerAfterLoop.value = false;
+        resetTimer();
+      }
+    }, 0);
+  });
+}
+
+function startLoopBoundaryTransition(direction: "next" | "prev") {
+  loopResetToken += 1;
+  clearLoopResetTimer();
+  loopTransitionDirection.value = direction;
+  loopTeleporting.value = false;
+  visualIndex.value = direction === "next" ? items.value.length : -1;
+
+  const currentToken = loopResetToken;
+  loopResetTimer = setTimeout(() => {
+    finalizeLoopBoundaryTransition(currentToken);
+  }, Math.max(loopBoundaryDuration.value + 80, 120));
+}
+
+function isLoopBoundaryTransitioning() {
+  return seamlessLoop.value && loopTransitionDirection.value !== null && !loopTeleporting.value;
 }
 
 function scheduleAutoplayResume(delay = 0) {
@@ -629,7 +732,22 @@ function startTimer() {
 
     const target = getNextAutoplayIndex();
     if (target !== resolvedActiveIndex.value) {
-      setActiveItem(target);
+      const currentIndex = resolvedActiveIndex.value;
+      const firstSnapPoint = snapPoints.value[0] ?? 0;
+      const lastSnapPoint = snapPoints.value[snapPoints.value.length - 1] ?? -1;
+      const boundaryTransitionDirection =
+        seamlessLoop.value &&
+        props.loop &&
+        currentIndex === lastSnapPoint &&
+        target === firstSnapPoint
+          ? "next"
+          : null;
+
+      setActiveItem(target, {
+        boundaryTransitionDirection,
+        deferTimerRestart: Boolean(boundaryTransitionDirection),
+        preserveProgressPercent: boundaryTransitionDirection ? 100 : null
+      });
     } else {
       resetTimer();
     }
@@ -738,7 +856,19 @@ function resolveTargetIndex(index: number | string) {
   return Math.min(Math.max(nextIndex, 0), maxIndex.value);
 }
 
-function setActiveItem(index: number | string) {
+function setActiveItem(
+  index: number | string,
+  options?: {
+    boundaryTransitionDirection?: "next" | "prev" | null;
+    deferTimerRestart?: boolean;
+    preserveProgressPercent?: number | null;
+  }
+) {
+  if (isLoopBoundaryTransitioning()) {
+    queuedTarget.value = index;
+    return;
+  }
+
   const nextIndex = resolveTargetIndex(index);
 
   if (nextIndex < 0) {
@@ -752,6 +882,7 @@ function setActiveItem(index: number | string) {
 
   const previous = currentIndex;
   previousIndex.value = previous;
+  const boundaryDirection = seamlessLoop.value ? options?.boundaryTransitionDirection ?? null : null;
 
   if (isControlled.value) {
     emit("update:activeIndex", nextIndex);
@@ -759,8 +890,21 @@ function setActiveItem(index: number | string) {
     internalActiveIndex.value = nextIndex;
   }
 
+  if (boundaryDirection) {
+    queuedTarget.value = null;
+    restartTimerAfterLoop.value = Boolean(options?.deferTimerRestart);
+    pauseTimer({
+      preserveProgress: props.showProgress && options?.preserveProgressPercent != null,
+      progressPercent: options?.preserveProgressPercent ?? progressPercent.value
+    });
+    startLoopBoundaryTransition(boundaryDirection);
+  } else {
+    cancelLoopTransition();
+    visualIndex.value = nextIndex;
+    resetTimer();
+  }
+
   emitChange(nextIndex, previous);
-  resetTimer();
 }
 
 function prev() {
@@ -772,7 +916,15 @@ function prev() {
   const target =
     current <= 0 ? (props.loop ? snapPoints.value.length - 1 : 0) : current - 1;
 
-  setActiveItem(snapPoints.value[target] ?? 0);
+  const targetIndex = snapPoints.value[target] ?? 0;
+  const boundaryTransitionDirection =
+    seamlessLoop.value && props.loop && current <= 0 ? "prev" : null;
+
+  setActiveItem(targetIndex, {
+    boundaryTransitionDirection,
+    deferTimerRestart: Boolean(boundaryTransitionDirection),
+    preserveProgressPercent: boundaryTransitionDirection && props.showProgress ? progressPercent.value : null
+  });
 }
 
 function next() {
@@ -786,7 +938,15 @@ function next() {
       ? (props.loop ? 0 : current)
       : current + 1;
 
-  setActiveItem(snapPoints.value[target] ?? 0);
+  const targetIndex = snapPoints.value[target] ?? 0;
+  const boundaryTransitionDirection =
+    seamlessLoop.value && props.loop && current >= snapPoints.value.length - 1 ? "next" : null;
+
+  setActiveItem(targetIndex, {
+    boundaryTransitionDirection,
+    deferTimerRestart: Boolean(boundaryTransitionDirection),
+    preserveProgressPercent: boundaryTransitionDirection && props.showProgress ? progressPercent.value : null
+  });
 }
 
 function registerItem(item: import("./context").CarouselItemRegistration) {
@@ -932,6 +1092,8 @@ function handlePointerDown(event: PointerEvent) {
     return;
   }
 
+  queuedTarget.value = null;
+  cancelLoopTransition();
   dragging.value = true;
   autoplaySuspended.value = true;
   dragMoved.value = false;
@@ -977,6 +1139,19 @@ function handleKeydown(event: KeyboardEvent) {
   }
 }
 
+function handleItemTransitionEnd(event: TransitionEvent) {
+  if (!isLoopBoundaryTransitioning() || event.propertyName !== "transform") {
+    return;
+  }
+
+  const target = event.target as HTMLElement | null;
+  if (!target?.classList.contains("xy-carousel__item")) {
+    return;
+  }
+
+  finalizeLoopBoundaryTransition(loopResetToken);
+}
+
 function handleFocusIn() {
   pauseTimer();
 }
@@ -1006,16 +1181,22 @@ provide(carouselContextKey, {
   viewportSize,
   items,
   resolvedActiveIndex,
+  visualIndex,
   previousIndex,
   activeIndicatorIndex,
   isCardType,
   isVertical,
   isFadeEffect,
+  seamlessLoop,
+  loopTransitionDirection,
+  loopTeleporting,
   loop: computed(() => props.loop),
   trigger: computed(() => props.trigger),
   cardScale: computed(() => props.cardScale),
   duration: computed(() => props.duration),
   easing: computed(() => props.easing),
+  loopBoundaryDuration,
+  loopBoundaryEasing,
   slidesPerView: slidesPerViewValue,
   slidesPerGroup: slidesPerGroupValue,
   centered: computed(() => props.centered || alignMode.value === "center"),
@@ -1032,8 +1213,26 @@ provide(carouselContextKey, {
 });
 
 watch(
+  () => [resolvedActiveIndex.value, seamlessLoop.value],
+  () => {
+    if (!seamlessLoop.value) {
+      cancelLoopTransition();
+      return;
+    }
+
+    if (!loopTransitionDirection.value) {
+      syncVisualIndex();
+    }
+  }
+);
+
+watch(
   () => [props.autoplay, props.interval, props.pauseOnHover, items.value.length, resolvedActiveIndex.value],
   () => {
+    if (restartTimerAfterLoop.value) {
+      return;
+    }
+
     resetTimer();
   }
 );
@@ -1080,6 +1279,7 @@ onMounted(() => {
   }
 
   nextTick(() => {
+    syncVisualIndex();
     updateViewportSize();
     updateAutoHeight();
     observeVisibleItems();
@@ -1099,6 +1299,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   pauseTimer();
   clearAutoplayResumeTimer();
+  clearLoopResetTimer();
   resizeObserver?.disconnect();
   heightObserver.value?.disconnect();
   window.removeEventListener("pointermove", handlePointerMove);
@@ -1199,7 +1400,12 @@ defineExpose({
         </button>
       </transition>
 
-      <div ref="viewport" class="xy-carousel__container" :style="mainViewportStyle">
+      <div
+        ref="viewport"
+        class="xy-carousel__container"
+        :style="mainViewportStyle"
+        @transitionend="handleItemTransitionEnd"
+      >
         <slot />
       </div>
 
@@ -1226,8 +1432,7 @@ defineExpose({
                 type="button"
                 :class="[
                   'xy-carousel__button',
-                  slots.indicator ? 'xy-carousel__button--custom' : '',
-                  hasLabel ? 'xy-carousel__button--label' : ''
+                  slots.indicator ? 'xy-carousel__button--custom' : ''
                 ]"
               :aria-label="`slide ${snapPoint + 1}`"
             >

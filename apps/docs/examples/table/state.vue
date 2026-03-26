@@ -17,14 +17,12 @@ const rows = [
     </xy-space>
 
     <xy-table
-      :columns="[
-        { key: 'name', title: '项目名称', dataIndex: 'name' },
-        { key: 'owner', title: '负责人', dataIndex: 'owner' }
-      ]"
       :data="showEmpty ? [] : rows"
       :loading="loading"
       loading-text="正在同步项目列表"
     >
+      <xy-table-column prop="name" label="项目名称" />
+      <xy-table-column prop="owner" label="负责人" />
       <template #loading>
         正在同步项目数据，请稍候...
       </template>

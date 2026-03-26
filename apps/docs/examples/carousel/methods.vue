@@ -19,13 +19,13 @@ const carouselRef = ref<{
     </xy-space>
 
     <xy-carousel ref="carouselRef" :autoplay="false" height="220px">
-      <xy-carousel-item name="first" label="A">
+      <xy-carousel-item name="first">
         <div class="demo-carousel-method">A</div>
       </xy-carousel-item>
-      <xy-carousel-item name="middle" label="B">
+      <xy-carousel-item name="middle">
         <div class="demo-carousel-method demo-carousel-method--middle">B</div>
       </xy-carousel-item>
-      <xy-carousel-item name="final" label="C">
+      <xy-carousel-item name="final">
         <div class="demo-carousel-method demo-carousel-method--final">C</div>
       </xy-carousel-item>
     </xy-carousel>

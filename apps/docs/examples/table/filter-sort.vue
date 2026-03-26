@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { defineTableColumns } from "xiaoye-components";
 
 interface ProjectRow {
   id: number;
@@ -17,36 +16,35 @@ const rows: ProjectRow[] = [
   { id: 4, name: "权限平台", owner: "Xiaoye", status: "上线中", score: 91 }
 ];
 
-const columns = defineTableColumns<ProjectRow>([
-  { key: "name", title: "项目名称", dataIndex: "name" },
-  { key: "owner", title: "负责人", dataIndex: "owner" },
-  { key: "status", title: "状态", dataIndex: "status", slot: "status" },
-  { key: "score", title: "健康度", dataIndex: "score", align: "right" }
-]);
-
 const keyword = ref("");
-const statusFilter = ref<"all" | ProjectRow["status"]>("all");
-const sortOrder = ref<"score-desc" | "score-asc">("score-desc");
+const sortFeedback = ref("未排序");
+const filterFeedback = ref("全部状态");
 
 const filteredRows = computed(() => {
   const normalizedKeyword = keyword.value.trim().toLowerCase();
 
-  const nextRows = rows.filter((row) => {
-    const matchesKeyword =
+  return rows.filter((row) => {
+    return (
       normalizedKeyword.length === 0 ||
       row.name.toLowerCase().includes(normalizedKeyword) ||
-      row.owner.toLowerCase().includes(normalizedKeyword);
-    const matchesStatus = statusFilter.value === "all" || row.status === statusFilter.value;
-
-    return matchesKeyword && matchesStatus;
-  });
-
-  return nextRows
-    .slice()
-    .sort((left, right) =>
-      sortOrder.value === "score-desc" ? right.score - left.score : left.score - right.score
+      row.owner.toLowerCase().includes(normalizedKeyword)
     );
+  });
 });
+
+function handleSortChange(payload: { prop?: string; order?: "ascending" | "descending" | null }) {
+  if (!payload.order || !payload.prop) {
+    sortFeedback.value = "未排序";
+    return;
+  }
+
+  sortFeedback.value = `${payload.prop} ${payload.order === "ascending" ? "升序" : "降序"}`;
+}
+
+function handleFilterChange(filters: Record<string, Array<string | number | boolean>>) {
+  const values = filters.status ?? [];
+  filterFeedback.value = values.length > 0 ? values.join(" / ") : "全部状态";
+}
 </script>
 
 <template>
@@ -54,63 +52,38 @@ const filteredRows = computed(() => {
     <xy-input v-model="keyword" placeholder="搜索项目名称或负责人" />
 
     <xy-space wrap>
-      <xy-tag status="neutral">状态筛选</xy-tag>
-      <xy-button
-        plain
-        :type="statusFilter === 'all' ? 'primary' : 'default'"
-        @click="statusFilter = 'all'"
-      >
-        全部
-      </xy-button>
-      <xy-button
-        plain
-        :type="statusFilter === '上线中' ? 'primary' : 'default'"
-        @click="statusFilter = '上线中'"
-      >
-        上线中
-      </xy-button>
-      <xy-button
-        plain
-        :type="statusFilter === '排期中' ? 'primary' : 'default'"
-        @click="statusFilter = '排期中'"
-      >
-        排期中
-      </xy-button>
-      <xy-button
-        plain
-        :type="statusFilter === '已归档' ? 'primary' : 'default'"
-        @click="statusFilter = '已归档'"
-      >
-        已归档
-      </xy-button>
+      <xy-tag status="neutral">内置筛选：{{ filterFeedback }}</xy-tag>
+      <xy-tag status="primary">内置排序：{{ sortFeedback }}</xy-tag>
+      <xy-tag status="warning">关键字过滤：{{ keyword || "未输入" }}</xy-tag>
     </xy-space>
 
-    <xy-space wrap>
-      <xy-tag status="neutral">健康度排序</xy-tag>
-      <xy-button
-        plain
-        :type="sortOrder === 'score-desc' ? 'primary' : 'default'"
-        @click="sortOrder = 'score-desc'"
+    <xy-table
+      :data="filteredRows"
+      row-key="id"
+      @sort-change="handleSortChange"
+      @filter-change="handleFilterChange"
+    >
+      <xy-table-column prop="name" label="项目名称" sortable show-overflow-tooltip />
+      <xy-table-column prop="owner" label="负责人" />
+      <xy-table-column
+        prop="status"
+        label="状态"
+        column-key="status"
+        :filters="[
+          { text: '上线中', value: '上线中' },
+          { text: '排期中', value: '排期中' },
+          { text: '已归档', value: '已归档' }
+        ]"
       >
-        从高到低
-      </xy-button>
-      <xy-button
-        plain
-        :type="sortOrder === 'score-asc' ? 'primary' : 'default'"
-        @click="sortOrder = 'score-asc'"
-      >
-        从低到高
-      </xy-button>
-    </xy-space>
-
-    <xy-table :columns="columns" :data="filteredRows" row-key="id">
-      <template #cell-status="{ value }">
-        <xy-tag
-          :status="value === '上线中' ? 'success' : value === '排期中' ? 'warning' : 'neutral'"
-        >
-          {{ value }}
-        </xy-tag>
-      </template>
+        <template #default="{ value }">
+          <xy-tag
+            :status="value === '上线中' ? 'success' : value === '排期中' ? 'warning' : 'neutral'"
+          >
+            {{ value }}
+          </xy-tag>
+        </template>
+      </xy-table-column>
+      <xy-table-column prop="score" label="健康度" align="right" sortable />
     </xy-table>
   </div>
 </template>

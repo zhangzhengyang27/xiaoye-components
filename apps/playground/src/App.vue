@@ -143,14 +143,6 @@ const filteredRows = computed(() => {
   });
 });
 
-const tableColumns = [
-  { key: "name", title: "项目名称", dataIndex: "name" },
-  { key: "owner", title: "负责人", dataIndex: "owner" },
-  { key: "role", title: "角色", dataIndex: "role" },
-  { key: "status", title: "状态", dataIndex: "status" },
-  { key: "actions", title: "操作", slot: "actions", align: "right" as const, width: 180 }
-];
-
 function syncDrawerDraft(row: MemberRow) {
   drawerDraft.name = row.name;
   drawerDraft.role = row.role;
@@ -353,26 +345,32 @@ async function handleSave() {
               </xy-space>
 
               <xy-table
-                :columns="tableColumns"
                 :data="filteredRows"
                 row-key="id"
                 :row-class-name="rowClassName"
+                highlight-current-row
                 striped
                 @row-click="handleRowClick"
               >
-                <template #cell-actions="{ row }">
-                  <xy-space align="center">
-                    <xy-button text @click.stop="openDrawerForRow(row, '查看成员')">
-                      查看
-                    </xy-button>
-                    <xy-dropdown
-                      :items="rowActionItems"
-                      @select="(item: ActionItem) => handleRowAction(item, row)"
-                    >
-                      <xy-button text>更多</xy-button>
-                    </xy-dropdown>
-                  </xy-space>
-                </template>
+                <xy-table-column prop="name" label="项目名称" show-overflow-tooltip />
+                <xy-table-column prop="owner" label="负责人" />
+                <xy-table-column prop="role" label="角色" />
+                <xy-table-column prop="status" label="状态" />
+                <xy-table-column label="操作" align="right" width="180">
+                  <template #default="{ row }">
+                    <xy-space align="center">
+                      <xy-button text @click.stop="openDrawerForRow(row, '查看成员')">
+                        查看
+                      </xy-button>
+                      <xy-dropdown
+                        :items="rowActionItems"
+                        @select="(item: ActionItem) => handleRowAction(item, row)"
+                      >
+                        <xy-button text>更多</xy-button>
+                      </xy-dropdown>
+                    </xy-space>
+                  </template>
+                </xy-table-column>
 
                 <template #empty>
                   <xy-empty title="没有匹配成员" description="换个关键字或重置筛选试试">

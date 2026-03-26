@@ -1,21 +1,81 @@
 import Table from "./src/table.vue";
-import type { TableProps, TableColumn } from "./src/table.vue";
+import TableColumn from "./src/table-column.vue";
+import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
+import type {
+  TableAlign,
+  TableCellClassName,
+  TableCellSlotProps,
+  TableCellStyle,
+  TableBodyRow,
+  TableColumnProps,
+  TableFilterOption,
+  TableFilterValue,
+  TableFilterValues,
+  TableHeaderSlotProps,
+  TableHeaderCell,
+  TableHeaderCellClassName,
+  TableHeaderCellStyle,
+  TableHeaderRowClassName,
+  TableHeaderRowStyle,
+  TableInstance,
+  TableProps,
+  TableResolvedColumn,
+  TableRowClassName,
+  TableRowKey,
+  TableRowStyle,
+  TableSection,
+  TableSummaryMethodContext,
+  TableSummaryValue,
+  TableSortOrder,
+  TableSortState,
+  TableSortable,
+  TableSpanMethodContext,
+  TableSpanResult,
+  TableTreeNode,
+  TableTreeProps
+} from "./src/table";
 
-export type { TableProps, TableColumn };
-export type TableRow = object;
-type RuntimeTableRow = Record<string, unknown>;
+export type {
+  TableAlign,
+  TableCellClassName,
+  TableCellSlotProps,
+  TableCellStyle,
+  TableBodyRow,
+  TableColumnProps,
+  TableFilterOption,
+  TableFilterValue,
+  TableFilterValues,
+  TableHeaderSlotProps,
+  TableHeaderCell,
+  TableHeaderCellClassName,
+  TableHeaderCellStyle,
+  TableHeaderRowClassName,
+  TableHeaderRowStyle,
+  TableInstance,
+  TableProps,
+  TableResolvedColumn,
+  TableRowClassName,
+  TableRowKey,
+  TableRowStyle,
+  TableSection,
+  TableSummaryMethodContext,
+  TableSummaryValue,
+  TableSortOrder,
+  TableSortState,
+  TableSortable,
+  TableSpanMethodContext,
+  TableSpanResult,
+  TableTreeNode,
+  TableTreeProps
+};
 
-export function defineTableProps<T extends TableRow>(
-  props: TableProps<T>
-): TableProps<RuntimeTableRow> {
-  return props as TableProps<RuntimeTableRow>;
-}
+export const XyTableColumn = withInstall(TableColumn, "xy-table-column");
 
-export function defineTableColumns<T extends TableRow>(columns: TableColumn<T>[]) {
-  return columns;
-}
+export const XyTable = withInstall(Table, "xy-table") as SFCWithInstall<typeof Table> & {
+  Column: typeof XyTableColumn;
+};
 
-export const XyTable = withInstall(Table, "xy-table");
+XyTable.Column = XyTableColumn;
 
 export default XyTable;

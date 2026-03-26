@@ -1,5 +1,5 @@
 <template>
-  <xy-carousel effect="fade" height="240px">
+  <xy-carousel effect="fade" height="240px" style="--xy-carousel-radius: 18px">
     <xy-carousel-item v-for="item in 3" :key="`fade-${item}`">
       <div class="demo-carousel-fade" :class="`is-${item}`">
         <strong>Fade {{ item }}</strong>

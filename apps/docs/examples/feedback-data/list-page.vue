@@ -30,22 +30,22 @@ function rowClassName(row: { id: number }) {
     </xy-space>
 
     <xy-table
-      :columns="[
-        { key: 'name', title: '项目名称', dataIndex: 'name' },
-        { key: 'owner', title: '负责人', dataIndex: 'owner' },
-        { key: 'status', title: '状态', dataIndex: 'status', slot: 'status' }
-      ]"
       :data="displayRows"
       :loading="loading"
       loading-text="正在加载项目列表"
       row-key="id"
       :row-class-name="rowClassName"
+      highlight-current-row
       clickable
       @row-click="handleRowClick"
     >
-      <template #cell-status="{ value }">
-        <xy-tag :status="value === '已上线' ? 'success' : 'warning'">{{ value }}</xy-tag>
-      </template>
+      <xy-table-column prop="name" label="项目名称" />
+      <xy-table-column prop="owner" label="负责人" />
+      <xy-table-column prop="status" label="状态">
+        <template #default="{ value }">
+          <xy-tag :status="value === '已上线' ? 'success' : 'warning'">{{ value }}</xy-tag>
+        </template>
+      </xy-table-column>
       <template #loading>
         正在同步项目数据，请稍候...
       </template>

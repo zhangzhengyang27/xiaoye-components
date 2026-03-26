@@ -69,24 +69,14 @@ const activities = [
             <template v-else-if="key === 'members'">
               <section class="demo-scroll-detail__section">
                 <xy-text tag="strong">成员列表</xy-text>
-                <xy-table
-                  :columns="[
-                    { key: 'name', title: '成员', dataIndex: 'name', width: 120 },
-                    { key: 'role', title: '角色', dataIndex: 'role', width: 120 },
-                    {
-                      key: 'status',
-                      title: '状态',
-                      dataIndex: 'status',
-                      slot: 'status',
-                      width: 100
-                    }
-                  ]"
-                  :data="members"
-                  row-key="id"
-                >
-                  <template #cell-status="{ value }">
-                    <xy-tag :status="value === '在线' ? 'success' : 'warning'">{{ value }}</xy-tag>
-                  </template>
+                <xy-table :data="members" row-key="id">
+                  <xy-table-column prop="name" label="成员" width="120" />
+                  <xy-table-column prop="role" label="角色" width="120" />
+                  <xy-table-column prop="status" label="状态" width="100">
+                    <template #default="{ value }">
+                      <xy-tag :status="value === '在线' ? 'success' : 'warning'">{{ value }}</xy-tag>
+                    </template>
+                  </xy-table-column>
                 </xy-table>
               </section>
             </template>

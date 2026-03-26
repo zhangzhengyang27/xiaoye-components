@@ -11,6 +11,7 @@
 @import "./src/components/image.css";
 @import "./src/components/card.css";
 @import "./src/components/carousel.css";
+@import "./src/components/affix.css";
 @import "./src/components/tag.css";
 @import "./src/components/row.css";
 @import "./src/components/col.css";
@@ -30,6 +31,8 @@
 @import "./src/components/rate.css";
 @import "./src/components/slider.css";
 @import "./src/components/progress.css";
+@import "./src/components/statistic.css";
+@import "./src/components/timeline.css";
 @import "./src/components/skeleton.css";
 @import "./src/components/date-picker.css";
 @import "./src/components/time-picker.css";
@@ -44,5 +47,6 @@
 @import "./src/components/collapse-transition.css";
 @import "./src/components/result.css";
 @import "./src/components/select.css";
+@import "./src/components/tree.css";
 @import "./src/components/upload.css";
 @import "./src/components/form.css";

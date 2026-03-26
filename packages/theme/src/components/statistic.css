@@ -1,0 +1,63 @@
+.xy-statistic {
+  --xy-statistic-gap: 10px;
+  --xy-statistic-head-gap: 4px;
+  --xy-statistic-head-font-size: 13px;
+  --xy-statistic-head-font-weight: 600;
+  --xy-statistic-head-color: var(--xy-text-color-secondary);
+  --xy-statistic-number-font-size: 30px;
+  --xy-statistic-number-font-weight: 700;
+  --xy-statistic-number-color: var(--xy-text-color);
+  --xy-statistic-number-line-height: 1.15;
+  --xy-statistic-number-letter-spacing: -0.03em;
+  --xy-statistic-affix-font-size: 15px;
+  --xy-statistic-affix-font-weight: 600;
+  --xy-statistic-affix-color: color-mix(in srgb, var(--xy-text-color-secondary) 86%, white);
+  --xy-statistic-affix-gap: 8px;
+
+  display: grid;
+  gap: var(--xy-statistic-gap);
+  width: 100%;
+  min-width: 0;
+}
+
+.xy-statistic__head {
+  display: flex;
+  align-items: center;
+  gap: var(--xy-statistic-head-gap);
+  min-width: 0;
+  color: var(--xy-statistic-head-color);
+  font-size: var(--xy-statistic-head-font-size);
+  font-weight: var(--xy-statistic-head-font-weight);
+  line-height: 1.5;
+}
+
+.xy-statistic__content {
+  display: flex;
+  align-items: baseline;
+  gap: var(--xy-statistic-affix-gap);
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.xy-statistic__prefix,
+.xy-statistic__suffix {
+  color: var(--xy-statistic-affix-color);
+  font-size: var(--xy-statistic-affix-font-size);
+  font-weight: var(--xy-statistic-affix-font-weight);
+  line-height: 1.2;
+}
+
+.xy-statistic__value {
+  min-width: 0;
+  color: var(--xy-statistic-number-color);
+  font-size: var(--xy-statistic-number-font-size);
+  font-weight: var(--xy-statistic-number-font-weight);
+  line-height: var(--xy-statistic-number-line-height);
+  letter-spacing: var(--xy-statistic-number-letter-spacing);
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+.xy-countdown {
+  --xy-statistic-number-letter-spacing: 0.02em;
+}

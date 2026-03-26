@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { defineTableColumns } from "xiaoye-components";
 
 type ViewState = "ready" | "loading" | "empty" | "error";
 
@@ -15,11 +14,6 @@ const rows: ProjectRow[] = [
   { id: 1, name: "账单核对", owner: "Xiaoye" },
   { id: 2, name: "客户旅程", owner: "Alice" }
 ];
-
-const columns = defineTableColumns<ProjectRow>([
-  { key: "name", title: "项目名称", dataIndex: "name" },
-  { key: "owner", title: "负责人", dataIndex: "owner" }
-]);
 
 const visibleRows = computed(() => (state.value === "ready" ? rows : []));
 </script>
@@ -46,11 +40,12 @@ const visibleRows = computed(() => (state.value === "ready" ? rows : []));
     </xy-space>
 
     <xy-table
-      :columns="columns"
       :data="visibleRows"
       :loading="state === 'loading'"
       loading-text="正在拉取最新列表"
     >
+      <xy-table-column prop="name" label="项目名称" />
+      <xy-table-column prop="owner" label="负责人" />
       <template #empty>
         <xy-empty
           :title="state === 'error' ? '加载失败' : '暂无结果'"

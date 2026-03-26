@@ -3,6 +3,7 @@ import "@xiaoye/theme";
 export type { ComponentSize, ComponentStatus, SelectOption } from "@xiaoye/utils";
 export type { CardProps, CardShadow, CardVariant } from "@xiaoye/components";
 import {
+  XyAffix,
   XyButton,
   XyButtonGroup,
   XyBadge,
@@ -33,6 +34,11 @@ import {
   XyRate,
   XySlider,
   XyProgress,
+  XyStatistic,
+  XyCountdown,
+  XyTimeline,
+  XyTimelineGroup,
+  XyTimelineItem,
   XySkeleton,
   XySkeletonItem,
   XyScheduler,
@@ -52,6 +58,8 @@ import {
   XySplitterPanel,
   XySpace,
   XyTable,
+  XyTableColumn,
+  XyTree,
   XyTabs,
   XyTag,
   XyText,
@@ -64,6 +72,7 @@ import {
 const INSTALL_KEY = Symbol.for("xiaoye-components:installed");
 
 const components = [
+  XyAffix,
   XyButton,
   XyButtonGroup,
   XyBadge,
@@ -94,6 +103,11 @@ const components = [
   XyRate,
   XySlider,
   XyProgress,
+  XyStatistic,
+  XyCountdown,
+  XyTimeline,
+  XyTimelineGroup,
+  XyTimelineItem,
   XySkeleton,
   XySkeletonItem,
   XyScheduler,
@@ -113,6 +127,8 @@ const components = [
   XySplitterPanel,
   XySpace,
   XyTable,
+  XyTableColumn,
+  XyTree,
   XyTabs,
   XyTag,
   XyText,
@@ -139,6 +155,7 @@ export function install(app: App) {
 }
 
 export {
+  XyAffix,
   XyButton,
   XyButtonGroup,
   XyBadge,
@@ -169,6 +186,11 @@ export {
   XyRate,
   XySlider,
   XyProgress,
+  XyStatistic,
+  XyCountdown,
+  XyTimeline,
+  XyTimelineGroup,
+  XyTimelineItem,
   XySkeleton,
   XySkeletonItem,
   XyScheduler,
@@ -188,6 +210,8 @@ export {
   XySplitterPanel,
   XySpace,
   XyTable,
+  XyTableColumn,
+  XyTree,
   XyTabs,
   XyTag,
   XyText,

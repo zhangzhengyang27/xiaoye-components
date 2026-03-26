@@ -65,6 +65,27 @@ function processSlideLoopIndex(index: number, activeIndex: number, length: numbe
   return index;
 }
 
+function resolveSeamlessTrackIndex(
+  index: number,
+  activeIndex: number,
+  length: number,
+  direction: "next" | "prev" | null
+) {
+  if (length <= 1) {
+    return index;
+  }
+
+  if (direction === "next") {
+    return index === 0 ? length : index;
+  }
+
+  if (direction === "prev") {
+    return index === length - 1 ? -1 : index;
+  }
+
+  return processSlideLoopIndex(index, activeIndex, length);
+}
+
 const index = computed(() =>
   carousel ? carousel.items.value.findIndex((item) => item.uid === uid) : -1
 );
@@ -102,7 +123,7 @@ const inStage = computed(() => {
   return Math.round(Math.abs(processedIndex.value - carousel.resolvedActiveIndex.value)) <= 1;
 });
 const animating = computed(() => {
-  if (!carousel || carousel.dragging.value) {
+  if (!carousel || carousel.dragging.value || carousel.loopTeleporting.value) {
     return false;
   }
 
@@ -111,6 +132,37 @@ const animating = computed(() => {
   }
 
   return active.value || index.value === carousel.previousIndex.value;
+});
+const boundaryTransitionActive = computed(
+  () =>
+    Boolean(
+      carousel &&
+      carousel.seamlessLoop.value &&
+      carousel.loopTransitionDirection.value !== null &&
+      !carousel.loopTeleporting.value
+    )
+);
+const resolvedTransitionDuration = computed(() => {
+  if (!carousel) {
+    return "0ms";
+  }
+
+  if (carousel.loopTeleporting.value) {
+    return "0ms";
+  }
+
+  return boundaryTransitionActive.value
+    ? `${carousel.loopBoundaryDuration.value}ms`
+    : `${carousel.duration.value}ms`;
+});
+const resolvedTransitionEasing = computed(() => {
+  if (!carousel) {
+    return "linear";
+  }
+
+  return boundaryTransitionActive.value
+    ? carousel.loopBoundaryEasing.value
+    : carousel.easing.value;
 });
 const translate = computed(() => {
   if (!carousel) {
@@ -141,11 +193,17 @@ const translate = computed(() => {
   const baseOffset = carousel.centered.value && viewportSize > 0
     ? (viewportSize - (viewportSize - carousel.gapPx.value * (carousel.slidesPerView.value - 1)) / carousel.slidesPerView.value) / 2
     : 0;
+  const baseIndex = seamlessLoop.value ? carousel.visualIndex.value : carousel.resolvedActiveIndex.value;
   const logicalIndex = seamlessLoop.value
-    ? processSlideLoopIndex(index.value, carousel.resolvedActiveIndex.value, carousel.items.value.length)
+    ? resolveSeamlessTrackIndex(
+        index.value,
+        carousel.resolvedActiveIndex.value,
+        carousel.items.value.length,
+        carousel.loopTransitionDirection.value
+      )
     : index.value;
 
-  return baseOffset + (logicalIndex - carousel.resolvedActiveIndex.value) * step + carousel.dragOffset.value;
+  return baseOffset + (logicalIndex - baseIndex) * step + carousel.dragOffset.value;
 });
 const scale = computed(() => {
   if (!carousel?.isCardType.value) {
@@ -185,16 +243,16 @@ const itemStyle = computed<CSSProperties | undefined>(() => {
       opacity: active.value ? 1 : 0,
       zIndex: active.value ? 2 : 1,
       pointerEvents: active.value ? "auto" : "none",
-      transitionDuration: `${carousel.duration.value}ms`,
-      transitionTimingFunction: carousel.easing.value
+      transitionDuration: resolvedTransitionDuration.value,
+      transitionTimingFunction: resolvedTransitionEasing.value
     };
   }
 
   if (carousel.isCardType.value) {
     return {
       transform: `${translateType}(${translate.value}px) scale(${scale.value})`,
-      transitionDuration: `${carousel.duration.value}ms`,
-      transitionTimingFunction: carousel.easing.value
+      transitionDuration: resolvedTransitionDuration.value,
+      transitionTimingFunction: resolvedTransitionEasing.value
     };
   }
 
@@ -209,8 +267,8 @@ const itemStyle = computed<CSSProperties | undefined>(() => {
 
   return {
     transform: `${translateType}(${translate.value}px)`,
-    transitionDuration: `${carousel.duration.value}ms`,
-    transitionTimingFunction: carousel.easing.value,
+    transitionDuration: resolvedTransitionDuration.value,
+    transitionTimingFunction: resolvedTransitionEasing.value,
     width: carousel.isVertical.value ? "100%" : `${mainSize}px`,
     height: carousel.isVertical.value ? `${mainSize}px` : "100%"
   };

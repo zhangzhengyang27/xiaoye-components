@@ -55,6 +55,7 @@ export default defineConfig({
             { text: "Image 图片", link: "/components/image" },
             { text: "Card 卡片", link: "/components/card" },
             { text: "Carousel 走马灯", link: "/components/carousel" },
+            { text: "Affix 固钉", link: "/components/affix" },
             { text: "Row 栅格行", link: "/components/row" },
             { text: "Col 栅格列", link: "/components/col" },
             { text: "Scrollbar 滚动条", link: "/components/scrollbar" },
@@ -102,8 +103,12 @@ export default defineConfig({
         {
           text: "数据展示",
           items: [
+            { text: "Statistic 统计数值", link: "/components/statistic" },
+            { text: "Countdown 倒计时", link: "/components/countdown" },
             { text: "Progress 进度条", link: "/components/progress" },
+            { text: "Timeline 时间线", link: "/components/timeline" },
             { text: "Scheduler 排期日历", link: "/components/scheduler" },
+            { text: "Tree 树形控件", link: "/components/tree" },
             { text: "Table 表格", link: "/components/table" },
             { text: "Pagination 分页", link: "/components/pagination" }
           ]
@@ -115,6 +120,7 @@ export default defineConfig({
           items: [
             { text: "管理后台闭环示例", link: "/examples/admin" },
             { text: "Skeleton 场景示例", link: "/examples/skeleton" },
+            { text: "Timeline 场景示例", link: "/examples/timeline" },
             { text: "Scheduler 场景示例", link: "/examples/scheduler" },
             { text: "Scheduler 业务接入模板", link: "/examples/scheduler-template" }
           ]

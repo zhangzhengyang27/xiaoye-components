@@ -8,8 +8,8 @@ const gallery = [
 </script>
 
 <template>
-  <xy-carousel thumbs thumbs-placement="bottom" height="260px" :autoplay="false">
-    <xy-carousel-item v-for="item in gallery" :key="item.title" :label="item.title">
+  <xy-carousel thumbs thumbs-placement="bottom" height="260px" :autoplay="false" indicator-position="none" style="--xy-carousel-radius: 18px">
+    <xy-carousel-item v-for="item in gallery" :key="item.title">
       <div class="demo-carousel-gallery" :style="{ background: item.color }">
         <strong>{{ item.title }}</strong>
       </div>

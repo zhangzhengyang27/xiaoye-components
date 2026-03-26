@@ -1,13 +1,4 @@
 <script setup lang="ts">
-const columns = [
-  { key: "name", title: "项目名称", dataIndex: "name", width: 180 },
-  { key: "owner", title: "负责人", dataIndex: "owner", width: 140 },
-  { key: "env", title: "环境", dataIndex: "env", width: 120 },
-  { key: "region", title: "区域", dataIndex: "region", width: 140 },
-  { key: "updatedAt", title: "最近更新", dataIndex: "updatedAt", width: 160 },
-  { key: "status", title: "状态", dataIndex: "status", width: 120, slot: "status" }
-];
-
 const rows = [
   {
     id: 1,
@@ -42,14 +33,21 @@ const rows = [
 <template>
   <xy-scrollbar>
     <div class="demo-scroll-table">
-      <xy-table :columns="columns" :data="rows" row-key="id">
-        <template #cell-status="{ value }">
-          <xy-tag
-            :status="value === '已上线' ? 'success' : value === '开发中' ? 'primary' : 'warning'"
-          >
-            {{ value }}
-          </xy-tag>
-        </template>
+      <xy-table :data="rows" row-key="id">
+        <xy-table-column prop="name" label="项目名称" width="180" show-overflow-tooltip />
+        <xy-table-column prop="owner" label="负责人" width="140" />
+        <xy-table-column prop="env" label="环境" width="120" />
+        <xy-table-column prop="region" label="区域" width="140" show-overflow-tooltip />
+        <xy-table-column prop="updatedAt" label="最近更新" width="160" />
+        <xy-table-column prop="status" label="状态" width="120">
+          <template #default="{ value }">
+            <xy-tag
+              :status="value === '已上线' ? 'success' : value === '开发中' ? 'primary' : 'warning'"
+            >
+              {{ value }}
+            </xy-tag>
+          </template>
+        </xy-table-column>
       </xy-table>
     </div>
   </xy-scrollbar>

@@ -234,7 +234,7 @@ describe("XyCarousel", () => {
     expect(api.activeIndex).toBe(2);
   });
 
-  it("循环模式下首尾切换使用连续位移", async () => {
+  it("循环模式下首尾切换只让边界克隆项进场", async () => {
     Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
       configurable: true,
       get() {
@@ -247,28 +247,216 @@ describe("XyCarousel", () => {
         XyCarousel,
         {
           autoplay: false,
-          loop: true
+          loop: true,
+          initialIndex: 2
         },
         () => createSlides(3)
       )
     );
 
     await nextTick();
+    await nextTick();
 
     const api = wrapper.findComponent(XyCarousel).vm as unknown as {
       next: () => void;
-      setActiveItem: (index: number) => void;
     };
-    api.setActiveItem(2);
-    await nextTick();
 
     const items = wrapper.findAll(".xy-carousel__item");
     expect(items[0]?.attributes("style")).toContain("translateX(600px)");
+    expect(items[1]?.attributes("style")).toContain("translateX(-600px)");
 
     api.next();
     await nextTick();
 
     expect(items[0]?.classes()).toContain("is-active");
+    expect(items[1]?.attributes("style")).toContain("translateX(-1200px)");
+  });
+
+  it("边界无缝过渡期间再次点击 next 会排队到过渡结束后执行", async () => {
+    vi.useFakeTimers();
+
+    Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
+      configurable: true,
+      get() {
+        return 600;
+      }
+    });
+
+    const wrapper = mountCarousel(() =>
+      h(
+        XyCarousel,
+        {
+          autoplay: false,
+          loop: true,
+          initialIndex: 2,
+          duration: 120
+        },
+        () => createSlides(3)
+      )
+    );
+
+    await nextTick();
+    await nextTick();
+
+    const api = wrapper.findComponent(XyCarousel).vm as unknown as {
+      next: () => void;
+      activeIndex: number;
+    };
+
+    api.next();
+    await nextTick();
+    expect(api.activeIndex).toBe(0);
+
+    api.next();
+    await nextTick();
+    expect(api.activeIndex).toBe(0);
+
+    vi.advanceTimersByTime(240);
+    await nextTick();
+    vi.runOnlyPendingTimers();
+    await nextTick();
+    expect(api.activeIndex).toBe(1);
+  });
+
+  it("边界无缝过渡可由 transitionend 提前完成并放行排队操作", async () => {
+    vi.useFakeTimers();
+
+    Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
+      configurable: true,
+      get() {
+        return 600;
+      }
+    });
+
+    const wrapper = mountCarousel(() =>
+      h(
+        XyCarousel,
+        {
+          autoplay: false,
+          loop: true,
+          initialIndex: 2,
+          duration: 120
+        },
+        () => createSlides(3)
+      )
+    );
+
+    await nextTick();
+    await nextTick();
+
+    const api = wrapper.findComponent(XyCarousel).vm as unknown as {
+      next: () => void;
+      activeIndex: number;
+    };
+
+    api.next();
+    await nextTick();
+    api.next();
+    await nextTick();
+    expect(api.activeIndex).toBe(0);
+
+    const item = wrapper.findAll(".xy-carousel__item")[0]?.element as HTMLElement;
+    const transitionEvent = new Event("transitionend", {
+      bubbles: true
+    });
+    Object.defineProperty(transitionEvent, "propertyName", {
+      configurable: true,
+      value: "transform"
+    });
+    item.dispatchEvent(transitionEvent);
+
+    await nextTick();
+    vi.runAllTimers();
+    await nextTick();
+    expect(api.activeIndex).toBe(1);
+  });
+
+  it("边界收尾 teleport 帧会直接归位到真实轨道", async () => {
+    vi.useFakeTimers();
+
+    Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
+      configurable: true,
+      get() {
+        return 600;
+      }
+    });
+
+    const wrapper = mountCarousel(() =>
+      h(
+        XyCarousel,
+        {
+          autoplay: false,
+          loop: true,
+          initialIndex: 2,
+          duration: 120
+        },
+        () => createSlides(3)
+      )
+    );
+
+    await nextTick();
+    await nextTick();
+
+    const api = wrapper.findComponent(XyCarousel).vm as unknown as {
+      next: () => void;
+    };
+
+    api.next();
+    await nextTick();
+
+    const items = wrapper.findAll(".xy-carousel__item");
+    const transitionEvent = new Event("transitionend", {
+      bubbles: true
+    });
+    Object.defineProperty(transitionEvent, "propertyName", {
+      configurable: true,
+      value: "transform"
+    });
+    items[0]?.element.dispatchEvent(transitionEvent);
+
+    await nextTick();
+
+    expect(items[0]?.attributes("style")).toContain("translateX(0px)");
+    expect(items[2]?.attributes("style")).toContain("translateX(-600px)");
+    expect(items[0]?.attributes("style")).toContain("transition-duration: 0ms");
+  });
+
+  it("自动播放在无缝边界过渡中会保留进度，过渡完成后再重置", async () => {
+    vi.useFakeTimers();
+
+    const wrapper = mountCarousel(() =>
+      h(
+        XyCarousel,
+        {
+          autoplay: true,
+          loop: true,
+          initialIndex: 2,
+          interval: 50,
+          duration: 120,
+          showProgress: true,
+          progressPlacement: "indicator"
+        },
+        {
+          default: () => createSlides(3),
+          progress: ({ percent }: { percent: number }) =>
+            h("span", { class: "boundary-progress" }, `${Math.round(percent)}%`)
+        }
+      )
+    );
+
+    await nextTick();
+    await nextTick();
+
+    vi.advanceTimersByTime(60);
+    await nextTick();
+    expect(wrapper.findComponent(XyCarousel).vm.activeIndex).toBe(0);
+    expect(wrapper.find(".boundary-progress").text()).toBe("100%");
+
+    vi.advanceTimersByTime(240);
+    await nextTick();
+    vi.advanceTimersByTime(0);
+    await nextTick();
+    expect(wrapper.find(".boundary-progress").text()).toBe("0%");
   });
 
   it("支持 card 模式和点击侧卡切换", async () => {

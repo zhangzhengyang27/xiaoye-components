@@ -1,5 +1,5 @@
 <template>
-  <xy-carousel type="card" height="240px" :autoplay="false">
+  <xy-carousel type="card" height="240px" :autoplay="false" style="--xy-carousel-radius: 18px">
     <xy-carousel-item v-for="item in 5" :key="`card-${item}`" :name="`card-${item}`">
       <div class="demo-carousel-card">
         <span class="demo-carousel-card__eyebrow">Pick {{ item }}</span>

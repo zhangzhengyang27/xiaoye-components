@@ -9,6 +9,7 @@
     align="start"
     contain-scroll="trim"
     indicator-position="outside"
+    style="--xy-carousel-radius: 18px"
   >
     <xy-carousel-item v-for="item in 5" :key="`flow-${item}`">
       <div class="demo-carousel-flow">

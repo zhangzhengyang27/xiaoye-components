@@ -1,5 +1,5 @@
 <template>
-  <xy-carousel virtual :virtual-buffer="1" height="220px" :autoplay="false">
+  <xy-carousel virtual :virtual-buffer="1" height="220px" :autoplay="false" indicator-position="none">
     <xy-carousel-item v-for="item in 12" :key="`virtual-${item}`">
       <div class="demo-carousel-virtual">Virtual {{ item }}</div>
     </xy-carousel-item>

@@ -17,12 +17,20 @@ describe("XiaoyeComponents", () => {
     XiaoyeComponents.install(app);
     XiaoyeComponents.install(app);
 
+    expect(app.component("xy-affix")).toBeTruthy();
     expect(app.component("xy-button")).toBeTruthy();
     expect(app.component("xy-image")).toBeTruthy();
     expect(app.component("xy-progress")).toBeTruthy();
+    expect(app.component("xy-statistic")).toBeTruthy();
+    expect(app.component("xy-countdown")).toBeTruthy();
     expect(app.component("xy-skeleton")).toBeTruthy();
     expect(app.component("xy-skeleton-item")).toBeTruthy();
+    expect(app.component("xy-timeline")).toBeTruthy();
+    expect(app.component("xy-timeline-group")).toBeTruthy();
+    expect(app.component("xy-timeline-item")).toBeTruthy();
     expect(app.component("xy-result")).toBeTruthy();
+    expect(app.component("xy-table-column")).toBeTruthy();
+    expect(app.component("xy-tree")).toBeTruthy();
     expect(app.component("xy-radio-group")).toBeTruthy();
     expect(
       warnSpy.mock.calls.some((args) =>

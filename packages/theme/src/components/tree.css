@@ -1,0 +1,127 @@
+.xy-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  color: var(--xy-text-color);
+}
+
+.xy-tree:focus {
+  outline: none;
+}
+
+.xy-tree--highlight-current .xy-tree__node.is-current > .xy-tree__node-content {
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-bg-color));
+  border-color: color-mix(in srgb, var(--xy-color-primary) 22%, var(--xy-border-color));
+}
+
+.xy-tree__node {
+  display: block;
+  outline: none;
+}
+
+.xy-tree__node.is-hidden {
+  display: none;
+}
+
+.xy-tree__node.is-disabled {
+  opacity: 0.62;
+}
+
+.xy-tree__node:focus-visible > .xy-tree__node-content {
+  border-color: color-mix(in srgb, var(--xy-color-primary) 36%, var(--xy-border-color));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 14%, transparent);
+}
+
+.xy-tree__node-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--xy-radius-sm);
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+  cursor: pointer;
+}
+
+.xy-tree__node-content:hover {
+  background: var(--xy-bg-color-muted);
+}
+
+.xy-tree__expand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--xy-text-color-muted);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.xy-tree__expand-icon:hover {
+  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+}
+
+.xy-tree__expand-icon.is-expanded {
+  color: var(--xy-color-primary);
+  transform: rotate(90deg);
+}
+
+.xy-tree__expand-placeholder {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.xy-tree__loading-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xy-tree__checkbox {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.xy-tree__checkbox .xy-checkbox {
+  margin-right: 0;
+}
+
+.xy-tree__node-label {
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+  font-size: var(--xy-font-size-md);
+  line-height: var(--xy-line-height);
+  word-break: break-word;
+}
+
+.xy-tree__children {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.xy-tree__empty-block {
+  padding: 20px 0;
+}
+
+.xy-tree__empty-block .xy-empty {
+  padding: 16px 0;
+}

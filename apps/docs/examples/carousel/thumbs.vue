@@ -8,11 +8,10 @@ const slides = [
 </script>
 
 <template>
-  <xy-carousel thumbs height="240px" :autoplay="false">
+  <xy-carousel thumbs height="240px" :autoplay="false" indicator-position="none" style="--xy-carousel-radius: 18px">
     <xy-carousel-item
       v-for="slide in slides"
       :key="slide.title"
-      :label="slide.title"
     >
       <div class="demo-carousel-slide" :style="{ background: slide.color }">
         <strong>{{ slide.title }}</strong>

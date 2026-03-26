@@ -7,8 +7,8 @@ const slides = [
 </script>
 
 <template>
-  <xy-carousel height="240px">
-    <xy-carousel-item v-for="slide in slides" :key="slide.title" :label="slide.title">
+  <xy-carousel height="240px" style="--xy-carousel-radius: 18px">
+    <xy-carousel-item v-for="slide in slides" :key="slide.title">
       <div class="demo-carousel-slide" :style="{ background: slide.bg }">
         <span class="demo-carousel-slide__eyebrow">Featured</span>
         <strong>{{ slide.title }}</strong>

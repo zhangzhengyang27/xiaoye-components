@@ -10,11 +10,13 @@
 }
 
 .xy-skeleton__item {
+  position: relative;
   display: block;
   width: 100%;
   height: 16px;
   border-radius: var(--xy-radius-sm);
   background: var(--xy-skeleton-color);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color) 54%, white);
 }
 
 .xy-skeleton.is-animated .xy-skeleton__item {
@@ -84,11 +86,12 @@
   justify-content: center;
   min-height: 96px;
   border-radius: var(--xy-radius-md);
+  background-color: color-mix(in srgb, var(--xy-skeleton-color) 92%, white);
 }
 
 .xy-skeleton__image-icon {
   color: var(--xy-text-color-muted);
-  opacity: 0.72;
+  opacity: 0.78;
 }
 
 @keyframes xy-skeleton-loading {

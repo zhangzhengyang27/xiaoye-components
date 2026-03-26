@@ -12,3 +12,4 @@ apps/playground/dist
 *.tsbuildinfo
 *.local
 .playwright-cli/
+output/
