@@ -1,22 +1,24 @@
 import { onBeforeUnmount, onMounted, toValue } from "vue";
-import type { MaybeRefOrGetter, Ref } from "vue";
+import type { MaybeRefOrGetter } from "vue";
 
 export interface DismissibleLayerOptions {
   enabled: MaybeRefOrGetter<boolean>;
-  refs: Array<Ref<HTMLElement | null>>;
+  refs: Array<MaybeRefOrGetter<HTMLElement | null>>;
   onDismiss: (reason: "escape" | "outside") => void | Promise<void>;
-  closeOnEscape?: boolean;
-  closeOnOutside?: boolean;
+  closeOnEscape?: MaybeRefOrGetter<boolean | undefined>;
+  closeOnOutside?: MaybeRefOrGetter<boolean | undefined>;
   isTopMost?: () => boolean;
 }
 
 export function useDismissibleLayer(options: DismissibleLayerOptions) {
+  let registered = false;
+
   const handlePointerDown = (event: Event) => {
     if (!toValue(options.enabled)) {
       return;
     }
 
-    if (!options.closeOnOutside) {
+    if (!toValue(options.closeOnOutside)) {
       return;
     }
 
@@ -30,7 +32,7 @@ export function useDismissibleLayer(options: DismissibleLayerOptions) {
       return;
     }
 
-    const isInside = options.refs.some((targetRef) => targetRef.value?.contains(target));
+    const isInside = options.refs.some((targetRef) => toValue(targetRef)?.contains(target));
 
     if (!isInside) {
       void options.onDismiss("outside");
@@ -38,7 +40,7 @@ export function useDismissibleLayer(options: DismissibleLayerOptions) {
   };
 
   const handleKeydown = (event: KeyboardEvent) => {
-    if (!options.closeOnEscape || !toValue(options.enabled) || event.key !== "Escape") {
+    if (!toValue(options.closeOnEscape) || !toValue(options.enabled) || event.key !== "Escape") {
       return;
     }
 
@@ -50,13 +52,29 @@ export function useDismissibleLayer(options: DismissibleLayerOptions) {
     void options.onDismiss("escape");
   };
 
-  onMounted(() => {
+  function registerListeners() {
+    if (registered || typeof document === "undefined") {
+      return;
+    }
+
+    registered = true;
     document.addEventListener("mousedown", handlePointerDown);
     document.addEventListener("touchstart", handlePointerDown);
     document.addEventListener("keydown", handleKeydown);
+  }
+
+  registerListeners();
+
+  onMounted(() => {
+    registerListeners();
   });
 
   onBeforeUnmount(() => {
+    if (!registered || typeof document === "undefined") {
+      return;
+    }
+
+    registered = false;
     document.removeEventListener("mousedown", handlePointerDown);
     document.removeEventListener("touchstart", handlePointerDown);
     document.removeEventListener("keydown", handleKeydown);

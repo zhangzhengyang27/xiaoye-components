@@ -434,7 +434,7 @@
   color: var(--vp-c-text-2);
   font-size: 14px;
   line-height: 1.75;
-  max-width: 760px;
+  /* max-width: 760px; */
 }
 
 .xy-doc-stack {

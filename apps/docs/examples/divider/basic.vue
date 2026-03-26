@@ -1,0 +1,39 @@
+<template>
+  <section class="divider-demo-stack">
+    <div>
+      <h4>发版前检查</h4>
+      <p>确认版本号、变更记录和审批单已经同步到本周发布计划。</p>
+    </div>
+
+    <xy-divider />
+
+    <div>
+      <h4>发版后回收</h4>
+      <p>发布完成后补齐回归记录、异常结论和负责人同步，避免信息留在聊天窗口里。</p>
+    </div>
+  </section>
+</template>
+
+<style scoped>
+.divider-demo-stack {
+  display: grid;
+  gap: 0;
+}
+
+.divider-demo-stack h4,
+.divider-demo-stack p {
+  margin: 0;
+}
+
+.divider-demo-stack h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--xy-text-color);
+}
+
+.divider-demo-stack p {
+  margin-top: 8px;
+  line-height: 1.7;
+  color: var(--xy-text-color-secondary);
+}
+</style>

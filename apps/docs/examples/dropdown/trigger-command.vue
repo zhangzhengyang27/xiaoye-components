@@ -2,14 +2,9 @@
 import { ref } from "vue";
 
 const feedback = ref("等待触发");
-const items = [
-  { key: "copy", label: "复制链接", command: "copy-link" },
-  { key: "pin", label: "置顶记录", description: "会在列表顶部显示", command: "pin-record" },
-  { key: "delete", label: "删除记录", danger: true, command: "delete-record" }
-];
 
-function handleCommand(command: string | number | Record<string, unknown>) {
-  feedback.value = `最近命令：${String(command)}`;
+function handleCommand(command: string | number | Record<string, unknown> | undefined) {
+  feedback.value = `最近命令：${String(command ?? "undefined")}`;
 }
 </script>
 
@@ -17,16 +12,22 @@ function handleCommand(command: string | number | Record<string, unknown>) {
   <div class="xy-doc-stack">
     <xy-space wrap>
       <xy-dropdown
-        trigger="click"
-        :items="items"
+        :trigger="['click', 'contextmenu']"
+        :trigger-keys="['F2', 'Enter']"
         :max-height="120"
         @command="handleCommand"
       >
-        <xy-button plain>Click 菜单</xy-button>
-      </xy-dropdown>
+        <xy-button plain>Click / 右键 / F2</xy-button>
 
-      <xy-dropdown trigger="contextmenu" :items="items" @command="handleCommand">
-        <xy-button type="primary">右键我试试</xy-button>
+        <template #dropdown>
+          <xy-dropdown-menu>
+            <xy-dropdown-item command="copy-link">复制链接</xy-dropdown-item>
+            <xy-dropdown-item command="pin-record" description="会在列表顶部显示">
+              置顶记录
+            </xy-dropdown-item>
+            <xy-dropdown-item danger command="delete-record">删除记录</xy-dropdown-item>
+          </xy-dropdown-menu>
+        </template>
       </xy-dropdown>
     </xy-space>
 

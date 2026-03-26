@@ -3,6 +3,7 @@
 @import "./src/base.css";
 @import "./src/components/button.css";
 @import "./src/components/link.css";
+@import "./src/components/breadcrumb.css";
 @import "./src/components/text.css";
 @import "./src/components/badge.css";
 @import "./src/components/icon.css";
@@ -12,6 +13,12 @@
 @import "./src/components/card.css";
 @import "./src/components/carousel.css";
 @import "./src/components/affix.css";
+@import "./src/components/alert.css";
+@import "./src/components/message.css";
+@import "./src/components/notification.css";
+@import "./src/components/anchor.css";
+@import "./src/components/backtop.css";
+@import "./src/components/menu.css";
 @import "./src/components/tag.css";
 @import "./src/components/row.css";
 @import "./src/components/col.css";
@@ -31,6 +38,7 @@
 @import "./src/components/rate.css";
 @import "./src/components/slider.css";
 @import "./src/components/progress.css";
+@import "./src/components/steps.css";
 @import "./src/components/statistic.css";
 @import "./src/components/timeline.css";
 @import "./src/components/skeleton.css";
@@ -39,10 +47,13 @@
 @import "./src/components/time-select.css";
 @import "./src/components/scheduler.css";
 @import "./src/components/tooltip.css";
-@import "./src/components/modal.css";
+@import "./src/components/dialog.css";
 @import "./src/components/drawer.css";
+@import "./src/components/divider.css";
+@import "./src/components/loading.css";
 @import "./src/components/dropdown.css";
 @import "./src/components/popover.css";
+@import "./src/components/popconfirm.css";
 @import "./src/components/collapse.css";
 @import "./src/components/collapse-transition.css";
 @import "./src/components/result.css";

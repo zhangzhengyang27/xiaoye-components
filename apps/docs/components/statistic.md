@@ -20,6 +20,24 @@ statistic/basic
 statistic/formatter
 :::
 
+## 结算运营看板
+
+:::demo 在财务、结算和商务复核后台里，统计值通常会和状态标签、说明文案一起出现，而不是单独挂在页面角落。
+statistic/settlement-board
+:::
+
+## 配额与健康度概览
+
+:::demo `value-style` 和 `formatter` 很适合表达资源配额、容量消耗和 backlog 健康度，让颜色和紧凑数字直接服务于看板扫描。
+statistic/quota-health
+:::
+
+## 风控审批摘要
+
+:::demo 审批和复核面板里并不总是纯数字，`Statistic` 也可以承接 `N/A`、`--` 这类占位值和业务前缀。
+statistic/review-panel
+:::
+
 ## 使用提示
 
 - `formatter` 存在时会完全接管展示结果，内置的千分位、精度和分隔符不再生效。

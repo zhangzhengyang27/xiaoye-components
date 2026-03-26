@@ -7,7 +7,7 @@ import {
   shift,
   size as floatingSize
 } from "@floating-ui/dom";
-import { ref, toValue } from "vue";
+import { ref, toRaw, toValue } from "vue";
 import type { Placement, ReferenceElement, Strategy } from "@floating-ui/dom";
 import type { MaybeRefOrGetter, Ref } from "vue";
 
@@ -18,6 +18,9 @@ export interface FloatingPanelOptions {
   matchTriggerWidth?: MaybeRefOrGetter<boolean>;
   arrowRef?: Ref<HTMLElement | null>;
   arrowPadding?: number;
+  shiftPadding?: MaybeRefOrGetter<number>;
+  flip?: MaybeRefOrGetter<boolean>;
+  fallbackPlacements?: MaybeRefOrGetter<Placement[] | undefined>;
   zIndex?: MaybeRefOrGetter<number>;
 }
 
@@ -32,11 +35,27 @@ export function useFloatingPanel(
   let cleanup: (() => void) | null = null;
 
   async function updatePosition() {
-    if (!referenceRef.value || !floatingRef.value) {
+    const reference = referenceRef.value ? toRaw(referenceRef.value) : null;
+    const floating = floatingRef.value ? toRaw(floatingRef.value) : null;
+
+    if (!reference || !floating) {
       return;
     }
 
-    const middleware = [offset(toValue(options.offset) ?? 10), flip(), shift({ padding: 8 })];
+    const middleware = [offset(toValue(options.offset) ?? 10)];
+
+    if (toValue(options.flip) ?? true) {
+      const fallbackPlacements = toValue(options.fallbackPlacements);
+      middleware.push(
+        fallbackPlacements && fallbackPlacements.length > 0
+          ? flip({
+              fallbackPlacements
+            })
+          : flip()
+      );
+    }
+
+    middleware.push(shift({ padding: toValue(options.shiftPadding) ?? 8 }));
 
     if (toValue(options.matchTriggerWidth)) {
       middleware.push(
@@ -57,19 +76,29 @@ export function useFloatingPanel(
       );
     }
 
-    const { x, y, placement, middlewareData } = await computePosition(
-      referenceRef.value,
-      floatingRef.value,
-      {
-        placement: toValue(options.placement) ?? "bottom-start",
+    let x = 0;
+    let y = 0;
+    let placement = toValue(options.placement) ?? "bottom-start";
+    let middlewareData: Record<string, unknown> = {};
+
+    try {
+      const result = await computePosition(reference, floating, {
+        placement,
         strategy: toValue(options.strategy) ?? "absolute",
         middleware
-      }
-    );
+      });
+
+      x = result.x;
+      y = result.y;
+      placement = result.placement;
+      middlewareData = result.middlewareData;
+    } catch {
+      return;
+    }
 
     actualPlacement.value = placement;
 
-    const { x: arrowX, y: arrowY } = middlewareData.arrow ?? {};
+    const { x: arrowX, y: arrowY } = (middlewareData.arrow as { x?: number; y?: number } | undefined) ?? {};
     const staticSideMap: Record<string, string> = {
       top: "bottom",
       right: "left",
@@ -97,11 +126,23 @@ export function useFloatingPanel(
   function startAutoUpdate() {
     stopAutoUpdate();
 
-    if (!referenceRef.value || !floatingRef.value) {
+    const reference = referenceRef.value ? toRaw(referenceRef.value) : null;
+    const floating = floatingRef.value ? toRaw(floatingRef.value) : null;
+
+    if (!reference || !floating) {
       return;
     }
 
-    cleanup = autoUpdate(referenceRef.value, floatingRef.value, updatePosition);
+    const referenceElement =
+      reference instanceof Element
+        ? reference
+        : reference.contextElement ?? null;
+
+    if (!referenceElement) {
+      return;
+    }
+
+    cleanup = autoUpdate(referenceElement, floating, updatePosition);
   }
 
   function stopAutoUpdate() {

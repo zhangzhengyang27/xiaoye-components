@@ -1,13 +1,29 @@
 <script setup lang="ts" generic="T extends Record<string, unknown>">
-import { computed, onBeforeUnmount, provide, ref, useAttrs, watch, watchEffect } from "vue";
+import {
+  computed,
+  getCurrentInstance,
+  onBeforeUnmount,
+  provide,
+  ref,
+  useAttrs,
+  watch,
+  watchEffect
+} from "vue";
 import { bindClickOutside } from "@xiaoye/utils";
-import { useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/composables";
 import XyEmpty from "../../empty";
+import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
 import TableBody from "./table-body/body.vue";
 import TableFooter from "./table-footer/footer.vue";
 import TableHeader from "./table-header/header.vue";
 import { tableContextKey } from "./tokens";
-import type { TableFilterValues, TableInstance, TableProps, TableResolvedColumn, TableSortOrder } from "./table";
+import type {
+  TableFilterValues,
+  TableInstance,
+  TableProps,
+  TableResolvedColumn,
+  TableSortOrder
+} from "./table";
 import { toCssSize } from "./table";
 import { useTableLayout, type TableLayoutState } from "./table-layout";
 import { useTableStore } from "./store";
@@ -77,19 +93,51 @@ const emit = defineEmits<{
   "row-click": [row: T, rowIndex: number, event: MouseEvent | KeyboardEvent];
   "row-dblclick": [row: T, rowIndex: number, event: MouseEvent];
   "row-contextmenu": [row: T, rowIndex: number, event: MouseEvent];
-  "cell-click": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
-  "cell-dblclick": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
-  "cell-contextmenu": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
-  "cell-mouse-enter": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
-  "cell-mouse-leave": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
+  "cell-click": [
+    row: T,
+    column: TableResolvedColumn<T>,
+    cell: HTMLTableCellElement,
+    event: MouseEvent
+  ];
+  "cell-dblclick": [
+    row: T,
+    column: TableResolvedColumn<T>,
+    cell: HTMLTableCellElement,
+    event: MouseEvent
+  ];
+  "cell-contextmenu": [
+    row: T,
+    column: TableResolvedColumn<T>,
+    cell: HTMLTableCellElement,
+    event: MouseEvent
+  ];
+  "cell-mouse-enter": [
+    row: T,
+    column: TableResolvedColumn<T>,
+    cell: HTMLTableCellElement,
+    event: MouseEvent
+  ];
+  "cell-mouse-leave": [
+    row: T,
+    column: TableResolvedColumn<T>,
+    cell: HTMLTableCellElement,
+    event: MouseEvent
+  ];
   "header-click": [column: TableResolvedColumn<T>, event: MouseEvent];
   "header-contextmenu": [column: TableResolvedColumn<T>, event: MouseEvent];
-  "header-dragend": [newWidth: number, oldWidth: number, column: TableResolvedColumn<T>, event: MouseEvent];
+  "header-dragend": [
+    newWidth: number,
+    oldWidth: number,
+    column: TableResolvedColumn<T>,
+    event: MouseEvent
+  ];
   "selection-change": [selection: T[]];
-  "select": [selection: T[], row: T];
+  select: [selection: T[], row: T];
   "select-all": [selection: T[]];
   "current-change": [currentRow: T | null, oldCurrentRow: T | null];
-  "sort-change": [payload: { column: TableResolvedColumn<T>; prop: string | undefined; order: TableSortOrder }];
+  "sort-change": [
+    payload: { column: TableResolvedColumn<T>; prop: string | undefined; order: TableSortOrder }
+  ];
   "filter-change": [value: TableFilterValues];
   "expand-change": [row: T, expandedRows: T[] | boolean];
   "update:currentRowKey": [value: string | number | null];
@@ -98,11 +146,26 @@ const emit = defineEmits<{
   "update:filterValues": [value: TableFilterValues];
 }>();
 
+const componentInstance = getCurrentInstance();
 const attrs = useAttrs();
 const ns = useNamespace("table");
+const { loading: globalLoading } = useConfig();
 const rootRef = ref<HTMLElement | null>(null);
 const layoutDepsSource = ref("");
 const { columns, registerColumn, unregisterColumn } = useTableColumns<T>();
+const hasLoadingTextProp = computed(() => {
+  const vnodeProps = componentInstance?.vnode.props ?? {};
+
+  return "loadingText" in vnodeProps || "loading-text" in vnodeProps;
+});
+const resolvedLoading = computed(() =>
+  resolveLoadingVisualConfig(
+    globalLoading.value,
+    "Loading...",
+    hasLoadingTextProp.value,
+    props.loadingText
+  )
+);
 
 provide(tableContextKey, {
   registerColumn: registerColumn as never,
@@ -426,9 +489,21 @@ defineExpose<TableInstance<T>>({
       :style="bodyWrapperStyle"
       @scroll="layout.handleBodyScroll"
     >
-      <div v-if="props.loading" class="xy-table__loading">
+      <div
+        v-if="props.loading"
+        class="xy-table__loading"
+        :style="resolvedLoading.background ? { background: resolvedLoading.background } : undefined"
+      >
         <slot name="loading">
-          {{ props.loadingText }}
+          <XyLoadingIndicator
+            :text="resolvedLoading.text"
+            :spinner="resolvedLoading.spinner"
+            :svg="resolvedLoading.svg"
+            :svg-view-box="resolvedLoading.svgViewBox"
+            layout="inline"
+            size="md"
+            surface
+          />
         </slot>
       </div>
 

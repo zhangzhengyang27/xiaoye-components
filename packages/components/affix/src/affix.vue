@@ -113,7 +113,11 @@ function getElementRect(element: HTMLElement | null) {
 
 function isScrollable(element: HTMLElement) {
   const { overflow, overflowX, overflowY } = window.getComputedStyle(element);
-  return /(auto|scroll|overlay)/.test(`${overflow}${overflowX}${overflowY}`);
+  const allowsScroll = /(auto|scroll|overlay)/.test(`${overflow}${overflowX}${overflowY}`);
+  const hasScrollableArea =
+    element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+
+  return allowsScroll && hasScrollableArea;
 }
 
 function getScrollContainer(element: HTMLElement | null) {

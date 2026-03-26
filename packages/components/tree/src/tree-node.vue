@@ -8,9 +8,20 @@
     :aria-expanded="node.isLeaf ? undefined : expanded"
     :aria-disabled="node.disabled"
     :aria-checked="showCheckbox ? (node.indeterminate ? 'mixed' : `${node.checked}`) : undefined"
+    :aria-selected="tree.props.highlightCurrent ? `${node.isCurrent}` : undefined"
+    :aria-busy="node.loading ? 'true' : undefined"
+    :aria-level="node.level"
+    :aria-posinset="ariaPosInSet"
+    :aria-setsize="ariaSetSize"
+    :aria-describedby="statusTipId"
+    :draggable="tree.props.draggable"
     :data-key="nodeIdentifier"
     @click.stop="handleClick"
     @contextmenu.stop.prevent="handleContextMenu"
+    @dragstart.stop="handleDragStart"
+    @dragover.stop="handleDragOver"
+    @dragend.stop="handleDragEnd"
+    @drop.stop.prevent="handleDrop"
   >
     <div :class="`${ns.base.value}__node-content`" :style="contentStyle">
       <button
@@ -40,6 +51,15 @@
       </span>
 
       <tree-node-content :node="node" :render-content="renderContent" />
+
+      <span
+        v-if="node.loadFailed"
+        :id="statusTipId"
+        :class="`${ns.base.value}__status-tip`"
+        role="status"
+      >
+        加载失败，点击重试
+      </span>
     </div>
 
     <xy-collapse-transition>
@@ -81,6 +101,7 @@ import { useNamespace } from "@xiaoye/composables";
 import { XyCheckbox } from "../../checkbox";
 import { XyCollapseTransition } from "../../collapse-transition";
 import { XyIcon } from "../../icon";
+import { dragEventsKey } from "./model/use-drag-node";
 import TreeNodeContent from "./tree-node-content.vue";
 import { DEFAULT_TREE_LOADING_ICON } from "./tree";
 import { NODE_INSTANCE_INJECTION_KEY, ROOT_TREE_INJECTION_KEY } from "./tokens";
@@ -135,11 +156,12 @@ export default defineComponent({
     const ns = useNamespace("tree");
     const tree = inject(ROOT_TREE_INJECTION_KEY) as RootTreeType;
     const nodeRef = ref<HTMLElement | null>(null);
-    const expanded = ref(Boolean(props.node.expanded));
+    const expanded = computed(() => Boolean(props.node.expanded));
     const childNodeRendered = ref(Boolean(props.node.expanded));
     const oldChecked = ref<boolean | undefined>();
     const oldIndeterminate = ref<boolean | undefined>();
     const instance = getCurrentInstance();
+    const dragEvents = inject(dragEventsKey, null);
 
     provide(NODE_INSTANCE_INJECTION_KEY, instance);
 
@@ -177,10 +199,6 @@ export default defineComponent({
     watch(
       () => props.node.expanded,
       (value) => {
-        nextTick(() => {
-          expanded.value = value;
-        });
-
         if (value) {
           childNodeRendered.value = true;
         }
@@ -190,6 +208,17 @@ export default defineComponent({
     const nodeIdentifier = computed(() => {
       return props.node.key ?? props.node.id;
     });
+    const visibleSiblingNodes = computed(() =>
+      (props.node.parent?.childNodes ?? []).filter((child) => child.visible)
+    );
+    const ariaPosInSet = computed(() => {
+      const index = visibleSiblingNodes.value.findIndex((child) => child === props.node);
+      return index > -1 ? index + 1 : 1;
+    });
+    const ariaSetSize = computed(() => Math.max(visibleSiblingNodes.value.length, 1));
+    const statusTipId = computed(() =>
+      props.node.loadFailed ? `${ns.base.value}-status-${nodeIdentifier.value}` : undefined
+    );
 
     const nodeClasses = computed(() => [
       `${ns.base.value}__node`,
@@ -197,6 +226,7 @@ export default defineComponent({
       ns.is("current", props.node.isCurrent),
       ns.is("hidden", !props.node.visible),
       ns.is("checked", !props.node.disabled && props.node.checked),
+      props.node.loadFailed ? "is-load-failed" : "",
       props.node.disabled ? "is-disabled" : "",
       getNodeClass(props.node)
     ]);
@@ -329,8 +359,51 @@ export default defineComponent({
       ctx.emit("node-expand", nodeData, node, nodeInstance);
     }
 
+    function handleDragStart(event: DragEvent) {
+      if (!tree.props.draggable || !dragEvents) {
+        return;
+      }
+
+      dragEvents.treeNodeDragStart({
+        event,
+        treeNode: {
+          node: props.node,
+          $el: nodeRef.value
+        }
+      });
+    }
+
+    function handleDragOver(event: DragEvent) {
+      event.preventDefault();
+
+      if (!tree.props.draggable || !dragEvents) {
+        return;
+      }
+
+      dragEvents.treeNodeDragOver({
+        event,
+        treeNode: {
+          node: props.node,
+          $el: nodeRef.value
+        }
+      });
+    }
+
+    function handleDrop(event: DragEvent) {
+      event.preventDefault();
+    }
+
+    function handleDragEnd(event: DragEvent) {
+      if (!tree.props.draggable || !dragEvents) {
+        return;
+      }
+
+      dragEvents.treeNodeDragEnd(event);
+    }
+
     return {
       ns,
+      tree,
       nodeRef,
       expanded,
       childNodeRendered,
@@ -340,10 +413,17 @@ export default defineComponent({
       expandIconName,
       expandIconComponent,
       loadingIcon: DEFAULT_TREE_LOADING_ICON,
+      ariaPosInSet,
+      ariaSetSize,
+      statusTipId,
       contentStyle,
       getChildKey,
       handleClick,
       handleContextMenu,
+      handleDragStart,
+      handleDragOver,
+      handleDrop,
+      handleDragEnd,
       handleExpandIconClick,
       handleCheckChange,
       handleChildNodeExpand

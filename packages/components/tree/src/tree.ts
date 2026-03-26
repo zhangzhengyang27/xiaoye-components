@@ -1,11 +1,15 @@
 import type { Component, ComponentInternalInstance, PropType } from "vue";
 import type Node from "./model/node";
 import type {
+  AllowDragFunction,
+  AllowDropFunction,
   CheckedInfo,
   FilterNodeMethodFunction,
   LoadFunction,
+  NodeDropType,
   RenderContentFunction,
   TreeData,
+  TreeDragPayload,
   TreeKey,
   TreeNodeData,
   TreeOptionProps
@@ -17,6 +21,7 @@ export interface TreeProps {
   renderAfterExpand?: boolean;
   nodeKey?: string;
   checkStrictly?: boolean;
+  checkDescendants?: boolean;
   defaultExpandAll?: boolean;
   expandOnClickNode?: boolean;
   checkOnClickNode?: boolean;
@@ -29,6 +34,9 @@ export interface TreeProps {
   showCheckbox?: boolean;
   props?: TreeOptionProps;
   lazy?: boolean;
+  draggable?: boolean;
+  allowDrag?: AllowDragFunction;
+  allowDrop?: AllowDropFunction;
   highlightCurrent?: boolean;
   load?: LoadFunction;
   filterNodeMethod?: FilterNodeMethodFunction;
@@ -59,6 +67,10 @@ export const treeProps = {
     default: undefined
   },
   checkStrictly: {
+    type: Boolean,
+    default: false
+  },
+  checkDescendants: {
     type: Boolean,
     default: false
   },
@@ -114,6 +126,18 @@ export const treeProps = {
     type: Boolean,
     default: false
   },
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  allowDrag: {
+    type: Function as PropType<AllowDragFunction>,
+    default: undefined
+  },
+  allowDrop: {
+    type: Function as PropType<AllowDropFunction>,
+    default: undefined
+  },
   highlightCurrent: {
     type: Boolean,
     default: false
@@ -164,6 +188,24 @@ export const treeEmits = {
     _data: TreeNodeData,
     _node: Node,
     _nodeInstance: ComponentInternalInstance | null
+  ) => true,
+  "node-drag-start": (_node: Node, _event: DragEvent) => true,
+  "node-drag-enter": (_draggingNode: Node, _dropNode: Node, _event: DragEvent) => true,
+  "node-drag-leave": (_draggingNode: Node, _dropNode: Node, _event: DragEvent) => true,
+  "node-drag-over": (_draggingNode: Node, _dropNode: Node, _event: DragEvent) => true,
+  "node-drag-end": (
+    _draggingNode: Node,
+    _dropNode: Node | null,
+    _dropType: NodeDropType,
+    _event: DragEvent,
+    _detail: TreeDragPayload
+  ) => true,
+  "node-drop": (
+    _draggingNode: Node,
+    _dropNode: Node,
+    _dropType: Exclude<NodeDropType, "none">,
+    _event: DragEvent,
+    _detail: TreeDragPayload
   ) => true,
   check: (_data: TreeNodeData, _checkedInfo: CheckedInfo) => true
 } as const;

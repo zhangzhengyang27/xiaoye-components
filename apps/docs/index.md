@@ -82,12 +82,12 @@ features:
 <div class="xy-doc-grid">
   <div>
     <h3>基础操作</h3>
-    <p>Button、Link、Tag、Tabs、Tooltip、Space、Empty 负责主操作、弱跳转、状态呈现和轻提示。</p>
+    <p>Button、Link、Tag、Tabs、Tooltip、Alert、Space、Empty 负责主操作、弱跳转、状态呈现和轻提示。</p>
     <a href="/components/button">先看 Button</a>
   </div>
   <div>
     <h3>表单录入</h3>
-    <p>Input、Select、Form、Modal 已经可以串成完整的筛选栏和录入流程。</p>
+    <p>Input、Select、Form、Dialog 已经可以串成完整的筛选栏和录入流程。</p>
     <a href="/components/form">看 Form</a>
   </div>
   <div>

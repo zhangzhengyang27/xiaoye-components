@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
 import SchedulerScene from "./components/SchedulerScene.vue";
+import { XyDialogService } from "xiaoye-components";
 import type {
   SchedulerDateClickPayload,
   SchedulerEvent,
@@ -36,6 +37,7 @@ const currentScene =
 const isSchedulerScene = currentScene === "scheduler";
 
 const modalOpen = ref(false);
+const dialogFullscreen = ref(false);
 const drawerOpen = ref(false);
 const activeTab = ref("members");
 const formRef = ref<FormInstance | null>(null);
@@ -151,8 +153,24 @@ function syncDrawerDraft(row: MemberRow) {
 }
 
 function handleOpenCreate() {
+  dialogFullscreen.value = false;
   modalOpen.value = true;
   saveFeedback.value = "请填写成员信息";
+}
+
+async function handleServiceConfirm() {
+  const confirmed = await XyDialogService.confirm({
+    title: "批量停用成员",
+    message: "停用后会立即回收控制台权限，是否继续？",
+    dialogProps: {
+      width: 460,
+      closeOnClickModal: false
+    },
+    confirmButtonText: "确认停用",
+    cancelButtonText: "再想想"
+  });
+
+  saveFeedback.value = confirmed ? "已通过 service confirm 确认停用流程" : "已取消 service confirm";
 }
 
 function handleRowClick(row: MemberRow) {
@@ -276,14 +294,15 @@ async function handleSave() {
           <xy-tag status="primary">MVP Playground</xy-tag>
           <h1>把中后台高频交互收敛成一个稳定的 Vue 3 组件库基线</h1>
           <p>
-            这里不只展示组件长什么样，还用真实页面把 `Tabs / Select / Table / Modal / Drawer /
+            这里不只展示组件长什么样，还用真实页面把 `Tabs / Select / Table / Dialog / Drawer /
             Dropdown / Popover / Tooltip` 串成回归样板。
           </p>
         </div>
         <xy-space wrap>
-          <xy-tooltip content="打开弹窗后，焦点会自动进入弹窗；按 Escape 可关闭并返回触发按钮。">
+          <xy-tooltip content="打开对话框后，焦点会自动进入内部；按 Escape 可关闭并返回触发按钮。">
             <xy-button type="primary" @click="handleOpenCreate">新建成员</xy-button>
           </xy-tooltip>
+          <xy-button plain @click="handleServiceConfirm">Service Confirm</xy-button>
           <xy-dropdown
             :items="[
               { key: 'export', label: '导出当前视图' },
@@ -421,7 +440,18 @@ async function handleSave() {
         </xy-scheduler>
       </section>
 
-      <xy-modal v-model="modalOpen" title="新建成员">
+      <xy-dialog
+        v-model="modalOpen"
+        v-model:fullscreen="dialogFullscreen"
+        title="新建成员"
+        maximizable
+        resizable
+        sticky-footer
+        :min-width="420"
+        :max-width="920"
+        :min-height="360"
+        :body-max-height="420"
+      >
         <xy-form ref="formRef" :model="memberForm" :rules="rules">
           <xy-form-item label="成员名称" prop="name" help="失焦时会触发名称校验">
             <xy-input v-model="memberForm.name" placeholder="请输入成员名称" />
@@ -459,7 +489,7 @@ async function handleSave() {
             <xy-button type="primary" @click="handleSave">保存</xy-button>
           </xy-space>
         </template>
-      </xy-modal>
+      </xy-dialog>
 
       <xy-drawer v-model="drawerOpen" title="侧边编辑成员">
         <div class="drawer-stack">
@@ -493,7 +523,7 @@ async function handleSave() {
             </template>
             <div class="popover-stack">
               <p>Drawer 更适合保留列表上下文，同时承载更长的编辑表单。</p>
-              <p>它和 Modal 共用同一套焦点与 Escape 关闭基线。</p>
+              <p>它和 Dialog 共用同一套焦点与 Escape 关闭基线。</p>
             </div>
           </xy-popover>
         </div>

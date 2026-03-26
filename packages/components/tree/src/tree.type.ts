@@ -15,6 +15,8 @@ export type TreeKey = string | number;
 export type FilterValue = string | number | boolean | null | undefined;
 export type TreeNodeData = Record<string, any>;
 export type TreeNodeClassName = string | Record<string, boolean>;
+export type AllowDropType = "inner" | "prev" | "next";
+export type NodeDropType = "before" | "after" | "inner" | "none";
 
 export interface FakeNode {
   data: TreeNodeData;
@@ -58,6 +60,8 @@ export interface RenderContentContext {
 
 export type HType = typeof h;
 export type RenderContentFunction = (h: HType, context: RenderContentContext) => VNode | VNode[];
+export type AllowDragFunction = (node: Node) => boolean;
+export type AllowDropFunction = (draggingNode: Node, dropNode: Node, type: AllowDropType) => boolean;
 export type LoadFunction = (
   rootNode: Node,
   resolve: (data: TreeData) => void,
@@ -77,6 +81,7 @@ export interface TreeStoreOptions {
   load?: LoadFunction;
   currentNodeKey?: TreeKey | null;
   checkStrictly: boolean;
+  checkDescendants: boolean;
   defaultCheckedKeys?: TreeKey[];
   defaultExpandedKeys?: TreeKey[];
   autoExpandParent: boolean;
@@ -92,9 +97,17 @@ export interface CheckedInfo {
   halfCheckedNodes: TreeData;
 }
 
+export interface TreeDragPayload {
+  oldParent: TreeNodeData | null;
+  newParent: TreeNodeData | null;
+  oldIndex: number;
+  newIndex: number;
+}
+
 export interface TreeExposes {
   filter: (value: FilterValue) => void;
   updateKeyChildren: (key: TreeKey, data: TreeNodeData[]) => void;
+  getNodePath: (data: TreeKey | TreeNodeData) => TreeNodeData[];
   getCheckedNodes: (leafOnly?: boolean, includeHalfChecked?: boolean) => TreeNodeData[];
   setCheckedNodes: (nodes: TreeNodeData[], leafOnly?: boolean) => void;
   getCheckedKeys: (leafOnly?: boolean) => TreeKey[];

@@ -1,0 +1,40 @@
+.xy-backtop {
+  position: fixed;
+  z-index: var(--xy-z-tooltip);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--xy-bg-color-elevated) 94%, white);
+  color: var(--xy-text-color);
+  box-shadow: var(--xy-shadow-sm);
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-backtop:hover {
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  color: var(--xy-color-primary);
+  box-shadow: var(--xy-shadow-md);
+  transform: translateY(-2px);
+}
+
+.xy-backtop:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline-offset: 2px;
+}
+
+.xy-backtop__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}

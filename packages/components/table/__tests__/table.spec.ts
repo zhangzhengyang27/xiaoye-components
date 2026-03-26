@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { defineComponent, h, nextTick } from "vue";
 import { describe, expect, it, vi } from "vitest";
-import { XyTable, XyTableColumn } from "@xiaoye/components";
+import { XyConfigProvider, XyTable, XyTableColumn } from "@xiaoye/components";
 import type { TableInstance } from "@xiaoye/components";
 
 vi.mock("@iconify/vue", () => ({
@@ -30,6 +30,7 @@ interface Row {
 function createTableWrapper(template: string, data: () => Record<string, unknown>) {
   return mount({
     components: {
+      XyConfigProvider,
       XyTable,
       XyTableColumn
     },
@@ -39,6 +40,27 @@ function createTableWrapper(template: string, data: () => Record<string, unknown
 }
 
 describe("XyTable", () => {
+  it("会读取 ConfigProvider.loading 默认项并补 aria-busy", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-config-provider :loading="{ text: '全局表格加载', svg: '<path class=\\'table-loading-path\\' d=\\'M 15 5 L 35 45\\' />' }">
+          <xy-table loading :data="rows" row-key="id">
+            <xy-table-column prop="name" label="名称" />
+          </xy-table>
+        </xy-config-provider>
+      `,
+      () => ({
+        rows: [{ id: 1, name: "Billing Console" }]
+      })
+    );
+
+    await nextTick();
+
+    expect(wrapper.find(".xy-table").attributes("aria-busy")).toBe("true");
+    expect(wrapper.find(".xy-loading-text").text()).toContain("全局表格加载");
+    expect(wrapper.find(".table-loading-path").exists()).toBe(true);
+  });
+
   it("支持列注册渲染、行点击和自定义行类名", async () => {
     const wrapper = createTableWrapper(
       `
@@ -118,9 +140,7 @@ describe("XyTable", () => {
     await nextTick();
 
     const getCellTexts = () =>
-      wrapper
-        .findAll("tbody tr td:nth-child(2) .xy-table__cell-text")
-        .map((node) => node.text());
+      wrapper.findAll("tbody tr td:nth-child(2) .xy-table__cell-text").map((node) => node.text());
 
     expect(getCellTexts()).toEqual(["9", "2"]);
 
@@ -226,7 +246,9 @@ describe("XyTable", () => {
 
     await nextTick();
 
-    expect(wrapper.find(".xy-table__body-wrapper").attributes("style")).toContain("max-height: 180px");
+    expect(wrapper.find(".xy-table__body-wrapper").attributes("style")).toContain(
+      "max-height: 180px"
+    );
     expect(wrapper.find(".custom-empty").exists()).toBe(true);
 
     await wrapper.setData({
@@ -235,6 +257,40 @@ describe("XyTable", () => {
     await nextTick();
 
     expect(wrapper.find(".xy-tooltip").exists()).toBe(true);
+  });
+
+  it("支持无 prop 的操作列默认插槽解构 row", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id">
+          <xy-table-column prop="name" label="名称" />
+          <xy-table-column label="操作">
+            <template #default="{ row }">
+              <button class="row-action" type="button" @click="handleAction(row)">
+                操作 {{ row.name }}
+              </button>
+            </template>
+          </xy-table-column>
+        </xy-table>
+      `,
+      () => ({
+        rows: [{ id: 1, name: "Billing Console" }],
+        actionText: "未触发",
+        handleAction(row: { name: string }) {
+          this.actionText = row.name;
+        }
+      })
+    );
+
+    await nextTick();
+
+    const button = wrapper.find(".row-action");
+    expect(button.text()).toContain("Billing Console");
+
+    await button.trigger("click");
+    await nextTick();
+
+    expect((wrapper.vm as unknown as { actionText: string }).actionText).toBe("Billing Console");
   });
 
   it("支持 selection、expand 和实例方法", async () => {
@@ -264,11 +320,15 @@ describe("XyTable", () => {
     await wrapper.find(".xy-checkbox__original").trigger("change");
     await nextTick();
 
-    expect(wrapper.findComponent({ name: "XyTable" }).emitted("selection-change")?.[0]?.[0]).toHaveLength(2);
+    expect(
+      wrapper.findComponent({ name: "XyTable" }).emitted("selection-change")?.[0]?.[0]
+    ).toHaveLength(2);
 
     table.clearSelection();
     await nextTick();
-    expect(wrapper.findComponent({ name: "XyTable" }).emitted("selection-change")?.at(-1)?.[0]).toEqual([]);
+    expect(
+      wrapper.findComponent({ name: "XyTable" }).emitted("selection-change")?.at(-1)?.[0]
+    ).toEqual([]);
 
     await wrapper.find(".xy-table__expand-trigger").trigger("click");
     await nextTick();
@@ -398,9 +458,11 @@ describe("XyTable", () => {
   });
 
   it("支持 lazy tree 数据展开", async () => {
-    const load = vi.fn((_row: { id: number }, _treeNode: unknown, resolve: (rows: Row[]) => void) => {
-      resolve([{ id: 11, name: "子节点", score: 0, status: "启用" } as Row]);
-    });
+    const load = vi.fn(
+      (_row: { id: number }, _treeNode: unknown, resolve: (rows: Row[]) => void) => {
+        resolve([{ id: 11, name: "子节点", score: 0, status: "启用" } as Row]);
+      }
+    );
 
     const wrapper = createTableWrapper(
       `

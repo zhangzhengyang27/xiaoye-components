@@ -66,7 +66,7 @@ import AdminFlowDemo from "../.vitepress/theme/components/AdminFlowDemo.vue";
 - `Select` 支持方向键、`Enter` 和 `Escape`
 - `Dropdown` 支持 `ArrowUp / ArrowDown / Home / End`
 - `Tooltip / Popover` 都支持键盘路径，但用途不同
-- `Drawer` 和 `Modal` 一样会恢复焦点到触发位置
+- `Drawer` 和 `Dialog` 一样会恢复焦点到触发位置
 
 ## 从这个页面可以直接复用什么
 

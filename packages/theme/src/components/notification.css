@@ -1,0 +1,183 @@
+.xy-notification {
+  --xy-notification-width: min(360px, 100%);
+  --xy-notification-padding: 14px 16px 16px;
+  --xy-notification-radius: calc(var(--xy-radius-lg) + 2px);
+  --xy-notification-border-color: color-mix(in srgb, var(--xy-border-color) 86%, white);
+  --xy-notification-bg-color: var(--xy-bg-color-elevated);
+  --xy-notification-title-color: var(--xy-text-color-primary);
+  --xy-notification-content-color: color-mix(in srgb, var(--xy-text-color-primary) 78%, white);
+  --xy-notification-close-color: var(--xy-text-color-secondary);
+  --xy-notification-icon-color: var(--xy-color-info);
+  --xy-notification-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+
+  position: relative;
+  display: flex;
+  gap: 14px;
+  width: var(--xy-notification-width);
+  box-sizing: border-box;
+  padding: var(--xy-notification-padding);
+  border: 1px solid var(--xy-notification-border-color);
+  border-radius: var(--xy-notification-radius);
+  background: var(--xy-notification-bg-color);
+  box-shadow: var(--xy-notification-shadow);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.xy-notification::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: color-mix(in srgb, var(--xy-notification-icon-color) 76%, white);
+}
+
+.xy-notification__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--xy-notification-icon-color);
+}
+
+.xy-notification__group {
+  flex: 1;
+  min-width: 0;
+  padding-right: 20px;
+}
+
+.xy-notification__title {
+  margin: 0;
+  color: var(--xy-notification-title-color);
+  font-size: var(--xy-font-size-lg);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.xy-notification__content {
+  margin-top: 8px;
+  color: var(--xy-notification-content-color);
+  font-size: var(--xy-font-size-md);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.xy-notification__content p {
+  margin: 0;
+}
+
+.xy-notification__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.xy-notification.is-with-actions .xy-notification__group {
+  padding-right: 20px;
+}
+
+.xy-notification__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 0;
+  border-radius: var(--xy-radius-pill);
+  background: transparent;
+  color: var(--xy-notification-close-color);
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.xy-notification__close:hover {
+  color: var(--xy-notification-title-color);
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 10%, transparent);
+}
+
+.xy-notification__close:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 30%, white);
+  outline-offset: 2px;
+}
+
+.xy-notification--primary {
+  --xy-notification-icon-color: var(--xy-color-primary);
+}
+
+.xy-notification--success {
+  --xy-notification-icon-color: var(--xy-color-success);
+}
+
+.xy-notification--info {
+  --xy-notification-icon-color: var(--xy-color-info);
+}
+
+.xy-notification--warning {
+  --xy-notification-icon-color: var(--xy-color-warning);
+}
+
+.xy-notification--error {
+  --xy-notification-icon-color: var(--xy-color-danger);
+}
+
+.xy-notification-service-host {
+  position: fixed;
+  width: min(360px, calc(100vw - 32px));
+  pointer-events: none;
+  transition:
+    top 0.24s ease,
+    bottom 0.24s ease;
+}
+
+.xy-notification-service-host--top-right,
+.xy-notification-service-host--bottom-right {
+  right: 16px;
+}
+
+.xy-notification-service-host--top-left,
+.xy-notification-service-host--bottom-left {
+  left: 16px;
+}
+
+.xy-notification-service-host .xy-notification {
+  width: 100%;
+}
+
+.xy-notification-fade-enter-active,
+.xy-notification-fade-leave-active {
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+}
+
+.xy-notification-fade-enter-from,
+.xy-notification-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-16px);
+}
+
+.xy-notification-service-host--bottom-right .xy-notification-fade-enter-from,
+.xy-notification-service-host--bottom-right .xy-notification-fade-leave-to,
+.xy-notification-service-host--bottom-left .xy-notification-fade-enter-from,
+.xy-notification-service-host--bottom-left .xy-notification-fade-leave-to {
+  transform: translateY(16px);
+}
+
+@media (max-width: 640px) {
+  .xy-notification-service-host {
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+
+  .xy-notification-service-host--top-left,
+  .xy-notification-service-host--bottom-left,
+  .xy-notification-service-host--top-right,
+  .xy-notification-service-host--bottom-right {
+    left: 16px;
+    right: 16px;
+  }
+}

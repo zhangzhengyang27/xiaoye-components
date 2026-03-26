@@ -167,6 +167,10 @@
   color: var(--xy-text-color-secondary);
 }
 
+.xy-select__loading .xy-loading__indicator {
+  color: inherit;
+}
+
 .xy-select__group + .xy-select__group {
   margin-top: 2px;
 }

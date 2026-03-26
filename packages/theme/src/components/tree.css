@@ -1,4 +1,5 @@
 .xy-tree {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -8,6 +9,14 @@
 
 .xy-tree:focus {
   outline: none;
+}
+
+.xy-tree.is-dragging .xy-tree__node-content {
+  cursor: move;
+}
+
+.xy-tree.is-dragging.is-drop-not-allow .xy-tree__node-content {
+  cursor: not-allowed;
 }
 
 .xy-tree--highlight-current .xy-tree__node.is-current > .xy-tree__node-content {
@@ -26,6 +35,22 @@
 
 .xy-tree__node.is-disabled {
   opacity: 0.62;
+}
+
+.xy-tree__node.is-load-failed > .xy-tree__node-content {
+  border-color: color-mix(in srgb, var(--xy-color-danger) 24%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-danger) 6%, var(--xy-bg-color));
+}
+
+.xy-tree__node.is-drop-inner > .xy-tree__node-content {
+  background: var(--xy-color-primary);
+  border-color: var(--xy-color-primary);
+  color: #ffffff;
+}
+
+.xy-tree__node.is-drop-inner > .xy-tree__node-content .xy-tree__node-label,
+.xy-tree__node.is-drop-inner > .xy-tree__node-content small {
+  color: inherit;
 }
 
 .xy-tree__node:focus-visible > .xy-tree__node-content {
@@ -93,6 +118,14 @@
   justify-content: center;
 }
 
+.xy-tree__status-tip {
+  margin-left: auto;
+  color: var(--xy-color-danger);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
 .xy-tree__checkbox {
   display: inline-flex;
   align-items: center;
@@ -116,6 +149,26 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.xy-tree__drop-indicator {
+  position: absolute;
+  right: 0;
+  height: 1px;
+  background: var(--xy-color-primary);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.xy-tree__drop-indicator::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--xy-color-primary);
 }
 
 .xy-tree__empty-block {

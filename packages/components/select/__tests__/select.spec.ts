@@ -1,7 +1,7 @@
 import { mount, type VueWrapper } from "@vue/test-utils";
 import { defineComponent, h, nextTick } from "vue";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { XySelect } from "@xiaoye/components";
+import { XyConfigProvider, XySelect } from "@xiaoye/components";
 
 vi.mock("@iconify/vue", () => ({
   Icon: defineComponent({
@@ -34,6 +34,31 @@ function mountSelect(...args: Parameters<typeof mount>) {
 }
 
 describe("XySelect", () => {
+  it("会读取 ConfigProvider.loading 默认项并补 aria-busy", async () => {
+    const wrapper = mountSelect(
+      {
+        components: {
+          XyConfigProvider,
+          XySelect
+        },
+        template: `
+        <xy-config-provider :loading="{ text: '全局选择加载', svg: '<path class=\\'select-loading-path\\' d=\\'M 15 5 L 35 45\\' />' }">
+          <xy-select loading :options="[{ label: '管理员', value: 'admin' }]" />
+        </xy-config-provider>
+      `
+      },
+      {
+        attachTo: document.body
+      }
+    );
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+
+    expect(wrapper.find(".xy-select").attributes("aria-busy")).toBe("true");
+    expect(document.body.querySelector(".xy-loading-text")?.textContent).toContain("全局选择加载");
+    expect(document.body.querySelector(".select-loading-path")).not.toBeNull();
+  });
+
   it("可以选择选项并发出 change 事件", async () => {
     const wrapper = mountSelect(XySelect, {
       attachTo: document.body,

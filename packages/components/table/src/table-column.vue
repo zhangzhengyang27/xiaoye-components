@@ -75,10 +75,6 @@ function hasNestedColumnVNode(nodes: VNode[] | undefined): boolean {
   });
 }
 
-const shouldRenderNestedColumns = computed(
-  () => props.type === "default" && !props.prop && hasNestedColumnVNode(slots.default?.())
-);
-
 function registerChildColumn(column: TableColumnRegistration<T>) {
   childRegistrations.value = [...childRegistrations.value, column].sort(
     (left, right) => left.order - right.order
@@ -139,6 +135,23 @@ const descriptor = computed<TableResolvedColumn<T>>(() => ({
   leafIndex: 0
 }));
 
+const slotProbeProps = computed(() => ({
+  row: {} as T,
+  rowIndex: -1,
+  column: descriptor.value,
+  columnIndex: -1,
+  value: undefined,
+  expanded: false,
+  treeNode: undefined
+}));
+
+const shouldRenderNestedColumns = computed(
+  () =>
+    props.type === "default" &&
+    !props.prop &&
+    hasNestedColumnVNode(slots.default?.(slotProbeProps.value))
+);
+
 const registration = {
   uid,
   order,
@@ -166,14 +179,6 @@ onBeforeUnmount(() => {
 
 <template>
   <div v-if="shouldRenderNestedColumns" class="xy-table-column__hidden">
-    <slot
-      :row="{}"
-      :row-index="-1"
-      :column="descriptor"
-      :column-index="-1"
-      :value="undefined"
-      :expanded="false"
-      :tree-node="undefined"
-    />
+    <slot v-bind="slotProbeProps" />
   </div>
 </template>

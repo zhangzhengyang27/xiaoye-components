@@ -20,8 +20,8 @@ outline: deep
 | `Select` | `ArrowUp / ArrowDown` 移动高亮，`Enter / Space` 选择，`Escape` 关闭并回到触发器 |
 | `Dropdown` | `ArrowUp / ArrowDown / Home / End` 遍历菜单项，`Enter / Space` 选择 |
 | `Collapse` | `Enter / Space` 切换当前面板 |
-| `Modal` | 打开后焦点带入弹层，`Tab / Shift+Tab` 在内部循环，`Escape` 关闭 |
-| `Drawer` | 与 `Modal` 保持一致：焦点带入、焦点恢复、`Escape` 关闭 |
+| `Dialog` | 打开后焦点带入弹层，`Tab / Shift+Tab` 在内部循环，`Escape` 关闭 |
+| `Drawer` | 与 `Dialog` 保持一致：焦点带入、焦点恢复、`Escape` 关闭 |
 | `Tooltip` | 支持 `focus` 打开，`Escape` 关闭 |
 | `Popover` | `Enter / Space` 打开，`Escape` 和外部点击关闭 |
 
@@ -41,7 +41,7 @@ outline: deep
 | Dropdown | `menu / menuitem` |
 | Collapse | `button / region` |
 | Tooltip | `tooltip` |
-| Modal / Drawer | `dialog` + `aria-modal="true"` |
+| Dialog / Drawer | `dialog` + `aria-modal="true"` |
 | Popover | `dialog`，但不强制模态 |
 
 ## 文档使用方式
@@ -56,7 +56,7 @@ outline: deep
 - [Tabs 标签页](/components/tabs)
 - [Collapse 折叠面板](/components/collapse)
 - [Tooltip 文字提示](/components/tooltip)
-- [Modal 弹窗](/components/modal)
+- [Dialog 对话框](/components/dialog)
 - [Dropdown 下拉菜单](/components/dropdown)
 - [Popover 气泡卡片](/components/popover)
 - [Drawer 抽屉](/components/drawer)
@@ -64,5 +64,5 @@ outline: deep
 ## 推荐怎么继续读
 
 1. 如果你先关心单个组件的键盘路径，优先看 [Select 选择器](/components/select)、[Tabs 标签页](/components/tabs)、[Dropdown 下拉菜单](/components/dropdown)。
-2. 如果你更关心浮层类组件的焦点管理，继续看 [Modal 弹窗](/components/modal)、[Drawer 抽屉](/components/drawer)、[Popover 气泡卡片](/components/popover)。
+2. 如果你更关心浮层类组件的焦点管理，继续看 [Dialog 对话框](/components/dialog)、[Drawer 抽屉](/components/drawer)、[Popover 气泡卡片](/components/popover)。
 3. 如果你想看这些能力如何放回真实页面，再去看 [管理后台闭环示例](/examples/admin)。

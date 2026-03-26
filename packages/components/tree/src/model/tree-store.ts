@@ -1,5 +1,6 @@
 import Node from "./node";
 import { NODE_KEY, getNodeKey } from "./util";
+import { warnOnce } from "@xiaoye/utils";
 import type {
   FilterValue,
   TreeData,
@@ -22,6 +23,7 @@ export default class TreeStore {
   key?: string;
   defaultCheckedKeys?: TreeKey[];
   checkStrictly = false;
+  checkDescendants = false;
   defaultExpandedKeys?: TreeKey[];
   autoExpandParent = false;
   defaultExpandAll = false;
@@ -181,7 +183,14 @@ export default class TreeStore {
     }
 
     const lookupKey = node.key ?? node.id;
-    this.nodesMap[String(lookupKey)] = node;
+    const stringKey = String(lookupKey);
+    const existingNode = this.nodesMap[stringKey];
+
+    if (this.key && existingNode && existingNode !== node) {
+      warnOnce("Tree", `检测到重复的 node-key：${stringKey}。请确保树节点 key 全局唯一。`);
+    }
+
+    this.nodesMap[stringKey] = node;
   }
 
   deregisterNode(node: Node): void {

@@ -23,13 +23,14 @@
 
 ## 当前组件范围
 
-- 当前 `packages/components/index.ts` 已导出 41 个组件：
-  - 基础与展示：`icon`、`button`、`link`、`text`、`badge`、`avatar`、`card`、`carousel`、`tag`
-  - 表单输入：`input`、`input-number`、`input-tag`、`radio`、`checkbox`、`switch`、`rate`、`slider`、`select`
+- 当前 `packages/components/index.ts` 已导出 56 个组件：
+  - 配置入口：`config-provider`
+  - 基础与展示：`icon`、`button`、`link`、`breadcrumb`、`text`、`badge`、`avatar`、`image`、`card`、`carousel`、`affix`、`alert`、`anchor`、`backtop`、`menu`、`tag`、`result`
+  - 表单输入：`input`、`radio`、`checkbox`、`switch`、`input-tag`、`input-number`、`rate`、`slider`、`select`、`form`
   - 时间与上传：`date-picker`、`time-picker`、`time-select`、`scheduler`、`upload`
-  - 容器与反馈：`modal`、`drawer`、`tooltip`、`popover`、`dropdown`、`collapse`、`collapse-transition`、`tabs`、`empty`
-  - 布局与数据：`row`、`col`、`space`、`scrollbar`、`splitter`、`table`、`pagination`
-  - 配置与表单：`config-provider`、`form`
+  - 反馈与浮层：`dialog`、`drawer`、`tooltip`、`popover`、`dropdown`、`collapse`、`collapse-transition`、`tabs`、`skeleton`、`empty`
+  - 数据展示：`progress`、`steps`、`statistic`、`countdown`、`timeline`、`tree`、`table`、`pagination`
+  - 布局容器：`scrollbar`、`splitter`、`row`、`col`、`space`
 - 更新 `AGENTS.md`、文档导航或任务说明时，组件清单应以上述导出入口为准，不要沿用旧列表。
 
 ## 文档与测试约定

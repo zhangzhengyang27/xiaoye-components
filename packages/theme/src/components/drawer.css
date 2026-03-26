@@ -2,6 +2,7 @@
   position: fixed;
   inset: 0;
   display: flex;
+  overflow: hidden;
 }
 
 .xy-drawer.is-penetrable {
@@ -30,21 +31,27 @@
   background: var(--xy-overlay-color);
 }
 
-.xy-drawer__overlay.is-transparent {
-  background: transparent;
-}
-
 .xy-drawer__panel {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   pointer-events: auto;
   width: min(100%, 420px);
   height: 100%;
   background: var(--xy-bg-color);
   box-shadow: var(--xy-shadow-lg);
   outline: none;
+  transition: transform var(--xy-transition-duration, 0.2s) ease;
+}
+
+.xy-drawer.is-fullscreen .xy-drawer__panel,
+.xy-drawer__panel.is-fullscreen {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  box-shadow: none;
 }
 
 .xy-drawer__header,
@@ -61,18 +68,169 @@
   overflow: auto;
 }
 
+.xy-drawer__body > * {
+  box-sizing: border-box;
+}
+
 .xy-drawer__body.is-without-header {
   padding-top: 24px;
 }
 
 .xy-drawer__title {
   margin: 0;
+  flex: 1;
+  line-height: 1.4;
+  font-size: 18px;
 }
 
 .xy-drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   background: transparent;
-  font-size: 24px;
+  inline-size: 32px;
+  block-size: 32px;
   cursor: pointer;
   color: var(--xy-text-color-secondary);
+}
+
+.xy-drawer__panel:focus-visible,
+.xy-drawer__close:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline-offset: 2px;
+}
+
+.xy-drawer__dragger {
+  position: absolute;
+  background: transparent;
+  user-select: none;
+}
+
+.xy-drawer__dragger::before {
+  content: "";
+  position: absolute;
+  background: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.xy-drawer__dragger:hover::before {
+  background: color-mix(in srgb, var(--xy-color-primary) 55%, transparent);
+}
+
+.xy-drawer__panel.is-dragging {
+  transition: none;
+}
+
+.xy-drawer--left .xy-drawer__panel,
+.xy-drawer--right .xy-drawer__panel {
+  height: 100%;
+}
+
+.xy-drawer--top .xy-drawer__panel,
+.xy-drawer--bottom .xy-drawer__panel {
+  width: 100%;
+}
+
+.xy-drawer--left .xy-drawer__dragger,
+.xy-drawer--right .xy-drawer__dragger {
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  cursor: ew-resize;
+}
+
+.xy-drawer--left .xy-drawer__dragger::before,
+.xy-drawer--right .xy-drawer__dragger::before {
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+.xy-drawer--left .xy-drawer__dragger {
+  right: 0;
+}
+
+.xy-drawer--left .xy-drawer__dragger::before {
+  right: -1px;
+}
+
+.xy-drawer--right .xy-drawer__dragger {
+  left: 0;
+}
+
+.xy-drawer--right .xy-drawer__dragger::before {
+  left: -1px;
+}
+
+.xy-drawer--top .xy-drawer__dragger,
+.xy-drawer--bottom .xy-drawer__dragger {
+  left: 0;
+  right: 0;
+  height: 12px;
+  cursor: ns-resize;
+}
+
+.xy-drawer--top .xy-drawer__dragger::before,
+.xy-drawer--bottom .xy-drawer__dragger::before {
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.xy-drawer--top .xy-drawer__dragger {
+  bottom: 0;
+}
+
+.xy-drawer--top .xy-drawer__dragger::before {
+  bottom: -1px;
+}
+
+.xy-drawer--bottom .xy-drawer__dragger {
+  top: 0;
+}
+
+.xy-drawer--bottom .xy-drawer__dragger::before {
+  top: -1px;
+}
+
+.xy-drawer-fade-enter-active,
+.xy-drawer-fade-leave-active {
+  overflow: hidden;
+}
+
+.xy-drawer-fade-enter-active .xy-drawer__overlay,
+.xy-drawer-fade-leave-active .xy-drawer__overlay {
+  transition: opacity var(--xy-transition-duration, 0.2s) ease;
+}
+
+.xy-drawer.is-no-modal-fade .xy-drawer__overlay,
+.xy-drawer-fade-enter-active.is-no-modal-fade .xy-drawer__overlay,
+.xy-drawer-fade-leave-active.is-no-modal-fade .xy-drawer__overlay {
+  transition: none;
+}
+
+.xy-drawer-fade-enter-from .xy-drawer__overlay,
+.xy-drawer-fade-leave-to .xy-drawer__overlay {
+  opacity: 0;
+}
+
+.xy-drawer-fade-enter-from.xy-drawer--left .xy-drawer__panel,
+.xy-drawer-fade-leave-to.xy-drawer--left .xy-drawer__panel {
+  transform: translateX(-100%);
+}
+
+.xy-drawer-fade-enter-from.xy-drawer--right .xy-drawer__panel,
+.xy-drawer-fade-leave-to.xy-drawer--right .xy-drawer__panel {
+  transform: translateX(100%);
+}
+
+.xy-drawer-fade-enter-from.xy-drawer--top .xy-drawer__panel,
+.xy-drawer-fade-leave-to.xy-drawer--top .xy-drawer__panel {
+  transform: translateY(-100%);
+}
+
+.xy-drawer-fade-enter-from.xy-drawer--bottom .xy-drawer__panel,
+.xy-drawer-fade-leave-to.xy-drawer--bottom .xy-drawer__panel {
+  transform: translateY(100%);
 }

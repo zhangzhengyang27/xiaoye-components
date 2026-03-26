@@ -1,31 +1,79 @@
 .xy-tooltip {
   display: inline-flex;
+  max-width: 100%;
 }
 
-.xy-tooltip:focus-visible {
+.xy-tooltip:focus-visible,
+.xy-tooltip > :focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
   outline-offset: 2px;
 }
 
 .xy-tooltip__content {
+  --xy-tooltip-bg: color-mix(in srgb, #0f172a 94%, white);
+  --xy-tooltip-text: rgba(255, 255, 255, 0.94);
+  --xy-tooltip-border: transparent;
+  --xy-tooltip-shadow: var(--xy-shadow-sm);
   position: absolute;
   max-width: 240px;
   padding: 10px 12px;
   border-radius: var(--xy-radius-md);
-  background: #0f172a;
-  color: white;
+  border: 1px solid var(--xy-tooltip-border);
+  background: var(--xy-tooltip-bg);
+  color: var(--xy-tooltip-text);
   font-size: var(--xy-font-size-sm);
-  box-shadow: var(--xy-shadow-sm);
+  line-height: 1.5;
+  box-shadow: var(--xy-tooltip-shadow);
   pointer-events: auto;
+  white-space: normal;
+  word-break: break-word;
 }
 
-.xy-tooltip__arrow {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  rotate: 45deg;
-  border-radius: 2px;
-  background: inherit;
+.xy-tooltip__content--dark {
+  --xy-tooltip-bg: color-mix(in srgb, #0f172a 94%, white);
+  --xy-tooltip-text: rgba(255, 255, 255, 0.94);
+  --xy-tooltip-border: transparent;
+  --xy-tooltip-shadow: var(--xy-shadow-sm);
+}
+
+.xy-tooltip__content--light {
+  --xy-tooltip-bg: var(--xy-bg-color-elevated);
+  --xy-tooltip-text: var(--xy-text-color);
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-border-color) 88%, white);
+  --xy-tooltip-shadow: var(--xy-shadow-md);
+}
+
+.xy-tooltip__content > .xy-popper__arrow::before {
+  background: var(--xy-tooltip-bg);
+  border-color: var(--xy-tooltip-border);
+}
+
+.xy-tooltip__content--dark > .xy-popper__arrow::before {
+  border-color: transparent;
+}
+
+.xy-tooltip__content[data-placement^="bottom"] > .xy-popper__arrow::before {
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-top-left-radius: 2px;
+}
+
+.xy-tooltip__content[data-placement^="top"] > .xy-popper__arrow::before {
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-bottom-right-radius: 2px;
+}
+
+.xy-tooltip__content[data-placement^="left"] > .xy-popper__arrow::before {
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-top-right-radius: 2px;
+}
+
+.xy-tooltip__content[data-placement^="right"] > .xy-popper__arrow::before {
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-left-radius: 2px;
 }
 
 .xy-fade-enter-active,

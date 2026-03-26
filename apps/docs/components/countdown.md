@@ -20,6 +20,36 @@ countdown/basic
 countdown/format
 :::
 
+## 订单保留时间
+
+:::demo 在订单中心、客服催付和大促履约后台里，更常见的是把倒计时嵌进列表行或任务卡片，直接表达“超时后会发生什么”。
+countdown/payment-window
+:::
+
+## SLA 升级看板
+
+:::demo `change / finish` 很适合拿来驱动工单、告警和审批任务的 SLA 状态切换，让剩余时间直接映射到风险等级。
+countdown/sla-board
+:::
+
+## 营销场次排期
+
+:::demo 大促作战室里经常会同时盯多个场次的开场时间。这个场景更适合把 `title / prefix / suffix` 插槽和 `value-style` 一起用起来。
+countdown/campaign-waves
+:::
+
+## 发布冻结窗口
+
+:::demo 当倒计时本身会推动业务阶段切换时，可以把 `finish` 作为状态机触发点，让一个组件承接“即将冻结 -> 冻结中 -> 已恢复”的完整链路。
+countdown/change-freeze
+:::
+
+## 审批截止面板
+
+:::demo 如果倒计时结束后需要马上进入下一步结果态，可以把 `Countdown` 和 `Result`、按钮区放进同一块审批面板里，直接表达“超时后会发生什么”。
+countdown/approval-deadline
+:::
+
 ## 使用提示
 
 - `value` 支持 `number`、`Date` 和 `dayjs()`；`number` 按时间戳毫秒处理。

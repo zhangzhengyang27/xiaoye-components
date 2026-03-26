@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
-import type { StyleValue } from "vue";
-import type { Placement } from "@floating-ui/dom";
+defineOptions({
+  name: "XyDropdown",
+  inheritAttrs: false
+});
+
+import { computed, nextTick, onBeforeUnmount, provide, ref, useAttrs, useSlots, watch } from "vue";
+import type { ComputedRef, Ref, StyleValue } from "vue";
+import type { ReferenceElement } from "@floating-ui/dom";
 import {
   useDismissibleLayer,
   useFloatingPanel,
@@ -10,43 +15,33 @@ import {
   useOverlayStack,
   useNamespace
 } from "@xiaoye/composables";
-
-export interface DropdownItem {
-  key: string;
-  label: string;
-  disabled?: boolean;
-  danger?: boolean;
-  description?: string;
-  command?: string | number | Record<string, unknown>;
-}
-
-export interface DropdownProps {
-  modelValue?: boolean;
-  items: DropdownItem[];
-  placement?: Placement;
-  disabled?: boolean;
-  closeOnSelect?: boolean;
-  role?: "menu" | "navigation";
-  trigger?: "click" | "hover" | "contextmenu";
-  openDelay?: number;
-  closeDelay?: number;
-  showAfter?: number;
-  hideAfter?: number;
-  maxHeight?: string | number;
-  teleported?: boolean;
-  appendTo?: string | HTMLElement;
-  persistent?: boolean;
-  popperClass?: string;
-  popperStyle?: StyleValue;
-}
+import XyButton from "../../button";
+import { XyButtonGroup } from "../../button";
+import XyIcon from "../../icon";
+import XyDropdownItem from "./dropdown-item.vue";
+import XyDropdownItemImpl from "./dropdown-item-impl.vue";
+import XyDropdownMenu from "./dropdown-menu.vue";
+import type {
+  DropdownCommand,
+  DropdownItem,
+  DropdownPopperOptions,
+  DropdownProps,
+  DropdownRole,
+  DropdownSelectItem,
+  DropdownTrigger
+} from "./dropdown";
+import { dropdownContextKey, type DropdownRegisteredItem } from "./tokens";
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   modelValue: false,
+  items: () => [],
   placement: "bottom-start",
   disabled: false,
+  hideOnClick: undefined,
   closeOnSelect: true,
   role: "menu",
   trigger: "hover",
+  triggerKeys: () => ["Enter", "NumpadEnter", " ", "ArrowDown"],
   openDelay: 80,
   closeDelay: 120,
   showAfter: undefined,
@@ -56,24 +51,113 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   appendTo: "body",
   persistent: false,
   popperClass: "",
-  popperStyle: undefined
+  popperStyle: undefined,
+  showArrow: true,
+  virtualRef: null,
+  virtualTriggering: false,
+  splitButton: false,
+  buttonProps: undefined,
+  tabindex: 0,
+  loop: true,
+  popperOptions: () => ({})
 });
 
 const emit = defineEmits<{
   "update:modelValue": [value: boolean];
-  select: [item: DropdownItem];
-  command: [command: DropdownItem["command"] | DropdownItem["key"], item: DropdownItem];
+  select: [item: DropdownSelectItem | DropdownItem];
+  command: [command: DropdownCommand | string | undefined, item: DropdownSelectItem | DropdownItem];
   visibleChange: [value: boolean];
+  click: [event: MouseEvent];
 }>();
 
+const slots = useSlots();
+const attrs = useAttrs();
 const ns = useNamespace("dropdown");
 const triggerRef = ref<HTMLElement | null>(null);
+const mainButtonRef = ref<HTMLElement | null>(null);
+const caretButtonRef = ref<HTMLElement | null>(null);
 const menuRef = ref<HTMLElement | null>(null);
+const arrowRef = ref<HTMLElement | null>(null);
+const registeredItems = ref<DropdownRegisteredItem[]>([]);
+const isUsingKeyboard = ref(false);
+const shouldFocusAfterOpen = ref(false);
+const restoreFocusAfterClose = ref(false);
+const internalVirtualRef = ref<ReferenceElement | null>(null);
 const listId = `xy-dropdown-${Math.random().toString(36).slice(2, 10)}`;
+
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
-const navigation = useListNavigation(() => props.items, { loop: true });
-const itemRole = computed(() => props.role === "navigation" ? "link" : "menuitem");
+const normalizedTriggers = computed<DropdownTrigger[]>(() =>
+  Array.isArray(props.trigger) ? props.trigger : [props.trigger]
+);
+const isLegacyMode = computed(() => !slots.dropdown && props.items.length > 0);
+const hasMenuContent = computed(() => isLegacyMode.value || Boolean(slots.dropdown));
+const itemRole = computed<"menuitem" | "link">(() => (props.role === "navigation" ? "link" : "menuitem"));
 const teleportTarget = computed(() => props.appendTo ?? "body");
+const hideOnClick = computed(() => props.hideOnClick ?? props.closeOnSelect);
+const triggerId = computed(() => listId);
+const normalizedPopperOptions = computed<Required<DropdownPopperOptions>>(() => ({
+  offset: props.popperOptions?.offset ?? 10,
+  strategy: props.popperOptions?.strategy ?? "fixed",
+  arrowPadding: props.popperOptions?.arrowPadding ?? 8,
+  matchTriggerWidth: props.popperOptions?.matchTriggerWidth ?? false,
+  shiftPadding: props.popperOptions?.shiftPadding ?? 8,
+  flip: props.popperOptions?.flip ?? true
+}));
+const menuStyle = computed<StyleValue>(() => ({
+  maxHeight:
+    props.maxHeight === "" || props.maxHeight == null
+      ? undefined
+      : typeof props.maxHeight === "number"
+        ? `${props.maxHeight}px`
+        : props.maxHeight
+}));
+const rootClasses = computed(() => [
+  ns.base.value,
+  props.disabled ? "is-disabled" : "",
+  props.splitButton ? "is-split-button" : "",
+  attrs.class
+]);
+const mainButtonProps = computed(() => ({
+  ...props.buttonProps,
+  disabled: props.disabled || props.buttonProps?.disabled
+}));
+const fallbackTriggerText = computed(() => (props.splitButton ? "更多操作" : "更多操作"));
+const triggerKeysSet = computed(() => new Set(props.triggerKeys));
+
+const referenceRef = computed<ReferenceElement | null>(() => {
+  if (props.virtualTriggering && props.virtualRef) {
+    return props.virtualRef;
+  }
+
+  if (internalVirtualRef.value) {
+    return internalVirtualRef.value;
+  }
+
+  if (props.splitButton) {
+    return caretButtonRef.value;
+  }
+
+  return triggerRef.value;
+});
+
+const navigationItems = computed(() =>
+  isLegacyMode.value
+    ? props.items.map((item) => ({
+        disabled: item.disabled
+      }))
+    : registeredItems.value.map((item) => ({
+        disabled: item.isDisabled()
+      }))
+);
+
+const navigation = useListNavigation(() => navigationItems.value, {
+  loop: props.loop
+});
+
+const activeRegisteredItem = computed(
+  () => (!isLegacyMode.value ? registeredItems.value[navigation.activeIndex.value] ?? null : null)
+);
+
 const { visible, rendered, open: openFloating, close: closeFloating, toggle, clearTimers, handleAfterLeave } =
   useFloatingVisibility({
     modelValue: () => props.modelValue,
@@ -87,105 +171,107 @@ const { visible, rendered, open: openFloating, close: closeFloating, toggle, cle
     onOpen: () => {
       emit("visibleChange", true);
       openLayer();
-      navigation.activateFirst();
     },
     onClose: () => {
       emit("visibleChange", false);
       stopAutoUpdate();
       closeLayer();
+      navigation.clearActiveIndex();
+      internalVirtualRef.value = null;
+
+      if (restoreFocusAfterClose.value) {
+        focusTrigger();
+        restoreFocusAfterClose.value = false;
+      }
     }
   });
-const { floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
-  triggerRef,
-  menuRef,
-  {
+
+const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } =
+  useFloatingPanel(referenceRef as Ref<ReferenceElement | null>, menuRef, {
     placement: () => props.placement,
-    strategy: "fixed",
+    strategy: () => normalizedPopperOptions.value.strategy,
+    offset: () => normalizedPopperOptions.value.offset,
+    matchTriggerWidth: () => normalizedPopperOptions.value.matchTriggerWidth,
+    arrowRef: props.showArrow ? arrowRef : undefined,
+    arrowPadding: normalizedPopperOptions.value.arrowPadding,
+    shiftPadding: () => normalizedPopperOptions.value.shiftPadding,
+    flip: () => normalizedPopperOptions.value.flip,
     zIndex
-  }
-);
-const menuMaxHeightStyle = computed(() => ({
-  maxHeight:
-    props.maxHeight === "" || props.maxHeight == null
-      ? undefined
-      : typeof props.maxHeight === "number"
-        ? `${props.maxHeight}px`
-        : props.maxHeight
-}));
-
-async function openMenu(immediate = props.trigger !== "hover") {
-  openFloating({
-    immediate
   });
+
+function focusTrigger() {
+  const target = props.splitButton ? caretButtonRef.value : triggerRef.value;
+  target?.focus();
 }
 
-function closeMenu(immediate = props.trigger !== "hover") {
-  closeFloating({
-    immediate
-  });
+function isTriggerEnabled(trigger: DropdownTrigger) {
+  return normalizedTriggers.value.includes(trigger);
 }
 
-function toggleMenu() {
-  toggle();
-}
+function syncNavigationOnOpen() {
+  const currentItems = navigationItems.value;
 
-function scheduleOpen() {
-  if (props.trigger !== "hover") {
+  if (!currentItems.length) {
+    navigation.clearActiveIndex();
     return;
   }
 
-  openFloating();
+  const active = currentItems[navigation.activeIndex.value];
+
+  if (!active || active.disabled) {
+    navigation.activateFirst();
+  }
 }
 
-function scheduleClose() {
-  if (props.trigger !== "hover") {
+function registerItem(item: DropdownRegisteredItem) {
+  const index = registeredItems.value.findIndex((current) => current.uid === item.uid);
+
+  if (index >= 0) {
+    const nextItems = [...registeredItems.value];
+    nextItems[index] = item;
+    registeredItems.value = nextItems;
     return;
   }
 
-  closeFloating();
+  registeredItems.value = [...registeredItems.value, item];
 }
 
-function handleTriggerClick() {
-  if (props.trigger !== "click") {
-    return;
-  }
-
-  toggleMenu();
+function unregisterItem(uid: number) {
+  registeredItems.value = registeredItems.value.filter((item) => item.uid !== uid);
 }
 
-function handleContextMenu(event: MouseEvent) {
-  if (props.trigger !== "contextmenu") {
-    return;
-  }
-
-  event.preventDefault();
-
-  if (visible.value) {
-    closeMenu(true);
-    return;
-  }
-
-  void openMenu(true);
+function getItemIndex(uid: number) {
+  return registeredItems.value.findIndex((item) => item.uid === uid);
 }
 
-function handleSelect(item: DropdownItem) {
-  if (item.disabled) {
-    return;
-  }
+function getItemTabIndex(uid: number) {
+  const index = getItemIndex(uid);
+  return navigation.activeIndex.value === index ? 0 : -1;
+}
 
-  emit("select", item);
-  emit("command", item.command ?? item.key, item);
+function isItemActive(uid: number) {
+  return navigation.activeIndex.value === getItemIndex(uid);
+}
 
-  if (props.closeOnSelect) {
-    closeFloating({
-      immediate: true
-    });
-    triggerRef.value?.focus();
+function setActiveByUid(uid: number) {
+  const index = getItemIndex(uid);
+
+  if (index >= 0) {
+    navigation.setActiveIndex(index);
   }
+}
+
+function handleItemPointerMove(uid: number) {
+  setActiveByUid(uid);
+}
+
+function handleItemPointerLeave() {
+  return;
 }
 
 function focusActiveItem() {
   if (navigation.activeIndex.value < 0) {
+    menuRef.value?.focus();
     return;
   }
 
@@ -195,7 +281,115 @@ function focusActiveItem() {
   activeElement?.focus();
 }
 
-async function handleKeydown(event: KeyboardEvent) {
+function emitSelection(
+  command: DropdownCommand | string | undefined,
+  item: DropdownSelectItem | DropdownItem
+) {
+  emit("select", item);
+  emit("command", command, item);
+}
+
+function commandHandler(
+  command: DropdownCommand | string | undefined,
+  item: DropdownSelectItem | DropdownItem
+) {
+  emitSelection(command, item);
+}
+
+function handleLegacySelect(item: DropdownItem) {
+  if (item.disabled) {
+    return;
+  }
+
+  commandHandler(item.command ?? item.key, item);
+
+  if (hideOnClick.value) {
+    handleClose({
+      restoreFocus: true,
+      immediate: true
+    });
+  }
+}
+
+function handleClose(options?: { restoreFocus?: boolean; immediate?: boolean }) {
+  restoreFocusAfterClose.value = Boolean(options?.restoreFocus);
+  closeFloating({
+    immediate: options?.immediate ?? true
+  });
+}
+
+async function openMenu(options?: { immediate?: boolean; focusMenu?: boolean; keyboard?: boolean }) {
+  if (props.disabled || !hasMenuContent.value) {
+    return;
+  }
+
+  if (options?.keyboard) {
+    isUsingKeyboard.value = true;
+  }
+
+  shouldFocusAfterOpen.value = Boolean(options?.focusMenu);
+
+  openFloating({
+    immediate: options?.immediate ?? !isTriggerEnabled("hover")
+  });
+}
+
+function scheduleOpen() {
+  if (!isTriggerEnabled("hover")) {
+    return;
+  }
+
+  void openMenu({
+    immediate: false
+  });
+}
+
+function scheduleClose() {
+  if (!isTriggerEnabled("hover")) {
+    return;
+  }
+
+  handleClose({
+    immediate: false
+  });
+}
+
+function handleTriggerClick() {
+  if (!isTriggerEnabled("click")) {
+    return;
+  }
+
+  isUsingKeyboard.value = false;
+  toggle();
+}
+
+function handleContextMenu(event: MouseEvent) {
+  if (!isTriggerEnabled("contextmenu")) {
+    return;
+  }
+
+  event.preventDefault();
+  internalVirtualRef.value = {
+    getBoundingClientRect: () =>
+      ({
+        x: event.clientX,
+        y: event.clientY,
+        top: event.clientY,
+        left: event.clientX,
+        right: event.clientX,
+        bottom: event.clientY,
+        width: 0,
+        height: 0,
+        toJSON: () => ({})
+      }) as DOMRect
+  };
+
+  void openMenu({
+    immediate: true
+  });
+}
+
+async function handleMenuKeydown(event: KeyboardEvent) {
   if (props.disabled) {
     return;
   }
@@ -204,7 +398,11 @@ async function handleKeydown(event: KeyboardEvent) {
     case "ArrowDown":
       event.preventDefault();
       if (!visible.value) {
-        await openMenu(true);
+        await openMenu({
+          immediate: true,
+          focusMenu: true,
+          keyboard: true
+        });
       } else {
         navigation.moveNext();
         focusActiveItem();
@@ -213,7 +411,11 @@ async function handleKeydown(event: KeyboardEvent) {
     case "ArrowUp":
       event.preventDefault();
       if (!visible.value) {
-        await openMenu(true);
+        await openMenu({
+          immediate: true,
+          focusMenu: true,
+          keyboard: true
+        });
       } else {
         navigation.movePrev();
         focusActiveItem();
@@ -230,34 +432,64 @@ async function handleKeydown(event: KeyboardEvent) {
       focusActiveItem();
       break;
     case "Enter":
+    case "NumpadEnter":
     case " ":
       event.preventDefault();
       if (!visible.value) {
-        await openMenu(true);
+        await openMenu({
+          immediate: true,
+          focusMenu: true,
+          keyboard: true
+        });
         break;
       }
 
-      if (navigation.activeItem.value) {
-        handleSelect(navigation.activeItem.value);
+      if (isLegacyMode.value) {
+        const item = props.items[navigation.activeIndex.value];
+        if (item) {
+          handleLegacySelect(item);
+        }
+        break;
       }
+
+      activeRegisteredItem.value?.select(event);
       break;
     case "Escape":
-      closeFloating({
+      event.preventDefault();
+      handleClose({
+        restoreFocus: true,
         immediate: true
       });
-      triggerRef.value?.focus();
       break;
     case "Tab":
-      closeFloating({
+      handleClose({
+        restoreFocus: false,
         immediate: true
       });
-      if (event.shiftKey) {
-        triggerRef.value?.focus();
-      }
       break;
     default:
       break;
   }
+}
+
+function handleTriggerKeydown(event: KeyboardEvent) {
+  if (!triggerKeysSet.value.has(event.key)) {
+    if (visible.value) {
+      void handleMenuKeydown(event);
+    }
+    return;
+  }
+
+  void handleMenuKeydown(event);
+}
+
+function handleMainButtonClick(event: MouseEvent) {
+  if (props.disabled) {
+    event.preventDefault();
+    return;
+  }
+
+  emit("click", event);
 }
 
 watch(visible, async (value) => {
@@ -268,88 +500,162 @@ watch(visible, async (value) => {
   }
 
   await nextTick();
+  syncNavigationOnOpen();
   await updatePosition();
   startAutoUpdate();
-  focusActiveItem();
+
+  if (shouldFocusAfterOpen.value) {
+    focusActiveItem();
+    shouldFocusAfterOpen.value = false;
+  }
 });
 
 useDismissibleLayer({
   enabled: () => visible.value,
-  refs: [triggerRef, menuRef],
+  refs: [triggerRef, mainButtonRef, caretButtonRef, menuRef],
   closeOnEscape: true,
   closeOnOutside: true,
   isTopMost: () => isTopMost.value,
   onDismiss: () => {
-    closeFloating({
+    handleClose({
       immediate: true
     });
   }
 });
 
+provide(dropdownContextKey, {
+  role: computed(() => props.role as DropdownRole),
+  itemRole,
+  triggerId,
+  hideOnClick,
+  isUsingKeyboard,
+  loop: computed(() => props.loop),
+  menuRef,
+  registerItem,
+  unregisterItem,
+  getItemIndex,
+  getItemTabIndex,
+  isItemActive,
+  setActiveByUid,
+  focusActiveItem,
+  handleMenuKeydown,
+  handleItemPointerMove,
+  handleItemPointerLeave,
+  commandHandler,
+  handleClose
+});
+
 onBeforeUnmount(() => {
   clearTimers();
   stopAutoUpdate();
+  closeLayer();
 });
 </script>
 
 <template>
-  <span :class="ns.base.value">
-    <span
-      ref="triggerRef"
-      class="xy-dropdown__trigger"
-      role="button"
-      :tabindex="props.disabled ? -1 : 0"
-      :aria-expanded="visible"
-      :aria-controls="listId"
-      :aria-haspopup="props.role === 'menu' ? 'menu' : undefined"
-      @click="handleTriggerClick"
-      @contextmenu="handleContextMenu"
-      @mouseenter="scheduleOpen"
-      @mouseleave="scheduleClose"
-      @keydown="handleKeydown"
-    >
-      <slot>
-        <button type="button" class="xy-dropdown__default-trigger">更多操作</button>
-      </slot>
-    </span>
+  <span :class="rootClasses" :style="attrs.style">
+    <template v-if="!props.splitButton">
+      <span
+        ref="triggerRef"
+        class="xy-dropdown__trigger"
+        role="button"
+        :tabindex="props.disabled ? -1 : props.tabindex"
+        :aria-expanded="visible"
+        :aria-controls="listId"
+        :aria-haspopup="props.role === 'menu' ? 'menu' : undefined"
+        @click="handleTriggerClick"
+        @contextmenu="handleContextMenu"
+        @mouseenter="scheduleOpen"
+        @mouseleave="scheduleClose"
+        @keydown="handleTriggerKeydown"
+      >
+        <slot>
+          <button type="button" class="xy-dropdown__default-trigger">更多操作</button>
+        </slot>
+      </span>
+    </template>
+
+    <template v-else>
+      <XyButtonGroup class="xy-dropdown__split">
+        <XyButton
+          ref="mainButtonRef"
+          v-bind="mainButtonProps"
+          class="xy-dropdown__split-main"
+          @click="handleMainButtonClick"
+        >
+          <slot>
+            {{ fallbackTriggerText }}
+          </slot>
+        </XyButton>
+        <XyButton
+          ref="caretButtonRef"
+          v-bind="mainButtonProps"
+          class="xy-dropdown__caret-button"
+          :aria-expanded="visible"
+          :aria-controls="listId"
+          :aria-haspopup="props.role === 'menu' ? 'menu' : undefined"
+          :tabindex="props.disabled ? -1 : props.tabindex"
+          @click="handleTriggerClick"
+          @contextmenu="handleContextMenu"
+          @mouseenter="scheduleOpen"
+          @mouseleave="scheduleClose"
+          @keydown="handleTriggerKeydown"
+        >
+          <XyIcon icon="mdi:chevron-down" :size="16" />
+        </XyButton>
+      </XyButtonGroup>
+    </template>
+
     <teleport :to="teleportTarget" :disabled="!props.teleported">
       <transition name="xy-fade" @after-leave="handleAfterLeave">
         <div
           v-if="rendered"
           v-show="visible"
-          :id="listId"
           ref="menuRef"
-          :class="[ns.base.value + '__menu', props.popperClass]"
-          :style="[floatingStyle, menuMaxHeightStyle, props.popperStyle]"
-          :role="props.role"
-          tabindex="-1"
+          :class="['xy-dropdown__panel', props.popperClass]"
+          :data-placement="actualPlacement"
+          :style="[floatingStyle, menuStyle, props.popperStyle]"
           @mouseenter="scheduleOpen"
           @mouseleave="scheduleClose"
-          @keydown="handleKeydown"
         >
-          <button
-            v-for="(item, index) in props.items"
-            :key="item.key"
-            :id="`${listId}-item-${index}`"
-            :data-index="index"
-            type="button"
-            :role="itemRole"
-            :tabindex="navigation.activeIndex.value === index ? 0 : -1"
-            :disabled="item.disabled"
-            :aria-disabled="item.disabled ? 'true' : undefined"
-            :class="[
-              'xy-dropdown__item',
-              item.danger ? 'is-danger' : '',
-              item.disabled ? 'is-disabled' : '',
-              navigation.activeIndex.value === index ? 'is-active' : ''
-            ]"
-            @mouseenter="navigation.setActiveIndex(index)"
-            @focus="navigation.setActiveIndex(index)"
-            @click="handleSelect(item)"
-          >
-            <span>{{ item.label }}</span>
-            <small v-if="item.description">{{ item.description }}</small>
-          </button>
+          <span
+            v-if="props.showArrow"
+            ref="arrowRef"
+            class="xy-popper__arrow"
+            :style="arrowStyle"
+          />
+
+          <template v-if="slots.dropdown">
+            <slot name="dropdown" />
+          </template>
+
+          <template v-else>
+            <XyDropdownMenu
+              :id="listId"
+              @keydown="handleMenuKeydown"
+            >
+              <XyDropdownItemImpl
+                v-for="(item, index) in props.items"
+                :id="`${listId}-item-${index}`"
+                :key="item.key"
+                :data-index="index"
+                :role="itemRole"
+                :active="navigation.activeIndex.value === index"
+                :disabled="item.disabled"
+                :divided="item.divided"
+                :icon="item.icon"
+                :danger="item.danger"
+                :description="item.description"
+                :text-value="item.textValue || item.label"
+                :tabindex="navigation.activeIndex.value === index ? 0 : -1"
+                @pointermove="navigation.setActiveIndex(index)"
+                @focus="navigation.setActiveIndex(index)"
+                @click="handleLegacySelect(item)"
+              >
+                {{ item.label }}
+              </XyDropdownItemImpl>
+            </XyDropdownMenu>
+          </template>
         </div>
       </transition>
     </teleport>

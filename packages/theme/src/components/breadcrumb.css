@@ -1,0 +1,88 @@
+.xy-breadcrumb {
+  --xy-breadcrumb-font-size: 14px;
+  --xy-breadcrumb-line-height: 1.5;
+  --xy-breadcrumb-color: var(--xy-text-color-secondary);
+  --xy-breadcrumb-link-color: color-mix(in srgb, var(--xy-color-primary) 92%, black);
+  --xy-breadcrumb-link-hover-color: var(--xy-color-primary);
+  --xy-breadcrumb-current-color: var(--xy-text-color);
+  --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-color-secondary) 76%, white);
+  --xy-breadcrumb-separator-gap: 10px;
+  --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-color-secondary) 68%, white);
+
+  font-size: var(--xy-breadcrumb-font-size);
+  line-height: var(--xy-breadcrumb-line-height);
+  color: var(--xy-breadcrumb-color);
+}
+
+ol.xy-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li.xy-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li.xy-breadcrumb__item + li.xy-breadcrumb__item {
+  margin-top: 0;
+}
+
+.xy-breadcrumb__inner {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  color: var(--xy-breadcrumb-color);
+  text-decoration: none;
+  transition: color var(--xy-transition-duration) ease;
+}
+
+.xy-breadcrumb__inner.is-link {
+  color: var(--xy-breadcrumb-link-color);
+  font-weight: 600;
+}
+
+.xy-breadcrumb__inner.is-link:hover {
+  color: var(--xy-breadcrumb-link-hover-color);
+}
+
+.xy-breadcrumb__inner[role="link"]:hover,
+.xy-breadcrumb__inner[href]:hover {
+  cursor: pointer;
+}
+
+.xy-breadcrumb__separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 var(--xy-breadcrumb-separator-gap);
+  color: var(--xy-breadcrumb-separator-color);
+  font-size: 13px;
+}
+
+.xy-breadcrumb__separator-icon,
+.xy-breadcrumb__separator-icon svg {
+  color: var(--xy-breadcrumb-separator-color);
+}
+
+.xy-breadcrumb__item.is-current .xy-breadcrumb__inner,
+.xy-breadcrumb__item.is-current .xy-breadcrumb__inner:hover {
+  color: var(--xy-breadcrumb-current-color);
+  font-weight: 500;
+  cursor: default;
+}
+
+.xy-breadcrumb__item.is-disabled .xy-breadcrumb__inner,
+.xy-breadcrumb__item.is-disabled .xy-breadcrumb__inner:hover {
+  color: var(--xy-breadcrumb-disabled-color);
+  cursor: not-allowed;
+}

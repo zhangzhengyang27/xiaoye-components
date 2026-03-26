@@ -462,6 +462,11 @@
   z-index: 10;
 }
 
+.xy-table__loading .xy-loading__indicator.is-surface {
+  border-radius: 999px;
+  box-shadow: var(--xy-shadow-sm);
+}
+
 .xy-table__empty {
   padding: 24px 12px;
 }

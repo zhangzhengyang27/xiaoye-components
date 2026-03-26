@@ -222,6 +222,44 @@ describe("XyAffix", () => {
     rootRect.mockRestore();
   });
 
+  it("会忽略不实际滚动的 overflow 容器并回退监听 window", async () => {
+    const wrapper = mount(
+      {
+        components: { XyAffix },
+        template: `
+          <div class="outer-shell" style="overflow: auto;">
+            <xy-affix :offset="24">回退到 window</xy-affix>
+          </div>
+        `
+      },
+      {
+        attachTo: document.body
+      }
+    );
+
+    const affix = wrapper.findComponent(XyAffix);
+    const shell = wrapper.find(".outer-shell").element as HTMLDivElement;
+
+    Object.defineProperty(shell, "clientHeight", {
+      configurable: true,
+      get: () => 200
+    });
+    Object.defineProperty(shell, "scrollHeight", {
+      configurable: true,
+      get: () => 200
+    });
+
+    const rootRect = vi
+      .spyOn(affix.find(".xy-affix").element, "getBoundingClientRect")
+      .mockReturnValue(createRect({ top: -120, bottom: -80 }));
+
+    await triggerWindowScroll(180);
+
+    expect(affix.find(".xy-affix--fixed").exists()).toBe(true);
+
+    rootRect.mockRestore();
+  });
+
   it("target 不存在时直接抛错", () => {
     expect(() =>
       mount(XyAffix, {

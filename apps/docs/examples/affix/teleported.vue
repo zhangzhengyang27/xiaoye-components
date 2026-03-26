@@ -21,14 +21,14 @@ async function toggleCardWidth() {
       <xy-button plain @click="toggleCardWidth">
         {{ compact ? "恢复卡片宽度" : "收窄卡片并刷新" }}
       </xy-button>
-      <div class="demo-affix-teleported__portal">Teleport 挂载点</div>
+      <div class="demo-affix-teleported__portal">Teleport 挂载点，滚动后观察卡片依然固定在顶部</div>
     </xy-space>
 
     <xy-affix
       ref="affixRef"
       teleported
       append-to=".demo-affix-teleported__portal"
-      :offset="112"
+      :offset="64"
     >
       <xy-card
         class="demo-affix-teleported__card"
@@ -41,7 +41,7 @@ async function toggleCardWidth() {
     </xy-affix>
 
     <div class="demo-affix-teleported__list">
-      <div v-for="item in 4" :key="item" class="demo-affix-teleported__row">
+      <div v-for="item in 8" :key="item" class="demo-affix-teleported__row">
         第 {{ item }} 条说明：适合把局部操作卡片挂到更外层节点，避开复杂层级或裁切上下文。
       </div>
     </div>
@@ -58,8 +58,8 @@ async function toggleCardWidth() {
 .demo-affix-teleported__portal {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
-  padding: 0 12px;
+  min-height: 42px;
+  padding: 0 14px;
   border-radius: 999px;
   border: 1px dashed color-mix(in srgb, var(--xy-color-primary) 28%, white);
   color: var(--xy-text-color-secondary);
@@ -67,12 +67,12 @@ async function toggleCardWidth() {
 }
 
 .demo-affix-teleported__card {
-  width: 320px;
+  width: 360px;
   transition: width 0.2s ease;
 }
 
 .demo-affix-teleported__card.is-compact {
-  width: 220px;
+  width: 240px;
 }
 
 .demo-affix-teleported__card strong {
@@ -89,7 +89,7 @@ async function toggleCardWidth() {
 .demo-affix-teleported__list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .demo-affix-teleported__row {

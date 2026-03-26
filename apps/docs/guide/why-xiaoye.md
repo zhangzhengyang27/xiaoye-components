@@ -30,7 +30,7 @@ outline: deep
 
 ### 页面级闭环
 
-文档不会只停留在“单个组件长什么样”，而是尽量让 `Button / Form / Modal / Table / Pagination` 这些组件能在一个真实页面里串起来。
+文档不会只停留在“单个组件长什么样”，而是尽量让 `Button / Form / Dialog / Table / Pagination` 这些组件能在一个真实页面里串起来。
 
 ### 中文优先的示例
 

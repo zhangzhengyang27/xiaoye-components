@@ -41,3 +41,29 @@ export function handleCurrentChange(
 
   emit("current-change", currentNode ? currentNode.data : null, currentNode);
 }
+
+export function collectVisibleNodes(root: Node) {
+  const nodes: Node[] = [];
+
+  const traverse = (list: Node[]) => {
+    list.forEach((node) => {
+      if (!node.visible) {
+        return;
+      }
+
+      nodes.push(node);
+
+      if (node.expanded && node.childNodes.length > 0) {
+        traverse(node.childNodes);
+      }
+    });
+  };
+
+  traverse(root.childNodes);
+
+  return nodes;
+}
+
+export function collectFocusableNodes(root: Node) {
+  return collectVisibleNodes(root).filter((node) => !node.disabled);
+}

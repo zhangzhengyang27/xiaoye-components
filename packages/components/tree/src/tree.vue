@@ -1,9 +1,19 @@
 <template>
   <div
     ref="treeRef"
-    :class="[ns.base.value, { [`${ns.base.value}--highlight-current`]: props.highlightCurrent }]"
+    :class="[
+      ns.base.value,
+      {
+        [`${ns.base.value}--highlight-current`]: props.highlightCurrent,
+        'is-dragging': props.draggable && Boolean(dragState.draggingNode),
+        'is-drop-not-allow': props.draggable && !dragState.allowDrop,
+        'is-drop-inner': props.draggable && dragState.dropType === 'inner'
+      }
+    ]"
     role="tree"
     tabindex="0"
+    :aria-multiselectable="props.showCheckbox ? 'true' : undefined"
+    :aria-busy="isBusy ? 'true' : undefined"
     @focus="handleRootFocus"
     @keydown="handleKeydown"
   >
@@ -24,6 +34,12 @@
         <xy-empty :description="props.emptyText" />
       </slot>
     </div>
+
+    <div
+      v-show="dragState.showDropIndicator"
+      ref="dropIndicatorRef"
+      :class="`${ns.base.value}__drop-indicator`"
+    />
   </div>
 </template>
 
@@ -34,7 +50,8 @@ import { XyEmpty } from "../../empty";
 import Node from "./model/node";
 import TreeStore from "./model/tree-store";
 import TreeNode from "./tree-node.vue";
-import { handleCurrentChange } from "./model/util";
+import { useDragNodeHandler } from "./model/use-drag-node";
+import { collectFocusableNodes, collectVisibleNodes, handleCurrentChange } from "./model/util";
 import { treeEmits, treeProps } from "./tree";
 import { ROOT_TREE_INJECTION_KEY } from "./tokens";
 import type { RootTreeType, TreeExposes, TreeKey, TreeNodeData } from "./tree.type";
@@ -69,6 +86,7 @@ if (!props.nodeKey) {
 
 const ns = useNamespace("tree");
 const treeRef = ref<HTMLElement | null>(null);
+const dropIndicatorRef = ref<HTMLElement | null>(null);
 const store = ref(
   new TreeStore({
     key: props.nodeKey,
@@ -78,6 +96,7 @@ const store = ref(
     load: props.load,
     currentNodeKey: props.currentNodeKey ?? null,
     checkStrictly: props.checkStrictly,
+    checkDescendants: props.checkDescendants,
     defaultCheckedKeys: props.defaultCheckedKeys,
     defaultExpandedKeys: props.defaultExpandedKeys,
     autoExpandParent: props.autoExpandParent,
@@ -91,7 +110,28 @@ store.value.initialize();
 
 const root = ref<Node>(store.value.root);
 const instance = getCurrentInstance();
-const isEmpty = computed(() => getVisibleNodes().length === 0);
+const visibleNodes = computed(() => collectVisibleNodes(root.value));
+const focusableNodes = computed(() => collectFocusableNodes(root.value));
+const isEmpty = computed(() => visibleNodes.value.length === 0);
+const isBusy = computed(() => {
+  let busy = false;
+
+  root.value.eachNode((node) => {
+    if (node.loading) {
+      busy = true;
+    }
+  });
+
+  return busy;
+});
+const { dragState } = useDragNodeHandler({
+  props,
+  emit: emitTreeEvent,
+  rootRef: treeRef,
+  dropIndicatorRef,
+  store,
+  blockClass: ns.base.value
+});
 
 function requireNodeKey(methodName: string) {
   if (!props.nodeKey) {
@@ -104,25 +144,7 @@ function getRenderedNodeKey(node: Node) {
 }
 
 function getVisibleNodes() {
-  const nodes: Node[] = [];
-
-  const traverse = (list: Node[]) => {
-    list.forEach((node) => {
-      if (!node.visible) {
-        return;
-      }
-
-      nodes.push(node);
-
-      if (node.expanded && node.childNodes.length > 0) {
-        traverse(node.childNodes);
-      }
-    });
-  };
-
-  traverse(root.value.childNodes);
-
-  return nodes;
+  return visibleNodes.value;
 }
 
 function findTreeItem(node: Node | TreeKey | null | undefined) {
@@ -137,7 +159,35 @@ function findTreeItem(node: Node | TreeKey | null | undefined) {
 }
 
 function focusTreeItem(node: Node | null | undefined) {
-  findTreeItem(node)?.focus();
+  const target = findTreeItem(node);
+
+  if (!target || !treeRef.value) {
+    return;
+  }
+
+  treeRef.value.querySelectorAll<HTMLElement>('[role="treeitem"]').forEach((item) => {
+    item.tabIndex = -1;
+  });
+
+  target.tabIndex = 0;
+  target.focus();
+}
+
+function syncFocusableTreeItem(preferredNode?: Node | null) {
+  const navigableNodes = focusableNodes.value;
+  const fallbackNode =
+    (preferredNode && !preferredNode.disabled ? preferredNode : null) ??
+    store.value.currentNode ??
+    navigableNodes.find((node) => node.checked || node.indeterminate) ??
+    navigableNodes[0];
+
+  if (!fallbackNode) {
+    return;
+  }
+
+  nextTick(() => {
+    focusTreeItem(fallbackNode);
+  });
 }
 
 function focusNodeByIndex(nodes: Node[], index: number) {
@@ -153,24 +203,17 @@ function handleRootFocus(event: FocusEvent) {
     return;
   }
 
-  const visibleNodes = getVisibleNodes();
+  const visibleNodes = focusableNodes.value;
 
   if (visibleNodes.length === 0) {
     return;
   }
 
-  const preferredNode =
-    store.value.currentNode ??
-    visibleNodes.find((node) => node.checked || node.indeterminate) ??
-    visibleNodes[0];
-
-  nextTick(() => {
-    focusTreeItem(preferredNode);
-  });
+  syncFocusableTreeItem();
 }
 
 function handleKeydown(event: KeyboardEvent) {
-  const visibleNodes = getVisibleNodes();
+  const visibleNodes = focusableNodes.value;
 
   if (visibleNodes.length === 0) {
     return;
@@ -267,6 +310,7 @@ watchEffect(() => {
   store.value.autoExpandParent = props.autoExpandParent;
   store.value.defaultExpandAll = props.defaultExpandAll;
   store.value.accordion = props.accordion;
+  store.value.checkDescendants = props.checkDescendants;
 });
 
 watch(
@@ -277,6 +321,7 @@ watch(
     }
 
     store.value.setCurrentNodeKey(newValue ?? null);
+    syncFocusableTreeItem(store.value.currentNode);
   }
 );
 
@@ -288,6 +333,7 @@ watch(
     }
 
     store.value.setDefaultCheckedKey(newValue ?? []);
+    syncFocusableTreeItem();
   }
 );
 
@@ -299,6 +345,7 @@ watch(
     }
 
     store.value.setDefaultExpandedKeys(newValue ?? []);
+    syncFocusableTreeItem();
   }
 );
 
@@ -306,6 +353,7 @@ watch(
   () => props.data,
   (newValue) => {
     store.value.setData(newValue);
+    syncFocusableTreeItem();
   },
   {
     deep: true
@@ -320,6 +368,8 @@ watch(
     if (!newValue) {
       root.value.childNodes.forEach((node) => node.reInitChecked());
     }
+
+    syncFocusableTreeItem();
   }
 );
 
@@ -329,10 +379,31 @@ function filter(value: string | number | boolean | null | undefined) {
   }
 
   store.value.filter(value);
+  syncFocusableTreeItem();
 }
 
 function getCheckedNodes(leafOnly = false, includeHalfChecked = false) {
   return store.value.getCheckedNodes(leafOnly, includeHalfChecked);
+}
+
+function getNodePath(data: TreeKey | TreeNodeData) {
+  requireNodeKey("getNodePath");
+
+  const node = store.value.getNode(data);
+
+  if (!node) {
+    return [];
+  }
+
+  const path: TreeNodeData[] = [node.data as TreeNodeData];
+  let parent = node.parent;
+
+  while (parent && parent !== root.value) {
+    path.push(parent.data as TreeNodeData);
+    parent = parent.parent;
+  }
+
+  return path.reverse();
 }
 
 function setCheckedNodes(nodes: TreeNodeData[], leafOnly = false) {
@@ -382,6 +453,7 @@ function setCurrentNode(node: TreeNodeData | TreeKey | Node, shouldAutoExpandPar
   handleCurrentChange(store, emitTreeEvent, () => {
     store.value.setUserCurrentNode(currentNode, shouldAutoExpandParent);
   });
+  syncFocusableTreeItem(currentNode);
 }
 
 function setCurrentKey(key: TreeKey | null = null, shouldAutoExpandParent = true) {
@@ -390,6 +462,7 @@ function setCurrentKey(key: TreeKey | null = null, shouldAutoExpandParent = true
   handleCurrentChange(store, emitTreeEvent, () => {
     store.value.setCurrentNodeKey(key, shouldAutoExpandParent);
   });
+  syncFocusableTreeItem(store.value.currentNode);
 }
 
 function getNode(data: TreeKey | TreeNodeData) {
@@ -433,6 +506,7 @@ provide(ROOT_TREE_INJECTION_KEY, {
 
 defineExpose<TreeExposes>({
   filter,
+  getNodePath,
   getCheckedNodes,
   setCheckedNodes,
   getCheckedKeys,

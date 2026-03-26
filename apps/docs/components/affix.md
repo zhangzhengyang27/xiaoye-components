@@ -10,25 +10,31 @@ outline: deep
 
 ## 基础偏移
 
-:::demo 默认吸附在顶部，可通过 `offset` 控制与视口顶部的距离。
+:::demo 默认吸附在顶部。请向下滚动页面，观察工具条在越过阈值后固定到视口顶部。
 affix/basic
+:::
+
+## Change 事件状态面板
+
+:::demo 这个示例会把 `change` 和 `scroll` 事件直接显示出来。滚动后无需靠肉眼猜测，状态面板会实时告诉你当前是否已固定。
+affix/change
 :::
 
 ## 目标容器
 
-:::demo 设置 `target` 后，固钉内容会被限制在容器范围内，超出边界时自动退出固定态。
+:::demo 设置 `target` 后，固钉内容只会在目标容器范围内固定；继续向下滚动，越过容器末尾时会自动退出。
 affix/target
 :::
 
 ## 底部固钉
 
-:::demo `position='bottom'` 适合承接移动操作条、批量操作按钮和总结算入口。
+:::demo `position='bottom'` 适合承接长列表底部的批量操作条。这个示例也会直接显示当前固定状态和滚动位置，便于判断是否已经生效。
 affix/fixed
 :::
 
 ## 传送与手动刷新
 
-:::demo `teleported` 会在固定态时把节点挂到 `append-to` 指定容器，内容尺寸变化后可调用 `updateRoot()` 重新同步占位尺寸。
+:::demo `teleported` 会在固定态时把节点挂到 `append-to` 指定容器。请滚动后再切换卡片宽度，观察 `updateRoot()` 对占位尺寸的同步效果。
 affix/teleported
 :::
 

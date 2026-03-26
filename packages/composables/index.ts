@@ -4,6 +4,7 @@ export * from "./use-throttle-render";
 export * from "./use-z-index";
 export * from "./use-controlled";
 export * from "./use-overlay-stack";
+export * from "./use-overlay-dialog";
 export * from "./use-dismissible-layer";
 export * from "./use-floating-panel";
 export * from "./use-floating-visibility";

@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends string | number">
-import { computed, inject, nextTick, ref, useSlots, watch } from "vue";
+import { computed, getCurrentInstance, inject, nextTick, ref, useSlots, watch } from "vue";
 import type { StyleValue } from "vue";
 import type { SelectOption } from "@xiaoye/utils";
 import {
@@ -12,7 +12,8 @@ import {
 } from "@xiaoye/composables";
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
-import { DEFAULT_CLEAR_ICON, DEFAULT_LOADING_ICON, DEFAULT_SUFFIX_ICON } from "./select";
+import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
+import { DEFAULT_CLEAR_ICON, DEFAULT_SUFFIX_ICON } from "./select";
 import type { FlatSelectOption, SelectOptionGroup, SelectOptionItem, SelectProps } from "./select";
 
 interface SelectRenderGroup<T> {
@@ -58,9 +59,10 @@ const emit = defineEmits<{
 }>();
 
 const slots = useSlots();
+const instance = getCurrentInstance();
 const formItem = inject(formItemKey, null);
 const ns = useNamespace("select");
-const { size: globalSize } = useConfig();
+const { size: globalSize, loading: globalLoading } = useConfig();
 const mergedSize = computed(() => props.size ?? globalSize.value);
 const triggerRef = ref<HTMLElement | null>(null);
 const dropdownRef = ref<HTMLElement | null>(null);
@@ -72,6 +74,19 @@ const listboxId = `xy-select-listbox-${Math.random().toString(36).slice(2, 10)}`
 const selectedValue = ref<T | null>(props.modelValue);
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 const resolvedFitInputWidth = computed(() => props.fitInputWidth ?? props.fitTriggerWidth);
+const hasLoadingTextProp = computed(() => {
+  const vnodeProps = instance?.vnode.props ?? {};
+
+  return "loadingText" in vnodeProps || "loading-text" in vnodeProps;
+});
+const resolvedLoading = computed(() =>
+  resolveLoadingVisualConfig(
+    globalLoading.value,
+    "加载中",
+    hasLoadingTextProp.value,
+    props.loadingText
+  )
+);
 
 function isOptionGroup(option: SelectOptionItem<T>): option is SelectOptionGroup<T> {
   return Array.isArray((option as SelectOptionGroup<T>).options);
@@ -164,17 +179,20 @@ const navigation = useListNavigation(() => filteredOptions.value, {
   loop: true
 });
 
-const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpdate, stopAutoUpdate } = useFloatingPanel(
-  triggerRef,
-  dropdownRef,
-  {
-    arrowRef: dropdownArrowRef,
-    placement: computed(() => props.placement),
-    offset: computed(() => props.offset),
-    matchTriggerWidth: resolvedFitInputWidth,
-    zIndex
-  }
-);
+const {
+  actualPlacement,
+  arrowStyle,
+  floatingStyle,
+  updatePosition,
+  startAutoUpdate,
+  stopAutoUpdate
+} = useFloatingPanel(triggerRef, dropdownRef, {
+  arrowRef: dropdownArrowRef,
+  placement: computed(() => props.placement),
+  offset: computed(() => props.offset),
+  matchTriggerWidth: resolvedFitInputWidth,
+  zIndex
+});
 
 const activeOption = computed(() => navigation.activeItem.value);
 
@@ -410,6 +428,7 @@ defineExpose({
       props.disabled ? 'is-disabled' : '',
       formItem?.validateState.value === 'error' ? 'is-error' : ''
     ]"
+    :aria-busy="props.loading ? 'true' : undefined"
   >
     <div
       ref="triggerRef"
@@ -489,10 +508,22 @@ defineExpose({
           </div>
 
           <div class="xy-select__content">
-            <div v-if="props.loading" class="xy-select__loading">
+            <div
+              v-if="props.loading"
+              class="xy-select__loading"
+              :style="
+                resolvedLoading.background ? { background: resolvedLoading.background } : undefined
+              "
+            >
               <slot name="loading">
-                <XyIcon :icon="DEFAULT_LOADING_ICON" :size="16" spin />
-                <span>{{ props.loadingText }}</span>
+                <XyLoadingIndicator
+                  :text="resolvedLoading.text"
+                  :spinner="resolvedLoading.spinner"
+                  :svg="resolvedLoading.svg"
+                  :svg-view-box="resolvedLoading.svgViewBox"
+                  layout="inline"
+                  size="sm"
+                />
               </slot>
             </div>
 

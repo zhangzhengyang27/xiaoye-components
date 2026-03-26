@@ -44,6 +44,8 @@ select/panel-slots
 select/loading
 :::
 
+Select 这一轮仍然保持“状态项 loading”，不会改成遮罩。默认加载项的 spinner 和文案已对齐独立 `Loading`，并会读取 `ConfigProvider.loading` 的 `text / spinner / svg / svgViewBox / background` 作为视觉默认项；如果传入 `loading-text` 或自定义 `loading` 插槽，局部定义依然优先。
+
 ## 表单场景
 
 :::demo 放在 `xy-form-item` 内部时，Select 会自动关联错误消息并参与 `change / blur` 校验。
@@ -67,32 +69,32 @@ select/methods
 
 ### Select Attributes
 
-| 属性                 | 说明                   | 类型                                          | 默认值               |
-| -------------------- | ---------------------- | --------------------------------------------- | -------------------- |
-| `model-value`        | 当前选中值             | `string \| number \| null`                    | `null`               |
-| `options`            | 选项列表               | `(SelectOption<T> \| SelectOptionGroup<T>)[]` | —                    |
-| `placeholder`        | 未选择时的占位提示     | `string`                                      | `'请选择'`           |
-| `disabled`           | 是否禁用               | `boolean`                                     | `false`              |
-| `clearable`          | 是否允许清空当前选中值 | `boolean`                                     | `false`              |
-| `searchable`         | 是否启用搜索输入       | `boolean`                                     | `false`              |
-| `size`               | 组件尺寸               | `'sm' \| 'md' \| 'lg'`                        | 跟随全局配置         |
-| `no-data-text`       | 无选项时的文案         | `string`                                      | `'暂无选项'`         |
-| `no-match-text`      | 搜索无结果时的文案     | `string`                                      | `'没有匹配项'`       |
-| `loading`            | 是否处于加载态         | `boolean`                                     | `false`              |
-| `loading-text`       | 加载态文案             | `string`                                      | `'加载中'`           |
-| `search-placeholder` | 搜索输入占位文案       | `string`                                      | `'搜索选项'`         |
-| `prefix-icon`        | 触发器前置图标         | `string`                                      | `''`                 |
-| `suffix-icon`        | 触发器后置图标         | `string`                                      | `'mdi:chevron-down'` |
-| `clear-icon`         | 清空图标               | `string`                                      | `'mdi:close-circle'` |
-| `teleported`         | 是否把下拉面板传送到 `body` | `boolean`                                 | `true`               |
-| `append-to`          | 下拉面板挂载目标       | `string \| HTMLElement`                       | `'body'`             |
-| `placement`          | 下拉面板弹出位置       | `Placement`                                   | `'bottom-start'`     |
-| `offset`             | 下拉面板偏移量         | `number`                                      | `8`                  |
-| `popper-class`       | 下拉面板自定义类名     | `string`                                      | `''`                 |
-| `popper-style`       | 下拉面板自定义样式     | `StyleValue`                                  | `''`                 |
-| `fit-input-width`    | 是否让下拉面板跟随触发器宽度 | `boolean`                                 | `true`               |
-| `dropdown-min-width` | 下拉面板最小宽度       | `string \| number`                            | —                    |
-| `dropdown-max-width` | 下拉面板最大宽度       | `string \| number`                            | —                    |
+| 属性                 | 说明                         | 类型                                          | 默认值               |
+| -------------------- | ---------------------------- | --------------------------------------------- | -------------------- |
+| `model-value`        | 当前选中值                   | `string \| number \| null`                    | `null`               |
+| `options`            | 选项列表                     | `(SelectOption<T> \| SelectOptionGroup<T>)[]` | —                    |
+| `placeholder`        | 未选择时的占位提示           | `string`                                      | `'请选择'`           |
+| `disabled`           | 是否禁用                     | `boolean`                                     | `false`              |
+| `clearable`          | 是否允许清空当前选中值       | `boolean`                                     | `false`              |
+| `searchable`         | 是否启用搜索输入             | `boolean`                                     | `false`              |
+| `size`               | 组件尺寸                     | `'sm' \| 'md' \| 'lg'`                        | 跟随全局配置         |
+| `no-data-text`       | 无选项时的文案               | `string`                                      | `'暂无选项'`         |
+| `no-match-text`      | 搜索无结果时的文案           | `string`                                      | `'没有匹配项'`       |
+| `loading`            | 是否处于加载态               | `boolean`                                     | `false`              |
+| `loading-text`       | 加载态文案                   | `string`                                      | `'加载中'`           |
+| `search-placeholder` | 搜索输入占位文案             | `string`                                      | `'搜索选项'`         |
+| `prefix-icon`        | 触发器前置图标               | `string`                                      | `''`                 |
+| `suffix-icon`        | 触发器后置图标               | `string`                                      | `'mdi:chevron-down'` |
+| `clear-icon`         | 清空图标                     | `string`                                      | `'mdi:close-circle'` |
+| `teleported`         | 是否把下拉面板传送到 `body`  | `boolean`                                     | `true`               |
+| `append-to`          | 下拉面板挂载目标             | `string \| HTMLElement`                       | `'body'`             |
+| `placement`          | 下拉面板弹出位置             | `Placement`                                   | `'bottom-start'`     |
+| `offset`             | 下拉面板偏移量               | `number`                                      | `8`                  |
+| `popper-class`       | 下拉面板自定义类名           | `string`                                      | `''`                 |
+| `popper-style`       | 下拉面板自定义样式           | `StyleValue`                                  | `''`                 |
+| `fit-input-width`    | 是否让下拉面板跟随触发器宽度 | `boolean`                                     | `true`               |
+| `dropdown-min-width` | 下拉面板最小宽度             | `string \| number`                            | —                    |
+| `dropdown-max-width` | 下拉面板最大宽度             | `string \| number`                            | —                    |
 
 ### Select Events
 

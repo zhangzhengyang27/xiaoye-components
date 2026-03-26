@@ -7,6 +7,8 @@ export interface FloatingVisibilityOptions {
   persistent?: MaybeRefOrGetter<boolean | undefined>;
   openDelay?: MaybeRefOrGetter<number | undefined>;
   closeDelay?: MaybeRefOrGetter<number | undefined>;
+  beforeOpen?: (source: "internal" | "external") => void;
+  beforeClose?: (source: "internal" | "external") => void;
   emitModelValue?: (value: boolean) => void;
   onOpen?: (source: "internal" | "external") => void;
   onClose?: (source: "internal" | "external") => void;
@@ -47,6 +49,12 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
 
     if (visible.value === nextVisible) {
       return;
+    }
+
+    if (nextVisible) {
+      options.beforeOpen?.(source);
+    } else {
+      options.beforeClose?.(source);
     }
 
     visible.value = nextVisible;

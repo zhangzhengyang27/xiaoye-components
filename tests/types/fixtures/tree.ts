@@ -1,7 +1,11 @@
 import { h, ref, type Component } from "vue";
 import {
+  type AllowDragFunction,
+  type AllowDropFunction,
   type CheckedInfo,
+  type NodeDropType,
   type RenderContentContext,
+  type TreeDragPayload,
   XyTree,
   type TreeInstance,
   type TreeKey,
@@ -11,6 +15,16 @@ import {
 } from "xiaoye-components";
 
 const CustomIcon = {} as Component;
+const allowDrag: AllowDragFunction = (node) => node.key !== 2;
+const allowDrop: AllowDropFunction = (_draggingNode, dropNode, type) =>
+  dropNode.key !== 1 && type !== "prev";
+const dropType: NodeDropType = "inner";
+const dragPayload: TreeDragPayload = {
+  oldParent: null,
+  newParent: null,
+  oldIndex: 0,
+  newIndex: 1
+};
 
 const treeProps: TreeProps = {
   data: [
@@ -24,6 +38,7 @@ const treeProps: TreeProps = {
   emptyText: "暂无节点",
   renderAfterExpand: true,
   checkStrictly: false,
+  checkDescendants: true,
   defaultExpandAll: false,
   expandOnClickNode: true,
   checkOnClickNode: false,
@@ -34,6 +49,9 @@ const treeProps: TreeProps = {
   currentNodeKey: 1,
   showCheckbox: true,
   lazy: false,
+  draggable: true,
+  allowDrag,
+  allowDrop,
   highlightCurrent: true,
   accordion: false,
   indent: 20,
@@ -61,6 +79,8 @@ const optionProps: TreeOptionProps = {
 
 void treeProps;
 void optionProps;
+void dropType;
+void dragPayload;
 
 const nodeData: TreeNodeData = {
   id: 1,
@@ -87,6 +107,7 @@ const treeRef = ref<TreeInstance | null>(null);
 
 treeRef.value?.filter("账单");
 treeRef.value?.updateKeyChildren(1, [{ id: 12, label: "替换节点" }]);
+treeRef.value?.getNodePath(12);
 treeRef.value?.getCheckedNodes();
 treeRef.value?.setCheckedNodes([{ id: 11, label: "账单" }]);
 treeRef.value?.getCheckedKeys();

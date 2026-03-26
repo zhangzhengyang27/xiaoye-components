@@ -113,6 +113,7 @@ class Node {
   loaded = false;
   childNodes: Node[] = [];
   loading = false;
+  loadFailed = false;
   isEffectivelyChecked = false;
 
   constructor(options: TreeNodeOptions) {
@@ -394,7 +395,7 @@ class Node {
   }
 
   shouldLoadData() {
-    return Boolean(this.store.lazy && this.store.load && !this.loaded);
+    return Boolean(this.store.lazy && this.store.load && !this.loaded && !this.isLeaf);
   }
 
   updateLeafState(): void {
@@ -422,44 +423,46 @@ class Node {
       return;
     }
 
-    const handleDescendants = () => {
-      if (!deep) {
+    if (!(this.shouldLoadData() && !this.store.checkDescendants)) {
+      const handleDescendants = () => {
+        if (!deep) {
+          return;
+        }
+
+        this.childNodes.forEach((child) => {
+          passValue = passValue || value !== false;
+
+          const nextChecked = child.disabled && child.isLeaf ? child.checked : passValue;
+          child.setChecked(nextChecked, deep, true, passValue);
+        });
+
+        const { all, half, isEffectivelyChecked } = getChildState(this.childNodes);
+
+        if (!all) {
+          this.checked = all;
+          this.indeterminate = half;
+        }
+
+        this.isEffectivelyChecked = this.childNodes.length === 0
+          ? this.disabled || this.checked
+          : isEffectivelyChecked;
+      };
+
+      if (this.shouldLoadData()) {
+        this.loadData(
+          () => {
+            handleDescendants();
+            reInitChecked(this);
+          },
+          {
+            checked: value !== false
+          }
+        );
         return;
       }
 
-      this.childNodes.forEach((child) => {
-        passValue = passValue || value !== false;
-
-        const nextChecked = child.disabled && child.isLeaf ? child.checked : passValue;
-        child.setChecked(nextChecked, deep, true, passValue);
-      });
-
-      const { all, half, isEffectivelyChecked } = getChildState(this.childNodes);
-
-      if (!all) {
-        this.checked = all;
-        this.indeterminate = half;
-      }
-
-      this.isEffectivelyChecked = this.childNodes.length === 0
-        ? this.disabled || this.checked
-        : isEffectivelyChecked;
-    };
-
-    if (this.shouldLoadData()) {
-      this.loadData(
-        () => {
-          handleDescendants();
-          reInitChecked(this);
-        },
-        {
-          checked: value !== false
-        }
-      );
-      return;
+      handleDescendants();
     }
-
-    handleDescendants();
 
     if (!this.parent || this.parent.level === 0 || recursion) {
       return;
@@ -535,6 +538,7 @@ class Node {
     }
 
     this.loading = true;
+    this.loadFailed = false;
 
     const resolve = (children: TreeData) => {
       if (this.level > 0 && !Array.isArray(this.data)) {
@@ -549,12 +553,14 @@ class Node {
       this.doCreateChildren(children, defaultProps);
       this.loaded = true;
       this.loading = false;
+      this.loadFailed = false;
       this.updateLeafState();
       callback?.(children);
     };
 
     const reject = () => {
       this.loading = false;
+      this.loadFailed = true;
     };
 
     this.store.load(this, resolve, reject);

@@ -12,14 +12,20 @@ import SchedulerPlaygroundFrame from "./components/SchedulerPlaygroundFrame.vue"
 import "../../../../packages/xiaoye-components/style.css";
 import "./style.css";
 
+const DOCS_OVERLAY_Z_INDEX = 2100;
+
 const theme: Theme = {
   ...DefaultTheme,
   enhanceApp({ app }) {
     app.provide(configProviderKey, {
       namespace: computed(() => DEFAULT_NAMESPACE),
       locale: computed(() => ({})),
-      zIndex: computed(() => 20),
-      size: computed(() => "md")
+      zIndex: computed(() => DOCS_OVERLAY_Z_INDEX),
+      size: computed(() => "md"),
+      dialog: computed(() => ({})),
+      loading: computed(() => ({})),
+      message: computed(() => ({})),
+      notification: computed(() => ({}))
     });
     app.use(XiaoyeComponents);
     app.component("Demo", Demo);

@@ -1,12 +1,12 @@
 ---
 title: Popover 气泡卡片
-description: 用于承载轻量说明或交互内容，比 Tooltip 更重，比 Modal 更轻。
+description: 用于承载轻量说明或交互内容，比 Tooltip 更重，比 Dialog 更轻。
 outline: deep
 ---
 
 # Popover 气泡卡片
 
-`xy-popover` 用来承载比 Tooltip 更重一点的说明或轻交互内容。它不是纯提示，也不需要像 Modal 那样阻断页面。
+`xy-popover` 用来承载比 Tooltip 更重一点的说明或轻交互内容。它不是纯提示，也不需要像 Dialog 那样阻断页面。
 
 ## 基础用法
 
@@ -28,7 +28,7 @@ popover/trigger-close
 
 ## 嵌套浮层
 
-:::demo 当轻量说明需要升级成阻断确认时，可以在 Popover 内把处理链路升级到 Modal。
+:::demo 当轻量说明需要升级成阻断确认时，可以在 Popover 内把处理链路升级到 Dialog。
 popover/nested-overlay
 :::
 
