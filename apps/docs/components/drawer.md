@@ -79,7 +79,7 @@ drawer/modal
 
 - 继续保留项目内的 `placement` 写法，不强制切到 `direction`。
 - 默认 `size` 仍然是 `420`，默认 `append-to-body` 仍然是 `true`，以保持当前项目里的既有使用习惯。
-- 没有引入 Element Plus 已经废弃的 `title` 插槽或 `custom-class`。
+- 保留了 `title` 插槽和 `custom-class` 的兼容层，但会给出废弃提示；新代码优先使用 `header` 插槽和组件原生 `class`。
 
 ## API
 

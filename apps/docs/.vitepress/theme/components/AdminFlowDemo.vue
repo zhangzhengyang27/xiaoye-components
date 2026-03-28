@@ -49,17 +49,16 @@ const drawerOpen = ref(false);
           </xy-space>
 
           <xy-table
-            :columns="[
-              { key: 'name', title: '名称', dataIndex: 'name' },
-              { key: 'owner', title: '负责人', dataIndex: 'owner' },
-              { key: 'updatedAt', title: '最近更新', dataIndex: 'updatedAt' }
-            ]"
             :data="[
               { id: 1, name: '核心控制台', owner: 'Xiaoye', updatedAt: '2026-03-21' },
               { id: 2, name: '订阅中心', owner: 'Mavis', updatedAt: '2026-03-20' }
             ]"
             row-key="id"
-          ></xy-table>
+          >
+            <xy-table-column prop="name" label="名称" />
+            <xy-table-column prop="owner" label="负责人" />
+            <xy-table-column prop="updatedAt" label="最近更新" />
+          </xy-table>
 
           <xy-pagination :total="42"></xy-pagination>
         </div>

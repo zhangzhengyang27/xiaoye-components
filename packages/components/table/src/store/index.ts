@@ -1,4 +1,4 @@
-import { computed, ref, shallowRef, watch, type ComputedRef, type Ref } from "vue";
+import { computed, ref, shallowRef, toRaw, watch, type ComputedRef, type Ref } from "vue";
 import { cloneFilterValues, getColumnStateKey, type TableBodyRow, type TableCellSlotProps, type TableFilterValue, type TableFilterValues, type TableHeaderCell, type TableProps, type TableResolvedColumn, type TableSortOrder, type TableSummaryValue, type TableTreeNode } from "../table";
 import { buildHeaderRows, collectDescendantKeys, defaultCompare, flattenColumns, getColumnByStateKey, getFixedOffsets, getRowIdentity, getTreeChildren, getTreeColumn, hasFixedColumns, isOrderActive, matchesFilter, normalizeColumns, projectColumnsByFixed, resolveSortValue, resolveSummary, resolveTreeNode, resolveTreeProps } from "../util";
 
@@ -507,7 +507,22 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
   }
 
   function getRecordByRow(row: T) {
-    return sourceNodeRecords.value.find((item) => item.row === row) ?? null;
+    const rawRow = toRaw(row);
+    const directMatch = sourceNodeRecords.value.find((item) => toRaw(item.row) === rawRow);
+
+    if (directMatch) {
+      return directMatch;
+    }
+
+    if (!props.rowKey) {
+      return null;
+    }
+
+    return (
+      sourceNodeRecords.value.find((item) =>
+        Object.is(item.key, getRowIdentity(rawRow, item.sourceIndex, props.rowKey))
+      ) ?? null
+    );
   }
 
   function collectDescendantKeysFromRecord(record: SourceNode<T>) {

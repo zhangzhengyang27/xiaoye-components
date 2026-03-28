@@ -111,6 +111,7 @@ table/multi-state
 | `header-cell-style`       | 表头单元格样式或样式计算函数           | `StyleValue \| (column, columnIndex) => StyleValue`                                      | `undefined`                                                                  |
 | `class-name`              | 表格根节点附加 class                   | `string`                                                                                 | `''`                                                                         |
 | `style`                   | 表格根节点附加样式                     | `StyleValue`                                                                             | `undefined`                                                                  |
+| `clickable`               | 是否把主表体行视为可点击项，并补齐键盘聚焦与回车触发 | `boolean`                                                                                | `false`                                                                      |
 | `scrollbar-always-on`     | 是否为滚动容器保留稳定滚动条槽位       | `boolean`                                                                                | `false`                                                                      |
 
 ### Compatibility Notes

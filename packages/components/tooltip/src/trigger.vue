@@ -57,7 +57,9 @@ const ariaTargetElement = computed(() => {
   }
 
   const firstChild = triggerWrapperRef.value?.firstElementChild;
-  return firstChild instanceof HTMLElement ? firstChild : triggerWrapperRef.value;
+  return typeof HTMLElement !== "undefined" && firstChild instanceof HTMLElement
+    ? firstChild
+    : triggerWrapperRef.value;
 });
 const hasHoverTrigger = computed(() => includesTooltipTrigger(props.trigger, "hover"));
 const hasFocusTrigger = computed(() => includesTooltipTrigger(props.trigger, "focus"));

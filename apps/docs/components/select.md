@@ -89,7 +89,7 @@ select/methods
 | `teleported`         | 是否把下拉面板传送到 `body`  | `boolean`                                     | `true`               |
 | `append-to`          | 下拉面板挂载目标             | `string \| HTMLElement`                       | `'body'`             |
 | `placement`          | 下拉面板弹出位置             | `Placement`                                   | `'bottom-start'`     |
-| `offset`             | 下拉面板偏移量               | `number`                                      | `8`                  |
+| `offset`             | 下拉面板偏移量               | `number`                                      | `12`                 |
 | `popper-class`       | 下拉面板自定义类名           | `string`                                      | `''`                 |
 | `popper-style`       | 下拉面板自定义样式           | `StyleValue`                                  | `''`                 |
 | `fit-input-width`    | 是否让下拉面板跟随触发器宽度 | `boolean`                                     | `true`               |

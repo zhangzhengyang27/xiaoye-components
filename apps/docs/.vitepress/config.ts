@@ -7,6 +7,7 @@ import { markdownTransform } from "./plugins/markdown-transform";
 export default defineConfig({
   title: "xiaoye-components",
   description: "中后台优先的 Vue 3 组件库",
+  head: [["link", { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }]],
   cleanUrls: true,
   lastUpdated: true,
   themeConfig: {

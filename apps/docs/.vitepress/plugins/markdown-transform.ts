@@ -15,6 +15,14 @@ function injectImports(code: string, id: string, demoPaths: string[]) {
     return `import ${componentName} from "${relativePath}";`;
   });
 
+  const existingScriptSetup = code.match(/<script\s+setup\b[^>]*>/);
+
+  if (existingScriptSetup?.index !== undefined) {
+    const insertAt = existingScriptSetup.index + existingScriptSetup[0].length;
+
+    return `${code.slice(0, insertAt)}\n${imports.join("\n")}${code.slice(insertAt)}`;
+  }
+
   const script = `
 <script setup lang="ts">
 ${imports.join("\n")}
@@ -39,7 +47,11 @@ export function markdownTransform(): Plugin {
         return;
       }
 
-      if (!id.includes(`${path.sep}apps${path.sep}docs${path.sep}components${path.sep}`)) {
+      const docsRoot = `${path.sep}apps${path.sep}docs${path.sep}`;
+      const isComponentDoc = id.includes(`${docsRoot}components${path.sep}`);
+      const isExampleDoc = id.includes(`${docsRoot}examples${path.sep}`);
+
+      if (!isComponentDoc && !isExampleDoc) {
         return;
       }
 

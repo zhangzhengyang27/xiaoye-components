@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="xiaoye-components">
+  <defs>
+    <linearGradient id="xy-favicon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#0f172a" />
+  <path
+    d="M16 18h10l6 10 6-10h10L38 32l12 14H39l-7-10-7 10H14l12-14-10-14Z"
+    fill="url(#xy-favicon-gradient)"
+  />
+</svg>

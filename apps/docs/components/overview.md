@@ -18,7 +18,7 @@ outline: deep
   <section class="xy-overview-card">
     <span class="xy-overview-kicker">01</span>
     <h3>基础操作</h3>
-    <p>Button、Link、Breadcrumb、Text、Badge、Avatar、Image、Card、Carousel、Affix、Anchor、Menu、Tag、Divider、Space、Icon、Tabs、Row、Col、Scrollbar、Splitter 负责主操作、弱跳转、路径导航、正文强调、角标提醒、身份展示、图片承接、卡片分区、轮播展示、页内定位、导航骨架、轻量分组、固钉辅助和布局骨架。</p>
+    <p>Button、Link、Breadcrumb、Text、Badge、Avatar、Image、Watermark、Card、Carousel、Affix、Anchor、Menu、Tag、Divider、Space、Icon、Tabs、Row、Col、Scrollbar、Splitter 负责主操作、弱跳转、路径导航、正文强调、角标提醒、身份展示、图片承接、水印标识、卡片分区、轮播展示、页内定位、导航骨架、轻量分组、固钉辅助和布局骨架。</p>
     <a href="/components/button">进入基础组件</a>
     <a href="/components/breadcrumb">查看 Breadcrumb API</a>
     <a href="/components/divider">查看 Divider API</a>
@@ -35,7 +35,7 @@ outline: deep
   <section class="xy-overview-card">
     <span class="xy-overview-kicker">03</span>
     <h3>反馈与浮层</h3>
-    <p>Alert、Message、Tooltip、Popover、Popconfirm、Dropdown、Backtop、Collapse、Empty、Loading、Skeleton、Result、Dialog、Drawer 负责页面提示、全局反馈、菜单、轻量确认、回顶辅助、折叠收纳、容器与全屏加载遮罩、空态、结果承接和上下文切换。</p>
+    <p>Alert、Message、Notification、Tooltip、Popover、Popconfirm、Dropdown、Backtop、Collapse、Collapse Transition、Empty、Loading、Skeleton、Result、Dialog、Drawer 负责页面提示、全局反馈、菜单、轻量确认、回顶辅助、折叠收纳、过渡衔接、容器与全屏加载遮罩、空态、结果承接和上下文切换。</p>
     <a href="/components/empty">进入反馈组件</a>
     <a href="/examples/skeleton">查看 Skeleton 场景示例</a>
   </section>
@@ -76,6 +76,7 @@ outline: deep
       <a href="/components/badge">Badge 徽章</a>
       <a href="/components/avatar">Avatar 头像</a>
       <a href="/components/image">Image 图片</a>
+      <a href="/components/watermark">Watermark 水印</a>
       <a href="/components/card">Card 卡片</a>
       <a href="/components/carousel">Carousel 走马灯</a>
       <a href="/components/affix">Affix 固钉</a>
@@ -114,7 +115,6 @@ outline: deep
       <a href="/components/select">Select 选择器</a>
       <a href="/components/form">Form 表单</a>
       <a href="/components/upload">Upload 上传</a>
-      <a href="/components/pagination">Pagination 分页</a>
     </div>
   </section>
 
@@ -126,7 +126,9 @@ outline: deep
     <div class="xy-overview-links">
       <a href="/components/alert">Alert 提示</a>
       <a href="/components/message">Message 消息提示</a>
+      <a href="/components/notification">Notification 通知</a>
       <a href="/components/collapse">Collapse 折叠面板</a>
+      <a href="/components/collapse-transition">Collapse Transition 折叠过渡</a>
       <a href="/components/empty">Empty 空状态</a>
       <a href="/components/loading">Loading 加载</a>
       <a href="/components/skeleton">Skeleton 骨架屏</a>
