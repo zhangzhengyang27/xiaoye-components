@@ -7,6 +7,7 @@ export * from "./text";
 export * from "./badge";
 export * from "./avatar";
 export * from "./image";
+export * from "./watermark";
 export * from "./card";
 export * from "./carousel";
 export * from "./affix";

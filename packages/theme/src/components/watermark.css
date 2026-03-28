@@ -1,0 +1,15 @@
+.xy-watermark {
+  position: relative;
+}
+
+.xy-watermark-target--relative {
+  position: relative !important;
+}
+
+.xy-watermark__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  background-repeat: repeat;
+}

@@ -65,6 +65,14 @@
     "styleImports": ["image"]
   },
   {
+    "name": "watermark",
+    "docsGroup": "basic",
+    "docsText": "Watermark 水印",
+    "installExports": ["XyWatermark"],
+    "installChecks": [{ "kind": "component", "name": "xy-watermark" }],
+    "styleImports": ["watermark"]
+  },
+  {
     "name": "card",
     "docsGroup": "basic",
     "docsText": "Card 卡片",
