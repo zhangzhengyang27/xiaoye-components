@@ -17,7 +17,7 @@ import type {
   UploadRequestOptions
 } from "./upload";
 
-interface UploadContentProps
+export interface UploadContentProps
   extends Pick<
     UploadProps,
     | "action"

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, reactive } from "vue";
 
+type SceneStatus = "neutral" | "warning" | "success";
+
 const model = reactive({
   scene: ""
 });
@@ -9,7 +11,11 @@ const rules = {
   scene: [{ required: true, message: "请选择发布环境", trigger: "change" as const }]
 };
 
-const sceneMeta = computed(() => {
+const sceneMeta = computed<{
+  title: string;
+  hint: string;
+  status: SceneStatus;
+}>(() => {
   switch (model.scene) {
     case "dev":
       return {
@@ -71,7 +77,7 @@ const sceneMeta = computed(() => {
           <span class="demo-radio-form__aside-kicker">Environment</span>
           <strong>{{ sceneMeta.title }}</strong>
           <p>{{ sceneMeta.hint }}</p>
-          <xy-tag size="sm" :status="sceneMeta.status as 'neutral' | 'warning' | 'success'" round>
+          <xy-tag size="sm" :status="sceneMeta.status" round>
             {{ sceneMeta.title }}
           </xy-tag>
         </aside>

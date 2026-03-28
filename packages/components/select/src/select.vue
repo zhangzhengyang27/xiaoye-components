@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="T extends string | number">
-import { computed, getCurrentInstance, inject, nextTick, ref, useSlots, watch } from "vue";
+import { computed, getCurrentInstance, inject, nextTick, ref, watch } from "vue";
 import type { StyleValue } from "vue";
-import type { SelectOption } from "@xiaoye/utils";
 import {
   useConfig,
   useDismissibleLayer,
@@ -58,7 +57,6 @@ const emit = defineEmits<{
   blur: [];
 }>();
 
-const slots = useSlots();
 const instance = getCurrentInstance();
 const formItem = inject(formItemKey, null);
 const ns = useNamespace("select");

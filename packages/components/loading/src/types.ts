@@ -3,7 +3,7 @@ import type { VNode } from "vue";
 export type LoadingText = string | VNode | VNode[];
 export const DEFAULT_LOADING_SVG_VIEW_BOX = "0 0 50 50";
 
-export interface LoadingParentElement extends HTMLElement {}
+export type LoadingParentElement = HTMLElement;
 
 export interface LoadingGlobalConfig {
   text?: string;

@@ -3,7 +3,7 @@ defineOptions({
   name: "XyPopconfirm"
 });
 
-import { computed, nextTick, onBeforeUnmount, ref, useSlots, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import type { StyleValue } from "vue";
 import { focusFirstDescendant } from "@xiaoye/utils";
 import { useConfig, useNamespace } from "@xiaoye/composables";
@@ -70,8 +70,7 @@ const emit = defineEmits<{
   cancel: [event: MouseEvent];
 }>();
 
-const slots = useSlots();
-defineSlots<{
+const slots = defineSlots<{
   reference?: () => unknown;
   default?: (scope: {
     confirm: (event: MouseEvent) => Promise<void>;

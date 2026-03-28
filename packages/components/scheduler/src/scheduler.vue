@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useSlots, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import type {
   CalendarApi,
   CalendarOptions,
@@ -81,12 +81,11 @@ const emit = defineEmits<{
   "view-change": [payload: SchedulerViewChangePayload];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   "event-content"?: (props: SchedulerEventContentSlotProps) => unknown;
   "day-cell-content"?: (props: SchedulerDayCellContentSlotProps) => unknown;
 }>();
 
-const slots = useSlots();
 const ns = useNamespace("scheduler");
 const calendarRef = ref<{ getApi: () => CalendarApi } | null>(null);
 const initialized = ref(false);

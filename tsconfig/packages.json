@@ -9,6 +9,7 @@
     "../packages/**/*.tsx",
     "../packages/**/*.d.ts",
     "../packages/**/*.vue",
+    "../scripts/**/*.ts",
     "../vite.config.ts"
   ]
 }

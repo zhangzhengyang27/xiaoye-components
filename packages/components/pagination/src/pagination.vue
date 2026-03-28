@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, useSlots } from "vue";
+import { computed, ref, watch } from "vue";
 import type { SelectOption } from "@xiaoye/utils";
 import { useConfig, useNamespace } from "@xiaoye/composables";
 import XySelect from "../../select";
@@ -39,7 +39,6 @@ const emit = defineEmits<{
   change: [page: number, pageSize: number];
 }>();
 
-const slots = useSlots();
 const ns = useNamespace("pagination");
 const { size: globalSize } = useConfig();
 const innerCurrentPage = ref(props.defaultCurrentPage);

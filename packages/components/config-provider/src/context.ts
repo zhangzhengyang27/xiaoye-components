@@ -1,4 +1,4 @@
-import { shallowRef } from "vue";
+import { computed, shallowRef } from "vue";
 import type { ComputedRef, InjectionKey, MaybeRef } from "vue";
 import type { ComponentSize } from "@xiaoye/utils";
 import type { DialogGlobalConfig } from "../../dialog/src/dialog";
@@ -32,9 +32,24 @@ export const configProviderKey: InjectionKey<ConfigProviderContext> =
   Symbol("xiaoye-config-provider");
 
 export const DEFAULT_NAMESPACE = "xy";
+export const DEFAULT_Z_INDEX = 2000;
+export const DEFAULT_SIZE: ComponentSize = "md";
 
 export function resolveMaybeRef<T>(value: MaybeRef<T>) {
   return value;
+}
+
+export function createConfigProviderContext(options: ConfigProviderProps = {}): ConfigProviderContext {
+  return {
+    namespace: computed(() => options.namespace ?? DEFAULT_NAMESPACE),
+    locale: computed(() => options.locale ?? {}),
+    zIndex: computed(() => options.zIndex ?? DEFAULT_Z_INDEX),
+    size: computed(() => options.size ?? DEFAULT_SIZE),
+    dialog: computed(() => options.dialog ?? {}),
+    loading: computed(() => options.loading ?? {}),
+    message: computed(() => options.message ?? {}),
+    notification: computed(() => options.notification ?? {})
+  };
 }
 
 const globalDialogConfigRegistry = new Map<string, DialogGlobalConfig>();

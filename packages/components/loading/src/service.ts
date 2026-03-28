@@ -607,7 +607,7 @@ function openLoading(
     return fullscreenInstance;
   }
 
-  let controller!: LoadingController;
+  const controller = {} as LoadingController;
 
   const instance = createLoadingComponent(
     {
@@ -619,7 +619,7 @@ function openLoading(
     nextZIndex(baseZIndex)
   );
 
-  controller = {
+  Object.assign(controller, {
     appContext: appContext ?? null,
     currentOptions: resolved,
     followerCleanup: null,
@@ -635,7 +635,7 @@ function openLoading(
     rawUpdate: instance.update.bind(instance),
     shownAt: null,
     instance
-  };
+  });
 
   instance.setText = (text: LoadingText) => {
     controller.currentOptions.text = text;

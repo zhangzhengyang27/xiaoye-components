@@ -7,6 +7,7 @@
     "../apps/**/*.d.ts",
     "../apps/**/*.vue",
     "../apps/**/*.md",
-    "../apps/**/*.mts"
+    "../apps/**/*.mts",
+    "../scripts/**/*.ts"
   ]
 }

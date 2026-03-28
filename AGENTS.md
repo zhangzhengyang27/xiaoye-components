@@ -16,21 +16,21 @@
 - TypeScript 中使用对应的 PascalCase 标识符，例如 `XyButton`、`XyFormItem`、`XyTimePicker`。
 - Vue 模板、文档示例、测试模板中的组件标签统一使用 `xy-button`、`xy-form-item`、`xy-time-picker` 这类 kebab-case。
 - 新增或修改组件时，除源码外，优先同步检查这些入口是否需要更新：
+  - `packages/components/component-manifest.ts`
   - `packages/components/index.ts`
-  - `packages/xiaoye-components/index.ts`
   - `packages/theme/index.css`
+- 组件清单、文档侧边栏、聚合安装断言和一致性校验以 `packages/components/component-manifest.ts` 为主源，避免多处手工同步。
 - 修改组件相关逻辑后，优先补齐或更新对应单测；如果组件有类型导出或安装入口变化，也要检查 `tests/types/fixtures` 和 `packages/xiaoye-components/__tests__`。
 
 ## 当前组件范围
 
-- 当前 `packages/components/index.ts` 已导出 56 个组件：
+- 当前 `packages/components/index.ts` 已导出 61 个组件：
   - 配置入口：`config-provider`
-  - 基础与展示：`icon`、`button`、`link`、`breadcrumb`、`text`、`badge`、`avatar`、`image`、`card`、`carousel`、`affix`、`alert`、`anchor`、`backtop`、`menu`、`tag`、`result`
-  - 表单输入：`input`、`radio`、`checkbox`、`switch`、`input-tag`、`input-number`、`rate`、`slider`、`select`、`form`
-  - 时间与上传：`date-picker`、`time-picker`、`time-select`、`scheduler`、`upload`
-  - 反馈与浮层：`dialog`、`drawer`、`tooltip`、`popover`、`dropdown`、`collapse`、`collapse-transition`、`tabs`、`skeleton`、`empty`
+  - 基础与展示：`icon`、`button`、`link`、`breadcrumb`、`text`、`badge`、`avatar`、`image`、`card`、`carousel`、`affix`、`anchor`、`menu`、`row`、`col`、`scrollbar`、`splitter`、`divider`、`tag`、`space`、`tabs`
+  - 表单输入：`input`、`radio`、`checkbox`、`switch`、`input-tag`、`input-number`、`rate`、`slider`、`select`、`form`、`upload`
+  - 时间相关：`date-picker`、`time-picker`、`time-select`、`scheduler`
+  - 反馈与浮层：`alert`、`message`、`notification`、`backtop`、`collapse`、`collapse-transition`、`empty`、`loading`、`skeleton`、`result`、`tooltip`、`popover`、`popconfirm`、`dropdown`、`dialog`、`drawer`
   - 数据展示：`progress`、`steps`、`statistic`、`countdown`、`timeline`、`tree`、`table`、`pagination`
-  - 布局容器：`scrollbar`、`splitter`、`row`、`col`、`space`
 - 更新 `AGENTS.md`、文档导航或任务说明时，组件清单应以上述导出入口为准，不要沿用旧列表。
 
 ## 文档与测试约定

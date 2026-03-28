@@ -26,7 +26,6 @@ import {
 } from "./message";
 import {
   getMatchingGroupInstance,
-  getMessageInstance,
   getMessageSnapshot,
   getOrCreatePlacementInstances,
   getScopedPlacementInstances,
@@ -420,7 +419,7 @@ function createMessage(
 ): MessageContext {
   const id = `xy-message-${seed++}`;
   const container = document.createElement("div");
-  let instance!: MessageContext;
+  const instance = {} as MessageContext;
 
   const props: MessageCreateProps = {
     ...options,
@@ -458,7 +457,7 @@ function createMessage(
     }
   };
 
-  instance = {
+  Object.assign(instance, {
     id,
     vnode,
     vm: vm as MessageContext["vm"],
@@ -466,7 +465,7 @@ function createMessage(
     props: vm.props as MessageContext["props"],
     targetKey: options.targetKey,
     max: options.max
-  };
+  });
 
   return instance;
 }

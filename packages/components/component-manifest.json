@@ -1,0 +1,550 @@
+[
+  {
+    "name": "button",
+    "docsGroup": "basic",
+    "docsText": "Button 按钮",
+    "installExports": ["XyButton", "XyButtonGroup"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-button" },
+      { "kind": "component", "name": "xy-button-group" }
+    ],
+    "styleImports": ["button"]
+  },
+  {
+    "name": "link",
+    "docsGroup": "basic",
+    "docsText": "Link 文字链接",
+    "installExports": ["XyLink"],
+    "installChecks": [{ "kind": "component", "name": "xy-link" }],
+    "styleImports": ["link"]
+  },
+  {
+    "name": "breadcrumb",
+    "docsGroup": "basic",
+    "docsText": "Breadcrumb 面包屑",
+    "installExports": ["XyBreadcrumb", "XyBreadcrumbItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-breadcrumb" },
+      { "kind": "component", "name": "xy-breadcrumb-item" }
+    ],
+    "styleImports": ["breadcrumb"]
+  },
+  {
+    "name": "text",
+    "docsGroup": "basic",
+    "docsText": "Text 文本",
+    "installExports": ["XyText"],
+    "installChecks": [{ "kind": "component", "name": "xy-text" }],
+    "styleImports": ["text"]
+  },
+  {
+    "name": "badge",
+    "docsGroup": "basic",
+    "docsText": "Badge 徽章",
+    "installExports": ["XyBadge"],
+    "installChecks": [{ "kind": "component", "name": "xy-badge" }],
+    "styleImports": ["badge"]
+  },
+  {
+    "name": "avatar",
+    "docsGroup": "basic",
+    "docsText": "Avatar 头像",
+    "installExports": ["XyAvatar", "XyAvatarGroup"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-avatar" },
+      { "kind": "component", "name": "xy-avatar-group" }
+    ],
+    "styleImports": ["avatar", "avatar-group"]
+  },
+  {
+    "name": "image",
+    "docsGroup": "basic",
+    "docsText": "Image 图片",
+    "installExports": ["XyImage"],
+    "installChecks": [{ "kind": "component", "name": "xy-image" }],
+    "styleImports": ["image"]
+  },
+  {
+    "name": "card",
+    "docsGroup": "basic",
+    "docsText": "Card 卡片",
+    "installExports": ["XyCard"],
+    "installChecks": [{ "kind": "component", "name": "xy-card" }],
+    "styleImports": ["card"]
+  },
+  {
+    "name": "carousel",
+    "docsGroup": "basic",
+    "docsText": "Carousel 走马灯",
+    "installExports": ["XyCarousel", "XyCarouselItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-carousel" },
+      { "kind": "component", "name": "xy-carousel-item" }
+    ],
+    "styleImports": ["carousel"]
+  },
+  {
+    "name": "affix",
+    "docsGroup": "basic",
+    "docsText": "Affix 固钉",
+    "installExports": ["XyAffix"],
+    "installChecks": [{ "kind": "component", "name": "xy-affix" }],
+    "styleImports": ["affix"]
+  },
+  {
+    "name": "anchor",
+    "docsGroup": "basic",
+    "docsText": "Anchor 锚点",
+    "installExports": ["XyAnchor", "XyAnchorLink"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-anchor" },
+      { "kind": "component", "name": "xy-anchor-link" }
+    ],
+    "styleImports": ["anchor"]
+  },
+  {
+    "name": "menu",
+    "docsGroup": "basic",
+    "docsText": "Menu 菜单",
+    "installExports": ["XyMenu", "XyMenuItem", "XyMenuItemGroup", "XySubMenu"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-menu" },
+      { "kind": "component", "name": "xy-menu-item" },
+      { "kind": "component", "name": "xy-menu-item-group" },
+      { "kind": "component", "name": "xy-sub-menu" }
+    ],
+    "styleImports": ["menu"]
+  },
+  {
+    "name": "row",
+    "docsGroup": "basic",
+    "docsText": "Row 栅格行",
+    "installExports": ["XyRow"],
+    "installChecks": [{ "kind": "component", "name": "xy-row" }],
+    "styleImports": ["row"]
+  },
+  {
+    "name": "col",
+    "docsGroup": "basic",
+    "docsText": "Col 栅格列",
+    "installExports": ["XyCol"],
+    "installChecks": [{ "kind": "component", "name": "xy-col" }],
+    "styleImports": ["col"]
+  },
+  {
+    "name": "scrollbar",
+    "docsGroup": "basic",
+    "docsText": "Scrollbar 滚动条",
+    "installExports": ["XyScrollbar"],
+    "installChecks": [{ "kind": "component", "name": "xy-scrollbar" }],
+    "styleImports": ["scrollbar"]
+  },
+  {
+    "name": "splitter",
+    "docsGroup": "basic",
+    "docsText": "Splitter 分隔面板",
+    "installExports": ["XySplitter", "XySplitterPanel"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-splitter" },
+      { "kind": "component", "name": "xy-splitter-panel" }
+    ],
+    "styleImports": ["splitter"]
+  },
+  {
+    "name": "divider",
+    "docsGroup": "basic",
+    "docsText": "Divider 分割线",
+    "installExports": ["XyDivider"],
+    "installChecks": [{ "kind": "component", "name": "xy-divider" }],
+    "styleImports": ["divider"]
+  },
+  {
+    "name": "icon",
+    "docsGroup": "basic",
+    "docsText": "Icon 图标",
+    "installExports": ["XyIcon"],
+    "installChecks": [{ "kind": "component", "name": "xy-icon" }],
+    "styleImports": ["icon"]
+  },
+  {
+    "name": "tag",
+    "docsGroup": "basic",
+    "docsText": "Tag 标签",
+    "installExports": ["XyTag"],
+    "installChecks": [{ "kind": "component", "name": "xy-tag" }],
+    "styleImports": ["tag"]
+  },
+  {
+    "name": "space",
+    "docsGroup": "basic",
+    "docsText": "Space 间距",
+    "installExports": ["XySpace"],
+    "installChecks": [{ "kind": "component", "name": "xy-space" }],
+    "styleImports": ["space"]
+  },
+  {
+    "name": "tabs",
+    "docsGroup": "basic",
+    "docsText": "Tabs 标签页",
+    "installExports": ["XyTabs"],
+    "installChecks": [{ "kind": "component", "name": "xy-tabs" }],
+    "styleImports": ["tabs"]
+  },
+  {
+    "name": "config-provider",
+    "docsGroup": "form",
+    "docsText": "Config Provider 全局配置",
+    "installExports": ["XyConfigProvider"],
+    "installChecks": [{ "kind": "component", "name": "xy-config-provider" }],
+    "styleImports": []
+  },
+  {
+    "name": "input",
+    "docsGroup": "form",
+    "docsText": "Input 输入框",
+    "installExports": ["XyInput"],
+    "installChecks": [{ "kind": "component", "name": "xy-input" }],
+    "styleImports": ["input"]
+  },
+  {
+    "name": "radio",
+    "docsGroup": "form",
+    "docsText": "Radio 单选框",
+    "installExports": ["XyRadio", "XyRadioButton", "XyRadioGroup"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-radio" },
+      { "kind": "component", "name": "xy-radio-button" },
+      { "kind": "component", "name": "xy-radio-group" }
+    ],
+    "styleImports": ["radio"]
+  },
+  {
+    "name": "checkbox",
+    "docsGroup": "form",
+    "docsText": "Checkbox 复选框",
+    "installExports": ["XyCheckbox", "XyCheckboxButton", "XyCheckboxGroup"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-checkbox" },
+      { "kind": "component", "name": "xy-checkbox-button" },
+      { "kind": "component", "name": "xy-checkbox-group" }
+    ],
+    "styleImports": ["checkbox"]
+  },
+  {
+    "name": "switch",
+    "docsGroup": "form",
+    "docsText": "Switch 开关",
+    "installExports": ["XySwitch"],
+    "installChecks": [{ "kind": "component", "name": "xy-switch" }],
+    "styleImports": ["switch"]
+  },
+  {
+    "name": "input-tag",
+    "docsGroup": "form",
+    "docsText": "InputTag 标签输入框",
+    "installExports": ["XyInputTag"],
+    "installChecks": [{ "kind": "component", "name": "xy-input-tag" }],
+    "styleImports": ["input-tag"]
+  },
+  {
+    "name": "input-number",
+    "docsGroup": "form",
+    "docsText": "Input Number 数字输入框",
+    "installExports": ["XyInputNumber"],
+    "installChecks": [{ "kind": "component", "name": "xy-input-number" }],
+    "styleImports": ["input-number"]
+  },
+  {
+    "name": "rate",
+    "docsGroup": "form",
+    "docsText": "Rate 评分",
+    "installExports": ["XyRate"],
+    "installChecks": [{ "kind": "component", "name": "xy-rate" }],
+    "styleImports": ["rate"]
+  },
+  {
+    "name": "slider",
+    "docsGroup": "form",
+    "docsText": "Slider 滑块",
+    "installExports": ["XySlider"],
+    "installChecks": [{ "kind": "component", "name": "xy-slider" }],
+    "styleImports": ["slider"]
+  },
+  {
+    "name": "date-picker",
+    "docsGroup": "form",
+    "docsText": "DatePicker 日期选择器",
+    "installExports": ["XyDatePicker"],
+    "installChecks": [{ "kind": "component", "name": "xy-date-picker" }],
+    "styleImports": ["date-picker"]
+  },
+  {
+    "name": "time-picker",
+    "docsGroup": "form",
+    "docsText": "TimePicker 时间选择器",
+    "installExports": ["XyTimePicker"],
+    "installChecks": [{ "kind": "component", "name": "xy-time-picker" }],
+    "styleImports": ["time-picker"]
+  },
+  {
+    "name": "time-select",
+    "docsGroup": "form",
+    "docsText": "TimeSelect 时间选择",
+    "installExports": ["XyTimeSelect"],
+    "installChecks": [{ "kind": "component", "name": "xy-time-select" }],
+    "styleImports": ["time-select"]
+  },
+  {
+    "name": "select",
+    "docsGroup": "form",
+    "docsText": "Select 选择器",
+    "installExports": ["XySelect"],
+    "installChecks": [{ "kind": "component", "name": "xy-select" }],
+    "styleImports": ["select"]
+  },
+  {
+    "name": "form",
+    "docsGroup": "form",
+    "docsText": "Form 表单",
+    "installExports": ["XyForm", "XyFormItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-form" },
+      { "kind": "component", "name": "xy-form-item" }
+    ],
+    "styleImports": ["form"]
+  },
+  {
+    "name": "upload",
+    "docsGroup": "form",
+    "docsText": "Upload 上传",
+    "installExports": ["XyUpload"],
+    "installChecks": [{ "kind": "component", "name": "xy-upload" }],
+    "styleImports": ["upload"]
+  },
+  {
+    "name": "alert",
+    "docsGroup": "feedback",
+    "docsText": "Alert 提示",
+    "installExports": ["XyAlert"],
+    "installChecks": [{ "kind": "component", "name": "xy-alert" }],
+    "styleImports": ["alert"]
+  },
+  {
+    "name": "message",
+    "docsGroup": "feedback",
+    "docsText": "Message 消息提示",
+    "installExports": ["XyMessage"],
+    "installChecks": [{ "kind": "globalProperty", "name": "$message" }],
+    "styleImports": ["message"]
+  },
+  {
+    "name": "notification",
+    "docsGroup": "feedback",
+    "docsText": "Notification 通知",
+    "installExports": ["XyNotification", "XyNotificationService"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-notification" },
+      { "kind": "globalProperty", "name": "$notify" }
+    ],
+    "styleImports": ["notification"]
+  },
+  {
+    "name": "backtop",
+    "docsGroup": "feedback",
+    "docsText": "Backtop 回到顶部",
+    "installExports": ["XyBacktop"],
+    "installChecks": [{ "kind": "component", "name": "xy-backtop" }],
+    "styleImports": ["backtop"]
+  },
+  {
+    "name": "collapse",
+    "docsGroup": "feedback",
+    "docsText": "Collapse 折叠面板",
+    "installExports": ["XyCollapse", "XyCollapseItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-collapse" },
+      { "kind": "component", "name": "xy-collapse-item" }
+    ],
+    "styleImports": ["collapse"]
+  },
+  {
+    "name": "empty",
+    "docsGroup": "feedback",
+    "docsText": "Empty 空状态",
+    "installExports": ["XyEmpty"],
+    "installChecks": [{ "kind": "component", "name": "xy-empty" }],
+    "styleImports": ["empty"]
+  },
+  {
+    "name": "loading",
+    "docsGroup": "feedback",
+    "docsText": "Loading 加载",
+    "installExports": ["XyLoading"],
+    "installChecks": [
+      { "kind": "directive", "name": "loading" },
+      { "kind": "globalProperty", "name": "$loading" }
+    ],
+    "styleImports": ["loading"]
+  },
+  {
+    "name": "skeleton",
+    "docsGroup": "feedback",
+    "docsText": "Skeleton 骨架屏",
+    "installExports": ["XySkeleton", "XySkeletonItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-skeleton" },
+      { "kind": "component", "name": "xy-skeleton-item" }
+    ],
+    "styleImports": ["skeleton"]
+  },
+  {
+    "name": "result",
+    "docsGroup": "feedback",
+    "docsText": "Result 结果",
+    "installExports": ["XyResult"],
+    "installChecks": [{ "kind": "component", "name": "xy-result" }],
+    "styleImports": ["result"]
+  },
+  {
+    "name": "tooltip",
+    "docsGroup": "feedback",
+    "docsText": "Tooltip 文字提示",
+    "installExports": ["XyTooltip"],
+    "installChecks": [{ "kind": "component", "name": "xy-tooltip" }],
+    "styleImports": ["tooltip"]
+  },
+  {
+    "name": "popover",
+    "docsGroup": "feedback",
+    "docsText": "Popover 气泡卡片",
+    "installExports": ["XyPopover"],
+    "installChecks": [{ "kind": "component", "name": "xy-popover" }],
+    "styleImports": ["popover"]
+  },
+  {
+    "name": "popconfirm",
+    "docsGroup": "feedback",
+    "docsText": "Popconfirm 气泡确认框",
+    "installExports": ["XyPopconfirm"],
+    "installChecks": [{ "kind": "component", "name": "xy-popconfirm" }],
+    "styleImports": ["popconfirm"]
+  },
+  {
+    "name": "dropdown",
+    "docsGroup": "feedback",
+    "docsText": "Dropdown 下拉菜单",
+    "installExports": ["XyDropdown", "XyDropdownMenu", "XyDropdownItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-dropdown" },
+      { "kind": "component", "name": "xy-dropdown-menu" },
+      { "kind": "component", "name": "xy-dropdown-item" }
+    ],
+    "styleImports": ["dropdown"]
+  },
+  {
+    "name": "dialog",
+    "docsGroup": "feedback",
+    "docsText": "Dialog 对话框",
+    "installExports": ["XyDialog"],
+    "installChecks": [{ "kind": "component", "name": "xy-dialog" }],
+    "styleImports": ["dialog"]
+  },
+  {
+    "name": "drawer",
+    "docsGroup": "feedback",
+    "docsText": "Drawer 抽屉",
+    "installExports": ["XyDrawer"],
+    "installChecks": [{ "kind": "component", "name": "xy-drawer" }],
+    "styleImports": ["drawer"]
+  },
+  {
+    "name": "collapse-transition",
+    "docsGroup": "feedback",
+    "docsText": "Collapse Transition 折叠过渡",
+    "installExports": ["XyCollapseTransition"],
+    "installChecks": [{ "kind": "component", "name": "xy-collapse-transition" }],
+    "styleImports": ["collapse-transition"]
+  },
+  {
+    "name": "statistic",
+    "docsGroup": "data",
+    "docsText": "Statistic 统计数值",
+    "installExports": ["XyStatistic"],
+    "installChecks": [{ "kind": "component", "name": "xy-statistic" }],
+    "styleImports": ["statistic"]
+  },
+  {
+    "name": "countdown",
+    "docsGroup": "data",
+    "docsText": "Countdown 倒计时",
+    "installExports": ["XyCountdown"],
+    "installChecks": [{ "kind": "component", "name": "xy-countdown" }],
+    "styleImports": []
+  },
+  {
+    "name": "progress",
+    "docsGroup": "data",
+    "docsText": "Progress 进度条",
+    "installExports": ["XyProgress"],
+    "installChecks": [{ "kind": "component", "name": "xy-progress" }],
+    "styleImports": ["progress"]
+  },
+  {
+    "name": "steps",
+    "docsGroup": "data",
+    "docsText": "Steps 步骤条",
+    "installExports": ["XySteps", "XyStep"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-steps" },
+      { "kind": "component", "name": "xy-step" }
+    ],
+    "styleImports": ["steps"]
+  },
+  {
+    "name": "timeline",
+    "docsGroup": "data",
+    "docsText": "Timeline 时间线",
+    "installExports": ["XyTimeline", "XyTimelineGroup", "XyTimelineItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-timeline" },
+      { "kind": "component", "name": "xy-timeline-group" },
+      { "kind": "component", "name": "xy-timeline-item" }
+    ],
+    "styleImports": ["timeline"]
+  },
+  {
+    "name": "scheduler",
+    "docsGroup": "data",
+    "docsText": "Scheduler 排期日历",
+    "installExports": ["XyScheduler"],
+    "installChecks": [{ "kind": "component", "name": "xy-scheduler" }],
+    "styleImports": ["scheduler"]
+  },
+  {
+    "name": "tree",
+    "docsGroup": "data",
+    "docsText": "Tree 树形控件",
+    "installExports": ["XyTree"],
+    "installChecks": [{ "kind": "component", "name": "xy-tree" }],
+    "styleImports": ["tree"]
+  },
+  {
+    "name": "table",
+    "docsGroup": "data",
+    "docsText": "Table 表格",
+    "installExports": ["XyTable", "XyTableColumn"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-table" },
+      { "kind": "component", "name": "xy-table-column" }
+    ],
+    "styleImports": ["table"]
+  },
+  {
+    "name": "pagination",
+    "docsGroup": "data",
+    "docsText": "Pagination 分页",
+    "installExports": ["XyPagination"],
+    "installChecks": [{ "kind": "component", "name": "xy-pagination" }],
+    "styleImports": ["pagination"]
+  }
+]

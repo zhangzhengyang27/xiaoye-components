@@ -7,7 +7,6 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
-  useSlots,
   watch
 } from "vue";
 import type { PropType, VNodeChild } from "vue";
@@ -17,7 +16,6 @@ import {
   NOTIFICATION_CLOSE_ICON,
   NOTIFICATION_TYPE_ICON_MAP,
   type NotificationCloseReason,
-  type NotificationContent,
   type NotificationProps
 } from "./notification";
 
@@ -60,14 +58,13 @@ const emit = defineEmits<{
   click: [event: MouseEvent];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   title?: () => unknown;
   default?: () => unknown;
   actions?: () => unknown;
 }>();
 
 const instance = getCurrentInstance();
-const slots = useSlots();
 const ns = useNamespace("notification");
 const { next } = useZIndex();
 const pendingReason = ref<NotificationCloseReason>("programmatic");

@@ -1,20 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, provide, ref, watch } from "vue";
-import type { PropType, StyleValue, VNode } from "vue";
+import type { PropType, StyleValue } from "vue";
 import XyIcon from "../../icon";
 import {
-  carouselAlignments,
-  carouselArrows,
-  carouselContainScrolls,
-  carouselDirections,
-  carouselEffects,
-  carouselIndicatorPositions,
-  carouselIndicatorTypes,
-  carouselProgressPlacements,
-  carouselThumbIndicatorTypes,
-  carouselThumbPlacements,
-  carouselTriggers,
-  carouselTypes,
   type CarouselAlignment,
   type CarouselArrow,
   type CarouselContainScroll,
@@ -349,20 +337,6 @@ const snapPoints = computed(() => {
 
   return points;
 });
-
-function normalizeIndex(index: number) {
-  if (!items.value.length) {
-    return -1;
-  }
-
-  if (props.loop) {
-    const total = snapPoints.value.length || 1;
-    const mapped = (index % total + total) % total;
-    return snapPoints.value[mapped] ?? 0;
-  }
-
-  return Math.min(Math.max(index, 0), maxIndex.value);
-}
 
 const resolvedActiveIndex = computed(() => {
   const raw = isControlled.value ? props.activeIndex ?? -1 : internalActiveIndex.value;

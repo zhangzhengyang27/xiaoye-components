@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, provide, watch } from "vue";
+import { onBeforeUnmount, provide, watch } from "vue";
 import type { ConfigProviderProps } from "./context";
 import {
+  createConfigProviderContext,
   configProviderKey,
   registerGlobalDialogConfig,
   registerGlobalLoadingConfig,
@@ -30,16 +31,7 @@ const props = withDefaults(defineProps<ConfigProviderProps>(), {
 
 const globalConfigId = `xy-config-provider-${Math.random().toString(36).slice(2, 10)}`;
 
-provide(configProviderKey, {
-  namespace: computed(() => props.namespace),
-  locale: computed(() => props.locale),
-  zIndex: computed(() => props.zIndex),
-  size: computed(() => props.size),
-  dialog: computed(() => props.dialog),
-  loading: computed(() => props.loading),
-  message: computed(() => props.message),
-  notification: computed(() => props.notification)
-});
+provide(configProviderKey, createConfigProviderContext(props));
 
 registerGlobalDialogConfig(globalConfigId, props.dialog);
 registerGlobalLoadingConfig(globalConfigId, props.loading);

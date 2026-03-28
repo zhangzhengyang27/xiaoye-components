@@ -707,7 +707,7 @@ function createNotificationInstance(
 ) {
   const id = nextNotificationId();
   const host = document.createElement("div");
-  let instance!: NotificationContext;
+  const instance = {} as NotificationContext;
 
   const bucket = getOrCreateBucket(normalized.position, normalized.targetKey, normalized.appendTo);
   const previous = bucket.instances.at(-1);
@@ -764,7 +764,7 @@ function createNotificationInstance(
     }
   };
 
-  instance = {
+  Object.assign(instance, {
     id,
     host,
     vnode,
@@ -783,7 +783,7 @@ function createNotificationInstance(
     onClosed: normalized.onClosed,
     onClick: normalized.onClick,
     status: "active"
-  };
+  });
 
   bucket.instances.push(instance);
   applyHostStyle(instance);

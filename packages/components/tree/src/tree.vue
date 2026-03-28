@@ -143,10 +143,6 @@ function getRenderedNodeKey(node: Node) {
   return node.key ?? node.id;
 }
 
-function getVisibleNodes() {
-  return visibleNodes.value;
-}
-
 function findTreeItem(node: Node | TreeKey | null | undefined) {
   if (!treeRef.value || node === undefined || node === null) {
     return null;

@@ -18,7 +18,6 @@ import {
   ref,
   shallowRef,
   Text,
-  useSlots,
   watch
 } from "vue";
 import type { Component, PropType, VNode } from "vue";
@@ -69,7 +68,9 @@ const props = withDefaults(defineProps<MenuProps>(), {
   persistent: true
 });
 const emit = defineEmits(menuEmits);
-const slots = useSlots();
+const slots = defineSlots<{
+  default?: () => VNode[];
+}>();
 const ns = useNamespace("menu");
 const menuRef = ref<HTMLUListElement | null>(null);
 const moreTriggerRef = ref<HTMLElement | null>(null);
@@ -309,10 +310,6 @@ function normalizeMenuDataItems(
   });
 
   return normalized;
-}
-
-function joinClassNames(...classNames: Array<string | undefined>) {
-  return classNames.filter(Boolean).join(" ");
 }
 
 function renderMenuDataIcon(icon: MenuDataItem["icon"]) {

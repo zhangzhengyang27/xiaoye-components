@@ -12,10 +12,9 @@ import {
   provide,
   ref,
   shallowRef,
-  useSlots,
   watch
 } from "vue";
-import type { Component, CSSProperties, StyleValue, VNode } from "vue";
+import type { Component, StyleValue, VNode } from "vue";
 import { useFloatingPanel, useNamespace } from "@xiaoye/composables";
 import XyIcon from "../../icon";
 import XyMenuCollapseTransition from "./menu-collapse-transition.vue";
@@ -37,7 +36,6 @@ const props = withDefaults(defineProps<SubMenuProps>(), {
   collapseCloseIcon: undefined,
   collapseOpenIcon: undefined
 });
-const slots = useSlots();
 const nsMenu = useNamespace("menu");
 const nsSubMenu = useNamespace("sub-menu");
 const triggerRef = ref<HTMLDivElement | null>(null);

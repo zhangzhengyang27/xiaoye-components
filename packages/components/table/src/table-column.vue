@@ -7,12 +7,16 @@ import {
   onBeforeUnmount,
   provide,
   shallowRef,
-  useSlots,
   type VNode
 } from "vue";
 import { tableColumnContextKey, tableContextKey } from "./tokens";
 import type { TableColumnContext, TableColumnRegistration, TableContext } from "./tokens";
-import type { TableColumnProps, TableResolvedColumn } from "./table";
+import type {
+  TableCellSlotProps,
+  TableColumnProps,
+  TableHeaderSlotProps,
+  TableResolvedColumn
+} from "./table";
 import { normalizeFixed, normalizeSortOrders, toNumberSize } from "./table";
 
 defineOptions({
@@ -47,7 +51,10 @@ const props = withDefaults(defineProps<TableColumnProps<T>>(), {
   resizable: true
 });
 
-const slots = useSlots();
+const slots = defineSlots<{
+  default?: (props: TableCellSlotProps<T>) => unknown;
+  header?: (props: TableHeaderSlotProps<T>) => unknown;
+}>();
 const instance = getCurrentInstance();
 const table = inject(tableContextKey, null) as TableContext<T> | null;
 const parentColumn = inject(tableColumnContextKey, null) as TableColumnContext<T> | null;
@@ -135,7 +142,7 @@ const descriptor = computed<TableResolvedColumn<T>>(() => ({
   leafIndex: 0
 }));
 
-const slotProbeProps = computed(() => ({
+const slotProbeProps = computed<TableCellSlotProps<T>>(() => ({
   row: {} as T,
   rowIndex: -1,
   column: descriptor.value,
@@ -145,12 +152,15 @@ const slotProbeProps = computed(() => ({
   treeNode: undefined
 }));
 
-const shouldRenderNestedColumns = computed(
-  () =>
+const shouldRenderNestedColumns = computed(() => {
+  const slotNodes = slots.default?.(slotProbeProps.value);
+
+  return (
     props.type === "default" &&
     !props.prop &&
-    hasNestedColumnVNode(slots.default?.(slotProbeProps.value))
-);
+    hasNestedColumnVNode(Array.isArray(slotNodes) ? (slotNodes as VNode[]) : undefined)
+  );
+});
 
 const registration = {
   uid,

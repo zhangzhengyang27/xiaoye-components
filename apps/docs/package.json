@@ -6,8 +6,8 @@
     "markdown-it-container": "^4.0.0"
   },
   "scripts": {
-    "docs:dev": "rimraf node_modules/vue && vitepress dev .",
-    "docs:build": "rimraf node_modules/vue && vitepress build .",
+    "docs:dev": "vitepress dev .",
+    "docs:build": "vitepress build .",
     "docs:preview": "vitepress preview ."
   }
 }

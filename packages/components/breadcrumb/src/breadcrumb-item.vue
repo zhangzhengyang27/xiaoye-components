@@ -97,7 +97,13 @@ function handleClick(event: MouseEvent) {
   }
 
   event.preventDefault();
-  props.replace ? router?.replace?.(props.to) : router?.push?.(props.to);
+
+  if (props.replace) {
+    router?.replace?.(props.to);
+    return;
+  }
+
+  router?.push?.(props.to);
 }
 
 function handleKeydown(event: KeyboardEvent) {

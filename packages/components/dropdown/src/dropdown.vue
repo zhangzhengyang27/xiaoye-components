@@ -4,8 +4,8 @@ defineOptions({
   inheritAttrs: false
 });
 
-import { computed, nextTick, onBeforeUnmount, provide, ref, useAttrs, useSlots, watch } from "vue";
-import type { ComputedRef, Ref, StyleValue } from "vue";
+import { computed, nextTick, onBeforeUnmount, provide, ref, useAttrs, watch } from "vue";
+import type { Ref, StyleValue } from "vue";
 import type { ReferenceElement } from "@floating-ui/dom";
 import {
   useDismissibleLayer,
@@ -18,7 +18,6 @@ import {
 import XyButton from "../../button";
 import { XyButtonGroup } from "../../button";
 import XyIcon from "../../icon";
-import XyDropdownItem from "./dropdown-item.vue";
 import XyDropdownItemImpl from "./dropdown-item-impl.vue";
 import XyDropdownMenu from "./dropdown-menu.vue";
 import type {
@@ -70,7 +69,10 @@ const emit = defineEmits<{
   click: [event: MouseEvent];
 }>();
 
-const slots = useSlots();
+const slots = defineSlots<{
+  default?: () => unknown;
+  dropdown?: () => unknown;
+}>();
 const attrs = useAttrs();
 const ns = useNamespace("dropdown");
 const triggerRef = ref<HTMLElement | null>(null);

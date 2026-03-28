@@ -68,7 +68,7 @@ const viewerImageRef = ref<HTMLImageElement | null>(null);
 const loadError = ref(false);
 const loading = ref(true);
 const imageRequestVersion = ref(0);
-const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
+const { zIndex: overlayZIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 
 const activeIndex = ref(0);
 const isDragging = ref(false);
@@ -96,7 +96,7 @@ const viewerClasses = computed(() => [
 ]);
 const viewerImageKey = computed(() => `${currentSrc.value}-${imageRequestVersion.value}`);
 const wrapperStyle = computed(() => ({
-  zIndex: `${props.zIndex ?? zIndex.value}`
+  zIndex: `${props.zIndex ?? overlayZIndex.value}`
 }));
 const hasProgress = computed(() => props.showProgress || Boolean(slots.progress));
 const showToolbar = computed(() => !loading.value && !loadError.value);

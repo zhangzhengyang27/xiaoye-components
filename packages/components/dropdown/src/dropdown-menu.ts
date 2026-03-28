@@ -1,1 +1,4 @@
-export interface DropdownMenuProps {}
+export interface DropdownMenuProps {
+  id?: string;
+  onKeydown?: (event: KeyboardEvent) => void;
+}

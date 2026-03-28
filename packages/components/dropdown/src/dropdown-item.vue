@@ -49,7 +49,7 @@ function buildPayload(): DropdownSelectItem {
   };
 }
 
-function handleSelect(event?: MouseEvent | KeyboardEvent) {
+function handleSelect() {
   if (!dropdown || props.disabled) {
     return;
   }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Fragment, computed, inject, isVNode, nextTick, provide, toRef, useSlots } from "vue";
+import { Fragment, computed, inject, isVNode, nextTick, provide, toRef } from "vue";
 import type { VNode, VNodeArrayChildren } from "vue";
 import { useConfig, useNamespace } from "@xiaoye/composables";
 import { formItemKey } from "../../form/src/context";
@@ -27,7 +27,19 @@ const emit = defineEmits<{
   change: [value: RadioValue];
 }>();
 
-const slots = useSlots();
+const slots = defineSlots<{
+  default?: () => VNodeArrayChildren;
+  option?: (scope: {
+    option: {
+      label: string;
+      value: RadioValue;
+      disabled?: boolean;
+    };
+    checked: boolean;
+    disabled: boolean;
+    type: "radio" | "button";
+  }) => unknown;
+}>();
 const ns = useNamespace("radio");
 const { size: globalSize } = useConfig();
 const formItem = inject(formItemKey, null);

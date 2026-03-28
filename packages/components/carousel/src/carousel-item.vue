@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted, ref, useSlots } from "vue";
+import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted, ref } from "vue";
 import type { CSSProperties } from "vue";
 import { useNamespace } from "@xiaoye/composables";
 import { carouselContextKey } from "./context";
@@ -11,8 +11,6 @@ const props = withDefaults(defineProps<CarouselItemProps>(), {
   duration: undefined,
   autoplayDisabled: false
 });
-const slots = useSlots();
-
 const ns = useNamespace("carousel");
 const carousel = inject(carouselContextKey, null);
 const uid = getCurrentInstance()?.uid ?? Math.random();

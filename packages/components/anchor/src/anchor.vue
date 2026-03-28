@@ -45,7 +45,6 @@ const currentAnchor = ref("");
 const markerStyle = ref<CSSProperties>({});
 const links = new Map<string, HTMLElement>();
 
-let currentScrollTop = 0;
 let isScrolling = false;
 let currentTargetHref = "";
 let clearAnimate: (() => void) | null = null;
@@ -305,8 +304,6 @@ function getCurrentHref() {
 }
 
 function handleScroll() {
-  const container = containerRef.value ?? window;
-
   if (scrollTicking) {
     return;
   }
@@ -315,7 +312,6 @@ function handleScroll() {
 
   window.requestAnimationFrame(() => {
     scrollTicking = false;
-    currentScrollTop = getScrollTop(container);
 
     if (isScrolling) {
       return;
@@ -348,7 +344,6 @@ function connectScrollListener() {
 
 function syncContainer() {
   containerRef.value = resolveContainer(props.container);
-  currentScrollTop = getScrollTop(containerRef.value ?? window);
   connectScrollListener();
 }
 

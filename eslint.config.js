@@ -36,8 +36,47 @@ export default tseslint.config(
       }
     },
     rules: {
+      "no-undef": "off",
+      "no-redeclare": "off",
       "vue/multi-word-component-names": "off",
-      "@typescript-eslint/no-explicit-any": "off"
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          ignoreRestSiblings: true
+        }
+      ]
+    }
+  },
+  {
+    files: ["**/__tests__/**/*.spec.ts", "tests/types/fixtures/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+      "vue/one-component-per-file": "off"
+    }
+  },
+  {
+    files: ["apps/docs/examples/**/*.vue"],
+    rules: {
+      "vue/first-attribute-linebreak": "off",
+      "vue/v-on-event-hyphenation": "off",
+      "vue/attribute-hyphenation": "off"
+    }
+  },
+  {
+    files: ["apps/docs/.vitepress/theme/components/**/*.vue"],
+    rules: {
+      "vue/no-v-html": "off"
+    }
+  },
+  {
+    files: ["packages/components/**/*.vue"],
+    rules: {
+      "vue/no-required-prop-with-default": "off"
     }
   }
 );

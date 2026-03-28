@@ -55,9 +55,9 @@ export interface DialogServiceOpenOptions extends DialogServiceOpenOptionsBase {
   componentProps?: Record<string, unknown>;
 }
 
-export interface DialogAlertOptions extends DialogServiceOpenOptions {}
+export type DialogAlertOptions = DialogServiceOpenOptions;
 
-export interface DialogConfirmOptions extends DialogServiceOpenOptions {}
+export type DialogConfirmOptions = DialogServiceOpenOptions;
 
 export interface DialogPromptOptions extends DialogServiceOpenOptionsBase {
   message?: string;

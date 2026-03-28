@@ -9,7 +9,6 @@ import {
   onMounted,
   onBeforeUnmount,
   ref,
-  useSlots,
   watch,
   type VNode
 } from "vue";
@@ -50,7 +49,7 @@ const props = withDefaults(defineProps<AlertProps>(), {
   collapseText: "收起详情"
 });
 
-defineSlots<{
+const slots = defineSlots<{
   default?: () => unknown;
   title?: () => unknown;
   icon?: () => unknown;
@@ -64,7 +63,6 @@ const emit = defineEmits<{
 }>();
 
 const instance = getCurrentInstance();
-const slots = useSlots();
 const ns = useNamespace("alert");
 const { size: globalSize } = useConfig();
 const rootRef = ref<HTMLDivElement | null>(null);

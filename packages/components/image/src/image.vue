@@ -127,7 +127,7 @@ function resolveScrollRoot() {
 
   const { scrollContainer } = props;
 
-  if (scrollContainer instanceof HTMLElement) {
+  if (typeof HTMLElement !== "undefined" && scrollContainer instanceof HTMLElement) {
     return scrollContainer;
   }
 

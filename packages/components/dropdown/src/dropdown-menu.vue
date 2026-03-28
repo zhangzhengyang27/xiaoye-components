@@ -6,9 +6,10 @@ defineOptions({
 
 import { computed, onBeforeUnmount, onMounted, ref, useAttrs } from "vue";
 import { useNamespace } from "@xiaoye/composables";
+import type { DropdownMenuProps } from "./dropdown-menu";
 import { useDropdown } from "./use-dropdown";
 
-defineProps<{}>();
+defineProps<DropdownMenuProps>();
 defineSlots<{
   default?: () => unknown;
 }>();
