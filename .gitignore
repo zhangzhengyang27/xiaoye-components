@@ -13,3 +13,4 @@ apps/playground/dist
 *.local
 .playwright-cli/
 output/
+test-results/
