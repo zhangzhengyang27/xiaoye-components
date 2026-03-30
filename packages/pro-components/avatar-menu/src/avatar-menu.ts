@@ -1,6 +1,6 @@
 import type { AvatarProps, DropdownCommand, DropdownItem, DropdownProps } from "@xiaoye/components";
 
-export interface AvatarMenuItem extends DropdownItem {}
+export type AvatarMenuItem = DropdownItem;
 
 export interface AvatarMenuProps {
   username?: string;

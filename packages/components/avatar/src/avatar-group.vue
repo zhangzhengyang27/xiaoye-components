@@ -51,9 +51,6 @@ function flattenChildren(children?: VNodeArrayChildren) {
 
 export default defineComponent({
   name: "XyAvatarGroup",
-  emits: {
-    "item-click": (_item: AvatarGroupItem, _index: number) => true
-  },
   props: {
     size: {
       type: [Number, String] as PropType<AvatarGroupProps["size"]>,
@@ -107,6 +104,9 @@ export default defineComponent({
       type: [String, Array, Object] as PropType<StyleValue>,
       default: ""
     }
+  },
+  emits: {
+    "item-click": (_item: AvatarGroupItem, _index: number) => true
   },
   setup(props, { emit }) {
     const slots = useSlots();

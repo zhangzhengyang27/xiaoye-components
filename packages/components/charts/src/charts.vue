@@ -4,7 +4,6 @@ import type { EChartsCoreOption } from "echarts";
 import * as echarts from "echarts";
 import { useNamespace } from "@xiaoye/composables";
 import type {
-  ChartsECharts,
   ChartsLoadingOptions,
   ChartsProps,
   ChartsSetOptionOptions

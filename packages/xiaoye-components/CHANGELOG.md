@@ -1,5 +1,11 @@
 # xiaoye-components
 
+## 0.3.0
+
+### Minor Changes
+
+- 发布 0.3.0，补充基础组件库与增强组件库的最新能力更新。
+
 ## 0.2.0
 
 ### Minor Changes
