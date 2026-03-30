@@ -38,10 +38,34 @@ avatar/fallback
 avatar/group
 :::
 
+## 数据驱动头像组
+
+:::demo 当头像来源于接口数据而不是手写插槽时，可以直接使用 `items` 驱动渲染。
+avatar/data-items
+:::
+
+## 纵向堆叠
+
+:::demo `direction="vertical"` 适合审批链、轮值人员和时间线旁的头像列表。
+avatar/vertical
+:::
+
+## Reverse 堆叠
+
+:::demo `reverse` 只改变视觉层叠顺序，不改写传入数据数组。
+avatar/reverse
+:::
+
 ## 折叠头像组
 
 :::demo 开启 `collapse-avatars` 后，多余头像会折叠成 `+N`。配合 `collapse-avatars-tooltip` 可以在悬浮时展开隐藏成员。
 avatar/collapse
+:::
+
+## 页面协作成员场景
+
+:::demo 更接近真实后台时，AvatarGroup 往往和 `PageContainer`、`Card` 一起使用。
+avatar/page-collaboration
 :::
 
 ## API
@@ -76,6 +100,11 @@ avatar/collapse
 | -------------------------- | ---------------------------- | ---------------------------------------- | -------- |
 | `size`                     | 分组内头像默认尺寸           | `number \| ComponentSize`                | —        |
 | `shape`                    | 分组内头像默认形状           | `'circle' \| 'square'`                   | —        |
+| `items`                    | 数据驱动头像项列表           | `AvatarGroupItem[]`                      | `[]`     |
+| `direction`                | 堆叠方向                     | `'horizontal' \| 'vertical'`             | `'horizontal'` |
+| `gutter`                   | 头像重叠间距，单位 px        | `number`                                 | `8`      |
+| `reverse`                  | 是否反转视觉层叠顺序         | `boolean`                                | `false`  |
+| `inline`                   | 是否使用 `inline-flex` 布局  | `boolean`                                | `true`   |
 | `collapse-avatars`         | 是否折叠多余头像             | `boolean`                                | `false`  |
 | `collapse-avatars-tooltip` | 折叠头像是否支持 tooltip 展开 | `boolean`                                | `false`  |
 | `max-collapse-avatars`     | 可见头像上限                 | `number`                                 | `1`      |
@@ -83,8 +112,31 @@ avatar/collapse
 | `collapse-class`           | 折叠头像自定义类名           | `string`                                 | `''`     |
 | `collapse-style`           | 折叠头像自定义样式           | `StyleValue`                             | `''`     |
 
+### AvatarGroupItem
+
+| 属性 | 说明 | 类型 |
+| --- | --- | --- |
+| `key` | 头像项唯一标识 | `string \| number` |
+| `text` | 文字头像内容 | `string` |
+| `icon` | 图标头像图标名 | `string` |
+| `src` | 图片头像地址 | `string` |
+| `alt` | 图片头像替代文本 | `string` |
+| `src-set` | 图片头像 `srcset` | `string` |
+| `fit` | 图片裁切方式 | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` |
+| `size` | 当前头像项尺寸 | `number \| ComponentSize` |
+| `shape` | 当前头像项形状 | `'circle' \| 'square'` |
+| `className` | 头像项根节点类名 | `string` |
+| `style` | 头像项根节点样式 | `StyleValue` |
+
+### AvatarGroup Events
+
+| 事件 | 说明 | 参数 |
+| --- | --- | --- |
+| `item-click` | 数据驱动模式下点击头像项时触发 | `(item, index) => void` |
+
 ### AvatarGroup Slots
 
-| 插槽      | 说明         |
-| --------- | ------------ |
-| `default` | 头像组内容   |
+| 插槽      | 说明 |
+| --------- | ---- |
+| `default` | 插槽模式下的头像组内容 |
+| `item` | 数据驱动模式下自定义头像项渲染，入参为 `{ item, index }` |

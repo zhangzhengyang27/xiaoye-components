@@ -1,6 +1,7 @@
 import XiaoyeProComponents, {
   XyApprovalFlowPanel,
   XyAuditTimeline,
+  XyAvatarMenu,
   XyAsyncStateContainer,
   XyColumnSettingPanel,
   XyCrudPage,
@@ -8,19 +9,27 @@ import XiaoyeProComponents, {
   XyDetailPanel,
   XyExportTaskPanel,
   XyFilterPanel,
+  XyHeaderTabs,
   XyImportResultTable,
   XyImportWizard,
+  XyLoginForm,
   XyListPage,
+  XyNoticeCenter,
   XyOverlayForm,
+  XyPageContainer,
+  XyPageHeader,
+  XyPageToolbar,
   XyProForm,
   XyProTable,
   XyRequestForm,
   XySavedViewTabs,
   XySearchForm,
   XySplitLayoutPage,
+  XyStatCard,
   XyStepsForm,
   XyTableFilterDrawer,
   type ApprovalFlowNode,
+  type AvatarMenuItem,
   type AsyncStateContainerProps,
   type AuditTimelineEntry,
   type ColumnSettingPanelColumn,
@@ -32,18 +41,31 @@ import XiaoyeProComponents, {
   type DetailPanelProps,
   type ExportTaskItem,
   type FilterPanelProps,
+  type HeaderTabItem,
   type ImportResultSummary,
   type ImportWizardStep,
+  type LoginFormInstance,
+  type LoginFormModel,
+  type LoginFormProps,
+  type LoginFormThirdPartyItem,
   type ListPageProps,
   type ListPageBatchAction,
+  type NoticeCenterTab,
   type OverlayFormProps,
   type OverlayFormSubmitPayload,
+  type PageContainerProps,
+  type PageHeaderProps,
+  type PageIcon,
+  type PageMetaItem,
+  type PageToolbarProps,
   type ProFormProps,
   type ProTableProps,
   type RequestFormSubmitContext,
   type SavedViewTabItem,
   type SearchFormField,
-  type SplitLayoutPageProps
+  type SplitLayoutPageProps,
+  type StatCardProps,
+  type StatTrend
 } from "xiaoye-pro-components";
 
 interface Row {
@@ -63,6 +85,26 @@ const proFormProps: ProFormProps = {
   model: {
     name: "控制台"
   }
+};
+
+const loginFormModel: LoginFormModel = {
+  username: "xiaoye",
+  password: "123456",
+  remember: true
+};
+
+const loginFormThirdPartyItems: LoginFormThirdPartyItem[] = [
+  {
+    key: "wechat",
+    label: "微信登录",
+    icon: "mdi:wechat"
+  }
+];
+
+const loginFormProps: LoginFormProps = {
+  model: loginFormModel,
+  title: "欢迎登录",
+  thirdPartyItems: loginFormThirdPartyItems
 };
 
 const overlayFormProps: OverlayFormProps = {
@@ -87,12 +129,81 @@ const tableProps: ProTableProps<Row> = {
       prop: "name",
       label: "名称"
     }
-  ]
+  ],
+  draggableRow: true,
+  draggableColumn: true
+};
+
+const headerTabItems: HeaderTabItem[] = [
+  {
+    key: "overview",
+    label: "概览"
+  }
+];
+
+const noticeCenterTabs: NoticeCenterTab[] = [
+  {
+    key: "notice",
+    label: "通知",
+    items: []
+  }
+];
+
+const statTrend: StatTrend = "up";
+
+const statCardProps: StatCardProps = {
+  title: "成交额",
+  value: 128000,
+  description: "较上周继续提升",
+  icon: "mdi:cash-multiple",
+  trend: statTrend,
+  trendText: "环比 +12%",
+  loading: false
 };
 
 const filterPanelProps: FilterPanelProps = {
   title: "筛选条件"
 };
+
+const pageToolbarProps: PageToolbarProps = {
+  title: "成员中心",
+  bordered: true
+};
+
+const pageIcon: PageIcon = "mdi:account-circle";
+
+const pageMetaItems: PageMetaItem[] = [
+  {
+    label: "负责人",
+    value: "小叶",
+    icon: pageIcon
+  }
+];
+
+const pageHeaderProps: PageHeaderProps = {
+  title: "成员中心",
+  description: "统一承接页面标题和辅助信息",
+  metaItems: pageMetaItems,
+  divider: true,
+  bordered: true
+};
+
+const pageContainerProps: PageContainerProps = {
+  ...pageHeaderProps,
+  loading: false,
+  shadow: true,
+  bodyClass: "page-container-body",
+  bodyStyle: {
+    padding: "24px"
+  }
+};
+
+const avatarMenuItems: AvatarMenuItem[] = [
+  {
+    key: "profile",
+    label: "个人中心"
+  }
+];
 
 const requestFormContext: RequestFormSubmitContext = {
   action: "submit",
@@ -240,6 +351,9 @@ void XyOverlayForm;
 void XyStepsForm;
 void XyFilterPanel;
 void XyRequestForm;
+void XyLoginForm;
+void XyPageHeader;
+void XyPageContainer;
 void XyProTable;
 void XyColumnSettingPanel;
 void XySavedViewTabs;
@@ -255,13 +369,31 @@ void XySplitLayoutPage;
 void XyApprovalFlowPanel;
 void XyImportWizard;
 void XyExportTaskPanel;
+void XyPageToolbar;
+void XyAvatarMenu;
+void XyHeaderTabs;
+void XyNoticeCenter;
+void XyStatCard;
 void fields;
 void proFormProps;
+void loginFormModel;
+void loginFormThirdPartyItems;
+void loginFormProps;
 void overlayFormProps;
 void overlayPayload;
 void tableProps;
 void filterPanelProps;
+void pageToolbarProps;
+void pageIcon;
+void pageMetaItems;
+void pageHeaderProps;
+void pageContainerProps;
+void avatarMenuItems;
 void requestFormContext;
+void headerTabItems;
+void noticeCenterTabs;
+void statTrend;
+void statCardProps;
 void columnSettingColumns;
 void savedViewItems;
 void importSummary;
@@ -279,3 +411,9 @@ void splitLayoutPageProps;
 void approvalNodes;
 void importWizardSteps;
 void exportTasks;
+
+declare const loginFormInstance: LoginFormInstance;
+
+void loginFormInstance.validate;
+void loginFormInstance.submit;
+void loginFormInstance.focus;

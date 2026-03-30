@@ -14,7 +14,25 @@ const rootTypeWhitelist = {
   "steps-form": ["StepsFormInstance", "StepsFormProps", "StepsFormStep"],
   "filter-panel": ["FilterPanelProps"],
   "request-form": ["RequestFormProps", "RequestFormSubmitContext"],
+  "login-form": [
+    "LoginFormInstance",
+    "LoginFormModel",
+    "LoginFormProps",
+    "LoginFormThirdPartyItem"
+  ],
+  "page-toolbar": ["PageToolbarProps"],
+  "page-header": ["PageHeaderProps", "PageIcon", "PageMetaItem"],
+  "page-container": ["PageContainerProps"],
+  "avatar-menu": ["AvatarMenuCommand", "AvatarMenuItem", "AvatarMenuProps"],
   "pro-table": ["ProTableColumn", "ProTableInstance", "ProTableProps"],
+  "header-tabs": ["HeaderTabItem", "HeaderTabsMenuAction", "HeaderTabsProps"],
+  "notice-center": [
+    "NoticeCenterAction",
+    "NoticeCenterItem",
+    "NoticeCenterProps",
+    "NoticeCenterTab"
+  ],
+  "stat-card": ["StatCardProps", "StatTrend"],
   "column-setting-panel": ["ColumnSettingPanelColumn", "ColumnSettingPanelProps"],
   "saved-view-tabs": ["SavedViewTabItem", "SavedViewTabsProps"],
   "table-filter-drawer": ["TableFilterDrawerProps"],

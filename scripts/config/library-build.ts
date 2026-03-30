@@ -18,12 +18,17 @@ export const libraryExternal = [
   "@iconify/vue",
   "@floating-ui/dom",
   "async-validator",
+  "echarts",
   "@fullcalendar/core",
   "@fullcalendar/core/locales/zh-cn",
   "@fullcalendar/daygrid",
   "@fullcalendar/interaction",
   "@fullcalendar/timegrid",
-  "@fullcalendar/vue3"
+  "@fullcalendar/vue3",
+  "howler",
+  "sortablejs",
+  "vditor",
+  "video.js"
 ];
 
 export function createLibraryConfig(options: {

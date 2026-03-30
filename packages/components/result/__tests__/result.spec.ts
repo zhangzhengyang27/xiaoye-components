@@ -75,6 +75,17 @@ describe("XyResult", () => {
     expect(wrapper.find('[data-icon="mdi:close-circle-outline"]').exists()).toBe(true);
   });
 
+  it("支持后台状态码语义映射", () => {
+    const wrapper = mount(XyResult, {
+      props: {
+        status: "403"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("is-warning");
+    expect(wrapper.find('[data-icon="mdi:shield-lock-outline"]').exists()).toBe(true);
+  });
+
   it("支持 size、variant 和 iconSize", () => {
     const wrapper = mount(XyResult, {
       props: {

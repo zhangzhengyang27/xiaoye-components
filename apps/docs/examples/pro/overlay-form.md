@@ -11,3 +11,9 @@ outline: deep
 :::demo 同一个列表里同时存在“完整编辑”和“快速补充说明”两类覆盖层动作，但统一通过 `OverlayForm` 这一个公开心智承接。
 pro/overlay-form/placements
 :::
+
+## 关闭生命周期
+
+:::demo 对比 `resetOnClose` 与 `destroyOnClose` 的关闭后行为差异。
+pro/overlay-form/close-lifecycle
+:::

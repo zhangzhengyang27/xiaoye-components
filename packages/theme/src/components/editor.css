@@ -1,0 +1,22 @@
+.xy-editor {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-md);
+  overflow: hidden;
+  background: var(--xy-bg-color);
+}
+
+.xy-editor .vditor {
+  border: 0;
+  min-height: inherit;
+}
+
+.xy-editor .vditor-toolbar {
+  border-color: var(--xy-border-color);
+  background: var(--xy-bg-color-muted);
+}
+
+.xy-editor .vditor-content {
+  color: var(--xy-text-color);
+}

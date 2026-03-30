@@ -12,7 +12,8 @@ import type { ResultProps } from "./result";
 import {
   RESULT_ICON_NAME_MAP,
   RESULT_ICON_STATUS_MAP,
-  RESULT_STATUS_ICON_MAP
+  RESULT_STATUS_ICON_MAP,
+  RESULT_STATUS_TONE_MAP
 } from "./result";
 
 const props = withDefaults(defineProps<ResultProps>(), {
@@ -48,7 +49,7 @@ const nativeAttrs = computed<Record<string, unknown>>(() => {
 
 const mergedSize = computed<ComponentSize>(() => props.size ?? globalSize.value);
 const resolvedTone = computed(() =>
-  props.icon ? RESULT_ICON_STATUS_MAP[props.icon] : props.status
+  props.icon ? RESULT_ICON_STATUS_MAP[props.icon] : RESULT_STATUS_TONE_MAP[props.status]
 );
 const resolvedIcon = computed(() =>
   props.icon ? RESULT_ICON_NAME_MAP[props.icon] : RESULT_STATUS_ICON_MAP[props.status]

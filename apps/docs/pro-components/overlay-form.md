@@ -14,6 +14,12 @@ outline: deep
 pro/overlay-form/placements
 :::
 
+## 关闭生命周期
+
+:::demo `resetOnClose` 负责重置字段与校验态，`destroyOnClose` 负责关闭后卸载内容，两者可以同时启用。
+pro/overlay-form/close-lifecycle
+:::
+
 ## 当前定位
 
 - 统一表达覆盖层编辑，不再要求使用方先区分“抽屉表单”还是“弹窗表单”。
@@ -36,6 +42,8 @@ pro/overlay-form/placements
 | `loading` | 初始加载态 | `boolean` | `false` |
 | `submitting` | 提交中态 | `boolean` | `false` |
 | `readonly` | 是否只读 | `boolean` | `false` |
+| `reset-on-close` | 关闭后是否重置字段与校验态 | `boolean` | `false` |
+| `destroy-on-close` | 关闭后是否卸载表单内容，下次打开重新挂载 | `boolean` | `false` |
 | `drawer-props` | 透传给抽屉容器的属性 | `Partial<DrawerProps>` | `{}` |
 | `dialog-props` | 透传给弹窗容器的属性 | `Partial<DialogProps>` | `{}` |
 

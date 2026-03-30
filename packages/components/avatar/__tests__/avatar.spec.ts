@@ -200,4 +200,133 @@ describe("XyAvatarGroup", () => {
     expect(document.body.querySelector(".xy-avatar-group__collapse-avatars")).not.toBeNull();
     expect(document.body.querySelectorAll(".xy-avatar-group__collapse-avatars .xy-avatar")).toHaveLength(2);
   });
+
+  it("items 模式支持文本、图标和图片头像渲染，且优先于默认插槽", () => {
+    const wrapper = mountAvatar(XyAvatarGroup, {
+      props: {
+        items: [
+          {
+            key: "text",
+            text: "叶"
+          },
+          {
+            key: "icon",
+            icon: "mdi:account-outline"
+          },
+          {
+            key: "image",
+            src: "https://example.com/avatar.png",
+            alt: "avatar"
+          }
+        ]
+      },
+      slots: {
+        default: '<xy-avatar class="slot-avatar">槽</xy-avatar>'
+      },
+      global: {
+        components: {
+          XyAvatar
+        }
+      }
+    });
+
+    expect(wrapper.find(".slot-avatar").exists()).toBe(false);
+    expect(wrapper.findAll(".xy-avatar")).toHaveLength(3);
+    expect(wrapper.text()).toContain("叶");
+    expect(wrapper.find('[data-icon="mdi:account-outline"]').exists()).toBe(true);
+    expect(wrapper.find('img[alt="avatar"]').exists()).toBe(true);
+  });
+
+  it("direction、gutter、reverse、inline 会影响类名和结构样式", () => {
+    const wrapper = mountAvatar(XyAvatarGroup, {
+      props: {
+        direction: "vertical",
+        gutter: 12,
+        reverse: true,
+        inline: false,
+        items: [
+          { key: "a", text: "甲" },
+          { key: "b", text: "乙" }
+        ]
+      }
+    });
+
+    const items = wrapper.findAll(".xy-avatar-group__item");
+
+    expect(wrapper.classes()).toContain("is-vertical");
+    expect(wrapper.classes()).toContain("is-reverse");
+    expect(wrapper.classes()).toContain("is-block");
+    expect(wrapper.attributes("style")).toContain("--xy-avatar-group-gap: -12px");
+    expect(items[0]?.attributes("style")).toContain("z-index: 2");
+    expect(items[1]?.attributes("style")).toContain("z-index: 1");
+  });
+
+  it("item-click 会返回数据项和索引", async () => {
+    const wrapper = mountAvatar(XyAvatarGroup, {
+      props: {
+        items: [
+          {
+            key: "member-1",
+            text: "小叶"
+          }
+        ]
+      }
+    });
+
+    await wrapper.get(".xy-avatar-group__item").trigger("click");
+
+    expect(wrapper.emitted("item-click")?.[0]?.[0]).toEqual({
+      key: "member-1",
+      text: "小叶"
+    });
+    expect(wrapper.emitted("item-click")?.[0]?.[1]).toBe(0);
+  });
+
+  it("item 插槽可以覆盖默认头像渲染", () => {
+    const wrapper = mountAvatar(XyAvatarGroup, {
+      props: {
+        items: [
+          {
+            key: "member-1",
+            text: "小叶"
+          }
+        ]
+      },
+      slots: {
+        item: ({ item }: { item: { text: string } }) =>
+          h("button", { class: "custom-avatar-item" }, item.text)
+      }
+    });
+
+    expect(wrapper.find(".custom-avatar-item").exists()).toBe(true);
+    expect(wrapper.find(".custom-avatar-item").text()).toBe("小叶");
+  });
+
+  it("items 模式下同样支持折叠与 tooltip 展开", async () => {
+    vi.useFakeTimers();
+
+    const wrapper = mountAvatar(XyAvatarGroup, {
+      attachTo: document.body,
+      props: {
+        items: [
+          { key: "a", text: "甲" },
+          { key: "b", text: "乙" },
+          { key: "c", text: "丙" }
+        ],
+        collapseAvatars: true,
+        collapseAvatarsTooltip: true,
+        maxCollapseAvatars: 1
+      }
+    });
+
+    expect(wrapper.findAll(".xy-avatar")).toHaveLength(2);
+    expect(wrapper.findAll(".xy-avatar")[1]?.text()).toBe("+2");
+
+    await wrapper.find(".xy-tooltip").trigger("mouseenter");
+    vi.runAllTimers();
+    await Promise.resolve();
+    await nextTick();
+
+    expect(document.body.querySelectorAll(".xy-avatar-group__collapse-avatars .xy-avatar")).toHaveLength(2);
+  });
 });

@@ -2,6 +2,7 @@ import { h } from "vue";
 import {
   XyBreadcrumb,
   XyBreadcrumbItem,
+  type BreadcrumbItemData,
   type BreadcrumbItemProps,
   type BreadcrumbProps
 } from "xiaoye-components";
@@ -24,9 +25,20 @@ const breadcrumbRouteProps: BreadcrumbItemProps = {
   replace: true
 };
 
+const breadcrumbItems: BreadcrumbItemData[] = [
+  {
+    label: "结算中心",
+    href: "/settlement"
+  },
+  {
+    label: "工单详情"
+  }
+];
+
 void breadcrumbProps;
 void breadcrumbItemProps;
 void breadcrumbRouteProps;
+void breadcrumbItems;
 
 const breadcrumbVNode = h(XyBreadcrumb, breadcrumbProps, () => [
   h(XyBreadcrumbItem, breadcrumbItemProps, () => "订单中心"),

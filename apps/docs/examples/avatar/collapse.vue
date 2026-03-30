@@ -1,14 +1,15 @@
 <template>
   <xy-avatar-group
     size="lg"
+    :items="[
+      { key: 'xiaoye', text: '叶' },
+      { key: 'mavis', icon: 'mdi:account-outline' },
+      { key: 'abby', text: 'AB' },
+      { key: 'luna', text: '露' },
+      { key: 'kai', icon: 'mdi:briefcase-account-outline' }
+    ]"
     collapse-avatars
     collapse-avatars-tooltip
     :max-collapse-avatars="2"
-  >
-    <xy-avatar>叶</xy-avatar>
-    <xy-avatar icon="mdi:account-outline" />
-    <xy-avatar shape="square">AB</xy-avatar>
-    <xy-avatar>CD</xy-avatar>
-    <xy-avatar icon="mdi:briefcase-account-outline" />
-  </xy-avatar-group>
+  />
 </template>

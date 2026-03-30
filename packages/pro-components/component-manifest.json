@@ -48,12 +48,76 @@
     "styleImports": ["request-form"]
   },
   {
+    "name": "login-form",
+    "docsGroup": "form",
+    "docsText": "LoginForm 登录表单",
+    "installExports": ["XyLoginForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-login-form" }],
+    "styleImports": ["login-form"]
+  },
+  {
+    "name": "page-toolbar",
+    "docsGroup": "page",
+    "docsText": "PageToolbar 页面工具栏",
+    "installExports": ["XyPageToolbar"],
+    "installChecks": [{ "kind": "component", "name": "xy-page-toolbar" }],
+    "styleImports": ["page-toolbar"]
+  },
+  {
+    "name": "page-header",
+    "docsGroup": "page",
+    "docsText": "PageHeader 页面头部",
+    "installExports": ["XyPageHeader"],
+    "installChecks": [{ "kind": "component", "name": "xy-page-header" }],
+    "styleImports": ["page-header"]
+  },
+  {
+    "name": "page-container",
+    "docsGroup": "page",
+    "docsText": "PageContainer 页面容器",
+    "installExports": ["XyPageContainer"],
+    "installChecks": [{ "kind": "component", "name": "xy-page-container" }],
+    "styleImports": ["page-container"]
+  },
+  {
+    "name": "avatar-menu",
+    "docsGroup": "page",
+    "docsText": "AvatarMenu 头像菜单",
+    "installExports": ["XyAvatarMenu"],
+    "installChecks": [{ "kind": "component", "name": "xy-avatar-menu" }],
+    "styleImports": ["avatar-menu"]
+  },
+  {
     "name": "pro-table",
     "docsGroup": "data",
     "docsText": "ProTable 增强表格",
     "installExports": ["XyProTable"],
     "installChecks": [{ "kind": "component", "name": "xy-pro-table" }],
     "styleImports": ["pro-table"]
+  },
+  {
+    "name": "header-tabs",
+    "docsGroup": "page",
+    "docsText": "HeaderTabs 头部页签",
+    "installExports": ["XyHeaderTabs"],
+    "installChecks": [{ "kind": "component", "name": "xy-header-tabs" }],
+    "styleImports": ["header-tabs"]
+  },
+  {
+    "name": "notice-center",
+    "docsGroup": "page",
+    "docsText": "NoticeCenter 站内消息中心",
+    "installExports": ["XyNoticeCenter"],
+    "installChecks": [{ "kind": "component", "name": "xy-notice-center" }],
+    "styleImports": ["notice-center"]
+  },
+  {
+    "name": "stat-card",
+    "docsGroup": "page",
+    "docsText": "StatCard 指标卡片",
+    "installExports": ["XyStatCard"],
+    "installChecks": [{ "kind": "component", "name": "xy-stat-card" }],
+    "styleImports": ["stat-card"]
   },
   {
     "name": "column-setting-panel",

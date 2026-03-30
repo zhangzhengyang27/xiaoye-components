@@ -15,7 +15,7 @@ import XyTooltip from "../../tooltip";
 import XyAvatar from "./avatar.vue";
 import { avatarGroupContextKey } from "./context";
 import type { AvatarShape } from "./avatar";
-import type { AvatarGroupProps } from "./avatar-group";
+import type { AvatarGroupItem, AvatarGroupProps } from "./avatar-group";
 
 function flattenChildren(children?: VNodeArrayChildren) {
   const queue: VNode[] = [];
@@ -51,6 +51,9 @@ function flattenChildren(children?: VNodeArrayChildren) {
 
 export default defineComponent({
   name: "XyAvatarGroup",
+  emits: {
+    "item-click": (_item: AvatarGroupItem, _index: number) => true
+  },
   props: {
     size: {
       type: [Number, String] as PropType<AvatarGroupProps["size"]>,
@@ -59,6 +62,26 @@ export default defineComponent({
     shape: {
       type: String as PropType<AvatarShape | undefined>,
       default: undefined
+    },
+    items: {
+      type: Array as PropType<AvatarGroupItem[]>,
+      default: () => []
+    },
+    direction: {
+      type: String as PropType<AvatarGroupProps["direction"]>,
+      default: "horizontal"
+    },
+    gutter: {
+      type: Number,
+      default: 8
+    },
+    reverse: {
+      type: Boolean,
+      default: false
+    },
+    inline: {
+      type: Boolean,
+      default: true
     },
     collapseAvatars: {
       type: Boolean,
@@ -85,7 +108,7 @@ export default defineComponent({
       default: ""
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const slots = useSlots();
     const ns = useNamespace("avatar-group");
 
@@ -94,8 +117,52 @@ export default defineComponent({
       shape: toRef(props, "shape")
     });
 
+    function resolveStackStyle(index: number, total: number) {
+      return {
+        zIndex: props.reverse ? total - index : index + 1
+      };
+    }
+
+    function renderDataAvatar(item: AvatarGroupItem, index: number, total: number) {
+      const rendered = slots.item?.({
+        item,
+        index
+      });
+
+      const contentNode =
+        rendered && rendered.length > 0
+          ? rendered
+          : h(
+              XyAvatar,
+              {
+                size: item.size ?? props.size,
+                shape: item.shape ?? props.shape,
+                src: item.src,
+                alt: item.alt,
+                srcSet: item.srcSet,
+                fit: item.fit,
+                icon: item.icon
+              },
+              () => item.text
+            );
+
+      return h(
+        "span",
+        {
+          key: item.key ?? item.src ?? item.text ?? `avatar-item-${index}`,
+          class: [`${ns.base.value}__item`, item.className],
+          style: [item.style, resolveStackStyle(index, total)],
+          onClick: () => emit("item-click", item, index)
+        },
+        Array.isArray(contentNode) ? contentNode : [contentNode]
+      );
+    }
+
     return () => {
-      const avatars = flattenChildren(slots.default?.());
+      const avatars =
+        props.items.length > 0
+          ? props.items.map((item, index) => renderDataAvatar(item, index, props.items.length))
+          : flattenChildren(slots.default?.());
       const shouldCollapse =
         props.collapseAvatars && avatars.length > Math.max(props.maxCollapseAvatars, 0);
 
@@ -106,7 +173,8 @@ export default defineComponent({
 
       const nodes = visibleAvatars.map((node, index) =>
         cloneVNode(node, {
-          key: node.key ?? `avatar-${index}`
+          key: node.key ?? `avatar-${index}`,
+          style: [node.props?.style, resolveStackStyle(index, visibleAvatars.length)]
         })
       );
 
@@ -152,7 +220,15 @@ export default defineComponent({
       return h(
         "div",
         {
-          class: ns.base.value
+          class: [
+            ns.base.value,
+            `is-${props.direction}`,
+            props.reverse ? "is-reverse" : "",
+            props.inline ? "is-inline" : "is-block"
+          ],
+          style: {
+            "--xy-avatar-group-gap": `${Math.max(props.gutter, 0) * -1}px`
+          }
         },
         nodes
       );

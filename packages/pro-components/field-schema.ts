@@ -1,13 +1,25 @@
 import { toRaw, type Component } from "vue";
 import {
   XyAutoComplete,
+  XyAvatar,
+  XyCascader,
+  XyCheckbox,
+  XyCheckboxGroup,
   XyDatePicker,
+  XyImage,
   XyInput,
   XyInputNumber,
+  XyProgress,
+  XyRadioGroup,
   XySelect,
   XySwitch,
+  XyTag,
   XyTimePicker,
-  XyTimeSelect
+  XyTimeSelect,
+  XyTimeline,
+  XyTransfer,
+  XyTree,
+  XySteps
 } from "@xiaoye/components";
 import type { ProFieldSchema } from "./core";
 
@@ -15,12 +27,26 @@ const builtInComponentMap: Record<string, Component> = {
   input: XyInput,
   textarea: XyInput,
   select: XySelect,
+  checkbox: XyCheckbox,
+  "checkbox-group": XyCheckboxGroup,
+  radio: XyRadioGroup,
+  "radio-button": XyRadioGroup,
+  "radio-group": XyRadioGroup,
+  cascader: XyCascader,
   "date-picker": XyDatePicker,
   "time-picker": XyTimePicker,
   "time-select": XyTimeSelect,
   "input-number": XyInputNumber,
   switch: XySwitch,
-  "auto-complete": XyAutoComplete
+  "auto-complete": XyAutoComplete,
+  transfer: XyTransfer,
+  avatar: XyAvatar,
+  image: XyImage,
+  progress: XyProgress,
+  tag: XyTag,
+  timeline: XyTimeline,
+  tree: XyTree,
+  steps: XySteps
 };
 
 export function cloneProValue<T>(value: T): T {
@@ -84,12 +110,22 @@ export function resolveProFieldProps(field: ProFieldSchema) {
     placeholder: resolveProFieldPlaceholder(field)
   } as Record<string, unknown>;
 
-  if (componentName === "select" || componentName === "auto-complete") {
+  if (
+    componentName === "select" ||
+    componentName === "auto-complete" ||
+    componentName === "checkbox-group" ||
+    componentName === "radio-group"
+  ) {
     nextProps.options = field.options ?? [];
   }
 
   if (componentName === "textarea") {
     nextProps.type = "textarea";
+  }
+
+  if (componentName === "radio-button") {
+    nextProps.options = field.options ?? [];
+    nextProps.type = "button";
   }
 
   return nextProps;

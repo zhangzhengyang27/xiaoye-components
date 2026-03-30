@@ -26,6 +26,12 @@ breadcrumb/icon-separator
 breadcrumb/admin-path
 :::
 
+## 声明式 items
+
+:::demo 当层级数据本身就来自路由元信息或接口返回时，可以直接传 `items` 数组。
+breadcrumb/items
+:::
+
 ## 链接与禁用态
 
 :::demo `href / target / disabled` 适合纯链接导航；`to / replace` 兼容 Vue Router 风格，但需要宿主项目提供 `$router`。
@@ -48,6 +54,7 @@ breadcrumb/navigation
 | `separator` | 字符分隔符 | `string` | `'/'` |
 | `separator-icon` | 图标分隔符 | `string` | `''` |
 | `aria-label` | 导航区无障碍标签 | `string` | `'面包屑'` |
+| `items` | 声明式面包屑项数组 | `BreadcrumbItemData[]` | `[]` |
 
 ### Breadcrumb Slots
 

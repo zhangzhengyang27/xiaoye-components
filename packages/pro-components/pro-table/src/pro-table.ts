@@ -42,6 +42,8 @@ export interface ProTableProps<T = ProTableRow> {
   data: T[];
   columns: ProTableColumn<T>[];
   loading?: boolean;
+  draggableRow?: boolean;
+  draggableColumn?: boolean;
   toolbarActions?: ProTableToolbarAction[];
   tableProps?: Omit<Partial<TableProps<T>>, "data" | "loading">;
   pagination?: boolean;

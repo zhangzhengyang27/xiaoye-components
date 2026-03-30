@@ -16,6 +16,28 @@
   color: var(--xy-text-color);
 }
 
+.xy-descriptions__title-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.xy-descriptions__toggle {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--xy-text-color-secondary);
+  cursor: pointer;
+}
+
+.xy-descriptions__toggle-icon {
+  transition: transform 0.2s ease;
+}
+
+.xy-descriptions__toggle-icon.is-collapsed {
+  transform: rotate(-180deg);
+}
+
 .xy-descriptions__extra {
   color: var(--xy-text-color-secondary);
   font-size: var(--xy-font-size-sm);
@@ -48,6 +70,12 @@
 .xy-descriptions-item__label {
   flex: 0 0 auto;
   color: var(--xy-text-color-secondary);
+}
+
+.xy-descriptions__item-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .xy-descriptions-item__content {

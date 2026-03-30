@@ -3,11 +3,16 @@ import {
   computed,
   defineComponent,
   h,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
   ref,
   useAttrs,
   useSlots,
+  watch,
   type PropType
 } from "vue";
+import Sortable from "sortablejs";
 import { useNamespace } from "@xiaoye/composables";
 import { XyButton, XyPagination, XyTable, XyTableColumn } from "@xiaoye/components";
 import type {
@@ -34,6 +39,8 @@ const props = withDefaults(defineProps<ProTableProps<any>>(), {
   title: "",
   description: "",
   loading: false,
+  draggableRow: false,
+  draggableColumn: false,
   toolbarActions: () => [],
   tableProps: () => ({}),
   pagination: true,
@@ -58,6 +65,8 @@ const emit = defineEmits<{
   "selection-change": [selection: ProTableRow[]];
   select: [selection: ProTableRow[], row: ProTableRow];
   "select-all": [selection: ProTableRow[]];
+  "drag-row-change": [rows: ProTableRow[]];
+  "drag-column-change": [columns: ProTableColumn<ProTableRow>[]];
   "current-change": [currentRow: ProTableRow | null, oldCurrentRow: ProTableRow | null];
   "sort-change": [payload: { column: unknown; prop: string | undefined; order: TableSortOrder }];
   "filter-change": [value: TableFilterValues];
@@ -104,8 +113,11 @@ function getHeaderSlotName<TItem extends Record<string, unknown>>(column: ProTab
 const attrs = useAttrs();
 const slots = useSlots() as Record<string, ((payload?: unknown) => unknown) | undefined>;
 const ns = useNamespace("pro-table");
+const rootRef = ref<HTMLDivElement | null>(null);
 const tableRef = ref<TableInstance<any> | null>(null);
-const visibleColumns = computed(() => filterVisibleColumns(props.columns));
+const internalColumns = ref<ProTableColumn<any>[]>(props.columns.slice());
+const internalData = ref<ProTableRow[]>(props.data.slice());
+const visibleColumns = computed(() => filterVisibleColumns(internalColumns.value));
 const visibleToolbarActions = computed(() =>
   props.toolbarActions.filter((action) => action.visible !== false)
 );
@@ -128,11 +140,11 @@ const nativeAttrs = computed<Record<string, unknown>>(() => {
 });
 const tableBindings = computed(() => ({
   ...props.tableProps,
-  data: props.data,
+  data: internalData.value,
   loading: props.loading
 }));
 const showLoadingState = computed(() => props.loading);
-const showEmptyState = computed(() => !showLoadingState.value && props.data.length === 0);
+const showEmptyState = computed(() => !showLoadingState.value && internalData.value.length === 0);
 const paginationBindings = computed(() => {
   const merged: Partial<PaginationProps> = {
     ...props.paginationProps
@@ -178,6 +190,14 @@ const showPagination = computed(
     (typeof paginationBindings.value.total === "number" ||
       typeof paginationBindings.value.pageCount === "number")
 );
+const columnDragEnabled = computed(
+  () =>
+    props.draggableColumn &&
+    visibleColumns.value.length > 1 &&
+    visibleColumns.value.every((column) => (column.children?.length ?? 0) === 0)
+);
+let rowSortable: Sortable | null = null;
+let columnSortable: Sortable | null = null;
 
 const ProTableColumnRenderer = defineComponent({
   name: "XyProTableColumnRenderer",
@@ -218,6 +238,98 @@ const ProTableColumnRenderer = defineComponent({
 
 function emitToolbarAction(action: ProTableToolbarAction) {
   emit("toolbar-action", action);
+}
+
+function move<TItem>(items: TItem[], fromIndex: number, toIndex: number) {
+  const nextItems = items.slice();
+  const [target] = nextItems.splice(fromIndex, 1);
+
+  if (target === undefined) {
+    return items.slice();
+  }
+
+  nextItems.splice(toIndex, 0, target);
+  return nextItems;
+}
+
+function reorderVisibleTopLevelColumns(fromIndex: number, toIndex: number) {
+  const source = internalColumns.value.slice();
+  const visibleIndexes = source
+    .map((column, index) => ({ column, index }))
+    .filter(({ column }) => !column.hidden);
+
+  if (
+    fromIndex < 0 ||
+    toIndex < 0 ||
+    fromIndex >= visibleIndexes.length ||
+    toIndex >= visibleIndexes.length
+  ) {
+    return source;
+  }
+
+  const reorderedVisibleColumns = move(
+    visibleIndexes.map(({ column }) => column),
+    fromIndex,
+    toIndex
+  );
+  const nextColumns = source.slice();
+
+  visibleIndexes.forEach(({ index }, orderIndex) => {
+    nextColumns[index] = reorderedVisibleColumns[orderIndex];
+  });
+
+  return nextColumns;
+}
+
+function destroySortables() {
+  rowSortable?.destroy();
+  rowSortable = null;
+  columnSortable?.destroy();
+  columnSortable = null;
+}
+
+async function syncSortables() {
+  destroySortables();
+  await nextTick();
+
+  if (props.draggableRow) {
+    const body = rootRef.value?.querySelector(".xy-table__body-wrapper tbody");
+
+    if (body) {
+      rowSortable = Sortable.create(body as HTMLElement, {
+        animation: 150,
+        onEnd: ({ oldIndex, newIndex }) => {
+          if (oldIndex == null || newIndex == null || oldIndex === newIndex) {
+            return;
+          }
+
+          internalData.value = move(internalData.value, oldIndex, newIndex);
+          emit("drag-row-change", internalData.value.slice());
+        }
+      });
+    }
+  }
+
+  if (columnDragEnabled.value) {
+    const headerRow = rootRef.value?.querySelector(".xy-table__header-main thead tr:last-child");
+
+    if (headerRow) {
+      columnSortable = Sortable.create(headerRow as HTMLElement, {
+        animation: 150,
+        onEnd: ({ oldIndex, newIndex }) => {
+          if (oldIndex == null || newIndex == null || oldIndex === newIndex) {
+            return;
+          }
+
+          internalColumns.value = reorderVisibleTopLevelColumns(oldIndex, newIndex);
+          emit("drag-column-change", internalColumns.value.slice());
+          nextTick(() => {
+            tableRef.value?.doLayout();
+          });
+        }
+      });
+    }
+  }
 }
 
 function handleCurrentPageUpdate(value: number) {
@@ -272,6 +384,49 @@ function handleExpandChange(row: ProTableRow, expandedRows: ProTableRow[] | bool
   emit("expand-change", row, expandedRows);
 }
 
+watch(
+  () => props.data,
+  (value) => {
+    internalData.value = value.slice();
+  },
+  {
+    deep: true
+  }
+);
+
+watch(
+  () => props.columns,
+  (value) => {
+    internalColumns.value = value.slice();
+  },
+  {
+    deep: true
+  }
+);
+
+watch(
+  () => [
+    props.draggableRow,
+    props.draggableColumn,
+    internalData.value.length,
+    visibleColumns.value.length
+  ],
+  () => {
+    void syncSortables();
+  },
+  {
+    flush: "post"
+  }
+);
+
+onMounted(() => {
+  void syncSortables();
+});
+
+onBeforeUnmount(() => {
+  destroySortables();
+});
+
 defineExpose({
   clearSelection: () => tableRef.value?.clearSelection(),
   getSelectionRows: () => tableRef.value?.getSelectionRows() ?? [],
@@ -294,7 +449,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="rootClasses" :style="rootStyle" v-bind="nativeAttrs">
+  <div ref="rootRef" :class="rootClasses" :style="rootStyle" v-bind="nativeAttrs">
     <div v-if="hasToolbar" class="xy-pro-table__toolbar">
       <div class="xy-pro-table__toolbar-main">
         <slot name="toolbar-main">

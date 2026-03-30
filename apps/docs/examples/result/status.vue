@@ -37,6 +37,16 @@ const items = [
     status: "danger",
     title: "执行失败",
     description: "第三方接口超时，请稍后重试或切换备用通道。"
+  },
+  {
+    status: "403",
+    title: "无访问权限",
+    description: "当前账号缺少该页面权限，请联系管理员开通。"
+  },
+  {
+    status: "404",
+    title: "页面不存在",
+    description: "目标资源可能已经移动，建议返回工作台重新进入。"
   }
 ] as const;
 </script>

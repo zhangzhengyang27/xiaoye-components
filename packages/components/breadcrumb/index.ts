@@ -2,10 +2,10 @@ import Breadcrumb from "./src/breadcrumb.vue";
 import BreadcrumbItem from "./src/breadcrumb-item.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
-import type { BreadcrumbProps } from "./src/breadcrumb";
+import type { BreadcrumbItemData, BreadcrumbProps } from "./src/breadcrumb";
 import type { BreadcrumbItemProps, BreadcrumbRouteTarget } from "./src/breadcrumb-item";
 
-export type { BreadcrumbItemProps, BreadcrumbProps, BreadcrumbRouteTarget };
+export type { BreadcrumbItemData, BreadcrumbItemProps, BreadcrumbProps, BreadcrumbRouteTarget };
 
 export const XyBreadcrumbItem = withInstall(BreadcrumbItem, "xy-breadcrumb-item");
 

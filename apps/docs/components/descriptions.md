@@ -26,6 +26,18 @@ descriptions/bordered
 descriptions/vertical
 :::
 
+## 数据驱动与折叠
+
+:::demo 当详情字段来自接口 schema 时，可以直接使用 `items` 渲染，并配合 `collapse` 收起内容区。
+descriptions/data-driven
+:::
+
+## 数据驱动写法
+
+:::demo 当详情字段来自接口 schema 或后台配置时，可以直接通过 `items` 数组声明，减少模板样板代码。
+descriptions/items
+:::
+
 ## API
 
 ### Descriptions Attributes
@@ -39,6 +51,9 @@ descriptions/vertical
 | `extra`       | 额外说明     | `string`                     | `''`           |
 | `label-width` | 标签宽度     | `string \| number`           | `undefined`    |
 | `direction`   | 布局方向     | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `collapse`    | 是否默认收起并显示折叠切换 | `boolean` | `false` |
+| `items`       | 数据驱动条目数组 | `DescriptionsDataItem[]` | `[]` |
+| `items`       | 数据驱动条目数组 | `DescriptionsDataItem[]`   | `[]`           |
 
 ### Descriptions Slots
 
@@ -54,6 +69,19 @@ descriptions/vertical
 | ------- | -------- | -------- | ------ |
 | `label` | 标签文案 | `string` | `''`   |
 | `span`  | 占据列数 | `number` | `1`    |
+
+### DescriptionsDataItem Attributes
+
+| 属性 | 说明 | 类型 |
+| --- | --- | --- |
+| `label` | 条目标签 | `string` |
+| `value` | 条目值 | `string \| number` |
+| `icon` | 标签前图标 | `string` |
+| `tag` | 标签态渲染配置 | `string \| { text: string; props?: TagProps }` |
+| `link` | 链接态渲染配置 | `LinkProps` |
+| `class-name` | 条目根类名 | `string` |
+| `label-class-name` | 标签区类名 | `string` |
+| `content-class-name` | 内容区类名 | `string` |
 
 ### DescriptionsItem Slots
 

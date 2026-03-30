@@ -52,7 +52,9 @@ const props: ProTableProps<Row> = {
   ],
   columns,
   toolbarActions: actions,
-  pagination: false
+  pagination: false,
+  draggableRow: true,
+  draggableColumn: true
 };
 
 type ProTableExpose = Pick<

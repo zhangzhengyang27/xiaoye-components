@@ -1,0 +1,23 @@
+.xy-header-tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--xy-space-3);
+}
+
+.xy-header-tabs__tabs {
+  flex: 1;
+  min-width: 0;
+}
+
+.xy-header-tabs__menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--xy-radius-pill);
+  border: 1px solid var(--xy-border-color);
+  background: var(--xy-bg-color);
+  color: var(--xy-text-color);
+  cursor: pointer;
+}

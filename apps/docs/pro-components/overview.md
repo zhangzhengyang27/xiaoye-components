@@ -15,6 +15,7 @@ outline: deep
 - [OverlayForm 覆盖层表单](/pro-components/overlay-form)：统一覆盖层编辑，不再把抽屉表单和弹窗表单拆成两套主心智。
 - [FilterPanel 筛选面板](/pro-components/filter-panel)：统一高级筛选容器。
 - [RequestForm 请求表单](/pro-components/request-form)：统一加载、提交和表单骨架。
+- [LoginForm 登录表单](/pro-components/login-form)：统一认证场景里的登录主链路和第三方登录入口展示。
 - [StepsForm 分步表单](/pro-components/steps-form)：统一多阶段录入流程。
 
 ## 核心列表与数据
@@ -41,6 +42,9 @@ outline: deep
 
 ## 页面布局
 
+- [PageHeader 页面头部](/pro-components/page-header)：统一页面标题、描述、元信息和动作区。
+- [PageContainer 页面容器](/pro-components/page-container)：统一头部、主体内容、footer 和 loading 壳层。
+- [StatCard 指标卡片](/pro-components/stat-card)：统一后台首页和运营面板里的数字指标展示。
 - [AsyncStateContainer 异步状态容器](/pro-components/async-state-container)：统一加载、空态、错误和恢复动作承载。
 - [SplitLayoutPage 分栏布局页](/pro-components/split-layout-page)：统一主从布局与侧栏布局，不再把两种双栏工作区拆成并列主心智。
 
@@ -52,7 +56,8 @@ outline: deep
 ## 推荐阅读顺序
 
 1. 先看 [SearchForm 搜索表单](/pro-components/search-form)、[ProTable 增强表格](/pro-components/pro-table) 和 [ListPage 列表页面容器](/pro-components/list-page)，理解后台列表页主干。
-2. 再看 [OverlayForm 覆盖层表单](/pro-components/overlay-form)、[StepsForm 分步表单](/pro-components/steps-form)、[CrudPage 增删改查页面](/pro-components/crud-page)，补齐编辑链路。
+2. 再看 [OverlayForm 覆盖层表单](/pro-components/overlay-form)、[LoginForm 登录表单](/pro-components/login-form)、[StepsForm 分步表单](/pro-components/steps-form)、[CrudPage 增删改查页面](/pro-components/crud-page)，补齐编辑链路。
 3. 接着看 [DetailPanel 详情面板](/pro-components/detail-panel)、[DetailPage 详情页面容器](/pro-components/detail-page)、[AuditTimeline 审计时间线](/pro-components/audit-timeline)，补齐查看和历史记录。
-4. 最后看 [ApprovalFlowPanel 审批流面板](/pro-components/approval-flow-panel)、[ImportWizard 导入向导](/pro-components/import-wizard)、[ExportTaskPanel 导出任务面板](/pro-components/export-task-panel)，理解更重的业务流场景。
-5. 然后进入 [增强组件示例总览](/examples/pro/overview)，按场景和闭环查看整套接法。
+4. 再看 [PageHeader 页面头部](/pro-components/page-header)、[PageContainer 页面容器](/pro-components/page-container)、[StatCard 指标卡片](/pro-components/stat-card)，补齐页面展示壳层。
+5. 最后看 [ApprovalFlowPanel 审批流面板](/pro-components/approval-flow-panel)、[ImportWizard 导入向导](/pro-components/import-wizard)、[ExportTaskPanel 导出任务面板](/pro-components/export-task-panel)，理解更重的业务流场景。
+6. 然后进入 [增强组件示例总览](/examples/pro/overview)，按场景和闭环查看整套接法。

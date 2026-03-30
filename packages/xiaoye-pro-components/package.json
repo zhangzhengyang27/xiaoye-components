@@ -60,6 +60,11 @@
     "@fullcalendar/vue3": "^6.1.20",
     "async-validator": "^4.2.5",
     "dayjs": "^1.11.20",
-    "rrule": "^2.8.1"
+    "echarts": "^6.0.0",
+    "howler": "^2.2.4",
+    "rrule": "^2.8.1",
+    "sortablejs": "^1.15.7",
+    "vditor": "^3.11.2",
+    "video.js": "^8.23.7"
   }
 }

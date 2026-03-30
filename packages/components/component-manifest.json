@@ -597,5 +597,37 @@
     "installExports": ["XyPagination"],
     "installChecks": [{ "kind": "component", "name": "xy-pagination" }],
     "styleImports": ["pagination"]
+  },
+  {
+    "name": "charts",
+    "docsGroup": "data",
+    "docsText": "Charts 图表",
+    "installExports": ["XyCharts"],
+    "installChecks": [{ "kind": "component", "name": "xy-charts" }],
+    "styleImports": ["charts"]
+  },
+  {
+    "name": "editor",
+    "docsGroup": "form",
+    "docsText": "Editor 编辑器",
+    "installExports": ["XyEditor"],
+    "installChecks": [{ "kind": "component", "name": "xy-editor" }],
+    "styleImports": ["editor"]
+  },
+  {
+    "name": "audio-player",
+    "docsGroup": "data",
+    "docsText": "AudioPlayer 音频播放器",
+    "installExports": ["XyAudioPlayer"],
+    "installChecks": [{ "kind": "component", "name": "xy-audio-player" }],
+    "styleImports": ["audio-player"]
+  },
+  {
+    "name": "video-player",
+    "docsGroup": "data",
+    "docsText": "VideoPlayer 视频播放器",
+    "installExports": ["XyVideoPlayer"],
+    "installChecks": [{ "kind": "component", "name": "xy-video-player" }],
+    "styleImports": ["video-player"]
   }
 ]

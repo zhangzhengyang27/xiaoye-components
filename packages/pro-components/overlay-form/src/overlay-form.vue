@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRaw, useSlots } from "vue";
+import { computed, ref, toRaw, useSlots, watch } from "vue";
 import { useNamespace } from "@xiaoye/composables";
 import { XyButton, XyDialog, XyDrawer, XyForm } from "@xiaoye/components";
 import type {
@@ -38,6 +38,8 @@ const props = withDefaults(defineProps<OverlayFormProps>(), {
   readonly: false,
   submitText: "",
   cancelText: "",
+  resetOnClose: false,
+  destroyOnClose: false,
   drawerProps: () => ({}),
   dialogProps: () => ({})
 });
@@ -54,6 +56,7 @@ const ns = useNamespace("overlay-form");
 const drawerRef = ref<DrawerInstance | null>(null);
 const dialogRef = ref<DialogInstance | null>(null);
 const formRef = ref<FormExpose | null>(null);
+const contentVisible = ref(props.open || !props.destroyOnClose);
 
 const modeTextMap = {
   create: "新建",
@@ -134,9 +137,46 @@ function handleCancel() {
   requestClose("programmatic");
 }
 
+function resetFormState() {
+  if (!props.resetOnClose) {
+    return;
+  }
+
+  formRef.value?.reset?.();
+  formRef.value?.resetFields?.();
+  formRef.value?.clearValidate?.();
+}
+
 function handleClosed() {
+  resetFormState();
+  if (props.destroyOnClose) {
+    contentVisible.value = false;
+  }
   emit("closed");
 }
+
+watch(
+  () => props.open,
+  (value) => {
+    if (value) {
+      contentVisible.value = true;
+    }
+  }
+);
+
+watch(
+  () => props.destroyOnClose,
+  (value) => {
+    if (!value) {
+      contentVisible.value = true;
+      return;
+    }
+
+    if (!props.open) {
+      contentVisible.value = false;
+    }
+  }
+);
 
 defineExpose({
   validate,
@@ -158,40 +198,42 @@ defineExpose({
     @closed="handleClosed"
   >
     <div :class="[ns.base.value, ns.is('loading', props.loading)]">
-      <div v-if="props.loading" class="xy-overlay-form__loading">
-        <strong>正在准备表单内容</strong>
-        <span>基础数据就绪后会恢复编辑区。</span>
-      </div>
-      <xy-pro-form
-        v-else-if="hasSchema"
-        ref="formRef"
-        v-slots="formSlots"
-        :model="props.model"
-        :schema="props.schema"
-        :rules="props.rules"
-        :label-width="props.labelWidth"
-        :label-position="props.labelPosition"
-        :size="props.size"
-        :readonly="contentDisabled"
-        :show-submit="false"
-        :show-reset="false"
-        class="xy-overlay-form__form"
-      />
-      <xy-form
-        v-else
-        ref="formRef"
-        :model="props.model"
-        :rules="props.rules"
-        :label-width="props.labelWidth"
-        :label-position="props.labelPosition"
-        :size="props.size"
-        :disabled="contentDisabled"
-        class="xy-overlay-form__form"
-      >
-        <div class="xy-overlay-form__content">
-          <slot :model="props.model" :mode="props.mode" :readonly="isReadonly" />
+      <template v-if="contentVisible">
+        <div v-if="props.loading" class="xy-overlay-form__loading">
+          <strong>正在准备表单内容</strong>
+          <span>基础数据就绪后会恢复编辑区。</span>
         </div>
-      </xy-form>
+        <xy-pro-form
+          v-else-if="hasSchema"
+          ref="formRef"
+          v-slots="formSlots"
+          :model="props.model"
+          :schema="props.schema"
+          :rules="props.rules"
+          :label-width="props.labelWidth"
+          :label-position="props.labelPosition"
+          :size="props.size"
+          :readonly="contentDisabled"
+          :show-submit="false"
+          :show-reset="false"
+          class="xy-overlay-form__form"
+        />
+        <xy-form
+          v-else
+          ref="formRef"
+          :model="props.model"
+          :rules="props.rules"
+          :label-width="props.labelWidth"
+          :label-position="props.labelPosition"
+          :size="props.size"
+          :disabled="contentDisabled"
+          class="xy-overlay-form__form"
+        >
+          <div class="xy-overlay-form__content">
+            <slot :model="props.model" :mode="props.mode" :readonly="isReadonly" />
+          </div>
+        </xy-form>
+      </template>
     </div>
 
     <template #footer>
@@ -235,6 +277,7 @@ defineExpose({
     @closed="handleClosed"
   >
     <xy-pro-form
+      v-if="contentVisible"
       ref="formRef"
       :model="props.model"
       :schema="props.schema"

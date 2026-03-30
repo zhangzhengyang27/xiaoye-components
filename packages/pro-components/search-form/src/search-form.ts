@@ -5,11 +5,25 @@ import type { FormRules, SelectOptionGroup, XyFormRule } from "@xiaoye/component
 export type SearchFormFieldBuiltinComponent =
   | "input"
   | "select"
+  | "checkbox"
+  | "checkbox-group"
+  | "radio"
+  | "radio-button"
+  | "radio-group"
+  | "cascader"
   | "date-picker"
   | "time-picker"
   | "time-select"
   | "input-number"
-  | "switch";
+  | "switch"
+  | "transfer"
+  | "avatar"
+  | "image"
+  | "progress"
+  | "tag"
+  | "timeline"
+  | "tree"
+  | "steps";
 
 export type SearchFormFieldOption<T = string | number> = SelectOption<T> | SelectOptionGroup<T>;
 

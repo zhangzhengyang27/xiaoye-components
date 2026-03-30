@@ -226,4 +226,36 @@ describe("XyBreadcrumb", () => {
     expect(push).not.toHaveBeenCalled();
     expect(replace).not.toHaveBeenCalled();
   });
+
+  it("items 写法支持声明式渲染", async () => {
+    const wrapper = createWrapper(() =>
+      h(XyBreadcrumb, {
+        items: [
+          { label: "工作台", href: "/workspace" },
+          { label: "成员中心", to: "/members" },
+          { label: "详情页" }
+        ]
+      })
+    );
+
+    await nextTick();
+
+    expect(wrapper.findAll(".xy-breadcrumb__item")).toHaveLength(3);
+    expect(wrapper.text()).toContain("成员中心");
+  });
+
+  it("items 显式传入 undefined 时会回退到默认插槽渲染", async () => {
+    const wrapper = createWrapper(() =>
+      h(XyBreadcrumb, { items: undefined }, () => [
+        h(XyBreadcrumbItem, null, () => "工作台"),
+        h(XyBreadcrumbItem, null, () => "详情页")
+      ])
+    );
+
+    await nextTick();
+
+    expect(wrapper.findAll(".xy-breadcrumb__item")).toHaveLength(2);
+    expect(wrapper.text()).toContain("工作台");
+    expect(wrapper.text()).toContain("详情页");
+  });
 });

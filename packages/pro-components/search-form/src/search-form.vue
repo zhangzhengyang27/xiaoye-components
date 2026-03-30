@@ -2,16 +2,28 @@
 import { computed, ref, toRaw, watch, useSlots, type Component } from "vue";
 import { useNamespace } from "@xiaoye/composables";
 import {
+  XyAvatar,
   XyButton,
+  XyCascader,
+  XyCheckbox,
+  XyCheckboxGroup,
   XyDatePicker,
   XyForm,
   XyFormItem,
+  XyImage,
   XyInput,
   XyInputNumber,
+  XyProgress,
+  XyRadioGroup,
   XySelect,
   XySwitch,
+  XyTag,
   XyTimePicker,
-  XyTimeSelect
+  XyTimeSelect,
+  XyTimeline,
+  XyTransfer,
+  XyTree,
+  XySteps
 } from "@xiaoye/components";
 import type { SearchFormField, SearchFormProps } from "./search-form";
 
@@ -57,11 +69,25 @@ const innerCollapsed = ref(props.defaultCollapsed);
 const builtInComponentMap: Record<string, Component> = {
   input: XyInput,
   select: XySelect,
+  checkbox: XyCheckbox,
+  "checkbox-group": XyCheckboxGroup,
+  radio: XyRadioGroup,
+  "radio-button": XyRadioGroup,
+  "radio-group": XyRadioGroup,
+  cascader: XyCascader,
   "date-picker": XyDatePicker,
   "time-picker": XyTimePicker,
   "time-select": XyTimeSelect,
   "input-number": XyInputNumber,
-  switch: XySwitch
+  switch: XySwitch,
+  transfer: XyTransfer,
+  avatar: XyAvatar,
+  image: XyImage,
+  progress: XyProgress,
+  tag: XyTag,
+  timeline: XyTimeline,
+  tree: XyTree,
+  steps: XySteps
 };
 
 const normalizedColumns = computed(() => Math.max(1, Math.floor(props.columns)));
@@ -154,8 +180,17 @@ function resolveFieldProps(field: SearchFormField) {
     placeholder: resolveFieldPlaceholder(field)
   } as Record<string, unknown>;
 
-  if (componentName === "select") {
+  if (
+    componentName === "select" ||
+    componentName === "checkbox-group" ||
+    componentName === "radio-group"
+  ) {
     nextProps.options = field.options ?? [];
+  }
+
+  if (componentName === "radio-button") {
+    nextProps.options = field.options ?? [];
+    nextProps.type = "button";
   }
 
   return nextProps;

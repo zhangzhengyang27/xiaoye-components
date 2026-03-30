@@ -1,4 +1,9 @@
-import type { AvatarGroupProps, AvatarProps, AvatarShape } from "xiaoye-components";
+import type {
+  AvatarGroupItem,
+  AvatarGroupProps,
+  AvatarProps,
+  AvatarShape
+} from "xiaoye-components";
 
 const shape: AvatarShape = "circle";
 
@@ -31,6 +36,17 @@ void invalidFit;
 const avatarGroupProps: AvatarGroupProps = {
   size: "lg",
   shape: "square",
+  items: [
+    {
+      key: "xiaoye",
+      text: "叶",
+      icon: "mdi:account-outline"
+    }
+  ],
+  direction: "vertical",
+  gutter: 12,
+  reverse: true,
+  inline: false,
   collapseAvatars: true,
   collapseAvatarsTooltip: true,
   maxCollapseAvatars: 2,
@@ -39,6 +55,16 @@ const avatarGroupProps: AvatarGroupProps = {
 };
 
 void avatarGroupProps;
+
+const avatarGroupItem: AvatarGroupItem = {
+  key: "member-1",
+  text: "小叶",
+  src: "https://example.com/avatar.png",
+  icon: "mdi:account-outline",
+  className: "avatar-item"
+};
+
+void avatarGroupItem;
 
 const invalidPlacement: AvatarGroupProps = {
   // @ts-expect-error invalid placement should be rejected

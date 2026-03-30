@@ -8,7 +8,7 @@ import type {
 import { XyResult } from "xiaoye-components";
 
 const icon: ResultIconType = "success";
-const status: ResultStatus = "primary";
+const status: ResultStatus = "403";
 const variant: ResultVariant = "card";
 
 const resultProps: ResultProps = {
@@ -44,7 +44,7 @@ void vnode;
 
 const invalidStatus: ResultProps = {
   // @ts-expect-error invalid result status should be rejected
-  status: "info"
+  status: "blocked"
 };
 
 void invalidStatus;

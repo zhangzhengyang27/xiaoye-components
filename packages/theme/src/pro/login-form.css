@@ -1,0 +1,93 @@
+.xy-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xy-space-5);
+  padding: var(--xy-space-6);
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-xl);
+  background: var(--xy-bg-color);
+  box-shadow: var(--xy-shadow-sm);
+}
+
+.xy-login-form.is-disabled {
+  opacity: 0.78;
+}
+
+.xy-login-form__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xy-space-2);
+}
+
+.xy-login-form__title {
+  margin: 0;
+  color: var(--xy-text-color);
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.xy-login-form__description {
+  margin: 0;
+  color: var(--xy-text-color-secondary);
+  line-height: 1.6;
+}
+
+.xy-login-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xy-space-1);
+}
+
+.xy-login-form__remember {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: calc(var(--xy-space-2) * -1);
+  margin-bottom: var(--xy-space-1);
+}
+
+.xy-login-form__third-party {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xy-space-4);
+}
+
+.xy-login-form__divider {
+  position: relative;
+  text-align: center;
+}
+
+.xy-login-form__divider::before {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  border-top: 1px solid var(--xy-border-color);
+}
+
+.xy-login-form__divider span {
+  position: relative;
+  padding: 0 var(--xy-space-3);
+  color: var(--xy-text-color-secondary);
+  background: var(--xy-bg-color);
+  font-size: 13px;
+}
+
+.xy-login-form__third-party-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xy-space-3);
+}
+
+@media (max-width: 640px) {
+  .xy-login-form {
+    padding: var(--xy-space-5);
+  }
+
+  .xy-login-form__title {
+    font-size: 24px;
+  }
+
+  .xy-login-form__third-party-actions {
+    flex-direction: column;
+  }
+}

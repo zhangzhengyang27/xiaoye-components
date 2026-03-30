@@ -36,6 +36,7 @@ result/custom
 
 - `icon` 与 `status` 同时存在时，以 `icon` 为准，图标和强调色都会跟着切换。
 - `description` 是新的主描述字段；未传时才会回退到 `sub-title` 或 `subTitle`。
+- `status` 现在额外兼容 `info / error / 403 / 404 / 500`，便于承接后台常见异常页和权限页语义。
 - 默认值下 `status` 为 `neutral`，尺寸跟随 `xy-config-provider` 的全局 `size`，否则回退到 `md`。
 
 ## 何时使用
@@ -54,7 +55,7 @@ result/custom
 | `description` | 主描述文案，优先级高于 `sub-title` / `subTitle` | `string` | `undefined` |
 | `sub-title` | 兼容描述字段 | `string` | `''` |
 | `icon` | 图标语义 | `'primary' \| 'success' \| 'warning' \| 'info' \| 'error'` | `undefined` |
-| `status` | 当前库风格的状态语义 | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'neutral'` |
+| `status` | 当前库风格状态语义，并兼容后台状态码场景 | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'error' \| '403' \| '404' \| '500'` | `'neutral'` |
 | `size` | 组件尺寸，未传时跟随全局配置 | `'sm' \| 'md' \| 'lg'` | `全局 size / 'md'` |
 | `variant` | 视觉变体 | `'plain' \| 'card'` | `'plain'` |
 | `icon-size` | 自定义图标尺寸 | `string \| number` | `undefined` |

@@ -21,6 +21,7 @@ outline: deep
 
 - [ProForm 场景示例](/examples/pro/pro-form)
 - [OverlayForm 场景示例](/examples/pro/overlay-form)
+- [LoginForm 场景示例](/examples/pro/login-form)
 - [RequestForm 场景示例](/examples/pro/request-form)
 - [StepsForm 场景示例](/examples/pro/steps-form)
 - [CrudPage 场景示例](/examples/pro/crud-page)
@@ -33,6 +34,9 @@ outline: deep
 
 ## 页面状态与工作区
 
+- [PageHeader 场景示例](/examples/pro/page-header)
+- [PageContainer 场景示例](/examples/pro/page-container)
+- [StatCard 场景示例](/examples/pro/stat-card)
 - [AsyncStateContainer 场景示例](/examples/pro/async-state-container)
 - [SplitLayoutPage 场景示例](/examples/pro/split-layout-page)
 - [FilterPanel 场景示例](/examples/pro/filter-panel)
@@ -51,6 +55,7 @@ outline: deep
 ## 推荐理解顺序
 
 1. 先看 `SearchForm + ProTable + ListPage`，理解后台列表页主干。
-2. 再看 `OverlayForm + StepsForm + CrudPage`，把编辑链路接上。
+2. 再看 `OverlayForm + LoginForm + StepsForm + CrudPage`，把编辑链路接上。
 3. 接着看 `DetailPanel + DetailPage + AuditTimeline`，补齐查看和历史记录。
-4. 最后看 `ApprovalFlowPanel + ImportWizard + ExportTaskPanel`，理解更重的业务流场景。
+4. 再看 `PageHeader + PageContainer + StatCard`，补齐页面展示壳层。
+5. 最后看 `ApprovalFlowPanel + ImportWizard + ExportTaskPanel`，理解更重的业务流场景。

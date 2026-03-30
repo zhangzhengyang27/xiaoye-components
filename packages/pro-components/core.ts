@@ -27,12 +27,26 @@ export type ProFieldSchemaBuiltinComponent =
   | "input"
   | "textarea"
   | "select"
+  | "checkbox"
+  | "checkbox-group"
+  | "radio"
+  | "radio-button"
+  | "radio-group"
+  | "cascader"
   | "date-picker"
   | "time-picker"
   | "time-select"
   | "input-number"
   | "switch"
-  | "auto-complete";
+  | "auto-complete"
+  | "transfer"
+  | "avatar"
+  | "image"
+  | "progress"
+  | "tag"
+  | "timeline"
+  | "tree"
+  | "steps";
 
 export type ProFieldSchemaOption<T = string | number> = SelectOption<T> | SelectOptionGroup<T>;
 

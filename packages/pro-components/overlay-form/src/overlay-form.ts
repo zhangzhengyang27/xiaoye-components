@@ -27,6 +27,8 @@ export interface OverlayFormProps {
   readonly?: boolean;
   submitText?: string;
   cancelText?: string;
+  resetOnClose?: boolean;
+  destroyOnClose?: boolean;
   drawerProps?: Omit<Partial<DrawerProps>, "modelValue" | "title">;
   dialogProps?: Omit<Partial<DialogProps>, "modelValue" | "title">;
 }

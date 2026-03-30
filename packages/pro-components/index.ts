@@ -28,10 +28,43 @@ export type {
   RequestFormSubmitContext
 } from "./request-form";
 export type {
+  LoginFormInstance,
+  LoginFormModel,
+  LoginFormProps,
+  LoginFormThirdPartyItem
+} from "./login-form";
+export type { PageToolbarProps } from "./page-toolbar";
+export type {
+  PageHeaderProps,
+  PageIcon,
+  PageMetaItem
+} from "./page-header";
+export type { PageContainerProps } from "./page-container";
+export type {
+  AvatarMenuCommand,
+  AvatarMenuItem,
+  AvatarMenuProps
+} from "./avatar-menu";
+export type {
   ProTableColumn,
   ProTableInstance,
   ProTableProps
 } from "./pro-table";
+export type {
+  HeaderTabItem,
+  HeaderTabsMenuAction,
+  HeaderTabsProps
+} from "./header-tabs";
+export type {
+  NoticeCenterAction,
+  NoticeCenterItem,
+  NoticeCenterProps,
+  NoticeCenterTab
+} from "./notice-center";
+export type {
+  StatCardProps,
+  StatTrend
+} from "./stat-card";
 export type {
   ColumnSettingPanelColumn,
   ColumnSettingPanelProps

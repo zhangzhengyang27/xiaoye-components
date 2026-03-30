@@ -67,3 +67,7 @@
 @import "./src/components/tree.css";
 @import "./src/components/upload.css";
 @import "./src/components/form.css";
+@import "./src/components/charts.css";
+@import "./src/components/editor.css";
+@import "./src/components/audio-player.css";
+@import "./src/components/video-player.css";

@@ -7,6 +7,8 @@ import type {
 const props: OverlayFormProps = {
   open: true,
   container: "drawer",
+  resetOnClose: true,
+  destroyOnClose: true,
   model: {
     name: "成员台账"
   }

@@ -9,7 +9,7 @@ const fields: SearchFormField[] = [
   {
     prop: "status",
     label: "状态",
-    component: "select",
+    component: "radio-group",
     options: [
       { label: "全部", value: "all" },
       { label: "启用", value: "enabled" }
@@ -37,7 +37,7 @@ const invalidField: SearchFormField = {
   prop: "oops",
   label: "错误字段",
   // @ts-expect-error unsupported builtin component
-  component: "radio-group"
+  component: "color-picker"
 };
 
 void invalidField;

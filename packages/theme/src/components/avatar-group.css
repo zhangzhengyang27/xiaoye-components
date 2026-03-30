@@ -5,13 +5,26 @@
   align-items: center;
 }
 
+.xy-avatar-group.is-block {
+  display: flex;
+}
+
+.xy-avatar-group.is-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .xy-avatar-group > * {
   position: relative;
   display: inline-flex;
 }
 
-.xy-avatar-group > *:not(:first-child) {
+.xy-avatar-group.is-horizontal > *:not(:first-child) {
   margin-left: var(--xy-avatar-group-gap);
+}
+
+.xy-avatar-group.is-vertical > *:not(:first-child) {
+  margin-top: var(--xy-avatar-group-gap);
 }
 
 .xy-avatar-group .xy-avatar {

@@ -6,13 +6,15 @@ defineOptions({
 
 import { computed, provide, ref, useAttrs } from "vue";
 import { useNamespace } from "@xiaoye/composables";
+import BreadcrumbItem from "./breadcrumb-item.vue";
 import type { BreadcrumbProps } from "./breadcrumb";
 import { breadcrumbContextKey } from "./context";
 
 const props = withDefaults(defineProps<BreadcrumbProps>(), {
   separator: "/",
   separatorIcon: "",
-  ariaLabel: "面包屑"
+  ariaLabel: "面包屑",
+  items: () => []
 });
 
 const attrs = useAttrs();
@@ -29,6 +31,7 @@ const nativeAttrs = computed<Record<string, unknown>>(() => {
 const rootClasses = computed(() => [ns.base.value, attrs.class]);
 const separator = computed(() => props.separator);
 const separatorIcon = computed(() => props.separatorIcon);
+const normalizedItems = computed(() => props.items ?? []);
 
 function registerItem(uid: number) {
   if (!itemUids.value.includes(uid)) {
@@ -62,7 +65,19 @@ provide(breadcrumbContextKey, {
     v-bind="nativeAttrs"
   >
     <ol class="xy-breadcrumb__list">
-      <slot />
+      <slot v-if="normalizedItems.length === 0" />
+      <breadcrumb-item
+        v-for="item in normalizedItems"
+        v-else
+        :key="`${item.label}-${item.href ?? ''}-${String(item.to ?? '')}`"
+        :to="item.to"
+        :replace="item.replace"
+        :href="item.href"
+        :target="item.target"
+        :disabled="item.disabled"
+      >
+        {{ item.label }}
+      </breadcrumb-item>
     </ol>
   </nav>
 </template>
