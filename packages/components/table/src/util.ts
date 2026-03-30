@@ -9,6 +9,8 @@ import {
 import type {
   TableFilterValue,
   TableHeaderCell,
+  TableOverflowTooltip,
+  TableOverflowTooltipOptions,
   TableProps,
   TableResolvedColumn,
   TableRowKey,
@@ -55,16 +57,27 @@ export function flattenColumns<T>(columns: TableResolvedColumn<T>[]) {
 export function normalizeColumns<T>(
   columns: TableResolvedColumn<T>[],
   widthOverrides: Record<string, number>,
-  tableShowOverflowTooltip?: boolean,
+  tableShowOverflowTooltip?: TableOverflowTooltip,
+  tableTooltipEffect?: TableOverflowTooltipOptions["effect"],
+  tableTooltipOptions?: TableOverflowTooltipOptions,
   fit = true,
   containerWidth?: number
 ) {
   const maxLevel = getMaxLevel(columns);
   let leafIndex = 0;
   const leafWidthOverrides: Record<string, number> = {};
+  const hasWidthOverride = (uid: string) =>
+    Object.prototype.hasOwnProperty.call(widthOverrides, uid);
 
   const baseColumns = columns.map((column) =>
-    normalizeColumn(column, widthOverrides, tableShowOverflowTooltip, maxLevel)
+    normalizeColumn(
+      column,
+      widthOverrides,
+      tableShowOverflowTooltip,
+      tableTooltipEffect,
+      tableTooltipOptions,
+      maxLevel
+    )
   );
   const leafColumns = flattenColumns(baseColumns);
 
@@ -73,8 +86,16 @@ export function normalizeColumns<T>(
     const extraWidth = Math.floor(containerWidth - totalWidth);
 
     if (extraWidth > 0 && leafColumns.length > 0) {
-      const flexibleColumns = leafColumns.filter((column) => column.width === undefined);
-      const targetColumns = flexibleColumns.length > 0 ? flexibleColumns : leafColumns;
+      const flexibleColumns = leafColumns.filter(
+        (column) => column.width === undefined && !hasWidthOverride(column.uid)
+      );
+      const nonOverriddenColumns = leafColumns.filter((column) => !hasWidthOverride(column.uid));
+      const targetColumns =
+        flexibleColumns.length > 0
+          ? flexibleColumns
+          : nonOverriddenColumns.length > 0
+            ? nonOverriddenColumns
+            : leafColumns;
       const evenExtra = Math.floor(extraWidth / targetColumns.length);
       let remainder = extraWidth % targetColumns.length;
 
@@ -118,17 +139,32 @@ export function normalizeColumns<T>(
 function normalizeColumn<T>(
   column: TableResolvedColumn<T>,
   widthOverrides: Record<string, number>,
-  tableShowOverflowTooltip: boolean | undefined,
+  tableShowOverflowTooltip: TableOverflowTooltip | undefined,
+  tableTooltipEffect: TableOverflowTooltipOptions["effect"] | undefined,
+  tableTooltipOptions: TableOverflowTooltipOptions | undefined,
   maxLevel: number
 ): TableResolvedColumn<T> {
   const children = column.children.map((child) =>
-    normalizeColumn(child, widthOverrides, tableShowOverflowTooltip, maxLevel)
+    normalizeColumn(
+      child,
+      widthOverrides,
+      tableShowOverflowTooltip,
+      tableTooltipEffect,
+      tableTooltipOptions,
+      maxLevel
+    )
   );
   const isLeaf = children.length === 0;
   const realWidth = isLeaf
     ? resolveColumnWidth(column, widthOverrides)
     : children.reduce((sum, child) => sum + child.realWidth, 0);
   const leafCount = isLeaf ? 1 : children.reduce((sum, item) => sum + item.leafCount, 0);
+  const overflowTooltipOptions = resolveOverflowTooltipOptions(
+    column.showOverflowTooltip,
+    tableShowOverflowTooltip,
+    tableTooltipEffect,
+    tableTooltipOptions
+  );
 
   return {
     ...column,
@@ -137,8 +173,71 @@ function normalizeColumn<T>(
     leafCount,
     colSpan: leafCount,
     rowSpan: isLeaf ? maxLevel - column.level + 1 : 1,
-    showOverflowTooltip: column.showOverflowTooltip ?? tableShowOverflowTooltip
+    showOverflowTooltip:
+      overflowTooltipOptions !== null
+        ? column.showOverflowTooltip ?? tableShowOverflowTooltip ?? true
+        : false,
+    overflowTooltipOptions
   };
+}
+
+function isOverflowTooltipOptions(
+  value: TableOverflowTooltip | undefined
+): value is TableOverflowTooltipOptions {
+  return typeof value === "object" && value !== null;
+}
+
+function mergeOverflowTooltipOptions(
+  ...optionsList: Array<TableOverflowTooltipOptions | undefined>
+): TableOverflowTooltipOptions {
+  return optionsList.reduce<TableOverflowTooltipOptions>((merged, options) => {
+    if (!options) {
+      return merged;
+    }
+
+    return {
+      ...merged,
+      ...options,
+      popperOptions:
+        merged.popperOptions || options.popperOptions
+          ? {
+              ...(merged.popperOptions ?? {}),
+              ...(options.popperOptions ?? {})
+            }
+          : undefined
+    };
+  }, {});
+}
+
+export function resolveOverflowTooltipOptions(
+  value: TableOverflowTooltip | undefined,
+  tableValue?: TableOverflowTooltip,
+  tableTooltipEffect?: TableOverflowTooltipOptions["effect"],
+  tableTooltipOptions?: TableOverflowTooltipOptions
+) {
+  const defaults = mergeOverflowTooltipOptions(
+    tableTooltipOptions,
+    tableTooltipEffect ? { effect: tableTooltipEffect } : undefined
+  );
+  const tableSpecific = isOverflowTooltipOptions(tableValue) ? tableValue : undefined;
+
+  if (value === undefined) {
+    if (tableValue === undefined || tableValue === false) {
+      return null;
+    }
+
+    return mergeOverflowTooltipOptions(defaults, tableSpecific);
+  }
+
+  if (value === false) {
+    return null;
+  }
+
+  return mergeOverflowTooltipOptions(
+    defaults,
+    tableValue === false ? undefined : tableSpecific,
+    isOverflowTooltipOptions(value) ? value : undefined
+  );
 }
 
 export function buildHeaderRows<T>(columns: TableResolvedColumn<T>[]) {
@@ -353,9 +452,17 @@ export function resolveSummary<T>(
     return columns.map((column, index) => values[index]);
   }
 
+  const labelColumnIndex = columns.findIndex(
+    (column) => column.type !== "selection" && column.type !== "index" && column.type !== "expand"
+  );
+
   return columns.map((column, index) => {
-    if (index === 0) {
+    if (index === (labelColumnIndex >= 0 ? labelColumnIndex : 0)) {
       return sumText ?? TABLE_SUM_TEXT;
+    }
+
+    if (index < (labelColumnIndex >= 0 ? labelColumnIndex : 0)) {
+      return "";
     }
 
     if (!column.prop) {

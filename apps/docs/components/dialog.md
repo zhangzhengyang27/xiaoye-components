@@ -6,7 +6,7 @@ outline: deep
 
 # Dialog 对话框
 
-`xy-dialog` 是当前组件库里唯一的标准对话框入口。当前文档按增强计划整理，覆盖 Element Plus 风格的模板能力、工作台级体验增强，以及已经可用的编程式 `DialogService`。
+`xy-dialog` 是当前组件库里唯一的标准对话框入口。当前文档按增强计划整理，覆盖模板能力、工作台级体验增强，以及已经可用的编程式 `DialogService`。
 
 ## 基础用法
 

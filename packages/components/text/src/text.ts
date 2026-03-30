@@ -10,4 +10,10 @@ export interface TextProps {
   truncated?: boolean;
   lineClamp?: number | string;
   tag?: string;
+  copyable?: boolean;
+  ellipsisTooltip?: boolean;
+  expandable?: boolean;
+  strong?: boolean;
+  underline?: boolean;
+  delete?: boolean;
 }

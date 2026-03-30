@@ -1,12 +1,17 @@
 import { defineConfig } from "vitepress";
 import { componentDocsSidebarGroups } from "../../../packages/components/component-manifest";
+import {
+  proComponentDocsSidebarGroups,
+  proComponentExampleSidebarGroups
+} from "../../../packages/pro-components/component-manifest";
 import { workspaceAlias } from "../../../scripts/config/aliases";
 import { demoMdPlugin } from "./plugins/demo";
 import { markdownTransform } from "./plugins/markdown-transform";
+import { tableWrapperMdPlugin } from "./plugins/table-wrapper";
 
 export default defineConfig({
   title: "xiaoye-components",
-  description: "中后台优先的 Vue 3 组件库",
+  description: "通用基础组件库 + 中后台业务增强组件库",
   head: [["link", { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }]],
   cleanUrls: true,
   lastUpdated: true,
@@ -26,6 +31,7 @@ export default defineConfig({
     nav: [
       { text: "指南", link: "/guide/quick-start" },
       { text: "组件", link: "/components/overview" },
+      { text: "增强", link: "/pro-components/overview" },
       { text: "示例", link: "/examples/admin" }
     ],
     sidebar: {
@@ -46,6 +52,13 @@ export default defineConfig({
         },
         ...componentDocsSidebarGroups
       ],
+      "/pro-components/": [
+        {
+          text: "总览",
+          items: [{ text: "增强组件总览", link: "/pro-components/overview" }]
+        },
+        ...proComponentDocsSidebarGroups
+      ],
       "/examples/": [
         {
           text: "页面示例",
@@ -56,7 +69,17 @@ export default defineConfig({
             { text: "Scheduler 场景示例", link: "/examples/scheduler" },
             { text: "Scheduler 业务接入模板", link: "/examples/scheduler-template" }
           ]
-        }
+        },
+        {
+          text: "增强组件示例",
+          items: [{ text: "增强组件总览", link: "/examples/pro/overview" }]
+        },
+        ...proComponentExampleSidebarGroups
+          .map((group) => ({
+            text: group.text,
+            items: group.items
+          }))
+          .filter((group) => group.items.length > 0)
       ]
     },
     socialLinks: [{ icon: "github", link: "https://github.com/xiaoye/xiaoye-components" }]
@@ -64,6 +87,7 @@ export default defineConfig({
   markdown: {
     config(md) {
       demoMdPlugin(md);
+      tableWrapperMdPlugin(md);
     }
   },
   vite: {

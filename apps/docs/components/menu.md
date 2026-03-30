@@ -6,7 +6,7 @@ outline: deep
 
 # Menu 菜单
 
-`xy-menu` 用于承接站点主导航、后台侧栏、工作台模块切换和资源入口列表。实现方式参考了 Element Plus 的 `Menu` 体系，采用 `xy-menu / xy-sub-menu / xy-menu-item / xy-menu-item-group` 的插槽式子组件结构，并补充了受控状态和 `items` 数据驱动能力。
+`xy-menu` 用于承接站点主导航、后台侧栏、工作台模块切换和资源入口列表。采用 `xy-menu / xy-sub-menu / xy-menu-item / xy-menu-item-group` 的插槽式子组件结构，并支持受控状态和 `items` 数据驱动能力。
 
 > 可通过自定义样式类覆写 `--xy-menu-horizontal-height` 来调整横向菜单高度，例如：
 >

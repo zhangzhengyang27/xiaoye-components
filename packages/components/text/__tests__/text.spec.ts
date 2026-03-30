@@ -1,7 +1,11 @@
 import { mount } from "@vue/test-utils";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { nextTick } from "vue";
 import { XyConfigProvider, XyText } from "@xiaoye/components";
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe("XyText", () => {
   it("默认渲染为文本组件", () => {
@@ -117,6 +121,70 @@ describe("XyText", () => {
     });
 
     expect(wrapper.element.tagName).toBe("DEL");
+  });
+
+  it("支持复制和语义样式", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText
+      }
+    });
+
+    const wrapper = mount(XyText, {
+      props: {
+        copyable: true,
+        strong: true,
+        underline: true,
+        delete: true
+      },
+      slots: {
+        default: "复制文本"
+      }
+    });
+
+    expect(wrapper.find(".xy-text").classes()).toContain("is-strong");
+    expect(wrapper.find(".xy-text").classes()).toContain("is-underline");
+    expect(wrapper.find(".xy-text").classes()).toContain("is-delete");
+
+    await wrapper.get(".xy-text__action").trigger("click");
+
+    expect(writeText).toHaveBeenCalledWith("复制文本");
+  });
+
+  it("支持 expandable 展开收起", async () => {
+    const wrapper = mount(XyText, {
+      props: {
+        lineClamp: 2,
+        expandable: true
+      },
+      slots: {
+        default: "第一行 第二行 第三行 第四行"
+      }
+    });
+
+    const element = wrapper.find(".xy-text").element as HTMLElement;
+
+    Object.defineProperty(element, "offsetHeight", {
+      configurable: true,
+      get: () => 40
+    });
+    Object.defineProperty(element, "scrollHeight", {
+      configurable: true,
+      get: () => 90
+    });
+
+    await wrapper.setProps({
+      type: "primary"
+    });
+
+    expect(wrapper.find(".xy-text__toggle").text()).toBe("展开");
+
+    await wrapper.get(".xy-text__toggle").trigger("click");
+
+    expect(wrapper.find(".xy-text").classes()).toContain("is-expanded");
+    expect(wrapper.find(".xy-text__toggle").text()).toBe("收起");
   });
 
   it("用户显式传 title 时不会覆盖", async () => {

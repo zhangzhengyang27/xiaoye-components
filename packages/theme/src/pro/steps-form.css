@@ -1,0 +1,16 @@
+.xy-steps-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.xy-steps-form__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.xy-steps-form__drawer-footer {
+  display: flex;
+  justify-content: flex-end;
+}

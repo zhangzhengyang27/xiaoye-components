@@ -1,4 +1,6 @@
+import type { Placement } from "@floating-ui/dom";
 import type { StyleValue } from "vue";
+import type { TooltipEffect, TooltipPopperOptions } from "../../tooltip";
 
 export type TableAlign = "left" | "center" | "right";
 export type TableSortOrder = "ascending" | "descending" | null;
@@ -10,6 +12,19 @@ export type TableColumnFixed = boolean | "left" | "right";
 export type TableLayout = "fixed" | "auto";
 export type TableSection = "main" | "left" | "right";
 export type TableSummaryValue = string | number | boolean | null | undefined | unknown;
+export type TableOverflowTooltip = boolean | TableOverflowTooltipOptions;
+
+export interface TableOverflowTooltipOptions {
+  effect?: TooltipEffect;
+  enterable?: boolean;
+  hideAfter?: number;
+  offset?: number;
+  placement?: Placement;
+  popperClass?: string;
+  popperOptions?: TooltipPopperOptions;
+  showAfter?: number;
+  showArrow?: boolean;
+}
 
 export interface TableFilterOption {
   text: string;
@@ -145,7 +160,14 @@ export interface TableColumnProps<T = Record<string, unknown>> {
   filteredValue?: TableFilterValue[];
   filterMethod?: (value: TableFilterValue, row: T, column: TableResolvedColumn<T>) => boolean;
   filterMultiple?: boolean;
-  showOverflowTooltip?: boolean;
+  filterPlacement?: Placement;
+  filterClassName?: string;
+  showOverflowTooltip?: TableOverflowTooltip;
+  tooltipFormatter?: (
+    context: TableCellSlotProps<T> & {
+      cellValue: unknown;
+    }
+  ) => unknown;
   fixed?: TableColumnFixed;
   selectable?: (row: T, rowIndex: number) => boolean;
   reserveSelection?: boolean;
@@ -179,7 +201,15 @@ export interface TableResolvedColumn<T = Record<string, unknown>> {
   filteredValue?: TableFilterValue[];
   filterMethod?: (value: TableFilterValue, row: T, column: TableResolvedColumn<T>) => boolean;
   filterMultiple: boolean;
-  showOverflowTooltip?: boolean;
+  filterPlacement?: Placement;
+  filterClassName: string;
+  showOverflowTooltip?: TableOverflowTooltip;
+  tooltipFormatter?: (
+    context: TableCellSlotProps<T> & {
+      cellValue: unknown;
+    }
+  ) => unknown;
+  overflowTooltipOptions: TableOverflowTooltipOptions | null;
   fixed?: "left" | "right";
   selectable?: (row: T, rowIndex: number) => boolean;
   reserveSelection: boolean;
@@ -247,19 +277,25 @@ export interface TableProps<T = Record<string, unknown>> {
   load?: (row: T, treeNode: TableTreeNode, resolve: (data: T[]) => void) => void;
   tableLayout?: TableLayout;
   scrollbarAlwaysOn?: boolean;
-  showOverflowTooltip?: boolean;
+  scrollbarTabindex?: string | number;
+  showOverflowTooltip?: TableOverflowTooltip;
+  tooltipEffect?: TooltipEffect;
+  tooltipOptions?: TableOverflowTooltipOptions;
   tooltipFormatter?: (
     context: TableCellSlotProps<T> & {
       cellValue: unknown;
     }
   ) => unknown;
+  appendFilterPanelTo?: string;
+  allowDragLastColumn?: boolean;
+  preserveExpandedContent?: boolean;
 }
 
 export interface TableInstance<T = Record<string, unknown>> {
   clearSelection: () => void;
   getSelectionRows: () => T[];
   toggleAllSelection: () => void;
-  toggleRowSelection: (row: T, selected?: boolean) => void;
+  toggleRowSelection: (row: T, selected?: boolean, ignoreSelectable?: boolean) => void;
   toggleRowExpansion: (row: T, expanded?: boolean) => void;
   setCurrentRow: (row?: T | null) => void;
   clearSort: () => void;
@@ -269,6 +305,7 @@ export interface TableInstance<T = Record<string, unknown>> {
   scrollTo: (options: ScrollToOptions | number, top?: number) => void;
   setScrollTop: (top: number) => void;
   setScrollLeft: (left: number) => void;
+  updateKeyChildren: (key: string | number, children: T[]) => void;
 }
 
 export function normalizeSortOrders(value?: TableSortOrder[]) {

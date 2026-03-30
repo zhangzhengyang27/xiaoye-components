@@ -82,8 +82,8 @@ onBeforeUnmount(() => {
 
 <template>
   <DropdownItemImpl
-    ref="itemRef"
     :id="itemIndex >= 0 ? `${dropdown?.triggerId.value}-item-${itemIndex}` : undefined"
+    ref="itemRef"
     :data-index="itemIndex >= 0 ? itemIndex : undefined"
     :role="dropdown?.itemRole.value ?? 'menuitem'"
     :active="active"

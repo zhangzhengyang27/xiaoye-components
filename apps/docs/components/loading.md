@@ -6,7 +6,7 @@ outline: deep
 
 # Loading 加载
 
-`Loading` 在当前库里不是公开的 `<xy-loading />` 标签，而是一组插件式能力：`v-loading` 指令、`XyLoadingService()` / `XyLoading.service()`，以及全量安装后的 `this.$loading()`。这和 Element Plus 的使用心智一致，但 directive 配套属性统一收敛成 `xy-loading-*` 前缀。
+`Loading` 在当前库里不是公开的 `<xy-loading />` 标签，而是一组插件式能力：`v-loading` 指令、`XyLoadingService()` / `XyLoading.service()`，以及全量安装后的 `this.$loading()`。指令配套属性统一使用 `xy-loading-*` 前缀。
 
 ## 容器内加载
 

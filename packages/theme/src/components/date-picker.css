@@ -113,6 +113,21 @@
   overflow: visible;
 }
 
+.xy-date-picker__shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.xy-date-picker__shortcut {
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color-muted);
+  min-height: 28px;
+  padding: 0 10px;
+}
+
 .xy-date-picker__header,
 .xy-date-picker__footer {
   display: flex;
@@ -137,6 +152,11 @@
   gap: 6px;
 }
 
+.xy-date-picker__grid--month,
+.xy-date-picker__grid--year {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .xy-date-picker__weekdays {
   margin-bottom: 8px;
   color: var(--xy-text-color-secondary);
@@ -155,6 +175,10 @@
 .xy-date-picker__cell.is-selected {
   background: var(--xy-color-primary);
   color: white;
+}
+
+.xy-date-picker__cell.is-in-range:not(.is-selected) {
+  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
 }
 
 .xy-date-picker__cell.is-focused {

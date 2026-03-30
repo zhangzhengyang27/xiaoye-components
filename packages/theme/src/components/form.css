@@ -4,10 +4,24 @@
   gap: var(--xy-space-4);
 }
 
+.xy-form.is-inline,
+.xy-form--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--xy-space-4);
+}
+
 .xy-form-item {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+}
+
+.xy-form.is-inline .xy-form-item,
+.xy-form--inline .xy-form-item {
+  flex: 0 0 auto;
+  min-width: min(100%, 280px);
 }
 
 .xy-form--top .xy-form-item {
@@ -46,4 +60,8 @@
 
 .xy-form-item.is-success .xy-form-item__message {
   color: var(--xy-color-success);
+}
+
+.xy-form-item.is-disabled {
+  opacity: 0.72;
 }

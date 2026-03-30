@@ -6,7 +6,7 @@ outline: deep
 
 # Breadcrumb 面包屑
 
-`xy-breadcrumb` 用来表达页面层级和当前位置，适合详情页、后台多级目录、抽屉页和设置流程顶部。实现上参考了 Element Plus 的 `Breadcrumb` 父子拆分，但按当前仓库习惯补了 `href / target / disabled / ariaLabel`，同时保留 `to / replace` 兼容口。
+`xy-breadcrumb` 用来表达页面层级和当前位置，适合详情页、后台多级目录、抽屉页和设置流程顶部。采用父子拆分结构，同时补了 `href / target / disabled / ariaLabel`，同时保留 `to / replace` 兼容口。
 
 ## 基础用法
 
@@ -28,7 +28,7 @@ breadcrumb/admin-path
 
 ## 链接与禁用态
 
-:::demo `href / target / disabled` 适合纯链接导航；`to / replace` 兼容 Element Plus 风格，但需要宿主项目提供 `$router`。
+:::demo `href / target / disabled` 适合纯链接导航；`to / replace` 兼容 Vue Router 风格，但需要宿主项目提供 `$router`。
 breadcrumb/navigation
 :::
 

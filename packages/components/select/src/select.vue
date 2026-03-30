@@ -27,12 +27,18 @@ const props = withDefaults(defineProps<SelectProps<T>>(), {
   disabled: false,
   clearable: false,
   searchable: false,
+  multiple: false,
+  collapseTags: false,
+  maxTagCount: undefined,
+  remote: false,
+  allowCreate: false,
   size: undefined,
   noDataText: "暂无选项",
   noMatchText: "没有匹配项",
   loading: false,
   loadingText: "加载中",
   searchPlaceholder: "搜索选项",
+  createText: "创建",
   prefixIcon: "",
   suffixIcon: DEFAULT_SUFFIX_ICON,
   clearIcon: DEFAULT_CLEAR_ICON,
@@ -49,12 +55,13 @@ const props = withDefaults(defineProps<SelectProps<T>>(), {
 });
 
 const emit = defineEmits<{
-  "update:modelValue": [value: T | null];
-  change: [value: T | null];
+  "update:modelValue": [value: T | T[] | null];
+  change: [value: T | T[] | null];
   clear: [];
   visibleChange: [value: boolean];
   focus: [];
   blur: [];
+  searchChange: [value: string];
 }>();
 
 const instance = getCurrentInstance();
@@ -69,12 +76,11 @@ const searchInputRef = ref<HTMLInputElement | null>(null);
 const open = ref(false);
 const searchValue = ref("");
 const listboxId = `xy-select-listbox-${Math.random().toString(36).slice(2, 10)}`;
-const selectedValue = ref<T | null>(props.modelValue);
+const selectedValue = ref<T | T[] | null>(props.modelValue);
 const { zIndex, isTopMost, openLayer, closeLayer } = useOverlayStack();
 const resolvedFitInputWidth = computed(() => props.fitInputWidth ?? props.fitTriggerWidth);
 const hasLoadingTextProp = computed(() => {
   const vnodeProps = instance?.vnode.props ?? {};
-
   return "loadingText" in vnodeProps || "loading-text" in vnodeProps;
 });
 const resolvedLoading = computed(() =>
@@ -85,10 +91,28 @@ const resolvedLoading = computed(() =>
     props.loadingText
   )
 );
+const showSearchInput = computed(() => props.searchable || props.remote || props.allowCreate);
+const formDisabled = computed(() => formItem?.disabled.value ?? false);
+const selectDisabled = computed(() => props.disabled || formDisabled.value);
 
 function isOptionGroup(option: SelectOptionItem<T>): option is SelectOptionGroup<T> {
   return Array.isArray((option as SelectOptionGroup<T>).options);
 }
+
+function normalizeSelectedValues(value: T | T[] | null | undefined) {
+  if (props.multiple) {
+    return Array.isArray(value) ? value : value == null ? [] : [value];
+  }
+
+  if (Array.isArray(value)) {
+    return value.length ? [value[0] as T] : [];
+  }
+
+  return value == null ? [] : [value];
+}
+
+const selectedValues = computed<T[]>(() => normalizeSelectedValues(selectedValue.value));
+const selectedValueSet = computed(() => new Set(selectedValues.value));
 
 const allOptions = computed(() => {
   const flattened: Array<Omit<FlatSelectOption<T>, "flatIndex">> = [];
@@ -111,9 +135,43 @@ const allOptions = computed(() => {
   return flattened;
 });
 
+const optionMap = computed(() => {
+  const map = new Map<T, Omit<FlatSelectOption<T>, "flatIndex">>();
+  allOptions.value.forEach((option) => {
+    map.set(option.value, option);
+  });
+  return map;
+});
+
+const createdOption = computed<Omit<FlatSelectOption<T>, "flatIndex"> | null>(() => {
+  if (!props.allowCreate) {
+    return null;
+  }
+
+  const keyword = searchValue.value.trim();
+
+  if (!keyword || props.loading) {
+    return null;
+  }
+
+  const matched = allOptions.value.some(
+    (option) => option.label === keyword || String(option.value) === keyword
+  );
+
+  if (matched) {
+    return null;
+  }
+
+  return {
+    label: keyword,
+    value: keyword as T,
+    created: true
+  };
+});
+
 const groupedOptions = computed<SelectRenderGroup<T>[]>(() => {
   const keyword = searchValue.value.trim().toLowerCase();
-  const shouldFilter = props.searchable && keyword.length > 0;
+  const shouldFilter = !props.remote && showSearchInput.value && keyword.length > 0;
   let runningIndex = 0;
   const groups: SelectRenderGroup<T>[] = [];
 
@@ -154,24 +212,61 @@ const groupedOptions = computed<SelectRenderGroup<T>[]>(() => {
     });
   });
 
+  if (createdOption.value) {
+    groups.push({
+      isGroup: false,
+      options: [
+        {
+          ...createdOption.value,
+          flatIndex: runningIndex++
+        }
+      ]
+    });
+  }
+
   return groups;
 });
 
 const filteredOptions = computed(() => groupedOptions.value.flatMap((group) => group.options));
+
+const selectedOptions = computed(() =>
+  selectedValues.value.map((value) => optionMap.value.get(value) ?? { label: String(value), value })
+);
+const selectedOption = computed(() => selectedOptions.value[0] ?? null);
+const displayLabel = computed(() => selectedOption.value?.label ?? props.placeholder);
+
+const collapsedTagCount = computed(() => {
+  if (!props.multiple) {
+    return 0;
+  }
+
+  if (!props.collapseTags) {
+    return 0;
+  }
+
+  const limit = props.maxTagCount ?? 1;
+  return Math.max(0, selectedOptions.value.length - limit);
+});
+
+const visibleTags = computed(() => {
+  if (!props.multiple) {
+    return [];
+  }
+
+  if (!props.collapseTags) {
+    return selectedOptions.value;
+  }
+
+  return selectedOptions.value.slice(0, props.maxTagCount ?? 1);
+});
 
 const emptyText = computed(() => {
   if (props.loading) {
     return props.loadingText;
   }
 
-  return props.searchable && searchValue.value.trim() ? props.noMatchText : props.noDataText;
+  return showSearchInput.value && searchValue.value.trim() ? props.noMatchText : props.noDataText;
 });
-
-const selectedOption = computed(
-  () => allOptions.value.find((item) => item.value === selectedValue.value) ?? null
-);
-
-const displayLabel = computed(() => selectedOption.value?.label ?? props.placeholder);
 
 const navigation = useListNavigation(() => filteredOptions.value, {
   loop: true
@@ -213,12 +308,14 @@ const dropdownStyle = computed<StyleValue>(() => [
   props.popperStyle
 ]);
 
-function syncActiveIndex() {
-  const selectedIndex = filteredOptions.value.findIndex(
-    (item) => item.value === selectedValue.value
-  );
+function optionSelected(option: Pick<FlatSelectOption<T>, "value">) {
+  return selectedValueSet.value.has(option.value);
+}
 
-  if (selectedIndex >= 0 && !filteredOptions.value[selectedIndex]?.disabled) {
+function syncActiveIndex() {
+  const selectedIndex = filteredOptions.value.findIndex((item) => optionSelected(item) && !item.disabled);
+
+  if (selectedIndex >= 0) {
     navigation.setActiveIndex(selectedIndex);
     return;
   }
@@ -227,7 +324,7 @@ function syncActiveIndex() {
 }
 
 async function focusSearchInput() {
-  if (!props.searchable) {
+  if (!showSearchInput.value) {
     return;
   }
 
@@ -236,7 +333,7 @@ async function focusSearchInput() {
 }
 
 async function openDropdown() {
-  if (props.disabled || open.value) {
+  if (selectDisabled.value || open.value) {
     return;
   }
 
@@ -284,31 +381,80 @@ async function toggleDropdown() {
   await openDropdown();
 }
 
+async function emitValue(value: T | T[] | null) {
+  selectedValue.value = value;
+  emit("update:modelValue", value);
+  emit("change", value);
+}
+
 async function selectOption(option: FlatSelectOption<T>) {
   if (option.disabled) {
     return;
   }
 
-  selectedValue.value = option.value;
-  emit("update:modelValue", option.value);
-  emit("change", option.value);
+  if (props.multiple) {
+    const nextValues = [...selectedValues.value];
+    const index = nextValues.findIndex((value) => value === option.value);
+
+    if (index >= 0) {
+      nextValues.splice(index, 1);
+    } else {
+      nextValues.push(option.value);
+    }
+
+    await emitValue(nextValues);
+    searchValue.value = "";
+    await nextTick();
+    await updatePosition();
+    await formItem?.validate("change");
+    return;
+  }
+
+  await emitValue(option.value);
   await closeDropdown(false, true);
   await formItem?.validate("change");
+}
+
+async function createOption() {
+  if (!createdOption.value) {
+    return;
+  }
+
+  await selectOption({
+    ...createdOption.value,
+    flatIndex: filteredOptions.value.length
+  });
 }
 
 async function clearValue(event: MouseEvent) {
   event.preventDefault();
   event.stopPropagation();
 
-  selectedValue.value = null;
-  emit("update:modelValue", null);
-  emit("change", null);
+  await emitValue(props.multiple ? [] : null);
   emit("clear");
   await formItem?.validate("change");
 }
 
+async function removeTag(option: Pick<FlatSelectOption<T>, "value">, event: MouseEvent) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (!props.multiple || selectDisabled.value) {
+    return;
+  }
+
+  const nextValues = selectedValues.value.filter((value) => value !== option.value);
+  await emitValue(nextValues);
+  await formItem?.validate("change");
+}
+
+function updateSearchValue(value: string) {
+  searchValue.value = value;
+  emit("searchChange", value);
+}
+
 async function handleKeydown(event: KeyboardEvent) {
-  if (props.disabled) {
+  if (selectDisabled.value) {
     return;
   }
 
@@ -344,7 +490,6 @@ async function handleKeydown(event: KeyboardEvent) {
       navigation.activateLast();
       break;
     case "Enter":
-    case " ":
       event.preventDefault();
       if (!open.value) {
         await openDropdown();
@@ -353,6 +498,25 @@ async function handleKeydown(event: KeyboardEvent) {
 
       if (activeOption.value) {
         await selectOption(activeOption.value);
+        break;
+      }
+
+      if (props.allowCreate) {
+        await createOption();
+      }
+      break;
+    case " ":
+      if (!showSearchInput.value) {
+        event.preventDefault();
+
+        if (!open.value) {
+          await openDropdown();
+          break;
+        }
+
+        if (activeOption.value) {
+          await selectOption(activeOption.value);
+        }
       }
       break;
     case "Escape":
@@ -361,6 +525,16 @@ async function handleKeydown(event: KeyboardEvent) {
       break;
     case "Tab":
       await closeDropdown(true);
+      break;
+    case "Backspace":
+      if (
+        props.multiple &&
+        !searchValue.value &&
+        selectedValues.value.length &&
+        !showSearchInput.value
+      ) {
+        await emitValue(selectedValues.value.slice(0, -1));
+      }
       break;
     default:
       break;
@@ -423,7 +597,7 @@ defineExpose({
       ns.base.value,
       `${ns.base.value}--${mergedSize}`,
       open ? 'is-open' : '',
-      props.disabled ? 'is-disabled' : '',
+      selectDisabled ? 'is-disabled' : '',
       formItem?.validateState.value === 'error' ? 'is-error' : ''
     ]"
     :aria-busy="props.loading ? 'true' : undefined"
@@ -432,9 +606,9 @@ defineExpose({
       ref="triggerRef"
       class="xy-select__trigger"
       role="combobox"
-      :tabindex="props.disabled ? -1 : 0"
+      :tabindex="selectDisabled ? -1 : 0"
       aria-haspopup="listbox"
-      :aria-disabled="props.disabled"
+      :aria-disabled="selectDisabled"
       :aria-expanded="open"
       :aria-controls="listboxId"
       :aria-activedescendant="
@@ -457,13 +631,43 @@ defineExpose({
         />
       </span>
 
-      <span class="xy-select__selection" :class="selectedOption ? 'is-selected' : 'is-placeholder'">
+      <template v-if="props.multiple">
+        <div class="xy-select__tags" :class="selectedOptions.length ? 'is-selected' : 'is-placeholder'">
+          <template v-if="selectedOptions.length">
+            <span
+              v-for="option in visibleTags"
+              :key="`${option.value}`"
+              class="xy-select__tag"
+            >
+              <span>{{ option.label }}</span>
+              <button
+                v-if="!selectDisabled"
+                type="button"
+                class="xy-select__tag-remove"
+                aria-label="remove"
+                @click="removeTag(option, $event)"
+              >
+                <XyIcon :icon="props.clearIcon" :size="12" />
+              </button>
+            </span>
+            <span v-if="collapsedTagCount" class="xy-select__tag is-collapsed">
+              +{{ collapsedTagCount }}
+            </span>
+          </template>
+          <span v-else>{{ props.placeholder }}</span>
+        </div>
+      </template>
+      <span
+        v-else
+        class="xy-select__selection"
+        :class="selectedOption ? 'is-selected' : 'is-placeholder'"
+      >
         {{ displayLabel }}
       </span>
 
       <span class="xy-select__actions">
         <button
-          v-if="props.clearable && selectedOption && !props.disabled"
+          v-if="props.clearable && selectedValues.length && !selectDisabled"
           type="button"
           class="xy-select__clear"
           aria-label="clear"
@@ -495,12 +699,13 @@ defineExpose({
             <slot name="header" />
           </div>
 
-          <div v-if="props.searchable" class="xy-select__search">
+          <div v-if="showSearchInput" class="xy-select__search">
             <input
               ref="searchInputRef"
-              v-model="searchValue"
+              :value="searchValue"
               type="text"
               :placeholder="props.searchPlaceholder"
+              @input="updateSearchValue(($event.target as HTMLInputElement).value)"
               @keydown="handleKeydown"
             />
           </div>
@@ -538,16 +743,17 @@ defineExpose({
                 <button
                   v-for="option in group.options"
                   :id="`${listboxId}-${option.flatIndex}`"
-                  :key="`${option.value}`"
+                  :key="`${option.value}-${option.flatIndex}`"
                   type="button"
                   class="xy-select__option"
                   :class="[
                     option.disabled ? 'is-disabled' : '',
-                    option.value === selectedValue ? 'is-selected' : '',
-                    navigation.activeIndex.value === option.flatIndex ? 'is-active' : ''
+                    optionSelected(option) ? 'is-selected' : '',
+                    navigation.activeIndex.value === option.flatIndex ? 'is-active' : '',
+                    option.created ? 'is-created' : ''
                   ]"
                   role="option"
-                  :aria-selected="option.value === selectedValue"
+                  :aria-selected="optionSelected(option)"
                   :disabled="option.disabled"
                   @mouseenter="navigation.setActiveIndex(option.flatIndex)"
                   @click="selectOption(option)"
@@ -555,10 +761,10 @@ defineExpose({
                   <slot
                     name="option"
                     :option="option"
-                    :selected="option.value === selectedValue"
+                    :selected="optionSelected(option)"
                     :active="navigation.activeIndex.value === option.flatIndex"
                   >
-                    <span>{{ option.label }}</span>
+                    <span>{{ option.created ? `${props.createText} "${option.label}"` : option.label }}</span>
                     <small v-if="option.description">{{ option.description }}</small>
                   </slot>
                 </button>

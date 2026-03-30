@@ -1,6 +1,7 @@
 import type { InjectionKey, Ref } from "vue";
 import type { RuleItem } from "async-validator";
 import type { ComponentSize } from "@xiaoye/utils";
+import type { FormProp } from "./utils";
 
 export type FormTrigger = "blur" | "change";
 export type ValidateState = "idle" | "validating" | "success" | "error";
@@ -14,6 +15,8 @@ export type FormRules = Record<string, XyFormRule[]>;
 
 export interface FormFieldContext {
   prop?: string;
+  propKey?: string;
+  element?: HTMLElement | null;
   validate: (trigger?: FormTrigger) => Promise<boolean>;
   clearValidate: () => void;
   resetField: () => void;
@@ -25,21 +28,26 @@ export interface FormProps {
   labelWidth?: string | number;
   labelPosition?: "left" | "top";
   size?: ComponentSize;
+  inline?: boolean;
+  disabled?: boolean;
+  scrollToError?: boolean;
+  validateOnRuleChange?: boolean;
 }
 
 export interface FormContext {
   props: FormProps;
   addField: (field: FormFieldContext) => void;
   removeField: (field: FormFieldContext) => void;
-  resetFields: (props?: string | string[]) => void;
+  resetFields: (props?: FormProp | FormProp[]) => void;
 }
 
 export interface FormItemContext {
-  prop?: string;
+  prop?: FormProp;
   inputId: string;
   messageId: string;
   message: Ref<string>;
   validateState: Ref<ValidateState>;
+  disabled: Ref<boolean>;
   validate: (trigger?: FormTrigger) => Promise<boolean>;
   clearValidate: () => void;
 }

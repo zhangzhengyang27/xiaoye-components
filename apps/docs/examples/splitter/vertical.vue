@@ -1,197 +1,192 @@
 <script setup lang="ts">
 const tasks = [
-  "lint: splitter styles",
-  "test: splitter drag preview",
-  "docs: update playground"
+  { id: 1, name: "Build production bundle", status: "done", time: "2.4s" },
+  { id: 2, name: "Run type checking", status: "running", time: "..." },
+  { id: 3, name: "Execute unit tests", status: "pending", time: "-" }
 ];
 
 const logs = [
-  "[20:48:11] info  split layout mounted",
-  "[20:48:14] warn  preview line opacity adjusted",
-  "[20:48:19] done  splitter examples refreshed"
+  { type: "info", text: "[10:42:18] Starting build process..." },
+  { type: "success", text: "[10:42:20] Compiled successfully in 2.4s" },
+  { type: "info", text: "[10:42:21] Running type checker..." },
+  { type: "warn", text: "[10:42:23] Found 2 minor warnings" }
 ];
 </script>
 
 <template>
-  <div class="demo-splitter-vertical">
-    <div class="demo-splitter-vertical__chrome">
-      <span>Terminal</span>
-      <xy-space size="sm">
-        <xy-tag size="sm" round>watch</xy-tag>
-        <xy-tag size="sm" status="success" round>idle</xy-tag>
-      </xy-space>
+  <div class="split-demo split-demo--terminal">
+    <div class="split-demo__header">
+      <div class="split-demo__dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="split-demo__title">Terminal — pnpm build</span>
     </div>
 
     <xy-splitter layout="vertical">
-      <xy-splitter-panel size="42%" min="120px">
-        <section class="demo-splitter-terminal demo-splitter-terminal--top">
-          <div class="demo-splitter-terminal__title">
-            <xy-text tag="strong">Task Queue</xy-text>
-            <xy-text tag="p" size="sm" type="info">
-              上半区像命令面板或任务列表，不像普通介绍卡片。
-            </xy-text>
-          </div>
-          <div class="demo-splitter-task-list">
-            <button
-              v-for="(task, index) in tasks"
-              :key="task"
-              class="demo-splitter-task"
-              :class="{ 'is-active': index === 1 }"
-            >
-              <span>{{ index + 1 }}</span>
-              <strong>{{ task }}</strong>
-            </button>
-          </div>
-        </section>
-      </xy-splitter-panel>
-
-      <xy-splitter-panel min="160px">
-        <section class="demo-splitter-terminal demo-splitter-terminal--bottom">
-          <div class="demo-splitter-terminal__title demo-splitter-terminal__title--stack">
-            <xy-text tag="strong">Output Stream</xy-text>
-            <xy-text tag="p" size="sm" type="info">
-              纵向分隔更适合日志流、终端结果和预览窗口。
-            </xy-text>
-          </div>
-          <div class="demo-splitter-log">
-            <div v-for="(log, index) in logs" :key="log" class="demo-splitter-log__line">
-              <span>{{ String(index + 41).padStart(3, "0") }}</span>
-              <code>{{ log }}</code>
+      <xy-splitter-panel size="45%" :min="120">
+        <div class="split-demo__tasks">
+          <div v-for="task in tasks" :key="task.id" class="split-demo__task" :class="`is-${task.status}`">
+            <div class="split-demo__check">
+              <template v-if="task.status === 'done'">✓</template>
+              <template v-else-if="task.status === 'running'">◐</template>
+              <template v-else>○</template>
+            </div>
+            <div class="split-demo__task-info">
+              <span class="split-demo__task-name">{{ task.name }}</span>
+              <span class="split-demo__task-time">{{ task.time }}</span>
             </div>
           </div>
-        </section>
+        </div>
+      </xy-splitter-panel>
+
+      <xy-splitter-panel :min="140">
+        <div class="split-demo__output">
+          <div
+            v-for="(log, idx) in logs"
+            :key="idx"
+            class="split-demo__log"
+            :class="`is-${log.type}`"
+          >
+            {{ log.text }}
+          </div>
+        </div>
       </xy-splitter-panel>
     </xy-splitter>
   </div>
 </template>
 
 <style scoped>
-.demo-splitter-vertical {
-  height: 336px;
+.split-demo--terminal {
+  height: 340px;
+  margin: -24px;
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, white);
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--xy-color-primary) 7%, white), transparent 36%),
-    #fbfcfe;
-  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.08);
+  background: #0f172a;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
 }
 
-.demo-splitter-vertical__chrome {
+.split-demo__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   padding: 12px 16px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
-  background: color-mix(in srgb, var(--xy-bg-color) 84%, white);
-  color: var(--xy-text-color-secondary);
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+.split-demo__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.split-demo__dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #475569;
+}
+
+.split-demo__dots span:first-child { background: #ef4444; }
+.split-demo__dots span:nth-child(2) { background: #eab308; }
+.split-demo__dots span:last-child { background: #22c55e; }
+
+.split-demo__title {
+  color: #94a3b8;
   font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-weight: 500;
 }
 
-.demo-splitter-terminal {
+.split-demo__tasks {
   height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 16px;
-}
-
-.demo-splitter-terminal--top {
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color-muted) 88%, white), transparent 22%),
-    color-mix(in srgb, var(--xy-bg-color-muted) 74%, white);
-}
-
-.demo-splitter-terminal--bottom {
-  background:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92)),
-    rgba(15, 23, 42, 0.96);
-  color: rgba(226, 232, 240, 0.92);
-}
-
-.demo-splitter-terminal__title {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.demo-splitter-terminal__title :deep(p) {
-  margin: 0;
-}
-
-.demo-splitter-task-list {
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-height: 0;
-  overflow: auto;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
 }
 
-.demo-splitter-task {
-  display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
-  gap: 12px;
+.split-demo__task {
+  display: flex;
   align-items: center;
-  padding: 11px 12px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-bg-color) 82%, white);
-  color: var(--xy-text-color-secondary);
-  text-align: left;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.demo-splitter-task span {
-  color: var(--xy-text-color-muted);
-  font-family: "SFMono-Regular", "SF Mono", Menlo, Monaco, Consolas, monospace;
+.split-demo__task.is-running {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.split-demo__check {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   font-size: 12px;
+  color: #475569;
 }
 
-.demo-splitter-task.is-active {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 24%, white);
-  background: color-mix(in srgb, var(--xy-color-primary) 8%, white);
-  color: var(--xy-text-color);
+.split-demo__task.is-done .split-demo__check {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
 }
 
-.demo-splitter-log {
+.split-demo__task.is-running .split-demo__check {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.split-demo__task-info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.split-demo__task-name {
+  color: #e2e8f0;
+  font-size: 13px;
+}
+
+.split-demo__task-time {
+  color: #64748b;
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+}
+
+.split-demo__output {
+  height: 100%;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-top: auto;
-  min-height: 0;
-  padding: 14px;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 16px;
-  background: rgba(15, 23, 42, 0.36);
   overflow: auto;
+  background: #0f172a;
 }
 
-.demo-splitter-log__line {
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 12px;
-  align-items: start;
-  font-family: "SFMono-Regular", "SF Mono", Menlo, Monaco, Consolas, monospace;
+.split-demo__log {
+  font-family: "SF Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.6;
 }
 
-.demo-splitter-log__line span {
-  color: rgba(148, 163, 184, 0.72);
-}
+.split-demo__log.is-success { color: #22c55e; }
+.split-demo__log.is-warn { color: #eab308; }
+.split-demo__log.is-error { color: #ef4444; }
 
-.demo-splitter-log__line code {
-  color: rgba(226, 232, 240, 0.9);
-  white-space: nowrap;
-}
-
-@media (max-width: 720px) {
-  .demo-splitter-vertical__chrome,
-  .demo-splitter-terminal__title {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width: 640px) {
+  .split-demo--terminal {
+    height: 420px;
   }
 }
 </style>

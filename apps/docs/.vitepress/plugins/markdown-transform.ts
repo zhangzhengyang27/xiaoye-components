@@ -2,10 +2,23 @@ import path from "node:path";
 import type { Plugin } from "vite";
 import { extractDemoPaths, getDemoComponentName } from "../utils/demo";
 
+function resolveExamplesRoot(id: string) {
+  const docsMarker = `${path.sep}apps${path.sep}docs${path.sep}`;
+  const markerIndex = id.lastIndexOf(docsMarker);
+
+  if (markerIndex < 0) {
+    return path.resolve(path.dirname(id), "../examples");
+  }
+
+  const docsRoot = id.slice(0, markerIndex + docsMarker.length);
+  return path.resolve(docsRoot, "examples");
+}
+
 function injectImports(code: string, id: string, demoPaths: string[]) {
+  const examplesRoot = resolveExamplesRoot(id);
   const imports = demoPaths.map((demoPath) => {
     const componentName = getDemoComponentName(demoPath);
-    const examplePath = path.resolve(path.dirname(id), "../examples", `${demoPath}.vue`);
+    const examplePath = path.resolve(examplesRoot, `${demoPath}.vue`);
     let relativePath = path.relative(path.dirname(id), examplePath).replaceAll(path.sep, "/");
 
     if (!relativePath.startsWith(".")) {
@@ -49,9 +62,10 @@ export function markdownTransform(): Plugin {
 
       const docsRoot = `${path.sep}apps${path.sep}docs${path.sep}`;
       const isComponentDoc = id.includes(`${docsRoot}components${path.sep}`);
+      const isProComponentDoc = id.includes(`${docsRoot}pro-components${path.sep}`);
       const isExampleDoc = id.includes(`${docsRoot}examples${path.sep}`);
 
-      if (!isComponentDoc && !isExampleDoc) {
+      if (!isComponentDoc && !isProComponentDoc && !isExampleDoc) {
         return;
       }
 

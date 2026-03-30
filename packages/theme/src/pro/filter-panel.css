@@ -1,0 +1,40 @@
+.xy-filter-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.xy-filter-panel__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.xy-filter-panel__title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.xy-filter-panel__description {
+  margin: 0;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-filter-panel__meta,
+.xy-filter-panel__footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.xy-filter-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.xy-filter-panel__footer {
+  justify-content: flex-end;
+  padding-top: 16px;
+}

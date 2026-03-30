@@ -10,6 +10,7 @@ import {
 } from "@xiaoye/composables";
 import XyIcon from "../../icon";
 import { formKey, formItemKey } from "../../form/src/context";
+import { setPathValue } from "../../form/src/utils";
 import {
   DEFAULT_CLEAR_ICON,
   DEFAULT_END,
@@ -232,7 +233,7 @@ function syncFormModel(value: string | null) {
     return;
   }
 
-  form.props.model[formItem.prop] = value;
+  setPathValue(form.props.model, formItem.prop, value);
 }
 
 async function openDropdown() {

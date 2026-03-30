@@ -6,7 +6,7 @@ outline: deep
 
 # Avatar 头像
 
-`xy-avatar` 参考 Element Plus 的 `Avatar` 设计，覆盖图片头像、图标头像、文字头像，以及 `xy-avatar-group` 分组折叠展示。
+`xy-avatar` 覆盖图片头像、图标头像、文字头像，以及 `xy-avatar-group` 分组折叠展示。
 
 ## 基础用法
 

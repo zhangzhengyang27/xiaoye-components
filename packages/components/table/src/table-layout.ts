@@ -1,5 +1,4 @@
-import { nextTick, onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
-import type { ComputedRef } from "vue";
+import { nextTick, onMounted, ref, type Ref } from "vue";
 
 export interface TableLayoutState {
   headerWrapperRef: Ref<HTMLElement | null>;
@@ -21,9 +20,7 @@ export interface TableLayoutState {
   setScrollTop: (top: number) => void;
 }
 
-export function useTableLayout(deps: {
-  deps: ComputedRef<unknown>;
-}): TableLayoutState {
+export function useTableLayout(): TableLayoutState {
   const headerWrapperRef = ref<HTMLElement | null>(null);
   const bodyWrapperRef = ref<HTMLElement | null>(null);
   const footerWrapperRef = ref<HTMLElement | null>(null);
@@ -35,9 +32,12 @@ export function useTableLayout(deps: {
   const hasVerticalScroll = ref(false);
   const showLeftShadow = ref(false);
   const showRightShadow = ref(false);
-  let resizeObserver: ResizeObserver | null = null;
+  let lastEmittedScroll = {
+    scrollLeft: 0,
+    scrollTop: 0
+  };
 
-  function syncLayout() {
+  function syncLayout(emitScroll = false) {
     const body = bodyWrapperRef.value;
 
     if (!body) {
@@ -60,10 +60,21 @@ export function useTableLayout(deps: {
     if (footerWrapperRef.value) {
       footerWrapperRef.value.scrollLeft = body.scrollLeft;
     }
+
+    if (
+      emitScroll &&
+      (lastEmittedScroll.scrollLeft !== scrollLeft.value ||
+        lastEmittedScroll.scrollTop !== scrollTop.value)
+    ) {
+      lastEmittedScroll = {
+        scrollLeft: scrollLeft.value,
+        scrollTop: scrollTop.value
+      };
+    }
   }
 
   function handleBodyScroll() {
-    syncLayout();
+    syncLayout(true);
   }
 
   function handleFixedWheel(event: WheelEvent) {
@@ -75,7 +86,7 @@ export function useTableLayout(deps: {
 
     body.scrollLeft += event.deltaX;
     body.scrollTop += event.deltaY;
-    syncLayout();
+    syncLayout(true);
   }
 
   function scrollTo(arg1: ScrollToOptions | number, arg2?: number) {
@@ -108,7 +119,7 @@ export function useTableLayout(deps: {
       body.scrollTop = arg2 ?? body.scrollTop;
     }
 
-    syncLayout();
+    syncLayout(true);
   }
 
   function setScrollLeft(left: number) {
@@ -119,7 +130,7 @@ export function useTableLayout(deps: {
     }
 
     body.scrollLeft = left;
-    syncLayout();
+    syncLayout(true);
   }
 
   function setScrollTop(top: number) {
@@ -130,35 +141,12 @@ export function useTableLayout(deps: {
     }
 
     body.scrollTop = top;
-    syncLayout();
+    syncLayout(true);
   }
 
   onMounted(async () => {
     await nextTick();
     syncLayout();
-
-    if (typeof ResizeObserver !== "undefined" && bodyWrapperRef.value) {
-      resizeObserver = new ResizeObserver(() => {
-        syncLayout();
-      });
-
-      resizeObserver.observe(bodyWrapperRef.value);
-    }
-  });
-
-  watch(
-    deps.deps,
-    async () => {
-      await nextTick();
-      syncLayout();
-    },
-    {
-      deep: true
-    }
-  );
-
-  onBeforeUnmount(() => {
-    resizeObserver?.disconnect();
   });
 
   return {

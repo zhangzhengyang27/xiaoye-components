@@ -1,11 +1,11 @@
 <template>
   <xy-carousel type="card" height="240px" :autoplay="false" style="--xy-carousel-radius: 18px">
     <xy-carousel-item v-for="item in 5" :key="`card-${item}`" :name="`card-${item}`">
-      <div class="demo-carousel-card">
+      <xy-card class="demo-carousel-card" shadow="always">
         <span class="demo-carousel-card__eyebrow">Pick {{ item }}</span>
         <strong>推荐位 {{ item }}</strong>
         <p>点击左右卡片可以直接切换当前内容。</p>
-      </div>
+      </xy-card>
     </xy-carousel-item>
   </xy-carousel>
 </template>
@@ -19,10 +19,8 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 22px;
-  border-radius: 18px;
   background: linear-gradient(160deg, #0f766e, #2563eb);
   color: white;
-  overflow: hidden;
 }
 
 .demo-carousel-card__eyebrow {

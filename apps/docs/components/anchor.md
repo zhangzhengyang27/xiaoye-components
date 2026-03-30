@@ -6,7 +6,7 @@ outline: deep
 
 # Anchor 锚点
 
-`xy-anchor` 和 `xy-anchor-link` 用于把“长内容页的章节定位”收口成一套稳定的页内导航。首版参考 Element Plus 的滚动锚点方案，但按当前仓库习惯保留为复合组件和插槽优先写法，默认支持 `vertical + horizontal`、复合嵌套目录、滚动容器监听、marker 指示条、`scrollTo` expose 和 URL hash 同步。
+`xy-anchor` 和 `xy-anchor-link` 用于把“长内容页的章节定位”收口成一套稳定的页内导航。采用复合组件和插槽优先写法，默认支持复合组件和插槽优先写法，默认支持 `vertical + horizontal`、复合嵌套目录、滚动容器监听、marker 指示条、`scrollTo` expose 和 URL hash 同步。
 
 ## 基础用法
 

@@ -1,0 +1,5 @@
+.xy-table-filter-drawer__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

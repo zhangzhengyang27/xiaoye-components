@@ -1,0 +1,170 @@
+[
+  {
+    "name": "search-form",
+    "docsGroup": "form",
+    "docsText": "SearchForm 搜索表单",
+    "installExports": ["XySearchForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-search-form" }],
+    "styleImports": ["search-form"]
+  },
+  {
+    "name": "pro-form",
+    "docsGroup": "form",
+    "docsText": "ProForm 增强表单",
+    "installExports": ["XyProForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-pro-form" }],
+    "styleImports": ["pro-form"]
+  },
+  {
+    "name": "overlay-form",
+    "docsGroup": "form",
+    "docsText": "OverlayForm 浮层表单",
+    "installExports": ["XyOverlayForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-overlay-form" }],
+    "styleImports": ["overlay-form"]
+  },
+  {
+    "name": "steps-form",
+    "docsGroup": "form",
+    "docsText": "StepsForm 分步表单",
+    "installExports": ["XyStepsForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-steps-form" }],
+    "styleImports": ["steps-form"]
+  },
+  {
+    "name": "filter-panel",
+    "docsGroup": "form",
+    "docsText": "FilterPanel 筛选面板",
+    "installExports": ["XyFilterPanel"],
+    "installChecks": [{ "kind": "component", "name": "xy-filter-panel" }],
+    "styleImports": ["filter-panel"]
+  },
+  {
+    "name": "request-form",
+    "docsGroup": "form",
+    "docsText": "RequestForm 请求表单",
+    "installExports": ["XyRequestForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-request-form" }],
+    "styleImports": ["request-form"]
+  },
+  {
+    "name": "pro-table",
+    "docsGroup": "data",
+    "docsText": "ProTable 增强表格",
+    "installExports": ["XyProTable"],
+    "installChecks": [{ "kind": "component", "name": "xy-pro-table" }],
+    "styleImports": ["pro-table"]
+  },
+  {
+    "name": "column-setting-panel",
+    "docsGroup": "data",
+    "docsText": "ColumnSettingPanel 列设置面板",
+    "installExports": ["XyColumnSettingPanel"],
+    "installChecks": [{ "kind": "component", "name": "xy-column-setting-panel" }],
+    "styleImports": ["column-setting-panel"]
+  },
+  {
+    "name": "saved-view-tabs",
+    "docsGroup": "data",
+    "docsText": "SavedViewTabs 视图页签",
+    "installExports": ["XySavedViewTabs"],
+    "installChecks": [{ "kind": "component", "name": "xy-saved-view-tabs" }],
+    "styleImports": ["saved-view-tabs"]
+  },
+  {
+    "name": "table-filter-drawer",
+    "docsGroup": "data",
+    "docsText": "TableFilterDrawer 表格筛选抽屉",
+    "installExports": ["XyTableFilterDrawer"],
+    "installChecks": [{ "kind": "component", "name": "xy-table-filter-drawer" }],
+    "styleImports": ["table-filter-drawer"]
+  },
+  {
+    "name": "import-result-table",
+    "docsGroup": "data",
+    "docsText": "ImportResultTable 导入结果表格",
+    "installExports": ["XyImportResultTable"],
+    "installChecks": [{ "kind": "component", "name": "xy-import-result-table" }],
+    "styleImports": ["import-result-table"]
+  },
+  {
+    "name": "audit-timeline",
+    "docsGroup": "detail",
+    "docsText": "AuditTimeline 审计时间线",
+    "installExports": ["XyAuditTimeline"],
+    "installChecks": [{ "kind": "component", "name": "xy-audit-timeline" }],
+    "styleImports": ["audit-timeline"]
+  },
+  {
+    "name": "detail-panel",
+    "docsGroup": "detail",
+    "docsText": "DetailPanel 详情承载面板",
+    "installExports": ["XyDetailPanel"],
+    "installChecks": [{ "kind": "component", "name": "xy-detail-panel" }],
+    "styleImports": ["detail-panel"]
+  },
+  {
+    "name": "detail-page",
+    "docsGroup": "detail",
+    "docsText": "DetailPage 详情页面容器",
+    "installExports": ["XyDetailPage"],
+    "installChecks": [{ "kind": "component", "name": "xy-detail-page" }],
+    "styleImports": ["detail-page"]
+  },
+  {
+    "name": "async-state-container",
+    "docsGroup": "page",
+    "docsText": "AsyncStateContainer 异步状态容器",
+    "installExports": ["XyAsyncStateContainer"],
+    "installChecks": [{ "kind": "component", "name": "xy-async-state-container" }],
+    "styleImports": ["async-state-container"]
+  },
+  {
+    "name": "list-page",
+    "docsGroup": "page",
+    "docsText": "ListPage 列表页面容器",
+    "installExports": ["XyListPage"],
+    "installChecks": [{ "kind": "component", "name": "xy-list-page" }],
+    "styleImports": ["list-page"]
+  },
+  {
+    "name": "crud-page",
+    "docsGroup": "page",
+    "docsText": "CrudPage 增删改查页面",
+    "installExports": ["XyCrudPage"],
+    "installChecks": [{ "kind": "component", "name": "xy-crud-page" }],
+    "styleImports": ["crud-page"]
+  },
+  {
+    "name": "split-layout-page",
+    "docsGroup": "page",
+    "docsText": "SplitLayoutPage 分栏页面",
+    "installExports": ["XySplitLayoutPage"],
+    "installChecks": [{ "kind": "component", "name": "xy-split-layout-page" }],
+    "styleImports": ["split-layout-page"]
+  },
+  {
+    "name": "approval-flow-panel",
+    "docsGroup": "workflow",
+    "docsText": "ApprovalFlowPanel 审批流面板",
+    "installExports": ["XyApprovalFlowPanel"],
+    "installChecks": [{ "kind": "component", "name": "xy-approval-flow-panel" }],
+    "styleImports": ["approval-flow-panel"]
+  },
+  {
+    "name": "import-wizard",
+    "docsGroup": "workflow",
+    "docsText": "ImportWizard 导入向导",
+    "installExports": ["XyImportWizard"],
+    "installChecks": [{ "kind": "component", "name": "xy-import-wizard" }],
+    "styleImports": ["import-wizard"]
+  },
+  {
+    "name": "export-task-panel",
+    "docsGroup": "workflow",
+    "docsText": "ExportTaskPanel 导出任务面板",
+    "installExports": ["XyExportTaskPanel"],
+    "installChecks": [{ "kind": "component", "name": "xy-export-task-panel" }],
+    "styleImports": ["export-task-panel"]
+  }
+]

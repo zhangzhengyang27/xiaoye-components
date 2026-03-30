@@ -1,0 +1,11 @@
+.xy-import-result-table {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.xy-import-result-table__summary {
+  display: inline-flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

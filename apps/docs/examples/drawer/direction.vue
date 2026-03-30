@@ -27,7 +27,7 @@ function beforeClose(done: (cancel?: boolean) => void) {
     </xy-space>
 
     <xy-drawer v-model="topOpen" title="顶部筛选层" direction="ttb" size="280px">
-      <p>通过 `direction=&quot;ttb&quot;` 可以使用更接近 Element Plus 的方向配置。</p>
+      <p>通过 `direction=&quot;ttb&quot;` 可以使用顶部方向配置。</p>
     </xy-drawer>
 
     <xy-drawer

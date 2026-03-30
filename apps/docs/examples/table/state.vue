@@ -19,6 +19,7 @@ const rows = [
     <xy-table
       :data="showEmpty ? [] : rows"
       :loading="loading"
+      border
       loading-text="正在同步项目列表"
     >
       <xy-table-column prop="name" label="项目名称" />

@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import AsyncValidator from "async-validator";
-import { computed, inject, onBeforeUnmount, onMounted, provide, ref, toRaw } from "vue";
+import {
+  computed,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  toRaw
+} from "vue";
 import { useNamespace } from "@xiaoye/composables";
 import type {
   FormFieldContext,
@@ -9,10 +17,12 @@ import type {
   XyFormRule
 } from "./context";
 import { formItemKey, formKey } from "./context";
+import type { FormProp } from "./utils";
+import { getPathValue, normalizeFormProp, setPathValue } from "./utils";
 
 export interface FormItemProps {
   label?: string;
-  prop?: string;
+  prop?: FormProp;
   rules?: XyFormRule[];
   required?: boolean;
   help?: string;
@@ -30,8 +40,10 @@ const form = inject(formKey, null);
 const ns = useNamespace("form-item");
 const validateState = ref<ValidateState>("idle");
 const validateMessage = ref("");
+const rootRef = ref<HTMLElement | null>(null);
 const inputId = `xy-field-${Math.random().toString(36).slice(2, 10)}`;
 const messageId = `xy-message-${Math.random().toString(36).slice(2, 10)}`;
+const propKey = computed(() => normalizeFormProp(props.prop));
 
 function cloneValue<T>(value: T): T {
   if (value === undefined || value === null || typeof value !== "object") {
@@ -48,12 +60,12 @@ function cloneValue<T>(value: T): T {
 }
 
 const initialValue = ref(
-  props.prop && form ? cloneValue(form.props.model[props.prop]) : undefined
+  props.prop && form ? cloneValue(getPathValue(form.props.model, props.prop) as never) : undefined
 );
 
 const mergedRules = computed<XyFormRule[]>(() => {
   const rules = [
-    ...(props.prop && form?.props.rules?.[props.prop] ? form.props.rules[props.prop] : []),
+    ...(propKey.value && form?.props.rules?.[propKey.value] ? form.props.rules[propKey.value] : []),
     ...props.rules
   ];
 
@@ -73,7 +85,7 @@ const isRequired = computed(
 const displayMessage = computed(() => validateMessage.value || props.help || "");
 
 async function validate(trigger?: FormTrigger) {
-  if (!form || !props.prop) {
+  if (!form || !props.prop || !propKey.value) {
     return true;
   }
 
@@ -98,12 +110,12 @@ async function validate(trigger?: FormTrigger) {
 
   validateState.value = "validating";
   const validator = new AsyncValidator({
-    [props.prop]: normalizedRules
+    [propKey.value]: normalizedRules
   });
 
   try {
     await validator.validate({
-      [props.prop]: form.props.model[props.prop]
+      [propKey.value]: getPathValue(form.props.model, props.prop)
     });
     validateState.value = "success";
     validateMessage.value = "";
@@ -126,12 +138,14 @@ function resetField() {
     return;
   }
 
-  form.props.model[props.prop] = cloneValue(initialValue.value);
+  setPathValue(form.props.model, props.prop, cloneValue(initialValue.value));
   clearValidate();
 }
 
 const fieldContext: FormFieldContext = {
-  prop: props.prop,
+  prop: props.prop as string | undefined,
+  propKey: propKey.value,
+  element: rootRef.value,
   validate,
   clearValidate,
   resetField
@@ -143,11 +157,13 @@ provide(formItemKey, {
   messageId,
   message: displayMessage,
   validateState,
+  disabled: computed(() => Boolean(form?.props.disabled)),
   validate,
   clearValidate
 });
 
 onMounted(() => {
+  fieldContext.element = rootRef.value;
   form?.addField(fieldContext);
 });
 
@@ -158,17 +174,23 @@ onBeforeUnmount(() => {
 
 <template>
   <div
+    ref="rootRef"
     :class="[
       ns.base.value,
       validateState === 'error' ? 'is-error' : '',
-      validateState === 'success' ? 'is-success' : ''
+      validateState === 'success' ? 'is-success' : '',
+      form?.props.inline ? 'is-inline' : '',
+      form?.props.disabled ? 'is-disabled' : ''
     ]"
   >
     <label
       v-if="props.label"
       class="xy-form-item__label"
       :for="inputId"
-      :style="{ width: form?.props.labelWidth ? `${form.props.labelWidth}` : undefined }"
+      :style="{
+        width:
+          !form?.props.inline && form?.props.labelWidth ? `${form.props.labelWidth}` : undefined
+      }"
     >
       <span v-if="isRequired" class="xy-form-item__required">*</span>
       {{ props.label }}

@@ -75,7 +75,7 @@ const auditGroups = [
             </template>
 
             <template #actions>
-              <button class="demo-timeline-scene__action" type="button">查看</button>
+              <xy-button text size="sm">查看</xy-button>
             </template>
 
             {{ record.description }}
@@ -124,15 +124,5 @@ const auditGroups = [
   background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
   color: var(--xy-color-primary);
   font-size: 12px;
-}
-
-.demo-timeline-scene__action {
-  border: 0;
-  border-radius: 999px;
-  padding: 4px 10px;
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  color: var(--xy-color-primary);
-  font-size: 12px;
-  cursor: pointer;
 }
 </style>

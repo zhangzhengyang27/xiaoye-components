@@ -6,7 +6,7 @@ outline: deep
 
 # Backtop 回到顶部
 
-`xy-backtop` 用于在页面或局部滚动容器滚到一定距离后，显示一个回到顶部按钮。它的能力边界参考了 Element Plus 的 `Backtop`，保留了 `visibility-height`、`target`、`right`、`bottom` 和 `click` 事件。
+`xy-backtop` 用于在页面或局部滚动容器滚到一定距离后，显示一个回到顶部按钮。保留了 `visibility-height`、`target`、`right`、`bottom` 和 `click` 事件。
 
 ## 基础与目标容器
 

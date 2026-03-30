@@ -317,6 +317,64 @@ describe("XyUpload", () => {
     expect(slotWrapper.find(".custom-file").text()).toContain("custom.txt");
   });
 
+  it("支持 directory 属性和粘贴上传", async () => {
+    const wrapper = mount(XyUpload, {
+      attachTo: document.body,
+      props: {
+        directory: true,
+        paste: true,
+        fileList: [],
+        httpRequest: () => Promise.resolve({ ok: true })
+      }
+    });
+
+    const input = wrapper.find('input[type="file"]');
+    expect(input.attributes("webkitdirectory")).toBe("true");
+
+    const file = new File(["hello"], "pasted.png", { type: "image/png" });
+    const pasteEvent = new Event("paste", { bubbles: true }) as ClipboardEvent;
+
+    Object.defineProperty(pasteEvent, "clipboardData", {
+      configurable: true,
+      value: {
+        files: [file]
+      }
+    });
+
+    wrapper.get(".xy-upload__content").element.dispatchEvent(pasteEvent);
+    await nextTick();
+    await flushPromises();
+
+    const latestFiles = wrapper.emitted("update:fileList")?.at(-1)?.[0] as UploadFileItem[] | undefined;
+    expect(latestFiles?.some((item) => item.name === "pasted.png")).toBe(true);
+  });
+
+  it("支持 previewFile 自定义预览地址", async () => {
+    const wrapper = mount(XyUpload, {
+      attachTo: document.body,
+      props: {
+        listType: "picture-card",
+        previewFile: async () =>
+          "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'></svg>",
+        fileList: [
+          {
+            uid: "img-custom-preview",
+            name: "avatar.png",
+            size: 1024,
+            status: "success"
+          }
+        ]
+      }
+    });
+
+    await wrapper.get(".xy-upload-list__preview").trigger("click");
+    await flushPromises();
+    await nextTick();
+
+    const previewImage = document.body.querySelector(".xy-upload__preview-image") as HTMLImageElement | null;
+    expect(previewImage?.src).toContain("data:image/svg+xml");
+  });
+
   it("clearFiles 和卸载时会中止进行中的上传", async () => {
     const clearFilesPending = {} as {
       resolve: (value: unknown) => void;

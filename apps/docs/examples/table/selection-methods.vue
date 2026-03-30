@@ -36,32 +36,42 @@ function sortByScore() {
 </script>
 
 <template>
-  <div class="xy-doc-stack">
-    <xy-space wrap>
-      <xy-button plain @click="selectFirstRow">选中第一行</xy-button>
-      <xy-button plain @click="sortByScore">按健康度降序</xy-button>
-      <xy-button plain @click="clearSelection">清空选择</xy-button>
-      <xy-tag status="primary">已选：{{ selectedNames.join(" / ") || "无" }}</xy-tag>
-    </xy-space>
+  <div class="xy-doc-stack xy-table-doc-scene">
+    <div class="xy-table-doc-toolbar">
+      <div class="xy-table-doc-toolbar__group">
+        <div class="xy-table-doc-toolbar__chip">
+          <span>已选成员</span>
+          <strong>{{ selectedNames.join(" / ") || "无" }}</strong>
+        </div>
+      </div>
 
-    <xy-table
-      ref="tableRef"
-      :data="rows"
-      row-key="id"
-      stripe
-      border
-      @selection-change="handleSelectionChange"
-    >
-      <xy-table-column type="selection" width="52" />
-      <xy-table-column type="index" width="64" label="#" />
-      <xy-table-column prop="name" label="姓名" />
-      <xy-table-column prop="role" label="角色" show-overflow-tooltip />
-      <xy-table-column prop="score" label="健康度" align="right" sortable />
-      <xy-table-column prop="status" label="状态">
-        <template #default="{ value }">
-          <xy-tag :status="value === '在线' ? 'success' : 'neutral'">{{ value }}</xy-tag>
-        </template>
-      </xy-table-column>
-    </xy-table>
+      <xy-space wrap>
+        <xy-button text size="sm" @click="selectFirstRow">选中第一行</xy-button>
+        <xy-button text size="sm" @click="sortByScore">按健康度降序</xy-button>
+        <xy-button text size="sm" @click="clearSelection">清空选择</xy-button>
+      </xy-space>
+    </div>
+
+    <div class="xy-table-doc-scene__surface">
+      <xy-table
+        ref="tableRef"
+        :data="rows"
+        row-key="id"
+        stripe
+        border
+        @selection-change="handleSelectionChange"
+      >
+        <xy-table-column type="selection" width="52" />
+        <xy-table-column type="index" width="64" label="#" />
+        <xy-table-column prop="name" label="姓名" width="100" />
+        <xy-table-column prop="role" label="角色" width="110" show-overflow-tooltip />
+        <xy-table-column prop="score" label="健康度" width="80" align="right" sortable />
+        <xy-table-column prop="status" label="状态" width="80">
+          <template #default="{ value }">
+            <xy-tag :status="value === '在线' ? 'success' : 'neutral'">{{ value }}</xy-tag>
+          </template>
+        </xy-table-column>
+      </xy-table>
+    </div>
   </div>
 </template>

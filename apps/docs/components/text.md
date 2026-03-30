@@ -6,7 +6,7 @@ outline: deep
 
 # Text 文本
 
-`xy-text` 用于承载正文级文本、状态说明和卡片摘要。它不是富文本组件，而是给普通文本补上语义色、尺寸节奏、截断和自定义标签能力。
+`xy-text` 用于承载正文级文本、状态说明和卡片摘要。它不是富文本组件，而是给普通文本补上语义色、尺寸节奏、截断、复制和展开能力。
 
 ## 基础用法
 
@@ -38,6 +38,18 @@ text/line-clamp
 text/tag
 :::
 
+## 复制与语义样式
+
+:::demo `copyable` 适合承载编号、链接和命令片段，`strong / underline / delete` 用于轻量语义强调。
+text/actions
+:::
+
+## 可展开文本
+
+:::demo `expandable` 适合搭配 `line-clamp` 承载较长说明，默认先收起，点击后展开完整内容。
+text/expandable
+:::
+
 ## 何时使用
 
 - 需要在正文里对某一段说明做轻量语义强调。
@@ -55,6 +67,12 @@ text/tag
 | `truncated`  | 是否启用单行省略   | `boolean`                                                                | `false`      |
 | `line-clamp` | 多行省略的最大行数 | `number \| string`                                                       | —            |
 | `tag`        | 渲染的根标签       | `string`                                                                 | `'span'`     |
+| `copyable`   | 是否显示复制按钮   | `boolean`                                                                | `false`      |
+| `ellipsis-tooltip` | 溢出时是否补充 tooltip | `boolean`                                                        | `false`      |
+| `expandable` | 是否支持展开收起   | `boolean`                                                                | `false`      |
+| `strong`     | 是否加粗显示       | `boolean`                                                                | `false`      |
+| `underline`  | 是否添加下划线     | `boolean`                                                                | `false`      |
+| `delete`     | 是否添加删除线     | `boolean`                                                                | `false`      |
 
 ### Text Slots
 
@@ -66,4 +84,5 @@ text/tag
 
 - `truncated` 只处理单行省略，`line-clamp` 处理多行省略，两者不建议同时使用。
 - 没有显式传 `title` 时，组件会在内容真实溢出后自动补 `title`。
+- `expandable` 只在文本真实溢出时展示展开按钮。
 - `tag` 只改变语义标签，不改变颜色、字号和截断策略。

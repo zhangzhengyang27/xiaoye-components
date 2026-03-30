@@ -6,7 +6,7 @@ outline: deep
 
 # Upload 上传
 
-`xy-upload` 适合附件上传、图片上传和补充材料提交。当前版本的接口和行为向 `element-plus Upload` 对齐，主绑定方式推荐使用 `v-model:file-list`。
+`xy-upload` 适合附件上传、图片上传和补充材料提交。当前版本接口完善，主绑定方式推荐使用 `v-model:file-list`。
 
 ## 基础用法
 
@@ -74,6 +74,18 @@ upload/custom-file
 upload/drag-accept
 :::
 
+## 目录上传
+
+:::demo `directory` 适合素材目录、静态资源包或批量截图目录的整体导入。
+upload/directory
+:::
+
+## 粘贴上传与自定义预览
+
+:::demo 开启 `paste` 后可以直接粘贴剪贴板中的文件；`preview-file` 适合在预览前换成自定义地址或签名图像。
+upload/paste-preview
+:::
+
 ## 编辑态回显与继续补传
 
 :::demo 通过 `v-model:file-list` 传入现有文件列表，适合编辑态回显和继续补充上传。
@@ -87,6 +99,8 @@ upload/list
 - `auto-upload="false"` 时，文件会先进入 `ready` 状态，等待手动调用 `submit()`。
 - `before-upload` 返回 `false` 或 rejected Promise 时，会阻止该文件进入上传流程。
 - `list-type="picture"` 和 `picture-card` 会优先使用 `url` 或本地图像对象 URL 渲染缩略图。
+- `directory` 只影响文件选择入口，不会改变 `file-list` 的结构。
+- `paste` 只在当前上传区获得焦点或命中粘贴事件时生效。
 - 在表单中会把校验消息关联到上传触发区。
 
 ## API
@@ -106,6 +120,8 @@ upload/list
 | `limit`            | 最大文件数量             | `number`                                                        | `undefined`  |
 | `disabled`         | 是否禁用                 | `boolean`                                                       | `false`      |
 | `drag`             | 是否启用拖拽上传         | `boolean`                                                       | `false`      |
+| `directory`        | 是否支持目录选择         | `boolean`                                                       | `false`      |
+| `paste`            | 是否支持粘贴上传         | `boolean`                                                       | `false`      |
 | `tip`              | 上传提示文案             | `string`                                                        | `''`         |
 | `size`             | 组件尺寸                 | `'sm' \| 'md' \| 'lg'`                                          | 跟随全局配置 |
 | `auto-upload`      | 是否自动上传             | `boolean`                                                       | `true`       |
@@ -117,6 +133,7 @@ upload/list
 | `on-change`        | 文件选择或状态变化钩子   | `(file, files) => void`                                         | `undefined` |
 | `on-remove`        | 删除文件钩子             | `(file, files) => void`                                         | `undefined` |
 | `on-preview`       | 点击预览钩子             | `(file) => void`                                                | `undefined` |
+| `preview-file`     | 自定义预览地址解析       | `(file) => string \| Promise<string \| undefined>`              | `undefined` |
 | `on-success`       | 上传成功钩子             | `(response, file, files) => void`                               | `undefined` |
 | `on-progress`      | 上传进度钩子             | `(event, file, files) => void`                                  | `undefined` |
 | `on-error`         | 上传失败钩子             | `(error, file, files) => void`                                  | `undefined` |

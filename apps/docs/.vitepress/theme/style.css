@@ -765,6 +765,98 @@
   line-height: 1.25;
 }
 
+/* ===== 文档表格样式（参考 Element Plus） ===== */
+.vp-doc .xy-vp-table {
+  width: 100%;
+  margin: 20px 0 28px;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.vp-doc .xy-vp-table > table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: var(--vp-c-bg);
+  font-size: 14px;
+  line-height: 1.5em;
+}
+
+.vp-doc .xy-vp-table > table tr {
+  background: transparent;
+  border-top: 0;
+}
+
+.vp-doc .xy-vp-table > table tr:nth-child(2n) {
+  background: transparent;
+}
+
+.vp-doc .xy-vp-table > table th,
+.vp-doc .xy-vp-table > table td {
+  white-space: nowrap;
+  border-top: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding: 0.6em 1em;
+  text-align: left;
+  max-width: 250px;
+  white-space: pre-wrap;
+}
+
+.vp-doc .xy-vp-table > table th {
+  background: #f5f7fa;
+  color: #909399;
+  font-weight: 600;
+}
+
+.vp-doc .xy-vp-table > table thead tr:first-child th {
+  border-top: none;
+}
+
+.vp-doc .xy-vp-table > table tbody td:first-child {
+  font-family:
+    "JetBrains Mono",
+    "SFMono-Regular",
+    ui-monospace,
+    monospace;
+}
+
+/* ===== Demo 展示区样式隔离（参考 Element Plus） ===== */
+/* Element Plus 不需要额外隔离，组件自身有完整样式 */
+
+/* ===== xy-table 组件样式隔离 ===== */
+/* 防止 VitePress 的 .vp-doc table 样式影响 xy-table 组件 */
+.vp-doc .xy-table {
+  /* xy-table 根容器：重置为 flex 布局 */
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+/* xy-table 内部的 table 元素：确保使用 table 布局 */
+.vp-doc .xy-table table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* xy-table 内部的 tr 元素 */
+.vp-doc .xy-table tr {
+  display: table-row;
+  background: transparent;
+  border-top: 0;
+}
+
+.vp-doc .xy-table tr:nth-child(2n) {
+  background: transparent;
+}
+
+/* xy-table 内部的 th/td 元素 */
+.vp-doc .xy-table th,
+.vp-doc .xy-table td {
+  display: table-cell;
+}
+
 @media (max-width: 960px) {
   .xy-home-grid,
   .xy-doc-grid,

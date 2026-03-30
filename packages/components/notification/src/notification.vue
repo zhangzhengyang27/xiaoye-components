@@ -264,6 +264,7 @@ defineExpose({
 });
 </script>
 
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <Transition name="xy-notification-fade">
     <div

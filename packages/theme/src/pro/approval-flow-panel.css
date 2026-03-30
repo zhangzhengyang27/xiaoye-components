@@ -1,0 +1,24 @@
+.xy-approval-flow-panel__nodes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.xy-approval-flow-panel__node {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color);
+}
+
+.xy-approval-flow-panel__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}

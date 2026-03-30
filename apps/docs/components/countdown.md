@@ -6,7 +6,7 @@ outline: deep
 
 # Countdown 倒计时
 
-`xy-countdown` 复用了 `xy-statistic` 的标题、前后缀和数值骨架，用来展示发版窗口、活动结束时间、支付剩余时长等倒计时场景。实现拆分参考了 Element Plus：`Statistic` 负责外层展示，`Countdown` 负责时间计算和事件。
+`xy-countdown` 复用了 `xy-statistic` 的标题、前后缀和数值骨架，用来展示发版窗口、活动结束时间、支付剩余时长等倒计时场景。`Statistic` 负责外层展示，`Countdown` 负责时间计算和事件。
 
 ## 基础倒计时
 

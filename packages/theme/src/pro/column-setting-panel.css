@@ -1,0 +1,22 @@
+.xy-column-setting-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.xy-column-setting-panel__title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.xy-column-setting-panel__description {
+  margin: 8px 0 0;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-column-setting-panel__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

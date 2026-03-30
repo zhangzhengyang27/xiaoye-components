@@ -1,10 +1,10 @@
 <template>
   <xy-scrollbar height="220px">
     <div class="demo-scroll-list">
-      <section v-for="item in 8" :key="item" class="demo-scroll-card">
+      <xy-card v-for="item in 8" :key="item" class="demo-scroll-card" shadow="hover">
         <strong>规则块 {{ item }}</strong>
-        <p>用于演示固定高度下的纵向滚动，适合侧栏说明区、筛选说明块和卡片列表。</p>
-      </section>
+        <p>用于演示固定高度下的纵向滚动,适合侧栏说明区、筛选说明块和卡片列表。</p>
+      </xy-card>
     </div>
   </xy-scrollbar>
 </template>
@@ -15,13 +15,6 @@
   flex-direction: column;
   gap: 12px;
   padding-right: 8px;
-}
-
-.demo-scroll-card {
-  padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 72%, white);
 }
 
 .demo-scroll-card strong {

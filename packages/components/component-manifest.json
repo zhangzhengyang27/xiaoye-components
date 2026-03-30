@@ -215,6 +215,22 @@
     "styleImports": ["input"]
   },
   {
+    "name": "auto-complete",
+    "docsGroup": "form",
+    "docsText": "AutoComplete 自动完成",
+    "installExports": ["XyAutoComplete"],
+    "installChecks": [{ "kind": "component", "name": "xy-auto-complete" }],
+    "styleImports": ["auto-complete"]
+  },
+  {
+    "name": "cascader",
+    "docsGroup": "form",
+    "docsText": "Cascader 级联选择",
+    "installExports": ["XyCascader"],
+    "installChecks": [{ "kind": "component", "name": "xy-cascader" }],
+    "styleImports": ["cascader"]
+  },
+  {
     "name": "radio",
     "docsGroup": "form",
     "docsText": "Radio 单选框",
@@ -309,6 +325,14 @@
     "installExports": ["XySelect"],
     "installChecks": [{ "kind": "component", "name": "xy-select" }],
     "styleImports": ["select"]
+  },
+  {
+    "name": "tree-select",
+    "docsGroup": "form",
+    "docsText": "TreeSelect 树选择",
+    "installExports": ["XyTreeSelect"],
+    "installChecks": [{ "kind": "component", "name": "xy-tree-select" }],
+    "styleImports": ["tree-select"]
   },
   {
     "name": "form",
@@ -450,6 +474,14 @@
     "styleImports": ["dropdown"]
   },
   {
+    "name": "transfer",
+    "docsGroup": "feedback",
+    "docsText": "Transfer 穿梭框",
+    "installExports": ["XyTransfer"],
+    "installChecks": [{ "kind": "component", "name": "xy-transfer" }],
+    "styleImports": ["transfer"]
+  },
+  {
     "name": "dialog",
     "docsGroup": "feedback",
     "docsText": "Dialog 对话框",
@@ -527,6 +559,17 @@
     "installExports": ["XyScheduler"],
     "installChecks": [{ "kind": "component", "name": "xy-scheduler" }],
     "styleImports": ["scheduler"]
+  },
+  {
+    "name": "descriptions",
+    "docsGroup": "data",
+    "docsText": "Descriptions 描述列表",
+    "installExports": ["XyDescriptions", "XyDescriptionsItem"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-descriptions" },
+      { "kind": "component", "name": "xy-descriptions-item" }
+    ],
+    "styleImports": ["descriptions"]
   },
   {
     "name": "tree",

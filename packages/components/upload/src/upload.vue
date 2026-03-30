@@ -28,6 +28,8 @@ const props = withDefaults(defineProps<UploadProps>(), {
   limit: undefined,
   disabled: false,
   drag: false,
+  directory: false,
+  paste: false,
   tip: "",
   size: undefined,
   autoUpload: true,
@@ -39,6 +41,7 @@ const props = withDefaults(defineProps<UploadProps>(), {
   onRemove: undefined,
   onChange: undefined,
   onPreview: undefined,
+  previewFile: undefined,
   onSuccess: undefined,
   onProgress: undefined,
   onError: undefined,
@@ -295,11 +298,13 @@ async function handleRemove(
   }
 }
 
-function handlePreview(file: UploadFileItem) {
+async function handlePreview(file: UploadFileItem) {
   props.onPreview?.(file);
 
-  if (isImageFile(file) && file.url) {
-    previewImageUrl.value = file.url;
+  const previewUrl = (await props.previewFile?.(file)) ?? file.url;
+
+  if (previewUrl && (isImageFile(file) || props.previewFile)) {
+    previewImageUrl.value = previewUrl;
     previewImageName.value = file.name;
   }
 }
@@ -415,6 +420,8 @@ defineExpose({
           :multiple="props.multiple"
           :accept="props.accept"
           :drag="props.drag"
+          :directory="props.directory"
+          :paste="props.paste"
           :with-credentials="props.withCredentials"
           :auto-upload="props.autoUpload"
           :disabled="props.disabled"
@@ -453,6 +460,8 @@ defineExpose({
       :multiple="props.multiple"
       :accept="props.accept"
       :drag="props.drag"
+      :directory="props.directory"
+      :paste="props.paste"
       :with-credentials="props.withCredentials"
       :auto-upload="props.autoUpload"
       :disabled="props.disabled"

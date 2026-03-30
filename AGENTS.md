@@ -22,11 +22,38 @@
 - 组件清单、文档侧边栏、聚合安装断言和一致性校验以 `packages/components/component-manifest.ts` 为主源，避免多处手工同步。
 - 修改组件相关逻辑后，优先补齐或更新对应单测；如果组件有类型导出或安装入口变化，也要检查 `tests/types/fixtures` 和 `packages/xiaoye-components/__tests__`。
 
+## 增强层导出规则
+
+- 增强组件源码统一位于 `packages/pro-components/<name>`，并通过 `packages/pro-components/component-manifest.json` 维护 21 个正式公开增强组件清单。
+- 新增或修改增强组件时，优先同步检查这些入口是否需要更新：
+  - `packages/pro-components/component-manifest.json`
+  - `packages/pro-components/exports.ts`
+  - `packages/pro-components/index.ts`
+  - `packages/pro-components/style.css`
+  - `packages/xiaoye-pro-components/index.ts`
+  - `tests/types/fixtures/xiaoye-pro-components.ts`
+  - `tests/types/fixtures/pro-root-boundary.ts`
+  - `scripts/check-pro-components.mjs`
+- `packages/pro-components/exports.ts` 只允许显式导出正式公开增强组件值，例如 `XyProTable`、`XyListPage`；不要在这里使用 `export *`，也不要把组件类型从这里抛到包根。
+- `packages/pro-components/index.ts` 是增强层根入口白名单：
+  - 只允许导出正式公开增强组件值。
+  - 类型只允许导出每个公开增强组件的主 `Props / Instance / 主数据类型`，以及 `core.ts` 里的稳定共享协议类型。
+  - 插槽入参、事件载荷、组件内部状态枚举、props 字面量联合、对共享类型的业务别名，默认不应出现在根入口。
+- 如果某个类型只适合组件子入口使用，应保留在 `packages/pro-components/<name>/index.ts` 或源码内部，不要再把它抬到 `@xiaoye/pro-components` / `xiaoye-pro-components` 根入口。
+- 旧兼容类型如果必须保留，应只保留在源码层，并显式标注 `@deprecated`；默认不要继续从组件 `index.ts` 或包根对外导出。
+- 增强层根入口边界由两层守卫共同维护：
+  - `scripts/check-pro-components.mjs` 会校验组件值导出白名单和根入口类型白名单。
+  - `tests/types/fixtures/pro-root-boundary.ts` 会校验一批已降级的细节类型无法再从根入口导入。
+- 修改增强层公开导出后，至少补跑：
+  - `pnpm check:pro-components`
+  - `pnpm typecheck:types`
+  - 视影响范围再补 `pnpm typecheck:packages`、`pnpm build:docs`、`pnpm build:lib`
+
 ## 当前组件范围
 
-- 当前 `packages/components/index.ts` 已导出 61 个组件：
+- 当前 `packages/components/index.ts` 已导出 62 个组件：
   - 配置入口：`config-provider`
-  - 基础与展示：`icon`、`button`、`link`、`breadcrumb`、`text`、`badge`、`avatar`、`image`、`card`、`carousel`、`affix`、`anchor`、`menu`、`row`、`col`、`scrollbar`、`splitter`、`divider`、`tag`、`space`、`tabs`
+  - 基础与展示：`icon`、`button`、`link`、`breadcrumb`、`text`、`badge`、`avatar`、`image`、`watermark`、`card`、`carousel`、`affix`、`anchor`、`menu`、`row`、`col`、`scrollbar`、`splitter`、`divider`、`tag`、`space`、`tabs`
   - 表单输入：`input`、`radio`、`checkbox`、`switch`、`input-tag`、`input-number`、`rate`、`slider`、`select`、`form`、`upload`
   - 时间相关：`date-picker`、`time-picker`、`time-select`、`scheduler`
   - 反馈与浮层：`alert`、`message`、`notification`、`backtop`、`collapse`、`collapse-transition`、`empty`、`loading`、`skeleton`、`result`、`tooltip`、`popover`、`popconfirm`、`dropdown`、`dialog`、`drawer`

@@ -6,7 +6,7 @@ outline: deep
 
 # Divider 分割线
 
-`xy-divider` 参考了 Element Plus 的 `Divider`，保留 `direction / content-position / border-style` 这组三件套，同时补了当前组件库更常用的 `size` 和 `status`。它适合做轻量分段，而不是代替卡片、折叠面板这类更重的容器结构。
+`xy-divider` 提供 `direction / content-position / border-style` 这组核心配置，同时补了 `size` 和 `status`。它适合做轻量分段，而不是代替卡片、折叠面板这类更重的容器结构。
 
 ## 基础用法
 

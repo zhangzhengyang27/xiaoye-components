@@ -9,25 +9,33 @@ export interface SelectOptionGroup<T = string | number> {
 }
 
 export type SelectOptionItem<T = string | number> = SelectOption<T> | SelectOptionGroup<T>;
+export type SelectValue<T = string | number> = T | T[] | null;
 
 export interface FlatSelectOption<T = string | number> extends SelectOption<T> {
   flatIndex: number;
   groupLabel?: string;
+  created?: boolean;
 }
 
 export interface SelectProps<T = string | number> {
-  modelValue?: T | null;
+  modelValue?: SelectValue<T>;
   options: SelectOptionItem<T>[];
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;
   searchable?: boolean;
+  multiple?: boolean;
+  collapseTags?: boolean;
+  maxTagCount?: number;
+  remote?: boolean;
+  allowCreate?: boolean;
   size?: ComponentSize;
   noDataText?: string;
   noMatchText?: string;
   loading?: boolean;
   loadingText?: string;
   searchPlaceholder?: string;
+  createText?: string;
   prefixIcon?: string;
   suffixIcon?: string;
   clearIcon?: string;

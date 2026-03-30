@@ -55,7 +55,7 @@ const activities = [
             </template>
 
             <template #actions>
-              <button class="demo-timeline-detail__action" type="button">查看</button>
+              <xy-button text size="sm">查看</xy-button>
             </template>
 
             {{ activity.description }}
@@ -80,15 +80,5 @@ const activities = [
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.demo-timeline-detail__action {
-  border: 0;
-  border-radius: 999px;
-  padding: 4px 10px;
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  color: var(--xy-color-primary);
-  font-size: 12px;
-  cursor: pointer;
 }
 </style>

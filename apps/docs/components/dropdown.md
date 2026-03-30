@@ -6,7 +6,7 @@ outline: deep
 
 # Dropdown 下拉菜单
 
-`xy-dropdown` 负责“操作菜单”，不是“值选择器”。这版实现参考了 Element Plus 的复合组件结构，主路径推荐 `Dropdown + DropdownMenu + DropdownItem`；如果项目里已经在使用旧的 `items` 数组模式，也仍然兼容。
+`xy-dropdown` 负责“操作菜单”，不是“值选择器”。采用复合组件结构，主路径推荐 `Dropdown + DropdownMenu + DropdownItem`；如果项目里已经在使用旧的 `items` 数组模式，也仍然兼容。
 
 ## 基础用法
 

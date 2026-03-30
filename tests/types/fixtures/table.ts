@@ -5,6 +5,7 @@ import {
   type TableColumnProps,
   type TableFilterValues,
   type TableInstance,
+  type TableOverflowTooltipOptions,
   type TableProps,
   type TableSortOrder
 } from "xiaoye-components";
@@ -24,6 +25,11 @@ const tableRef = ref<TableInstance<Row> | null>(null);
 tableRef.value?.clearSelection();
 tableRef.value?.toggleAllSelection();
 tableRef.value?.toggleRowSelection({ id: 1, name: "控制台", owner: "小叶", score: 96, status: "启用" }, true);
+tableRef.value?.toggleRowSelection(
+  { id: 1, name: "控制台", owner: "小叶", score: 96, status: "启用" },
+  true,
+  false
+);
 tableRef.value?.toggleRowExpansion({ id: 1, name: "控制台", owner: "小叶", score: 96, status: "启用" }, true);
 tableRef.value?.setCurrentRow({ id: 1, name: "控制台", owner: "小叶", score: 96, status: "启用" });
 tableRef.value?.clearSort();
@@ -36,6 +42,18 @@ tableRef.value?.scrollTo({
 });
 tableRef.value?.setScrollLeft(24);
 tableRef.value?.setScrollTop(320);
+tableRef.value?.updateKeyChildren(1, [
+  { id: 11, name: "账单", owner: "小叶", score: 88, status: "启用" }
+]);
+
+const tooltipOptions: TableOverflowTooltipOptions = {
+  effect: "light",
+  placement: "right",
+  popperClass: "table-tooltip",
+  popperOptions: {
+    strategy: "fixed"
+  }
+};
 
 const tableProps: TableProps<Row> = {
   data: [
@@ -95,8 +113,17 @@ const tableProps: TableProps<Row> = {
   load: (_row, _treeNode, resolve) => resolve([]),
   tableLayout: "auto",
   scrollbarAlwaysOn: true,
-  showOverflowTooltip: true,
+  scrollbarTabindex: 0,
+  showOverflowTooltip: {
+    placement: "bottom",
+    showArrow: false
+  },
+  tooltipEffect: "light",
+  tooltipOptions,
   tooltipFormatter: ({ cellValue }) => String(cellValue ?? ""),
+  appendFilterPanelTo: "#table-filter-root",
+  allowDragLastColumn: false,
+  preserveExpandedContent: true,
   className: "table-root",
   style: {
     minWidth: "720px"
@@ -147,6 +174,7 @@ const nameColumn: TableColumnProps<Row> = {
   label: "名称",
   sortable: true,
   showOverflowTooltip: true,
+  tooltipFormatter: ({ cellValue }) => `名称-${String(cellValue ?? "")}`,
   resizable: true
 };
 
@@ -158,6 +186,8 @@ const statusColumn: TableColumnProps<Row> = {
     { text: "启用", value: "启用" },
     { text: "停用", value: "停用" }
   ],
+  filterPlacement: "top-start",
+  filterClassName: "status-filter",
   filteredValue: ["启用"],
   filterMethod: (value, row) => row.status === value
 };
@@ -175,6 +205,7 @@ const filterValues: TableFilterValues = {
 
 void sortOrder;
 void filterValues;
+void tooltipOptions;
 
 const vnode = h(
   XyTable,

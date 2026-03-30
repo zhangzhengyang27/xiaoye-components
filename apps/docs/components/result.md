@@ -6,11 +6,11 @@ outline: deep
 
 # Result 结果
 
-`xy-result` 用来承接“操作完成之后，下一步该做什么”这类结果态。它参考了 Element Plus 的 `Result`，保留了 `title / sub-title / icon` 兼容入口，同时补了更适合当前库的 `status`、`description`、尺寸体系和卡片态。
+`xy-result` 用来承接"操作完成之后，下一步该做什么"这类结果态。它保留了 `title / sub-title / icon` 入口，同时补了更适合当前库的 `status`、`description`、尺寸体系和卡片态。
 
 ## 基础用法
 
-:::demo 兼容 Element Plus 的 `icon`、`title` 和 `sub-title` 写法，适合先把页面结果态快速补齐。
+:::demo 使用 `icon`、`title` 和 `sub-title` 写法，适合先把页面结果态快速补齐。
 result/basic
 :::
 
@@ -41,7 +41,7 @@ result/custom
 ## 何时使用
 
 - 表单提交成功、失败或等待补充时。
-- 审批、同步、导入、发布等任务结束后，需要告诉用户“结果 + 下一步”时。
+- 审批、同步、导入、发布等任务结束后，需要告诉用户"结果 + 下一步"时。
 - 详情页、抽屉或弹窗里需要一块结构清晰的状态承接区时。
 
 ## API
@@ -52,8 +52,8 @@ result/custom
 | --- | --- | --- | --- |
 | `title` | 结果标题 | `string` | `undefined` |
 | `description` | 主描述文案，优先级高于 `sub-title` / `subTitle` | `string` | `undefined` |
-| `sub-title` | Element Plus 兼容描述字段 | `string` | `''` |
-| `icon` | Element Plus 兼容图标语义 | `'primary' \| 'success' \| 'warning' \| 'info' \| 'error'` | `undefined` |
+| `sub-title` | 兼容描述字段 | `string` | `''` |
+| `icon` | 图标语义 | `'primary' \| 'success' \| 'warning' \| 'info' \| 'error'` | `undefined` |
 | `status` | 当前库风格的状态语义 | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'neutral'` |
 | `size` | 组件尺寸，未传时跟随全局配置 | `'sm' \| 'md' \| 'lg'` | `全局 size / 'md'` |
 | `variant` | 视觉变体 | `'plain' \| 'card'` | `'plain'` |
@@ -66,7 +66,7 @@ result/custom
 | `icon` | 自定义图标区 |
 | `title` | 自定义标题区 |
 | `description` | 主描述区，优先级高于 `sub-title` |
-| `sub-title` | Element Plus 兼容描述插槽 |
+| `sub-title` | 兼容描述插槽 |
 | `default` | 描述区下方的补充内容 |
 | `extra` | 底部操作区 |
 

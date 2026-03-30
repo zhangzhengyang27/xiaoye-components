@@ -1,0 +1,39 @@
+.xy-overlay-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.xy-overlay-form__loading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border: 1px dashed color-mix(in srgb, var(--xy-border-color) 78%, white);
+  border-radius: var(--xy-radius-lg);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 72%, white);
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-overlay-form__loading strong {
+  color: var(--xy-text-color);
+}
+
+.xy-overlay-form__form,
+.xy-overlay-form__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.xy-overlay-form__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+@media (max-width: 960px) {
+  .xy-overlay-form__footer {
+    flex-wrap: wrap;
+  }
+}

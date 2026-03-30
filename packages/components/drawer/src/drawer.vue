@@ -462,7 +462,8 @@ defineExpose({
 <template>
   <teleport :to="appendTo" :disabled="teleportDisabled">
     <transition v-bind="transitionConfig">
-      <div v-if="rendered" v-show="visible" :class="[
+      <div
+v-if="rendered" v-show="visible" :class="[
         ns.base.value,
         `${ns.base.value}--${resolvedPlacement}`,
         ns.is('fullscreen', props.fullscreen),
@@ -470,24 +471,28 @@ defineExpose({
         isPenetrable ? 'is-penetrable' : '',
         !props.modalFade ? 'is-no-modal-fade' : ''
       ]" :style="drawerRootStyle">
-        <div v-if="showModal" :class="overlayClasses" @click="handleOverlayClick" @mousedown="handleOverlayMouseDown"
+        <div
+v-if="showModal" :class="overlayClasses" @click="handleOverlayClick" @mousedown="handleOverlayMouseDown"
           @mouseup="handleOverlayMouseUp" />
-        <aside ref="panelRef" v-bind="panelAttrs" :class="panelClasses" :style="panelStyle" role="dialog"
+        <aside
+ref="panelRef" v-bind="panelAttrs" :class="panelClasses" :style="panelStyle" role="dialog"
           :aria-modal="showModal ? 'true' : 'false'" :aria-labelledby="ariaLabelledby" :aria-label="ariaLabel"
           :aria-describedby="bodyId" tabindex="-1" @click.stop @keydown.capture="focusTrap.handleKeydown">
           <header v-if="props.withHeader" :class="headerClasses">
             <template v-if="!slots.title">
-              <slot name="header" :close="handleClose" :titleId="titleId" :titleClass="titleClass">
-                <span v-if="props.title" :id="titleId" :class="titleClass" role="heading"
+              <slot name="header" :close="handleClose" :title-id="titleId" :title-class="titleClass">
+                <span
+v-if="props.title" :id="titleId" :class="titleClass" role="heading"
                   :aria-level="String(props.headerAriaLevel)">
                   {{ props.title }}
                 </span>
               </slot>
             </template>
             <template v-else>
-              <slot name="title" :titleId="titleId" :titleClass="titleClass" />
+              <slot name="title" :title-id="titleId" :title-class="titleClass" />
             </template>
-            <button v-if="props.showClose" type="button" class="xy-drawer__close" aria-label="close"
+            <button
+v-if="props.showClose" type="button" class="xy-drawer__close" aria-label="close"
               @click="handleClose('close')">
               <XyIcon :icon="props.closeIcon" :size="18" />
             </button>

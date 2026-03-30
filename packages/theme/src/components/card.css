@@ -105,6 +105,6 @@
   color: var(--xy-text-color-secondary);
 }
 
-.xy-card__empty :deep(.xy-empty) {
+.xy-card__empty .xy-empty {
   padding: 16px 0;
 }

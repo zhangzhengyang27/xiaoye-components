@@ -1,0 +1,62 @@
+.xy-transfer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.xy-transfer__panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-bg-color);
+}
+
+.xy-transfer__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--xy-border-color-light);
+}
+
+.xy-transfer__panel-filter {
+  padding: 12px 14px 0;
+}
+
+.xy-transfer__panel-body {
+  flex: 1;
+  overflow: auto;
+  padding: 12px 14px;
+}
+
+.xy-transfer__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.xy-transfer__item.is-disabled {
+  color: var(--xy-text-color-disabled);
+}
+
+.xy-transfer__item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.xy-transfer__item-description {
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-transfer__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}

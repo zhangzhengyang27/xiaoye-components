@@ -6,6 +6,7 @@ const props = defineProps<{
   sources: string;
   path: string;
   description: string;
+  sandbox?: boolean;
 }>();
 
 const storageKey = "xy-docs-demo-lang";
@@ -29,6 +30,8 @@ const sourceItems = computed(() => {
 const currentSource = computed(
   () => sourceItems.value.find((item) => item.label === activeLang.value) ?? sourceItems.value[0]
 );
+const isTableDemo = computed(() => props.path.startsWith("table/"));
+const needsSandbox = computed(() => props.sandbox ?? false);
 const codeLink = computed(() => {
   const repo = theme.value.repo as string | undefined;
   const docsBranch = (theme.value.docsBranch as string | undefined) ?? "main";
@@ -82,9 +85,12 @@ watch(activeLang, (value) => {
 <template>
   <div class="vp-demo-block" v-html="decodedDescription" />
 
-  <div class="vp-demo">
+  <div class="vp-demo" :class="{ 'vp-demo--table': isTableDemo }">
     <div class="vp-demo__showcase">
-      <slot name="source" />
+      <div v-if="needsSandbox" class="xy-doc-sandbox">
+        <slot name="source" />
+      </div>
+      <slot v-else name="source" />
     </div>
 
     <div class="vp-demo__toolbar">
@@ -237,6 +243,41 @@ watch(activeLang, (value) => {
   padding: 18px 20px 22px;
   color: var(--vp-c-text-1);
   background: transparent;
+}
+
+.vp-demo--table {
+  border-color: #e4e7ed;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vp-demo--table .vp-demo__showcase {
+  padding: 18px 18px 16px;
+  background: #fff;
+}
+
+.vp-demo--table .vp-demo__toolbar {
+  padding: 8px 12px;
+  border-top-color: #ebeef5;
+  background: #fff;
+}
+
+.vp-demo--table .vp-demo__tab {
+  padding: 6px 8px;
+  border-radius: 0;
+}
+
+.vp-demo--table .vp-demo__tab.is-active {
+  background: rgba(64, 158, 255, 0.12);
+  color: var(--vp-c-brand-1);
+}
+
+.vp-demo--table .vp-demo__icon-btn {
+  border-radius: 0;
+}
+
+.vp-demo--table .vp-demo__source {
+  border-top-color: #ebeef5;
 }
 
 .vp-demo__source-inner :deep(code) {

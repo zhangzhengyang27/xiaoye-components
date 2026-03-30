@@ -4,10 +4,13 @@ import XiaoyeComponents, {
   configProviderKey,
   createConfigProviderContext
 } from "xiaoye-components";
+import XiaoyeProComponents from "xiaoye-pro-components";
 import Demo from "./components/Demo.vue";
+import HomeProductLineDemo from "./components/HomeProductLineDemo.vue";
 import ProjectIconGallery from "./components/ProjectIconGallery.vue";
 import SchedulerPlaygroundFrame from "./components/SchedulerPlaygroundFrame.vue";
-import "../../../../packages/xiaoye-components/style.css";
+import "xiaoye-components/style.css";
+import "xiaoye-pro-components/style.css";
 import "./style.css";
 
 const DOCS_OVERLAY_Z_INDEX = 2100;
@@ -22,7 +25,9 @@ const theme: Theme = {
       })
     );
     app.use(XiaoyeComponents);
+    app.use(XiaoyeProComponents);
     app.component("Demo", Demo);
+    app.component("HomeProductLineDemo", HomeProductLineDemo);
     app.component("ProjectIconGallery", ProjectIconGallery);
     app.component("SchedulerPlaygroundFrame", SchedulerPlaygroundFrame);
   }

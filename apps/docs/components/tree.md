@@ -1,6 +1,6 @@
 ---
 title: Tree 树形控件
-description: 参考 Element Plus 普通 Tree 的数据驱动树形控件，覆盖勾选联动、过滤、懒加载、节点路径和拖拽编排。
+description: 数据驱动树形控件，覆盖勾选联动、过滤、懒加载、节点路径和拖拽编排。
 outline: deep
 ---
 

@@ -6,7 +6,7 @@ outline: deep
 
 # Message 消息提示
 
-`Message` 参考 Element Plus 的函数式消息提示体验，适合承接“操作已完成”“同步中”“保存失败”这类短反馈。它不是页面内常驻内容，也不像 `Dialog` 那样阻断流程，而是在任意位置直接调用即可出现。
+`Message` 提供函数式消息提示体验，适合承接"操作已完成""同步中""保存失败"这类短反馈。它不是页面内常驻内容，也不像 `Dialog` 那样阻断流程，而是在任意位置直接调用即可出现。
 
 当前实现导出的是函数式入口 `XyMessage`，完整安装组件库后也会自动注入 `$message`。如果你希望统一消息位置、关闭按钮、暂停策略或数量上限，可以在 [Config Provider 全局配置](/components/config-provider) 上配置 `message` 默认值。
 
@@ -48,7 +48,7 @@ message/interaction
 
 ## 外观细化
 
-:::demo `plain`、自定义 `icon`、关闭按钮和移动端宽度都补了一轮，整体更接近 Element Plus 的消息提示使用体验。
+:::demo `plain`、自定义 `icon`、关闭按钮和移动端宽度都补了一轮，提供完整的消息提示体验。
 message/appearance
 :::
 

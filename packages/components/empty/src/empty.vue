@@ -12,6 +12,8 @@ export interface EmptyProps {
 }
 
 const props = withDefaults(defineProps<EmptyProps>(), {
+  title: undefined,
+  description: undefined,
   image: "",
   imageAlt: "",
   imageSize: ""
@@ -25,10 +27,18 @@ const slots = defineSlots<{
 
 const ns = useNamespace("empty");
 const { locale } = useConfig();
-const resolvedTitle = computed(() => props.title ?? locale.value.emptyTitle ?? "暂无数据");
-const resolvedDescription = computed(
-  () => props.description ?? locale.value.emptyDescription ?? "这里还没有可展示的内容"
-);
+const resolvedTitle = computed(() => {
+  if (props.title !== undefined) {
+    return props.title;
+  }
+  return locale.value.emptyTitle ?? "暂无数据";
+});
+const resolvedDescription = computed(() => {
+  if (props.description !== undefined) {
+    return props.description;
+  }
+  return locale.value.emptyDescription ?? "这里还没有可展示的内容";
+});
 const hasTitle = computed(() => Boolean(slots.title) || resolvedTitle.value !== "");
 const hasDescription = computed(
   () => Boolean(slots.description) || resolvedDescription.value !== ""

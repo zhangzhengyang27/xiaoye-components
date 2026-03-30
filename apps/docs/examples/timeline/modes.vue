@@ -36,19 +36,10 @@ const steps = [
 <template>
   <div class="demo-timeline-modes">
     <div class="demo-timeline-modes__toolbar">
-      <label>
-        布局模式
-        <select v-model="mode">
-          <option v-for="option in modeOptions" :key="option.value" :value="option.value">
-            {{ option.label }}
-          </option>
-        </select>
-      </label>
-
-      <label class="demo-timeline-modes__reverse">
-        <input v-model="reverse" type="checkbox" />
-        reverse
-      </label>
+      <xy-space wrap>
+        <xy-select v-model="mode" :options="modeOptions" style="min-width: 180px" />
+        <xy-checkbox v-model="reverse">reverse</xy-checkbox>
+      </xy-space>
     </div>
 
     <xy-timeline :mode="mode" :reverse="reverse">
@@ -58,10 +49,10 @@ const steps = [
         :timestamp="`阶段 ${index + 1}`"
         :type="index === 3 ? 'success' : index === 2 ? 'primary' : 'neutral'"
       >
-        <div class="demo-timeline-modes__card">
+        <xy-card class="demo-timeline-modes__card" shadow="hover">
           <strong>{{ step.title }}</strong>
           <p>{{ step.description }}</p>
-        </div>
+        </xy-card>
       </xy-timeline-item>
     </xy-timeline>
   </div>
@@ -75,41 +66,14 @@ const steps = [
 }
 
 .demo-timeline-modes__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 18px;
-  align-items: center;
   padding: 12px 14px;
   border: 1px solid var(--xy-border-color);
   border-radius: var(--xy-radius-md);
   background: var(--xy-bg-color-muted);
-  color: var(--xy-text-color-secondary);
-}
-
-.demo-timeline-modes__toolbar label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.demo-timeline-modes__toolbar select {
-  min-width: 180px;
-  padding: 6px 10px;
-  border: 1px solid var(--xy-border-color-strong);
-  border-radius: 8px;
-  background: var(--xy-bg-color);
-  color: var(--xy-text-color);
-}
-
-.demo-timeline-modes__reverse {
-  font-variant-numeric: tabular-nums;
 }
 
 .demo-timeline-modes__card {
-  padding: 14px 16px;
-  border-radius: var(--xy-radius-md);
   background: linear-gradient(180deg, white, var(--xy-bg-color-muted));
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
 }
 
 .demo-timeline-modes__card strong {
@@ -126,15 +90,7 @@ const steps = [
 
 @media (max-width: 768px) {
   .demo-timeline-modes__toolbar {
-    align-items: flex-start;
-  }
-
-  .demo-timeline-modes__toolbar label {
-    width: 100%;
-  }
-
-  .demo-timeline-modes__toolbar select {
-    width: 100%;
+    padding: 10px 12px;
   }
 }
 </style>

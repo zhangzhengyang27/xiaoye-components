@@ -44,21 +44,21 @@ const activeSummary = computed(() => {
       />
 
       <div class="demo-radio-button__cards">
-        <article class="demo-radio-button__card demo-radio-button__card--primary">
+        <xy-card class="demo-radio-button__card demo-radio-button__card--primary" shadow="hover">
           <span>{{ activeSummary.title }}</span>
           <strong>{{ activeSummary.value }}</strong>
           <p>{{ activeSummary.hint }}</p>
-        </article>
-        <article class="demo-radio-button__card">
+        </xy-card>
+        <xy-card class="demo-radio-button__card" shadow="hover">
           <span>转化率</span>
           <strong>18.2%</strong>
           <p>切换范围后保持同一套指标口径。</p>
-        </article>
-        <article class="demo-radio-button__card">
+        </xy-card>
+        <xy-card class="demo-radio-button__card" shadow="hover">
           <span>活跃渠道</span>
           <strong>Webhook</strong>
           <p>适合和 Tabs、Segmented 一样承担视图切换职责。</p>
-        </article>
+        </xy-card>
       </div>
     </section>
   </div>
@@ -99,13 +99,6 @@ const activeSummary = computed(() => {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-}
-
-.demo-radio-button__card {
-  padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 18px;
-  background: color-mix(in srgb, var(--xy-bg-color) 84%, white);
 }
 
 .demo-radio-button__card--primary {

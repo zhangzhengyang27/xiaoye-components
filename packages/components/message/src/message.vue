@@ -443,6 +443,7 @@ defineExpose({
 });
 </script>
 
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <Transition
     :name="props.transition"

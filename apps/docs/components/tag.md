@@ -40,7 +40,7 @@ tag/icon
 
 ## 动态编辑
 
-和 Element Plus 文档一样，`xy-tag` 也可以通过 `close` 事件配合 `xy-input`、`xy-button` 做出动态增删标签的交互。
+`xy-tag` 可以通过 `close` 事件配合 `xy-input`、`xy-button` 做出动态增删标签的交互。
 
 :::demo 这种模式适合规则编辑、标签维护和筛选项管理，不需要额外的专用输入组件也能完成闭环。
 tag/editable

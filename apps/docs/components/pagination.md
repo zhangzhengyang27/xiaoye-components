@@ -22,7 +22,7 @@ pagination/server-sync
 
 ## 布局与背景样式
 
-:::demo 通过 `layout` 可以组合 `prev / pager / next / jumper / total / sizes / slot`，`background` 则更接近 Element Plus 的按钮式分页。
+:::demo 通过 `layout` 可以组合 `prev / pager / next / jumper / total / sizes / slot`，`background` 提供按钮式分页。
 pagination/layout
 :::
 

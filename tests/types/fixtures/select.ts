@@ -15,6 +15,9 @@ const groupedOptions: SelectOptionGroup<number>[] = [
 const props: SelectProps<number> = {
   options: [...options, ...groupedOptions],
   modelValue: 1,
+  multiple: false,
+  remote: true,
+  allowCreate: true,
   loading: true,
   loadingText: "加载中",
   searchPlaceholder: "搜索角色",
@@ -44,3 +47,13 @@ const invalidGroupProps: SelectProps<number> = {
 };
 
 void invalidGroupProps;
+
+const multiProps: SelectProps<number> = {
+  options,
+  modelValue: [1, 2],
+  multiple: true,
+  collapseTags: true,
+  maxTagCount: 1
+};
+
+void multiProps;

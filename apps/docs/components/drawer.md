@@ -6,7 +6,7 @@ outline: deep
 
 # Drawer 抽屉
 
-`xy-drawer` 更适合详情查看、大表单编辑和侧边说明这类“希望保留主页面上下文”的场景。当前实现延续了项目内的 `placement` 习惯，也补齐了更接近 Element Plus 的 `direction`、可拖拽尺寸、自定义头部 slot props、焦点事件和 `handleClose()` expose。
+`xy-drawer` 更适合详情查看、大表单编辑和侧边说明这类“希望保留主页面上下文”的场景。当前实现延续了项目内的 `placement` 习惯，补齐了 `direction`、可拖拽尺寸、自定义头部 slot props、焦点事件和 `handleClose()` expose。
 
 ## 基础用法
 
@@ -16,7 +16,7 @@ drawer/basic
 
 ## 方向与尺寸对照
 
-:::demo `placement` 仍然是项目内推荐写法；如果你更习惯 Element Plus 的 `direction`，它会优先覆盖 `placement`。
+:::demo `placement` 仍然是项目内推荐写法；如果你需要使用 `direction`，它会优先覆盖 `placement`。
 drawer/placement
 :::
 
@@ -66,7 +66,7 @@ drawer/modal
 
 - `direction` 优先级高于 `placement`；如果两者同时传入，会以 `direction` 推导出的方向为准。
 - `append-to` 优先级高于 `append-to-body`；一旦显式指定挂载目标，就会直接 teleport 到该节点。
-- `close-on-click-modal` 优先级高于 `close-on-overlay`，`close-on-press-escape` 优先级高于 `close-on-esc`，这两个别名是为了兼容 Element Plus 风格。
+- `close-on-click-modal` 优先级高于 `close-on-overlay`，`close-on-press-escape` 优先级高于 `close-on-esc`，这两个别名提供了额外兼容。
 - `modal-class` 作用在遮罩层容器上，因此只在 `modal=true` 时生效；组件的原生 `class` 与 `style` 会透传到抽屉面板本身。
 - `modal=false` 时不会响应外部点击关闭；如果还希望背景可点击，请再打开 `modal-penetrable`。
 - 键盘焦点默认会被限制在抽屉内部；但在 `modal=false` 且 `modal-penetrable=true` 的场景里，指针点击外部可交互元素时，不会被抽屉强制拉回焦点。
@@ -75,7 +75,7 @@ drawer/modal
 - 关闭前拦截优先于销毁逻辑；如果 `before-close` 取消了关闭，内容不会被卸载。
 - `title` 插槽和 `custom-class` 仅保留兼容能力；新代码优先使用 `header` 插槽和组件原生 `class`。
 
-## 与 Element Plus 的保留差异
+## direction 与 placement 的区别
 
 - 继续保留项目内的 `placement` 写法，不强制切到 `direction`。
 - 默认 `size` 仍然是 `420`，默认 `append-to-body` 仍然是 `true`，以保持当前项目里的既有使用习惯。
@@ -91,7 +91,7 @@ drawer/modal
 | `title` | 抽屉标题；当你完全自定义 `header` 时，仍建议传入用于可访问名称兜底 | `string` | `''` |
 | `size` | 抽屉宽度或高度；左右方向作用于宽度，上下方向作用于高度 | `string \| number` | `420` |
 | `placement` | 项目内保留的打开方向写法 | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` |
-| `direction` | Element Plus 风格方向别名，优先级高于 `placement` | `'ltr' \| 'rtl' \| 'ttb' \| 'btt'` | `undefined` |
+| `direction` | 方向别名，优先级高于 `placement` | `'ltr' \| 'rtl' \| 'ttb' \| 'btt'` | `undefined` |
 | `append-to-body` | 默认是否 teleport 到 `body` | `boolean` | `true` |
 | `append-to` | teleport 挂载目标；传入后会覆盖 `append-to-body` | `string \| HTMLElement` | `'body'` |
 | `modal` | 是否显示遮罩层 | `boolean` | `true` |

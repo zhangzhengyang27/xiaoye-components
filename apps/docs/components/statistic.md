@@ -6,7 +6,7 @@ outline: deep
 
 # Statistic 统计数值
 
-`xy-statistic` 用来展示 KPI、金额、计数和 SLA 指标。实现思路参考了 Element Plus 的 `Statistic`，但默认样式按当前组件库更偏中后台的数据看板语境做了收敛，`precision` 也改成了更直觉的四舍五入。
+`xy-statistic` 用来展示 KPI、金额、计数和 SLA 指标。默认样式按中后台数据看板语境做了收敛，`precision` 采用四舍五入。
 
 ## 基础指标
 

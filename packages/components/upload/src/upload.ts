@@ -55,6 +55,8 @@ export interface UploadProps {
   limit?: number;
   disabled?: boolean;
   drag?: boolean;
+  directory?: boolean;
+  paste?: boolean;
   tip?: string;
   size?: ComponentSize;
   autoUpload?: boolean;
@@ -68,6 +70,7 @@ export interface UploadProps {
   onRemove?: (file: UploadFileItem, files: UploadFileItem[]) => void;
   onChange?: (file: UploadFileItem, files: UploadFileItem[]) => void;
   onPreview?: (file: UploadFileItem) => void;
+  previewFile?: (file: UploadFileItem) => Awaitable<string | undefined>;
   onSuccess?: (response: unknown, file: UploadFileItem, files: UploadFileItem[]) => void;
   onProgress?: (event: UploadProgressEvent, file: UploadFileItem, files: UploadFileItem[]) => void;
   onError?: (error: Error, file: UploadFileItem, files: UploadFileItem[]) => void;

@@ -1,12 +1,20 @@
 <script setup lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, provide, ref, watch } from "vue";
 import type { DialogCloseReason } from "./dialog";
 import type { PropType, VNodeChild } from "vue";
 import { XyButton } from "../../button";
-import { XyConfigProvider } from "../../config-provider";
 import Dialog from "./dialog.vue";
 import DialogServicePrompt from "./dialog-service-prompt.vue";
-import { getGlobalDialogConfig } from "../../config-provider/src/context";
+import {
+  DEFAULT_NAMESPACE,
+  DEFAULT_SIZE,
+  DEFAULT_Z_INDEX,
+  configProviderKey,
+  getGlobalDialogConfig,
+  getGlobalLoadingConfig,
+  getGlobalMessageConfig,
+  getGlobalNotificationConfig
+} from "../../config-provider/src/context";
 import {
   dialogServiceState,
   finishDialogServiceEntry,
@@ -34,8 +42,25 @@ const RenderVNode = defineComponent({
 
 const currentEntry = computed(() => dialogServiceState.current);
 const globalDialogConfig = computed(() => getGlobalDialogConfig().value);
-const dialogProps = computed(() => currentEntry.value?.dialogProps ?? {});
+const globalLoadingConfig = computed(() => getGlobalLoadingConfig().value);
+const globalMessageConfig = computed(() => getGlobalMessageConfig().value);
+const globalNotificationConfig = computed(() => getGlobalNotificationConfig().value);
+const dialogProps = computed(() => ({
+  ...(globalDialogConfig.value ?? {}),
+  ...(currentEntry.value?.dialogProps ?? {})
+}));
 const lastRenderedEntryId = ref<string | null>(null);
+
+provide(configProviderKey, {
+  namespace: computed(() => DEFAULT_NAMESPACE),
+  locale: computed(() => ({})),
+  zIndex: computed(() => DEFAULT_Z_INDEX),
+  size: computed(() => DEFAULT_SIZE),
+  dialog: globalDialogConfig,
+  loading: globalLoadingConfig,
+  message: globalMessageConfig,
+  notification: globalNotificationConfig
+});
 
 watch(
   currentEntry,
@@ -218,61 +243,59 @@ function footerRenderer(): VNodeChild {
 </script>
 
 <template>
-  <XyConfigProvider :dialog="globalDialogConfig">
-    <Dialog
-      v-if="currentEntry"
-      :model-value="currentEntry.visible"
-      v-bind="dialogProps"
-      :title="currentEntry.title"
-      :before-close="handleBeforeClose"
-      @closed="handleClosed"
-    >
-      <DialogServicePrompt
-        v-if="currentEntry.mode === 'prompt'"
-        :model-value="currentEntry.promptValue"
-        :message="currentEntry.message"
-        :placeholder="currentEntry.inputPlaceholder"
-        :input-type="currentEntry.inputType"
-        :input-props="currentEntry.inputProps"
-        :error="currentEntry.promptError"
-        @update:model-value="handlePromptValueUpdate"
-      />
-      <component
-        :is="currentEntry.component"
-        v-else-if="currentEntry.component"
-        v-bind="currentEntry.componentProps ?? {}"
-      />
-      <RenderVNode
-        v-else-if="hasBodyRenderer"
-        :renderer="bodyRenderer"
-      />
-      <template v-else>{{ currentEntry.message }}</template>
+  <Dialog
+    v-if="currentEntry"
+    :model-value="currentEntry.visible"
+    v-bind="dialogProps"
+    :title="currentEntry.title"
+    :before-close="handleBeforeClose"
+    @closed="handleClosed"
+  >
+    <DialogServicePrompt
+      v-if="currentEntry.mode === 'prompt'"
+      :model-value="currentEntry.promptValue"
+      :message="currentEntry.message"
+      :placeholder="currentEntry.inputPlaceholder"
+      :input-type="currentEntry.inputType"
+      :input-props="currentEntry.inputProps"
+      :error="currentEntry.promptError"
+      @update:model-value="handlePromptValueUpdate"
+    />
+    <component
+      :is="currentEntry.component"
+      v-else-if="currentEntry.component"
+      v-bind="currentEntry.componentProps ?? {}"
+    />
+    <RenderVNode
+      v-else-if="hasBodyRenderer"
+      :renderer="bodyRenderer"
+    />
+    <template v-else>{{ currentEntry.message }}</template>
 
-      <template #footer>
-        <RenderVNode
-          v-if="hasFooterRenderer"
-          :renderer="footerRenderer"
-        />
-        <template v-if="!currentEntry.footerRender && footerContext">
-          <xy-button
-            v-if="currentEntry.showCancelButton"
-            plain
-            :loading="currentEntry.cancelling"
-            v-bind="currentEntry.cancelButtonProps"
-            @click="handleCancel"
-          >
-            {{ currentEntry.cancelButtonText }}
-          </xy-button>
-          <xy-button
-            type="primary"
-            :loading="currentEntry.confirming"
-            v-bind="currentEntry.confirmButtonProps"
-            @click="handleConfirm"
-          >
-            {{ currentEntry.confirmButtonText }}
-          </xy-button>
-        </template>
+    <template #footer>
+      <RenderVNode
+        v-if="hasFooterRenderer"
+        :renderer="footerRenderer"
+      />
+      <template v-if="!currentEntry.footerRender && footerContext">
+        <xy-button
+          v-if="currentEntry.showCancelButton"
+          plain
+          :loading="currentEntry.cancelling"
+          v-bind="currentEntry.cancelButtonProps"
+          @click="handleCancel"
+        >
+          {{ currentEntry.cancelButtonText }}
+        </xy-button>
+        <xy-button
+          type="primary"
+          :loading="currentEntry.confirming"
+          v-bind="currentEntry.confirmButtonProps"
+          @click="handleConfirm"
+        >
+          {{ currentEntry.confirmButtonText }}
+        </xy-button>
       </template>
-    </Dialog>
-  </XyConfigProvider>
+    </template>
+  </Dialog>
 </template>

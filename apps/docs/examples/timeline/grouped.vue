@@ -6,6 +6,13 @@ type TimelineMode = "start" | "alternate" | "alternate-reverse" | "end";
 const mode = ref<TimelineMode>("start");
 const reverse = ref(false);
 
+const modeOptions: Array<{ label: string; value: TimelineMode }> = [
+  { label: "start", value: "start" },
+  { label: "alternate", value: "alternate" },
+  { label: "alternate-reverse", value: "alternate-reverse" },
+  { label: "end", value: "end" }
+];
+
 const groups = [
   {
     title: "2026-03-24",
@@ -51,20 +58,10 @@ const groups = [
 <template>
   <div class="demo-timeline-grouped">
     <div class="demo-timeline-grouped__toolbar">
-      <label>
-        布局模式
-        <select v-model="mode">
-          <option value="start">start</option>
-          <option value="alternate">alternate</option>
-          <option value="alternate-reverse">alternate-reverse</option>
-          <option value="end">end</option>
-        </select>
-      </label>
-
-      <label class="demo-timeline-grouped__reverse">
-        <input v-model="reverse" type="checkbox" />
-        reverse
-      </label>
+      <xy-space wrap>
+        <xy-select v-model="mode" :options="modeOptions" style="min-width: 180px" />
+        <xy-checkbox v-model="reverse">reverse</xy-checkbox>
+      </xy-space>
     </div>
 
     <p class="demo-timeline-grouped__tip">
@@ -112,30 +109,10 @@ const groups = [
 }
 
 .demo-timeline-grouped__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 18px;
-  align-items: center;
   padding: 12px 14px;
   border: 1px solid var(--xy-border-color);
   border-radius: var(--xy-radius-md);
   background: var(--xy-bg-color-muted);
-  color: var(--xy-text-color-secondary);
-}
-
-.demo-timeline-grouped__toolbar label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.demo-timeline-grouped__toolbar select {
-  min-width: 180px;
-  padding: 6px 10px;
-  border: 1px solid var(--xy-border-color-strong);
-  border-radius: 8px;
-  background: var(--xy-bg-color);
-  color: var(--xy-text-color);
 }
 
 .demo-timeline-grouped__extra {
@@ -161,12 +138,8 @@ const groups = [
 }
 
 @media (max-width: 768px) {
-  .demo-timeline-grouped__toolbar label {
-    width: 100%;
-  }
-
-  .demo-timeline-grouped__toolbar select {
-    width: 100%;
+  .demo-timeline-grouped__toolbar {
+    padding: 10px 12px;
   }
 }
 </style>

@@ -28,6 +28,8 @@ export interface UploadContentProps
     | "multiple"
     | "accept"
     | "drag"
+    | "directory"
+    | "paste"
     | "withCredentials"
     | "autoUpload"
     | "disabled"
@@ -59,6 +61,8 @@ const props = withDefaults(defineProps<UploadContentProps>(), {
   multiple: false,
   accept: "",
   drag: false,
+  directory: false,
+  paste: false,
   withCredentials: false,
   autoUpload: true,
   disabled: false,
@@ -240,6 +244,21 @@ async function handleInputChange(event: Event) {
   target.value = "";
 }
 
+async function handlePaste(event: ClipboardEvent) {
+  if (!props.paste || props.disabled) {
+    return;
+  }
+
+  const files = Array.from(event.clipboardData?.files ?? []);
+
+  if (!files.length) {
+    return;
+  }
+
+  event.preventDefault();
+  await uploadFiles(files);
+}
+
 function handleClick() {
   if (props.disabled) {
     return;
@@ -307,6 +326,7 @@ defineExpose({
     :aria-disabled="props.disabled"
     role="button"
     @click="handleClick"
+    @paste="handlePaste"
     @keydown.self.enter.prevent="handleKeydown"
     @keydown.self.space.prevent="handleKeydown"
   >
@@ -328,6 +348,8 @@ defineExpose({
       :disabled="props.disabled"
       :multiple="props.multiple"
       :accept="props.accept"
+      :directory="props.directory ? 'true' : undefined"
+      :webkitdirectory="props.directory ? 'true' : undefined"
       @change="handleInputChange"
       @click.stop
     />

@@ -12,6 +12,7 @@ export default tseslint.config(
       "**/node_modules/**",
       "**/*.d.ts",
       "**/*.md",
+      "test-results/**",
       "apps/docs/.vitepress/cache/**",
       "apps/docs/.vitepress/dist/**",
       "apps/docs/.vitepress/.temp/**"

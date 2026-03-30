@@ -2,14 +2,61 @@ import { fileURLToPath, URL } from "node:url";
 
 const resolveWorkspacePath = (target: string) => fileURLToPath(new URL(target, import.meta.url));
 
-export const workspaceAlias = {
-  "@xiaoye/components": resolveWorkspacePath("../../packages/components/index.ts"),
-  "@xiaoye/components/": resolveWorkspacePath("../../packages/components/"),
-  "@xiaoye/composables": resolveWorkspacePath("../../packages/composables/index.ts"),
-  "@xiaoye/theme": resolveWorkspacePath("../../packages/theme/index.css"),
-  "@xiaoye/utils": resolveWorkspacePath("../../packages/utils/index.ts"),
-  "@xiaoye/tokens": resolveWorkspacePath("../../packages/tokens/src/index.ts"),
-  rrule: resolveWorkspacePath("../../packages/utils/compat/rrule.js"),
-  "xiaoye-components": resolveWorkspacePath("../../packages/xiaoye-components/index.ts"),
-  "xiaoye-components/style.css": resolveWorkspacePath("../../packages/xiaoye-components/style.css")
-} as const;
+export const workspaceAlias = [
+  {
+    find: "@xiaoye/pro-components/style.css",
+    replacement: resolveWorkspacePath("../../packages/pro-components/style.css")
+  },
+  {
+    find: "xiaoye-pro-components/style.css",
+    replacement: resolveWorkspacePath("../../packages/xiaoye-pro-components/style.css")
+  },
+  {
+    find: "xiaoye-components/style.css",
+    replacement: resolveWorkspacePath("../../packages/xiaoye-components/style.css")
+  },
+  {
+    find: "@xiaoye/components",
+    replacement: resolveWorkspacePath("../../packages/components/index.ts")
+  },
+  {
+    find: /^@xiaoye\/components\/(.*)$/,
+    replacement: `${resolveWorkspacePath("../../packages/components/")}/$1`
+  },
+  {
+    find: "@xiaoye/pro-components",
+    replacement: resolveWorkspacePath("../../packages/pro-components/index.ts")
+  },
+  {
+    find: /^@xiaoye\/pro-components\/(.*)$/,
+    replacement: `${resolveWorkspacePath("../../packages/pro-components/")}/$1`
+  },
+  {
+    find: "@xiaoye/composables",
+    replacement: resolveWorkspacePath("../../packages/composables/index.ts")
+  },
+  {
+    find: "@xiaoye/theme",
+    replacement: resolveWorkspacePath("../../packages/theme/index.css")
+  },
+  {
+    find: "@xiaoye/utils",
+    replacement: resolveWorkspacePath("../../packages/utils/index.ts")
+  },
+  {
+    find: "@xiaoye/tokens",
+    replacement: resolveWorkspacePath("../../packages/tokens/src/index.ts")
+  },
+  {
+    find: "rrule",
+    replacement: resolveWorkspacePath("../../packages/utils/compat/rrule.js")
+  },
+  {
+    find: "xiaoye-components",
+    replacement: resolveWorkspacePath("../../packages/xiaoye-components/index.ts")
+  },
+  {
+    find: "xiaoye-pro-components",
+    replacement: resolveWorkspacePath("../../packages/xiaoye-pro-components/index.ts")
+  }
+] as const;

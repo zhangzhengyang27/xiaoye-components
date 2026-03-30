@@ -294,7 +294,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="itemRef" v-show="ready" :class="itemClasses" :style="itemStyle" @click="handleItemClick">
+  <div v-show="ready" ref="itemRef" :class="itemClasses" :style="itemStyle" @click="handleItemClick">
     <div v-if="carousel?.isCardType.value && !active" class="xy-carousel__mask" />
     <slot v-if="shouldRender" />
   </div>

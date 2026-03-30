@@ -62,6 +62,51 @@
   white-space: nowrap;
 }
 
+.xy-select__tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+  padding: 4px 0;
+}
+
+.xy-select__tags.is-placeholder {
+  color: var(--xy-text-color-muted);
+}
+
+.xy-select__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--xy-bg-color-muted);
+  color: var(--xy-text-color);
+  font-size: var(--xy-font-size-sm);
+}
+
+.xy-select__tag span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xy-select__tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
 .xy-select__selection.is-placeholder {
   color: var(--xy-text-color-muted);
 }
@@ -206,6 +251,10 @@
   background: var(--xy-bg-color-muted);
 }
 
+.xy-select__option.is-created span:first-child {
+  font-weight: 600;
+}
+
 .xy-select__option small {
   color: var(--xy-text-color-secondary);
 }
@@ -221,7 +270,8 @@
 }
 
 .xy-select__option:focus-visible,
-.xy-select__clear:focus-visible {
+.xy-select__clear:focus-visible,
+.xy-select__tag-remove:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
   outline-offset: 2px;
 }

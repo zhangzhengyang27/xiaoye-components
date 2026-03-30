@@ -5,7 +5,13 @@ const textProps: TextProps = {
   size: "lg",
   truncated: true,
   lineClamp: 2,
-  tag: "p"
+  tag: "p",
+  copyable: true,
+  ellipsisTooltip: true,
+  expandable: true,
+  strong: true,
+  underline: true,
+  delete: true
 };
 
 void textProps;

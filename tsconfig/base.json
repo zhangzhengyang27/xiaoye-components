@@ -18,12 +18,17 @@
     "paths": {
       "@xiaoye/components": ["packages/components/index.ts"],
       "@xiaoye/components/*": ["packages/components/*"],
+      "@xiaoye/pro-components/style.css": ["packages/pro-components/style.css"],
+      "@xiaoye/pro-components": ["packages/pro-components/index.ts"],
+      "@xiaoye/pro-components/*": ["packages/pro-components/*"],
       "@xiaoye/composables": ["packages/composables/index.ts"],
       "@xiaoye/utils": ["packages/utils/index.ts"],
       "@xiaoye/theme": ["packages/theme/index.css"],
       "@xiaoye/tokens": ["packages/tokens/src/index.ts"],
+      "xiaoye-components/style.css": ["packages/xiaoye-components/style.css"],
       "xiaoye-components": ["packages/xiaoye-components/index.ts"],
-      "xiaoye-components/style.css": ["packages/xiaoye-components/style.css"]
+      "xiaoye-pro-components/style.css": ["packages/xiaoye-pro-components/style.css"],
+      "xiaoye-pro-components": ["packages/xiaoye-pro-components/index.ts"]
     }
   }
 }

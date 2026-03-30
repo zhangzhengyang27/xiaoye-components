@@ -6,7 +6,7 @@ outline: deep
 
 # Affix 固钉
 
-`xy-affix` 用于把按钮、筛选摘要、操作卡片这类“小块但需要跟随可见区域”的内容固定在页面顶部或底部。首版实现参考了 Element Plus 的 `Affix`，并补齐了 `teleported`、`append-to`、`change / scroll` 和 `update / updateRoot`。
+`xy-affix` 用于把按钮、筛选摘要、操作卡片这类"小块但需要跟随可见区域"的内容固定在页面顶部或底部。支持 `teleported`、`append-to`、`change / scroll` 和 `update / updateRoot`。
 
 ## 基础偏移
 

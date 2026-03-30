@@ -1018,4 +1018,57 @@ describe("XyDialogService", () => {
     expect(dialogServiceState.current).toBeNull();
     expect(dialogServiceState.queue).toHaveLength(0);
   });
+
+  it("DialogService 会继承 ConfigProvider.dialog 默认值，并允许 dialogProps 局部覆盖", async () => {
+    const provider = mount(
+      defineComponent({
+        components: {
+          XyConfigProvider
+        },
+        template: `
+          <xy-config-provider
+            :dialog="{
+              alignCenter: true,
+              draggable: true,
+              stickyHeader: true,
+              resizable: true
+            }"
+          />
+        `
+      }),
+      {
+        attachTo: document.body
+      }
+    );
+
+    await flushDialog();
+
+    const handle = XyDialogService.open({
+      title: "服务默认值",
+      message: "服务默认值内容",
+      dialogProps: {
+        draggable: false
+      }
+    });
+
+    await flushServiceDialog();
+
+    const root = document.body.querySelector(".xy-dialog");
+    const panel = document.body.querySelector(".xy-dialog__panel");
+    const header = document.body.querySelector(".xy-dialog__header");
+
+    expect(root?.classList.contains("is-align-center")).toBe(true);
+    expect(panel?.classList.contains("is-draggable")).toBe(false);
+    expect(header?.classList.contains("is-sticky")).toBe(true);
+    expect(document.body.querySelector(".xy-dialog__resizer")).not.toBeNull();
+
+    requestCloseDialogServiceEntry(handle.id, "programmatic");
+    finishDialogServiceEntry(handle.id);
+    await expect(handle.result).resolves.toEqual({
+      action: "programmatic",
+      value: undefined
+    });
+
+    provider.unmount();
+  });
 });

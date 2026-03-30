@@ -6,7 +6,7 @@ outline: deep
 
 # Steps 步骤条
 
-`xy-steps` 和 `xy-step` 用来表达“当前走到哪一步、已经完成哪些节点、接下来还有什么”的流程状态。首版 API 参考了 `element-plus` 的 `Steps / Step`，保留了最常用的 `active`、方向切换、状态映射、`simple` 紧凑模式，以及 `title / description / icon` 这几个核心能力。
+`xy-steps` 和 `xy-step` 用来表达“当前走到哪一步、已经完成哪些节点、接下来还有什么”的流程状态。保留了最常用的 `active`、方向切换、状态映射、`simple` 紧凑模式，以及 `title / description / icon` 这几个核心能力。
 
 ## 基础用法
 

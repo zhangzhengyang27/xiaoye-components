@@ -1,0 +1,72 @@
+.xy-tree-select {
+  position: relative;
+}
+
+.xy-tree-select__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-bg-color);
+  padding: 0 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.xy-tree-select.is-open .xy-tree-select__trigger {
+  border-color: var(--xy-color-primary);
+  box-shadow: 0 0 0 2px var(--xy-color-primary-light, rgb(64 158 255 / 18%));
+}
+
+.xy-tree-select.is-disabled .xy-tree-select__trigger {
+  background: var(--xy-fill-color-light);
+  cursor: not-allowed;
+  color: var(--xy-text-color-disabled);
+}
+
+.xy-tree-select__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.xy-tree-select__label.is-placeholder {
+  color: var(--xy-text-color-placeholder);
+}
+
+.xy-tree-select__icon,
+.xy-tree-select__icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-tree-select__icon-button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.xy-tree-select__dropdown {
+  min-width: 240px;
+  padding: 8px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-bg-color);
+  box-shadow: var(--xy-shadow-md);
+}
+
+.xy-tree-select__search {
+  margin-bottom: 8px;
+}
+
+.xy-tree-select__tree {
+  max-height: 280px;
+  overflow: auto;
+}

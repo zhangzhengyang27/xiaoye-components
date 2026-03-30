@@ -1,0 +1,68 @@
+.xy-audit-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.xy-audit-timeline__title {
+  font-weight: 600;
+  color: var(--xy-text-color);
+}
+
+.xy-audit-timeline__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.xy-audit-timeline__operator {
+  letter-spacing: 0.01em;
+}
+
+.xy-audit-timeline__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.xy-audit-timeline__description,
+.xy-audit-timeline__remark p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-audit-timeline__remark {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: var(--xy-radius-md);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
+}
+
+.xy-audit-timeline__remark-label,
+.xy-audit-timeline__attachments-label {
+  font-size: var(--xy-font-size-sm);
+  font-weight: 600;
+  color: var(--xy-text-color);
+}
+
+.xy-audit-timeline__extra,
+.xy-audit-timeline__attachments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.xy-audit-timeline__attachments-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.xy-audit-timeline__attachment-text {
+  color: var(--xy-text-color-secondary);
+}

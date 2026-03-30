@@ -3,5 +3,30 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["../../env.d.ts", "./fixtures/**/*.ts"]
+  "files": [
+    "../../env.d.ts",
+    "./fixtures/approval-flow-panel.ts",
+    "./fixtures/async-state-container.ts",
+    "./fixtures/audit-timeline.ts",
+    "./fixtures/column-setting-panel.ts",
+    "./fixtures/crud-page.ts",
+    "./fixtures/detail-page.ts",
+    "./fixtures/detail-panel.ts",
+    "./fixtures/export-task-panel.ts",
+    "./fixtures/filter-panel.ts",
+    "./fixtures/import-result-table.ts",
+    "./fixtures/import-wizard.ts",
+    "./fixtures/list-page.ts",
+    "./fixtures/overlay-form.ts",
+    "./fixtures/pro-form.ts",
+    "./fixtures/pro-root-boundary.ts",
+    "./fixtures/pro-table.ts",
+    "./fixtures/request-form.ts",
+    "./fixtures/saved-view-tabs.ts",
+    "./fixtures/search-form.ts",
+    "./fixtures/split-layout-page.ts",
+    "./fixtures/steps-form.ts",
+    "./fixtures/table-filter-drawer.ts",
+    "./fixtures/xiaoye-pro-components.ts"
+  ]
 }

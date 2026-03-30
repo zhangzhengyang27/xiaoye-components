@@ -6,7 +6,7 @@ outline: deep
 
 # Select 选择器
 
-`xy-select` 用于单值选择，当前版本优先覆盖后台筛选栏和表单枚举值录入，重点是“单选 + 搜索 + 清空 + 键盘导航”，并补齐了分组选项、加载态和面板插槽。
+`xy-select` 用于后台筛选栏和表单枚举值录入。当前版本已经统一为一套通用枚举选择器，支持单选、多选、远程搜索、创建项、清空和键盘导航。
 
 ## 基础用法
 
@@ -18,6 +18,12 @@ select/basic
 
 :::demo 选项支持 `description` 字段，适合在后台场景里补充状态解释或二级信息。
 select/search
+:::
+
+## 多选与标签折叠
+
+:::demo 开启 `multiple` 后，Select 会输出数组值；`collapse-tags` 和 `max-tag-count` 适合在筛选条里控制标签密度。
+select/multiple-create
 :::
 
 ## 禁用态
@@ -44,6 +50,12 @@ select/panel-slots
 select/loading
 :::
 
+## 远程搜索
+
+:::demo `remote` 模式下组件只派发 `search-change`，外部根据关键词更新 `options` 和 `loading` 即可。
+select/remote
+:::
+
 Select 这一轮仍然保持“状态项 loading”，不会改成遮罩。默认加载项的 spinner 和文案已对齐独立 `Loading`，并会读取 `ConfigProvider.loading` 的 `text / spinner / svg / svgViewBox / background` 作为视觉默认项；如果传入 `loading-text` 或自定义 `loading` 插槽，局部定义依然优先。
 
 ## 表单场景
@@ -63,7 +75,9 @@ select/methods
 - `ArrowDown / ArrowUp` 在可选项之间移动。
 - `Enter / Space` 选择当前高亮项。
 - `Escape` 关闭下拉，并把焦点还给触发器。
-- `clearable` 适合筛选栏，`searchable` 适合选项较多的枚举值选择。
+- `multiple` 适合标签型筛选，`collapse-tags` 用于压缩触发器内容。
+- `remote` 打开后，组件不会再做本地过滤，只展示外部传入选项。
+- `allow-create` 适合轻量自定义枚举录入，仍然遵循当前选项值类型。
 
 ## API
 
@@ -71,18 +85,24 @@ select/methods
 
 | 属性                 | 说明                         | 类型                                          | 默认值               |
 | -------------------- | ---------------------------- | --------------------------------------------- | -------------------- |
-| `model-value`        | 当前选中值                   | `string \| number \| null`                    | `null`               |
+| `model-value`        | 当前选中值                   | `string \| number \| Array<string \| number> \| null` | `null` |
 | `options`            | 选项列表                     | `(SelectOption<T> \| SelectOptionGroup<T>)[]` | —                    |
 | `placeholder`        | 未选择时的占位提示           | `string`                                      | `'请选择'`           |
 | `disabled`           | 是否禁用                     | `boolean`                                     | `false`              |
 | `clearable`          | 是否允许清空当前选中值       | `boolean`                                     | `false`              |
 | `searchable`         | 是否启用搜索输入             | `boolean`                                     | `false`              |
+| `multiple`           | 是否开启多选                 | `boolean`                                     | `false`              |
+| `collapse-tags`      | 多选时是否折叠标签           | `boolean`                                     | `false`              |
+| `max-tag-count`      | 折叠前最多展示的标签数       | `number`                                      | `undefined`          |
+| `remote`             | 是否启用远程搜索             | `boolean`                                     | `false`              |
+| `allow-create`       | 是否允许按搜索词创建新项     | `boolean`                                     | `false`              |
 | `size`               | 组件尺寸                     | `'sm' \| 'md' \| 'lg'`                        | 跟随全局配置         |
 | `no-data-text`       | 无选项时的文案               | `string`                                      | `'暂无选项'`         |
 | `no-match-text`      | 搜索无结果时的文案           | `string`                                      | `'没有匹配项'`       |
 | `loading`            | 是否处于加载态               | `boolean`                                     | `false`              |
 | `loading-text`       | 加载态文案                   | `string`                                      | `'加载中'`           |
 | `search-placeholder` | 搜索输入占位文案             | `string`                                      | `'搜索选项'`         |
+| `create-text`        | 创建项前缀文案               | `string`                                      | `'创建'`             |
 | `prefix-icon`        | 触发器前置图标               | `string`                                      | `''`                 |
 | `suffix-icon`        | 触发器后置图标               | `string`                                      | `'mdi:chevron-down'` |
 | `clear-icon`         | 清空图标                     | `string`                                      | `'mdi:close-circle'` |
@@ -106,6 +126,7 @@ select/methods
 | `visible-change`     | 下拉打开或关闭时触发 | `boolean`                  |
 | `focus`              | 下拉打开时触发       | —                          |
 | `blur`               | 下拉关闭时触发       | —                          |
+| `search-change`      | 搜索关键字变化时触发 | `string`                   |
 
 ### Select Option
 

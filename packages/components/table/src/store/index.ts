@@ -65,7 +65,7 @@ export interface TableStore<T = Record<string, unknown>> {
   isFilterPanelOpen: (column: TableResolvedColumn<T>) => boolean;
   closeFilterPanel: () => void;
   setColumnFilters: (column: TableResolvedColumn<T>, values: TableFilterValue[]) => void;
-  toggleRowSelection: (row: T, selected?: boolean) => void;
+  toggleRowSelection: (row: T, selected?: boolean, ignoreSelectable?: boolean) => void;
   toggleAllSelection: () => void;
   clearSelection: () => void;
   getSelectionRows: () => T[];
@@ -74,6 +74,7 @@ export interface TableStore<T = Record<string, unknown>> {
   setHoveredRow: (row?: T | null) => void;
   getRowKey: (row: T, rowIndex: number) => string | number;
   setColumnWidth: (uid: string, width: number) => void;
+  updateKeyChildren: (key: string | number, children: T[]) => void;
 }
 
 export function useTableStore<T extends Record<string, unknown>>(options: {
@@ -103,6 +104,8 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
       columns.value,
       widthOverrides.value,
       props.showOverflowTooltip,
+      props.tooltipEffect,
+      props.tooltipOptions,
       props.fit,
       fitWidth?.value
     )
@@ -643,10 +646,10 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     return selectedCount > 0 && selectedCount < branchKeys.length;
   }
 
-  function toggleRowSelection(row: T, selected?: boolean) {
+  function toggleRowSelection(row: T, selected?: boolean, ignoreSelectable = false) {
     const record = getRecordByRow(row);
 
-    if (!record || !isSelectable(row, record.sourceIndex)) {
+    if (!record || (!ignoreSelectable && !isSelectable(row, record.sourceIndex))) {
       return;
     }
 
@@ -901,10 +904,14 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
       innerExpandKeys.value = nextKeys;
     }
 
-    const expandedRows = [...nextKeys]
-      .map((key) => sourceRowsMap.value.get(key))
-      .filter((item): item is T => item !== undefined);
+    const expandedRows = sourceNodeRecords.value
+      .filter((item) => nextKeys.has(item.key))
+      .map((item) => item.row);
+    const expandedRowKeys = sourceNodeRecords.value
+      .filter((item) => nextKeys.has(item.key))
+      .map((item) => item.key);
 
+    emit("update:expandRowKeys", expandedRowKeys);
     emit("expand-change", row, expandedRows);
   }
 
@@ -965,6 +972,22 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     };
   }
 
+  function updateKeyChildren(key: string | number, children: T[]) {
+    if (!props.rowKey || !sourceNodeMap.value.has(key)) {
+      return;
+    }
+
+    const nextLazyChildrenMap = new Map(lazyChildrenMap.value);
+    nextLazyChildrenMap.set(key, Array.isArray(children) ? children : []);
+    lazyChildrenMap.value = nextLazyChildrenMap;
+
+    if (lazyLoadingKeys.value.has(key)) {
+      const nextLoadingKeys = new Set(lazyLoadingKeys.value);
+      nextLoadingKeys.delete(key);
+      lazyLoadingKeys.value = nextLoadingKeys;
+    }
+  }
+
   return {
     normalizedColumns,
     leafColumns,
@@ -1016,6 +1039,7 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     toggleTreeRow,
     setHoveredRow,
     getRowKey,
-    setColumnWidth
+    setColumnWidth,
+    updateKeyChildren
   };
 }

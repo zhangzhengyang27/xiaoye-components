@@ -171,6 +171,15 @@ function updatePageSize(value: number | null) {
   emitCombinedChange(nextPage, value);
 }
 
+function handlePageSizeChange(value: unknown) {
+  if (Array.isArray(value)) {
+    updatePageSize(typeof value[0] === "number" ? value[0] : null);
+    return;
+  }
+
+  updatePageSize(typeof value === "number" ? value : null);
+}
+
 function handleJumperChange(event: Event) {
   const value = Number((event.target as HTMLInputElement).value);
 
@@ -305,7 +314,7 @@ watch(pageCountBridge, (value) => {
             :popper-style="props.popperStyle"
             :fit-trigger-width="false"
             dropdown-min-width="108px"
-            @update:model-value="updatePageSize"
+            @update:model-value="handlePageSizeChange"
           />
         </label>
 
@@ -400,7 +409,7 @@ watch(pageCountBridge, (value) => {
             :popper-style="props.popperStyle"
             :fit-trigger-width="false"
             dropdown-min-width="108px"
-            @update:model-value="updatePageSize"
+            @update:model-value="handlePageSizeChange"
           />
         </label>
 

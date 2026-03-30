@@ -11,11 +11,14 @@ const files: UploadFileItem[] = [
 const props: UploadProps = {
   fileList: files,
   multiple: true,
+  directory: true,
+  paste: true,
   autoUpload: false,
   limit: 2,
   beforeUpload: (file) => file.size < 2_000_000,
   beforeRemove: () => true,
   onPreview: (file) => file.name,
+  previewFile: async (file) => file.url,
   onChange: (_file, nextFiles) => nextFiles.length,
   httpRequest: () => Promise.resolve({ ok: true }),
   listType: "picture"

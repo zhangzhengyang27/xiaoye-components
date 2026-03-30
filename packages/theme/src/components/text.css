@@ -1,10 +1,18 @@
 .xy-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   font-size: var(--xy-font-size-md);
   line-height: var(--xy-line-height);
   color: var(--xy-text-color);
   overflow-wrap: break-word;
+}
+
+.xy-text__content {
+  min-width: 0;
 }
 
 .xy-text--sm {
@@ -40,6 +48,10 @@
 }
 
 .xy-text.is-truncated {
+  max-width: 100%;
+}
+
+.xy-text.is-truncated .xy-text__content {
   display: inline-block;
   max-width: 100%;
   overflow: hidden;
@@ -49,9 +61,45 @@
 }
 
 .xy-text.is-line-clamp {
+  align-items: flex-start;
+}
+
+.xy-text.is-line-clamp .xy-text__content {
   display: -webkit-inline-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.xy-text.is-strong {
+  font-weight: 600;
+}
+
+.xy-text.is-underline {
+  text-decoration: underline;
+}
+
+.xy-text.is-delete {
+  text-decoration: line-through;
+}
+
+.xy-text.is-expanded {
+  white-space: normal;
+}
+
+.xy-text__action,
+.xy-text__toggle {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--xy-text-color-secondary);
+  cursor: pointer;
+  font-size: var(--xy-font-size-sm);
+  line-height: 1;
+}
+
+.xy-text__action:hover,
+.xy-text__toggle:hover {
+  color: var(--xy-color-primary);
 }
 
 .xy-text > .xy-icon {

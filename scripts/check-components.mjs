@@ -69,7 +69,9 @@ const docComponentNames = listBasenames("apps/docs/components", ".md").filter(
   (name) => name !== "overview"
 );
 
-const typeFixtureNames = listBasenames("tests/types/fixtures", ".ts");
+const typeFixtureNames = listBasenames("tests/types/fixtures", ".ts").filter((name) =>
+  componentNames.includes(name)
+);
 const unitTestNames = listComponentTestGroups();
 
 const themeImportNames = collectByRegex(

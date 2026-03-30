@@ -1,0 +1,16 @@
+.xy-async-state-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.xy-async-state-container__state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  border: 1px dashed color-mix(in srgb, var(--xy-border-color) 84%, white);
+  border-radius: var(--xy-radius-lg);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 72%, white);
+}

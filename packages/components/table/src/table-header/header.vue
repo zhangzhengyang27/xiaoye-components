@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends Record<string, unknown>">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import XyCheckbox from "../../../checkbox";
 import XyIcon from "../../../icon";
 import FilterPanel from "../filter-panel.vue";
@@ -21,6 +21,9 @@ const props = withDefaults(
     headerRowStyle?: TableHeaderRowStyle;
     headerCellClassName?: string | ((column: TableResolvedColumn<T>, columnIndex: number) => string);
     headerCellStyle?: TableHeaderCellStyle<T>;
+    appendFilterPanelTo?: string;
+    allowDragLastColumn?: boolean;
+    tableWidth?: number;
   }>(),
   {
     columns: undefined,
@@ -29,19 +32,26 @@ const props = withDefaults(
     headerRowClassName: "",
     headerRowStyle: undefined,
     headerCellClassName: "",
-    headerCellStyle: undefined
+    headerCellStyle: undefined,
+    appendFilterPanelTo: "",
+    allowDragLastColumn: true,
+    tableWidth: undefined
   }
 );
 
 const emit = defineEmits<{
+  "header-dragstart": [left: number];
+  "header-dragmove": [left: number];
   "header-click": [column: TableResolvedColumn<T>, event: MouseEvent];
   "header-contextmenu": [column: TableResolvedColumn<T>, event: MouseEvent];
   "header-dragend": [newWidth: number, oldWidth: number, column: TableResolvedColumn<T>, event: MouseEvent];
 }>();
 
+const tableRef = ref<HTMLTableElement | null>(null);
 const renderColumns = computed(() => props.columns ?? props.store.normalizedColumns.value);
 const leafColumns = computed(() => flattenColumns(renderColumns.value));
 const headerRows = computed(() => buildHeaderRows(renderColumns.value));
+const filterTriggerRefs = new Map<string, HTMLElement | null>();
 
 function resolveHeaderRowClassName(rowIndex: number) {
   const className =
@@ -73,8 +83,11 @@ function resolveHeaderCellClassName(column: TableResolvedColumn<T>, columnIndex:
     "xy-table__header-cell",
     `is-${column.headerAlign}`,
     column.labelClassName,
+    column.type === "selection" ? "xy-table__column--selection" : "",
+    column.type === "expand" ? "xy-table__column--expand" : "",
     className,
     props.panel !== "main" ? "is-fixed-panel-cell" : "",
+    ...resolveFixedColumnClassNames(column),
     column.sortable ? "is-sortable" : "",
     sortOrder ? "is-sorted" : "",
     props.store.getColumnFilterValues(column).length > 0 ? "is-filtered" : ""
@@ -107,29 +120,109 @@ function handleHeaderKeydown(column: TableResolvedColumn<T>, event: KeyboardEven
 }
 
 function startResize(column: TableResolvedColumn<T>, event: MouseEvent) {
-  if (event.button !== 0 || column.children.length > 0 || !column.resizable) {
+  if (event.button !== 0 || !canResizeColumn(column)) {
     return;
   }
 
   event.preventDefault();
   event.stopPropagation();
 
+  const startCell = (event.currentTarget as HTMLElement | null)?.closest("th");
+  const tableElement = startCell?.closest(".xy-table");
+
+  if (!startCell || !tableElement) {
+    return;
+  }
+
   const startX = event.clientX;
-  const startWidth = column.realWidth;
+  const startCellRect = startCell.getBoundingClientRect();
+  const tableLeft = tableElement.getBoundingClientRect().left;
+  const startWidth = startCellRect.width;
+  const oldWidth = Math.round(startWidth);
+  const startLeft = startCellRect.right - tableLeft;
+  const startColumnLeft = startCellRect.left - tableLeft;
+  const minLeft = startColumnLeft + 40;
+  const previousCursor = document.body.style.cursor;
+  const previousUserSelect = document.body.style.userSelect;
+
+  document.body.style.cursor = "col-resize";
+  document.body.style.userSelect = "none";
+  emit("header-dragstart", startLeft);
 
   const handleMouseMove = (moveEvent: MouseEvent) => {
-    const nextWidth = startWidth + (moveEvent.clientX - startX);
-    props.store.setColumnWidth(column.uid, nextWidth);
+    const nextLeft = Math.max(minLeft, startLeft + (moveEvent.clientX - startX));
+    emit("header-dragmove", nextLeft);
   };
 
   const handleMouseUp = (upEvent: MouseEvent) => {
     window.removeEventListener("mousemove", handleMouseMove);
     window.removeEventListener("mouseup", handleMouseUp);
-    emit("header-dragend", column.realWidth, startWidth, column, upEvent);
+    document.body.style.cursor = previousCursor;
+    document.body.style.userSelect = previousUserSelect;
+
+    const finalLeft = Math.max(minLeft, startLeft + (upEvent.clientX - startX));
+    const newWidth = Math.max(40, Math.round(finalLeft - startColumnLeft));
+    props.store.setColumnWidth(column.uid, newWidth);
+    emit("header-dragend", newWidth, oldWidth, column, upEvent);
   };
 
   window.addEventListener("mousemove", handleMouseMove);
   window.addEventListener("mouseup", handleMouseUp);
+}
+
+function setFilterTriggerRef(uid: string, element: Element | null) {
+  filterTriggerRefs.set(uid, element instanceof HTMLElement ? element : null);
+}
+
+function getFilterTriggerRef(uid: string) {
+  return filterTriggerRefs.get(uid) ?? null;
+}
+
+function isLastLeafColumn(column: TableResolvedColumn<T>) {
+  return leafColumns.value[leafColumns.value.length - 1]?.uid === column.uid;
+}
+
+function canResizeColumn(column: TableResolvedColumn<T>) {
+  if (column.children.length > 0 || !column.resizable) {
+    return false;
+  }
+
+  if (props.allowDragLastColumn) {
+    return true;
+  }
+
+  return !isLastLeafColumn(column);
+}
+
+function isFixedBoundaryColumn(column: TableResolvedColumn<T>, position: "left" | "right") {
+  const boundaryUid =
+    position === "left"
+      ? leafColumns.value[leafColumns.value.length - 1]?.uid
+      : leafColumns.value[0]?.uid;
+
+  if (!boundaryUid) {
+    return false;
+  }
+
+  return flattenColumns([column]).some((item) => item.uid === boundaryUid);
+}
+
+function resolveFixedColumnClassNames(column: TableResolvedColumn<T>) {
+  if (props.panel === "main" || !column.fixed) {
+    return [];
+  }
+
+  if (column.fixed === "left") {
+    return [
+      "xy-table-fixed-column--left",
+      isFixedBoundaryColumn(column, "left") ? "is-last-column" : ""
+    ];
+  }
+
+  return [
+    "xy-table-fixed-column--right",
+    isFixedBoundaryColumn(column, "right") ? "is-first-column" : ""
+  ];
 }
 
 function shouldRenderFilterPanel(column: TableResolvedColumn<T>) {
@@ -150,10 +243,30 @@ function resolveColWidth(column: TableResolvedColumn<T>) {
     minWidth: toCssSize(column.realWidth)
   };
 }
+
+function resolveTableStyle() {
+  if (props.panel !== "main" || props.tableWidth === undefined) {
+    return undefined;
+  }
+
+  return {
+    width: toCssSize(props.tableWidth),
+    minWidth: "100%"
+  };
+}
+
+defineExpose({
+  tableRef
+});
 </script>
 
 <template>
-  <table v-if="props.showHeader" class="xy-table__header-table">
+  <table
+    v-if="props.showHeader"
+    ref="tableRef"
+    class="xy-table__header-table"
+    :style="resolveTableStyle()"
+  >
     <colgroup>
       <col
         v-for="column in leafColumns"
@@ -217,46 +330,52 @@ function resolveColWidth(column: TableResolvedColumn<T>) {
 
             <span
               v-if="cell.column.sortable && cell.column.type === 'default'"
-              class="xy-table__sort-trigger"
+              class="xy-table__caret-wrapper"
               aria-hidden="true"
             >
-              <xy-icon
-                class="xy-table__sort-icon"
-                :class="{ 'is-active': props.store.getColumnSortOrder(cell.column) === 'ascending' }"
-                icon="mdi:chevron-up"
-                :size="14"
-              />
-              <xy-icon
-                class="xy-table__sort-icon"
-                :class="{ 'is-active': props.store.getColumnSortOrder(cell.column) === 'descending' }"
-                icon="mdi:chevron-down"
-                :size="14"
-              />
+              <i class="xy-table__sort-caret ascending" />
+              <i class="xy-table__sort-caret descending" />
             </span>
 
             <button
               v-if="cell.column.filters.length > 0"
+              :ref="(element) => setFilterTriggerRef(cell.column.uid, element as Element | null)"
               class="xy-table__filter-trigger"
-              :class="{ 'is-active': props.store.getColumnFilterValues(cell.column).length > 0 }"
+              :class="{
+                'is-active':
+                  props.store.getColumnFilterValues(cell.column).length > 0 ||
+                  props.store.isFilterPanelOpen(cell.column)
+              }"
               type="button"
+              :aria-label="`${cell.column.label || '当前列'}筛选`"
+              :aria-expanded="props.store.isFilterPanelOpen(cell.column)"
               @click.stop="props.store.toggleFilterPanel(cell.column)"
             >
-              <xy-icon icon="mdi:filter-variant" :size="14" />
+              <xy-icon
+                class="xy-table__filter-trigger-icon"
+                :icon="
+                  props.store.isFilterPanelOpen(cell.column) ? 'mdi:arrow-up' : 'mdi:arrow-down'
+                "
+                :size="14"
+              />
             </button>
 
             <span
-              v-if="cell.column.children.length === 0 && cell.column.resizable"
+              v-if="canResizeColumn(cell.column)"
               class="xy-table__resize-handle"
               @mousedown="startResize(cell.column, $event)"
             />
           </div>
 
           <filter-panel
-            v-if="shouldRenderFilterPanel(cell.column)"
-            :title="cell.column.label"
+            :open="shouldRenderFilterPanel(cell.column)"
             :options="cell.column.filters"
             :selected-values="props.store.getColumnFilterValues(cell.column)"
             :multiple="cell.column.filterMultiple"
+            :placement="cell.column.filterPlacement"
+            :append-to="props.appendFilterPanelTo"
+            :panel-class="cell.column.filterClassName"
+            :reference-el="getFilterTriggerRef(cell.column.uid)"
             @select="props.store.setColumnFilters(cell.column, $event)"
             @close="props.store.closeFilterPanel()"
           />

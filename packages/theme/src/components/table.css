@@ -1,16 +1,16 @@
 .xy-table {
   --xy-table-layout: fixed;
-  --xy-table-header-background: color-mix(in srgb, var(--xy-bg-color-muted) 92%, white);
-  --xy-table-header-color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, white);
-  --xy-table-footer-background: color-mix(in srgb, var(--xy-bg-color-muted) 78%, white);
-  --xy-table-row-hover-background: color-mix(in srgb, var(--xy-bg-color-muted) 56%, white);
+  --xy-table-header-background: #fafafa;
+  --xy-table-header-color: var(--xy-text-color-secondary);
+  --xy-table-footer-background: #fafafa;
+  --xy-table-row-hover-background: #f5f7fa;
   --xy-table-row-current-background: color-mix(in srgb, var(--xy-color-primary) 8%, white);
-  --xy-table-row-striped-background: color-mix(in srgb, var(--xy-bg-color-muted) 76%, white);
-  --xy-table-border-color: color-mix(in srgb, var(--xy-border-color) 92%, white);
-  --xy-table-border-strong: color-mix(in srgb, var(--xy-border-color-strong) 76%, white);
-  --xy-table-filter-panel-shadow: 0 14px 36px rgba(15, 23, 42, 0.12);
-  --xy-table-cell-padding-y: 14px;
-  --xy-table-cell-padding-x: 16px;
+  --xy-table-row-striped-background: #fafafa;
+  --xy-table-border-color: #f0f0f0;
+  --xy-table-border-strong: #e8e8e8;
+  --xy-table-filter-panel-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  --xy-table-cell-padding-y: 8px;
+  --xy-table-cell-padding-x: 10px;
   --xy-table-shadow-size: 18px;
 
   position: relative;
@@ -18,19 +18,19 @@
   flex-direction: column;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid var(--xy-table-border-color);
-  border-radius: var(--xy-radius-lg);
+  border: 0;
+  border-radius: 0;
   background: var(--xy-bg-color);
 }
 
 .xy-table--sm {
-  --xy-table-cell-padding-y: 10px;
-  --xy-table-cell-padding-x: 12px;
+  --xy-table-cell-padding-y: 4px;
+  --xy-table-cell-padding-x: 8px;
 }
 
 .xy-table--lg {
-  --xy-table-cell-padding-y: 16px;
-  --xy-table-cell-padding-x: 18px;
+  --xy-table-cell-padding-y: 12px;
+  --xy-table-cell-padding-x: 16px;
 }
 
 .xy-table.is-layout-auto {
@@ -106,6 +106,8 @@
   border-collapse: separate;
   border-spacing: 0;
   table-layout: var(--xy-table-layout);
+  font-size: 14px;
+  line-height: 23px;
 }
 
 .xy-table__header-cell,
@@ -173,6 +175,7 @@
   align-items: center;
   gap: 8px;
   min-width: 0;
+  padding: 0 10px;
   padding: var(--xy-table-cell-padding-y) var(--xy-table-cell-padding-x);
 }
 
@@ -233,7 +236,7 @@
 .xy-table.is-bordered .xy-table__header-cell,
 .xy-table.is-bordered .xy-table__cell,
 .xy-table.is-bordered .xy-table__footer-cell {
-  box-shadow: inset -1px 0 0 var(--xy-table-border-color);
+  box-shadow: none;
 }
 
 .xy-table.is-bordered .xy-table__header-cell:last-child,
@@ -496,7 +499,7 @@
 
 @media (max-width: 767px) {
   .xy-table {
-    border-radius: var(--xy-radius-md);
+    border-radius: 0;
   }
 
   .xy-table__header-cell-inner,

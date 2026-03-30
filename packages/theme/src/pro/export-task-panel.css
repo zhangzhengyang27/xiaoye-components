@@ -1,0 +1,30 @@
+.xy-export-task-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.xy-export-task-panel__item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+}
+
+.xy-export-task-panel__item:last-child {
+  border-bottom: 0;
+}
+
+.xy-export-task-panel__meta,
+.xy-export-task-panel__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.xy-export-task-panel__time {
+  color: var(--xy-text-color-secondary);
+  font-size: var(--xy-font-size-sm);
+}

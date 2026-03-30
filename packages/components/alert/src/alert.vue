@@ -389,8 +389,8 @@ onBeforeUnmount(() => {
 <template>
   <transition name="xy-alert-fade">
     <div
-      ref="rootRef"
       v-show="visible"
+      ref="rootRef"
       :class="rootClasses"
       role="alert"
       @mouseenter="handleMouseEnter"

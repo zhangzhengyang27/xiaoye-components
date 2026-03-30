@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends Record<string, unknown>">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import XyCheckbox from "../../../checkbox";
 import XyIcon from "../../../icon";
 import TableCellText from "../table-cell-text.vue";
@@ -58,8 +58,12 @@ const props = withDefaults(
         cellValue: unknown;
       }
     ) => unknown;
+    tableWidth?: number;
     expandedRowMode?: ExpandedRowMode;
     mainTableWidth?: number;
+    leftFixedWidth?: number;
+    rightFixedWidth?: number;
+    preserveExpandedContent?: boolean;
   }>(),
   {
     columns: undefined,
@@ -74,8 +78,12 @@ const props = withDefaults(
     indent: 16,
     spanMethod: undefined,
     tooltipFormatter: undefined,
+    tableWidth: undefined,
     expandedRowMode: "content",
-    mainTableWidth: undefined
+    mainTableWidth: undefined,
+    leftFixedWidth: 0,
+    rightFixedWidth: 0,
+    preserveExpandedContent: false
   }
 );
 
@@ -90,9 +98,11 @@ const emit = defineEmits<{
   "cell-mouse-leave": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
 }>();
 
+const tableRef = ref<HTMLTableElement | null>(null);
 const leafColumns = computed(() => flattenColumns(props.columns ?? props.store.normalizedColumns.value));
 const treeColumnUid = computed(() => props.store.treeColumn.value?.uid);
 const expandColumn = computed(() => leafColumns.value.find((column) => column.type === "expand"));
+const preservedExpandedRowKeys = ref(new Set<string | number>());
 const renderRows = computed(() => {
   const skipped = new Set<string>();
 
@@ -172,6 +182,41 @@ const renderRows = computed(() => {
   });
 });
 
+watch(
+  () => props.store.bodyRows.value.map((item) => `${String(item.key)}:${item.expanded ? 1 : 0}`).join("|"),
+  () => {
+    if (!props.preserveExpandedContent) {
+      if (preservedExpandedRowKeys.value.size > 0) {
+        preservedExpandedRowKeys.value = new Set();
+      }
+      return;
+    }
+
+    const rows = props.store.bodyRows.value;
+    const availableKeys = new Set(rows.map((item) => item.key));
+    const nextPreservedKeys = new Set(
+      [...preservedExpandedRowKeys.value].filter((key) => availableKeys.has(key))
+    );
+
+    rows.forEach((item) => {
+      if (item.expanded) {
+        nextPreservedKeys.add(item.key);
+      }
+    });
+
+    const hasChanged =
+      nextPreservedKeys.size !== preservedExpandedRowKeys.value.size ||
+      [...nextPreservedKeys].some((key) => !preservedExpandedRowKeys.value.has(key));
+
+    if (hasChanged) {
+      preservedExpandedRowKeys.value = nextPreservedKeys;
+    }
+  },
+  {
+    immediate: true
+  }
+);
+
 function resolveRowClassName(row: T, rowIndex: number) {
   const className =
     typeof props.rowClassName === "function" ? props.rowClassName(row, rowIndex) : props.rowClassName;
@@ -197,9 +242,12 @@ function resolveCellClassName(cell: RenderCell<T>) {
   return [
     "xy-table__cell",
     `is-${cell.column.align}`,
+    cell.column.type === "selection" ? "xy-table__column--selection" : "",
+    cell.column.type === "expand" ? "xy-table__column--expand" : "",
     cell.column.className,
     className,
-    props.panel !== "main" ? "is-fixed-panel-cell" : ""
+    props.panel !== "main" ? "is-fixed-panel-cell" : "",
+    ...resolveFixedColumnClassNames(cell.column)
   ];
 }
 
@@ -208,8 +256,10 @@ function resolveCellStyle(cell: RenderCell<T>) {
 }
 
 function resolveTooltipContent(meta: TableCellSlotProps<T>) {
-  return props.tooltipFormatter
-    ? props.tooltipFormatter({
+  const formatter = meta.column.tooltipFormatter ?? props.tooltipFormatter;
+
+  return formatter
+    ? formatter({
         ...meta,
         cellValue: meta.value
       })
@@ -243,6 +293,24 @@ function hasTreeTrigger(treeNode?: TableTreeNode) {
   return Boolean(treeNode?.hasChildren);
 }
 
+function resolveFixedColumnClassNames(column: TableResolvedColumn<T>) {
+  if (props.panel === "main" || !column.fixed) {
+    return [];
+  }
+
+  if (column.fixed === "left") {
+    return [
+      "xy-table-fixed-column--left",
+      leafColumns.value[leafColumns.value.length - 1]?.uid === column.uid ? "is-last-column" : ""
+    ];
+  }
+
+  return [
+    "xy-table-fixed-column--right",
+    leafColumns.value[0]?.uid === column.uid ? "is-first-column" : ""
+  ];
+}
+
 function handleCellClick(row: T, column: TableResolvedColumn<T>, event: MouseEvent) {
   emit("cell-click", row, column, event.currentTarget as HTMLTableCellElement, event);
 }
@@ -264,11 +332,25 @@ function handleCellMouseLeave(row: T, column: TableResolvedColumn<T>, event: Mou
 }
 
 function shouldRenderExpandedRow(row: T, rowIndex: number) {
-  if (!expandColumn.value || props.expandedRowMode === "none") {
+  if (props.expandedRowMode === "none") {
     return false;
   }
 
-  return props.store.isRowExpanded(row) && props.store.isRowExpandable(row, rowIndex);
+  if (props.expandedRowMode === "content" && !expandColumn.value) {
+    return false;
+  }
+
+  const record = props.store.getRowKey(row, rowIndex);
+
+  if (!props.store.isRowExpandable(row, rowIndex)) {
+    return false;
+  }
+
+  if (props.store.isRowExpanded(row)) {
+    return true;
+  }
+
+  return props.preserveExpandedContent && preservedExpandedRowKeys.value.has(record);
 }
 
 function getExpandColumnIndex() {
@@ -291,18 +373,48 @@ function getExpandedSlotProps(row: T, rowIndex: number, treeNode: TableTreeNode)
 }
 
 function resolveExpandedContentStyle() {
-  if (props.expandedRowMode !== "placeholder" || props.mainTableWidth === undefined) {
+  if (props.expandedRowMode === "placeholder") {
+    if (props.mainTableWidth === undefined) {
+      return undefined;
+    }
+
+    return {
+      width: toCssSize(props.mainTableWidth)
+    };
+  }
+
+  if (props.panel !== "main") {
     return undefined;
   }
 
   return {
-    width: toCssSize(props.mainTableWidth)
+    paddingLeft: props.leftFixedWidth > 0 ? toCssSize(props.leftFixedWidth) : undefined,
+    paddingRight: props.rightFixedWidth > 0 ? toCssSize(props.rightFixedWidth) : undefined
   };
 }
+
+function isExpandedRowVisible(row: T) {
+  return props.store.isRowExpanded(row);
+}
+
+function resolveTableStyle() {
+  if (props.panel !== "main" || props.tableWidth === undefined) {
+    return undefined;
+  }
+
+  return {
+    width: toCssSize(props.tableWidth),
+    minWidth: "100%"
+  };
+}
+
+defineExpose({
+  tableRef
+});
 </script>
 
 <template>
-  <table class="xy-table__body-table">
+  <table ref="tableRef" class="xy-table__body-table" :style="resolveTableStyle()">
     <colgroup>
       <col
         v-for="column in leafColumns"
@@ -342,7 +454,7 @@ function resolveExpandedContentStyle() {
                     :model-value="props.store.isRowSelected(rowState.item.row)"
                     :indeterminate="props.store.isRowSelectionIndeterminate(rowState.item.row)"
                     aria-label="选择当前行"
-                    @change="props.store.toggleRowSelection(rowState.item.row)"
+                    @change="props.store.toggleRowSelection(rowState.item.row, undefined, false)"
                   />
                 </template>
 
@@ -350,17 +462,15 @@ function resolveExpandedContentStyle() {
                   <button
                     v-if="props.store.isRowExpandable(rowState.item.row, rowState.item.rowIndex)"
                     class="xy-table__expand-trigger"
+                    :class="{ 'is-expanded': props.store.isRowExpanded(rowState.item.row) }"
                     type="button"
                     @click.stop="props.store.toggleRowExpansion(rowState.item.row)"
                   >
-                    <xy-icon
-                      :icon="
-                        props.store.isRowExpanded(rowState.item.row)
-                          ? 'mdi:chevron-down'
-                          : 'mdi:chevron-right'
-                      "
-                      :size="16"
-                    />
+                      <xy-icon
+                        class="xy-table__expand-icon"
+                        icon="mdi:chevron-right"
+                        :size="12"
+                      />
                   </button>
                   <span v-else class="xy-table__expand-placeholder" />
                 </template>
@@ -377,16 +487,17 @@ function resolveExpandedContentStyle() {
                     <button
                       v-if="hasTreeTrigger(rowState.item.treeNode)"
                       class="xy-table__tree-toggle"
+                      :class="{
+                        'is-expanded': rowState.item.treeNode.expanded,
+                        'is-loading': rowState.item.treeNode.loading
+                      }"
                       type="button"
                       @click.stop="props.store.toggleTreeRow(rowState.item.row)"
                     >
                       <xy-icon
-                        :icon="
-                          rowState.item.treeNode.expanded
-                            ? 'mdi:chevron-down'
-                            : 'mdi:chevron-right'
-                        "
-                        :size="16"
+                        class="xy-table__expand-icon"
+                        :icon="rowState.item.treeNode.loading ? 'mdi:loading' : 'mdi:chevron-right'"
+                        :size="12"
                       />
                     </button>
                     <span v-else class="xy-table__tree-placeholder" />
@@ -401,7 +512,7 @@ function resolveExpandedContentStyle() {
                     v-else-if="isPrimitiveTableValue(cell.meta.value)"
                     :content="cell.meta.value"
                     :tooltip-content="resolveTooltipContent(cell.meta)"
-                    :show-tooltip="cell.column.showOverflowTooltip"
+                    :tooltip-options="cell.column.overflowTooltipOptions"
                   />
                   <table-render-value v-else :value="cell.meta.value" />
                 </template>
@@ -412,6 +523,7 @@ function resolveExpandedContentStyle() {
 
         <tr
           v-if="shouldRenderExpandedRow(rowState.item.row, rowState.item.rowIndex)"
+          v-show="isExpandedRowVisible(rowState.item.row)"
           class="xy-table__expanded-row"
           :class="{ 'is-placeholder': props.expandedRowMode === 'placeholder' }"
         >

@@ -42,6 +42,7 @@ const visibleRows = computed(() => (state.value === "ready" ? rows : []));
     <xy-table
       :data="visibleRows"
       :loading="state === 'loading'"
+      border
       loading-text="正在拉取最新列表"
     >
       <xy-table-column prop="name" label="项目名称" />

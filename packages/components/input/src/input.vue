@@ -91,7 +91,7 @@ const displayValue = ref("");
 
 const mergedSize = computed(() => props.size ?? globalSize.value);
 const isTextarea = computed(() => props.type === "textarea");
-const inputDisabled = computed(() => props.disabled);
+const inputDisabled = computed(() => props.disabled || (formItem?.disabled.value ?? false));
 const hasPrefix = computed(() => Boolean(slots.prefix) || Boolean(props.prefixIcon));
 const hasSuffix = computed(() => Boolean(slots.suffix) || Boolean(props.suffixIcon));
 const hasPrepend = computed(() => Boolean(slots.prepend));
