@@ -5,5 +5,5 @@
     "rootDir": "."
   },
   "include": ["env.d.ts", "packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.vue"],
-  "exclude": ["packages/**/__tests__/**", "apps/**", "tests/**"]
+  "exclude": ["packages/**/__tests__/**", "packages/**/dist/**", "apps/**", "tests/**"]
 }

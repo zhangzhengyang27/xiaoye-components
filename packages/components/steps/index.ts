@@ -9,7 +9,9 @@ export type { StepProps, StepStatus, StepsDirection, StepsProps, StepsStatus };
 
 export const XyStep = withInstall(Step, "xy-step");
 
-export const XySteps = withInstall(Steps, "xy-steps") as SFCWithInstall<typeof Steps> & {
+export const XySteps = withInstall(Steps, "xy-steps") as SFCWithInstall<
+  typeof Steps
+> & {
   Item: typeof XyStep;
 };
 

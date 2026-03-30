@@ -6,6 +6,7 @@ import { workspaceAlias } from "./aliases";
 
 const dtsExclude = [
   "packages/**/__tests__/**",
+  "packages/**/dist/**",
   "packages/**/*.spec.ts",
   "packages/**/*.test.ts",
   "tests/**",
@@ -42,6 +43,7 @@ export function createLibraryConfig(options: {
         exclude: dtsExclude,
         outDir: path.resolve(options.outDir, "types"),
         insertTypesEntry: true,
+        staticImport: true,
         copyDtsFiles: false,
         strictOutput: true,
         pathsToAliases: false

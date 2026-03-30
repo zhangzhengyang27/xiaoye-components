@@ -1,9 +1,9 @@
 import type { App, Plugin } from "vue";
 import "./style.css";
-import * as XiaoyeProComponentExports from "@xiaoye/pro-components";
+import * as XiaoyeProComponentExports from "../pro-components/exports";
 import { proInstallableComponentExportNames } from "../pro-components/component-manifest";
 
-export * from "@xiaoye/pro-components";
+export * from "../pro-components";
 
 const INSTALL_KEY = Symbol.for("xiaoye-pro-components:installed");
 

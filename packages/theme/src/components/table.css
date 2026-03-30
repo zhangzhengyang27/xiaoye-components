@@ -474,7 +474,7 @@
   padding: 24px 12px;
 }
 
-.xy-table__empty :deep(.xy-empty) {
+.xy-table__empty .xy-empty {
   padding: 20px 0;
 }
 

@@ -30,7 +30,9 @@ export type {
 export const XyDropdownMenu = withInstall(DropdownMenu, "xy-dropdown-menu");
 export const XyDropdownItem = withInstall(DropdownItemComponent, "xy-dropdown-item");
 
-export const XyDropdown = withInstall(Dropdown, "xy-dropdown") as SFCWithInstall<typeof Dropdown> & {
+export const XyDropdown = withInstall(Dropdown, "xy-dropdown") as SFCWithInstall<
+  typeof Dropdown
+> & {
   Menu: typeof XyDropdownMenu;
   Item: typeof XyDropdownItem;
 };

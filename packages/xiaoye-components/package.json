@@ -1,8 +1,24 @@
 {
   "name": "xiaoye-components",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "通用 Vue 3 基础组件库",
+  "license": "MIT",
+  "homepage": "https://github.com/zhangzhengyang27/xiaoye-components#readme",
+  "bugs": {
+    "url": "https://github.com/zhangzhengyang27/xiaoye-components/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangzhengyang27/xiaoye-components.git"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "design-system",
+    "ui"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
@@ -15,13 +31,24 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": {
+      "types": "./dist/style.css.d.ts",
+      "default": "./dist/index.css"
+    }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "peerDependencies": {
-    "vue": "^3.5.0"
+    "vue": "^3.5.0",
+    "vue-router": "^4.6.0"
+  },
+  "peerDependenciesMeta": {
+    "vue-router": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",

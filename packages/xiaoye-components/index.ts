@@ -1,10 +1,10 @@
 import type { App, Plugin } from "vue";
-import "@xiaoye/theme";
-import * as XiaoyeComponentExports from "@xiaoye/components";
+import "./style.css";
+import * as XiaoyeComponentExports from "../components";
 import { installableComponentExportNames } from "../components/component-manifest";
 
-export type { ComponentSize, ComponentStatus, SelectOption } from "@xiaoye/utils";
-export * from "@xiaoye/components";
+export type { ComponentSize, ComponentStatus, SelectOption } from "../utils";
+export * from "../components";
 
 const INSTALL_KEY = Symbol.for("xiaoye-components:installed");
 
@@ -43,9 +43,9 @@ export function install(app: App) {
 
 declare module "vue" {
   interface ComponentCustomProperties {
-    $loading?: typeof import("@xiaoye/components").XyLoadingService;
-    $message?: typeof import("@xiaoye/components").XyMessage;
-    $notify?: typeof import("@xiaoye/components").XyNotificationService;
+    $loading?: typeof import("../components").XyLoadingService;
+    $message?: typeof import("../components").XyMessage;
+    $notify?: typeof import("../components").XyNotificationService;
   }
 }
 
