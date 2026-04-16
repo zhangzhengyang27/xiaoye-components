@@ -4,22 +4,6 @@ import { describe, expect, it, vi } from "vitest";
 import { XySavedViewTabs } from "@xiaoye/pro-components";
 import { XyTabs } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XySavedViewTabs", () => {
   it("支持渲染页签并响应切换", async () => {
     const item = {

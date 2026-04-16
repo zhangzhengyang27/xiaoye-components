@@ -3,22 +3,6 @@ import { defineComponent, h, nextTick } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyStepsForm } from "@xiaoye/pro-components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XyStepsForm", () => {
   it("支持渲染步骤并推进到下一步", async () => {
     const wrapper = mount(XyStepsForm, {

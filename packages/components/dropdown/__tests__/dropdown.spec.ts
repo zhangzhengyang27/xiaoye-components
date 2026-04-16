@@ -7,22 +7,6 @@ import {
   XyDropdownMenu
 } from "../index";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 enableAutoUnmount(afterEach);
 
 function createVirtualRef(width = 160, height = 36) {

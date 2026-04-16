@@ -3,22 +3,6 @@ import { defineComponent, h } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyTag } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XyTag", () => {
   it("支持状态、尺寸和圆角类名", () => {
     const wrapper = mount(XyTag, {

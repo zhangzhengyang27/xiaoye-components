@@ -3,22 +3,6 @@ import { defineComponent, h } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyApprovalFlowPanel } from "@xiaoye/pro-components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XyApprovalFlowPanel", () => {
   it("支持渲染节点并触发节点点击", async () => {
     const node = {

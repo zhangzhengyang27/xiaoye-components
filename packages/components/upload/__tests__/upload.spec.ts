@@ -13,20 +13,6 @@ vi.stubGlobal(
   })
 );
 
-vi.mock("@iconify/vue", () => ({
-  Icon: {
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    template: '<svg v-bind="$attrs" :data-icon="icon"></svg>'
-  }
-}));
-
 describe("XyUpload", () => {
   it("支持 fileList 双向绑定和上传成功", async () => {
     const wrapper = mount(XyUpload, {

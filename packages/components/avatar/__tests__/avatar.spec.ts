@@ -3,22 +3,6 @@ import { defineComponent, h, nextTick } from "vue";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { XyAvatar, XyAvatarGroup } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 const mountedWrappers: VueWrapper[] = [];
 
 function mountAvatar(...args: Parameters<typeof mount>) {

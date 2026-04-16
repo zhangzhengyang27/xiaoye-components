@@ -3,22 +3,6 @@ import { defineComponent, h } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XySplitLayoutPage } from "@xiaoye/pro-components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XySplitLayoutPage", () => {
   it("支持主从布局", () => {
     const wrapper = mount(XySplitLayoutPage, {

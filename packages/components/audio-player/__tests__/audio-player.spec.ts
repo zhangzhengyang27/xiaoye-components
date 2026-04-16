@@ -3,21 +3,6 @@ import { defineComponent, h, nextTick } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyAudioPlayer } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 const howlMock = vi.hoisted(() => ({
   play: vi.fn(),
   pause: vi.fn(),

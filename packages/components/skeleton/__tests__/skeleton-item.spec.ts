@@ -3,22 +3,6 @@ import { defineComponent, h } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XySkeletonItem } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XySkeletonItem", () => {
   it("默认渲染 text 变体", () => {
     const wrapper = mount(XySkeletonItem);

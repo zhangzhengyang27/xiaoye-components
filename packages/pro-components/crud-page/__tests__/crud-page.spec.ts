@@ -3,22 +3,6 @@ import { defineComponent, h, nextTick } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyCrudPage, XyListPage } from "@xiaoye/pro-components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XyCrudPage", () => {
   it("支持渲染标题并处理新建动作", async () => {
     const wrapper = mount(XyCrudPage, {

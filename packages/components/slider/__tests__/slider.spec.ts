@@ -3,22 +3,6 @@ import { defineComponent, h, nextTick, reactive, ref } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyForm, XyFormItem, XySlider } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 function mockRunwayRect(wrapper: ReturnType<typeof mount>, rect: Partial<DOMRect>) {
   const runway = wrapper.get(".xy-slider__runway").element as HTMLElement;
   vi.spyOn(runway, "getBoundingClientRect").mockReturnValue({

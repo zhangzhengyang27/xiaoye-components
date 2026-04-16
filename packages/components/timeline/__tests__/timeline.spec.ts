@@ -6,22 +6,6 @@ import { defineComponent, h, nextTick } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyTimeline, XyTimelineGroup, XyTimelineItem } from "../index";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 function getTimelineContentTexts(wrapper: ReturnType<typeof mount>) {
   return wrapper.findAll(".xy-timeline-item__content").map((node) => node.text().trim());
 }

@@ -3,22 +3,6 @@ import { defineComponent, h } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyIcon } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XyIcon", () => {
   it("透传 icon 并保留包装层样式", () => {
     const wrapper = mount(XyIcon, {

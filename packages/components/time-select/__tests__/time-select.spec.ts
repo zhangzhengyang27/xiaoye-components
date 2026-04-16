@@ -3,23 +3,6 @@ import { defineComponent, h, nextTick, reactive } from "vue";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { XyForm, XyFormItem, XyTimeSelect } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  addCollection: vi.fn(),
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 const mountedWrappers: VueWrapper[] = [];
 
 function mountTimeSelect(...args: Parameters<typeof mount>) {

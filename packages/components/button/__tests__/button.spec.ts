@@ -15,22 +15,6 @@ vi.mock("@xiaoye/utils", async () => {
   };
 });
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XyButton", () => {
   it("默认渲染为中性按钮，并支持 type/plain/round/block", () => {
     const wrapper = mount(XyButton, {

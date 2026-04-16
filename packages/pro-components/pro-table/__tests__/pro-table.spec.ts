@@ -5,22 +5,6 @@ import { XyProTable, XySearchForm } from "@xiaoye/pro-components";
 import type { ProTableColumn } from "@xiaoye/pro-components";
 import { XyTag } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 interface Row {
   id: number;
   name: string;

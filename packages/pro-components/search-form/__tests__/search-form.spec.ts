@@ -4,22 +4,6 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { XySearchForm } from "@xiaoye/pro-components";
 import type { SearchFormField } from "@xiaoye/pro-components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 afterEach(() => {
   document.body.innerHTML = "";
 });

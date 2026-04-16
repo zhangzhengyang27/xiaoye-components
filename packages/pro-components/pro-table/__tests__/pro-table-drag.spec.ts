@@ -14,21 +14,6 @@ const sortableMock = vi.hoisted(() => ({
   }>
 }));
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 vi.mock("sortablejs", () => ({
   default: {
     create: vi.fn((_element, options) => {

@@ -43,22 +43,6 @@ function createTouchEvent(
 }
 
 vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 afterEach(() => {
   intersectionCallback = null;
   observedTargets.length = 0;

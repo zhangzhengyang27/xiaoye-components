@@ -3,23 +3,6 @@ import { describe, expect, it, vi, afterEach } from "vitest";
 import { defineComponent, h, nextTick, ref } from "vue";
 import { XyCarousel, XyCarouselItem } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  addCollection: vi.fn(),
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 const mountedWrappers: VueWrapper[] = [];
 
 function mountCarousel(...args: Parameters<typeof mount>) {

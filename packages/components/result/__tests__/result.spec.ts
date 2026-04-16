@@ -4,22 +4,6 @@ import { describe, expect, it, vi } from "vitest";
 import { XyConfigProvider } from "../../config-provider";
 import { XyResult } from "../index";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XyResult", () => {
   it("默认渲染中性结果图标", () => {
     const wrapper = mount(XyResult);

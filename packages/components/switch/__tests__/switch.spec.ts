@@ -3,22 +3,6 @@ import { defineComponent, h, nextTick, reactive, ref } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyForm, XyFormItem, XySwitch } from "@xiaoye/components";
 
-vi.mock("@iconify/vue", () => ({
-  Icon: defineComponent({
-    name: "MockIconifyIcon",
-    inheritAttrs: false,
-    props: {
-      icon: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props, { attrs }) {
-      return () => h("svg", { ...attrs, "data-icon": props.icon });
-    }
-  })
-}));
-
 describe("XySwitch", () => {
   it("支持基础切换和 v-model 更新", async () => {
     const value = ref(false);
