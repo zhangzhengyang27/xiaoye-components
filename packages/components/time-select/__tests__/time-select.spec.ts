@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { XyForm, XyFormItem, XyTimeSelect } from "@xiaoye/components";
 
 vi.mock("@iconify/vue", () => ({
+  addCollection: vi.fn(),
   Icon: defineComponent({
     name: "MockIconifyIcon",
     inheritAttrs: false,
@@ -105,6 +106,20 @@ describe("XyTimeSelect", () => {
 
     expect(wrapper.emitted("update:modelValue")?.[0]).toEqual([null]);
     expect(wrapper.emitted("clear")).toHaveLength(1);
+  });
+
+  it("非法时间字符串时保持 placeholder 且不展示清空按钮", () => {
+    const wrapper = mountTimeSelect(XyTimeSelect, {
+      props: {
+        modelValue: "invalid",
+        clearable: true,
+        placeholder: "请选择时间"
+      }
+    });
+
+    expect(wrapper.find(".xy-time-select__selection").text()).toBe("请选择时间");
+    expect(wrapper.find(".xy-time-select__selection").classes()).toContain("is-placeholder");
+    expect(wrapper.find(".xy-time-select__clear").exists()).toBe(false);
   });
 
   it("支持 expose 方法和表单 change 校验", async () => {

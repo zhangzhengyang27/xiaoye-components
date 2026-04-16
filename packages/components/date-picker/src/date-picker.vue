@@ -108,6 +108,11 @@ const displayLabel = computed(() => {
   return first ? formatByPattern(first, displayFormat.value) : props.placeholder;
 });
 
+const hasDisplayValue = computed(() => {
+  const [start, end] = selectedDates.value;
+  return rangeMode.value ? Boolean(start && end) : Boolean(start);
+});
+
 const calendarCells = computed<CalendarCell[]>(() => {
   const monthStart = currentPanelDate.value.startOf("month");
   const gridStart = monthStart.startOf("week");
@@ -468,12 +473,18 @@ useDismissibleLayer({
       @click="openPanel"
       @keydown="handleTriggerKeydown"
     >
-      <span class="xy-date-picker__selection" :class="selectedValue ? 'is-value' : 'is-placeholder'">
+      <span
+        class="xy-date-picker__selection"
+        :class="hasDisplayValue ? 'is-value' : 'is-placeholder'"
+      >
         {{ displayLabel }}
       </span>
-      <span class="xy-date-picker__actions">
+      <span
+        class="xy-date-picker__actions"
+        :class="{ 'has-clear': props.clearable && hasDisplayValue && !mergedDisabled }"
+      >
         <button
-          v-if="props.clearable && selectedValue && !mergedDisabled"
+          v-if="props.clearable && hasDisplayValue && !mergedDisabled"
           type="button"
           class="xy-date-picker__clear"
           aria-label="clear"

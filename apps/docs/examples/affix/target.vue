@@ -6,8 +6,10 @@
       <xy-affix target=".demo-affix-target__container" :offset="32">
         <div class="demo-affix-target__toolbar">
           <div>
-            <strong>当前筛选摘要</strong>
-            <p>它只会在这个浅色容器里固定，超出边界后自动退出。</p>
+            <strong class="demo-affix-target__toolbar-title">当前筛选摘要</strong>
+            <p class="demo-affix-target__toolbar-description">
+              它只会在这个浅色容器里固定，超出边界后自动退出。
+            </p>
           </div>
           <xy-button type="primary">查看明细</xy-button>
         </div>
@@ -15,8 +17,10 @@
 
       <div class="demo-affix-target__content">
         <article v-for="item in 8" :key="item" class="demo-affix-target__block">
-          <strong>边界说明 {{ item }}</strong>
-          <p>当内容滚出这个浅色容器的范围后，固钉会自动退出，避免跨区域悬浮。</p>
+          <strong class="demo-affix-target__block-title">边界说明 {{ item }}</strong>
+          <p class="demo-affix-target__block-description">
+            当内容滚出这个浅色容器的范围后，固钉会自动退出，避免跨区域悬浮。
+          </p>
         </article>
       </div>
 
@@ -29,13 +33,15 @@
 .demo-affix-target__container {
   padding: 18px;
   border-radius: 18px;
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, white);
 }
 
 .demo-affix-target__edge {
   padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, white);
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
   color: var(--xy-text-color-secondary);
   font-size: 13px;
 }
@@ -53,17 +59,18 @@
   margin-top: 16px;
   padding: 16px 18px;
   border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, white);
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
 }
 
-.demo-affix-target__toolbar strong {
+.demo-affix-target__toolbar-title {
   display: block;
   margin-bottom: 6px;
+  color: var(--xy-text-color-heading);
 }
 
-.demo-affix-target__toolbar p {
+.demo-affix-target__toolbar-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -79,16 +86,17 @@
 .demo-affix-target__block {
   padding: 16px 18px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, white);
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  border: 1px solid var(--xy-border-color-subtle);
 }
 
-.demo-affix-target__block strong {
+.demo-affix-target__block-title {
   display: block;
   margin-bottom: 8px;
+  color: var(--xy-text-color-heading);
 }
 
-.demo-affix-target__block p {
+.demo-affix-target__block-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

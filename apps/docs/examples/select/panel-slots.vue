@@ -41,8 +41,8 @@ async function refresh() {
 
         <template #option="{ option, selected }">
           <span class="demo-select-option">
-            <strong>{{ option.label }}</strong>
-            <small>{{ selected ? "已选中" : option.description }}</small>
+            <strong class="demo-select-option__title">{{ option.label }}</strong>
+            <small class="demo-select-option__caption">{{ selected ? "已选中" : option.description }}</small>
           </span>
         </template>
 
@@ -65,11 +65,11 @@ async function refresh() {
   gap: 4px;
 }
 
-.demo-select-option strong {
+.demo-select-option__title {
   font-weight: 600;
 }
 
-.demo-select-option small {
+.demo-select-option__caption {
   color: var(--xy-text-color-secondary);
 }
 </style>

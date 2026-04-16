@@ -81,14 +81,36 @@ const draftSingle = ref<TimeParts>(defaultTime.value);
 const draftRangeStart = ref<TimeParts>(defaultTime.value);
 const draftRangeEnd = ref<TimeParts>(defaultTime.value);
 
+function hasDisplayText(value: string | null | undefined) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
 const displaySingle = computed(() =>
-  typeof currentValue.value === "string" && currentValue.value ? currentValue.value : props.placeholder
+  typeof currentValue.value === "string" && hasDisplayText(currentValue.value)
+    ? currentValue.value
+    : props.placeholder
 );
 const displayRangeStart = computed(() =>
-  Array.isArray(currentValue.value) && currentValue.value[0] ? currentValue.value[0] : props.startPlaceholder
+  Array.isArray(currentValue.value) && hasDisplayText(currentValue.value[0])
+    ? currentValue.value[0]
+    : props.startPlaceholder
 );
 const displayRangeEnd = computed(() =>
-  Array.isArray(currentValue.value) && currentValue.value[1] ? currentValue.value[1] : props.endPlaceholder
+  Array.isArray(currentValue.value) && hasDisplayText(currentValue.value[1])
+    ? currentValue.value[1]
+    : props.endPlaceholder
+);
+const hasSingleValue = computed(() =>
+  typeof currentValue.value === "string" && hasDisplayText(currentValue.value)
+);
+const hasRangeStartValue = computed(
+  () => Array.isArray(currentValue.value) && hasDisplayText(currentValue.value[0])
+);
+const hasRangeEndValue = computed(
+  () => Array.isArray(currentValue.value) && hasDisplayText(currentValue.value[1])
+);
+const hasCurrentValue = computed(() =>
+  props.isRange ? hasRangeStartValue.value || hasRangeEndValue.value : hasSingleValue.value
 );
 
 const rootKls = computed(() => [
@@ -519,7 +541,7 @@ useDismissibleLayer({
           <span
             :class="[
               'xy-time-picker__value',
-              Array.isArray(currentValue) && currentValue[0] ? 'is-value' : 'is-placeholder'
+              hasRangeStartValue ? 'is-value' : 'is-placeholder'
             ]"
           >
             {{ displayRangeStart }}
@@ -528,7 +550,7 @@ useDismissibleLayer({
           <span
             :class="[
               'xy-time-picker__value',
-              Array.isArray(currentValue) && currentValue[1] ? 'is-value' : 'is-placeholder'
+              hasRangeEndValue ? 'is-value' : 'is-placeholder'
             ]"
           >
             {{ displayRangeEnd }}
@@ -538,16 +560,19 @@ useDismissibleLayer({
           v-else
           :class="[
             'xy-time-picker__value',
-            typeof currentValue === 'string' && currentValue ? 'is-value' : 'is-placeholder'
+            hasSingleValue ? 'is-value' : 'is-placeholder'
           ]"
         >
           {{ displaySingle }}
         </span>
       </span>
 
-      <span class="xy-time-picker__actions">
+      <span
+        class="xy-time-picker__actions"
+        :class="{ 'has-clear': props.clearable && hasCurrentValue && !props.disabled }"
+      >
         <button
-          v-if="props.clearable && currentValue && !props.disabled"
+          v-if="props.clearable && hasCurrentValue && !props.disabled"
           type="button"
           class="xy-time-picker__clear"
           aria-label="clear"

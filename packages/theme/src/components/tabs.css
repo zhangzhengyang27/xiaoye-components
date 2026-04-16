@@ -39,7 +39,7 @@
   right: 0;
   bottom: 0;
   height: 1px;
-  background: color-mix(in srgb, var(--xy-border-color) 88%, white);
+  background: var(--xy-border-color-subtle);
 }
 
 .xy-tabs__nav-wrap.is-vertical::after {
@@ -91,9 +91,9 @@
   background: transparent;
   color: var(--xy-text-color-secondary);
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: var(--xy-radius-sm);
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 560;
   transition:
     color 0.18s ease,
     background-color 0.18s ease,
@@ -127,12 +127,14 @@
 
 .xy-tabs__active-bar {
   position: absolute;
+  z-index: 2;
   left: 0;
   bottom: -7px;
   width: 0;
   height: 3px;
   border-radius: 999px;
   background: var(--xy-color-primary);
+  pointer-events: none;
   transition:
     width 0.18s ease,
     height 0.18s ease,
@@ -153,9 +155,9 @@
   height: 28px;
   flex-shrink: 0;
   margin-bottom: 6px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 92%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 999px;
-  background: var(--xy-bg-color);
+  background: var(--xy-surface-raised);
   color: var(--xy-text-color-secondary);
   cursor: pointer;
   transition:
@@ -184,18 +186,19 @@
 
 .xy-tabs__tab:focus-visible,
 .xy-tabs__panel:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-tabs__tab.is-active {
-  color: var(--xy-text-color);
-  background: transparent;
+  color: var(--xy-text-color-heading);
+  background: var(--xy-color-primary-soft);
 }
 
 .xy-tabs__tab:hover:not(.is-disabled):not(.is-active) {
-  color: var(--xy-text-color);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 54%, white);
+  color: var(--xy-text-color-heading);
+  background: var(--xy-bg-color-subtle);
 }
 
 .xy-tabs__tab.is-disabled {
@@ -209,9 +212,9 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 6px;
-  background: var(--xy-bg-color);
+  background: var(--xy-surface-raised);
   color: var(--xy-text-color-secondary);
   cursor: pointer;
   transition:
@@ -236,16 +239,17 @@
 .xy-tabs__nav-prev:focus-visible,
 .xy-tabs__nav-next:focus-visible,
 .xy-tabs__add:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-tabs__panel {
   flex: 1;
   padding: 24px 26px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: calc(var(--xy-radius-lg) + 2px);
-  background: var(--xy-bg-color);
+  background: var(--xy-surface-raised);
 }
 
 .xy-tabs:not(.xy-tabs--card):not(.xy-tabs--border-card) .xy-tabs__header {
@@ -293,7 +297,7 @@
 
 .xy-tabs--left .xy-tabs__nav-wrap::after,
 .xy-tabs--right .xy-tabs__nav-wrap::after {
-  background: color-mix(in srgb, var(--xy-border-color) 78%, white);
+  background: var(--xy-border-color-subtle);
 }
 
 .xy-tabs--left .xy-tabs__nav,
@@ -379,7 +383,7 @@
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background: transparent;
-  box-shadow: inset 0 -1px 0 0 var(--xy-border-color);
+  box-shadow: inset 0 -1px 0 0 var(--xy-border-color-subtle);
 }
 
 .xy-tabs--card .xy-tabs__tab {
@@ -390,8 +394,8 @@
 }
 
 .xy-tabs--card .xy-tabs__tab.is-active {
-  border-color: var(--xy-border-color);
-  background: var(--xy-bg-color);
+  border-color: var(--xy-border-color-subtle);
+  background: var(--xy-surface-raised);
   box-shadow: none;
 }
 
@@ -400,16 +404,16 @@
 }
 
 .xy-tabs--border-card {
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-lg);
   overflow: hidden;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 75%, white);
+  background: var(--xy-bg-color-subtle);
 }
 
 .xy-tabs--border-card .xy-tabs__header {
   padding: 4px;
-  border-bottom: 1px solid var(--xy-border-color);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 88%, white);
+  border-bottom: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white);
 }
 
 .xy-tabs--border-card .xy-tabs__panel {

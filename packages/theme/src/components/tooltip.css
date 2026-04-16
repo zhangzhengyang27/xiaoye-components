@@ -5,21 +5,22 @@
 
 .xy-tooltip:focus-visible,
 .xy-tooltip > :focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-tooltip__content {
-  --xy-tooltip-bg: color-mix(in srgb, #0f172a 94%, white);
-  --xy-tooltip-text: rgba(255, 255, 255, 0.94);
-  --xy-tooltip-border: transparent;
-  --xy-tooltip-shadow: var(--xy-shadow-sm);
+  --xy-tooltip-bg: var(--xy-bg-color-floating);
+  --xy-tooltip-text: var(--xy-text-color-subtle);
+  --xy-tooltip-border: var(--xy-border-color-subtle);
+  --xy-tooltip-shadow: var(--xy-shadow-popup);
   position: absolute;
   max-width: 240px;
   padding: 10px 12px;
   border-radius: var(--xy-radius-md);
   border: 1px solid var(--xy-tooltip-border);
-  background: var(--xy-tooltip-bg);
+  background: color-mix(in srgb, var(--xy-tooltip-bg) 96%, white);
   color: var(--xy-tooltip-text);
   font-size: var(--xy-font-size-sm);
   line-height: 1.5;
@@ -30,17 +31,17 @@
 }
 
 .xy-tooltip__content--dark {
-  --xy-tooltip-bg: color-mix(in srgb, #0f172a 94%, white);
-  --xy-tooltip-text: rgba(255, 255, 255, 0.94);
-  --xy-tooltip-border: transparent;
-  --xy-tooltip-shadow: var(--xy-shadow-sm);
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-text-color-heading) 88%, var(--xy-color-primary));
+  --xy-tooltip-text: color-mix(in srgb, var(--xy-bg-color-floating) 92%, white);
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
+  --xy-tooltip-shadow: var(--xy-shadow-popup);
 }
 
 .xy-tooltip__content--light {
-  --xy-tooltip-bg: var(--xy-bg-color-elevated);
-  --xy-tooltip-text: var(--xy-text-color);
-  --xy-tooltip-border: color-mix(in srgb, var(--xy-border-color) 88%, white);
-  --xy-tooltip-shadow: var(--xy-shadow-md);
+  --xy-tooltip-bg: var(--xy-bg-color-floating);
+  --xy-tooltip-text: var(--xy-text-color-subtle);
+  --xy-tooltip-border: var(--xy-border-color-subtle);
+  --xy-tooltip-shadow: var(--xy-shadow-popup);
 }
 
 .xy-tooltip__content > .xy-popper__arrow::before {
@@ -78,7 +79,9 @@
 
 .xy-fade-enter-active,
 .xy-fade-leave-active {
-  transition: opacity 0.16s ease, transform 0.16s ease;
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
 }
 
 .xy-fade-enter-from,

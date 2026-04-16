@@ -28,12 +28,19 @@
 }
 
 .xy-avatar-group .xy-avatar {
-  border: 2px solid var(--xy-bg-color);
+  box-shadow:
+    0 0 0 2px var(--xy-bg-color-floating),
+    var(--xy-shadow-xs);
 }
 
 .xy-avatar-group__collapse-avatars {
   display: inline-flex;
   align-items: center;
+  padding: 4px 8px;
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-pill);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-avatar-group__collapse-avatars > *:not(:first-child) {

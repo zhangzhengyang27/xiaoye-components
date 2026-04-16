@@ -10,7 +10,9 @@
     <div class="breadcrumb-scene-card__body">
       <span class="breadcrumb-scene-card__kicker">Settlement Ticket</span>
       <strong>工单 #TK-20260326-014</strong>
-      <p>面包屑更适合放在详情页、抽屉页或多级后台目录的顶部，帮助用户快速判断自己当前所处的业务层级。</p>
+      <p class="breadcrumb-scene-card__description">
+        面包屑更适合放在详情页、抽屉页或多级后台目录的顶部，帮助用户快速判断自己当前所处的业务层级。
+      </p>
     </div>
   </xy-card>
 </template>
@@ -35,7 +37,7 @@
   text-transform: uppercase;
 }
 
-.breadcrumb-scene-card__body p {
+.breadcrumb-scene-card__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

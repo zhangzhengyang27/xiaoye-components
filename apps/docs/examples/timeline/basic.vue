@@ -42,7 +42,9 @@ const records = [
           {{ record.meta }}
         </template>
 
-        {{ record.description }}
+        <div class="demo-timeline-basic__content">
+          {{ record.description }}
+        </div>
       </xy-timeline-item>
     </xy-timeline>
   </div>
@@ -62,10 +64,11 @@ const records = [
   line-height: 1.6;
 }
 
-:deep(.xy-timeline-item__content) {
+.demo-timeline-basic__content {
   padding: 12px 14px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: linear-gradient(180deg, var(--xy-bg-color), var(--xy-bg-color-muted));
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 </style>

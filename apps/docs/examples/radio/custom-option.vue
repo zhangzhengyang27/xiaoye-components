@@ -35,8 +35,8 @@ const options = [
             }"
           >
             <div>
-              <strong>{{ option.label }}</strong>
-              <p>{{ option.description }}</p>
+              <strong class="demo-radio-custom__option-title">{{ option.label }}</strong>
+              <p class="demo-radio-custom__option-description">{{ option.description }}</p>
             </div>
             <xy-tag size="sm" :status="checked ? 'primary' : 'neutral'" round>
               {{ checked ? "当前" : "可选" }}
@@ -57,21 +57,21 @@ const options = [
   gap: 12px;
 }
 
-.demo-radio-custom__option strong {
+.demo-radio-custom__option-title {
   display: block;
   color: var(--xy-text-color);
   line-height: 1.4;
 }
 
-.demo-radio-custom__option p {
+.demo-radio-custom__option-description {
   margin: 4px 0 0;
   color: var(--xy-text-color-muted);
   font-size: 12px;
   line-height: 1.5;
 }
 
-.demo-radio-custom__option.is-disabled strong,
-.demo-radio-custom__option.is-disabled p {
+.demo-radio-custom__option.is-disabled .demo-radio-custom__option-title,
+.demo-radio-custom__option.is-disabled .demo-radio-custom__option-description {
   color: var(--xy-text-color-muted);
 }
 </style>

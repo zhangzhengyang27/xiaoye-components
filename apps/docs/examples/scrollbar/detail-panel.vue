@@ -50,17 +50,17 @@ const activities = [
               <section class="demo-scroll-detail__section">
                 <xy-text tag="strong">关键指标</xy-text>
                 <div class="demo-scroll-detail__metrics">
-                  <div>
-                    <span>今日请求</span>
-                    <strong>12,480</strong>
+                  <div class="demo-scroll-detail__metric-card">
+                    <span class="demo-scroll-detail__metric-label">今日请求</span>
+                    <strong class="demo-scroll-detail__metric-value">12,480</strong>
                   </div>
-                  <div>
-                    <span>异常率</span>
-                    <strong>0.32%</strong>
+                  <div class="demo-scroll-detail__metric-card">
+                    <span class="demo-scroll-detail__metric-label">异常率</span>
+                    <strong class="demo-scroll-detail__metric-value">0.32%</strong>
                   </div>
-                  <div>
-                    <span>负责人</span>
-                    <strong>Xiaoye</strong>
+                  <div class="demo-scroll-detail__metric-card">
+                    <span class="demo-scroll-detail__metric-label">负责人</span>
+                    <strong class="demo-scroll-detail__metric-value">Xiaoye</strong>
                   </div>
                 </div>
               </section>
@@ -74,7 +74,9 @@ const activities = [
                   <xy-table-column prop="role" label="角色" width="120" />
                   <xy-table-column prop="status" label="状态" width="100">
                     <template #default="{ value }">
-                      <xy-tag :status="value === '在线' ? 'success' : 'warning'">{{ value }}</xy-tag>
+                      <xy-tag :status="value === '在线' ? 'success' : 'warning'">{{
+                        value
+                      }}</xy-tag>
                     </template>
                   </xy-table-column>
                 </xy-table>
@@ -111,15 +113,14 @@ const activities = [
   flex-direction: column;
   gap: 16px;
   padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 20px;
-  background:
-    radial-gradient(
-      circle at top right,
-      color-mix(in srgb, var(--xy-color-primary) 10%, white),
-      transparent 42%
-    ),
-    var(--xy-bg-color);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
+    var(--xy-surface-raised)
+  );
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-scroll-detail__header {
@@ -146,8 +147,9 @@ const activities = [
   flex-direction: column;
   gap: 10px;
   padding: 14px;
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 78%, white);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-md);
+  background: var(--xy-bg-color-subtle);
 }
 
 .demo-scroll-detail__paragraph {
@@ -160,21 +162,22 @@ const activities = [
   gap: 10px;
 }
 
-.demo-scroll-detail__metrics div {
+.demo-scroll-detail__metric-card {
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding: 12px;
-  border-radius: 12px;
-  background: var(--xy-bg-color);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-sm);
+  background: var(--xy-surface-raised);
 }
 
-.demo-scroll-detail__metrics span {
+.demo-scroll-detail__metric-label {
   color: var(--xy-text-color-secondary);
   font-size: 12px;
 }
 
-.demo-scroll-detail__metrics strong {
+.demo-scroll-detail__metric-value {
   color: var(--xy-text-color);
   font-size: 18px;
 }
@@ -187,6 +190,6 @@ const activities = [
 
 .demo-scroll-detail__timeline-item {
   padding-left: 12px;
-  border-left: 2px solid color-mix(in srgb, var(--xy-color-primary) 18%, white);
+  border-left: 1px dashed color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color));
 }
 </style>

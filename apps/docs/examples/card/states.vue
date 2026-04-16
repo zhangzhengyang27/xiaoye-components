@@ -37,7 +37,7 @@ const empty = ref(false);
 
         <div class="demo-card-state-copy">
           <strong>成功率 99.8%</strong>
-          <p>过去 24 小时内请求稳定，平均响应时间 182ms。</p>
+          <p class="demo-card-state-copy__description">过去 24 小时内请求稳定，平均响应时间 182ms。</p>
         </div>
       </xy-card>
     </div>
@@ -64,7 +64,7 @@ const empty = ref(false);
   gap: 6px;
 }
 
-.demo-card-state-copy p {
+.demo-card-state-copy__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
 }

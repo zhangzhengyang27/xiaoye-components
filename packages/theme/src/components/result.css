@@ -5,16 +5,25 @@
   --xy-result-icon-shell-size: 112px;
   --xy-result-title-font-size: 24px;
   --xy-result-description-font-size: 14px;
-  --xy-result-title-color: var(--xy-text-color);
-  --xy-result-description-color: var(--xy-text-color-secondary);
+  --xy-result-title-color: var(--xy-text-color-heading);
+  --xy-result-description-color: var(--xy-text-color-subtle);
+  --xy-result-content-color: var(--xy-text-color-subtle);
   --xy-result-content-max-width: 560px;
   --xy-result-extra-margin-top: 10px;
-  --xy-result-card-border-color: color-mix(in srgb, var(--xy-border-color) 92%, white);
-  --xy-result-card-background: color-mix(in srgb, var(--xy-bg-color) 95%, var(--xy-bg-color-muted));
-  --xy-result-card-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+  --xy-result-card-border-color: var(--xy-border-color-subtle);
+  --xy-result-card-background: var(--xy-surface-raised);
+  --xy-result-card-shadow: var(--xy-shadow-xs);
   --xy-result-accent-color: var(--xy-color-info);
-  --xy-result-accent-surface: color-mix(in srgb, var(--xy-color-info) 10%, white);
-  --xy-result-accent-border: color-mix(in srgb, var(--xy-color-info) 18%, white);
+  --xy-result-accent-surface: color-mix(
+    in srgb,
+    var(--xy-color-info) 10%,
+    var(--xy-bg-color-subtle)
+  );
+  --xy-result-accent-border: color-mix(
+    in srgb,
+    var(--xy-color-info) 16%,
+    var(--xy-border-color-subtle)
+  );
 
   display: flex;
   flex-direction: column;
@@ -69,10 +78,10 @@
   height: var(--xy-result-icon-shell-size);
   border: 1px solid var(--xy-result-accent-border);
   border-radius: 999px;
-  background:
-    radial-gradient(circle at top, color-mix(in srgb, white 82%, transparent), transparent 60%),
-    linear-gradient(180deg, var(--xy-result-accent-surface), color-mix(in srgb, var(--xy-result-accent-surface) 72%, white));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--xy-result-accent-surface) 86%, var(--xy-bg-color-floating));
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 42%, transparent),
+    0 10px 24px color-mix(in srgb, var(--xy-result-accent-color) 10%, transparent);
 }
 
 .xy-result__icon-symbol,
@@ -116,7 +125,11 @@
 }
 
 .xy-result__content {
-  color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, white);
+  color: var(--xy-result-content-color);
+  padding: 14px 16px;
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 56%, var(--xy-surface-raised));
 }
 
 .xy-result__extra {
@@ -130,30 +143,70 @@
 
 .xy-result.is-neutral {
   --xy-result-accent-color: var(--xy-color-info);
-  --xy-result-accent-surface: color-mix(in srgb, var(--xy-color-info) 10%, white);
-  --xy-result-accent-border: color-mix(in srgb, var(--xy-color-info) 18%, white);
+  --xy-result-accent-surface: color-mix(
+    in srgb,
+    var(--xy-color-info) 10%,
+    var(--xy-bg-color-subtle)
+  );
+  --xy-result-accent-border: color-mix(
+    in srgb,
+    var(--xy-color-info) 16%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-result.is-primary {
   --xy-result-accent-color: var(--xy-color-primary);
-  --xy-result-accent-surface: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  --xy-result-accent-border: color-mix(in srgb, var(--xy-color-primary) 18%, white);
+  --xy-result-accent-surface: color-mix(
+    in srgb,
+    var(--xy-color-primary-soft) 76%,
+    var(--xy-bg-color-subtle)
+  );
+  --xy-result-accent-border: color-mix(
+    in srgb,
+    var(--xy-color-primary) 16%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-result.is-success {
   --xy-result-accent-color: var(--xy-color-success);
-  --xy-result-accent-surface: color-mix(in srgb, var(--xy-color-success) 11%, white);
-  --xy-result-accent-border: color-mix(in srgb, var(--xy-color-success) 18%, white);
+  --xy-result-accent-surface: color-mix(
+    in srgb,
+    var(--xy-color-success-soft) 76%,
+    var(--xy-bg-color-subtle)
+  );
+  --xy-result-accent-border: color-mix(
+    in srgb,
+    var(--xy-color-success) 16%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-result.is-warning {
   --xy-result-accent-color: var(--xy-color-warning);
-  --xy-result-accent-surface: color-mix(in srgb, var(--xy-color-warning) 12%, white);
-  --xy-result-accent-border: color-mix(in srgb, var(--xy-color-warning) 20%, white);
+  --xy-result-accent-surface: color-mix(
+    in srgb,
+    var(--xy-color-warning-soft) 76%,
+    var(--xy-bg-color-subtle)
+  );
+  --xy-result-accent-border: color-mix(
+    in srgb,
+    var(--xy-color-warning) 18%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-result.is-danger {
   --xy-result-accent-color: var(--xy-color-danger);
-  --xy-result-accent-surface: color-mix(in srgb, var(--xy-color-danger) 10%, white);
-  --xy-result-accent-border: color-mix(in srgb, var(--xy-color-danger) 18%, white);
+  --xy-result-accent-surface: color-mix(
+    in srgb,
+    var(--xy-color-danger-soft) 76%,
+    var(--xy-bg-color-subtle)
+  );
+  --xy-result-accent-border: color-mix(
+    in srgb,
+    var(--xy-color-danger) 16%,
+    var(--xy-border-color-subtle)
+  );
 }

@@ -14,8 +14,10 @@
 
       <template #content>
         <div class="demo-tooltip-advanced">
-          <strong>组合触发</strong>
-          <p>支持 click 与 contextmenu 组合；键盘可以继续用 Enter 或自定义 F2。</p>
+          <strong class="demo-tooltip-advanced__title">组合触发</strong>
+          <p class="demo-tooltip-advanced__description">
+            支持 click 与 contextmenu 组合；键盘可以继续用 Enter 或自定义 F2。
+          </p>
         </div>
       </template>
     </xy-tooltip>
@@ -29,11 +31,11 @@
   max-width: 240px;
 }
 
-.demo-tooltip-advanced strong {
+.demo-tooltip-advanced__title {
   font-weight: 600;
 }
 
-.demo-tooltip-advanced p {
+.demo-tooltip-advanced__description {
   margin: 0;
   color: inherit;
 }

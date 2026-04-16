@@ -1,7 +1,12 @@
 .xy-progress {
-  --xy-progress-track-color: color-mix(in srgb, var(--xy-border-color) 72%, white);
+  --xy-progress-track-color: color-mix(
+    in srgb,
+    var(--xy-bg-color-subtle) 82%,
+    var(--xy-surface-sunken)
+  );
   --xy-progress-text-color: var(--xy-text-color-secondary);
   --xy-progress-fill-color: var(--xy-color-primary);
+  --xy-progress-highlight-color: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -39,7 +44,7 @@
   border-radius: var(--xy-radius-pill);
   background: var(--xy-progress-track-color);
   vertical-align: middle;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color) 60%, transparent);
+  box-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
 }
 
 .xy-progress__bar-inner {
@@ -62,7 +67,7 @@
     background-color 0.3s ease,
     opacity 0.3s ease;
   will-change: width, transform;
-  box-shadow: inset 0 -1px 0 rgba(15, 23, 42, 0.08);
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--xy-text-color-heading) 8%, transparent);
 }
 
 .xy-progress__bar-inner::after {
@@ -71,9 +76,8 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.18),
-    rgba(255, 255, 255, 0) 44%,
-    rgba(15, 23, 42, 0.08)
+    var(--xy-progress-highlight-color),
+    color-mix(in srgb, var(--xy-progress-highlight-color) 0%, transparent) 48%
   );
   pointer-events: none;
 }
@@ -87,11 +91,11 @@
 .xy-progress__bar-inner--striped {
   background-image: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.22) 25%,
+    color-mix(in srgb, var(--xy-bg-color) 26%, transparent) 25%,
     transparent 25%,
     transparent 50%,
-    rgba(255, 255, 255, 0.22) 50%,
-    rgba(255, 255, 255, 0.22) 75%,
+    color-mix(in srgb, var(--xy-bg-color) 26%, transparent) 50%,
+    color-mix(in srgb, var(--xy-bg-color) 26%, transparent) 75%,
     transparent 75%,
     transparent
   );
@@ -134,7 +138,7 @@
 
 .xy-progress__circle-track {
   stroke: var(--xy-progress-track-color);
-  opacity: 0.92;
+  opacity: 0.96;
 }
 
 .xy-progress__circle-path {
@@ -142,7 +146,7 @@
     stroke-dasharray 0.6s ease,
     stroke 0.3s ease,
     opacity 0.3s ease;
-  filter: drop-shadow(0 2px 6px rgba(15, 23, 42, 0.08));
+  filter: drop-shadow(0 2px 4px color-mix(in srgb, var(--xy-progress-fill-color) 12%, transparent));
 }
 
 .xy-progress__text {
@@ -150,7 +154,7 @@
   align-items: center;
   justify-content: flex-end;
   min-width: 48px;
-  margin-left: 5px;
+  margin-left: 8px;
   color: var(--xy-progress-text-color);
   font-weight: 600;
   line-height: 1;

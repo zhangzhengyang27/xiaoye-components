@@ -2,8 +2,10 @@
   <section class="demo-menu-overflow">
     <header class="demo-menu-overflow__header">
       <div class="demo-menu-overflow__title">
-        <strong>收缩后的运营入口带</strong>
-        <p>把横向菜单嵌进一条受限宽度的运营工作带里，让超出的一级入口自然进入“更多”，同时保留菜单级和子菜单级的偏移配置。</p>
+        <strong class="demo-menu-overflow__title-text">收缩后的运营入口带</strong>
+        <p class="demo-menu-overflow__description">
+          把横向菜单嵌进一条受限宽度的运营工作带里，让超出的一级入口自然进入“更多”，同时保留菜单级和子菜单级的偏移配置。
+        </p>
       </div>
 
       <xy-space wrap>
@@ -27,8 +29,8 @@
         <div class="demo-menu-overflow__brand">
           <span class="demo-menu-overflow__brand-mark">XO</span>
           <span class="demo-menu-overflow__brand-copy">
-            <strong>Ops Rail</strong>
-            <small>Constrained Width</small>
+            <strong class="demo-menu-overflow__brand-title">Ops Rail</strong>
+            <small class="demo-menu-overflow__brand-caption">Constrained Width</small>
           </span>
         </div>
 
@@ -38,7 +40,6 @@
           ellipsis
           default-active="ops"
           :popper-offset="16"
-          popper-effect="dark"
           popper-class="demo-menu-overflow__popup"
         >
           <xy-menu-item index="ops">运维看板</xy-menu-item>
@@ -69,11 +70,14 @@
   flex-direction: column;
   gap: 16px;
   padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 8%, white), transparent 36%),
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color) 96%, white), var(--xy-bg-color));
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
+    var(--xy-surface-raised)
+  );
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-menu-overflow__header {
@@ -89,12 +93,12 @@
   gap: 6px;
 }
 
-.demo-menu-overflow__title strong {
+.demo-menu-overflow__title-text {
   color: var(--xy-text-color);
   font-size: 18px;
 }
 
-.demo-menu-overflow__title p {
+.demo-menu-overflow__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;
@@ -105,9 +109,9 @@
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 18px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 76%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
   color: var(--xy-text-color-secondary);
 }
 
@@ -116,8 +120,8 @@
   align-items: center;
   padding: 3px 9px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  color: color-mix(in srgb, var(--xy-color-primary) 82%, black);
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -129,12 +133,14 @@
   flex-direction: column;
   gap: 14px;
   padding: 14px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  border-radius: 22px;
-  background:
-    linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.9)),
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.28), transparent 36%);
-  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-color-primary-soft) 30%, white),
+    var(--xy-surface-raised)
+  );
+  box-shadow: var(--xy-shadow-card);
 }
 
 .demo-menu-overflow__meta {
@@ -142,7 +148,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color: rgba(226, 232, 240, 0.66);
+  color: var(--xy-text-color-secondary);
   font-size: 12px;
 }
 
@@ -151,8 +157,8 @@
   align-items: center;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(59, 130, 246, 0.16);
-  color: rgba(248, 250, 252, 0.9);
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -171,15 +177,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
-    rgba(15, 23, 42, 0.42);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -1px 0 rgba(15, 23, 42, 0.34);
-  backdrop-filter: blur(18px);
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+  border-radius: var(--xy-radius-md);
+  background: color-mix(in srgb, var(--xy-bg-color) 96%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-menu-overflow__brand {
@@ -188,7 +189,7 @@
   gap: 10px;
   min-width: max-content;
   padding-right: 14px;
-  border-right: 1px solid rgba(148, 163, 184, 0.12);
+  border-right: 1px solid var(--xy-border-color-subtle);
 }
 
 .demo-menu-overflow__brand-mark {
@@ -198,8 +199,8 @@
   width: 34px;
   height: 34px;
   border-radius: 11px;
-  background: linear-gradient(135deg, var(--xy-color-primary), #0ea5e9);
-  color: #fff;
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -211,15 +212,15 @@
   gap: 2px;
 }
 
-.demo-menu-overflow__brand-copy strong {
+.demo-menu-overflow__brand-title {
   display: block;
-  color: rgba(248, 250, 252, 0.96);
+  color: var(--xy-text-color-heading);
   font-size: 15px;
   font-weight: 600;
 }
 
-.demo-menu-overflow__brand-copy small {
-  color: rgba(148, 163, 184, 0.62);
+.demo-menu-overflow__brand-caption {
+  color: var(--xy-text-color-secondary);
   font-size: 11.5px;
   letter-spacing: 0.01em;
 }
@@ -229,77 +230,68 @@
   width: 100%;
 }
 
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal) {
+:global(.demo-menu-overflow__menu .xy-menu--horizontal) {
   min-height: 48px;
   padding: 6px;
   border: none;
   border-radius: 16px;
-  background: transparent;
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white) !important;
   box-shadow: none;
 }
 
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-menu-item),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-sub-menu),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-menu__more),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-sub-menu > .xy-sub-menu__title),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-menu__more > .xy-menu__more-button) {
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-menu-item),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-sub-menu),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-menu__more),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-sub-menu > .xy-menu__horizontal-trigger),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-menu__more > .xy-menu__horizontal-trigger) {
   margin: 0;
   flex: 0 0 auto;
   min-height: 42px;
   padding-inline: 14px;
   border-radius: 12px;
-  color: rgba(226, 232, 240, 0.8);
+  color: var(--xy-text-color);
   font-weight: 600;
   letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-menu-item:hover),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-sub-menu > .xy-sub-menu__title:hover),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-menu__more > .xy-menu__more-button:hover),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-sub-menu.is-opened > .xy-sub-menu__title) {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(248, 250, 252, 0.98);
-  box-shadow:
-    inset 0 0 0 1px rgba(148, 163, 184, 0.18),
-    0 8px 18px rgba(15, 23, 42, 0.16);
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-menu-item:hover),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-sub-menu > .xy-menu__horizontal-trigger:hover),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-menu__more > .xy-menu__horizontal-trigger:hover),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-sub-menu.is-opened > .xy-menu__horizontal-trigger) {
+  background: var(--xy-bg-color-subtle);
+  color: var(--xy-text-color-heading);
+  box-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
 }
 
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-menu-item.is-active),
-.demo-menu-overflow__menu :deep(.xy-menu--horizontal > .xy-sub-menu.is-active > .xy-sub-menu__title) {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.84), rgba(14, 165, 233, 0.8));
-  color: #fff;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
-    0 10px 20px rgba(37, 99, 235, 0.22);
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-menu-item.is-active),
+:global(.demo-menu-overflow__menu .xy-menu--horizontal > .xy-sub-menu.is-active > .xy-menu__horizontal-trigger) {
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
 }
 
 :global(.xy-menu__popup.demo-menu-overflow__popup) {
   min-width: 224px;
   padding: 10px;
-  border-color: rgba(148, 163, 184, 0.18);
+  border-color: var(--xy-border-color-subtle);
   border-radius: 20px;
-  background:
-    radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 36%),
-    linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
-  box-shadow:
-    0 24px 48px rgba(15, 23, 42, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: var(--xy-bg-color-floating);
+  box-shadow: var(--xy-shadow-popup);
 }
 
-:global(.xy-menu__popup.demo-menu-overflow__popup .xy-menu-item),
-:global(.xy-menu__popup.demo-menu-overflow__popup .xy-sub-menu__title) {
+:global(.xy-menu__popup.demo-menu-overflow__popup .xy-menu__item-surface) {
   min-height: 40px;
   padding-inline: 14px;
   border-radius: 12px;
-  color: rgba(241, 245, 249, 0.92);
+  color: var(--xy-text-color);
   font-weight: 600;
 }
 
-:global(.xy-menu__popup.demo-menu-overflow__popup .xy-menu-item-group__title) {
+:global(.xy-menu__popup.demo-menu-overflow__popup .xy-menu__group-title) {
   padding: 8px 14px 10px;
-  color: rgba(148, 163, 184, 0.78);
+  color: var(--xy-text-color-muted);
   letter-spacing: 0.08em;
 }
 

@@ -54,8 +54,13 @@ const filteredRows = computed(() => {
         <xy-table-column prop="email" min-width="210" show-overflow-tooltip>
           <template #header>
             <div class="table-custom-header">
-              <span>邮箱</span>
-              <xy-input v-model="keyword" size="sm" placeholder="搜索成员 / 团队 / 邮箱" />
+              <span class="table-custom-header__label">邮箱</span>
+              <xy-input
+                v-model="keyword"
+                class="table-custom-header__input"
+                size="sm"
+                placeholder="搜索成员 / 团队 / 邮箱"
+              />
             </div>
           </template>
         </xy-table-column>
@@ -71,11 +76,11 @@ const filteredRows = computed(() => {
   gap: 10px;
 }
 
-.table-custom-header span {
+.table-custom-header__label {
   flex-shrink: 0;
 }
 
-.table-custom-header :deep(.xy-input) {
+.table-custom-header__input {
   min-width: 140px;
 }
 </style>

@@ -76,7 +76,9 @@ function createTimelineEntry(
   };
 }
 
-function createRecord(record: Omit<WorkbenchRecord, "timeline"> & { timeline: AuditTimelineEntry[] }) {
+function createRecord(
+  record: Omit<WorkbenchRecord, "timeline"> & { timeline: AuditTimelineEntry[] }
+) {
   return record;
 }
 
@@ -520,10 +522,7 @@ const filteredRecords = computed(() => {
       return false;
     }
 
-    if (
-      appliedFilters.value.status !== "all" &&
-      record.status !== appliedFilters.value.status
-    ) {
+    if (appliedFilters.value.status !== "all" && record.status !== appliedFilters.value.status) {
       return false;
     }
 
@@ -543,11 +542,12 @@ const pagedRecords = computed(() => {
   return filteredRecords.value.slice(start, start + pageSize.value);
 });
 
-const detailRecord = computed(() => records.value.find((record) => record.id === detailId.value) ?? null);
+const detailRecord = computed(
+  () => records.value.find((record) => record.id === detailId.value) ?? null
+);
 
 const footerSummary = computed(
-  () =>
-    `当前在 ${currentTrackTitle.value} 视图下，共命中 ${filteredRecords.value.length} 条记录。`
+  () => `当前在 ${currentTrackTitle.value} 视图下，共命中 ${filteredRecords.value.length} 条记录。`
 );
 
 function nowLabel() {
@@ -770,7 +770,8 @@ function editFromDetail(close: () => void) {
         <h3>增强层已经不只是筛选和列表，而是编辑、详情、批量和历史记录一起工作。</h3>
         <p>
           这个示例把
-          <code>SearchForm</code>、<code>ProTable</code>、<code>OverlayForm</code>、<code>DetailPanel</code>、批量动作私有块
+          <code>SearchForm</code
+          >、<code>ProTable</code>、<code>OverlayForm</code>、<code>DetailPanel</code>、批量动作私有块
           和 <code>AuditTimeline</code> 放回同一个单页后台场景里。
         </p>
       </div>
@@ -802,75 +803,76 @@ function editFromDetail(close: () => void) {
       @update:active-key="handleViewChange"
     >
       <div class="xy-doc-stack admin-pro-demo__stack">
-          <xy-search-form
-            :model="searchModel"
-            :fields="searchFields"
-            :columns="3"
-            @search="handleSearch"
-          >
-            <template #meta>
-              <span>{{ currentTrackTitle }}：{{ trackSceneMap[activeTab] }}</span>
-            </template>
-          </xy-search-form>
+        <xy-search-form
+          :model="searchModel"
+          :fields="searchFields"
+          :columns="3"
+          @search="handleSearch"
+        >
+          <template #meta>
+            <span>{{ currentTrackTitle }}：{{ trackSceneMap[activeTab] }}</span>
+          </template>
+        </xy-search-form>
 
-          <div v-if="selectedRows.length > 0" class="admin-pro-demo__batch-strip">
-            <div class="admin-pro-demo__batch-copy">
-              当前在 {{ currentTrackTitle }} 视图中选中了 {{ selectedRows.length }} 条记录，批量动作会同步写入历史记录。
-            </div>
-            <div class="admin-pro-demo__batch-actions">
-              <xy-button
-                v-for="action in batchActions"
-                :key="action.key"
-                :type="action.type"
-                :plain="!action.type && !action.danger"
-                :danger="action.danger"
-                @click="applyBatchStatus(action)"
-              >
-                {{ action.label }}
-              </xy-button>
-              <xy-button text @click="clearSelection">清空选择</xy-button>
-            </div>
+        <div v-if="selectedRows.length > 0" class="admin-pro-demo__batch-strip">
+          <div class="admin-pro-demo__batch-copy">
+            当前在 {{ currentTrackTitle }} 视图中选中了
+            {{ selectedRows.length }} 条记录，批量动作会同步写入历史记录。
           </div>
+          <div class="admin-pro-demo__batch-actions">
+            <xy-button
+              v-for="action in batchActions"
+              :key="action.key"
+              :type="action.type"
+              :plain="!action.type && !action.danger"
+              :danger="action.danger"
+              @click="applyBatchStatus(action)"
+            >
+              {{ action.label }}
+            </xy-button>
+            <xy-button text @click="clearSelection">清空选择</xy-button>
+          </div>
+        </div>
 
-          <xy-pro-table
-            ref="tableRef"
-            :data="pagedRecords"
-            :columns="columns"
-            :total="filteredRecords.length"
-            :current-page="currentPage"
-            :page-size="pageSize"
-            :toolbar-actions="toolbarActions"
-            :table-props="{ rowKey: 'id' }"
-            title="事项列表"
-            description="筛选后的记录进入列表主干，再接详情抽屉、编辑抽屉和批量动作。"
-            @toolbar-action="handleToolbarAction"
-            @selection-change="handleSelectionChange"
-            @update:current-page="currentPage = $event"
-            @update:page-size="pageSize = $event"
-          >
-            <template #toolbar-left>
-              <xy-tag :status="statusTagMap['审核中']">当前视图：{{ currentTrackTitle }}</xy-tag>
-            </template>
+        <xy-pro-table
+          ref="tableRef"
+          :data="pagedRecords"
+          :columns="columns"
+          :total="filteredRecords.length"
+          :current-page="currentPage"
+          :page-size="pageSize"
+          :toolbar-actions="toolbarActions"
+          :table-props="{ rowKey: 'id' }"
+          title="事项列表"
+          description="筛选后的记录进入列表主干，再接详情抽屉、编辑抽屉和批量动作。"
+          @toolbar-action="handleToolbarAction"
+          @selection-change="handleSelectionChange"
+          @update:current-page="currentPage = $event"
+          @update:page-size="pageSize = $event"
+        >
+          <template #toolbar-left>
+            <xy-tag :status="statusTagMap['审核中']">当前视图：{{ currentTrackTitle }}</xy-tag>
+          </template>
 
-            <template #priority="{ row }">
-              <xy-tag :status="priorityTagMap[row.priority]">{{ row.priority }}</xy-tag>
-            </template>
+          <template #priority="{ row }">
+            <xy-tag :status="priorityTagMap[row.priority]">{{ row.priority }}</xy-tag>
+          </template>
 
-            <template #status="{ row }">
-              <xy-tag :status="statusTagMap[row.status]">{{ row.status }}</xy-tag>
-            </template>
+          <template #status="{ row }">
+            <xy-tag :status="statusTagMap[row.status]">{{ row.status }}</xy-tag>
+          </template>
 
-            <template #actions="{ row }">
-              <div class="admin-pro-demo__actions">
-                <xy-button text @click="openDetail(row)">查看</xy-button>
-                <xy-button text @click="openEdit(row)">编辑</xy-button>
-              </div>
-            </template>
+          <template #actions="{ row }">
+            <div class="admin-pro-demo__actions">
+              <xy-button text @click="openDetail(row)">查看</xy-button>
+              <xy-button text @click="openEdit(row)">编辑</xy-button>
+            </div>
+          </template>
 
-            <template #footer-meta>
-              <span>{{ footerSummary }}</span>
-            </template>
-          </xy-pro-table>
+          <template #footer-meta>
+            <span>{{ footerSummary }}</span>
+          </template>
+        </xy-pro-table>
       </div>
     </xy-saved-view-tabs>
 
@@ -1012,12 +1014,12 @@ function editFromDetail(close: () => void) {
 .admin-pro-demo__hero-main p,
 .admin-pro-demo__hero-side p {
   margin: 0;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   line-height: 1.7;
 }
 
 .admin-pro-demo__eyebrow {
-  color: var(--vp-c-brand-1);
+  color: var(--xy-color-primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -1026,9 +1028,10 @@ function editFromDetail(close: () => void) {
 
 .admin-pro-demo__hero-side {
   padding: 16px;
-  border: 1px solid rgba(37, 99, 235, 0.12);
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(255, 255, 255, 0.72));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 40%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .admin-pro-demo__stack {
@@ -1055,13 +1058,16 @@ function editFromDetail(close: () => void) {
 .admin-pro-demo__summary-value {
   display: block;
   margin-top: 12px;
+  color: var(--xy-text-color-heading);
   font-size: 28px;
+  font-weight: 680;
   line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .admin-pro-demo__summary-description {
   margin: 10px 0 0;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -1072,13 +1078,14 @@ function editFromDetail(close: () => void) {
   justify-content: space-between;
   gap: 16px;
   padding: 14px 16px;
-  border: 1px solid rgba(245, 158, 11, 0.24);
+  border: 1px solid color-mix(in srgb, var(--xy-color-warning) 16%, var(--xy-border-color-subtle));
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), rgba(255, 255, 255, 0.72));
+  background: color-mix(in srgb, var(--xy-color-warning-soft) 62%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .admin-pro-demo__batch-copy {
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -1099,7 +1106,7 @@ function editFromDetail(close: () => void) {
 
 .admin-pro-demo__timeline-note {
   margin: 0 0 12px;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   font-size: 13px;
 }
 

@@ -38,6 +38,7 @@ export interface DialogProps {
   closeDelay?: number;
   top?: string;
   modalClass?: string;
+  panelClass?: string;
   width?: string | number;
   zIndex?: number;
   center?: boolean;
@@ -123,6 +124,10 @@ export const dialogProps = {
     default: "15vh"
   },
   modalClass: {
+    type: String,
+    default: ""
+  },
+  panelClass: {
     type: String,
     default: ""
   },

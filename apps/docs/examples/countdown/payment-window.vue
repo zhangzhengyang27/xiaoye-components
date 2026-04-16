@@ -65,22 +65,20 @@ function markExpired(orderId: string) {
       <div class="countdown-payment-board__header">
         <div>
           <strong>待支付订单保留时间</strong>
-          <p>付款超时后自动释放库存和优惠占位，适合订单中心、客服催付和大促履约后台。</p>
+          <p class="countdown-payment-board__header-description">
+            付款超时后自动释放库存和优惠占位，适合订单中心、客服催付和大促履约后台。
+          </p>
         </div>
         <xy-tag status="warning" round>3 笔处理中</xy-tag>
       </div>
     </template>
 
     <div class="countdown-payment-board__list">
-      <div
-        v-for="order in orders"
-        :key="order.id"
-        class="countdown-payment-board__item"
-      >
+      <div v-for="order in orders" :key="order.id" class="countdown-payment-board__item">
         <div class="countdown-payment-board__meta">
           <div>
             <strong>{{ order.customer }}</strong>
-            <p>{{ order.id }} · {{ order.channel }}</p>
+            <p class="countdown-payment-board__meta-description">{{ order.id }} · {{ order.channel }}</p>
           </div>
           <xy-tag :status="order.expired ? 'danger' : 'primary'" round>
             {{ order.expired ? "已释放" : "保留中" }}
@@ -89,6 +87,7 @@ function markExpired(orderId: string) {
 
         <div class="countdown-payment-board__main">
           <xy-statistic
+            class="countdown-payment-board__statistic"
             title="订单金额"
             :value="order.amount"
             prefix="¥"
@@ -123,8 +122,8 @@ function markExpired(orderId: string) {
   gap: 16px;
 }
 
-.countdown-payment-board__header p,
-.countdown-payment-board__meta p {
+.countdown-payment-board__header-description,
+.countdown-payment-board__meta-description {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -138,11 +137,10 @@ function markExpired(orderId: string) {
 
 .countdown-payment-board__item {
   padding: 16px 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 80%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 16px;
-  background:
-    radial-gradient(circle at top right, rgba(37, 99, 235, 0.06), transparent 38%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.98));
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .countdown-payment-board__main {
@@ -150,7 +148,7 @@ function markExpired(orderId: string) {
   align-items: end;
 }
 
-.countdown-payment-board__main :deep(.xy-statistic) {
+.countdown-payment-board__statistic {
   width: auto;
 }
 

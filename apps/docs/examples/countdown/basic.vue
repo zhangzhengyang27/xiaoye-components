@@ -25,7 +25,7 @@ onMounted(() => {
       title="距离灰度开始"
       @finish="finished = true"
     />
-    <p v-else>正在加载倒计时...</p>
+    <p v-else class="countdown-basic-card__loading">正在加载倒计时...</p>
   </xy-card>
 </template>
 
@@ -38,12 +38,12 @@ onMounted(() => {
 }
 
 .countdown-basic-card__header span,
-.countdown-basic-card p {
+.countdown-basic-card__loading {
   color: var(--xy-text-color-secondary);
   font-size: 13px;
 }
 
-.countdown-basic-card p {
+.countdown-basic-card__loading {
   margin: 0;
 }
 </style>

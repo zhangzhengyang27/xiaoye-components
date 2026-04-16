@@ -34,23 +34,27 @@
   padding: 20px;
   border: 1px dashed var(--xy-border-color-strong);
   border-radius: var(--xy-radius-lg);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 70%, white);
+  background: color-mix(in srgb, var(--xy-surface-raised) 72%, var(--xy-bg-color-subtle));
   text-align: center;
   cursor: pointer;
   transition:
     border-color 0.18s ease,
     background-color 0.18s ease,
-    transform 0.18s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .xy-upload__trigger:focus-visible,
 .xy-upload__content:focus-visible .xy-upload__trigger {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-upload__content:hover .xy-upload__trigger {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 38%, var(--xy-border-color-strong));
+  border-color: color-mix(in srgb, var(--xy-color-primary) 30%, var(--xy-border-color-strong));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 44%, var(--xy-surface-raised));
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-upload__content.is-drag .xy-upload__trigger {
@@ -59,7 +63,8 @@
 
 .xy-upload__content.is-drag-over .xy-upload__trigger {
   border-color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 72%, var(--xy-surface-raised));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent) inset;
 }
 
 .xy-upload__content--picture-card .xy-upload__trigger {
@@ -69,11 +74,12 @@
   padding: 0;
   border-style: dashed;
   gap: 2px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 86%, white);
+  background: color-mix(in srgb, var(--xy-surface-raised) 92%, var(--xy-bg-color-subtle));
 }
 
 .xy-upload__content--picture-card:hover .xy-upload__trigger {
   border-color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 28%, var(--xy-surface-raised));
 }
 
 .xy-upload__picture-card-trigger {
@@ -117,19 +123,23 @@
   align-items: flex-start;
   gap: 12px;
   padding: 10px 12px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color);
+  background: var(--xy-surface-raised);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .xy-upload-list__item.is-uploading {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 28%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-color-primary) 5%, white);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 46%, var(--xy-surface-raised));
 }
 
 .xy-upload-list__item.is-fail {
-  border-color: color-mix(in srgb, var(--xy-color-danger) 36%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-color-danger) 4%, white);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 20%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-color-danger-soft) 44%, var(--xy-surface-raised));
 }
 
 .xy-upload-list__item.is-picture {
@@ -142,9 +152,9 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
+  background: color-mix(in srgb, var(--xy-surface-raised) 76%, var(--xy-bg-color-subtle));
 }
 
 .xy-upload-list__thumb {
@@ -196,18 +206,14 @@
   height: 6px;
   overflow: hidden;
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-border-color) 70%, white);
+  background: var(--xy-bg-color-subtle);
 }
 
 .xy-upload-list__progress-bar {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    var(--xy-color-primary),
-    color-mix(in srgb, var(--xy-color-primary) 72%, white)
-  );
+  background: color-mix(in srgb, var(--xy-color-primary) 88%, var(--xy-surface-raised));
 }
 
 .xy-upload-list__actions {
@@ -239,10 +245,10 @@
   overflow: hidden;
   width: 112px;
   height: 112px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-lg);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
-  box-shadow: var(--xy-shadow-sm);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
   transition:
     transform 0.18s ease,
     border-color 0.18s ease,
@@ -252,8 +258,8 @@
 .xy-upload-list__card:hover,
 .xy-upload-list__card:focus-within {
   transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 30%, var(--xy-border-color));
-  box-shadow: var(--xy-shadow-md);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 20%, var(--xy-border-color));
+  box-shadow: var(--xy-shadow-card);
 }
 
 .xy-upload-list__card .xy-upload-list__preview {
@@ -271,8 +277,8 @@
   align-items: center;
   justify-content: center;
   padding: 12px;
-  background: rgba(15, 23, 42, 0.58);
-  color: white;
+  background: color-mix(in srgb, var(--xy-text-color-heading) 32%, transparent);
+  color: var(--xy-bg-color);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.18s ease;
@@ -305,7 +311,7 @@
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
+  background: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
   color: inherit;
   font: inherit;
   cursor: pointer;
@@ -316,9 +322,10 @@
 
 .xy-upload-list__card-action:hover,
 .xy-upload-list__card-action:focus-visible {
-  background: rgba(255, 255, 255, 0.18);
+  background: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
   transform: scale(1.04);
-  outline: none;
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline-offset: 2px;
 }
 
 .xy-upload-list__card-action .xy-icon {
@@ -333,7 +340,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(15, 23, 42, 0.68);
+  background: var(--xy-overlay-color);
 }
 
 .xy-upload__preview-shell {
@@ -341,9 +348,10 @@
   max-width: min(80vw, 960px);
   max-height: min(80vh, 720px);
   padding: 20px;
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color);
-  box-shadow: var(--xy-shadow-lg);
+  background: var(--xy-bg-color-floating);
+  box-shadow: var(--xy-shadow-modal);
   outline: none;
 }
 
@@ -355,9 +363,16 @@
   height: 36px;
   border: 0;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.08);
+  background: var(--xy-bg-color-subtle);
   color: var(--xy-text-color);
   cursor: pointer;
+}
+
+.xy-upload__preview-close:hover,
+.xy-upload__preview-close:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-upload__preview-image {

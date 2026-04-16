@@ -2,13 +2,22 @@
   --xy-notification-width: min(360px, 100%);
   --xy-notification-padding: 14px 16px 16px;
   --xy-notification-radius: calc(var(--xy-radius-lg) + 2px);
-  --xy-notification-border-color: color-mix(in srgb, var(--xy-border-color) 86%, white);
-  --xy-notification-bg-color: var(--xy-bg-color-elevated);
-  --xy-notification-title-color: var(--xy-text-color-primary);
-  --xy-notification-content-color: color-mix(in srgb, var(--xy-text-color-primary) 78%, white);
+  --xy-notification-border-color: color-mix(
+    in srgb,
+    var(--xy-color-info) 12%,
+    var(--xy-border-color-subtle)
+  );
+  --xy-notification-bg-color: color-mix(
+    in srgb,
+    var(--xy-color-info) 6%,
+    var(--xy-bg-color-floating)
+  );
+  --xy-notification-title-color: var(--xy-text-color-heading);
+  --xy-notification-content-color: var(--xy-text-color-subtle);
   --xy-notification-close-color: var(--xy-text-color-secondary);
   --xy-notification-icon-color: var(--xy-color-info);
-  --xy-notification-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+  --xy-notification-accent-surface: color-mix(in srgb, var(--xy-color-info) 42%, white);
+  --xy-notification-shadow: var(--xy-shadow-sm);
 
   position: relative;
   display: flex;
@@ -27,9 +36,12 @@
 .xy-notification::before {
   content: "";
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-  background: color-mix(in srgb, var(--xy-notification-icon-color) 76%, white);
+  top: 14px;
+  bottom: 14px;
+  left: 12px;
+  width: 2px;
+  border-radius: var(--xy-radius-pill);
+  background: var(--xy-notification-icon-color);
 }
 
 .xy-notification__icon {
@@ -48,7 +60,7 @@
   margin: 0;
   color: var(--xy-notification-title-color);
   font-size: var(--xy-font-size-lg);
-  font-weight: 700;
+  font-weight: 650;
   line-height: 1.35;
 }
 
@@ -95,32 +107,63 @@
 
 .xy-notification__close:hover {
   color: var(--xy-notification-title-color);
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 10%, transparent);
+  background: var(--xy-bg-color-subtle);
 }
 
 .xy-notification__close:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 30%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-notification--primary {
   --xy-notification-icon-color: var(--xy-color-primary);
+  --xy-notification-border-color: color-mix(
+    in srgb,
+    var(--xy-color-primary) 14%,
+    var(--xy-border-color-subtle)
+  );
+  --xy-notification-accent-surface: color-mix(in srgb, var(--xy-color-primary) 42%, white);
 }
 
 .xy-notification--success {
   --xy-notification-icon-color: var(--xy-color-success);
+  --xy-notification-border-color: color-mix(
+    in srgb,
+    var(--xy-color-success) 14%,
+    var(--xy-border-color-subtle)
+  );
+  --xy-notification-accent-surface: color-mix(in srgb, var(--xy-color-success) 42%, white);
 }
 
 .xy-notification--info {
   --xy-notification-icon-color: var(--xy-color-info);
+  --xy-notification-border-color: color-mix(
+    in srgb,
+    var(--xy-color-info) 12%,
+    var(--xy-border-color-subtle)
+  );
+  --xy-notification-accent-surface: color-mix(in srgb, var(--xy-color-info) 42%, white);
 }
 
 .xy-notification--warning {
   --xy-notification-icon-color: var(--xy-color-warning);
+  --xy-notification-border-color: color-mix(
+    in srgb,
+    var(--xy-color-warning) 16%,
+    var(--xy-border-color-subtle)
+  );
+  --xy-notification-accent-surface: color-mix(in srgb, var(--xy-color-warning) 42%, white);
 }
 
 .xy-notification--error {
   --xy-notification-icon-color: var(--xy-color-danger);
+  --xy-notification-border-color: color-mix(
+    in srgb,
+    var(--xy-color-danger) 14%,
+    var(--xy-border-color-subtle)
+  );
+  --xy-notification-accent-surface: color-mix(in srgb, var(--xy-color-danger) 42%, white);
 }
 
 .xy-notification-service-host {

@@ -45,45 +45,6 @@ function processIndex(index: number, activeIndex: number, length: number) {
   return index;
 }
 
-function processSlideLoopIndex(index: number, activeIndex: number, length: number) {
-  if (length <= 1) {
-    return index;
-  }
-
-  const lastItemIndex = length - 1;
-
-  if (activeIndex === 0 && index === lastItemIndex) {
-    return -1;
-  }
-
-  if (activeIndex === lastItemIndex && index === 0) {
-    return length;
-  }
-
-  return index;
-}
-
-function resolveSeamlessTrackIndex(
-  index: number,
-  activeIndex: number,
-  length: number,
-  direction: "next" | "prev" | null
-) {
-  if (length <= 1) {
-    return index;
-  }
-
-  if (direction === "next") {
-    return index === 0 ? length : index;
-  }
-
-  if (direction === "prev") {
-    return index === length - 1 ? -1 : index;
-  }
-
-  return processSlideLoopIndex(index, activeIndex, length);
-}
-
 const index = computed(() =>
   carousel ? carousel.items.value.findIndex((item) => item.uid === uid) : -1
 );
@@ -121,7 +82,7 @@ const inStage = computed(() => {
   return Math.round(Math.abs(processedIndex.value - carousel.resolvedActiveIndex.value)) <= 1;
 });
 const animating = computed(() => {
-  if (!carousel || carousel.dragging.value || carousel.loopTeleporting.value) {
+  if (!carousel || carousel.dragging.value) {
     return false;
   }
 
@@ -131,36 +92,19 @@ const animating = computed(() => {
 
   return active.value || index.value === carousel.previousIndex.value;
 });
-const boundaryTransitionActive = computed(
-  () =>
-    Boolean(
-      carousel &&
-      carousel.seamlessLoop.value &&
-      carousel.loopTransitionDirection.value !== null &&
-      !carousel.loopTeleporting.value
-    )
-);
 const resolvedTransitionDuration = computed(() => {
   if (!carousel) {
     return "0ms";
   }
 
-  if (carousel.loopTeleporting.value) {
-    return "0ms";
-  }
-
-  return boundaryTransitionActive.value
-    ? `${carousel.loopBoundaryDuration.value}ms`
-    : `${carousel.duration.value}ms`;
+  return `${carousel.duration.value}ms`;
 });
 const resolvedTransitionEasing = computed(() => {
   if (!carousel) {
     return "linear";
   }
 
-  return boundaryTransitionActive.value
-    ? carousel.loopBoundaryEasing.value
-    : carousel.easing.value;
+  return carousel.easing.value;
 });
 const translate = computed(() => {
   if (!carousel) {
@@ -191,14 +135,9 @@ const translate = computed(() => {
   const baseOffset = carousel.centered.value && viewportSize > 0
     ? (viewportSize - (viewportSize - carousel.gapPx.value * (carousel.slidesPerView.value - 1)) / carousel.slidesPerView.value) / 2
     : 0;
-  const baseIndex = seamlessLoop.value ? carousel.visualIndex.value : carousel.resolvedActiveIndex.value;
-  const logicalIndex = seamlessLoop.value
-    ? resolveSeamlessTrackIndex(
-        index.value,
-        carousel.resolvedActiveIndex.value,
-        carousel.items.value.length,
-        carousel.loopTransitionDirection.value
-      )
+  const baseIndex = carousel.resolvedActiveIndex.value;
+const logicalIndex = seamlessLoop.value
+    ? processIndex(index.value, carousel.resolvedActiveIndex.value, carousel.items.value.length)
     : index.value;
 
   return baseOffset + (logicalIndex - baseIndex) * step + carousel.dragOffset.value;

@@ -52,18 +52,16 @@ const metrics: SettlementMetric[] = [
       <div class="statistic-settlement-board__header">
         <div>
           <strong>结算运营看板</strong>
-          <p>财务、结算和商务复核后台里，统计值更常和状态标签、说明文案一起出现，而不是孤立展示。</p>
+          <p class="statistic-settlement-board__header-description">
+            财务、结算和商务复核后台里，统计值更常和状态标签、说明文案一起出现，而不是孤立展示。
+          </p>
         </div>
         <xy-tag status="primary" round>14:20 更新</xy-tag>
       </div>
     </template>
 
     <div class="statistic-settlement-board__grid">
-      <div
-        v-for="item in metrics"
-        :key="item.title"
-        class="statistic-settlement-board__item"
-      >
+      <div v-for="item in metrics" :key="item.title" class="statistic-settlement-board__item">
         <div class="statistic-settlement-board__item-head">
           <xy-tag :status="item.status" round>{{ item.title }}</xy-tag>
         </div>
@@ -74,7 +72,7 @@ const metrics: SettlementMetric[] = [
           :suffix="item.suffix"
           :precision="item.precision"
         />
-        <p>{{ item.note }}</p>
+        <p class="statistic-settlement-board__item-note">{{ item.note }}</p>
       </div>
     </div>
   </xy-card>
@@ -92,8 +90,8 @@ const metrics: SettlementMetric[] = [
   gap: 16px;
 }
 
-.statistic-settlement-board__header p,
-.statistic-settlement-board__item p {
+.statistic-settlement-board__header-description,
+.statistic-settlement-board__item-note {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -108,11 +106,10 @@ const metrics: SettlementMetric[] = [
 
 .statistic-settlement-board__item {
   padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 80%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 16px;
-  background:
-    radial-gradient(circle at top right, rgba(37, 99, 235, 0.05), transparent 36%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .statistic-settlement-board__item-head {

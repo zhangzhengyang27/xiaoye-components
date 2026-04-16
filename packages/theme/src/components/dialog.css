@@ -41,9 +41,10 @@
   width: min(100%, 50%);
   min-width: min(320px, calc(100vw - 32px));
   max-width: calc(100vw - 32px);
-  border-radius: 24px;
-  background: var(--xy-bg-color);
-  box-shadow: var(--xy-shadow-lg);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: var(--xy-bg-color-floating);
+  box-shadow: var(--xy-shadow-modal);
   overflow: hidden;
   outline: none;
 }
@@ -98,7 +99,7 @@
 .xy-dialog__footer.is-sticky {
   position: sticky;
   z-index: 2;
-  background: var(--xy-bg-color);
+  background: var(--xy-bg-color-floating);
 }
 
 .xy-dialog__header.is-sticky {
@@ -107,15 +108,15 @@
 
 .xy-dialog__footer.is-sticky {
   bottom: 0;
-  border-top: 1px solid color-mix(in srgb, var(--xy-border-color, #dcdfe6) 75%, transparent);
+  border-top: 1px solid var(--xy-border-color-subtle);
 }
 
 .xy-dialog__title {
   margin: 0;
-  font-size: 18px;
+  font-size: var(--xy-font-size-xl);
   font-weight: 600;
   line-height: 1.4;
-  color: var(--xy-text-color);
+  color: var(--xy-text-color-heading);
 }
 
 .xy-dialog__body {
@@ -167,15 +168,16 @@
 
 .xy-dialog__action:hover,
 .xy-dialog__close:hover {
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-color-subtle);
   color: var(--xy-text-color);
 }
 
 .xy-dialog__action:focus-visible,
 .xy-dialog__close:focus-visible,
 .xy-dialog__panel:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-dialog__icon-component {
@@ -192,13 +194,12 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: color-mix(in srgb, var(--xy-bg-color) 76%, transparent);
-  backdrop-filter: blur(2px);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 88%, transparent);
 }
 
 .xy-dialog__loading .xy-loading__indicator.is-surface {
   border-radius: 999px;
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow: var(--xy-shadow-card);
 }
 
 .xy-dialog__resizer {
@@ -239,7 +240,7 @@
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
-  color: var(--xy-color-danger, #f56c6c);
+  color: var(--xy-color-danger);
 }
 
 .xy-dialog-fade-enter-active,

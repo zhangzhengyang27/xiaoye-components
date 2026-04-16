@@ -36,8 +36,8 @@ const phases = [
     <xy-card shadow="hover">
       <template #header>
         <div class="demo-timeline-milestone__header">
-          <strong>项目里程碑 / 阶段流</strong>
-          <span>和活动流共用同一套 Group + state + 结构化区域</span>
+          <strong class="demo-timeline-milestone__header-title">项目里程碑 / 阶段流</strong>
+          <span class="demo-timeline-milestone__header-description">和活动流共用同一套 Group + state + 结构化区域</span>
         </div>
       </template>
 
@@ -78,11 +78,11 @@ const phases = [
   gap: 4px;
 }
 
-.demo-timeline-milestone__header strong {
+.demo-timeline-milestone__header-title {
   color: var(--xy-text-color);
 }
 
-.demo-timeline-milestone__header span {
+.demo-timeline-milestone__header-description {
   color: var(--xy-text-color-secondary);
   font-size: 13px;
 }

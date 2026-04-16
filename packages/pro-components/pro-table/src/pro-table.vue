@@ -60,8 +60,8 @@ const emit = defineEmits<{
   "update:currentPage": [value: number];
   "update:pageSize": [value: number];
   "page-change": [page: number, pageSize: number];
-  "row-click": [row: ProTableRow, rowIndex: number, event: MouseEvent | KeyboardEvent];
-  "row-dblclick": [row: ProTableRow, rowIndex: number, event: MouseEvent];
+  "row-click": [row: ProTableRow, column: unknown, event: MouseEvent | KeyboardEvent];
+  "row-dblclick": [row: ProTableRow, column: unknown, event: MouseEvent];
   "selection-change": [selection: ProTableRow[]];
   select: [selection: ProTableRow[], row: ProTableRow];
   "select-all": [selection: ProTableRow[]];
@@ -344,12 +344,12 @@ function handlePageChange(page: number, pageSize: number) {
   emit("page-change", page, pageSize);
 }
 
-function handleRowClick(row: ProTableRow, rowIndex: number, event: MouseEvent | KeyboardEvent) {
-  emit("row-click", row, rowIndex, event);
+function handleRowClick(row: ProTableRow, column: unknown, event: MouseEvent | KeyboardEvent) {
+  emit("row-click", row, column, event);
 }
 
-function handleRowDblClick(row: ProTableRow, rowIndex: number, event: MouseEvent) {
-  emit("row-dblclick", row, rowIndex, event);
+function handleRowDblClick(row: ProTableRow, column: unknown, event: MouseEvent) {
+  emit("row-dblclick", row, column, event);
 }
 
 function handleSelectionChange(selection: ProTableRow[]) {

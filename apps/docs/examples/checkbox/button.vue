@@ -9,8 +9,8 @@ const dimensions = ref<Array<string | number | boolean>>(["day"]);
     <xy-checkbox-group
       v-model="dimensions"
       type="button"
-      fill="#1d4ed8"
-      text-color="#f8fafc"
+      fill="var(--xy-color-primary)"
+      text-color="var(--xy-color-white)"
       :options="[
         { label: '按天', value: 'day' },
         { label: '按周', value: 'week' },

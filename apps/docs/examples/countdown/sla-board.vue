@@ -85,7 +85,7 @@ function handleFinish(index: number) {
         <div class="countdown-sla-grid__header">
           <div>
             <strong>{{ ticket.title }}</strong>
-            <p>{{ ticket.owner }}</p>
+            <p class="countdown-sla-grid__header-description">{{ ticket.owner }}</p>
           </div>
           <xy-tag :status="ticket.status" round>
             {{
@@ -116,7 +116,7 @@ function handleFinish(index: number) {
         </template>
       </xy-countdown>
 
-      <p>{{ ticket.summary }}</p>
+      <p class="countdown-sla-grid__summary">{{ ticket.summary }}</p>
     </xy-card>
   </div>
 </template>
@@ -139,8 +139,8 @@ function handleFinish(index: number) {
   gap: 12px;
 }
 
-.countdown-sla-grid__header p,
-.countdown-sla-grid__card p {
+.countdown-sla-grid__header-description,
+.countdown-sla-grid__summary {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

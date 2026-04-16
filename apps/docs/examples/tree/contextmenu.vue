@@ -9,6 +9,7 @@ const menuPosition = ref({
   x: 0,
   y: 0
 });
+let lastOpenAt = 0;
 
 const data = [
   {
@@ -22,9 +23,7 @@ const data = [
   {
     id: 2,
     label: "权限配置",
-    children: [
-      { id: 21, label: "角色权限" }
-    ]
+    children: [{ id: 21, label: "角色权限" }]
   }
 ];
 
@@ -49,6 +48,7 @@ async function handleContextMenu(event: Event, data: { label: string }) {
     y: mouseEvent.clientY
   };
   menuVisible.value = true;
+  lastOpenAt = performance.now();
 
   await nextTick();
 
@@ -74,6 +74,10 @@ function handleAction(item: { label: string }) {
 }
 
 function handleGlobalPointer(event: MouseEvent) {
+  if (event.button !== 0) {
+    return;
+  }
+
   const target = event.target as Node | null;
 
   if (menuVisible.value && menuRef.value && target && !menuRef.value.contains(target)) {
@@ -87,18 +91,31 @@ function handleEscape(event: KeyboardEvent) {
   }
 }
 
+function handleGlobalScroll() {
+  if (!menuVisible.value) {
+    return;
+  }
+
+  // Ignore the synthetic scroll-into-view right after opening the menu.
+  if (performance.now() - lastOpenAt < 120) {
+    return;
+  }
+
+  closeMenu();
+}
+
 onMounted(() => {
   window.addEventListener("click", handleGlobalPointer);
   window.addEventListener("resize", closeMenu);
   window.addEventListener("keydown", handleEscape);
-  window.addEventListener("scroll", closeMenu, true);
+  window.addEventListener("scroll", handleGlobalScroll, true);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("click", handleGlobalPointer);
   window.removeEventListener("resize", closeMenu);
   window.removeEventListener("keydown", handleEscape);
-  window.removeEventListener("scroll", closeMenu, true);
+  window.removeEventListener("scroll", handleGlobalScroll, true);
 });
 </script>
 
@@ -128,7 +145,7 @@ onBeforeUnmount(() => {
     >
       <div class="demo-tree-contextmenu__header">
         <xy-text size="sm" type="info">当前节点</xy-text>
-        <strong>{{ activeNodeLabel }}</strong>
+        <strong class="demo-tree-contextmenu__header-title">{{ activeNodeLabel }}</strong>
       </div>
 
       <button
@@ -153,11 +170,10 @@ onBeforeUnmount(() => {
   display: grid;
   min-width: 196px;
   padding: 10px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color) 96%, white);
+  background: var(--xy-surface-raised);
   box-shadow: var(--xy-shadow-md);
-  backdrop-filter: blur(10px);
   gap: 6px;
 }
 
@@ -165,11 +181,11 @@ onBeforeUnmount(() => {
   display: grid;
   gap: 2px;
   padding: 4px 6px 8px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-bottom: 1px solid var(--xy-border-color-subtle);
 }
 
-.demo-tree-contextmenu__header strong {
-  color: var(--xy-text-color);
+.demo-tree-contextmenu__header-title {
+  color: var(--xy-text-color-heading);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
@@ -194,12 +210,12 @@ onBeforeUnmount(() => {
 }
 
 .demo-tree-contextmenu__item:hover {
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-bg-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 70%, white);
   color: var(--xy-color-primary);
 }
 
 .demo-tree-contextmenu__item.is-danger:hover {
-  background: color-mix(in srgb, var(--xy-color-danger) 10%, var(--xy-bg-color));
+  background: color-mix(in srgb, var(--xy-color-danger-soft) 70%, white);
   color: var(--xy-color-danger);
 }
 </style>

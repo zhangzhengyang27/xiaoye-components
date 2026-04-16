@@ -26,14 +26,10 @@ const groups = [
 
 <template>
   <div class="demo-skeleton-variants">
-    <section
-      v-for="group in groups"
-      :key="group.title"
-      class="demo-skeleton-variants__group"
-    >
+    <section v-for="group in groups" :key="group.title" class="demo-skeleton-variants__group">
       <div class="demo-skeleton-variants__group-head">
         <strong>{{ group.title }}</strong>
-        <p>{{ group.description }}</p>
+        <p class="demo-skeleton-variants__group-description">{{ group.description }}</p>
       </div>
 
       <div class="demo-skeleton-variants__grid">
@@ -43,16 +39,16 @@ const groups = [
           shadow="never"
           body-class="demo-skeleton-variants__body"
         >
-          <div
-            class="demo-skeleton-variants__preview"
-            :class="`is-${item.variant}`"
-          >
-            <xy-skeleton-item :variant="item.variant" />
+          <div class="demo-skeleton-variants__preview" :class="`is-${item.variant}`">
+            <xy-skeleton-item
+              :variant="item.variant"
+              class="demo-skeleton-variants__item"
+            />
           </div>
 
           <div class="demo-skeleton-variants__meta">
             <xy-tag status="neutral" round>{{ item.variant }}</xy-tag>
-            <span>{{ item.note }}</span>
+            <span class="demo-skeleton-variants__meta-note">{{ item.note }}</span>
           </div>
         </xy-card>
       </div>
@@ -79,8 +75,8 @@ const groups = [
   gap: 4px;
 }
 
-.demo-skeleton-variants__group-head p,
-.demo-skeleton-variants__meta span {
+.demo-skeleton-variants__group-description,
+.demo-skeleton-variants__meta-note {
   margin: 0;
   color: var(--xy-text-color-secondary);
   font-size: 12px;
@@ -93,7 +89,7 @@ const groups = [
   gap: 14px;
 }
 
-.demo-skeleton-variants :deep(.demo-skeleton-variants__body) {
+:global(.demo-skeleton-variants__body) {
   display: grid;
   justify-items: center;
   align-content: start;
@@ -110,7 +106,13 @@ const groups = [
   justify-content: center;
   border: 1px solid color-mix(in srgb, var(--xy-border-color) 78%, white);
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.94), rgba(255, 255, 255, 0.94));
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--xy-bg-color-muted) 72%, white),
+      transparent 100%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-overlay) 90%, white);
 }
 
 .demo-skeleton-variants__meta {
@@ -138,7 +140,7 @@ const groups = [
   justify-content: flex-start;
 }
 
-.demo-skeleton-variants__preview :deep(.xy-skeleton__item) {
+.demo-skeleton-variants__item {
   max-width: 100%;
 }
 </style>

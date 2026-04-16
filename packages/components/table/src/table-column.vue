@@ -5,7 +5,10 @@ import {
   inject,
   onBeforeMount,
   onBeforeUnmount,
+  onMounted,
+  onUpdated,
   provide,
+  ref,
   shallowRef,
   type VNode
 } from "vue";
@@ -13,6 +16,8 @@ import { tableColumnContextKey, tableContextKey } from "./tokens";
 import type { TableColumnContext, TableColumnRegistration, TableContext } from "./tokens";
 import type {
   TableCellSlotProps,
+  TableExpandSlotProps,
+  TableFilterIconSlotProps,
   TableColumnProps,
   TableHeaderSlotProps,
   TableResolvedColumn
@@ -26,6 +31,7 @@ defineOptions({
 const props = withDefaults(defineProps<TableColumnProps<T>>(), {
   type: "default",
   prop: undefined,
+  property: undefined,
   label: "",
   columnKey: undefined,
   width: undefined,
@@ -35,6 +41,7 @@ const props = withDefaults(defineProps<TableColumnProps<T>>(), {
   className: "",
   labelClassName: "",
   formatter: undefined,
+  renderHeader: undefined,
   sortable: false,
   sortMethod: undefined,
   sortBy: undefined,
@@ -57,12 +64,14 @@ const props = withDefaults(defineProps<TableColumnProps<T>>(), {
 const slots = defineSlots<{
   default?: (props: TableCellSlotProps<T>) => unknown;
   header?: (props: TableHeaderSlotProps<T>) => unknown;
+  "filter-icon"?: (props: TableFilterIconSlotProps) => unknown;
+  expand?: (props: TableExpandSlotProps<T>) => unknown;
 }>();
 const instance = getCurrentInstance();
 const table = inject(tableContextKey, null) as TableContext<T> | null;
 const parentColumn = inject(tableColumnContextKey, null) as TableColumnContext<T> | null;
 const uid = `xy-table-column-${instance?.uid ?? Math.random().toString(36).slice(2, 10)}`;
-const order = instance?.uid ?? 0;
+const order = ref(instance?.uid ?? 0);
 const childRegistrations = shallowRef<TableColumnRegistration<T>[]>([]);
 
 function hasNestedColumnVNode(nodes: VNode[] | undefined): boolean {
@@ -87,7 +96,7 @@ function hasNestedColumnVNode(nodes: VNode[] | undefined): boolean {
 
 function registerChildColumn(column: TableColumnRegistration<T>) {
   childRegistrations.value = [...childRegistrations.value, column].sort(
-    (left, right) => left.order - right.order
+    (left, right) => left.order.value - right.order.value
   );
 }
 
@@ -104,9 +113,9 @@ provide(tableColumnContextKey, {
 
 const descriptor = computed<TableResolvedColumn<T>>(() => ({
   uid,
-  key: props.columnKey ?? props.prop ?? uid,
+  key: props.columnKey ?? props.prop ?? props.property ?? uid,
   type: props.type,
-  prop: props.prop,
+  prop: props.prop ?? props.property,
   label: props.label,
   columnKey: props.columnKey,
   width: props.width,
@@ -117,6 +126,7 @@ const descriptor = computed<TableResolvedColumn<T>>(() => ({
   className: props.className,
   labelClassName: props.labelClassName,
   formatter: props.formatter,
+  renderHeader: props.renderHeader,
   sortable: props.sortable,
   sortMethod: props.sortMethod,
   sortBy: props.sortBy,
@@ -137,12 +147,14 @@ const descriptor = computed<TableResolvedColumn<T>>(() => ({
   resizable: props.resizable,
   children: childRegistrations.value
     .slice()
-    .sort((left, right) => left.order - right.order)
+    .sort((left, right) => left.order.value - right.order.value)
     .map((column) => column.descriptor.value),
   level: parentColumn ? parentColumn.level + 1 : 0,
   parentUid: parentColumn?.uid,
   headerSlot: slots.header,
+  filterIconSlot: slots["filter-icon"],
   cellSlot: slots.default,
+  expandSlot: slots.expand,
   leafCount: 1,
   colSpan: 1,
   rowSpan: 1,
@@ -175,6 +187,27 @@ const registration = {
   descriptor
 } as TableColumnRegistration<T>;
 
+function resolveAnchorNode() {
+  const node = (instance?.subTree?.el ?? instance?.vnode?.el) as Node | null | undefined;
+  return node ?? null;
+}
+
+function updateRenderOrder() {
+  const anchorNode = resolveAnchorNode();
+
+  if (!anchorNode?.parentNode) {
+    return;
+  }
+
+  const targetNode = anchorNode as ChildNode;
+  const siblings = Array.from(anchorNode.parentNode.childNodes);
+  const nextOrder = siblings.indexOf(targetNode);
+
+  if (nextOrder >= 0 && nextOrder !== order.value) {
+    order.value = nextOrder;
+  }
+}
+
 onBeforeMount(() => {
   if (parentColumn) {
     parentColumn.registerChildColumn(registration);
@@ -182,6 +215,14 @@ onBeforeMount(() => {
   }
 
   table?.registerColumn(registration);
+});
+
+onMounted(() => {
+  updateRenderOrder();
+});
+
+onUpdated(() => {
+  updateRenderOrder();
 });
 
 onBeforeUnmount(() => {

@@ -185,6 +185,7 @@ function buildOptions() {
 
 const options = computed(() => buildOptions());
 const selectedMinutes = computed(() => parseTime(selectedValue.value));
+const hasSelectedValue = computed(() => selectedMinutes.value !== null);
 const displayLabel = computed(() => {
   if (selectedMinutes.value !== null) {
     return toValue(selectedMinutes.value);
@@ -450,12 +451,15 @@ defineExpose({
       <span class="xy-time-select__prefix">
         <XyIcon class="xy-time-select__icon" :icon="DEFAULT_PREFIX_ICON" :size="16" />
       </span>
-      <span :class="['xy-time-select__selection', selectedMinutes !== null ? 'is-selected' : 'is-placeholder']">
+      <span :class="['xy-time-select__selection', hasSelectedValue ? 'is-selected' : 'is-placeholder']">
         {{ displayLabel }}
       </span>
-      <span class="xy-time-select__actions">
+      <span
+        class="xy-time-select__actions"
+        :class="{ 'has-clear': props.clearable && hasSelectedValue && !props.disabled }"
+      >
         <button
-          v-if="props.clearable && selectedValue && !props.disabled"
+          v-if="props.clearable && hasSelectedValue && !props.disabled"
           type="button"
           class="xy-time-select__clear"
           aria-label="clear"

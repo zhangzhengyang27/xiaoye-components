@@ -40,8 +40,8 @@ const sections = [
         :key="section.id"
         class="demo-anchor-horizontal__section"
       >
-        <h4>{{ section.title }}</h4>
-        <p>{{ section.description }}</p>
+        <h4 class="demo-anchor-horizontal__section-title">{{ section.title }}</h4>
+        <p class="demo-anchor-horizontal__section-description">{{ section.description }}</p>
       </section>
     </div>
   </div>
@@ -66,13 +66,13 @@ const sections = [
   border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
 }
 
-.demo-anchor-horizontal__section h4 {
+.demo-anchor-horizontal__section-title {
   margin: 0 0 10px;
   color: var(--xy-text-color);
   font-size: 20px;
 }
 
-.demo-anchor-horizontal__section p {
+.demo-anchor-horizontal__section-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

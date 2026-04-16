@@ -31,22 +31,20 @@ const uploadItems = [
       <div class="progress-sync-board__header">
         <div>
           <strong>同步与回填状态</strong>
-          <p>拿不到准确百分比时，用 `indeterminate` 承接“已开始，但仍在推进”的状态。</p>
+          <p class="progress-sync-board__header-description">
+            拿不到准确百分比时，用 `indeterminate` 承接“已开始，但仍在推进”的状态。
+          </p>
         </div>
         <xy-tag status="warning" round>夜间任务窗口</xy-tag>
       </div>
     </template>
 
     <div class="progress-sync-board__list">
-      <div
-        v-for="item in uploadItems"
-        :key="item.file"
-        class="progress-sync-board__row"
-      >
+      <div v-for="item in uploadItems" :key="item.file" class="progress-sync-board__row">
         <div class="progress-sync-board__meta">
           <div>
             <strong>{{ item.file }}</strong>
-            <p>{{ item.size }}</p>
+            <p class="progress-sync-board__meta-description">{{ item.size }}</p>
           </div>
           <xy-tag :status="item.indeterminate ? 'warning' : 'primary'" round>
             {{ item.tag }}
@@ -60,7 +58,9 @@ const uploadItems = [
           :color="item.indeterminate ? 'linear-gradient(90deg, #64748b, #2563eb)' : undefined"
         >
           <template #default="{ percentage }">
-            <span>{{ item.indeterminate ? "已接收任务，但暂无准确百分比" : `${percentage}%` }}</span>
+            <span>{{
+              item.indeterminate ? "已接收任务，但暂无准确百分比" : `${percentage}%`
+            }}</span>
           </template>
         </xy-progress>
       </div>
@@ -80,8 +80,8 @@ const uploadItems = [
   gap: 16px;
 }
 
-.progress-sync-board__header p,
-.progress-sync-board__meta p {
+.progress-sync-board__header-description,
+.progress-sync-board__meta-description {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -98,9 +98,9 @@ const uploadItems = [
   flex-direction: column;
   gap: 10px;
   padding: 14px 16px;
-  border: 1px dashed color-mix(in srgb, var(--xy-border-color) 74%, white);
+  border: 1px dashed color-mix(in srgb, var(--xy-border-color) 92%, white);
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.94), rgba(255, 255, 255, 0.94));
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
 }
 
 .progress-sync-board__meta {

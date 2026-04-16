@@ -13,8 +13,10 @@ function handleSelect(index: string, indexPath: string[]) {
     <section class="demo-menu-basic__hero">
       <header class="demo-menu-basic__header">
         <div class="demo-menu-basic__title">
-          <strong>运营工作台导航</strong>
-          <p>把横向菜单放进一个真实产品头部语境里，强调品牌区、导航区和右侧操作区的节奏，而不只是平铺一个导航条。</p>
+          <strong class="demo-menu-basic__title-text">运营工作台导航</strong>
+          <p class="demo-menu-basic__description">
+            把横向菜单放进一个真实产品头部语境里，强调品牌区、导航区和右侧操作区的节奏，而不只是平铺一个导航条。
+          </p>
         </div>
 
         <xy-space wrap>
@@ -33,8 +35,8 @@ function handleSelect(index: string, indexPath: string[]) {
           <div class="demo-menu-basic__brand">
             <span class="demo-menu-basic__brand-mark">XO</span>
             <div>
-              <strong>Xiaoye Ops</strong>
-              <small>导航主骨架示意</small>
+              <strong class="demo-menu-basic__brand-title">Xiaoye Ops</strong>
+              <small class="demo-menu-basic__brand-caption">导航主骨架示意</small>
             </div>
           </div>
 
@@ -42,10 +44,6 @@ function handleSelect(index: string, indexPath: string[]) {
             class="demo-menu-basic__menu"
             mode="horizontal"
             default-active="dashboard"
-            background-color="#0f172a"
-            text-color="rgba(226, 232, 240, 0.76)"
-            active-text-color="#f8fafc"
-            popper-effect="dark"
             popper-class="demo-menu-basic__popup"
             @select="handleSelect"
           >
@@ -88,12 +86,14 @@ function handleSelect(index: string, indexPath: string[]) {
   flex-direction: column;
   gap: 18px;
   padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 14%, white), transparent 34%),
-    radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.08), transparent 30%),
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color) 96%, white), var(--xy-bg-color));
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
+    var(--xy-surface-raised)
+  );
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-menu-basic__header {
@@ -109,12 +109,12 @@ function handleSelect(index: string, indexPath: string[]) {
   gap: 6px;
 }
 
-.demo-menu-basic__title strong {
+.demo-menu-basic__title-text {
   color: var(--xy-text-color);
   font-size: 18px;
 }
 
-.demo-menu-basic__title p {
+.demo-menu-basic__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;
@@ -125,12 +125,14 @@ function handleSelect(index: string, indexPath: string[]) {
   flex-direction: column;
   gap: 14px;
   padding: 14px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  border-radius: 22px;
-  background:
-    linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.9)),
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.28), transparent 36%);
-  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-color-primary-soft) 30%, white),
+    var(--xy-surface-raised)
+  );
+  box-shadow: var(--xy-shadow-card);
 }
 
 .demo-menu-basic__meta {
@@ -138,7 +140,7 @@ function handleSelect(index: string, indexPath: string[]) {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color: rgba(226, 232, 240, 0.66);
+  color: var(--xy-text-color-secondary);
   font-size: 12px;
 }
 
@@ -147,8 +149,8 @@ function handleSelect(index: string, indexPath: string[]) {
   align-items: center;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(59, 130, 246, 0.16);
-  color: rgba(248, 250, 252, 0.9);
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -160,15 +162,10 @@ function handleSelect(index: string, indexPath: string[]) {
   gap: 18px;
   align-items: center;
   padding: 12px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
-    rgba(15, 23, 42, 0.42);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -1px 0 rgba(15, 23, 42, 0.34);
-  backdrop-filter: blur(18px);
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+  border-radius: var(--xy-radius-md);
+  background: color-mix(in srgb, var(--xy-bg-color) 96%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-menu-basic__brand {
@@ -185,20 +182,20 @@ function handleSelect(index: string, indexPath: string[]) {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: linear-gradient(135deg, var(--xy-color-primary), #0ea5e9);
-  color: #fff;
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
 
-.demo-menu-basic__brand strong {
+.demo-menu-basic__brand-title {
   display: block;
-  color: rgba(248, 250, 252, 0.96);
+  color: var(--xy-text-color-heading);
 }
 
-.demo-menu-basic__brand small {
-  color: rgba(226, 232, 240, 0.58);
+.demo-menu-basic__brand-caption {
+  color: var(--xy-text-color-secondary);
 }
 
 .demo-menu-basic__actions {
@@ -207,24 +204,24 @@ function handleSelect(index: string, indexPath: string[]) {
   gap: 10px;
 }
 
-.demo-menu-basic__menu :deep(.xy-menu--horizontal) {
+:global(.demo-menu-basic__menu .xy-menu--horizontal) {
   min-height: 48px;
   padding: 6px;
   border: none;
   border-radius: 16px;
-  background: transparent;
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white) !important;
   box-shadow: none;
 }
 
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-menu-item),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-sub-menu),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-menu__more) {
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu__more) {
   margin: 0;
 }
 
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-menu-item),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-sub-menu > .xy-sub-menu__title),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-menu__more > .xy-menu__more-button) {
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu > .xy-menu__horizontal-trigger),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu__more > .xy-menu__horizontal-trigger) {
   min-height: 42px;
   align-items: center;
   margin: 0;
@@ -235,67 +232,55 @@ function handleSelect(index: string, indexPath: string[]) {
   box-shadow: inset 0 0 0 1px transparent;
 }
 
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-menu-item:hover),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-sub-menu > .xy-sub-menu__title:hover),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-menu__more > .xy-menu__more-button:hover),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-sub-menu.is-opened > .xy-sub-menu__title) {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(248, 250, 252, 0.96);
-  box-shadow:
-    inset 0 0 0 1px rgba(148, 163, 184, 0.18),
-    0 8px 20px rgba(15, 23, 42, 0.18);
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item:hover),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu > .xy-menu__horizontal-trigger:hover),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu__more > .xy-menu__horizontal-trigger:hover),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu.is-opened > .xy-menu__horizontal-trigger) {
+  background: var(--xy-bg-color-subtle);
+  color: var(--xy-text-color-heading);
+  box-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
 }
 
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-menu-item.is-active),
-.demo-menu-basic__menu :deep(.xy-menu--horizontal > .xy-sub-menu.is-active > .xy-sub-menu__title) {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.88), rgba(14, 165, 233, 0.86));
-  color: #fff;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
-    0 12px 24px rgba(37, 99, 235, 0.24);
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item.is-active),
+:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu.is-active > .xy-menu__horizontal-trigger) {
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
 }
 
 :global(.xy-menu__popup.demo-menu-basic__popup) {
   min-width: 224px;
   padding: 10px;
-  border-color: rgba(148, 163, 184, 0.18);
+  border-color: var(--xy-border-color-subtle);
   border-radius: 20px;
-  background:
-    radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 38%),
-    linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
-  box-shadow:
-    0 24px 48px rgba(15, 23, 42, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: var(--xy-bg-color-floating);
+  box-shadow: var(--xy-shadow-popup);
 }
 
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu-item),
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-sub-menu__title) {
+:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__item-surface) {
   min-height: 40px;
   padding-inline: 14px;
   border-radius: 13px;
-  color: rgba(241, 245, 249, 0.92);
+  color: var(--xy-text-color);
   font-weight: 600;
 }
 
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu-item-group__title) {
+:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__group-title) {
   padding: 8px 14px 10px;
-  color: rgba(148, 163, 184, 0.78);
+  color: var(--xy-text-color-muted);
   letter-spacing: 0.08em;
 }
 
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu-item:hover),
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-sub-menu__title:hover) {
-  background: rgba(59, 130, 246, 0.18);
-  box-shadow:
-    inset 0 0 0 1px rgba(96, 165, 250, 0.16),
-    0 10px 18px rgba(15, 23, 42, 0.16);
+:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__item-surface:hover) {
+  background: var(--xy-bg-color-subtle);
+  box-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
 }
 
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu-item.is-active),
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-sub-menu.is-active > .xy-sub-menu__title) {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.28), rgba(14, 165, 233, 0.18));
-  color: #fff;
+:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__item-surface.is-active),
+:global(.xy-menu__popup.demo-menu-basic__popup .xy-sub-menu.is-active > .xy-menu__item-surface) {
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
 }
 
 @media (max-width: 860px) {

@@ -37,7 +37,7 @@
   gap: 12px;
   margin-bottom: 14px;
   padding-bottom: 10px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
+  border-bottom: 1px solid var(--xy-border-color-subtle);
 }
 
 .xy-timeline-group--compact .xy-timeline-group__header {
@@ -59,14 +59,14 @@
 }
 
 .xy-timeline-group__title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-color-heading);
   font-size: var(--xy-font-size-md);
   font-weight: 600;
   line-height: 1.35;
 }
 
 .xy-timeline-group__description {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
   font-size: var(--xy-font-size-sm);
   line-height: 1.55;
 }
@@ -87,7 +87,11 @@
 
 .xy-timeline-item {
   --xy-timeline-node-size: 14px;
-  --xy-timeline-tail-color: color-mix(in srgb, var(--xy-border-color) 84%, white);
+  --xy-timeline-tail-color: color-mix(
+    in srgb,
+    var(--xy-border-color-subtle) 76%,
+    var(--xy-bg-color-subtle)
+  );
   --xy-timeline-node-color: var(--xy-text-color-secondary);
   position: relative;
   display: grid;
@@ -146,11 +150,7 @@
   left: 50%;
   width: 2px;
   transform: translateX(-50%);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--xy-timeline-tail-color) 72%, transparent),
-    var(--xy-timeline-tail-color)
-  );
+  background: var(--xy-timeline-tail-color);
 }
 
 .xy-timeline-item.is-last .xy-timeline-item__tail {
@@ -189,11 +189,11 @@
   justify-content: center;
   width: var(--xy-timeline-node-size);
   height: var(--xy-timeline-node-size);
-  border: 2px solid var(--xy-timeline-node-color);
+  border: 2px solid color-mix(in srgb, var(--xy-timeline-node-color) 22%, var(--xy-border-color));
   border-radius: 999px;
-  background: var(--xy-timeline-node-color);
-  color: white;
-  box-shadow: 0 0 0 4px var(--xy-bg-color);
+  background: color-mix(in srgb, var(--xy-timeline-node-color) 10%, var(--xy-surface-raised));
+  color: var(--xy-timeline-node-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-surface-raised) 92%, transparent);
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -202,7 +202,7 @@
 }
 
 .xy-timeline-item.is-hollow .xy-timeline-item__node {
-  background: var(--xy-bg-color);
+  background: var(--xy-bg-color-floating);
   color: var(--xy-timeline-node-color);
 }
 
@@ -212,29 +212,38 @@
   justify-content: center;
   min-width: var(--xy-timeline-node-size);
   min-height: var(--xy-timeline-node-size);
-  background: var(--xy-bg-color);
+  background: color-mix(in srgb, var(--xy-surface-raised) 92%, var(--xy-bg-color-subtle));
   border-radius: 999px;
-  box-shadow: 0 0 0 4px var(--xy-bg-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-surface-raised) 92%, transparent);
 }
 
 .xy-timeline-item--state-done {
-  --xy-timeline-tail-color: color-mix(in srgb, var(--xy-timeline-node-color) 28%, white);
+  --xy-timeline-tail-color: color-mix(
+    in srgb,
+    var(--xy-timeline-node-color) 20%,
+    var(--xy-bg-color-subtle)
+  );
 }
 
 .xy-timeline-item--state-current .xy-timeline-item__node {
-  transform: scale(1.08);
+  transform: scale(1.05);
   box-shadow:
-    0 0 0 4px var(--xy-bg-color),
-    0 0 0 8px color-mix(in srgb, var(--xy-timeline-node-color) 18%, transparent);
+    0 0 0 3px color-mix(in srgb, var(--xy-surface-raised) 92%, transparent),
+    0 0 0 6px color-mix(in srgb, var(--xy-timeline-node-color) 10%, transparent);
+  background: color-mix(in srgb, var(--xy-timeline-node-color) 14%, var(--xy-surface-raised));
 }
 
 .xy-timeline-item--state-pending {
-  --xy-timeline-tail-color: color-mix(in srgb, var(--xy-border-color) 72%, white);
+  --xy-timeline-tail-color: color-mix(
+    in srgb,
+    var(--xy-border-color) 54%,
+    var(--xy-bg-color-subtle)
+  );
 }
 
 .xy-timeline-item--state-pending .xy-timeline-item__node {
   border-style: dashed;
-  background: color-mix(in srgb, var(--xy-bg-color) 90%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-surface-raised));
   color: var(--xy-timeline-node-color);
   opacity: 0.9;
 }
@@ -242,27 +251,31 @@
 .xy-timeline-item--state-pending .xy-timeline-item__tail {
   background: repeating-linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-timeline-tail-color) 94%, white) 0 6px,
+    color-mix(in srgb, var(--xy-timeline-tail-color) 86%, var(--xy-bg-color-subtle)) 0 6px,
     transparent 6px 14px
   );
 }
 
 .xy-timeline-item--state-blocked {
-  --xy-timeline-tail-color: color-mix(in srgb, var(--xy-color-danger) 30%, white);
+  --xy-timeline-tail-color: color-mix(
+    in srgb,
+    var(--xy-color-danger) 18%,
+    var(--xy-bg-color-subtle)
+  );
 }
 
 .xy-timeline-item--state-blocked .xy-timeline-item__node {
   box-shadow:
-    0 0 0 4px var(--xy-bg-color),
-    0 0 0 8px color-mix(in srgb, var(--xy-color-danger) 14%, transparent);
+    0 0 0 3px color-mix(in srgb, var(--xy-surface-raised) 92%, transparent),
+    0 0 0 6px color-mix(in srgb, var(--xy-color-danger) 10%, transparent);
 }
 
 .xy-timeline-item--state-blocked .xy-timeline-item__content,
 .xy-timeline-item--state-blocked .xy-timeline-item__extra {
-  border-left: 3px solid color-mix(in srgb, var(--xy-color-danger) 72%, white);
+  border-left: 3px solid color-mix(in srgb, var(--xy-color-danger) 28%, var(--xy-border-color));
   padding: 10px 12px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-color-danger) 5%, white);
+  background: color-mix(in srgb, var(--xy-color-danger-soft) 46%, var(--xy-surface-raised));
 }
 
 .xy-timeline-item__wrapper,
@@ -374,14 +387,14 @@
 }
 
 .xy-timeline-item__title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-color-heading);
   font-size: var(--xy-font-size-md);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .xy-timeline-item__meta {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
   font-size: var(--xy-font-size-sm);
   line-height: 1.5;
 }
@@ -409,7 +422,7 @@
 }
 
 .xy-timeline-item__extra {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
   font-size: var(--xy-font-size-sm);
   line-height: 1.6;
   min-width: 0;

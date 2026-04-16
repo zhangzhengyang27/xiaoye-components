@@ -4,7 +4,14 @@ import XyCheckbox from "../../../checkbox";
 import XyIcon from "../../../icon";
 import FilterPanel from "../filter-panel.vue";
 import { TableRenderSlot } from "../render-slot";
-import type { TableHeaderCellStyle, TableHeaderRowStyle, TableResolvedColumn } from "../table";
+import {
+  prefersObjectCallbackSignature,
+  type TableHeaderCellClassName,
+  type TableHeaderCellStyle,
+  type TableHeaderRowClassName,
+  type TableHeaderRowStyle,
+  type TableResolvedColumn
+} from "../table";
 import { toCssSize } from "../table";
 import type { TableStore } from "../store";
 import { buildHeaderRows, flattenColumns } from "../util";
@@ -17,9 +24,9 @@ const props = withDefaults(
     columns?: TableResolvedColumn<T>[];
     panel?: TablePanel;
     showHeader?: boolean;
-    headerRowClassName?: string | ((rowIndex: number) => string);
+    headerRowClassName?: TableHeaderRowClassName;
     headerRowStyle?: TableHeaderRowStyle;
-    headerCellClassName?: string | ((column: TableResolvedColumn<T>, columnIndex: number) => string);
+    headerCellClassName?: TableHeaderCellClassName<T>;
     headerCellStyle?: TableHeaderCellStyle<T>;
     appendFilterPanelTo?: string;
     allowDragLastColumn?: boolean;
@@ -54,17 +61,31 @@ const headerRows = computed(() => buildHeaderRows(renderColumns.value));
 const filterTriggerRefs = new Map<string, HTMLElement | null>();
 
 function resolveHeaderRowClassName(rowIndex: number) {
+  const row = headerRows.value[rowIndex] ?? [];
+  const callback = props.headerRowClassName as any;
   const className =
     typeof props.headerRowClassName === "function"
-      ? props.headerRowClassName(rowIndex)
+      ? prefersObjectCallbackSignature(callback)
+        ? callback({
+            row,
+            rowIndex
+          })
+        : callback(rowIndex)
       : props.headerRowClassName;
 
   return ["xy-table__header-row", className];
 }
 
 function resolveHeaderRowStyle(rowIndex: number) {
+  const row = headerRows.value[rowIndex] ?? [];
+  const callback = props.headerRowStyle as any;
   return typeof props.headerRowStyle === "function"
-    ? props.headerRowStyle(rowIndex)
+    ? prefersObjectCallbackSignature(callback)
+      ? callback({
+          row,
+          rowIndex
+        })
+      : callback(rowIndex)
     : props.headerRowStyle;
 }
 
@@ -73,9 +94,19 @@ function getLeafColumnIndex(column: TableResolvedColumn<T>) {
 }
 
 function resolveHeaderCellClassName(column: TableResolvedColumn<T>, columnIndex: number) {
+  const rowIndex = headerRows.value.findIndex((row) => row.some((cell) => cell.column.uid === column.uid));
+  const row = rowIndex >= 0 ? headerRows.value[rowIndex] ?? [] : [];
+  const callback = props.headerCellClassName as any;
   const className =
     typeof props.headerCellClassName === "function"
-      ? props.headerCellClassName(column, columnIndex)
+      ? prefersObjectCallbackSignature(callback)
+        ? callback({
+            row,
+            rowIndex,
+            column,
+            columnIndex
+          })
+        : callback(column, columnIndex)
       : props.headerCellClassName;
   const sortOrder = props.store.getColumnSortOrder(column);
 
@@ -95,8 +126,18 @@ function resolveHeaderCellClassName(column: TableResolvedColumn<T>, columnIndex:
 }
 
 function resolveHeaderCellStyle(column: TableResolvedColumn<T>, columnIndex: number) {
+  const rowIndex = headerRows.value.findIndex((row) => row.some((cell) => cell.column.uid === column.uid));
+  const row = rowIndex >= 0 ? headerRows.value[rowIndex] ?? [] : [];
+  const callback = props.headerCellStyle as any;
   return typeof props.headerCellStyle === "function"
-    ? props.headerCellStyle(column, columnIndex)
+    ? prefersObjectCallbackSignature(callback)
+      ? callback({
+          row,
+          rowIndex,
+          column,
+          columnIndex
+        })
+      : callback(column, columnIndex)
     : props.headerCellStyle;
 }
 
@@ -322,6 +363,15 @@ defineExpose({
                     filteredValues: props.store.getColumnFilterValues(cell.column)
                   }"
                 />
+                <table-render-slot
+                  v-else-if="cell.column.renderHeader"
+                  :render="cell.column.renderHeader"
+                  :slot-props="{
+                    column: cell.column,
+                    sortOrder: props.store.getColumnSortOrder(cell.column),
+                    filteredValues: props.store.getColumnFilterValues(cell.column)
+                  }"
+                />
                 <template v-else>
                   {{ cell.column.label }}
                 </template>
@@ -348,10 +398,19 @@ defineExpose({
               }"
               type="button"
               :aria-label="`${cell.column.label || '当前列'}筛选`"
+              aria-haspopup="dialog"
               :aria-expanded="props.store.isFilterPanelOpen(cell.column)"
               @click.stop="props.store.toggleFilterPanel(cell.column)"
             >
+              <table-render-slot
+                v-if="cell.column.filterIconSlot"
+                :render="cell.column.filterIconSlot"
+                :slot-props="{
+                  filterOpened: props.store.isFilterPanelOpen(cell.column)
+                }"
+              />
               <xy-icon
+                v-else
                 class="xy-table__filter-trigger-icon"
                 :icon="
                   props.store.isFilterPanelOpen(cell.column) ? 'mdi:arrow-up' : 'mdi:arrow-down'

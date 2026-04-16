@@ -40,14 +40,18 @@ const filteredIcons = computed(() =>
   filterProjectIcons(catalog.value, search.value, selectedCategory.value)
 );
 const pageCount = computed(() => getPageCount(filteredIcons.value.length, MDI_PAGE_SIZE));
-const pagedIcons = computed(() => paginateIcons(filteredIcons.value, currentPage.value, MDI_PAGE_SIZE));
+const pagedIcons = computed(() =>
+  paginateIcons(filteredIcons.value, currentPage.value, MDI_PAGE_SIZE)
+);
 const pageOptions = computed(() =>
   Array.from({ length: pageCount.value }, (_, index) => ({
     label: `第 ${index + 1} 页`,
     value: index + 1
   }))
 );
-const categoryEntries = computed<MdiCategoryEntry[]>(() => buildMdiCategoryEntries(catalog.value, search.value));
+const categoryEntries = computed<MdiCategoryEntry[]>(() =>
+  buildMdiCategoryEntries(catalog.value, search.value)
+);
 const visibleCategoryEntries = computed(() => {
   if (categoryExpanded.value || categoryEntries.value.length <= MDI_CATEGORY_CHIP_LIMIT) {
     return categoryEntries.value;
@@ -187,7 +191,8 @@ function updateChipWallScrollState() {
 
   chipWallOverflowing.value = hasOverflow;
   chipWallCanScrollUp.value = hasOverflow && container.scrollTop > overflowThreshold;
-  chipWallCanScrollDown.value = hasOverflow && container.scrollTop < maxScrollTop - overflowThreshold;
+  chipWallCanScrollDown.value =
+    hasOverflow && container.scrollTop < maxScrollTop - overflowThreshold;
 }
 
 function handleChipWallScroll() {
@@ -251,13 +256,19 @@ onBeforeUnmount(() => {
   <section class="xy-project-icon-gallery">
     <div class="xy-project-icon-gallery__tip">
       <strong>TIP</strong>
-      <p>这里展示 Iconify `mdi` 图标集的全量图标。页面会先加载图标名称与分类，再按当前页批量加载 SVG 数据。</p>
+      <p>
+        这里展示 Iconify `mdi` 图标集的全量图标。页面会先加载图标名称与分类，再按当前页批量加载 SVG
+        数据。
+      </p>
       <p>支持搜索、分类、分页和点击复制，可切换复制完整 `xy-icon` 代码或单独的 `icon` 值。</p>
     </div>
 
     <div v-if="loading" class="xy-project-icon-gallery__state">正在加载 mdi 图标集合...</div>
 
-    <div v-else-if="errorMessage && catalog.length === 0" class="xy-project-icon-gallery__state xy-project-icon-gallery__state--error">
+    <div
+      v-else-if="errorMessage && catalog.length === 0"
+      class="xy-project-icon-gallery__state xy-project-icon-gallery__state--error"
+    >
       <span>{{ errorMessage }}</span>
       <button type="button" @click="loadCollection">重试</button>
     </div>
@@ -293,7 +304,10 @@ onBeforeUnmount(() => {
         <div class="xy-project-icon-gallery__filters-head">
           <div>
             <strong>分类标签筛选</strong>
-            <p>保留方案 B 的标签筛选，并把热门分类优先展示，长尾分类收进“更多”，适合在图标库里快速切换。</p>
+            <p>
+              保留方案 B
+              的标签筛选，并把热门分类优先展示，长尾分类收进“更多”，适合在图标库里快速切换。
+            </p>
           </div>
 
           <div class="xy-project-icon-gallery__filter-actions">
@@ -367,12 +381,16 @@ onBeforeUnmount(() => {
       <div class="xy-project-icon-gallery__summary">
         <p class="xy-project-icon-gallery__meta">
           已收录 {{ totalCount }} 个 mdi 图标
-          <span v-if="search.trim() || selectedCategory !== '全部'">，当前匹配 {{ filteredIcons.length }} 个结果</span>
+          <span v-if="search.trim() || selectedCategory !== '全部'"
+            >，当前匹配 {{ filteredIcons.length }} 个结果</span
+          >
           <span>，每页 {{ MDI_PAGE_SIZE }} 个</span>
         </p>
 
         <div v-if="filteredIcons.length > 0" class="xy-project-icon-gallery__pager">
-          <button type="button" :disabled="currentPage <= 1" @click="currentPage -= 1">上一页</button>
+          <button type="button" :disabled="currentPage <= 1" @click="currentPage -= 1">
+            上一页
+          </button>
           <label>
             <span>页码</span>
             <select v-model.number="currentPage">
@@ -381,7 +399,9 @@ onBeforeUnmount(() => {
               </option>
             </select>
           </label>
-          <button type="button" :disabled="currentPage >= pageCount" @click="currentPage += 1">下一页</button>
+          <button type="button" :disabled="currentPage >= pageCount" @click="currentPage += 1">
+            下一页
+          </button>
         </div>
       </div>
 
@@ -399,7 +419,9 @@ onBeforeUnmount(() => {
           :key="item.icon"
           class="xy-project-icon-gallery__item"
           type="button"
-          :title="copyMode === 'component' ? `复制 ${item.icon} 的 xy-icon 代码` : `复制 ${item.icon}`"
+          :title="
+            copyMode === 'component' ? `复制 ${item.icon} 的 xy-icon 代码` : `复制 ${item.icon}`
+          "
           @click="copyIcon(item.icon)"
         >
           <xy-icon :icon="item.icon" :size="26" />
@@ -410,13 +432,18 @@ onBeforeUnmount(() => {
         </button>
       </div>
 
-      <p v-else class="xy-project-icon-gallery__empty">没有找到和 “{{ search.trim() }}” 匹配的图标。</p>
+      <p v-else class="xy-project-icon-gallery__empty">
+        没有找到和 “{{ search.trim() }}” 匹配的图标。
+      </p>
     </template>
   </section>
 </template>
 
 <style scoped>
 .xy-project-icon-gallery {
+  --xy-gallery-panel-border: var(--xy-border-color-subtle);
+  --xy-gallery-panel-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, white);
+  --xy-gallery-panel-bg-hover: color-mix(in srgb, var(--xy-color-primary-soft) 52%, white);
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -425,9 +452,10 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__tip {
   padding: 18px 20px;
-  border-left: 4px solid var(--vp-c-brand-1);
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
   border-radius: 16px;
-  background: rgba(37, 99, 235, 0.1);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 42%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-project-icon-gallery__tip strong {
@@ -438,7 +466,7 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__tip p {
   margin: 0;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   line-height: 1.75;
 }
 
@@ -458,12 +486,10 @@ onBeforeUnmount(() => {
   position: sticky;
   top: calc(var(--vp-nav-height, 64px) + 16px);
   z-index: 3;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 20px;
-  background:
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 42%),
-    #fff;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+  background: var(--xy-gallery-panel-bg);
+  box-shadow: var(--xy-shadow-sm);
 }
 
 .xy-project-icon-gallery__filters-head {
@@ -483,12 +509,12 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__filters-head strong {
   font-size: 18px;
-  color: var(--vp-c-text-1);
+  color: var(--xy-text-color-heading);
 }
 
 .xy-project-icon-gallery__filters-head p {
   margin: 6px 0 0;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -498,23 +524,23 @@ onBeforeUnmount(() => {
   gap: 10px;
   align-items: center;
   padding: 10px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: rgba(248, 250, 252, 0.88);
-  color: var(--vp-c-text-2);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 94%, white);
+  color: var(--xy-text-color-secondary);
 }
 
 .xy-project-icon-gallery__active-category strong {
   font-size: 14px;
-  color: var(--vp-c-brand-1);
+  color: var(--xy-color-primary);
 }
 
 .xy-project-icon-gallery__clear-btn {
   padding: 10px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.24);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: #fff;
-  color: var(--vp-c-text-2);
+  background: var(--xy-surface-raised);
+  color: var(--xy-text-color-secondary);
   font: inherit;
   cursor: pointer;
   transition:
@@ -524,9 +550,9 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__clear-btn:hover {
-  border-color: rgba(37, 99, 235, 0.24);
-  background: rgba(37, 99, 235, 0.06);
-  color: var(--vp-c-brand-1);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color));
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
 }
 
 .xy-project-icon-gallery__search {
@@ -536,9 +562,9 @@ onBeforeUnmount(() => {
   gap: 10px;
   align-items: center;
   padding: 0 14px;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 16px;
-  background: #fff;
+  background: var(--xy-surface-raised);
 }
 
 .xy-project-icon-gallery__search input {
@@ -547,7 +573,7 @@ onBeforeUnmount(() => {
   border: 0;
   outline: none;
   background: transparent;
-  color: var(--vp-c-text-1);
+  color: var(--xy-text-color);
   font: inherit;
 }
 
@@ -555,16 +581,16 @@ onBeforeUnmount(() => {
   display: inline-flex;
   gap: 10px;
   align-items: center;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
 }
 
 .xy-project-icon-gallery__pager select {
   min-width: 144px;
   padding: 10px 12px;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 12px;
-  background: #fff;
-  color: var(--vp-c-text-1);
+  background: var(--xy-surface-raised);
+  color: var(--xy-text-color);
   font: inherit;
 }
 
@@ -594,17 +620,25 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__chip-fade--top {
   top: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-gallery-panel-bg) 98%, white),
+    transparent
+  );
 }
 
 .xy-project-icon-gallery__chip-fade--bottom {
   bottom: 26px;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0));
+  background: linear-gradient(
+    0deg,
+    color-mix(in srgb, var(--xy-gallery-panel-bg) 98%, white),
+    transparent
+  );
 }
 
 .xy-project-icon-gallery__chip-hint {
   margin: 10px 0 0;
-  color: var(--vp-c-text-3);
+  color: var(--xy-text-color-muted);
   font-size: 12px;
 }
 
@@ -613,10 +647,10 @@ onBeforeUnmount(() => {
   gap: 8px;
   align-items: center;
   padding: 8px 12px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: #fff;
-  color: var(--vp-c-text-2);
+  background: var(--xy-surface-raised);
+  color: var(--xy-text-color-secondary);
   font: inherit;
   cursor: pointer;
   transition:
@@ -635,24 +669,24 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__chip.is-active {
-  border-color: var(--vp-c-brand-1);
-  background: rgba(37, 99, 235, 0.1);
-  color: var(--vp-c-brand-1);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
 }
 
 .xy-project-icon-gallery__switch {
   display: inline-flex;
   padding: 4px;
-  border: 1px solid rgba(148, 163, 184, 0.24);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: rgba(248, 250, 252, 0.92);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 94%, white);
 }
 
 .xy-project-icon-gallery__switch-btn {
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   font: inherit;
   white-space: nowrap;
   cursor: pointer;
@@ -663,14 +697,14 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__switch-btn.is-active {
-  background: var(--vp-c-brand-1);
-  color: #fff;
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
 }
 
 .xy-project-icon-gallery__meta,
 .xy-project-icon-gallery__empty {
   margin: 0;
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   font-size: 14px;
 }
 
@@ -691,10 +725,10 @@ onBeforeUnmount(() => {
 .xy-project-icon-gallery__pager button,
 .xy-project-icon-gallery__state button {
   padding: 10px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.24);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 12px;
-  background: #fff;
-  color: var(--vp-c-text-1);
+  background: var(--xy-surface-raised);
+  color: var(--xy-text-color);
   font: inherit;
   cursor: pointer;
 }
@@ -707,10 +741,10 @@ onBeforeUnmount(() => {
 .xy-project-icon-gallery__state,
 .xy-project-icon-gallery__hint {
   padding: 14px 16px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 14px;
-  background: rgba(248, 250, 252, 0.84);
-  color: var(--vp-c-text-2);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white);
+  color: var(--xy-text-color-secondary);
 }
 
 .xy-project-icon-gallery__state {
@@ -722,18 +756,18 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__state--error,
 .xy-project-icon-gallery__hint--error {
-  border-color: rgba(220, 38, 38, 0.2);
-  background: rgba(254, 242, 242, 0.9);
-  color: #b91c1c;
+  border-color: color-mix(in srgb, var(--xy-color-danger) 18%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-color-danger-soft) 82%, white);
+  color: var(--xy-color-danger);
 }
 
 .xy-project-icon-gallery__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 20px;
   overflow: hidden;
-  background: #fff;
+  background: var(--xy-surface-raised);
 }
 
 .xy-project-icon-gallery__item {
@@ -745,8 +779,8 @@ onBeforeUnmount(() => {
   min-height: 164px;
   padding: 18px 14px;
   border: 0;
-  border-right: 1px solid rgba(148, 163, 184, 0.18);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  border-right: 1px solid var(--xy-gallery-panel-border);
+  border-bottom: 1px solid var(--xy-gallery-panel-border);
   background: transparent;
   cursor: pointer;
   transition:
@@ -755,28 +789,28 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__item:hover {
-  background: rgba(37, 99, 235, 0.04);
+  background: var(--xy-gallery-panel-bg-hover);
   transform: translateY(-1px);
 }
 
 .xy-project-icon-gallery__item strong {
-  color: var(--vp-c-text-1);
+  color: var(--xy-text-color-heading);
   font-size: 15px;
   text-align: center;
 }
 
 .xy-project-icon-gallery__item code {
-  color: var(--vp-c-text-2);
+  color: var(--xy-text-color-secondary);
   font-size: 12px;
 }
 
 .xy-project-icon-gallery__item small {
-  color: var(--vp-c-text-3);
+  color: var(--xy-text-color-muted);
   font-size: 12px;
 }
 
 .xy-project-icon-gallery__item span {
-  color: var(--vp-c-text-3);
+  color: var(--xy-text-color-muted);
   font-size: 12px;
 }
 

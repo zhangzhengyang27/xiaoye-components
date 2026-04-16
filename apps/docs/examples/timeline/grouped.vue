@@ -66,7 +66,7 @@ const groups = [
 
     <p class="demo-timeline-grouped__tip">
       当前模式：
-      <strong>{{ mode }}</strong>
+      <strong class="demo-timeline-grouped__tip-value">{{ mode }}</strong>
       <span v-if="mode === 'start'">默认左侧单线布局</span>
       <span v-else-if="mode === 'end'">右侧镜像单线布局</span>
       <span v-else>中轴双侧布局</span>
@@ -132,7 +132,7 @@ const groups = [
   line-height: 1.6;
 }
 
-.demo-timeline-grouped__tip strong {
+.demo-timeline-grouped__tip-value {
   margin-inline: 4px;
   color: var(--xy-text-color);
 }

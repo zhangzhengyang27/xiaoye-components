@@ -1,6 +1,6 @@
 .xy-radio-group {
   --xy-radio-button-fill: var(--xy-color-primary);
-  --xy-radio-button-text-color: #ffffff;
+  --xy-radio-button-text-color: var(--xy-bg-color);
   display: inline-flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -99,9 +99,9 @@
   position: relative;
   width: 100%;
   height: 100%;
-  border: 1.5px solid var(--xy-border-color-strong);
+  border: 1.5px solid var(--xy-border-color);
   border-radius: 50%;
-  background: var(--xy-bg-color);
+  background: color-mix(in srgb, var(--xy-surface-raised) 82%, var(--xy-bg-color-subtle));
   box-sizing: border-box;
   transition:
     border-color 0.18s ease,
@@ -136,21 +136,23 @@
   display: inline-flex;
   align-items: center;
   min-width: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
 }
 
 .xy-radio:hover .xy-radio__inner,
 .xy-radio.is-focus .xy-radio__inner {
-  border-color: var(--xy-color-primary);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 30%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 46%, var(--xy-surface-raised));
 }
 
 .xy-radio__original:focus-visible + .xy-radio__inner {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--xy-color-primary) 14%, transparent);
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-radio.is-checked .xy-radio__inner {
   border-color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary) 5%, white);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 72%, var(--xy-surface-raised));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
 }
 
 .xy-radio.is-checked .xy-radio__inner::after {
@@ -172,7 +174,7 @@
 }
 
 .xy-radio.is-disabled .xy-radio__inner {
-  background: var(--xy-bg-color-muted);
+  background: color-mix(in srgb, var(--xy-surface-sunken) 88%, var(--xy-bg-color-subtle));
   border-color: var(--xy-border-color);
   box-shadow: none;
 }
@@ -182,7 +184,16 @@
   padding: 0 14px 0 12px;
   border: 1px solid var(--xy-border-color);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color);
+  background: color-mix(in srgb, var(--xy-surface-raised) 90%, var(--xy-bg-color-subtle));
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.xy-radio.is-bordered:hover:not(.is-disabled) {
+  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 28%, var(--xy-surface-raised));
 }
 
 .xy-radio--sm.is-bordered {
@@ -196,12 +207,13 @@
 }
 
 .xy-radio.is-bordered.is-checked {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 34%, white);
-  background: color-mix(in srgb, var(--xy-color-primary) 7%, white);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 62%, var(--xy-surface-raised));
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-radio.is-bordered.is-disabled {
-  background: var(--xy-bg-color-muted);
+  background: color-mix(in srgb, var(--xy-surface-sunken) 92%, var(--xy-bg-color-subtle));
 }
 
 .xy-radio-button {
@@ -226,7 +238,7 @@
   min-height: 40px;
   padding: 0 16px;
   border: 1px solid var(--xy-border-color);
-  background: var(--xy-bg-color);
+  background: color-mix(in srgb, var(--xy-surface-raised) 92%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color-secondary);
   font-size: var(--xy-font-size-md);
   line-height: 1;
@@ -272,13 +284,16 @@
 
 .xy-radio-button:hover .xy-radio-button__inner {
   color: var(--xy-color-primary);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 24%, var(--xy-surface-raised));
 }
 
 .xy-radio-button.is-active .xy-radio-button__inner {
-  background: var(--xy-radio-button-fill);
-  border-color: var(--xy-radio-button-fill);
-  color: var(--xy-radio-button-text-color);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 64%, var(--xy-surface-raised));
+  border-color: color-mix(in srgb, var(--xy-radio-button-fill) 18%, var(--xy-border-color-subtle));
+  color: var(--xy-radio-button-fill);
   z-index: 1;
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-radio-button .xy-radio-group__option.has-description {
@@ -304,17 +319,17 @@
 }
 
 .xy-radio-button.is-active .xy-radio-group__option-description {
-  color: color-mix(in srgb, var(--xy-radio-button-text-color) 72%, transparent);
+  color: color-mix(in srgb, var(--xy-radio-button-fill) 68%, var(--xy-text-color-secondary));
   opacity: 1;
 }
 
 .xy-radio-button__original:focus-visible + .xy-radio-button__inner,
 .xy-radio-button.is-focus .xy-radio-button__inner {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--xy-color-primary) 14%, transparent);
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-radio-button.is-disabled .xy-radio-button__inner {
-  background: var(--xy-bg-color-muted);
+  background: color-mix(in srgb, var(--xy-surface-sunken) 92%, var(--xy-bg-color-subtle));
   border-color: var(--xy-border-color);
   color: var(--xy-text-color-muted);
   cursor: not-allowed;
@@ -322,7 +337,7 @@
 }
 
 .xy-radio-button.is-active.is-disabled .xy-radio-button__inner {
-  background: color-mix(in srgb, var(--xy-radio-button-fill) 22%, white);
-  border-color: color-mix(in srgb, var(--xy-radio-button-fill) 22%, white);
-  color: color-mix(in srgb, var(--xy-radio-button-text-color) 56%, var(--xy-text-color-secondary));
+  background: color-mix(in srgb, var(--xy-radio-button-fill) 18%, var(--xy-bg-color-floating));
+  border-color: color-mix(in srgb, var(--xy-radio-button-fill) 18%, var(--xy-border-color-subtle));
+  color: color-mix(in srgb, var(--xy-radio-button-fill) 48%, var(--xy-text-color-secondary));
 }

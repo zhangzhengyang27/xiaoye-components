@@ -1,3 +1,6 @@
+import mdiCollection from "@iconify-json/mdi/icons.json";
+import mdiMetadata from "@iconify-json/mdi/metadata.json";
+
 export interface MdiCollectionResponse {
   prefix: string;
   total: number;
@@ -29,8 +32,6 @@ export interface MdiCategoryEntry {
 
 export type ProjectIconCopyMode = "name" | "component";
 
-export const MDI_COLLECTION_URL = "https://api.iconify.design/collection?prefix=mdi";
-export const MDI_ICON_DATA_URL = "https://api.iconify.design/mdi.json";
 export const MDI_PAGE_SIZE = 120;
 export const MDI_CATEGORY_CHIP_LIMIT = 12;
 export const MDI_HOT_CATEGORIES = [
@@ -50,6 +51,17 @@ export const MDI_HOT_CATEGORIES = [
 ] as const;
 
 const DEFAULT_CATEGORY = "未分类";
+const mdiCategories = mdiMetadata.categories ?? {};
+const categorizedIconNames = new Set(Object.values(mdiCategories).flat());
+const uncategorizedIconNames = Object.keys(mdiCollection.icons).filter(
+  (name) => !categorizedIconNames.has(name)
+);
+const localMdiCollection: MdiCollectionResponse = {
+  prefix: mdiCollection.prefix,
+  total: Object.keys(mdiCollection.icons).length,
+  categories: mdiCategories,
+  uncategorized: uncategorizedIconNames
+};
 const normalizeSearchText = (value: string) => value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
 const titleCase = (value: string) =>
   value
@@ -59,27 +71,25 @@ const titleCase = (value: string) =>
     .join(" ");
 
 export async function fetchMdiCollection() {
-  const response = await fetch(MDI_COLLECTION_URL);
-
-  if (!response.ok) {
-    throw new Error(`加载 mdi 图标集合失败: ${response.status}`);
-  }
-
-  return (await response.json()) as MdiCollectionResponse;
+  return localMdiCollection;
 }
 
 export async function fetchMdiIconData(names: string[]) {
-  const icons = names.map((name) => name.replace(/^mdi:/, ""));
-  const params = new URLSearchParams({
-    icons: icons.join(",")
-  });
-  const response = await fetch(`${MDI_ICON_DATA_URL}?${params.toString()}`);
+  const requestedNames = new Set(names.map((name) => name.replace(/^mdi:/, "")));
+  const icons = Object.fromEntries(
+    Object.entries(mdiCollection.icons).filter(([name]) => requestedNames.has(name))
+  );
+  const aliases = Object.fromEntries(
+    Object.entries(mdiCollection.aliases ?? {}).filter(([name]) => requestedNames.has(name))
+  );
 
-  if (!response.ok) {
-    throw new Error(`加载 mdi 图标数据失败: ${response.status}`);
-  }
-
-  return (await response.json()) as MdiIconDataResponse;
+  return {
+    prefix: mdiCollection.prefix,
+    icons,
+    aliases: Object.keys(aliases).length > 0 ? aliases : undefined,
+    width: mdiCollection.width,
+    height: mdiCollection.height
+  };
 }
 
 export function formatProjectIconLabel(icon: string) {

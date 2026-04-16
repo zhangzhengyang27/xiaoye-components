@@ -1,9 +1,9 @@
-import type { ComputedRef, InjectionKey } from "vue";
+import type { ComputedRef, InjectionKey, Ref } from "vue";
 import type { TableResolvedColumn } from "./table";
 
 export interface TableColumnRegistration<T = Record<string, unknown>> {
   uid: string;
-  order: number;
+  order: Ref<number>;
   descriptor: ComputedRef<TableResolvedColumn<T>>;
 }
 

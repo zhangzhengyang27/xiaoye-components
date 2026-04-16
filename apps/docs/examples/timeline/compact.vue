@@ -26,11 +26,11 @@ const records = [
     </p>
 
     <div class="demo-timeline-compact__grid">
-      <xy-card shadow="hover">
+      <xy-card class="demo-timeline-compact__card" shadow="hover">
         <template #header>
           <div class="demo-timeline-compact__header">
-            <strong>default</strong>
-            <span>标准密度</span>
+            <strong class="demo-timeline-compact__header-title">default</strong>
+            <span class="demo-timeline-compact__header-description">标准密度</span>
           </div>
         </template>
 
@@ -51,11 +51,11 @@ const records = [
         </xy-timeline>
       </xy-card>
 
-      <xy-card shadow="hover">
+      <xy-card class="demo-timeline-compact__card" shadow="hover">
         <template #header>
           <div class="demo-timeline-compact__header">
-            <strong>侧栏详情页 / 最近动态</strong>
-            <span>compact 模式</span>
+            <strong class="demo-timeline-compact__header-title">侧栏详情页 / 最近动态</strong>
+            <span class="demo-timeline-compact__header-description">compact 模式</span>
           </div>
         </template>
 
@@ -102,7 +102,7 @@ const records = [
   gap: 16px;
 }
 
-.demo-timeline-compact :deep(.xy-card) {
+.demo-timeline-compact__card {
   min-width: 0;
 }
 
@@ -112,7 +112,7 @@ const records = [
   gap: 4px;
 }
 
-.demo-timeline-compact__header span {
+.demo-timeline-compact__header-description {
   color: var(--xy-text-color-secondary);
   font-size: 12px;
 }

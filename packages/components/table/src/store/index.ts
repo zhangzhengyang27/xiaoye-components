@@ -15,6 +15,7 @@ interface SourceNode<T = Record<string, unknown>> {
 export interface TableStore<T = Record<string, unknown>> {
   normalizedColumns: ComputedRef<TableResolvedColumn<T>[]>;
   leafColumns: ComputedRef<TableResolvedColumn<T>[]>;
+  hasAutoColumnWidths: ComputedRef<boolean>;
   leftFixedColumns: ComputedRef<TableResolvedColumn<T>[]>;
   rightFixedColumns: ComputedRef<TableResolvedColumn<T>[]>;
   leftFixedLeafColumns: ComputedRef<TableResolvedColumn<T>[]>;
@@ -74,6 +75,9 @@ export interface TableStore<T = Record<string, unknown>> {
   setHoveredRow: (row?: T | null) => void;
   getRowKey: (row: T, rowIndex: number) => string | number;
   setColumnWidth: (uid: string, width: number) => void;
+  hasColumnWidthOverride: (uid: string) => boolean;
+  syncAutoColumnWidths: (widths: Record<string, number>) => void;
+  clearAutoColumnWidths: () => void;
   updateKeyChildren: (key: string | number, children: T[]) => void;
 }
 
@@ -86,9 +90,16 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
   const { props, columns, emit, fitWidth } = options;
   const filterPanelColumnUid = ref<string | null>(null);
   const widthOverrides = ref<Record<string, number>>({});
+  const autoWidthOverrides = ref<Record<string, number>>({});
   const innerCurrentRowKey = ref<string | number | null>(props.defaultCurrentRowKey ?? null);
   const innerSortProp = ref<string | undefined>(props.defaultSort?.prop);
-  const innerSortOrder = ref<TableSortOrder>(props.defaultSort?.order ?? null);
+  const innerSortOrder = ref<TableSortOrder>(
+    props.defaultSort?.order !== undefined
+      ? props.defaultSort.order
+      : props.defaultSort?.prop
+        ? "ascending"
+        : null
+  );
   const innerFilterValues = ref<TableFilterValues>(cloneFilterValues(props.defaultFilterValues));
   const innerExpandKeys = shallowRef(new Set<string | number>());
   const innerTreeExpandKeys = shallowRef(new Set<string | number>());
@@ -96,13 +107,19 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
   const hoveredRowKey = ref<string | number | null>(null);
   const lazyChildrenMap = shallowRef<Map<string | number, T[]>>(new Map());
   const lazyLoadingKeys = shallowRef(new Set<string | number>());
+  const lazyLoadedKeys = shallowRef(new Set<string | number>());
+  const lazyRequestVersionMap = shallowRef<Map<string | number, number>>(new Map());
   const hasInitializedDefaultExpand = ref(false);
+  const replacedDataReference = ref(false);
 
   const treeProps = computed(() => resolveTreeProps(props.treeProps));
   const normalizedColumns = computed(() =>
     normalizeColumns(
       columns.value,
-      widthOverrides.value,
+      {
+        ...autoWidthOverrides.value,
+        ...widthOverrides.value
+      },
       props.showOverflowTooltip,
       props.tooltipEffect,
       props.tooltipOptions,
@@ -111,6 +128,7 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     )
   );
   const leafColumns = computed(() => flattenColumns(normalizedColumns.value));
+  const hasAutoColumnWidths = computed(() => Object.keys(autoWidthOverrides.value).length > 0);
   const leftFixedColumns = computed(() => projectColumnsByFixed(normalizedColumns.value, "left"));
   const rightFixedColumns = computed(() => projectColumnsByFixed(normalizedColumns.value, "right"));
   const leftFixedLeafColumns = computed(() => flattenColumns(leftFixedColumns.value));
@@ -126,6 +144,9 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
   const hasRightFixed = computed(() => rightFixedLeafColumns.value.length > 0);
   const currentRowKey = computed(() =>
     props.currentRowKey !== undefined ? props.currentRowKey : innerCurrentRowKey.value
+  );
+  const resolvedCurrentRow = computed(() =>
+    currentRowKey.value != null ? sourceRowsMap.value.get(currentRowKey.value) ?? null : null
   );
   const sortProp = computed(() =>
     props.sortProp !== undefined ? props.sortProp : innerSortProp.value
@@ -172,12 +193,14 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
         sourceIndex += 1;
         const expanded = innerTreeExpandKeys.value.has(key);
         const loading = lazyLoadingKeys.value.has(key);
+        const loaded = lazyLoadedKeys.value.has(key) || lazyChildrenMap.value.has(key);
         const treeNode = resolveTreeNode(
           row,
           key,
           level,
           expanded,
           loading,
+          loaded,
           Boolean(props.lazy),
           treeProps.value,
           lazyChildrenMap.value
@@ -375,18 +398,96 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     return true;
   }
 
+  function getSelectableBranchKeys(record: SourceNode<T>) {
+    const descendants = collectDescendantKeys(
+      record.row,
+      record.key,
+      treeProps.value,
+      lazyChildrenMap.value,
+      props.rowKey
+    ).filter((key) => sourceRowsMap.value.has(key));
+    const branchKeys = props.rowKey ? descendants : collectDescendantKeysFromRecord(record);
+
+    return branchKeys.filter((key) => {
+      const row = sourceRowsMap.value.get(key);
+      const childRecord = sourceNodeMap.value.get(key);
+
+      if (!row || !childRecord) {
+        return false;
+      }
+
+      return isSelectable(row, childRecord.sourceIndex);
+    });
+  }
+
+  function normalizeTreeSelectionKeys(baseKeys: ReadonlySet<string | number>) {
+    const nextKeys = new Set(
+      [...baseKeys].filter((key) => sourceRowsMap.value.has(key))
+    );
+
+    if (!hasTree.value || treeProps.value.checkStrictly) {
+      return nextKeys;
+    }
+
+    [...nextKeys].forEach((key) => {
+      const record = sourceNodeMap.value.get(key);
+
+      if (!record) {
+        return;
+      }
+
+      getSelectableBranchKeys(record).forEach((branchKey) => {
+        nextKeys.add(branchKey);
+      });
+    });
+
+    [...sourceNodeRecords.value].reverse().forEach((record) => {
+      const selectableBranchKeys = getSelectableBranchKeys(record);
+
+      if (selectableBranchKeys.length === 0) {
+        return;
+      }
+
+      if (selectableBranchKeys.every((key) => nextKeys.has(key))) {
+        nextKeys.add(record.key);
+        return;
+      }
+
+      nextKeys.delete(record.key);
+    });
+
+    return nextKeys;
+  }
+
   watch(
-    sourceNodeRecords,
-    (records) => {
+    () => props.data,
+    (nextValue, previousValue) => {
+      replacedDataReference.value = nextValue !== previousValue;
+
+      if (nextValue !== previousValue && props.defaultExpandAll) {
+        hasInitializedDefaultExpand.value = false;
+      }
+    }
+  );
+
+  watch(
+    [sourceNodeRecords, leafColumns],
+    ([records, nextLeafColumns], previousValue) => {
+      const previousLeafColumns = previousValue?.[1] ?? [];
+      const hasExpandColumn = nextLeafColumns.some((column) => column.type === "expand");
+      const hadExpandColumn = previousLeafColumns.some((column) => column.type === "expand");
+      const expandColumnJustAppeared = hasExpandColumn && !hadExpandColumn;
       const availableKeys = new Set(records.map((item) => item.key));
-      const expandableKeys = records
-        .filter((item) => isExpandableRecord(item))
-        .map((item) => item.key);
+      const expandableKeys = new Set(
+        records
+          .filter((item) => isExpandableRecord(item))
+          .map((item) => item.key)
+      );
       const treeExpandableKeys = records
         .filter((item) => item.treeNode.hasChildren)
         .map((item) => item.key);
 
-      if (!hasInitializedDefaultExpand.value) {
+      if (!hasInitializedDefaultExpand.value || expandColumnJustAppeared) {
         if (props.defaultExpandAll) {
           if (props.expandRowKeys === undefined) {
             innerExpandKeys.value = new Set(expandableKeys);
@@ -398,11 +499,31 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
         hasInitializedDefaultExpand.value = true;
       } else {
         const nextExpandKeys = new Set(
-          [...innerExpandKeys.value].filter((key) => availableKeys.has(key))
+          [...innerExpandKeys.value].filter((key) => availableKeys.has(key) && expandableKeys.has(key))
         );
         const nextTreeExpandKeys = new Set(
           [...innerTreeExpandKeys.value].filter((key) => availableKeys.has(key))
         );
+        const nextLoadingKeys = new Set(
+          [...lazyLoadingKeys.value].filter((key) => availableKeys.has(key))
+        );
+        const nextLoadedKeys = new Set(
+          [...lazyLoadedKeys.value].filter((key) => availableKeys.has(key))
+        );
+        const nextLazyChildrenMap = new Map(lazyChildrenMap.value);
+        const nextRequestVersionMap = new Map(lazyRequestVersionMap.value);
+
+        [...nextLazyChildrenMap.keys()].forEach((key) => {
+          if (!availableKeys.has(key)) {
+            nextLazyChildrenMap.delete(key);
+          }
+        });
+
+        [...nextRequestVersionMap.keys()].forEach((key) => {
+          if (!availableKeys.has(key)) {
+            nextRequestVersionMap.delete(key);
+          }
+        });
 
         if (!sameSet(innerExpandKeys.value, nextExpandKeys)) {
           innerExpandKeys.value = nextExpandKeys;
@@ -410,6 +531,22 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
 
         if (!sameSet(innerTreeExpandKeys.value, nextTreeExpandKeys)) {
           innerTreeExpandKeys.value = nextTreeExpandKeys;
+        }
+
+        if (!sameSet(lazyLoadingKeys.value, nextLoadingKeys)) {
+          lazyLoadingKeys.value = nextLoadingKeys;
+        }
+
+        if (!sameSet(lazyLoadedKeys.value, nextLoadedKeys)) {
+          lazyLoadedKeys.value = nextLoadedKeys;
+        }
+
+        if (nextLazyChildrenMap.size !== lazyChildrenMap.value.size) {
+          lazyChildrenMap.value = nextLazyChildrenMap;
+        }
+
+        if (nextRequestVersionMap.size !== lazyRequestVersionMap.value.size) {
+          lazyRequestVersionMap.value = nextRequestVersionMap;
         }
       }
 
@@ -421,20 +558,48 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
         hoveredRowKey.value = null;
       }
 
-      if (!selectionColumn.value?.reserveSelection || !props.rowKey) {
-        const nextSelectionKeys = new Set(
-          [...selectionKeys.value].filter((key) => availableKeys.has(key))
-        );
+      if (
+        filterPanelColumnUid.value !== null &&
+        !nextLeafColumns.some((column) => column.uid === filterPanelColumnUid.value)
+      ) {
+        filterPanelColumnUid.value = null;
+      }
 
-        if (!sameSet(selectionKeys.value, nextSelectionKeys)) {
+      if (!selectionColumn.value?.reserveSelection || !props.rowKey) {
+        const previousSelectionKeys = selectionKeys.value;
+
+        if (replacedDataReference.value) {
+          if (previousSelectionKeys.size > 0) {
+            selectionKeys.value = new Set();
+            emitSelectionChange();
+          }
+
+          replacedDataReference.value = false;
+          return;
+        }
+
+        const nextSelectionKeys = normalizeTreeSelectionKeys(previousSelectionKeys);
+
+        if (!sameSet(previousSelectionKeys, nextSelectionKeys)) {
           selectionKeys.value = nextSelectionKeys;
+          emitSelectionChange();
         }
       }
+
+      replacedDataReference.value = false;
     },
     {
       immediate: true
     }
   );
+
+  watch(resolvedCurrentRow, (nextRow, previousRow) => {
+    if (Object.is(nextRow, previousRow)) {
+      return;
+    }
+
+    emit("current-change", nextRow, previousRow);
+  });
 
   function getRowKey(row: T, rowIndex: number) {
     return getRowIdentity(row, rowIndex, props.rowKey);
@@ -709,7 +874,6 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
   }
 
   function setCurrentRow(row?: T | null) {
-    const previousRow = currentRowKey.value != null ? sourceRowsMap.value.get(currentRowKey.value) ?? null : null;
     const nextRecord = row ? getRecordByRow(row) : null;
     const nextKey = nextRecord?.key ?? null;
 
@@ -722,7 +886,6 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     }
 
     emit("update:currentRowKey", nextKey);
-    emit("current-change", row ?? null, previousRow);
   }
 
   function setHoveredRow(row?: T | null) {
@@ -934,6 +1097,10 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
       return;
     }
 
+    if (record.treeNode.loading) {
+      return;
+    }
+
     const expanded = !innerTreeExpandKeys.value.has(record.key);
     setTreeExpanded(record.key, expanded);
     const latestRecord = sourceNodeMap.value.get(record.key);
@@ -953,11 +1120,29 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     const nextLoadingKeys = new Set(lazyLoadingKeys.value);
     nextLoadingKeys.add(record.key);
     lazyLoadingKeys.value = nextLoadingKeys;
+    const requestVersion = (lazyRequestVersionMap.value.get(record.key) ?? 0) + 1;
+    const nextRequestVersionMap = new Map(lazyRequestVersionMap.value);
+    nextRequestVersionMap.set(record.key, requestVersion);
+    lazyRequestVersionMap.value = nextRequestVersionMap;
 
     props.load(record.row, record.treeNode, (rows) => {
+      if (lazyRequestVersionMap.value.get(record.key) !== requestVersion) {
+        return;
+      }
+
+      if (!sourceNodeMap.value.has(record.key)) {
+        const latestLoadingKeys = new Set(lazyLoadingKeys.value);
+        latestLoadingKeys.delete(record.key);
+        lazyLoadingKeys.value = latestLoadingKeys;
+        return;
+      }
+
       const nextLazyChildrenMap = new Map(lazyChildrenMap.value);
       nextLazyChildrenMap.set(record.key, Array.isArray(rows) ? rows : []);
       lazyChildrenMap.value = nextLazyChildrenMap;
+      const nextLoadedKeys = new Set(lazyLoadedKeys.value);
+      nextLoadedKeys.add(record.key);
+      lazyLoadedKeys.value = nextLoadedKeys;
 
       const latestLoadingKeys = new Set(lazyLoadingKeys.value);
       latestLoadingKeys.delete(record.key);
@@ -972,6 +1157,46 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     };
   }
 
+  function hasColumnWidthOverride(uid: string) {
+    return Object.prototype.hasOwnProperty.call(widthOverrides.value, uid);
+  }
+
+  function syncAutoColumnWidths(widths: Record<string, number>) {
+    const nextWidths: Record<string, number> = {};
+
+    Object.entries(widths).forEach(([uid, width]) => {
+      if (!Number.isFinite(width)) {
+        return;
+      }
+
+      const normalizedWidth = Math.max(40, Math.round(width));
+
+      if (normalizedWidth > 0) {
+        nextWidths[uid] = normalizedWidth;
+      }
+    });
+
+    const previousEntries = Object.entries(autoWidthOverrides.value);
+    const nextEntries = Object.entries(nextWidths);
+
+    if (
+      previousEntries.length === nextEntries.length &&
+      nextEntries.every(([uid, width]) => autoWidthOverrides.value[uid] === width)
+    ) {
+      return;
+    }
+
+    autoWidthOverrides.value = nextWidths;
+  }
+
+  function clearAutoColumnWidths() {
+    if (Object.keys(autoWidthOverrides.value).length === 0) {
+      return;
+    }
+
+    autoWidthOverrides.value = {};
+  }
+
   function updateKeyChildren(key: string | number, children: T[]) {
     if (!props.rowKey || !sourceNodeMap.value.has(key)) {
       return;
@@ -980,17 +1205,27 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     const nextLazyChildrenMap = new Map(lazyChildrenMap.value);
     nextLazyChildrenMap.set(key, Array.isArray(children) ? children : []);
     lazyChildrenMap.value = nextLazyChildrenMap;
+    const nextLoadedKeys = new Set(lazyLoadedKeys.value);
+    nextLoadedKeys.add(key);
+    lazyLoadedKeys.value = nextLoadedKeys;
 
     if (lazyLoadingKeys.value.has(key)) {
       const nextLoadingKeys = new Set(lazyLoadingKeys.value);
       nextLoadingKeys.delete(key);
       lazyLoadingKeys.value = nextLoadingKeys;
     }
+
+    if (lazyRequestVersionMap.value.has(key)) {
+      const nextRequestVersionMap = new Map(lazyRequestVersionMap.value);
+      nextRequestVersionMap.delete(key);
+      lazyRequestVersionMap.value = nextRequestVersionMap;
+    }
   }
 
   return {
     normalizedColumns,
     leafColumns,
+    hasAutoColumnWidths,
     leftFixedColumns,
     rightFixedColumns,
     leftFixedLeafColumns,
@@ -1040,6 +1275,9 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     setHoveredRow,
     getRowKey,
     setColumnWidth,
+    hasColumnWidthOverride,
+    syncAutoColumnWidths,
+    clearAutoColumnWidths,
     updateKeyChildren
   };
 }

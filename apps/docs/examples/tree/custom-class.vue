@@ -20,12 +20,12 @@ const data = [
 
 function resolveNodeClass(item: { id: number }) {
   if (item.id === 12) {
-    return "is-key-node";
+    return "demo-tree-custom-class__key-node";
   }
 
   if (item.id === 2) {
     return {
-      "is-branch-node": true
+      "demo-tree-custom-class__branch-node": true
     };
   }
 
@@ -39,18 +39,18 @@ function resolveNodeClass(item: { id: number }) {
       :data="data"
       node-key="id"
       default-expand-all
-      :props="{ class: resolveNodeClass }"
+      :props="{ contentClass: resolveNodeClass }"
     />
   </div>
 </template>
 
 <style scoped>
-:deep(.is-key-node > .xy-tree__node-content) {
+:global(.demo-tree-custom-class__key-node) {
   border-color: color-mix(in srgb, var(--xy-color-warning) 34%, var(--xy-border-color));
   background: color-mix(in srgb, var(--xy-color-warning) 8%, var(--xy-bg-color));
 }
 
-:deep(.is-branch-node > .xy-tree__node-content) {
+:global(.demo-tree-custom-class__branch-node) {
   font-weight: 600;
 }
 </style>

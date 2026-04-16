@@ -2,6 +2,7 @@
 import { computed } from "vue"
 import { Icon as IconifyIcon } from "@iconify/vue"
 import { useNamespace } from "@xiaoye/composables"
+import { registerLocalMdiCollection } from "./mdi"
 
 export interface IconProps {
   icon: string
@@ -15,6 +16,8 @@ const props = withDefaults(defineProps<IconProps>(), {
   rotate: 0,
   spin: false
 })
+
+registerLocalMdiCollection()
 
 const ns = useNamespace("icon")
 const pixelSize = computed(() =>

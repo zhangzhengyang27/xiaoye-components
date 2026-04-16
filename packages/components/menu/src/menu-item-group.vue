@@ -14,13 +14,13 @@ const ns = useNamespace("menu-item-group");
 
 <template>
   <li :class="ns.base.value" role="presentation">
-    <div :class="`${ns.base.value}__title`">
+    <div :class="[`${ns.base.value}__title`, 'xy-menu__group-title']">
       <slot name="title">
         {{ props.title }}
       </slot>
     </div>
 
-    <ul :class="`${ns.base.value}__list`" role="group">
+    <ul :class="[`${ns.base.value}__list`, 'xy-menu__group-list']" role="group">
       <slot />
     </ul>
   </li>

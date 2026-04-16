@@ -8,10 +8,10 @@ const ended = ref(false);
 
 const cover = `data:image/svg+xml;utf8,${encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
-  <rect width="320" height="320" rx="36" fill="#dbeafe"/>
-  <circle cx="160" cy="160" r="88" fill="#93c5fd"/>
-  <circle cx="160" cy="160" r="24" fill="#eff6ff"/>
-  <path d="M212 92V206C212 228 196 244 174 244C152 244 136 228 136 206C136 184 152 168 174 168C185 168 194 171 202 177V122L242 112V92Z" fill="#1d4ed8"/>
+  <rect width="320" height="320" rx="36" fill="#e7edf6"/>
+  <circle cx="160" cy="160" r="88" fill="#d4deeb"/>
+  <circle cx="160" cy="160" r="24" fill="#f8fbff"/>
+  <path d="M212 92V206C212 228 196 244 174 244C152 244 136 228 136 206C136 184 152 168 174 168C185 168 194 171 202 177V122L242 112V92Z" fill="#8ea7cb"/>
 </svg>
 `)}`;
 

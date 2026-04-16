@@ -15,7 +15,7 @@ const channel = ref<string | number | boolean>("email");
     </div>
 
     <div class="demo-radio-panel">
-      当前选择：<strong>{{ channel }}</strong>
+      当前选择：<strong class="demo-radio-panel__value">{{ channel }}</strong>
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ const channel = ref<string | number | boolean>("email");
   color: var(--xy-text-color-secondary);
 }
 
-.demo-radio-panel strong {
+.demo-radio-panel__value {
   color: var(--xy-text-color);
 }
 </style>

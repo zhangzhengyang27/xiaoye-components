@@ -51,7 +51,7 @@ const metrics: Metric[] = [
         :prefix="item.prefix"
         :suffix="item.suffix"
       />
-      <p>{{ item.note }}</p>
+      <p class="statistic-board__note">{{ item.note }}</p>
     </xy-card>
   </div>
 </template>
@@ -67,7 +67,7 @@ const metrics: Metric[] = [
   padding: 4px;
 }
 
-.statistic-board__card p {
+.statistic-board__note {
   margin: 12px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

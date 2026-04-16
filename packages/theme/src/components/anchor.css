@@ -1,18 +1,16 @@
 .xy-anchor {
   --xy-anchor-marker-size: 14px;
   --xy-anchor-marker-thickness: 2px;
-  --xy-anchor-brand-color: var(--vp-c-brand-1, var(--xy-color-primary));
-  --xy-anchor-brand-color-hover: var(
-    --vp-c-brand-2,
-    var(--xy-color-primary-hover, var(--xy-color-primary))
-  );
-  --xy-anchor-text-muted: var(--vp-c-text-2, var(--xy-text-color-secondary));
-  --xy-anchor-text-strong: var(--vp-c-text-1, var(--xy-text-color));
-  --xy-anchor-divider-color: var(--vp-c-divider, var(--xy-border-color));
+  --xy-anchor-brand-color: var(--xy-color-primary);
+  --xy-anchor-brand-color-hover: var(--xy-color-primary-hover);
+  --xy-anchor-text-muted: var(--xy-text-color-subtle);
+  --xy-anchor-text-strong: var(--xy-text-color-heading);
+  --xy-anchor-divider-color: var(--xy-border-color-subtle);
   position: relative;
   box-sizing: border-box;
   width: 100%;
   color: var(--xy-anchor-text-muted);
+  border-radius: var(--xy-radius-lg);
 }
 
 .xy-anchor--vertical {
@@ -27,17 +25,19 @@
 .xy-anchor__marker {
   position: absolute;
   top: 3px;
-  left: -1px;
+  left: -2px;
   width: var(--xy-anchor-marker-thickness);
   height: var(--xy-anchor-marker-size);
-  border-radius: 2px;
+  border-radius: var(--xy-radius-pill);
   background: var(--xy-anchor-brand-color);
   opacity: 0;
   transition:
     top 0.22s ease,
     left 0.22s ease,
     width 0.22s ease,
-    opacity 0.18s ease;
+    opacity 0.18s ease,
+    box-shadow 0.18s ease;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--xy-anchor-brand-color) 12%, transparent);
   pointer-events: none;
 }
 
@@ -56,9 +56,9 @@
 
 .xy-anchor--vertical .xy-anchor__list {
   flex-direction: column;
-  gap: 2px;
-  padding-left: 16px;
-  border-left: 1px solid color-mix(in srgb, var(--xy-anchor-divider-color) 72%, white);
+  gap: 4px;
+  padding-left: 18px;
+  border-left: 1px solid color-mix(in srgb, var(--xy-anchor-divider-color) 92%, transparent);
 }
 
 .xy-anchor--horizontal .xy-anchor__list {
@@ -66,7 +66,7 @@
   align-items: center;
   gap: 8px 14px;
   padding-bottom: 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-anchor-divider-color) 72%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-anchor-divider-color) 92%, transparent);
 }
 
 .xy-anchor__item {
@@ -89,15 +89,20 @@
   display: inline-flex;
   align-items: center;
   min-width: 0;
-  padding: 4px 0;
+  padding: 7px 10px;
+  border-radius: var(--xy-radius-md);
   color: var(--xy-anchor-text-muted) !important;
   text-decoration: none;
   font-size: 13px;
-  line-height: 24px;
+  line-height: 1.5;
   cursor: pointer;
   transition:
     color 0.18s ease,
-    opacity 0.18s ease;
+    opacity 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+  border: 1px solid transparent;
 }
 
 .xy-anchor__link:visited {
@@ -105,18 +110,28 @@
 }
 
 .xy-anchor__link:hover {
+  background: var(--xy-bg-color-subtle);
   color: var(--xy-anchor-text-strong) !important;
+  border-color: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+}
+
+.xy-anchor__link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-anchor__link.is-active {
   color: var(--xy-anchor-brand-color) !important;
-  font-weight: 500;
+  background: var(--xy-color-primary-soft);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+  font-weight: 560;
 }
 
 .xy-anchor__list--nested.xy-anchor__list--vertical {
-  margin-top: 0;
+  margin-top: 2px;
   padding-left: 14px;
-  border-left: 1px dashed color-mix(in srgb, var(--xy-anchor-divider-color) 78%, white);
+  border-left: 1px solid color-mix(in srgb, var(--xy-anchor-divider-color) 82%, transparent);
 }
 
 .xy-anchor__list--nested.xy-anchor__list--horizontal {

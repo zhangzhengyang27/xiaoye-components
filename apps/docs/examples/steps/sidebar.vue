@@ -58,8 +58,8 @@ const activities = [
 
           <template #description>
             <div class="demo-steps-sidebar__description">
-              <strong>{{ activity.owner }}</strong>
-              <p>{{ activity.note }}</p>
+              <strong class="demo-steps-sidebar__description-title">{{ activity.owner }}</strong>
+              <p class="demo-steps-sidebar__description-text">{{ activity.note }}</p>
             </div>
           </template>
         </xy-step>
@@ -97,12 +97,12 @@ const activities = [
   gap: 6px;
 }
 
-.demo-steps-sidebar__description strong {
+.demo-steps-sidebar__description-title {
   color: var(--xy-text-color);
   font-size: 13px;
 }
 
-.demo-steps-sidebar__description p {
+.demo-steps-sidebar__description-text {
   margin: 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

@@ -49,6 +49,7 @@ export interface TreeOptionProps {
   disabled?: string | ((data: TreeNodeData, node: Node) => boolean);
   isLeaf?: string | ((data: TreeNodeData, node: Node) => boolean);
   class?: TreeNodeClassName | ((data: TreeNodeData, node: Node) => TreeNodeClassName);
+  contentClass?: TreeNodeClassName | ((data: TreeNodeData, node: Node) => TreeNodeClassName);
 }
 
 export interface RenderContentContext {

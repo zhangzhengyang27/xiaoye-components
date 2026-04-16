@@ -35,8 +35,10 @@ async function toggleCardWidth() {
         :class="{ 'is-compact': compact }"
         shadow="always"
       >
-        <strong>已开启 Teleport</strong>
-        <p>固定态节点会被挂到指定容器，内容宽度变化后调用 `updateRoot()` 可同步占位尺寸。</p>
+        <strong class="demo-affix-teleported__card-title">已开启 Teleport</strong>
+        <p class="demo-affix-teleported__card-description">
+          固定态节点会被挂到指定容器，内容宽度变化后调用 `updateRoot()` 可同步占位尺寸。
+        </p>
       </xy-card>
     </xy-affix>
 
@@ -75,12 +77,12 @@ async function toggleCardWidth() {
   width: 240px;
 }
 
-.demo-affix-teleported__card strong {
+.demo-affix-teleported__card-title {
   display: block;
   margin-bottom: 8px;
 }
 
-.demo-affix-teleported__card p {
+.demo-affix-teleported__card-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

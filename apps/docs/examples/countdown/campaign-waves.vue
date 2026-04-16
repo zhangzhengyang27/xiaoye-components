@@ -102,7 +102,7 @@ function getValueStyle(tone: WaveTone) {
         <div class="countdown-campaign-grid__header">
           <div>
             <strong>{{ wave.name }}</strong>
-            <p>{{ wave.channel }} · {{ wave.owner }}</p>
+            <p class="countdown-campaign-grid__header-description">{{ wave.channel }} · {{ wave.owner }}</p>
           </div>
           <xy-tag :status="wave.tone" round>{{ wave.highlight }}</xy-tag>
         </div>
@@ -129,7 +129,7 @@ function getValueStyle(tone: WaveTone) {
         </template>
       </xy-countdown>
 
-      <p>{{ wave.note }}</p>
+      <p class="countdown-campaign-grid__note">{{ wave.note }}</p>
     </xy-card>
   </div>
 </template>
@@ -152,8 +152,8 @@ function getValueStyle(tone: WaveTone) {
   gap: 12px;
 }
 
-.countdown-campaign-grid__header p,
-.countdown-campaign-grid__card p {
+.countdown-campaign-grid__header-description,
+.countdown-campaign-grid__note {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

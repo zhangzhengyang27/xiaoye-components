@@ -36,8 +36,10 @@ const auditGroups = [
 <template>
   <div class="demo-timeline-scene">
     <div class="demo-timeline-scene__intro">
-      <h4>操作审计 / 审批流 / 发布日志</h4>
-      <p>把“谁在什么时候做了什么”收口到一条连续时间线上，方便审计和复盘。</p>
+      <h4 class="demo-timeline-scene__intro-title">操作审计 / 审批流 / 发布日志</h4>
+      <p class="demo-timeline-scene__intro-description">
+        把“谁在什么时候做了什么”收口到一条连续时间线上，方便审计和复盘。
+      </p>
     </div>
 
     <xy-card
@@ -93,13 +95,13 @@ const auditGroups = [
   gap: 18px;
 }
 
-.demo-timeline-scene__intro h4 {
+.demo-timeline-scene__intro-title {
   margin: 0 0 6px;
   color: var(--xy-text-color);
   font-size: 18px;
 }
 
-.demo-timeline-scene__intro p {
+.demo-timeline-scene__intro-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.65;

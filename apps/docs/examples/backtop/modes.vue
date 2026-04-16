@@ -27,17 +27,13 @@ watch(mode, (value) => {
     <xy-card class="demo-backtop-modes__shell" shadow="always">
       <div class="demo-backtop-modes__toolbar">
         <div class="demo-backtop-modes__title">
-          <strong>Backtop 模式切换</strong>
-          <p>为了避免文档页同时出现两个回顶按钮，这里只会按当前模式挂载一个 `xy-backtop`。</p>
+          <strong class="demo-backtop-modes__title-text">Backtop 模式切换</strong>
+          <p class="demo-backtop-modes__title-description">
+            为了避免文档页同时出现两个回顶按钮，这里只会按当前模式挂载一个 `xy-backtop`。
+          </p>
         </div>
 
-        <xy-radio-group
-          v-model="mode"
-          type="button"
-          fill="#1d4ed8"
-          text-color="#f8fafc"
-          :options="modeOptions"
-        />
+        <xy-radio-group v-model="mode" type="button" :options="modeOptions" />
       </div>
 
       <xy-space wrap>
@@ -52,8 +48,10 @@ watch(mode, (value) => {
         <xy-backtop :right="56" :bottom="64" />
 
         <xy-card class="demo-backtop-modes__lead" shadow="hover">
-          <h4>整页回顶提示</h4>
-          <p>继续往下阅读当前文档页，右下角会出现默认回顶按钮。这种模式适合长表单、指标看板和文档详情页。</p>
+          <h4 class="demo-backtop-modes__lead-title">整页回顶提示</h4>
+          <p class="demo-backtop-modes__lead-description">
+            继续往下阅读当前文档页，右下角会出现默认回顶按钮。这种模式适合长表单、指标看板和文档详情页。
+          </p>
         </xy-card>
 
         <div class="demo-backtop-modes__list">
@@ -63,22 +61,28 @@ watch(mode, (value) => {
             class="demo-backtop-modes__card"
             shadow="hover"
           >
-            <h4>长页面内容块 {{ item }}</h4>
-            <p>回顶按钮通常和整页长内容一起出现，用来缩短从底部返回顶部的路径。</p>
+            <h4 class="demo-backtop-modes__card-title">长页面内容块 {{ item }}</h4>
+            <p class="demo-backtop-modes__card-description">
+              回顶按钮通常和整页长内容一起出现，用来缩短从底部返回顶部的路径。
+            </p>
           </xy-card>
         </div>
       </template>
 
       <template v-else>
         <xy-card class="demo-backtop-modes__lead" shadow="hover">
-          <h4>局部容器回顶提示</h4>
-          <p>这个模式只监听下方规则面板的滚动，按钮仍固定在视口角落，但点击后只会把该容器滚回顶部。</p>
+          <h4 class="demo-backtop-modes__lead-title">局部容器回顶提示</h4>
+          <p class="demo-backtop-modes__lead-description">
+            这个模式只监听下方规则面板的滚动，按钮仍固定在视口角落，但点击后只会把该容器滚回顶部。
+          </p>
         </xy-card>
 
         <xy-card class="demo-backtop-modes__target-shell" shadow="hover">
           <div class="demo-backtop-modes__target-head">
-            <strong>侧栏规则面板</strong>
-            <p>模拟抽屉或侧边规则区。滚动面板到中段后，右下角会出现自定义 `TOP` 按钮。</p>
+            <strong class="demo-backtop-modes__target-head-title">侧栏规则面板</strong>
+            <p class="demo-backtop-modes__target-head-description">
+              模拟抽屉或侧边规则区。滚动面板到中段后，右下角会出现自定义 `TOP` 按钮。
+            </p>
           </div>
 
           <div class="demo-backtop-modes__target-panel">
@@ -87,8 +91,10 @@ watch(mode, (value) => {
               :key="`target-${item}`"
               class="demo-backtop-modes__target-block"
             >
-              <strong>规则项 {{ item }}</strong>
-              <p>这是局部滚动容器场景。点击回顶按钮后，只会把这个面板滚回顶部。</p>
+              <strong class="demo-backtop-modes__target-block-title">规则项 {{ item }}</strong>
+              <p class="demo-backtop-modes__target-block-description">
+                这是局部滚动容器场景。点击回顶按钮后，只会把这个面板滚回顶部。
+              </p>
             </article>
           </div>
         </xy-card>
@@ -131,28 +137,28 @@ watch(mode, (value) => {
   gap: 6px;
 }
 
-.demo-backtop-modes__title strong {
-  color: var(--xy-text-color);
+.demo-backtop-modes__title-text {
+  color: var(--xy-text-color-heading);
 }
 
-.demo-backtop-modes__title p {
+.demo-backtop-modes__title-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;
 }
 
-.demo-backtop-modes__lead h4,
-.demo-backtop-modes__card h4,
-.demo-backtop-modes__target-head strong,
-.demo-backtop-modes__target-block strong {
+.demo-backtop-modes__lead-title,
+.demo-backtop-modes__card-title,
+.demo-backtop-modes__target-head-title,
+.demo-backtop-modes__target-block-title {
   display: block;
   margin: 0 0 8px;
 }
 
-.demo-backtop-modes__lead p,
-.demo-backtop-modes__card p,
-.demo-backtop-modes__target-head p,
-.demo-backtop-modes__target-block p {
+.demo-backtop-modes__lead-description,
+.demo-backtop-modes__card-description,
+.demo-backtop-modes__target-head-description,
+.demo-backtop-modes__target-block-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;
@@ -173,20 +179,22 @@ watch(mode, (value) => {
 }
 
 .demo-backtop-modes__target-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   height: 280px;
   overflow: auto;
   padding-right: 8px;
+  border-radius: 18px;
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 78%, white);
 }
 
 .demo-backtop-modes__target-block {
   padding: 14px 16px;
   border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 76%, white);
-}
-
-.demo-backtop-modes__target-block + .demo-backtop-modes__target-block {
-  margin-top: 12px;
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
 }
 
 .demo-backtop-modes__slot {

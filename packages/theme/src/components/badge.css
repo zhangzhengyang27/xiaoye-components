@@ -6,21 +6,25 @@
 }
 
 .xy-badge__content {
+  --xy-badge-bg: var(--xy-color-danger-soft);
+  --xy-badge-color: var(--xy-color-danger);
+  --xy-badge-border: color-mix(in srgb, var(--xy-color-danger) 16%, var(--xy-border-color-subtle));
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
-  border: 1px solid var(--xy-bg-color);
+  border: 1px solid var(--xy-badge-border);
   border-radius: 999px;
-  background: var(--xy-color-danger);
-  color: white;
-  font-size: 12px;
+  background: var(--xy-badge-bg);
+  color: var(--xy-badge-color);
+  font-size: var(--xy-font-size-xs);
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
   box-sizing: border-box;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-badge-color) 4%, transparent);
 }
 
 .xy-badge__content.is-fixed {
@@ -37,6 +41,9 @@
   height: 8px;
   padding: 0;
   border-radius: 50%;
+  border-color: color-mix(in srgb, var(--xy-surface-raised) 92%, transparent);
+  background: var(--xy-badge-color);
+  box-shadow: none;
 }
 
 .xy-badge__content.is-fixed.is-dot {
@@ -48,23 +55,33 @@
 }
 
 .xy-badge__content--primary {
-  background: var(--xy-color-primary);
+  --xy-badge-bg: var(--xy-color-primary-soft);
+  --xy-badge-color: var(--xy-color-primary);
+  --xy-badge-border: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
 }
 
 .xy-badge__content--success {
-  background: var(--xy-color-success);
+  --xy-badge-bg: var(--xy-color-success-soft);
+  --xy-badge-color: var(--xy-color-success);
+  --xy-badge-border: color-mix(in srgb, var(--xy-color-success) 16%, var(--xy-border-color-subtle));
 }
 
 .xy-badge__content--warning {
-  background: var(--xy-color-warning);
+  --xy-badge-bg: var(--xy-color-warning-soft);
+  --xy-badge-color: var(--xy-color-warning);
+  --xy-badge-border: color-mix(in srgb, var(--xy-color-warning) 18%, var(--xy-border-color-subtle));
 }
 
 .xy-badge__content--info {
-  background: var(--xy-color-info);
+  --xy-badge-bg: color-mix(in srgb, var(--xy-color-info) 12%, var(--xy-surface-raised));
+  --xy-badge-color: var(--xy-color-info);
+  --xy-badge-border: color-mix(in srgb, var(--xy-color-info) 14%, var(--xy-border-color-subtle));
 }
 
 .xy-badge__content--danger {
-  background: var(--xy-color-danger);
+  --xy-badge-bg: var(--xy-color-danger-soft);
+  --xy-badge-color: var(--xy-color-danger);
+  --xy-badge-border: color-mix(in srgb, var(--xy-color-danger) 16%, var(--xy-border-color-subtle));
 }
 
 .xy-zoom-in-center-enter-active,

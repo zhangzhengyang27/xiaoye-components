@@ -160,7 +160,7 @@ function saveAssignment() {
     <div class="demo-tree-org-grid">
       <section class="demo-tree-org-panel">
         <xy-text size="sm" type="info">{{ currentText }}</xy-text>
-        <strong>{{ currentPath }}</strong>
+        <strong class="demo-tree-org-panel__title">{{ currentPath }}</strong>
         <xy-text size="sm" type="info">{{ loadFeedback }}</xy-text>
         <xy-text size="sm" type="info">
           灰态节点表示封存部门或不可分配单元，懒加载展开后仍会参与路径与高亮，但不会进入键盘焦点流。
@@ -295,7 +295,7 @@ function saveAssignment() {
   background: color-mix(in srgb, var(--xy-bg-color) 94%, white);
 }
 
-.demo-tree-org-panel strong {
+.demo-tree-org-panel__title {
   color: var(--xy-text-color);
   font-size: 15px;
   line-height: 1.6;

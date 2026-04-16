@@ -395,11 +395,13 @@ defineExpose({
       <span :class="['xy-cascader__label', !selectedPath.length ? 'is-placeholder' : '']">
         {{ displayLabel }}
       </span>
-      <button v-if="showClear" type="button" class="xy-cascader__clear" @click="clearValue">
-        <XyIcon icon="mdi:close-circle" />
-      </button>
-      <span class="xy-cascader__suffix">
-        <XyIcon icon="mdi:chevron-down" />
+      <span class="xy-cascader__actions" :class="{ 'has-clear': showClear }">
+        <button v-if="showClear" type="button" class="xy-cascader__clear" @click="clearValue">
+          <XyIcon icon="mdi:close-circle" />
+        </button>
+        <span class="xy-cascader__suffix">
+          <XyIcon icon="mdi:chevron-down" />
+        </span>
       </span>
     </div>
 

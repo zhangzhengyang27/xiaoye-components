@@ -3,32 +3,32 @@
     <xy-col :span="6">
       <xy-card shadow="hover">
         <div class="demo-card-content">
-          <strong>6</strong>
-          <span>左侧导航</span>
+          <strong class="demo-card-content__value">6</strong>
+          <span class="demo-card-content__label">左侧导航</span>
         </div>
       </xy-card>
     </xy-col>
     <xy-col :span="6">
       <xy-card shadow="hover">
         <div class="demo-card-content">
-          <strong>6</strong>
-          <span>筛选区</span>
+          <strong class="demo-card-content__value">6</strong>
+          <span class="demo-card-content__label">筛选区</span>
         </div>
       </xy-card>
     </xy-col>
     <xy-col :span="6">
       <xy-card shadow="hover">
         <div class="demo-card-content">
-          <strong>6</strong>
-          <span>图表卡片</span>
+          <strong class="demo-card-content__value">6</strong>
+          <span class="demo-card-content__label">图表卡片</span>
         </div>
       </xy-card>
     </xy-col>
     <xy-col :span="6">
       <xy-card shadow="hover">
         <div class="demo-card-content">
-          <strong>6</strong>
-          <span>统计摘要</span>
+          <strong class="demo-card-content__value">6</strong>
+          <span class="demo-card-content__label">统计摘要</span>
         </div>
       </xy-card>
     </xy-col>
@@ -43,12 +43,12 @@
   min-height: 40px;
 }
 
-.demo-card-content strong {
+.demo-card-content__value {
   font-size: 18px;
   color: var(--xy-text-color);
 }
 
-.demo-card-content span {
+.demo-card-content__label {
   color: var(--xy-text-color-secondary);
   font-size: 13px;
 }

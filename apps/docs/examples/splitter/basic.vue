@@ -42,9 +42,9 @@ const codeLines = [
           <div class="split-demo__section split-demo__section--outline">
             <div class="split-demo__label">Outline</div>
             <div class="split-demo__outline">
-              <span>props</span>
-              <span>emits</span>
-              <span>template</span>
+              <span class="split-demo__outline-item">props</span>
+              <span class="split-demo__outline-item">emits</span>
+              <span class="split-demo__outline-item">template</span>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@ const codeLines = [
         <div class="split-demo__main">
           <div class="split-demo__tabs">
             <button
-              v-for="file in files.filter(f => f.active)"
+              v-for="file in files.filter((f) => f.active)"
               :key="file.name"
               class="split-demo__tab is-active"
             >
@@ -84,7 +84,9 @@ const codeLines = [
   margin: -24px;
   border-radius: 20px;
   overflow: hidden;
-  background: #0f172a;
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .split-demo__sidebar {
@@ -93,7 +95,7 @@ const codeLines = [
   flex-direction: column;
   gap: 20px;
   padding: 20px 16px;
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white);
 }
 
 .split-demo__section {
@@ -106,7 +108,7 @@ const codeLines = [
 
 .split-demo__label {
   margin-bottom: 10px;
-  color: #64748b;
+  color: var(--xy-text-color-secondary);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -128,7 +130,7 @@ const codeLines = [
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #94a3b8;
+  color: var(--xy-text-color-secondary);
   font-size: 13px;
   text-align: left;
   cursor: pointer;
@@ -136,13 +138,13 @@ const codeLines = [
 }
 
 .split-demo__file:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: #e2e8f0;
+  background: var(--xy-bg-color-subtle);
+  color: var(--xy-text-color-heading);
 }
 
 .split-demo__file.is-active {
-  background: rgba(59, 130, 246, 0.15);
-  color: #93c5fd;
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 68%, white);
+  color: var(--xy-color-primary);
 }
 
 .split-demo__icon {
@@ -152,16 +154,16 @@ const codeLines = [
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #64748b;
+  background: color-mix(in srgb, var(--xy-surface-raised) 92%, white);
+  color: var(--xy-text-color-subtle);
   font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .split-demo__file.is-active .split-demo__icon {
-  background: rgba(59, 130, 246, 0.25);
-  color: #93c5fd;
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 78%, white);
+  color: var(--xy-color-primary);
 }
 
 .split-demo__outline {
@@ -170,10 +172,10 @@ const codeLines = [
   gap: 4px;
 }
 
-.split-demo__outline span {
+.split-demo__outline-item {
   padding: 6px 10px;
   border-radius: 6px;
-  color: #64748b;
+  color: var(--xy-text-color-secondary);
   font-size: 12px;
 }
 
@@ -181,14 +183,15 @@ const codeLines = [
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #0f172a;
+  background: var(--xy-surface-raised);
 }
 
 .split-demo__tabs {
   display: flex;
   gap: 2px;
   padding: 8px 12px;
-  background: #1e293b;
+  border-bottom: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
 }
 
 .split-demo__tab {
@@ -196,14 +199,15 @@ const codeLines = [
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #94a3b8;
+  color: var(--xy-text-color-secondary);
   font-size: 12px;
   cursor: pointer;
 }
 
 .split-demo__tab.is-active {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: var(--xy-surface-raised);
+  color: var(--xy-text-color-heading);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .split-demo__editor {
@@ -221,16 +225,16 @@ const codeLines = [
   font-family: "SF Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
   font-size: 13px;
   line-height: 1.6;
-  color: #94a3b8;
+  color: var(--xy-text-color-secondary);
 }
 
 .split-demo__line.is-highlight {
-  background: rgba(59, 130, 246, 0.1);
-  color: #e2e8f0;
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 52%, white);
+  color: var(--xy-text-color-heading);
 }
 
 .split-demo__num {
-  color: #475569;
+  color: var(--xy-text-color-subtle);
   text-align: right;
 }
 

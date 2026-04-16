@@ -1,0 +1,26 @@
+:root {
+  --xy-frontline-radius-xs: 12px;
+  --xy-frontline-radius-sm: 16px;
+  --xy-frontline-radius-md: 22px;
+  --xy-frontline-radius-lg: 30px;
+  --xy-frontline-font-family:
+    "Manrope", "IBM Plex Sans", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --xy-frontline-shadow-sm: 0 12px 32px rgba(15, 23, 42, 0.12);
+  --xy-frontline-shadow-md: 0 24px 80px rgba(15, 23, 42, 0.14);
+  --xy-frontline-shadow-lg: 0 36px 96px rgba(15, 23, 42, 0.18);
+  --xy-frontline-brand-1: #1463ff;
+  --xy-frontline-brand-2: #5bb4ff;
+  --xy-frontline-brand-3: #e8f1ff;
+  --xy-frontline-neutral-1: #0f172a;
+  --xy-frontline-neutral-2: #334155;
+  --xy-frontline-neutral-3: #64748b;
+  --xy-frontline-neutral-4: #cbd5e1;
+  --xy-frontline-surface-1: #ffffff;
+  --xy-frontline-surface-2: #f8fafc;
+  --xy-frontline-surface-3: rgba(255, 255, 255, 0.82);
+}
+
+.xy-frontline-theme {
+  font-family: var(--xy-frontline-font-family);
+  color: var(--xy-frontline-neutral-1);
+}

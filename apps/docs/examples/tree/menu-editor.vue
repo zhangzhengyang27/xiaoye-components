@@ -1,35 +1,36 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue"
-import type { TreeInstance } from "xiaoye-components"
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import type { TreeInstance } from "xiaoye-components";
 
 interface MenuNode {
-  id: number
-  label: string
-  icon?: string
-  path?: string
-  visible?: boolean
-  children?: MenuNode[]
+  id: number;
+  label: string;
+  icon?: string;
+  path?: string;
+  visible?: boolean;
+  children?: MenuNode[];
 }
 
 interface MenuEditorDraft {
-  label: string
-  icon: string
-  path: string
-  visible: boolean
+  label: string;
+  icon: string;
+  path: string;
+  visible: boolean;
 }
 
-const treeRef = ref<TreeInstance | null>(null)
-const menuRef = ref<HTMLElement | null>(null)
-const activeNode = ref<MenuNode | null>(null)
-const menuVisible = ref(false)
-const message = ref("右键节点可打开菜单，拖动节点可调整菜单顺序。")
-const editOpen = ref(false)
-const removeOpen = ref(false)
+const treeRef = ref<TreeInstance | null>(null);
+const menuRef = ref<HTMLElement | null>(null);
+const activeNode = ref<MenuNode | null>(null);
+const menuVisible = ref(false);
+const message = ref("右键节点可打开菜单，拖动节点可调整菜单顺序。");
+const editOpen = ref(false);
+const removeOpen = ref(false);
 const menuPosition = ref({
   x: 0,
   y: 0
-})
-let nextId = 100
+});
+let lastOpenAt = 0;
+let nextId = 100;
 
 const initialMenus: MenuNode[] = [
   {
@@ -39,8 +40,20 @@ const initialMenus: MenuNode[] = [
     path: "/dashboard",
     visible: true,
     children: [
-      { id: 11, label: "概览看板", icon: "mdi:chart-box-outline", path: "/dashboard/overview", visible: true },
-      { id: 12, label: "待办中心", icon: "mdi:clipboard-text-outline", path: "/dashboard/tasks", visible: true }
+      {
+        id: 11,
+        label: "概览看板",
+        icon: "mdi:chart-box-outline",
+        path: "/dashboard/overview",
+        visible: true
+      },
+      {
+        id: 12,
+        label: "待办中心",
+        icon: "mdi:clipboard-text-outline",
+        path: "/dashboard/tasks",
+        visible: true
+      }
     ]
   },
   {
@@ -50,8 +63,20 @@ const initialMenus: MenuNode[] = [
     path: "/campaigns",
     visible: true,
     children: [
-      { id: 21, label: "活动列表", icon: "mdi:format-list-bulleted", path: "/campaigns/list", visible: true },
-      { id: 22, label: "投放计划", icon: "mdi:calendar-outline", path: "/campaigns/schedule", visible: true }
+      {
+        id: 21,
+        label: "活动列表",
+        icon: "mdi:format-list-bulleted",
+        path: "/campaigns/list",
+        visible: true
+      },
+      {
+        id: 22,
+        label: "投放计划",
+        icon: "mdi:calendar-outline",
+        path: "/campaigns/schedule",
+        visible: true
+      }
     ]
   },
   {
@@ -61,99 +86,120 @@ const initialMenus: MenuNode[] = [
     path: "/settings",
     visible: false
   }
-]
-const data = ref<MenuNode[]>(structuredClone(initialMenus))
-const savedSnapshot = ref<string[]>(serializeMenus(data.value))
+];
+const data = ref<MenuNode[]>(structuredClone(initialMenus));
+const savedSnapshot = ref<string[]>(serializeMenus(data.value));
 const draft = ref<MenuEditorDraft>({
   label: "",
   icon: "",
   path: "",
   visible: true
-})
+});
 
 const menuItems = [
   { key: "append", label: "新增子菜单" },
   { key: "rename", label: "重命名" },
   { key: "copy-path", label: "复制路径" },
   { key: "remove", label: "删除菜单", danger: true }
-]
+];
 
 function closeMenu() {
-  menuVisible.value = false
+  menuVisible.value = false;
 }
 
 function serializeMenus(nodes: MenuNode[], prefix = ""): string[] {
   return nodes.flatMap((node) => {
-    const currentPath = prefix ? `${prefix} / ${node.label}` : node.label
-    const meta = `${node.path ?? "未配置路径"} | ${node.visible === false ? "hidden" : "visible"}`
-    return [`${currentPath} [${meta}]`, ...(node.children ? serializeMenus(node.children, currentPath) : [])]
-  })
+    const currentPath = prefix ? `${prefix} / ${node.label}` : node.label;
+    const meta = `${node.path ?? "未配置路径"} | ${node.visible === false ? "hidden" : "visible"}`;
+    return [
+      `${currentPath} [${meta}]`,
+      ...(node.children ? serializeMenus(node.children, currentPath) : [])
+    ];
+  });
 }
 
-const currentSnapshot = computed(() => serializeMenus(data.value))
+const currentSnapshot = computed(() => serializeMenus(data.value));
 const hasDirtyChanges = computed(
   () => JSON.stringify(currentSnapshot.value) !== JSON.stringify(savedSnapshot.value)
-)
+);
 
 async function handleContextMenu(event: Event, data: MenuNode) {
-  const mouseEvent = event as MouseEvent
+  const mouseEvent = event as MouseEvent;
 
-  activeNode.value = data
-  menuVisible.value = true
+  activeNode.value = data;
+  menuVisible.value = true;
   menuPosition.value = {
     x: mouseEvent.clientX,
     y: mouseEvent.clientY
-  }
+  };
+  lastOpenAt = performance.now();
 
-  await nextTick()
+  await nextTick();
 
-  const menu = menuRef.value
+  const menu = menuRef.value;
 
   if (!menu) {
-    return
+    return;
   }
 
-  const menuRect = menu.getBoundingClientRect()
-  const maxX = window.innerWidth - menuRect.width - 12
-  const maxY = window.innerHeight - menuRect.height - 12
+  const menuRect = menu.getBoundingClientRect();
+  const maxX = window.innerWidth - menuRect.width - 12;
+  const maxY = window.innerHeight - menuRect.height - 12;
 
   menuPosition.value = {
     x: Math.max(12, Math.min(mouseEvent.clientX, maxX)),
     y: Math.max(12, Math.min(mouseEvent.clientY, maxY))
-  }
+  };
 }
 
 function handleGlobalPointer(event: MouseEvent) {
-  const target = event.target as Node | null
+  if (event.button !== 0) {
+    return;
+  }
+
+  const target = event.target as Node | null;
 
   if (menuVisible.value && menuRef.value && target && !menuRef.value.contains(target)) {
-    closeMenu()
+    closeMenu();
   }
 }
 
 function handleEscape(event: KeyboardEvent) {
   if (event.key === "Escape") {
-    closeMenu()
+    closeMenu();
   }
 }
 
+function handleGlobalScroll() {
+  if (!menuVisible.value) {
+    return;
+  }
+
+  // Ignore the synthetic scroll-into-view right after opening the menu.
+  if (performance.now() - lastOpenAt < 120) {
+    return;
+  }
+
+  closeMenu();
+}
+
 onMounted(() => {
-  window.addEventListener("click", handleGlobalPointer)
-  window.addEventListener("resize", closeMenu)
-  window.addEventListener("keydown", handleEscape)
-  window.addEventListener("scroll", closeMenu, true)
-})
+  window.addEventListener("click", handleGlobalPointer);
+  window.addEventListener("resize", closeMenu);
+  window.addEventListener("keydown", handleEscape);
+  window.addEventListener("scroll", handleGlobalScroll, true);
+});
 
 onBeforeUnmount(() => {
-  window.removeEventListener("click", handleGlobalPointer)
-  window.removeEventListener("resize", closeMenu)
-  window.removeEventListener("keydown", handleEscape)
-  window.removeEventListener("scroll", closeMenu, true)
-})
+  window.removeEventListener("click", handleGlobalPointer);
+  window.removeEventListener("resize", closeMenu);
+  window.removeEventListener("keydown", handleEscape);
+  window.removeEventListener("scroll", handleGlobalScroll, true);
+});
 
 function handleAction(item: { key: string; label: string }) {
   if (!activeNode.value) {
-    return
+    return;
   }
 
   if (item.key === "append") {
@@ -166,60 +212,60 @@ function handleAction(item: { key: string; label: string }) {
         visible: true
       },
       activeNode.value.id
-    )
-    message.value = `已在「${activeNode.value.label}」下新增子菜单`
+    );
+    message.value = `已在「${activeNode.value.label}」下新增子菜单`;
   } else if (item.key === "remove") {
-    removeOpen.value = true
+    removeOpen.value = true;
   } else if (item.key === "copy-path") {
-    const path = treeRef.value?.getNodePath(activeNode.value.id) ?? []
-    message.value = `路径：${path.map((node) => node.label).join(" / ")}`
+    const path = treeRef.value?.getNodePath(activeNode.value.id) ?? [];
+    message.value = `路径：${path.map((node) => node.label).join(" / ")}`;
   } else if (item.key === "rename") {
     draft.value = {
       label: activeNode.value.label,
       icon: activeNode.value.icon ?? "mdi:file-tree-outline",
       path: activeNode.value.path ?? "",
       visible: activeNode.value.visible !== false
-    }
-    editOpen.value = true
+    };
+    editOpen.value = true;
   } else {
-    message.value = `已触发操作：${item.label}（示例中不真正修改名称）`
+    message.value = `已触发操作：${item.label}（示例中不真正修改名称）`;
   }
 
-  closeMenu()
+  closeMenu();
 }
 
 function saveMenuConfig() {
   if (!activeNode.value || !draft.value.label.trim()) {
-    return
+    return;
   }
 
-  activeNode.value.label = draft.value.label.trim()
-  activeNode.value.icon = draft.value.icon.trim() || "mdi:file-tree-outline"
-  activeNode.value.path = draft.value.path.trim() || "/"
-  activeNode.value.visible = draft.value.visible
-  message.value = `已更新菜单：${activeNode.value.label}（${activeNode.value.path}）`
-  editOpen.value = false
+  activeNode.value.label = draft.value.label.trim();
+  activeNode.value.icon = draft.value.icon.trim() || "mdi:file-tree-outline";
+  activeNode.value.path = draft.value.path.trim() || "/";
+  activeNode.value.visible = draft.value.visible;
+  message.value = `已更新菜单：${activeNode.value.label}（${activeNode.value.path}）`;
+  editOpen.value = false;
 }
 
 function confirmRemove() {
   if (!activeNode.value) {
-    return
+    return;
   }
 
-  treeRef.value?.remove(activeNode.value)
-  message.value = `已删除菜单：${activeNode.value.label}`
-  removeOpen.value = false
+  treeRef.value?.remove(activeNode.value);
+  message.value = `已删除菜单：${activeNode.value.label}`;
+  removeOpen.value = false;
 }
 
 function saveOrder() {
-  savedSnapshot.value = [...currentSnapshot.value]
-  message.value = "已保存当前菜单排序快照。"
+  savedSnapshot.value = [...currentSnapshot.value];
+  message.value = "已保存当前菜单排序快照。";
 }
 
 function restoreInitialMenus() {
-  data.value = structuredClone(initialMenus)
-  savedSnapshot.value = serializeMenus(data.value)
-  message.value = "已恢复初始菜单结构。"
+  data.value = structuredClone(initialMenus);
+  savedSnapshot.value = serializeMenus(data.value);
+  message.value = "已恢复初始菜单结构。";
 }
 
 function handleDrop(
@@ -229,7 +275,7 @@ function handleDrop(
   _event: DragEvent,
   detail: { oldIndex: number; newIndex: number }
 ) {
-  message.value = `${draggingNode.label} -> ${dropNode.label} (${dropType})，${detail.oldIndex} → ${detail.newIndex}`
+  message.value = `${draggingNode.label} -> ${dropNode.label} (${dropType})，${detail.oldIndex} → ${detail.newIndex}`;
 }
 
 function allowDrop(
@@ -238,14 +284,14 @@ function allowDrop(
   type: "prev" | "inner" | "next"
 ) {
   if (draggingNode.key === 3) {
-    return type !== "inner"
+    return type !== "inner";
   }
 
   if (dropNode.key === 3) {
-    return type === "next"
+    return type === "next";
   }
 
-  return true
+  return true;
 }
 </script>
 
@@ -264,18 +310,26 @@ function allowDrop(
     <div class="demo-tree-menu-editor__grid">
       <section class="demo-tree-menu-editor__panel">
         <xy-text size="sm" type="info">当前菜单结构</xy-text>
-        <pre>{{ currentSnapshot.join("\n") }}</pre>
+        <pre class="demo-tree-menu-editor__preview">{{ currentSnapshot.join("\n") }}</pre>
       </section>
 
       <section class="demo-tree-menu-editor__panel">
         <xy-text size="sm" type="info">已保存排序快照</xy-text>
-        <pre>{{ savedSnapshot.join("\n") }}</pre>
+        <pre class="demo-tree-menu-editor__preview">{{ savedSnapshot.join("\n") }}</pre>
       </section>
     </div>
 
     <div class="xy-doc-field">
-      <xy-tree ref="treeRef" :data="data" node-key="id" draggable default-expand-all :allow-drop="allowDrop"
-        @node-contextmenu="handleContextMenu" @node-drop="handleDrop">
+      <xy-tree
+        ref="treeRef"
+        :data="data"
+        node-key="id"
+        draggable
+        default-expand-all
+        :allow-drop="allowDrop"
+        @node-contextmenu="handleContextMenu"
+        @node-drop="handleDrop"
+      >
         <template #default="{ data: node }">
           <div class="demo-tree-menu-editor__node">
             <xy-space>
@@ -291,17 +345,31 @@ function allowDrop(
       </xy-tree>
     </div>
 
-    <div v-if="menuVisible" ref="menuRef" class="demo-tree-menu-editor__menu" :style="{
-      left: `${menuPosition.x}px`,
-      top: `${menuPosition.y}px`
-    }" role="menu" aria-label="菜单节点快捷操作">
+    <div
+      v-if="menuVisible"
+      ref="menuRef"
+      class="demo-tree-menu-editor__menu"
+      :style="{
+        left: `${menuPosition.x}px`,
+        top: `${menuPosition.y}px`
+      }"
+      role="menu"
+      aria-label="菜单节点快捷操作"
+    >
       <div class="demo-tree-menu-editor__header">
         <xy-text size="sm" type="info">当前菜单</xy-text>
-        <strong>{{ activeNode?.label }}</strong>
+        <strong class="demo-tree-menu-editor__header-title">{{ activeNode?.label }}</strong>
       </div>
 
-      <button v-for="item in menuItems" :key="item.key" type="button" class="demo-tree-menu-editor__item"
-        :class="{ 'is-danger': item.danger }" role="menuitem" @click="handleAction(item)">
+      <button
+        v-for="item in menuItems"
+        :key="item.key"
+        type="button"
+        class="demo-tree-menu-editor__item"
+        :class="{ 'is-danger': item.danger }"
+        role="menuitem"
+        @click="handleAction(item)"
+      >
         {{ item.label }}
       </button>
     </div>
@@ -370,12 +438,12 @@ function allowDrop(
   gap: 8px;
   min-height: 100%;
   padding: 16px 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, white);
 }
 
-.demo-tree-menu-editor__panel pre {
+.demo-tree-menu-editor__preview {
   margin: 0;
   color: var(--xy-text-color-secondary);
   font-size: 12px;
@@ -389,11 +457,10 @@ function allowDrop(
   display: grid;
   min-width: 208px;
   padding: 10px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color) 96%, white);
+  background: var(--xy-surface-raised);
   box-shadow: var(--xy-shadow-md);
-  backdrop-filter: blur(10px);
   gap: 6px;
 }
 
@@ -401,11 +468,11 @@ function allowDrop(
   display: grid;
   gap: 2px;
   padding: 4px 6px 8px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-bottom: 1px solid var(--xy-border-color-subtle);
 }
 
-.demo-tree-menu-editor__header strong {
-  color: var(--xy-text-color);
+.demo-tree-menu-editor__header-title {
+  color: var(--xy-text-color-heading);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
@@ -430,12 +497,12 @@ function allowDrop(
 }
 
 .demo-tree-menu-editor__item:hover {
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-bg-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 70%, white);
   color: var(--xy-color-primary);
 }
 
 .demo-tree-menu-editor__item.is-danger:hover {
-  background: color-mix(in srgb, var(--xy-color-danger) 10%, var(--xy-bg-color));
+  background: color-mix(in srgb, var(--xy-color-danger-soft) 70%, white);
   color: var(--xy-color-danger);
 }
 

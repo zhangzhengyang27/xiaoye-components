@@ -11,8 +11,5 @@
     "../packages/**/*.vue",
     "../scripts/**/*.ts",
     "../vite.config.ts"
-  ],
-  "exclude": [
-    "../packages/**/__tests__/**/*"
   ]
 }

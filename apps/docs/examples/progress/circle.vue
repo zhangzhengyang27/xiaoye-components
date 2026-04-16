@@ -36,14 +36,15 @@ const kpiCards = [
     <xy-card
       v-for="item in kpiCards"
       :key="item.title"
+      class="progress-kpi-grid__card"
       bordered
       shadow="hover"
-      body-class="progress-kpi-grid__body"
+      body-class="demo-progress-circle__body"
     >
       <div class="progress-kpi-grid__head">
         <div>
           <strong>{{ item.title }}</strong>
-          <p>{{ item.subtitle }}</p>
+          <p class="progress-kpi-grid__subtitle">{{ item.subtitle }}</p>
         </div>
         <xy-tag status="neutral" round>{{ item.tag }}</xy-tag>
       </div>
@@ -72,7 +73,7 @@ const kpiCards = [
   gap: 16px;
 }
 
-.progress-kpi-grid :deep(.progress-kpi-grid__body) {
+:global(.demo-progress-circle__body) {
   display: grid;
   justify-items: center;
   gap: 16px;
@@ -80,7 +81,7 @@ const kpiCards = [
   padding-bottom: 20px;
 }
 
-.progress-kpi-grid :deep(.xy-card) {
+.progress-kpi-grid__card {
   height: 100%;
 }
 
@@ -92,7 +93,7 @@ const kpiCards = [
   gap: 12px;
 }
 
-.progress-kpi-grid__head p {
+.progress-kpi-grid__subtitle {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 12px;

@@ -19,6 +19,7 @@ export interface DialogContentProps {
   bodyMaxHeight?: string | number;
   loading?: boolean;
   loadingText?: string;
+  panelClass?: string;
   loadingSpinner?: string;
   loadingSvg?: string;
   loadingSvgViewBox?: string;
@@ -52,6 +53,7 @@ export const dialogContentPropsDefaults = {
   bodyMaxHeight: undefined,
   loading: false,
   loadingText: "",
+  panelClass: "",
   loadingSpinner: "",
   loadingSvg: "",
   loadingSvgViewBox: "0 0 50 50",

@@ -224,8 +224,10 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
   <div class="scheduler-template">
     <div class="scheduler-template__panel">
       <xy-tag status="primary">接口数据</xy-tag>
-      <p>左侧保留业务原始行数据，右侧 `xy-scheduler` 只消费映射后的 `events`。</p>
-      <pre>{{ rowPreview }}</pre>
+      <p class="scheduler-template__panel-description">
+        左侧保留业务原始行数据，右侧 `xy-scheduler` 只消费映射后的 `events`。
+      </p>
+      <pre class="scheduler-template__panel-preview">{{ rowPreview }}</pre>
     </div>
 
     <div class="scheduler-template__calendar">
@@ -242,10 +244,12 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
 
     <div class="scheduler-template__panel">
       <xy-tag status="success">映射后 events</xy-tag>
-      <p>这里展示传给 `xy-scheduler` 的事件数组，以及最近一次准备提交的 payload。</p>
-      <pre>{{ eventPreview }}</pre>
+      <p class="scheduler-template__panel-description">
+        这里展示传给 `xy-scheduler` 的事件数组，以及最近一次准备提交的 payload。
+      </p>
+      <pre class="scheduler-template__panel-preview">{{ eventPreview }}</pre>
       <xy-tag status="warning">{{ latestAction }}</xy-tag>
-      <pre>{{ lastPersistPayload }}</pre>
+      <pre class="scheduler-template__panel-preview">{{ lastPersistPayload }}</pre>
     </div>
 
     <xy-drawer v-model="editorOpen" title="业务编辑面板" placement="right" :size="420">
@@ -262,19 +266,21 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
           placeholder="事件分类"
         />
         <div class="scheduler-template__switch-row">
-          <strong>全天事件</strong>
+          <strong class="scheduler-template__switch-title">全天事件</strong>
           <xy-switch v-model="editorDraft.isAllDay" />
         </div>
-        <label>
+        <label class="scheduler-template__field">
           <span>开始时间</span>
           <input
+            class="scheduler-template__field-input"
             v-model="editorDraft.startAt"
             :type="editorDraft.isAllDay ? 'date' : 'datetime-local'"
           />
         </label>
-        <label>
+        <label class="scheduler-template__field">
           <span>结束时间</span>
           <input
+            class="scheduler-template__field-input"
             v-model="editorDraft.endAt"
             :type="editorDraft.isAllDay ? 'date' : 'datetime-local'"
           />
@@ -302,23 +308,25 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
 .scheduler-template__panel,
 .scheduler-template__calendar {
   padding: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 20px;
-  background: #fff;
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
 }
 
-.scheduler-template__panel p {
+.scheduler-template__panel-description {
   margin: 8px 0 12px;
-  color: #64748b;
+  color: var(--xy-text-color-secondary);
 }
 
-.scheduler-template__panel pre {
+.scheduler-template__panel-preview {
   overflow: auto;
   margin: 12px 0 0;
   padding: 12px;
   border-radius: 14px;
-  background: #0f172a;
-  color: #e2e8f0;
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  color: var(--xy-text-color);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -330,22 +338,24 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
 }
 
 .scheduler-template__switch-row,
-.scheduler-template__drawer label {
+.scheduler-template__field {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.scheduler-template__drawer label span,
-.scheduler-template__switch-row strong {
-  color: #1e293b;
+.scheduler-template__field span,
+.scheduler-template__switch-title {
+  color: var(--xy-text-color-heading);
   font-weight: 600;
 }
 
-.scheduler-template__drawer input {
+.scheduler-template__field-input {
   min-height: 40px;
   padding: 0 12px;
-  border: 1px solid rgba(148, 163, 184, 0.32);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 12px;
+  background: var(--xy-surface-raised);
+  color: var(--xy-text-color);
 }
 </style>

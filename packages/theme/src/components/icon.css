@@ -2,7 +2,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
   line-height: 1;
+  vertical-align: -0.125em;
+  transition:
+    color 0.18s ease,
+    opacity 0.18s ease,
+    transform 0.18s ease;
 }
 
 .xy-icon > * {
@@ -10,5 +17,6 @@
 }
 
 .xy-icon.is-spin > * {
-  animation: xy-spin 1s linear infinite;
+  transform-origin: center;
+  animation: xy-spin 0.9s linear infinite;
 }

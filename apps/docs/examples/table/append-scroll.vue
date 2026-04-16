@@ -56,7 +56,7 @@ function handleScroll(payload: { scrollLeft: number; scrollTop: number }) {
         scrollbar-always-on
         @scroll="handleScroll"
       >
-        <xy-table-column fixed="left" prop="name" label="模块名称" min-width="220" />
+        <xy-table-column prop="name" label="模块名称" min-width="220" />
         <xy-table-column prop="owner" label="负责人" min-width="160" />
         <xy-table-column prop="status" label="状态" min-width="160">
           <template #default="{ value }">

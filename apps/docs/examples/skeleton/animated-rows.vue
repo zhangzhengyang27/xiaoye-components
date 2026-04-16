@@ -17,7 +17,7 @@
           <xy-tag status="warning" round>count = 2</xy-tag>
         </div>
       </template>
-      <xy-skeleton animated :count="2" :rows="2">
+      <xy-skeleton class="demo-skeleton-repeat__skeleton" animated :count="2" :rows="2">
         <template #template>
           <div class="demo-skeleton-repeat__item">
             <xy-skeleton-item variant="h3" style="width: 48%;" />
@@ -44,13 +44,13 @@
   gap: 12px;
 }
 
+.demo-skeleton-repeat__skeleton {
+  display: grid;
+  gap: 14px;
+}
+
 .demo-skeleton-repeat__item {
   display: grid;
   gap: 12px;
-  margin-bottom: 14px;
-}
-
-.demo-skeleton-repeat__item:last-child {
-  margin-bottom: 0;
 }
 </style>

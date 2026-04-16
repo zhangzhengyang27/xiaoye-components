@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const loading = ref(false);
+const loading = ref(true);
 const showEmpty = ref(false);
 const rows = [
   { id: 1, name: "Billing Console", owner: "Xiaoye" },

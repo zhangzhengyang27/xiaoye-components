@@ -1,8 +1,11 @@
 .xy-space {
   display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 .xy-space--vertical {
   flex-direction: column;
+  align-items: flex-start;
 }
-

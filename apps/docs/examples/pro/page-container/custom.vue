@@ -12,7 +12,7 @@ const loading = ref(false);
       </xy-button>
     </xy-space>
 
-    <xy-page-container :loading="loading" body-class="xy-pro-demo-page-container-body">
+    <xy-page-container :loading="loading" body-class="demo-pro-page-container-custom__body">
       <template #header>
         <xy-card>
           <xy-space direction="vertical" size="xs" fill>

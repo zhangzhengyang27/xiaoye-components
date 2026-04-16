@@ -82,7 +82,7 @@ const quotaCards: QuotaCard[] = [
           <span class="statistic-quota-grid__prefix">≈</span>
         </template>
       </xy-statistic>
-      <p>{{ item.hint }}</p>
+      <p class="statistic-quota-grid__hint">{{ item.hint }}</p>
     </xy-card>
   </div>
 </template>
@@ -94,7 +94,7 @@ const quotaCards: QuotaCard[] = [
   gap: 16px;
 }
 
-.statistic-quota-grid__card p {
+.statistic-quota-grid__hint {
   margin: 12px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

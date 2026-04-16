@@ -16,12 +16,18 @@ interface Row {
   owner: string;
   score: number;
   status: "启用" | "停用";
+  meta?: {
+    identity?: {
+      id?: number;
+    };
+  };
   hasChildren?: boolean;
   children?: Row[];
 }
 
 const tableRef = ref<TableInstance<Row> | null>(null);
 
+tableRef.value?.columns.map((column) => column.uid);
 tableRef.value?.clearSelection();
 tableRef.value?.toggleAllSelection();
 tableRef.value?.toggleRowSelection({ id: 1, name: "控制台", owner: "小叶", score: 96, status: "启用" }, true);
@@ -77,20 +83,21 @@ const tableProps: TableProps<Row> = {
   showSummary: true,
   sumText: "总览",
   summaryMethod: ({ columns, data }) => columns.map((column, index) => (index === 0 ? "总览" : data.length)),
-  rowClassName: (row) => row.owner,
-  rowStyle: (row) => ({
+  rowClassName: ({ row }) => row.owner,
+  rowStyle: ({ row }) => ({
     color: row.status === "启用" ? "var(--xy-color-success)" : "var(--xy-text-color)"
   }),
   cellClassName: ({ column }) => column.key,
   cellStyle: ({ column }) => ({
     textAlign: column.align
   }),
-  headerRowClassName: (rowIndex) => `header-row-${rowIndex}`,
-  headerRowStyle: () => ({
+  headerRowClassName: ({ rowIndex }) => `header-row-${rowIndex}`,
+  headerRowStyle: ({ row }) => ({
+    minWidth: `${row.length * 10}px`,
     background: "var(--xy-bg-color-muted)"
   }),
-  headerCellClassName: (column) => column.uid,
-  headerCellStyle: (column) => ({
+  headerCellClassName: ({ column }) => column.uid,
+  headerCellStyle: ({ column }) => ({
     textAlign: column.headerAlign
   }),
   defaultSort: {
@@ -114,6 +121,8 @@ const tableProps: TableProps<Row> = {
   tableLayout: "auto",
   scrollbarAlwaysOn: true,
   scrollbarTabindex: 0,
+  flexible: true,
+  nativeScrollbar: true,
   showOverflowTooltip: {
     placement: "bottom",
     showArrow: false
@@ -124,6 +133,9 @@ const tableProps: TableProps<Row> = {
   appendFilterPanelTo: "#table-filter-root",
   allowDragLastColumn: false,
   preserveExpandedContent: true,
+  ariaLabel: "资产列表",
+  ariaLabelledby: "table-title",
+  ariaDescribedby: "table-help",
   className: "table-root",
   style: {
     minWidth: "720px"
@@ -144,8 +156,27 @@ const compatProps: TableProps<Row> = {
   }
 };
 
+const nestedRowKeyProps: TableProps<Row> = {
+  data: [
+    {
+      id: 1,
+      name: "控制台",
+      owner: "小叶",
+      score: 96,
+      status: "启用",
+      meta: {
+        identity: {
+          id: 101
+        }
+      }
+    }
+  ],
+  rowKey: "meta.identity.id"
+};
+
 void tableProps;
 void compatProps;
+void nestedRowKeyProps;
 
 const selectionColumn: TableColumnProps<Row> = {
   type: "selection",
@@ -172,10 +203,16 @@ const expandColumn: TableColumnProps<Row> = {
 const nameColumn: TableColumnProps<Row> = {
   prop: "name",
   label: "名称",
+  renderHeader: ({ column }) => h("strong", `表头-${column.label}`),
   sortable: true,
   showOverflowTooltip: true,
   tooltipFormatter: ({ cellValue }) => `名称-${String(cellValue ?? "")}`,
   resizable: true
+};
+
+const legacyPropertyColumn: TableColumnProps<Row> = {
+  property: "owner",
+  label: "负责人别名列"
 };
 
 const statusColumn: TableColumnProps<Row> = {
@@ -196,6 +233,7 @@ void selectionColumn;
 void indexColumn;
 void expandColumn;
 void nameColumn;
+void legacyPropertyColumn;
 void statusColumn;
 
 const sortOrder: TableSortOrder = "ascending";
@@ -240,12 +278,36 @@ const vnode = h(
           ]
         } as never,
         {
-          default: ({ value }: { value: Row["status"] }) => value
+          default: ({ value }: { value: Row["status"] }) => value,
+          "filter-icon": ({ filterOpened }: { filterOpened: boolean }) =>
+            filterOpened ? "open" : "closed"
         }
       )
     ]
   }
 );
+
+const expandVNode = h(
+  XyTable,
+  {
+    data: [{ id: 1, name: "控制台", owner: "小叶", score: 96, status: "启用" }],
+    rowKey: "id"
+  },
+  {
+    default: () => [
+      h(
+        XyTableColumn as never,
+        { type: "expand" } as never,
+        {
+          expand: ({ row, expanded, expandable }: { row: Row; expanded: boolean; expandable: boolean }) =>
+            `${row.name}-${expanded}-${expandable}`
+        }
+      )
+    ]
+  }
+);
+
+void expandVNode;
 
 void vnode;
 

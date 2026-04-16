@@ -3,7 +3,9 @@
     <xy-carousel-item v-for="item in 3" :key="`auto-${item}`">
       <div class="demo-carousel-auto" :class="`is-${item}`">
         <strong>自适应高度 {{ item }}</strong>
-        <p v-for="line in item" :key="line">当前 slide 会根据内容高度自动调整容器。</p>
+        <p v-for="line in item" :key="line" class="demo-carousel-auto__description">
+          当前 slide 会根据内容高度自动调整容器。
+        </p>
       </div>
     </xy-carousel-item>
   </xy-carousel>
@@ -19,7 +21,7 @@
   background: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
 }
 
-.demo-carousel-auto p {
+.demo-carousel-auto__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
 }

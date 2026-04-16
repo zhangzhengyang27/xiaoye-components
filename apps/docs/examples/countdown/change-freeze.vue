@@ -85,7 +85,9 @@ function handleFinish() {
       <div class="countdown-freeze-panel__header">
         <div>
           <strong>发布冻结窗口</strong>
-          <p>把“何时开始冻结、何时恢复变更”统一收进同一块发布看板里。</p>
+          <p class="countdown-freeze-panel__header-description">
+            把“何时开始冻结、何时恢复变更”统一收进同一块发布看板里。
+          </p>
         </div>
         <xy-tag :status="currentTag.status" round>{{ currentTag.text }}</xy-tag>
       </div>
@@ -93,6 +95,7 @@ function handleFinish() {
 
     <div class="countdown-freeze-panel__body">
       <xy-countdown
+        class="countdown-freeze-panel__countdown"
         v-if="currentTarget"
         :key="stage"
         :value="currentTarget"
@@ -115,12 +118,12 @@ function handleFinish() {
       <div class="countdown-freeze-panel__aside">
         <div>
           <strong>当前策略</strong>
-          <p>{{ currentDescription }}</p>
+          <p class="countdown-freeze-panel__aside-description">{{ currentDescription }}</p>
         </div>
-        <ul>
-          <li>核心链路只允许紧急热修复申请</li>
-          <li>数据库变更统一切到下一批窗口</li>
-          <li>值班群内同步冻结状态和恢复时间</li>
+        <ul class="countdown-freeze-panel__aside-list">
+          <li class="countdown-freeze-panel__aside-item">核心链路只允许紧急热修复申请</li>
+          <li class="countdown-freeze-panel__aside-item">数据库变更统一切到下一批窗口</li>
+          <li class="countdown-freeze-panel__aside-item">值班群内同步冻结状态和恢复时间</li>
         </ul>
       </div>
     </div>
@@ -140,9 +143,9 @@ function handleFinish() {
   gap: 20px;
 }
 
-.countdown-freeze-panel__header p,
-.countdown-freeze-panel__aside p,
-.countdown-freeze-panel__aside li {
+.countdown-freeze-panel__header-description,
+.countdown-freeze-panel__aside-description,
+.countdown-freeze-panel__aside-item {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -153,7 +156,7 @@ function handleFinish() {
   margin-top: 4px;
 }
 
-.countdown-freeze-panel__body :deep(.xy-countdown) {
+.countdown-freeze-panel__countdown {
   flex: 0 0 280px;
 }
 
@@ -168,7 +171,7 @@ function handleFinish() {
   min-width: 0;
 }
 
-.countdown-freeze-panel__aside ul {
+.countdown-freeze-panel__aside-list {
   margin: 12px 0 0;
   padding-left: 18px;
 }
@@ -179,7 +182,7 @@ function handleFinish() {
     flex-direction: column;
   }
 
-  .countdown-freeze-panel__body :deep(.xy-countdown) {
+  .countdown-freeze-panel__countdown {
     flex-basis: auto;
   }
 }

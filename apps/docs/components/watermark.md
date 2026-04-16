@@ -120,6 +120,7 @@ watermark/fullscreen-target
 | `rerender` | 手动重新生成当前水印 | `() => void` |
 | `getDataUrl` | 获取最近一次成功生成的 base64 数据 | `() => string \| null` |
 | `getTarget` | 获取当前实际水印宿主元素 | `() => HTMLElement \| null` |
+| `removeWatermark` | 手动移除当前水印层，适合验证 `auto-observe` 的恢复行为 | `() => void` |
 
 ## 行为约定
 

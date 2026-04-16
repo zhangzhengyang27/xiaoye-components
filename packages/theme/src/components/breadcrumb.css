@@ -2,13 +2,16 @@
   --xy-breadcrumb-font-size: 14px;
   --xy-breadcrumb-line-height: 1.5;
   --xy-breadcrumb-color: var(--xy-text-color-secondary);
-  --xy-breadcrumb-link-color: color-mix(in srgb, var(--xy-color-primary) 92%, black);
-  --xy-breadcrumb-link-hover-color: var(--xy-color-primary);
-  --xy-breadcrumb-current-color: var(--xy-text-color);
+  --xy-breadcrumb-link-color: var(--xy-text-color-subtle);
+  --xy-breadcrumb-link-hover-color: var(--xy-text-color-heading);
+  --xy-breadcrumb-current-color: var(--xy-text-color-heading);
   --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-color-secondary) 76%, white);
   --xy-breadcrumb-separator-gap: 10px;
   --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-color-secondary) 68%, white);
 
+  display: inline-flex;
+  max-width: 100%;
+  padding: 4px 0;
   font-size: var(--xy-breadcrumb-font-size);
   line-height: var(--xy-breadcrumb-line-height);
   color: var(--xy-breadcrumb-color);
@@ -41,18 +44,34 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
   display: inline-flex;
   align-items: center;
   min-width: 0;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--xy-radius-md);
   color: var(--xy-breadcrumb-color);
   text-decoration: none;
-  transition: color var(--xy-transition-duration) ease;
+  transition:
+    color var(--xy-transition-duration) ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .xy-breadcrumb__inner.is-link {
   color: var(--xy-breadcrumb-link-color);
-  font-weight: 600;
+  font-weight: 560;
 }
 
 .xy-breadcrumb__inner.is-link:hover {
   color: var(--xy-breadcrumb-link-hover-color);
+  background: var(--xy-bg-color-subtle);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+}
+
+.xy-breadcrumb__inner.is-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline-offset: 2px;
+  border-radius: var(--xy-radius-xs);
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-breadcrumb__inner[role="link"]:hover,
@@ -77,12 +96,16 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
 .xy-breadcrumb__item.is-current .xy-breadcrumb__inner,
 .xy-breadcrumb__item.is-current .xy-breadcrumb__inner:hover {
   color: var(--xy-breadcrumb-current-color);
-  font-weight: 500;
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-surface-raised));
+  border-color: var(--xy-border-color-subtle);
+  font-weight: 560;
   cursor: default;
 }
 
 .xy-breadcrumb__item.is-disabled .xy-breadcrumb__inner,
 .xy-breadcrumb__item.is-disabled .xy-breadcrumb__inner:hover {
   color: var(--xy-breadcrumb-disabled-color);
+  background: transparent;
+  border-color: transparent;
   cursor: not-allowed;
 }

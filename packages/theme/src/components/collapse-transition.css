@@ -1,4 +1,13 @@
 .xy-collapse-transition-enter-active,
 .xy-collapse-transition-leave-active {
-  transition: max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease,
+    transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.xy-collapse-transition-enter-from,
+.xy-collapse-transition-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }

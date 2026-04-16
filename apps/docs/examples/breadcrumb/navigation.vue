@@ -28,7 +28,9 @@
         <xy-breadcrumb-item>详情页</xy-breadcrumb-item>
       </xy-breadcrumb>
 
-      <p>文档站没有注入 `$router`，所以 `to` 这里只保留路径配置语义；接入业务项目后会优先走 `router.push / router.replace`。</p>
+      <p class="breadcrumb-navigation-grid__description">
+        文档站没有注入 `$router`，所以 `to` 这里只保留路径配置语义；接入业务项目后会优先走 `router.push / router.replace`。
+      </p>
     </xy-card>
   </div>
 </template>
@@ -39,7 +41,7 @@
   gap: 16px;
 }
 
-.breadcrumb-navigation-grid p {
+.breadcrumb-navigation-grid__description {
   margin: 14px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

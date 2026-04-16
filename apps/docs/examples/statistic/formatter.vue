@@ -20,7 +20,7 @@ function compactFormatter(value: number | string) {
   <div class="statistic-scene">
     <xy-card class="statistic-scene__main" shadow="always">
       <xy-statistic :value="12604580.36" prefix="¥" suffix="/ 月" :precision="2" title="月度经常性收入" />
-      <p>金额类指标保留两位小数，并通过前后缀补齐业务语义。</p>
+      <p class="statistic-scene__note">金额类指标保留两位小数，并通过前后缀补齐业务语义。</p>
     </xy-card>
 
     <xy-card class="statistic-scene__main" shadow="hover" variant="muted">
@@ -38,7 +38,7 @@ function compactFormatter(value: number | string) {
           <span class="statistic-scene__suffix">人</span>
         </template>
       </xy-statistic>
-      <p>当默认千分位不够贴近业务时，可以直接用 formatter 和插槽重组展示结构。</p>
+      <p class="statistic-scene__note">当默认千分位不够贴近业务时，可以直接用 formatter 和插槽重组展示结构。</p>
     </xy-card>
   </div>
 </template>
@@ -49,7 +49,7 @@ function compactFormatter(value: number | string) {
   gap: 16px;
 }
 
-.statistic-scene__main p {
+.statistic-scene__note {
   margin: 12px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

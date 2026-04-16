@@ -3,8 +3,10 @@
     <section class="demo-menu-vertical__shell">
       <header class="demo-menu-vertical__header">
         <div class="demo-menu-vertical__title">
-          <strong>策略侧栏导航</strong>
-          <p>把纵向菜单放进一个更完整的工作区骨架里，左侧负责导航切换，右侧负责承接当前模块的摘要和操作。</p>
+          <strong class="demo-menu-vertical__title-text">策略侧栏导航</strong>
+          <p class="demo-menu-vertical__description">
+            把纵向菜单放进一个更完整的工作区骨架里，左侧负责导航切换，右侧负责承接当前模块的摘要和操作。
+          </p>
         </div>
 
         <xy-space wrap>
@@ -15,10 +17,7 @@
 
       <div class="demo-menu-vertical__workspace">
         <div class="demo-menu-vertical__sidebar">
-          <xy-menu
-            default-active="analysis-overview"
-            :default-openeds="['analysis', 'system']"
-          >
+          <xy-menu default-active="analysis-overview" :default-openeds="['analysis', 'system']">
             <xy-sub-menu index="analysis">
               <template #title>
                 <xy-icon icon="mdi:chart-box-outline" />
@@ -58,8 +57,10 @@
             <div class="demo-menu-vertical__spotlight-head">
               <div class="demo-menu-vertical__spotlight-copy">
                 <span class="demo-menu-vertical__kicker">Current Module</span>
-                <h4>分析中心 / 概览</h4>
-                <p>这里模拟侧栏右侧的主工作区，用来承接当前激活模块的摘要、关键指标和下一步动作。</p>
+                <h4 class="demo-menu-vertical__spotlight-title">分析中心 / 概览</h4>
+                <p class="demo-menu-vertical__spotlight-description">
+                  这里模拟侧栏右侧的主工作区，用来承接当前激活模块的摘要、关键指标和下一步动作。
+                </p>
               </div>
 
               <xy-space wrap>
@@ -71,15 +72,15 @@
             <div class="demo-menu-vertical__summary">
               <div class="demo-menu-vertical__summary-item">
                 <span>待跟进策略</span>
-                <strong>18 项</strong>
+                <strong class="demo-menu-vertical__summary-value">18 项</strong>
               </div>
               <div class="demo-menu-vertical__summary-item">
                 <span>数据刷新频率</span>
-                <strong>30 秒</strong>
+                <strong class="demo-menu-vertical__summary-value">30 秒</strong>
               </div>
               <div class="demo-menu-vertical__summary-item">
                 <span>告警 SLA</span>
-                <strong>99.95%</strong>
+                <strong class="demo-menu-vertical__summary-value">99.95%</strong>
               </div>
             </div>
           </xy-card>
@@ -87,16 +88,16 @@
           <div class="demo-menu-vertical__grid">
             <xy-card class="demo-menu-vertical__metric" shadow="hover">
               <span class="demo-menu-vertical__metric-kicker">噪音同比</span>
-              <h5>今日告警压降</h5>
-              <strong>32%</strong>
-              <p>与昨日同口径相比，异常噪音持续下降。</p>
+              <h5 class="demo-menu-vertical__metric-title">今日告警压降</h5>
+              <strong class="demo-menu-vertical__metric-value">32%</strong>
+              <p class="demo-menu-vertical__metric-description">与昨日同口径相比，异常噪音持续下降。</p>
             </xy-card>
 
             <xy-card class="demo-menu-vertical__metric" shadow="hover">
               <span class="demo-menu-vertical__metric-kicker">自动化效率</span>
-              <h5>规则自动命中</h5>
-              <strong>1,248</strong>
-              <p>自动化模块保持稳定，夜间批次已完成回灌。</p>
+              <h5 class="demo-menu-vertical__metric-title">规则自动命中</h5>
+              <strong class="demo-menu-vertical__metric-value">1,248</strong>
+              <p class="demo-menu-vertical__metric-description">自动化模块保持稳定，夜间批次已完成回灌。</p>
             </xy-card>
           </div>
         </div>
@@ -115,11 +116,14 @@
   flex-direction: column;
   gap: 18px;
   padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 8%, white), transparent 36%),
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color) 96%, white), var(--xy-bg-color));
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
+    var(--xy-surface-raised)
+  );
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-menu-vertical__header {
@@ -135,12 +139,12 @@
   gap: 6px;
 }
 
-.demo-menu-vertical__title strong {
+.demo-menu-vertical__title-text {
   color: var(--xy-text-color);
   font-size: 18px;
 }
 
-.demo-menu-vertical__title p {
+.demo-menu-vertical__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;
@@ -155,64 +159,51 @@
 
 .demo-menu-vertical__sidebar {
   padding: 8px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 86%, white);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-card);
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-menu--vertical) {
+:global(.demo-menu-vertical__sidebar .xy-menu--vertical) {
   gap: 4px;
   padding: 6px;
   border-radius: 18px;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-menu--vertical > li + li),
-.demo-menu-vertical__sidebar :deep(.xy-menu-item-group__list > li + li),
-.demo-menu-vertical__sidebar :deep(.xy-sub-menu__wrap > li + li) {
-  margin-top: 0;
-}
-
-.demo-menu-vertical__sidebar :deep(.xy-menu--vertical > .xy-menu-item),
-.demo-menu-vertical__sidebar :deep(.xy-menu--vertical > .xy-sub-menu > .xy-sub-menu__title) {
+:global(.demo-menu-vertical__sidebar .xy-menu--vertical > .xy-menu-item),
+:global(.demo-menu-vertical__sidebar .xy-menu--vertical > .xy-sub-menu > .xy-menu__item-surface) {
   min-height: 34px;
   padding: 5px 10px;
   border-radius: 11px;
   line-height: 1.2;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-menu-item:hover),
-.demo-menu-vertical__sidebar :deep(.xy-sub-menu__title:hover) {
-  background: color-mix(in srgb, var(--xy-color-primary) 7%, white);
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 14%, white),
-    0 8px 16px rgba(15, 23, 42, 0.05);
+:global(.demo-menu-vertical__sidebar .xy-menu-item:hover),
+:global(.demo-menu-vertical__sidebar .xy-sub-menu > .xy-menu__item-surface:hover) {
+  background: var(--xy-bg-color-subtle);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
   transform: none;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-menu-item.is-active),
-.demo-menu-vertical__sidebar :deep(.xy-sub-menu.is-active > .xy-sub-menu__title) {
-  color: color-mix(in srgb, var(--xy-color-primary) 90%, #1d4ed8);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--xy-color-primary) 11%, white),
-    color-mix(in srgb, var(--xy-color-primary) 6%, white)
-  );
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, white),
-    0 10px 20px rgba(37, 99, 235, 0.08);
+:global(.demo-menu-vertical__sidebar .xy-menu-item.is-active),
+:global(.demo-menu-vertical__sidebar .xy-sub-menu.is-active > .xy-menu__item-surface) {
+  color: var(--xy-color-primary);
+  background: var(--xy-color-primary-soft);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-menu-item__content),
-.demo-menu-vertical__sidebar :deep(.xy-sub-menu__title-content) {
+:global(.demo-menu-vertical__sidebar .xy-menu__item-content) {
   gap: 7px;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-menu-item-group) {
+:global(.demo-menu-vertical__sidebar .xy-menu-item-group) {
   margin: 4px 0;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-menu-item-group__title) {
+:global(.demo-menu-vertical__sidebar .xy-menu__group-title) {
   padding: 2px 10px 4px;
   color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, #64748b);
   font-size: 11px;
@@ -221,21 +212,21 @@
   line-height: 1.2;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-sub-menu__wrap) {
+:global(.demo-menu-vertical__sidebar .xy-menu__sub-list) {
   margin: 0;
   padding: 4px 0 4px 10px;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-sub-menu__wrap .xy-menu-item) {
+:global(.demo-menu-vertical__sidebar .xy-menu__sub-list > .xy-menu-item) {
   min-height: 34px;
   padding: 5px 10px;
   border-radius: 10px;
   line-height: 1.2;
 }
 
-.demo-menu-vertical__sidebar :deep(.xy-icon) {
+:global(.demo-menu-vertical__sidebar .xy-icon) {
   font-size: 17px;
-  color: color-mix(in srgb, var(--xy-color-primary) 88%, #2563eb);
+  color: color-mix(in srgb, var(--xy-color-primary) 88%, var(--xy-text-color));
 }
 
 .demo-menu-vertical__content {
@@ -271,13 +262,13 @@
   text-transform: uppercase;
 }
 
-.demo-menu-vertical__spotlight h4,
-.demo-menu-vertical__grid h5 {
+.demo-menu-vertical__spotlight-title,
+.demo-menu-vertical__metric-title {
   margin: 0;
 }
 
-.demo-menu-vertical__spotlight p,
-.demo-menu-vertical__grid p {
+.demo-menu-vertical__spotlight-description,
+.demo-menu-vertical__metric-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.65;
@@ -295,10 +286,13 @@
   flex-direction: column;
   gap: 6px;
   padding: 12px 14px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 86%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 16px;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color) 96%, white), color-mix(in srgb, var(--xy-bg-color-muted) 78%, white));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
+    var(--xy-surface-raised)
+  );
 }
 
 .demo-menu-vertical__summary-item span,
@@ -310,7 +304,7 @@
   text-transform: uppercase;
 }
 
-.demo-menu-vertical__summary-item strong {
+.demo-menu-vertical__summary-value {
   color: var(--xy-text-color);
   font-size: 20px;
   line-height: 1.1;
@@ -328,7 +322,7 @@
   gap: 8px;
 }
 
-.demo-menu-vertical__grid strong {
+.demo-menu-vertical__metric-value {
   display: block;
   color: var(--xy-text-color);
   font-size: 28px;

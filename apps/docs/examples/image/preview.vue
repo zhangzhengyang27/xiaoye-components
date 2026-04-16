@@ -2,25 +2,25 @@
 const images = [
   `data:image/svg+xml;utf8,${encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
-      <rect width="640" height="400" fill="#0f766e" />
-      <circle cx="180" cy="140" r="44" fill="#ecfeff" />
-      <path d="M60 320L184 156L304 256L420 138L578 320Z" fill="#ccfbf1" />
+      <rect width="640" height="400" fill="#dce7e1" />
+      <circle cx="180" cy="140" r="44" fill="#f7fbfa" />
+      <path d="M60 320L184 156L304 256L420 138L578 320Z" fill="#9fb8ae" />
     </svg>
   `)}`,
   `data:image/svg+xml;utf8,${encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
-      <rect width="640" height="400" fill="#1d4ed8" />
-      <rect x="72" y="72" width="496" height="256" rx="36" fill="#bfdbfe" />
-      <circle cx="196" cy="184" r="40" fill="#eff6ff" />
-      <path d="M112 296L210 198L314 270L430 160L528 296Z" fill="#2563eb" />
+      <rect width="640" height="400" fill="#dce6f5" />
+      <rect x="72" y="72" width="496" height="256" rx="36" fill="#eef3fb" />
+      <circle cx="196" cy="184" r="40" fill="#fbfcff" />
+      <path d="M112 296L210 198L314 270L430 160L528 296Z" fill="#8fa7cb" />
     </svg>
   `)}`,
   `data:image/svg+xml;utf8,${encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
-      <rect width="640" height="400" fill="#7c3aed" />
-      <rect x="88" y="88" width="464" height="224" rx="30" fill="#ddd6fe" />
-      <circle cx="220" cy="188" r="38" fill="#faf5ff" />
-      <path d="M132 292L226 206L328 272L438 176L510 292Z" fill="#8b5cf6" />
+      <rect width="640" height="400" fill="#e7e0f0" />
+      <rect x="88" y="88" width="464" height="224" rx="30" fill="#f3eef8" />
+      <circle cx="220" cy="188" r="38" fill="#fcfaff" />
+      <path d="M132 292L226 206L328 272L438 176L510 292Z" fill="#a690be" />
     </svg>
   `)}`
 ];

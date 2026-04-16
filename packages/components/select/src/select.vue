@@ -99,21 +99,6 @@ function isOptionGroup(option: SelectOptionItem<T>): option is SelectOptionGroup
   return Array.isArray((option as SelectOptionGroup<T>).options);
 }
 
-function normalizeSelectedValues(value: T | T[] | null | undefined) {
-  if (props.multiple) {
-    return Array.isArray(value) ? value : value == null ? [] : [value];
-  }
-
-  if (Array.isArray(value)) {
-    return value.length ? [value[0] as T] : [];
-  }
-
-  return value == null ? [] : [value];
-}
-
-const selectedValues = computed<T[]>(() => normalizeSelectedValues(selectedValue.value));
-const selectedValueSet = computed(() => new Set(selectedValues.value));
-
 const allOptions = computed(() => {
   const flattened: Array<Omit<FlatSelectOption<T>, "flatIndex">> = [];
 
@@ -142,6 +127,35 @@ const optionMap = computed(() => {
   });
   return map;
 });
+
+function isEmptySingleValue(value: T | null | undefined) {
+  return value == null || (value === "" && !optionMap.value.has(value as T));
+}
+
+function normalizeSelectedValues(value: T | T[] | null | undefined): T[] {
+  if (props.multiple) {
+    return Array.isArray(value) ? value : value == null ? [] : [value];
+  }
+
+  if (Array.isArray(value)) {
+    const [firstValue] = value;
+
+    if (firstValue === undefined || isEmptySingleValue(firstValue as T | null | undefined)) {
+      return [];
+    }
+
+    return [firstValue];
+  }
+
+  if (isEmptySingleValue(value)) {
+    return [];
+  }
+
+  return [value as T];
+}
+
+const selectedValues = computed<T[]>(() => normalizeSelectedValues(selectedValue.value));
+const selectedValueSet = computed(() => new Set(selectedValues.value));
 
 const createdOption = computed<Omit<FlatSelectOption<T>, "flatIndex"> | null>(() => {
   if (!props.allowCreate) {
@@ -313,7 +327,9 @@ function optionSelected(option: Pick<FlatSelectOption<T>, "value">) {
 }
 
 function syncActiveIndex() {
-  const selectedIndex = filteredOptions.value.findIndex((item) => optionSelected(item) && !item.disabled);
+  const selectedIndex = filteredOptions.value.findIndex(
+    (item) => optionSelected(item) && !item.disabled
+  );
 
   if (selectedIndex >= 0) {
     navigation.setActiveIndex(selectedIndex);
@@ -632,13 +648,12 @@ defineExpose({
       </span>
 
       <template v-if="props.multiple">
-        <div class="xy-select__tags" :class="selectedOptions.length ? 'is-selected' : 'is-placeholder'">
+        <div
+          class="xy-select__tags"
+          :class="selectedOptions.length ? 'is-selected' : 'is-placeholder'"
+        >
           <template v-if="selectedOptions.length">
-            <span
-              v-for="option in visibleTags"
-              :key="`${option.value}`"
-              class="xy-select__tag"
-            >
+            <span v-for="option in visibleTags" :key="`${option.value}`" class="xy-select__tag">
               <span>{{ option.label }}</span>
               <button
                 v-if="!selectDisabled"
@@ -665,7 +680,7 @@ defineExpose({
         {{ displayLabel }}
       </span>
 
-      <span class="xy-select__actions">
+      <span class="xy-select__actions" :class="{ 'has-clear': props.clearable && selectedValues.length && !selectDisabled }">
         <button
           v-if="props.clearable && selectedValues.length && !selectDisabled"
           type="button"
@@ -764,7 +779,9 @@ defineExpose({
                     :selected="optionSelected(option)"
                     :active="navigation.activeIndex.value === option.flatIndex"
                   >
-                    <span>{{ option.created ? `${props.createText} "${option.label}"` : option.label }}</span>
+                    <span>{{
+                      option.created ? `${props.createText} "${option.label}"` : option.label
+                    }}</span>
                     <small v-if="option.description">{{ option.description }}</small>
                   </slot>
                 </button>

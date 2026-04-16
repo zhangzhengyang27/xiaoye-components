@@ -3,11 +3,11 @@
   align-items: center;
   gap: 0;
   padding: 0 9px;
-  border-radius: 4px;
+  border-radius: var(--xy-radius-xs);
   min-height: 28px;
   font-size: var(--xy-font-size-sm);
-  background: var(--xy-bg-color-muted);
-  color: var(--xy-text-color-secondary);
+  background: var(--xy-bg-color-subtle);
+  color: var(--xy-text-color-subtle);
   line-height: 1;
   white-space: nowrap;
 }
@@ -41,22 +41,22 @@
 
 .xy-tag--primary {
   color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  background: var(--xy-color-primary-soft);
 }
 
 .xy-tag--success {
   color: var(--xy-color-success);
-  background: color-mix(in srgb, var(--xy-color-success) 12%, white);
+  background: var(--xy-color-success-soft);
 }
 
 .xy-tag--warning {
   color: var(--xy-color-warning);
-  background: color-mix(in srgb, var(--xy-color-warning) 14%, white);
+  background: var(--xy-color-warning-soft);
 }
 
 .xy-tag--danger {
   color: var(--xy-color-danger);
-  background: color-mix(in srgb, var(--xy-color-danger) 12%, white);
+  background: var(--xy-color-danger-soft);
 }
 
 .xy-tag__content {
@@ -110,8 +110,9 @@
 }
 
 .xy-tag__close:focus-visible {
-  outline: 2px solid color-mix(in srgb, currentColor 32%, white);
+  outline: 2px solid color-mix(in srgb, currentColor 24%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-tag.is-closable {

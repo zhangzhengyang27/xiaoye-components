@@ -33,8 +33,9 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
   min-height: 40px;
+  font-weight: 520;
 }
 
 .xy-form-item__required {
@@ -50,7 +51,7 @@
 .xy-form-item__message {
   margin: 8px 0 0;
   font-size: var(--xy-font-size-sm);
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
   line-height: 1.5;
 }
 

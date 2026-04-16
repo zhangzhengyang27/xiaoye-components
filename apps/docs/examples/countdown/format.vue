@@ -38,7 +38,7 @@ function handleChange(value: number) {
         format="HH:mm:ss:SSS"
         @change="handleChange"
       />
-      <p>最近一次 change 回调还剩 {{ lastSeconds }} 秒。</p>
+      <p class="countdown-format-grid__note">最近一次 change 回调还剩 {{ lastSeconds }} 秒。</p>
     </xy-card>
   </div>
 </template>
@@ -50,7 +50,7 @@ function handleChange(value: number) {
   gap: 16px;
 }
 
-.countdown-format-grid p {
+.countdown-format-grid__note {
   margin: 12px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

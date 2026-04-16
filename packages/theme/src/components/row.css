@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   position: relative;
   box-sizing: border-box;
+  min-width: 0;
 }
 
 .xy-row.is-justify-center {

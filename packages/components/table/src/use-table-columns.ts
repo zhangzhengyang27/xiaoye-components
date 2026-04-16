@@ -3,9 +3,11 @@ import type { TableColumnRegistration, TableContext } from "./context";
 
 export function useTableColumns<T = Record<string, unknown>>() {
   const registrations = shallowRef<TableColumnRegistration<T>[]>([]);
+  const sortRegistrations = (items: TableColumnRegistration<T>[]) =>
+    items.slice().sort((left, right) => left.order.value - right.order.value);
 
   const registerColumn: TableContext<T>["registerColumn"] = (column) => {
-    registrations.value = [...registrations.value, column].sort((left, right) => left.order - right.order);
+    registrations.value = sortRegistrations([...registrations.value, column]);
   };
 
   const unregisterColumn: TableContext<T>["unregisterColumn"] = (uid) => {
@@ -13,10 +15,7 @@ export function useTableColumns<T = Record<string, unknown>>() {
   };
 
   const columns = computed(() =>
-    registrations.value
-      .slice()
-      .sort((left, right) => left.order - right.order)
-      .map((column) => column.descriptor.value)
+    sortRegistrations(registrations.value).map((column) => column.descriptor.value)
   );
 
   return {

@@ -38,26 +38,26 @@ const activeSummary = computed(() => {
       <xy-radio-group
         v-model="range"
         type="button"
-        fill="#1d4ed8"
-        text-color="#f8fafc"
+        fill="var(--xy-color-primary)"
+        text-color="var(--xy-color-white)"
         :options="options"
       />
 
       <div class="demo-radio-button__cards">
         <xy-card class="demo-radio-button__card demo-radio-button__card--primary" shadow="hover">
-          <span>{{ activeSummary.title }}</span>
-          <strong>{{ activeSummary.value }}</strong>
-          <p>{{ activeSummary.hint }}</p>
+          <span class="demo-radio-button__card-label">{{ activeSummary.title }}</span>
+          <strong class="demo-radio-button__card-value">{{ activeSummary.value }}</strong>
+          <p class="demo-radio-button__card-description">{{ activeSummary.hint }}</p>
         </xy-card>
         <xy-card class="demo-radio-button__card" shadow="hover">
-          <span>转化率</span>
-          <strong>18.2%</strong>
-          <p>切换范围后保持同一套指标口径。</p>
+          <span class="demo-radio-button__card-label">转化率</span>
+          <strong class="demo-radio-button__card-value">18.2%</strong>
+          <p class="demo-radio-button__card-description">切换范围后保持同一套指标口径。</p>
         </xy-card>
         <xy-card class="demo-radio-button__card" shadow="hover">
-          <span>活跃渠道</span>
-          <strong>Webhook</strong>
-          <p>适合和 Tabs、Segmented 一样承担视图切换职责。</p>
+          <span class="demo-radio-button__card-label">活跃渠道</span>
+          <strong class="demo-radio-button__card-value">Webhook</strong>
+          <p class="demo-radio-button__card-description">适合和 Tabs、Segmented 一样承担视图切换职责。</p>
         </xy-card>
       </div>
     </section>
@@ -78,7 +78,11 @@ const activeSummary = computed(() => {
   border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
   border-radius: 22px;
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 8%, white), transparent 34%),
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--xy-color-primary) 8%, white),
+      transparent 34%
+    ),
     var(--xy-bg-color);
 }
 
@@ -107,13 +111,13 @@ const activeSummary = computed(() => {
     color-mix(in srgb, var(--xy-bg-color) 88%, white);
 }
 
-.demo-radio-button__card span {
+.demo-radio-button__card-label {
   display: block;
   color: var(--xy-text-color-secondary);
   font-size: 12px;
 }
 
-.demo-radio-button__card strong {
+.demo-radio-button__card-value {
   display: block;
   margin-top: 8px;
   color: var(--xy-text-color);
@@ -121,7 +125,7 @@ const activeSummary = computed(() => {
   line-height: 1.1;
 }
 
-.demo-radio-button__card p {
+.demo-radio-button__card-description {
   margin: 10px 0 0;
   color: var(--xy-text-color-muted);
   font-size: 12px;

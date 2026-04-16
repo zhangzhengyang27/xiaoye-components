@@ -23,8 +23,8 @@ const customSvg = `
       xy-loading-text="正在同步审批流..."
       :xy-loading-svg="customSvg"
       xy-loading-svg-view-box="0 0 50 50"
-      xy-loading-background="rgba(255, 255, 255, 0.88)"
-      xy-loading-custom-class="loading-demo-mask--soft"
+      xy-loading-background="color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white)"
+      xy-loading-custom-class="demo-loading-customization__mask-soft"
       class="loading-demo-card"
     >
       <div class="xy-doc-stack">

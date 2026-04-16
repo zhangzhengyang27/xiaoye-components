@@ -33,7 +33,7 @@ const loading = ref(true);
           <xy-avatar size="lg">QA</xy-avatar>
           <div class="demo-skeleton-switch__content">
             <strong>退款工单中心</strong>
-            <p>今日已自动分派 34 条工单，仍有 6 条需要人工复核。</p>
+            <p class="demo-skeleton-switch__real-description">今日已自动分派 34 条工单，仍有 6 条需要人工复核。</p>
             <xy-button plain>查看分派规则</xy-button>
           </div>
         </div>
@@ -62,7 +62,7 @@ const loading = ref(true);
   gap: 12px;
 }
 
-.demo-skeleton-switch__real p {
+.demo-skeleton-switch__real-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.6;

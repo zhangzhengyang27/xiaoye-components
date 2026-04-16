@@ -58,4 +58,43 @@ describe("XyTreeSelect", () => {
     await wrapper.get(".xy-tree-select__clear").trigger("click");
     expect(wrapper.emitted("update:modelValue")?.at(-1)?.[0]).toBeNull();
   });
+
+  it("空字符串且无对应节点时保持 placeholder 且不展示清空按钮", () => {
+    const wrapper = mount(XyTreeSelect, {
+      props: {
+        modelValue: "",
+        data: options,
+        nodeKey: "id",
+        clearable: true,
+        placeholder: "全部节点"
+      },
+      attachTo: document.body
+    });
+
+    expect(wrapper.find(".xy-tree-select__label").text()).toBe("全部节点");
+    expect(wrapper.find(".xy-tree-select__label").classes()).toContain("is-placeholder");
+    expect(wrapper.find(".xy-tree-select__clear").exists()).toBe(false);
+  });
+
+  it("空字符串且存在对应节点时仍按有效值处理", () => {
+    const wrapper = mount(XyTreeSelect, {
+      props: {
+        modelValue: "",
+        data: [
+          {
+            id: "",
+            label: "未分类"
+          },
+          ...options
+        ],
+        nodeKey: "id",
+        clearable: true
+      },
+      attachTo: document.body
+    });
+
+    expect(wrapper.find(".xy-tree-select__label").text()).toBe("未分类");
+    expect(wrapper.find(".xy-tree-select__label").classes()).not.toContain("is-placeholder");
+    expect(wrapper.find(".xy-tree-select__clear").exists()).toBe(true);
+  });
 });

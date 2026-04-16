@@ -269,7 +269,7 @@ onMounted(() => {
     <div class="demo-tree-permission-grid">
       <section class="demo-tree-permission-panel">
         <xy-text size="sm" type="info">当前定位路径</xy-text>
-        <strong>{{ currentPath }}</strong>
+        <strong class="demo-tree-permission-panel__title">{{ currentPath }}</strong>
         <xy-text size="sm" type="info">已勾选 keys：{{ checkedKeys.join(", ") || "无" }}</xy-text>
         <xy-text size="sm" type="info">半选 keys：{{ halfCheckedKeys.join(", ") || "无" }}</xy-text>
       </section>
@@ -325,7 +325,7 @@ onMounted(() => {
             class="demo-tree-permission-summary__item"
           >
             <xy-text size="sm" type="info">{{ item.title }}</xy-text>
-            <strong>{{ item.value }}</strong>
+            <strong class="demo-tree-permission-summary__value">{{ item.value }}</strong>
           </div>
         </div>
 
@@ -400,7 +400,7 @@ onMounted(() => {
   background: color-mix(in srgb, var(--xy-bg-color) 96%, white);
 }
 
-.demo-tree-permission-summary__item strong {
+.demo-tree-permission-summary__value {
   color: var(--xy-text-color);
   font-size: 15px;
   line-height: 1.5;
@@ -416,7 +416,7 @@ onMounted(() => {
   background: color-mix(in srgb, var(--xy-bg-color) 94%, white);
 }
 
-.demo-tree-permission-panel strong {
+.demo-tree-permission-panel__title {
   color: var(--xy-text-color);
   font-size: 15px;
   line-height: 1.6;

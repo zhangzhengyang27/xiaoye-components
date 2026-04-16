@@ -48,15 +48,29 @@
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
-  color: white;
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 24%, var(--xy-border-color));
+  background:
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--xy-color-primary) 22%, white),
+      transparent 44%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
+  color: var(--xy-text-color);
   font-size: 18px;
   font-weight: 700;
   overflow: hidden;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 
 .demo-carousel-panel--muted {
-  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-  color: var(--xy-text-color);
+  border-color: color-mix(in srgb, var(--xy-color-success) 22%, var(--xy-border-color));
+  background:
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--xy-color-success) 18%, white),
+      transparent 46%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
 }
 </style>

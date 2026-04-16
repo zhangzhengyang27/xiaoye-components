@@ -4,7 +4,7 @@
       <div class="demo-carousel-vertical">
         <span class="demo-carousel-vertical__eyebrow">Step {{ item }}</span>
         <strong>纵向公告流 {{ item }}</strong>
-        <p>适合发布记录、升级提醒和时间线式内容。</p>
+        <p class="demo-carousel-vertical__description">适合发布记录、升级提醒和时间线式内容。</p>
       </div>
     </xy-carousel-item>
   </xy-carousel>
@@ -30,7 +30,7 @@
   text-transform: uppercase;
 }
 
-.demo-carousel-vertical p {
+.demo-carousel-vertical__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
 }

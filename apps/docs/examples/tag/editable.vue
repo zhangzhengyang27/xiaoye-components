@@ -56,6 +56,7 @@ function confirmInput() {
         v-if="inputVisible"
         ref="inputRef"
         v-model="draft"
+        class="demo-tag-editable__input"
         placeholder="输入新标签"
         @keydown.enter="confirmInput"
         @blur="confirmInput"
@@ -88,7 +89,7 @@ function confirmInput() {
   max-width: 360px;
 }
 
-.demo-tag-editable__actions :deep(.xy-input) {
+.demo-tag-editable__input {
   max-width: 220px;
 }
 </style>

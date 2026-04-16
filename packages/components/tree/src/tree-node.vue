@@ -23,7 +23,7 @@
     @dragend.stop="handleDragEnd"
     @drop.stop.prevent="handleDrop"
   >
-    <div :class="`${ns.base.value}__node-content`" :style="contentStyle">
+    <div :class="[`${ns.base.value}__node-content`, getNodeContentClass(node)]" :style="contentStyle">
       <button
         v-if="!node.isLeaf"
         type="button"
@@ -267,6 +267,20 @@ export default defineComponent({
       return nodeClass;
     }
 
+    function getNodeContentClass(node: Node): TreeNodeClassValue {
+      const nodeClass = props.propsMapping.contentClass;
+
+      if (!nodeClass) {
+        return undefined;
+      }
+
+      if (typeof nodeClass === "function") {
+        return nodeClass(node.data as Record<string, unknown>, node);
+      }
+
+      return nodeClass;
+    }
+
     function handleSelectChange(checked: boolean, indeterminate: boolean) {
       if (oldChecked.value !== checked || oldIndeterminate.value !== indeterminate) {
         tree.emit("check-change", props.node.data, checked, indeterminate);
@@ -418,6 +432,7 @@ export default defineComponent({
       statusTipId,
       contentStyle,
       getChildKey,
+      getNodeContentClass,
       handleClick,
       handleContextMenu,
       handleDragStart,

@@ -198,6 +198,7 @@ defineExpose({
           :header-class="props.headerClass"
           :body-class="props.bodyClass"
           :footer-class="props.footerClass"
+          :panel-class="props.panelClass"
           :show-close="props.showClose"
           :style="panelStyle"
           :modal="overlay.showModal.value"

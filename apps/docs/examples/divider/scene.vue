@@ -3,8 +3,10 @@
     <template #header>
       <div class="divider-scene-card__header">
         <div>
-          <h4>版本发布摘要</h4>
-          <p>用 Divider 把发布信息切成可扫读的小节，让风险、范围和动作都各归其位。</p>
+          <h4 class="divider-scene-card__header-title">版本发布摘要</h4>
+          <p class="divider-scene-card__header-description">
+            用 Divider 把发布信息切成可扫读的小节，让风险、范围和动作都各归其位。
+          </p>
         </div>
         <xy-tag status="success" round>发布中</xy-tag>
       </div>
@@ -24,24 +26,30 @@
 
     <div class="divider-scene-card__list">
       <div>
-        <strong>用户侧</strong>
-        <p>统一消息入口、通知筛选与站内信聚合，减少重复跳转和入口分散。</p>
+        <strong class="divider-scene-card__list-title">用户侧</strong>
+        <p class="divider-scene-card__list-description">统一消息入口、通知筛选与站内信聚合，减少重复跳转和入口分散。</p>
       </div>
       <div>
-        <strong>管理端</strong>
-        <p>审批列表筛选重构，补齐结果态和抽屉内联动作，统一后台操作节奏。</p>
+        <strong class="divider-scene-card__list-title">管理端</strong>
+        <p class="divider-scene-card__list-description">
+          审批列表筛选重构，补齐结果态和抽屉内联动作，统一后台操作节奏。
+        </p>
       </div>
       <div>
-        <strong>监控侧</strong>
-        <p>新增发布后 30 分钟的异常聚合看板，重点追踪审批链路和消息去重命中率。</p>
+        <strong class="divider-scene-card__list-title">监控侧</strong>
+        <p class="divider-scene-card__list-description">
+          新增发布后 30 分钟的异常聚合看板，重点追踪审批链路和消息去重命中率。
+        </p>
       </div>
     </div>
 
     <xy-divider content-position="left" border-style="dashed" status="warning">风险提示</xy-divider>
 
     <div class="divider-scene-card__notice">
-      <strong>灰度观察点</strong>
-      <p>首批灰度用户集中在审批量较高的团队，若 10 分钟内错误率上升，需要回退消息聚合策略。</p>
+      <strong class="divider-scene-card__notice-title">灰度观察点</strong>
+      <p class="divider-scene-card__notice-description">
+        首批灰度用户集中在审批量较高的团队，若 10 分钟内错误率上升，需要回退消息聚合策略。
+      </p>
     </div>
 
     <p class="divider-scene-card__risk">
@@ -87,29 +95,29 @@
   gap: 16px;
 }
 
-.divider-scene-card__header h4,
-.divider-scene-card__header p,
-.divider-scene-card__notice p,
+.divider-scene-card__header-title,
+.divider-scene-card__header-description,
+.divider-scene-card__notice-description,
 .divider-scene-card__risk,
-.divider-scene-card__list p {
+.divider-scene-card__list-description {
   margin: 0;
 }
 
-.divider-scene-card__header h4 {
+.divider-scene-card__header-title {
   font-size: 16px;
   font-weight: 700;
   color: var(--xy-text-color);
 }
 
-.divider-scene-card__header p,
+.divider-scene-card__header-description,
 .divider-scene-card__meta,
-.divider-scene-card__list p,
-.divider-scene-card__notice p,
+.divider-scene-card__list-description,
+.divider-scene-card__notice-description,
 .divider-scene-card__risk {
   color: var(--xy-text-color-secondary);
 }
 
-.divider-scene-card__header p {
+.divider-scene-card__header-description {
   margin-top: 6px;
 }
 
@@ -132,14 +140,14 @@
   background: color-mix(in srgb, var(--xy-color-warning) 8%, white);
 }
 
-.divider-scene-card__notice strong {
+.divider-scene-card__notice-title {
   display: inline-block;
   margin-bottom: 4px;
   font-size: 14px;
   color: var(--xy-color-warning);
 }
 
-.divider-scene-card__list strong {
+.divider-scene-card__list-title {
   display: inline-block;
   margin-bottom: 4px;
   font-size: 14px;

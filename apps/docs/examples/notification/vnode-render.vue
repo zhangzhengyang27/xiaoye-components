@@ -7,7 +7,7 @@ function openRenderNotification() {
     title: "渲染函数内容",
     duration: 0,
     message: () =>
-      h("div", { class: "render-body" }, [
+      h("div", { class: "demo-notification-vnode-render__body" }, [
         h("strong", "发布窗口已开启"),
         h("span", "请在 10 分钟内完成审批。"),
         h(
@@ -32,20 +32,20 @@ function openRenderNotification() {
 </template>
 
 <style scoped>
-:deep(.render-body) {
+:global(.demo-notification-vnode-render__body) {
   display: grid;
   gap: 6px;
 }
 
-:deep(.render-body strong) {
+:global(.demo-notification-vnode-render__body strong) {
   color: var(--xy-text-color-primary);
 }
 
-:deep(.render-body span) {
+:global(.demo-notification-vnode-render__body span) {
   color: var(--xy-text-color-secondary);
 }
 
-:deep(.render-body a) {
+:global(.demo-notification-vnode-render__body a) {
   color: var(--xy-color-primary);
   text-decoration: none;
 }

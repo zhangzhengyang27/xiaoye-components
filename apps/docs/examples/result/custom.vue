@@ -1,5 +1,8 @@
 <template>
-  <xy-result title="请先补齐发版说明" description="模板内容已生成，你还需要确认风险项、回滚策略和通知范围。">
+  <xy-result
+    title="请先补齐发版说明"
+    description="模板内容已生成，你还需要确认风险项、回滚策略和通知范围。"
+  >
     <template #icon>
       <div class="custom-result-icon">
         <xy-icon icon="mdi:file-document-edit-outline" :size="54" />
@@ -7,11 +10,11 @@
     </template>
 
     <div class="custom-result-content">
-      <p>建议优先补充以下三项：</p>
-      <ul>
-        <li>影响范围与回滚入口</li>
-        <li>灰度批次和负责人</li>
-        <li>上线后 30 分钟观测指标</li>
+      <p class="custom-result-content__intro">建议优先补充以下三项：</p>
+      <ul class="custom-result-content__list">
+        <li class="custom-result-content__item">影响范围与回滚入口</li>
+        <li class="custom-result-content__item">灰度批次和负责人</li>
+        <li class="custom-result-content__item">上线后 30 分钟观测指标</li>
       </ul>
     </div>
 
@@ -31,23 +34,26 @@
   height: 92px;
   border-radius: 999px;
   color: var(--xy-color-primary);
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.8), transparent 58%),
-    linear-gradient(180deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.06));
-  border: 1px solid rgba(37, 99, 235, 0.18);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-color-primary-soft) 72%, white),
+    color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white)
+  );
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .custom-result-content {
   text-align: left;
 }
 
-.custom-result-content p {
+.custom-result-content__intro {
   margin: 0 0 10px;
   font-weight: 600;
   color: var(--xy-text-color);
 }
 
-.custom-result-content ul {
+.custom-result-content__list {
   margin: 0;
   padding-left: 20px;
   color: var(--xy-text-color-secondary);

@@ -10,8 +10,8 @@ const dataUrlPreview = ref("尚未生成");
 
 const logoImage = `data:image/svg+xml;utf8,${encodeURIComponent(`
   <svg xmlns="http://www.w3.org/2000/svg" width="240" height="72" viewBox="0 0 240 72">
-    <rect width="240" height="72" rx="18" fill="#0f766e" opacity="0.92" />
-    <path d="M24 36H92M104 36H168M180 36H216" stroke="#ecfeff" stroke-width="10" stroke-linecap="round" />
+    <rect width="240" height="72" rx="18" fill="#9dbdaf" opacity="0.92" />
+    <path d="M24 36H92M104 36H168M180 36H216" stroke="#f7fbfa" stroke-width="10" stroke-linecap="round" />
   </svg>
 `)}`;
 
@@ -44,8 +44,10 @@ function readCurrentDataUrl() {
     >
       <section class="xy-doc-watermark-events__surface">
         <span class="xy-doc-watermark-events__badge">Events</span>
-        <h4>渲染回调与 expose</h4>
-        <p>适合在截图、导出或运行时调试里记录当前水印来源，并在图片失败时回退到文本模式。</p>
+        <h4 class="xy-doc-watermark-events__title">渲染回调与 expose</h4>
+        <p class="xy-doc-watermark-events__description">
+          适合在截图、导出或运行时调试里记录当前水印来源，并在图片失败时回退到文本模式。
+        </p>
       </section>
     </xy-watermark>
 
@@ -78,30 +80,33 @@ function readCurrentDataUrl() {
 .xy-doc-watermark-events__surface {
   min-height: 220px;
   padding: 28px;
-  border-radius: 24px;
-  background:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.9)),
-    radial-gradient(circle at top right, rgba(45, 212, 191, 0.12), transparent 36%);
-  color: rgba(248, 250, 252, 0.92);
+  border: 1px solid color-mix(in srgb, var(--xy-color-info) 10%, var(--xy-border-color-subtle));
+  border-radius: var(--xy-radius-xl);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-color-info-soft, var(--xy-bg-color-subtle)) 58%, white),
+    color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-surface-raised))
+  );
+  color: var(--xy-text-color);
 }
 
 .xy-doc-watermark-events__badge {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(45, 212, 191, 0.14);
-  color: #99f6e4;
+  background: color-mix(in srgb, var(--xy-color-success-soft) 86%, white);
+  color: var(--xy-color-success);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.xy-doc-watermark-events__surface h4 {
+.xy-doc-watermark-events__title {
   margin: 18px 0 12px;
   font-size: 28px;
 }
 
-.xy-doc-watermark-events__surface p {
+.xy-doc-watermark-events__description {
   max-width: 560px;
   margin: 0;
   line-height: 1.7;
@@ -111,8 +116,8 @@ function readCurrentDataUrl() {
   display: grid;
   gap: 14px;
   padding: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 20px;
-  background: rgba(248, 250, 252, 0.92);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
 }
 </style>

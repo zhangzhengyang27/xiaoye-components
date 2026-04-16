@@ -12,7 +12,9 @@ const editorMock = vi.hoisted(() => ({
   getValue: vi.fn(() => "初始值"),
   constructor: vi.fn(function MockVditor(
     _element: HTMLElement,
-    options: Record<string, unknown>
+    options: Record<string, unknown> & {
+      after?: () => void;
+    }
   ) {
     options.after?.();
     return {

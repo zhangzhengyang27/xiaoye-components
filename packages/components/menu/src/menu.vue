@@ -944,7 +944,7 @@ defineExpose({
   <div :class="`${ns.base.value}__wrap`">
     <ul
       ref="menuRef"
-      :class="menuClasses"
+      :class="[menuClasses, `${ns.base.value}__root-list`]"
       :style="rootStyle"
       :role="menuRole"
     >
@@ -960,7 +960,11 @@ defineExpose({
       >
         <button
           type="button"
-          :class="`${ns.base.value}__more-button`"
+          :class="[
+            `${ns.base.value}__more-button`,
+            `${ns.base.value}__item-surface`,
+            `${ns.base.value}__horizontal-trigger`
+          ]"
           aria-label="更多菜单"
           @click="handleMoreTriggerClick"
         >

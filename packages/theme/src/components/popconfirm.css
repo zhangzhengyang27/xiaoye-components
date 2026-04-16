@@ -8,31 +8,33 @@
 }
 
 .xy-popconfirm__trigger:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-popconfirm__panel {
-  --xy-popconfirm-bg: var(--xy-bg-color);
-  --xy-popconfirm-border: var(--xy-border-color);
-  --xy-popconfirm-title: var(--xy-text-color);
-  --xy-popconfirm-text: var(--xy-text-color-secondary);
+  --xy-popconfirm-bg: var(--xy-bg-color-floating);
+  --xy-popconfirm-border: var(--xy-border-color-subtle);
+  --xy-popconfirm-title: var(--xy-text-color-heading);
+  --xy-popconfirm-text: var(--xy-text-color-subtle);
+  --xy-popconfirm-shadow: var(--xy-shadow-popup);
   position: absolute;
   min-width: 150px;
   padding: 14px 16px 16px;
   border: 1px solid var(--xy-popconfirm-border);
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-popconfirm-bg);
-  box-shadow: var(--xy-shadow-md);
+  background: color-mix(in srgb, var(--xy-popconfirm-bg) 96%, white);
+  box-shadow: var(--xy-popconfirm-shadow);
   color: var(--xy-popconfirm-text);
   outline: none;
 }
 
 .xy-popconfirm__panel--dark {
-  --xy-popconfirm-bg: #0f172a;
-  --xy-popconfirm-border: color-mix(in srgb, #0f172a 86%, white);
-  --xy-popconfirm-title: white;
-  --xy-popconfirm-text: rgba(255, 255, 255, 0.82);
+  --xy-popconfirm-bg: color-mix(in srgb, var(--xy-text-color-heading) 88%, var(--xy-color-primary));
+  --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
+  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-color-floating) 96%, white);
+  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-color-floating) 82%, white);
 }
 
 .xy-popconfirm__arrow {
@@ -67,14 +69,14 @@
   margin-top: 10px;
   color: var(--xy-popconfirm-text);
   font-size: var(--xy-font-size-sm);
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 .xy-popconfirm__actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .xy-popconfirm.is-confirming .xy-popconfirm__body,

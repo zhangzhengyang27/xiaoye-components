@@ -1,10 +1,11 @@
 .xy-video-player {
   position: relative;
   width: 100%;
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-lg);
   overflow: hidden;
-  background: #020617;
-  box-shadow: var(--xy-shadow-sm);
+  background: color-mix(in srgb, var(--xy-text-color-heading) 88%, black);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-video-player .video-js {
@@ -13,5 +14,9 @@
 }
 
 .xy-video-player .vjs-control-bar {
-  background: linear-gradient(180deg, transparent, rgba(2, 6, 23, 0.82));
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--xy-text-color-heading) 76%, transparent)
+  );
 }

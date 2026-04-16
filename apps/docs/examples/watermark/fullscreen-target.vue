@@ -14,16 +14,20 @@ const fullscreen = ref(false);
         :repeat="'repeat-y'"
       >
         <section class="xy-doc-watermark-helper">
-          <h4>Target 模式</h4>
-          <p>组件声明在左侧，但水印实际会挂到右侧目标容器。slot 只负责说明，不决定宿主。</p>
+          <h4 class="xy-doc-watermark-helper__title">Target 模式</h4>
+          <p class="xy-doc-watermark-helper__description">
+            组件声明在左侧，但水印实际会挂到右侧目标容器。slot 只负责说明，不决定宿主。
+          </p>
         </section>
       </xy-watermark>
     </div>
 
     <section class="xy-doc-watermark-target-host xy-doc-watermark-host-grid__cell">
       <span class="xy-doc-watermark-host-grid__badge">External Host</span>
-      <h4>右侧是实际水印宿主</h4>
-      <p>适合对接外部面板、预览区或业务容器，而不必改动组件声明所在的位置。</p>
+      <h4 class="xy-doc-watermark-target-host__title">右侧是实际水印宿主</h4>
+      <p class="xy-doc-watermark-target-host__description">
+        适合对接外部面板、预览区或业务容器，而不必改动组件声明所在的位置。
+      </p>
     </section>
   </div>
 
@@ -39,7 +43,9 @@ const fullscreen = ref(false);
           <xy-switch v-model="fullscreen" active-text="关闭全屏水印" inactive-text="开启全屏水印" />
           <xy-tag status="primary">{{ fullscreen ? "已覆盖 body" : "仅示例区域" }}</xy-tag>
         </xy-space>
-        <p>全屏模式会把水印层直接挂到 `document.body`，适合试用环境、演示环境和页面级品牌标记。</p>
+        <p class="xy-doc-watermark-fullscreen-demo__description">
+          全屏模式会把水印层直接挂到 `document.body`，适合试用环境、演示环境和页面级品牌标记。
+        </p>
       </section>
     </xy-watermark>
   </div>
@@ -61,36 +67,39 @@ const fullscreen = ref(false);
 .xy-doc-watermark-fullscreen-demo__surface {
   min-height: 220px;
   padding: 26px;
-  border-radius: 24px;
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 249, 0.92)),
-    radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent 38%);
-  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: linear-gradient(
+    160deg,
+    var(--xy-surface-raised),
+    color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white)
+  );
+  box-shadow: var(--xy-shadow-card);
 }
 
 .xy-doc-watermark-host-grid__badge {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.12);
-  color: #1d4ed8;
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.xy-doc-watermark-helper h4,
-.xy-doc-watermark-target-host h4 {
+.xy-doc-watermark-helper__title,
+.xy-doc-watermark-target-host__title {
   margin: 0 0 12px;
-  color: #0f172a;
+  color: var(--xy-text-color-heading);
   font-size: 24px;
 }
 
-.xy-doc-watermark-helper p,
-.xy-doc-watermark-target-host p,
-.xy-doc-watermark-fullscreen-demo__surface p {
+.xy-doc-watermark-helper__description,
+.xy-doc-watermark-target-host__description,
+.xy-doc-watermark-fullscreen-demo__description {
   margin: 0;
-  color: #475569;
+  color: var(--xy-text-color-secondary);
   line-height: 1.7;
 }
 

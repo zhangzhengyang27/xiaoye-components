@@ -1,7 +1,11 @@
 .xy-skeleton,
 .xy-skeleton__item {
-  --xy-skeleton-color: color-mix(in srgb, var(--xy-border-color) 58%, white);
-  --xy-skeleton-to-color: color-mix(in srgb, var(--xy-bg-color-muted) 78%, white);
+  --xy-skeleton-color: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-surface-raised));
+  --xy-skeleton-to-color: color-mix(
+    in srgb,
+    var(--xy-bg-color-floating) 78%,
+    var(--xy-bg-color-subtle)
+  );
   --xy-skeleton-circle-size: 40px;
 }
 
@@ -16,7 +20,7 @@
   height: 16px;
   border-radius: var(--xy-radius-sm);
   background: var(--xy-skeleton-color);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color) 54%, white);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 72%, transparent);
 }
 
 .xy-skeleton.is-animated .xy-skeleton__item {
@@ -27,7 +31,7 @@
     var(--xy-skeleton-color) 63%
   );
   background-size: 400% 100%;
-  animation: xy-skeleton-loading 1.4s ease infinite;
+  animation: xy-skeleton-loading 1.6s ease infinite;
 }
 
 .xy-skeleton__item.is-first,
@@ -61,7 +65,7 @@
 .xy-skeleton__button {
   width: 88px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: var(--xy-radius-md);
 }
 
 .xy-skeleton__text {
@@ -86,12 +90,13 @@
   justify-content: center;
   min-height: 96px;
   border-radius: var(--xy-radius-md);
-  background-color: color-mix(in srgb, var(--xy-skeleton-color) 92%, white);
+  background-color: color-mix(in srgb, var(--xy-bg-color-subtle) 78%, var(--xy-surface-raised));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 72%, transparent);
 }
 
 .xy-skeleton__image-icon {
-  color: var(--xy-text-color-muted);
-  opacity: 0.78;
+  color: var(--xy-text-color-muted-2);
+  opacity: 0.68;
 }
 
 @keyframes xy-skeleton-loading {

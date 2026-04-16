@@ -9,14 +9,16 @@ import type {
   TableCellClassName,
   TableCellSlotProps,
   TableCellStyle,
+  TableExpandSlotProps,
+  TableHeaderCell,
   TableResolvedColumn,
   TableRowClassName,
   TableRowStyle,
   TableTreeNode
 } from "../table";
-import { isPrimitiveTableValue, toCssSize } from "../table";
+import { isPrimitiveTableValue, prefersObjectCallbackSignature, toCssSize } from "../table";
 import type { TableStore } from "../store";
-import { flattenColumns, normalizeSpanResult } from "../util";
+import { buildHeaderRows, flattenColumns, normalizeSpanResult } from "../util";
 
 type TablePanel = "main" | "left" | "right";
 type ExpandedRowMode = "content" | "placeholder" | "none";
@@ -64,6 +66,8 @@ const props = withDefaults(
     leftFixedWidth?: number;
     rightFixedWidth?: number;
     preserveExpandedContent?: boolean;
+    tableLayout?: "fixed" | "auto";
+    showHeader?: boolean;
   }>(),
   {
     columns: undefined,
@@ -83,14 +87,16 @@ const props = withDefaults(
     mainTableWidth: undefined,
     leftFixedWidth: 0,
     rightFixedWidth: 0,
-    preserveExpandedContent: false
+    preserveExpandedContent: false,
+    tableLayout: "fixed",
+    showHeader: true
   }
 );
 
 const emit = defineEmits<{
-  "row-click": [row: T, rowIndex: number, event: MouseEvent | KeyboardEvent];
-  "row-dblclick": [row: T, rowIndex: number, event: MouseEvent];
-  "row-contextmenu": [row: T, rowIndex: number, event: MouseEvent];
+  "row-click": [row: T, column: TableResolvedColumn<T> | undefined, event: MouseEvent | KeyboardEvent];
+  "row-dblclick": [row: T, column: TableResolvedColumn<T> | undefined, event: MouseEvent];
+  "row-contextmenu": [row: T, column: TableResolvedColumn<T> | undefined, event: MouseEvent];
   "cell-click": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
   "cell-dblclick": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
   "cell-contextmenu": [row: T, column: TableResolvedColumn<T>, cell: HTMLTableCellElement, event: MouseEvent];
@@ -100,9 +106,21 @@ const emit = defineEmits<{
 
 const tableRef = ref<HTMLTableElement | null>(null);
 const leafColumns = computed(() => flattenColumns(props.columns ?? props.store.normalizedColumns.value));
+const headerRows = computed<TableHeaderCell<T>[][]>(() =>
+  buildHeaderRows(props.columns ?? props.store.normalizedColumns.value)
+);
 const treeColumnUid = computed(() => props.store.treeColumn.value?.uid);
 const expandColumn = computed(() => leafColumns.value.find((column) => column.type === "expand"));
 const preservedExpandedRowKeys = ref(new Set<string | number>());
+const shouldUseAutoColgroup = computed(
+  () =>
+    props.panel !== "main" ||
+    props.tableLayout !== "auto" ||
+    (props.showHeader && props.store.hasAutoColumnWidths.value)
+);
+const shouldRenderSizingHeader = computed(
+  () => props.panel === "main" && props.tableLayout === "auto" && props.showHeader
+);
 const renderRows = computed(() => {
   const skipped = new Set<string>();
 
@@ -218,8 +236,16 @@ watch(
 );
 
 function resolveRowClassName(row: T, rowIndex: number) {
+  const callback = props.rowClassName as any;
   const className =
-    typeof props.rowClassName === "function" ? props.rowClassName(row, rowIndex) : props.rowClassName;
+    typeof props.rowClassName === "function"
+      ? prefersObjectCallbackSignature(callback)
+        ? callback({
+            row,
+            rowIndex
+          })
+        : callback(row, rowIndex)
+      : props.rowClassName;
 
   return [
     "xy-table__row",
@@ -232,12 +258,22 @@ function resolveRowClassName(row: T, rowIndex: number) {
 }
 
 function resolveRowStyle(row: T, rowIndex: number) {
-  return typeof props.rowStyle === "function" ? props.rowStyle(row, rowIndex) : props.rowStyle;
+  const callback = props.rowStyle as any;
+  return typeof props.rowStyle === "function"
+    ? prefersObjectCallbackSignature(callback)
+      ? callback({
+          row,
+          rowIndex
+        })
+      : callback(row, rowIndex)
+    : props.rowStyle;
 }
 
 function resolveCellClassName(cell: RenderCell<T>) {
   const className =
     typeof props.cellClassName === "function" ? props.cellClassName(cell.meta) : props.cellClassName;
+  const endsAtLastBodyRow =
+    cell.span.rowspan > 1 && cell.meta.rowIndex + cell.span.rowspan >= renderRows.value.length;
 
   return [
     "xy-table__cell",
@@ -246,6 +282,7 @@ function resolveCellClassName(cell: RenderCell<T>) {
     cell.column.type === "expand" ? "xy-table__column--expand" : "",
     cell.column.className,
     className,
+    endsAtLastBodyRow ? "is-rowspan-tail" : "",
     props.panel !== "main" ? "is-fixed-panel-cell" : "",
     ...resolveFixedColumnClassNames(cell.column)
   ];
@@ -271,7 +308,7 @@ function handleRowClick(row: T, rowIndex: number, event: MouseEvent | KeyboardEv
     props.store.setCurrentRow(row);
   }
 
-  emit("row-click", row, rowIndex, event);
+  emit("row-click", row, resolveRowEventColumn(event), event);
 }
 
 function handleRowKeydown(row: T, rowIndex: number, event: KeyboardEvent) {
@@ -312,14 +349,17 @@ function resolveFixedColumnClassNames(column: TableResolvedColumn<T>) {
 }
 
 function handleCellClick(row: T, column: TableResolvedColumn<T>, event: MouseEvent) {
+  emit("row-click", row, column, event);
   emit("cell-click", row, column, event.currentTarget as HTMLTableCellElement, event);
 }
 
 function handleCellDblclick(row: T, column: TableResolvedColumn<T>, event: MouseEvent) {
+  emit("row-dblclick", row, column, event);
   emit("cell-dblclick", row, column, event.currentTarget as HTMLTableCellElement, event);
 }
 
 function handleCellContextmenu(row: T, column: TableResolvedColumn<T>, event: MouseEvent) {
+  emit("row-contextmenu", row, column, event);
   emit("cell-contextmenu", row, column, event.currentTarget as HTMLTableCellElement, event);
 }
 
@@ -329,6 +369,23 @@ function handleCellMouseEnter(row: T, column: TableResolvedColumn<T>, event: Mou
 
 function handleCellMouseLeave(row: T, column: TableResolvedColumn<T>, event: MouseEvent) {
   emit("cell-mouse-leave", row, column, event.currentTarget as HTMLTableCellElement, event);
+}
+
+function resolveRowEventColumn(event: MouseEvent | KeyboardEvent) {
+  const target = event.target;
+
+  if (!(target instanceof Element)) {
+    return undefined;
+  }
+
+  const cell = target.closest<HTMLTableCellElement>("td[data-column-uid]");
+  const uid = cell?.dataset.columnUid;
+
+  if (!uid) {
+    return undefined;
+  }
+
+  return leafColumns.value.find((column) => column.uid === uid);
 }
 
 function shouldRenderExpandedRow(row: T, rowIndex: number) {
@@ -351,6 +408,10 @@ function shouldRenderExpandedRow(row: T, rowIndex: number) {
   }
 
   return props.preserveExpandedContent && preservedExpandedRowKeys.value.has(record);
+}
+
+function getExpandedRowId(row: T, rowIndex: number) {
+  return `xy-table-expanded-row-${String(props.store.getRowKey(row, rowIndex))}`;
 }
 
 function getExpandColumnIndex() {
@@ -393,6 +454,20 @@ function resolveExpandedContentStyle() {
   };
 }
 
+function getExpandSlotProps(row: T, rowIndex: number, treeNode: TableTreeNode): TableExpandSlotProps<T> {
+  const meta = getExpandedSlotProps(row, rowIndex, treeNode);
+
+  if (!meta) {
+    throw new Error("expand slot requires an expand column");
+  }
+
+  return {
+    ...meta,
+    expanded: props.store.isRowExpanded(row),
+    expandable: props.store.isRowExpandable(row, rowIndex)
+  };
+}
+
 function isExpandedRowVisible(row: T) {
   return props.store.isRowExpanded(row);
 }
@@ -415,13 +490,60 @@ defineExpose({
 
 <template>
   <table ref="tableRef" class="xy-table__body-table" :style="resolveTableStyle()">
-    <colgroup>
+    <colgroup v-if="shouldUseAutoColgroup">
       <col
         v-for="column in leafColumns"
         :key="column.uid"
         :style="{ width: toCssSize(column.realWidth), minWidth: toCssSize(column.realWidth) }"
       />
     </colgroup>
+    <thead v-if="shouldRenderSizingHeader" class="xy-table__body-sizing-header" aria-hidden="true">
+      <tr
+        v-for="(row, rowIndex) in headerRows"
+        :key="`body-sizing-header-row-${rowIndex}`"
+        class="xy-table__header-row xy-table__header-row--sizing"
+      >
+        <th
+          v-for="cell in row"
+          :key="cell.column.uid"
+          :colspan="cell.colSpan"
+          :rowspan="cell.rowSpan"
+          class="xy-table__header-cell xy-table__header-cell--sizing"
+          :data-column-uid="cell.column.children.length === 0 ? cell.column.uid : undefined"
+        >
+          <div class="xy-table__header-cell-inner">
+            <template v-if="cell.column.type === 'selection'">
+              <xy-checkbox :model-value="false" aria-label="全选" />
+            </template>
+            <template v-else>
+              <span class="xy-table__header-label">
+                <table-render-slot
+                  v-if="cell.column.headerSlot"
+                  :render="cell.column.headerSlot"
+                  :slot-props="{
+                    column: cell.column,
+                    sortOrder: props.store.getColumnSortOrder(cell.column),
+                    filteredValues: props.store.getColumnFilterValues(cell.column)
+                  }"
+                />
+                <table-render-slot
+                  v-else-if="cell.column.renderHeader"
+                  :render="cell.column.renderHeader"
+                  :slot-props="{
+                    column: cell.column,
+                    sortOrder: props.store.getColumnSortOrder(cell.column),
+                    filteredValues: props.store.getColumnFilterValues(cell.column)
+                  }"
+                />
+                <template v-else>
+                  {{ cell.column.label }}
+                </template>
+              </span>
+            </template>
+          </div>
+        </th>
+      </tr>
+    </thead>
     <tbody v-if="renderRows.length > 0">
       <template v-for="rowState in renderRows" :key="rowState.item.key">
         <tr
@@ -429,8 +551,8 @@ defineExpose({
           :style="resolveRowStyle(rowState.item.row, rowState.item.rowIndex)"
           :tabindex="props.clickable && props.panel === 'main' ? 0 : undefined"
           @click="handleRowClick(rowState.item.row, rowState.item.rowIndex, $event)"
-          @dblclick="emit('row-dblclick', rowState.item.row, rowState.item.rowIndex, $event)"
-          @contextmenu.prevent="emit('row-contextmenu', rowState.item.row, rowState.item.rowIndex, $event)"
+          @dblclick="emit('row-dblclick', rowState.item.row, resolveRowEventColumn($event), $event)"
+          @contextmenu.prevent="emit('row-contextmenu', rowState.item.row, resolveRowEventColumn($event), $event)"
           @keydown="handleRowKeydown(rowState.item.row, rowState.item.rowIndex, $event)"
           @mouseenter="props.store.setHoveredRow(rowState.item.row)"
           @mouseleave="props.store.setHoveredRow(null)"
@@ -441,6 +563,7 @@ defineExpose({
               :colspan="cell.span.colspan"
               :rowspan="cell.span.rowspan"
               :class="resolveCellClassName(cell)"
+              :data-column-uid="cell.span.colspan === 1 && cell.span.rowspan > 0 ? cell.column.uid : undefined"
               :style="resolveCellStyle(cell)"
               @click.stop="handleCellClick(rowState.item.row, cell.column, $event)"
               @dblclick.stop="handleCellDblclick(rowState.item.row, cell.column, $event)"
@@ -464,6 +587,15 @@ defineExpose({
                     class="xy-table__expand-trigger"
                     :class="{ 'is-expanded': props.store.isRowExpanded(rowState.item.row) }"
                     type="button"
+                    :aria-label="
+                      props.store.isRowExpanded(rowState.item.row) ? '收起当前行' : '展开当前行'
+                    "
+                    :aria-expanded="props.store.isRowExpanded(rowState.item.row)"
+                    :aria-controls="
+                      props.panel === 'main'
+                        ? getExpandedRowId(rowState.item.row, rowState.item.rowIndex)
+                        : undefined
+                    "
                     @click.stop="props.store.toggleRowExpansion(rowState.item.row)"
                   >
                       <xy-icon
@@ -492,6 +624,11 @@ defineExpose({
                         'is-loading': rowState.item.treeNode.loading
                       }"
                       type="button"
+                      :aria-label="
+                        rowState.item.treeNode.expanded ? '收起树节点' : '展开树节点'
+                      "
+                      :aria-expanded="rowState.item.treeNode.expanded"
+                      :aria-busy="rowState.item.treeNode.loading || undefined"
                       @click.stop="props.store.toggleTreeRow(rowState.item.row)"
                     >
                       <xy-icon
@@ -524,6 +661,11 @@ defineExpose({
         <tr
           v-if="shouldRenderExpandedRow(rowState.item.row, rowState.item.rowIndex)"
           v-show="isExpandedRowVisible(rowState.item.row)"
+          :id="
+            props.panel === 'main'
+              ? getExpandedRowId(rowState.item.row, rowState.item.rowIndex)
+              : undefined
+          "
           class="xy-table__expanded-row"
           :class="{ 'is-placeholder': props.expandedRowMode === 'placeholder' }"
         >
@@ -534,7 +676,12 @@ defineExpose({
               :style="resolveExpandedContentStyle()"
             >
               <table-render-slot
-                v-if="expandColumn?.cellSlot"
+                v-if="expandColumn?.expandSlot"
+                :render="expandColumn.expandSlot"
+                :slot-props="getExpandSlotProps(rowState.item.row, rowState.item.rowIndex, rowState.item.treeNode)"
+              />
+              <table-render-slot
+                v-else-if="expandColumn?.cellSlot"
                 :render="expandColumn.cellSlot"
                 :slot-props="getExpandedSlotProps(rowState.item.row, rowState.item.rowIndex, rowState.item.treeNode)"
               />

@@ -64,7 +64,7 @@ tree/lazy
 
 ### 节点类名
 
-:::demo `props.class` 适合对关键分支、风险节点或叶子节点做额外视觉强调，不需要重写整块节点模板。
+:::demo `props.class / props.contentClass` 适合对关键分支、风险节点或叶子节点做额外视觉强调，不需要重写整块节点模板。
 tree/custom-class
 :::
 
@@ -120,7 +120,7 @@ tree/drag-guards
 ## 使用建议
 
 - `render-after-expand=false` 适合首屏就需要稳定结构的导航树或需要提前挂载子节点内容的场景；默认值 `true` 更适合按需渲染。
-- `props.children / label / disabled / isLeaf / class` 建议成组看待，真实业务里往往不是只改一个字段映射。
+- `props.children / label / disabled / isLeaf / class / contentClass` 建议成组看待，真实业务里往往不是只改一个字段映射。
 - `empty` 插槽适合承接更完整的空态，而 `empty-text` 更适合只改一句描述文案。
 - 未开启 `show-checkbox` 时，节点点击仍然只表达“当前节点”与“展开状态”，不应把它理解为勾选行为。
 
@@ -133,7 +133,7 @@ tree/drag-guards
 | `data` | 树节点数据 | `Array<Record<string, any>>` | `[]` |
 | `empty-text` | 默认空态描述文案 | `string` | `'暂无数据'` |
 | `node-key` | 节点唯一 key 字段名；涉及 key 的回显和方法时必填 | `string` | `undefined` |
-| `props` | 节点字段映射 | `{ children?, label?, disabled?, isLeaf?, class? }` | `{ children: 'children', label: 'label', disabled: 'disabled' }` |
+| `props` | 节点字段映射 | `{ children?, label?, disabled?, isLeaf?, class?, contentClass? }` | `{ children: 'children', label: 'label', disabled: 'disabled' }` |
 | `render-after-expand` | 是否首次展开后再渲染子节点 | `boolean` | `true` |
 | `highlight-current` | 是否高亮当前节点 | `boolean` | `false` |
 | `default-expand-all` | 是否默认展开全部节点 | `boolean` | `false` |
@@ -215,6 +215,7 @@ tree/drag-guards
 | `disabled` | 禁用状态字段名或读取函数 | `string \| (data, node) => boolean` | `'disabled'` |
 | `isLeaf` | 叶子节点字段名或读取函数，仅懒加载时特别有用 | `string \| (data, node) => boolean` | `undefined` |
 | `class` | 自定义节点 class 或 class 计算函数 | `string \| Record<string, boolean> \| (data, node) => string \| Record<string, boolean>` | `undefined` |
+| `contentClass` | 自定义节点内容区 class 或 class 计算函数 | `string \| Record<string, boolean> \| (data, node) => string \| Record<string, boolean>` | `undefined` |
 
 ## 行为说明
 

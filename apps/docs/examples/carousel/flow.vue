@@ -29,13 +29,22 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 22px;
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
   border-radius: 18px;
-  background: linear-gradient(155deg, #0f766e, #3b82f6);
-  color: white;
+  background:
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--xy-color-primary) 14%, white),
+      transparent 46%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
+  color: var(--xy-text-color);
   overflow: hidden;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 
 .demo-carousel-flow__eyebrow {
+  color: var(--xy-color-primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;

@@ -24,14 +24,14 @@
 .col-demo-block {
   padding: 14px 16px;
   border-radius: 12px;
-  background: rgba(37, 99, 235, 0.12);
-  color: #1d4ed8;
+  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
+  color: color-mix(in srgb, var(--xy-color-primary) 78%, var(--xy-text-color));
   text-align: center;
   font-weight: 600;
 }
 
 .col-demo-block--accent {
-  background: rgba(14, 165, 233, 0.12);
-  color: #0369a1;
+  background: color-mix(in srgb, var(--xy-color-info) 12%, white);
+  color: color-mix(in srgb, var(--xy-color-info) 78%, var(--xy-text-color));
 }
 </style>

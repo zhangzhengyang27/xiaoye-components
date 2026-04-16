@@ -44,7 +44,9 @@ const riskStatus = computed(() => (scene.value === "rejected" ? "error" : ""));
       <div class="demo-steps-rollback__header">
         <div>
           <strong>审批打回与重提</strong>
-          <p>把“命中规则 -> 补充材料 -> 重新提交”的真实流转放进同一条步骤链路里看。</p>
+          <p class="demo-steps-rollback__header-description">
+            把“命中规则 -> 补充材料 -> 重新提交”的真实流转放进同一条步骤链路里看。
+          </p>
         </div>
         <xy-tag :status="currentConfig.status" round>{{ currentConfig.label }}</xy-tag>
       </div>
@@ -110,7 +112,7 @@ const riskStatus = computed(() => (scene.value === "rejected" ? "error" : ""));
   gap: 16px;
 }
 
-.demo-steps-rollback__header p {
+.demo-steps-rollback__header-description {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

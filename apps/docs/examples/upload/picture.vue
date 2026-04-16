@@ -4,11 +4,11 @@ import type { UploadFileItem } from "xiaoye-components";
 
 const coverUrl = `data:image/svg+xml;utf8,${encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200">
-  <rect width="320" height="200" rx="24" fill="#dbeafe"/>
-  <rect x="18" y="18" width="284" height="164" rx="18" fill="#93c5fd"/>
-  <circle cx="96" cy="90" r="28" fill="#f8fafc"/>
-  <path d="M42 154L112 96L164 136L214 86L278 154Z" fill="#2563eb"/>
-  <text x="24" y="38" font-size="18" fill="#1e3a8a" font-family="Arial">Cover</text>
+  <rect width="320" height="200" rx="24" fill="#e7edf6"/>
+  <rect x="18" y="18" width="284" height="164" rx="18" fill="#d3deec"/>
+  <circle cx="96" cy="90" r="28" fill="#f8fafd"/>
+  <path d="M42 154L112 96L164 136L214 86L278 154Z" fill="#8ea7cb"/>
+  <text x="24" y="38" font-size="18" fill="#667b99" font-family="Arial">Cover</text>
 </svg>
 `)}`;
 

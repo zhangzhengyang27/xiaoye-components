@@ -13,7 +13,7 @@
 
 .xy-descriptions__title {
   font-weight: 600;
-  color: var(--xy-text-color);
+  color: var(--xy-text-color-heading);
 }
 
 .xy-descriptions__title-main {
@@ -39,7 +39,7 @@
 }
 
 .xy-descriptions__extra {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
   font-size: var(--xy-font-size-sm);
 }
 
@@ -54,12 +54,13 @@
   min-width: 0;
   padding: 12px 14px;
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-color-subtle);
 }
 
 .xy-descriptions-item.is-bordered {
-  border: 1px solid var(--xy-border-color);
-  background: var(--xy-bg-color);
+  border: 1px solid var(--xy-border-color-subtle);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-descriptions-item.is-vertical {
@@ -69,7 +70,7 @@
 
 .xy-descriptions-item__label {
   flex: 0 0 auto;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
 }
 
 .xy-descriptions__item-label {
@@ -80,6 +81,6 @@
 
 .xy-descriptions-item__content {
   min-width: 0;
-  color: var(--xy-text-color);
+  color: var(--xy-text-color-heading);
   word-break: break-word;
 }

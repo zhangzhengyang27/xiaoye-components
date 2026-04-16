@@ -51,29 +51,31 @@
   justify-content: center;
   width: var(--xy-input-number-control-size);
   border: 0;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 78%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-surface-raised));
   color: var(--xy-text-color-secondary);
   cursor: pointer;
   transition:
     color 0.18s ease,
-    background-color 0.18s ease;
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .xy-input-number__increase:hover,
 .xy-input-number__decrease:hover {
   color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 58%, var(--xy-surface-raised));
 }
 
 .xy-input-number__decrease {
   left: 1px;
-  border-right: 1px solid var(--xy-border-color);
+  border-right: 1px solid var(--xy-border-color-subtle);
   border-top-left-radius: var(--xy-radius-md);
   border-bottom-left-radius: var(--xy-radius-md);
 }
 
 .xy-input-number__increase {
   right: 1px;
-  border-left: 1px solid var(--xy-border-color);
+  border-left: 1px solid var(--xy-border-color-subtle);
   border-top-right-radius: var(--xy-radius-md);
   border-bottom-right-radius: var(--xy-radius-md);
 }
@@ -89,8 +91,8 @@
   top: 1px;
   bottom: auto;
   right: 1px;
-  border-bottom: 1px solid var(--xy-border-color);
-  border-left: 1px solid var(--xy-border-color);
+  border-bottom: 1px solid var(--xy-border-color-subtle);
+  border-left: 1px solid var(--xy-border-color-subtle);
   border-top-right-radius: var(--xy-radius-md);
   border-bottom-right-radius: 0;
 }
@@ -99,7 +101,7 @@
   top: auto;
   right: 1px;
   bottom: 1px;
-  border-left: 1px solid var(--xy-border-color);
+  border-left: 1px solid var(--xy-border-color-subtle);
   border-right: 0;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -117,5 +119,5 @@
 
 .xy-input-number.is-disabled .xy-input-number__increase,
 .xy-input-number.is-disabled .xy-input-number__decrease {
-  background: var(--xy-bg-color-muted);
+  background: color-mix(in srgb, var(--xy-surface-sunken) 92%, var(--xy-bg-color-subtle));
 }

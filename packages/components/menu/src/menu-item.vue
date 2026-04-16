@@ -52,6 +52,7 @@ const itemState = {
 
 const itemClasses = computed(() => [
   ns.base.value,
+  `${nsMenu.base.value}__item-surface`,
   {
     "is-active": active.value,
     "is-disabled": props.disabled
@@ -127,7 +128,7 @@ onBeforeUnmount(() => {
     </xy-tooltip>
 
     <template v-else>
-      <span :class="`${ns.base.value}__content`">
+      <span :class="[`${ns.base.value}__content`, `${nsMenu.base.value}__item-content`]">
         <slot />
       </span>
       <span v-if="$slots.title" :class="`${ns.base.value}__title`">

@@ -15,8 +15,10 @@ onMounted(() => {
     <template #header>
       <div class="countdown-approval-panel__header">
         <div>
-          <strong>审批截止面板</strong>
-          <p>适合接在财务复核、发版审批和风控人工确认这类“超时后必须有后续动作”的面板里。</p>
+          <strong class="countdown-approval-panel__header-title">审批截止面板</strong>
+          <p class="countdown-approval-panel__header-description">
+            适合接在财务复核、发版审批和风控人工确认这类“超时后必须有后续动作”的面板里。
+          </p>
         </div>
         <xy-tag :status="timedOut ? 'warning' : 'primary'" round>
           {{ timedOut ? "已自动退回" : "等待处理" }}
@@ -27,6 +29,7 @@ onMounted(() => {
     <div v-if="!timedOut" class="countdown-approval-panel__body">
       <div class="countdown-approval-panel__summary">
         <xy-countdown
+          class="countdown-approval-panel__countdown"
           v-if="deadline"
           :value="deadline"
           format="HH:mm:ss"
@@ -44,11 +47,11 @@ onMounted(() => {
         </xy-countdown>
 
         <div class="countdown-approval-panel__meta">
-          <strong>待确认风险项</strong>
-          <ul>
-            <li>本次折扣会影响存量合同的最低价保护</li>
-            <li>审批通过后会立即触发渠道价格同步</li>
-            <li>若超时未处理，系统会自动撤回并通知提交人</li>
+          <strong class="countdown-approval-panel__meta-title">待确认风险项</strong>
+          <ul class="countdown-approval-panel__meta-list">
+            <li class="countdown-approval-panel__meta-item">本次折扣会影响存量合同的最低价保护</li>
+            <li class="countdown-approval-panel__meta-item">审批通过后会立即触发渠道价格同步</li>
+            <li class="countdown-approval-panel__meta-item">若超时未处理，系统会自动撤回并通知提交人</li>
           </ul>
         </div>
       </div>
@@ -61,6 +64,7 @@ onMounted(() => {
     </div>
 
     <xy-result
+      class="countdown-approval-panel__result"
       v-else
       title="审批已自动退回"
       description="处理窗口已经结束，系统已撤回本次申请并向提交人发送了站内通知。你可以查看历史记录或重新发起审批。"
@@ -88,12 +92,16 @@ onMounted(() => {
   gap: 20px;
 }
 
-.countdown-approval-panel__header p,
-.countdown-approval-panel__meta ul {
+.countdown-approval-panel__header-description,
+.countdown-approval-panel__meta-list {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
   line-height: 1.6;
+}
+
+.countdown-approval-panel__header-title {
+  color: var(--xy-text-color);
 }
 
 .countdown-approval-panel__body {
@@ -101,7 +109,7 @@ onMounted(() => {
   gap: 18px;
 }
 
-.countdown-approval-panel__summary :deep(.xy-countdown) {
+.countdown-approval-panel__countdown {
   flex: 0 0 280px;
 }
 
@@ -122,12 +130,12 @@ onMounted(() => {
   min-width: 0;
 }
 
-.countdown-approval-panel__meta strong {
+.countdown-approval-panel__meta-title {
   display: block;
   color: var(--xy-text-color);
 }
 
-.countdown-approval-panel__meta ul {
+.countdown-approval-panel__meta-list {
   padding-left: 18px;
 }
 
@@ -137,7 +145,7 @@ onMounted(() => {
   gap: 12px;
 }
 
-.countdown-approval-panel :deep(.xy-result) {
+.countdown-approval-panel__result {
   max-width: none;
   padding-inline: 0;
 }
@@ -148,7 +156,7 @@ onMounted(() => {
     flex-direction: column;
   }
 
-  .countdown-approval-panel__summary :deep(.xy-countdown) {
+  .countdown-approval-panel__countdown {
     flex-basis: auto;
   }
 }

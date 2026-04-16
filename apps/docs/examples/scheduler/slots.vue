@@ -22,7 +22,7 @@ const events = [
       <template #event-content="{ timeText, event }">
         <div class="doc-scheduler-event">
           <strong>{{ event.title }}</strong>
-          <span>{{ timeText || "全天" }}</span>
+          <span class="doc-scheduler-event__time">{{ timeText || "全天" }}</span>
         </div>
       </template>
 
@@ -43,7 +43,7 @@ const events = [
   gap: 2px;
 }
 
-.doc-scheduler-event span {
+.doc-scheduler-event__time {
   font-size: 12px;
 }
 

@@ -13,22 +13,16 @@ export interface CarouselContext {
   viewportSize: Ref<number>;
   items: Ref<CarouselItemRegistration[]>;
   resolvedActiveIndex: Ref<number>;
-  visualIndex: Ref<number>;
   previousIndex: Ref<number>;
   activeIndicatorIndex: Ref<number>;
   isCardType: ComputedRef<boolean>;
   isVertical: ComputedRef<boolean>;
   isFadeEffect: ComputedRef<boolean>;
-  seamlessLoop: ComputedRef<boolean>;
-  loopTransitionDirection: Ref<"next" | "prev" | null>;
-  loopTeleporting: Ref<boolean>;
   loop: ComputedRef<boolean>;
   trigger: ComputedRef<"hover" | "click">;
   cardScale: ComputedRef<number>;
   duration: ComputedRef<number>;
   easing: ComputedRef<string>;
-  loopBoundaryDuration: ComputedRef<number>;
-  loopBoundaryEasing: ComputedRef<string>;
   slidesPerView: ComputedRef<number>;
   slidesPerGroup: ComputedRef<number>;
   centered: ComputedRef<boolean>;
@@ -41,14 +35,7 @@ export interface CarouselContext {
   renderIndices: ComputedRef<Set<number>>;
   registerItem: (item: CarouselItemRegistration) => void;
   unregisterItem: (uid: number) => void;
-  setActiveItem: (
-    index: number | string,
-    options?: {
-      boundaryTransitionDirection?: "next" | "prev" | null;
-      deferTimerRestart?: boolean;
-      preserveProgressPercent?: number | null;
-    }
-  ) => void;
+  setActiveItem: (index: number | string) => void;
 }
 
 export const carouselContextKey: InjectionKey<CarouselContext> = Symbol("xiaoye-carousel");

@@ -465,6 +465,10 @@ function getTarget() {
   return hostRef.value;
 }
 
+function removeWatermark() {
+  destroyWatermark();
+}
+
 onMounted(() => {
   refreshHostAndWatermark();
 });
@@ -522,7 +526,8 @@ onBeforeUnmount(() => {
 defineExpose({
   rerender,
   getDataUrl,
-  getTarget
+  getTarget,
+  removeWatermark
 });
 </script>
 

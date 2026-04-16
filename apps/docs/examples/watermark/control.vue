@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { WatermarkInstance } from "xiaoye-components";
 import { reactive, ref } from "vue";
 
-const controlHostRef = ref<HTMLElement | null>(null);
+const watermarkRef = ref<WatermarkInstance | null>(null);
 const repeatOptions = ["repeat", "repeat-x", "repeat-y", "no-repeat"] as const;
 
 const config = reactive({
@@ -12,36 +13,33 @@ const config = reactive({
 });
 
 function removeLayer() {
-  controlHostRef.value?.querySelector(".xy-watermark__layer")?.remove();
+  watermarkRef.value?.removeWatermark();
 }
 </script>
 
 <template>
   <div class="xy-doc-watermark-control">
-    <div ref="controlHostRef">
-      <xy-watermark
-        content="CONTROL MODE"
-        :disabled="config.disabled"
-        :auto-observe="config.autoObserve"
-        :opacity="config.opacity"
-        :repeat="config.repeat"
-      >
-        <section class="xy-doc-watermark-control__surface">
-          <span class="xy-doc-watermark-control__badge">Control</span>
-          <h4>控制型参数</h4>
-          <p>适合在调试、导出预览和灰度环境里快速开关水印、调整透明度，或验证自动恢复能力是否符合预期。</p>
-        </section>
-      </xy-watermark>
-    </div>
+    <xy-watermark
+      ref="watermarkRef"
+      content="CONTROL MODE"
+      :disabled="config.disabled"
+      :auto-observe="config.autoObserve"
+      :opacity="config.opacity"
+      :repeat="config.repeat"
+    >
+      <section class="xy-doc-watermark-control__surface">
+        <span class="xy-doc-watermark-control__badge">Control</span>
+        <h4 class="xy-doc-watermark-control__title">控制型参数</h4>
+        <p class="xy-doc-watermark-control__description">
+          适合在调试、导出预览和灰度环境里快速开关水印、调整透明度，或验证自动恢复能力是否符合预期。
+        </p>
+      </section>
+    </xy-watermark>
 
     <div class="xy-doc-watermark-control__panel">
       <xy-space wrap>
         <xy-switch v-model="config.disabled" active-text="禁用" inactive-text="启用" />
-        <xy-switch
-          v-model="config.autoObserve"
-          active-text="自动恢复"
-          inactive-text="不恢复"
-        />
+        <xy-switch v-model="config.autoObserve" active-text="自动恢复" inactive-text="不恢复" />
         <xy-button @click="removeLayer">移除当前水印层</xy-button>
       </xy-space>
 
@@ -74,41 +72,44 @@ function removeLayer() {
 .xy-doc-watermark-control__surface {
   min-height: 240px;
   padding: 28px;
-  border-radius: 24px;
-  background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 249, 0.92)),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 38%);
-  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: linear-gradient(
+    155deg,
+    var(--xy-surface-raised),
+    color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white)
+  );
+  box-shadow: var(--xy-shadow-card);
 }
 
 .xy-doc-watermark-control__badge {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.12);
-  color: #1d4ed8;
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.xy-doc-watermark-control__surface h4 {
+.xy-doc-watermark-control__title {
   margin: 18px 0 12px;
-  color: #0f172a;
+  color: var(--xy-text-color-heading);
   font-size: 28px;
 }
 
-.xy-doc-watermark-control__surface p {
+.xy-doc-watermark-control__description {
   max-width: 560px;
   margin: 0;
-  color: #475569;
+  color: var(--xy-text-color-secondary);
   line-height: 1.7;
 }
 
 .xy-doc-watermark-control__panel {
   padding: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 20px;
-  background: rgba(248, 250, 252, 0.92);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
 }
 </style>

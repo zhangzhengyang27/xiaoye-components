@@ -114,36 +114,37 @@ function resolveNodeDisabled(data: TreeNodeData) {
   return Boolean(data?.[disabledProp]);
 }
 
-function findNodeLabel(data: TreeNodeData[], key: string | number | null): string {
+function findNode(data: TreeNodeData[], key: string | number | null): TreeNodeData | null {
   if (key == null) {
-    return "";
+    return null;
   }
 
   const childrenField = getChildrenField();
 
   for (const item of data) {
     if (resolveNodeKey(item) === key) {
-      return resolveNodeLabel(item);
+      return item;
     }
 
     const children = Array.isArray(item?.[childrenField]) ? (item[childrenField] as TreeNodeData[]) : [];
-    const childLabel = findNodeLabel(children, key);
+    const childNode = findNode(children, key);
 
-    if (childLabel) {
-      return childLabel;
+    if (childNode) {
+      return childNode;
     }
   }
 
-  return "";
+  return null;
 }
 
+const selectedNode = computed(() => findNode(props.data, selectedValue.value));
+
 const displayLabel = computed(() => {
-  const label = findNodeLabel(props.data, selectedValue.value);
-  return label || props.placeholder;
+  return selectedNode.value ? resolveNodeLabel(selectedNode.value) : props.placeholder;
 });
 
 const showClear = computed(
-  () => props.clearable && selectedValue.value !== null && selectedValue.value !== undefined && !mergedDisabled.value
+  () => props.clearable && selectedNode.value !== null && !mergedDisabled.value
 );
 
 const dropdownStyle = computed<StyleValue>(() => [floatingStyle.value, props.popperStyle]);
@@ -323,19 +324,21 @@ defineExpose({
       @click="openDropdown"
       @keydown="handleTriggerKeydown"
     >
-      <span :class="['xy-tree-select__label', !selectedValue ? 'is-placeholder' : '']">
+      <span :class="['xy-tree-select__label', !selectedNode ? 'is-placeholder' : '']">
         {{ displayLabel }}
       </span>
-      <button
-        v-if="showClear"
-        type="button"
-        class="xy-tree-select__icon-button xy-tree-select__clear"
-        @click="clearValue"
-      >
-        <XyIcon icon="mdi:close-circle" />
-      </button>
-      <span class="xy-tree-select__icon">
-        <XyIcon icon="mdi:chevron-down" />
+      <span class="xy-tree-select__actions" :class="{ 'has-clear': showClear }">
+        <button
+          v-if="showClear"
+          type="button"
+          class="xy-tree-select__icon-button xy-tree-select__clear"
+          @click="clearValue"
+        >
+          <XyIcon icon="mdi:close-circle" />
+        </button>
+        <span class="xy-tree-select__icon">
+          <XyIcon icon="mdi:chevron-down" />
+        </span>
       </span>
     </div>
 

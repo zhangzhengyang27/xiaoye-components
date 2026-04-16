@@ -10,26 +10,36 @@
 
 <style scoped>
 .demo-carousel-fade {
+  --demo-carousel-accent: var(--xy-color-primary);
   width: 100%;
   height: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 18%, var(--xy-border-color));
   border-radius: 18px;
-  color: white;
+  background:
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--demo-carousel-accent) 14%, white),
+      transparent 44%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
+  color: var(--xy-text-color);
   font-size: 28px;
   font-weight: 800;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 
 .demo-carousel-fade.is-1 {
-  background: linear-gradient(135deg, #2563eb, #0f766e);
+  --demo-carousel-accent: var(--xy-color-primary);
 }
 
 .demo-carousel-fade.is-2 {
-  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  --demo-carousel-accent: var(--xy-color-success);
 }
 
 .demo-carousel-fade.is-3 {
-  background: linear-gradient(135deg, #ea580c, #d97706);
+  --demo-carousel-accent: var(--xy-color-warning);
 }
 </style>

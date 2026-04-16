@@ -245,6 +245,7 @@ interface DialogServiceResult {
 | `lock-scroll`           | 打开时是否锁定 body 滚动                             | `boolean`                                                                                 | `true`             |
 | `modal`                 | 是否显示遮罩层                                       | `boolean`                                                                                 | `true`             |
 | `modal-class`           | 遮罩容器自定义类名                                   | `string`                                                                                  | `''`               |
+| `panel-class`           | 面板容器自定义类名                                   | `string`                                                                                  | `''`               |
 | `modal-penetrable`      | 无遮罩时是否允许穿透点击背景                         | `boolean`                                                                                 | `false`            |
 | `open-delay`            | 打开延迟，单位毫秒                                   | `number`                                                                                  | `0`                |
 | `close-delay`           | 关闭延迟，单位毫秒                                   | `number`                                                                                  | `0`                |

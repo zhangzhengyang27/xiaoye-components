@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const wideImage = `data:image/svg+xml;utf8,${encodeURIComponent(`
   <svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
-    <rect width="320" height="180" fill="#dbeafe" />
-    <rect x="18" y="18" width="284" height="144" rx="24" fill="#1e293b" />
-    <circle cx="104" cy="86" r="24" fill="#93c5fd" />
-    <path d="M48 144L112 92L168 130L224 80L272 144Z" fill="#2563eb" />
+    <rect width="320" height="180" fill="#e6edf7" />
+    <rect x="18" y="18" width="284" height="144" rx="24" fill="#60748d" />
+    <circle cx="104" cy="86" r="24" fill="#d9e4f2" />
+    <path d="M48 144L112 92L168 130L224 80L272 144Z" fill="#89a2c8" />
   </svg>
 `)}`;
 </script>
@@ -43,7 +43,7 @@ const wideImage = `data:image/svg+xml;utf8,${encodeURIComponent(`
             :src="wideImage"
             fit="contain"
             alt="contain"
-            style="width: 100%; height: 120px; border-radius: 16px; background: #f8fafc"
+            style="width: 100%; height: 120px; border-radius: 16px; background: #f6f8fb"
           />
         </div>
 

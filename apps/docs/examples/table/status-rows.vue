@@ -7,6 +7,11 @@ interface StatusRow {
   updatedAt: string;
 }
 
+interface StatusPalette {
+  base: string;
+  hover: string;
+}
+
 const rows: StatusRow[] = [
   {
     id: 1,
@@ -31,17 +36,41 @@ const rows: StatusRow[] = [
   }
 ];
 
-function rowClassName(row: StatusRow) {
-  if (row.status === "风险") {
-    return "table-status-row--danger";
+function resolvePalette(status: StatusRow["status"]): StatusPalette {
+  if (status === "风险") {
+    return {
+      base: "color-mix(in srgb, var(--xy-color-danger) 10%, white)",
+      hover: "color-mix(in srgb, var(--xy-color-danger) 14%, #f5f7fa)"
+    };
   }
 
-  if (row.status === "关注") {
-    return "table-status-row--warning";
+  if (status === "关注") {
+    return {
+      base: "color-mix(in srgb, var(--xy-color-warning) 10%, white)",
+      hover: "color-mix(in srgb, var(--xy-color-warning) 14%, #f5f7fa)"
+    };
   }
 
-  return "table-status-row--success";
+  return {
+    base: "color-mix(in srgb, var(--xy-color-success) 8%, white)",
+    hover: "color-mix(in srgb, var(--xy-color-success) 12%, #f5f7fa)"
+  };
 }
+
+const rowStyle = ({ row }: { row: StatusRow }) => {
+  const palette = resolvePalette(row.status);
+
+  return {
+    "--demo-table-status-row-background": palette.base,
+    "--xy-table-row-hover-background": palette.hover
+  };
+};
+
+const cellStyle = () => {
+  return {
+    background: "var(--demo-table-status-row-background)"
+  };
+};
 </script>
 
 <template>
@@ -69,7 +98,8 @@ function rowClassName(row: StatusRow) {
         row-key="id"
         border
         show-overflow-tooltip
-        :row-class-name="rowClassName"
+        :row-style="rowStyle"
+        :cell-style="cellStyle"
       >
         <xy-table-column prop="project" label="项目" min-width="150" />
         <xy-table-column prop="owner" label="负责人" width="100" />
@@ -85,17 +115,3 @@ function rowClassName(row: StatusRow) {
     </div>
   </div>
 </template>
-
-<style scoped>
-:deep(.table-status-row--success > .xy-table__cell) {
-  background: color-mix(in srgb, var(--xy-color-success) 4%, white);
-}
-
-:deep(.table-status-row--warning > .xy-table__cell) {
-  background: color-mix(in srgb, var(--xy-color-warning) 7%, white);
-}
-
-:deep(.table-status-row--danger > .xy-table__cell) {
-  background: color-mix(in srgb, var(--xy-color-danger) 7%, white);
-}
-</style>

@@ -93,7 +93,11 @@ const subMenuClasses = computed(() => [
     "is-popup": popupMode.value
   }
 ]);
-const titleClasses = computed(() => [`${nsSubMenu.base.value}__title`]);
+const titleClasses = computed(() => [
+  `${nsSubMenu.base.value}__title`,
+  `${nsMenu.base.value}__item-surface`,
+  `${nsMenu.base.value}__horizontal-trigger`
+]);
 const menuClasses = computed(() => [
   `${nsMenu.base.value}__popup`,
   `${nsMenu.base.value}__popup--${popupEffect.value}`,
@@ -349,11 +353,11 @@ onBeforeUnmount(() => {
       @click="handleClick"
       @keydown="handleKeydown"
     >
-      <div :class="`${nsSubMenu.base.value}__title-content`">
+      <div :class="[`${nsSubMenu.base.value}__title-content`, `${nsMenu.base.value}__item-content`]">
         <slot name="title" />
       </div>
 
-      <span :class="`${nsSubMenu.base.value}__icon`">
+      <span :class="[`${nsSubMenu.base.value}__icon`, `${nsMenu.base.value}__expand-icon`]">
         <component :is="{ render: () => renderIcon(iconComponent) }" />
       </span>
     </div>
@@ -379,12 +383,12 @@ onBeforeUnmount(() => {
     </template>
 
     <xy-menu-collapse-transition v-else-if="menuRoot.props.collapseTransition">
-      <ul v-show="opened" :class="`${nsSubMenu.base.value}__wrap`" role="menu">
+      <ul v-show="opened" :class="[`${nsSubMenu.base.value}__wrap`, 'xy-menu__sub-list']" role="menu">
         <slot />
       </ul>
     </xy-menu-collapse-transition>
 
-    <ul v-else v-show="opened" :class="`${nsSubMenu.base.value}__wrap`" role="menu">
+    <ul v-else v-show="opened" :class="[`${nsSubMenu.base.value}__wrap`, 'xy-menu__sub-list']" role="menu">
       <slot />
     </ul>
   </li>

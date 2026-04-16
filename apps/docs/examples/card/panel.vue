@@ -45,7 +45,7 @@
 
       <div class="demo-card-panel-copy">
         <strong>通知渠道</strong>
-        <p>适合承载设置说明、状态提示和右侧轻操作。</p>
+        <p class="demo-card-panel-copy__description">适合承载设置说明、状态提示和右侧轻操作。</p>
       </div>
     </xy-card>
   </div>
@@ -64,7 +64,7 @@
   gap: 6px;
 }
 
-.demo-card-panel-copy p {
+.demo-card-panel-copy__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
 }

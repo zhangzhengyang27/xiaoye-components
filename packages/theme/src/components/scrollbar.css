@@ -1,12 +1,22 @@
 .xy-scrollbar {
   position: relative;
   overflow: hidden;
+  border-radius: inherit;
 }
 
 .xy-scrollbar__wrap {
   width: 100%;
   height: 100%;
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.xy-scrollbar__wrap:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline-offset: 2px;
+  border-radius: var(--xy-radius-md);
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-scrollbar__wrap--hidden-default {
@@ -28,8 +38,13 @@
   position: absolute;
   z-index: 1;
   border-radius: 999px;
-  background: transparent;
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, transparent);
   user-select: none;
+  opacity: 0.84;
+  transition:
+    background-color 0.18s ease,
+    opacity 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .xy-scrollbar__bar.is-vertical {
@@ -50,13 +65,27 @@
   position: relative;
   display: block;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-text-color-muted) 74%, transparent);
+  background: color-mix(in srgb, var(--xy-text-color-muted) 30%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 48%, transparent);
   cursor: pointer;
-  transition: background-color 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
 }
 
 .xy-scrollbar__thumb:hover {
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 78%, transparent);
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 40%, transparent);
+}
+
+.xy-scrollbar__thumb:active {
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 52%, transparent);
+}
+
+.xy-scrollbar:hover .xy-scrollbar__bar,
+.xy-scrollbar:focus-within .xy-scrollbar__bar {
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 80%, transparent);
 }
 
 .xy-scrollbar__bar.is-vertical .xy-scrollbar__thumb {

@@ -50,8 +50,8 @@ const steps = [
         :type="index === 3 ? 'success' : index === 2 ? 'primary' : 'neutral'"
       >
         <xy-card class="demo-timeline-modes__card" shadow="hover">
-          <strong>{{ step.title }}</strong>
-          <p>{{ step.description }}</p>
+          <strong class="demo-timeline-modes__card-title">{{ step.title }}</strong>
+          <p class="demo-timeline-modes__description">{{ step.description }}</p>
         </xy-card>
       </xy-timeline-item>
     </xy-timeline>
@@ -67,22 +67,22 @@ const steps = [
 
 .demo-timeline-modes__toolbar {
   padding: 12px 14px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color-muted);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
 }
 
 .demo-timeline-modes__card {
-  background: linear-gradient(180deg, white, var(--xy-bg-color-muted));
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
 }
 
-.demo-timeline-modes__card strong {
+.demo-timeline-modes__card-title {
   display: block;
   margin-bottom: 6px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-color-heading);
 }
 
-.demo-timeline-modes__card p {
+.demo-timeline-modes__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.6;

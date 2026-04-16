@@ -1,15 +1,23 @@
 .xy-watermark {
   position: relative;
+  display: block;
+  isolation: isolate;
 }
 
 .xy-watermark-target--relative {
   position: relative !important;
+  isolation: isolate;
 }
 
 .xy-watermark__layer {
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   pointer-events: none;
   user-select: none;
   background-repeat: repeat;
+  background-origin: border-box;
+  background-clip: padding-box;
+  opacity: 0.9;
+  transition: opacity 0.18s ease;
 }

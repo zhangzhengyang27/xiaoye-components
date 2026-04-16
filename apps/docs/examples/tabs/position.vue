@@ -11,16 +11,12 @@ const items = [
 
 <template>
   <div class="demo-tabs-shell">
-    <xy-tabs
-      v-model="activeKey"
-      :items="items"
-      tab-position="left"
-    >
+    <xy-tabs v-model="activeKey" :items="items" tab-position="left">
       <template #default="{ activeItem }">
         <div class="demo-side-panel">
           <div class="demo-side-panel__eyebrow">Workspace</div>
-          <h4>{{ activeItem?.label }} 侧边面板</h4>
-          <p>把页签当成局部导航，内容区更像一个独立工作台，而不是普通卡片。</p>
+          <h4 class="demo-side-panel__title">{{ activeItem?.label }} 侧边面板</h4>
+          <p class="demo-side-panel__description">把页签当成局部导航，内容区更像一个独立工作台，而不是普通卡片。</p>
         </div>
       </template>
     </xy-tabs>
@@ -37,11 +33,10 @@ const items = [
 .demo-side-panel {
   min-height: 260px;
   padding: 30px 32px;
-  border-radius: 22px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95)),
-    radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 28%);
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-surface-raised);
+  border: 1px solid var(--xy-border-color-subtle);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-side-panel__eyebrow {
@@ -50,21 +45,22 @@ const items = [
   min-height: 24px;
   padding: 0 10px;
   border-radius: 999px;
-  background: rgba(14, 165, 233, 0.1);
-  color: #0284c7;
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 56%, white);
+  color: var(--xy-color-primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.demo-side-panel h4 {
+.demo-side-panel__title {
   margin: 16px 0 8px;
+  color: var(--xy-text-color-heading);
   font-size: 24px;
   line-height: 1.2;
 }
 
-.demo-side-panel p {
+.demo-side-panel__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

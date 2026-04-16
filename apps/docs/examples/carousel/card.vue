@@ -3,8 +3,8 @@
     <xy-carousel-item v-for="item in 5" :key="`card-${item}`" :name="`card-${item}`">
       <xy-card class="demo-carousel-card" shadow="always">
         <span class="demo-carousel-card__eyebrow">Pick {{ item }}</span>
-        <strong>推荐位 {{ item }}</strong>
-        <p>点击左右卡片可以直接切换当前内容。</p>
+        <strong class="demo-carousel-card__title">推荐位 {{ item }}</strong>
+        <p class="demo-carousel-card__description">点击左右卡片可以直接切换当前内容。</p>
       </xy-card>
     </xy-carousel-item>
   </xy-carousel>
@@ -19,8 +19,16 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 22px;
-  background: linear-gradient(160deg, #0f766e, #2563eb);
-  color: white;
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
+  background:
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--xy-color-primary) 12%, white),
+      transparent 44%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
+  color: var(--xy-text-color);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 74%, transparent);
 }
 
 .demo-carousel-card__eyebrow {
@@ -28,16 +36,16 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: color-mix(in srgb, white 72%, transparent);
+  color: var(--xy-color-primary);
 }
 
-.demo-carousel-card strong {
+.demo-carousel-card__title {
   font-size: 22px;
   line-height: 1.1;
 }
 
-.demo-carousel-card p {
+.demo-carousel-card__description {
   margin: 0;
-  color: color-mix(in srgb, white 80%, transparent);
+  color: var(--xy-text-color-secondary);
 }
 </style>

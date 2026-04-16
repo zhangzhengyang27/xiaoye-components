@@ -1,3 +1,11 @@
+.xy-affix {
+  position: relative;
+  z-index: var(--xy-z-affix, 10);
+}
+
 .xy-affix--fixed {
   position: fixed;
+  box-sizing: border-box;
+  will-change: transform;
+  z-index: var(--xy-z-affix, 10);
 }

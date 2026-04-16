@@ -75,8 +75,8 @@ const sceneMeta = computed<{
 
         <aside class="demo-radio-form__aside">
           <span class="demo-radio-form__aside-kicker">Environment</span>
-          <strong>{{ sceneMeta.title }}</strong>
-          <p>{{ sceneMeta.hint }}</p>
+          <strong class="demo-radio-form__aside-title">{{ sceneMeta.title }}</strong>
+          <p class="demo-radio-form__aside-description">{{ sceneMeta.hint }}</p>
           <xy-tag size="sm" :status="sceneMeta.status" round>
             {{ sceneMeta.title }}
           </xy-tag>
@@ -141,13 +141,13 @@ const sceneMeta = computed<{
   text-transform: uppercase;
 }
 
-.demo-radio-form__aside strong {
+.demo-radio-form__aside-title {
   color: var(--xy-text-color);
   font-size: 18px;
   line-height: 1.2;
 }
 
-.demo-radio-form__aside p {
+.demo-radio-form__aside-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

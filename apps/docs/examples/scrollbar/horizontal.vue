@@ -2,8 +2,8 @@
   <xy-scrollbar>
     <div class="demo-scroll-board">
       <article v-for="item in 6" :key="item" class="demo-scroll-board__item">
-        <strong>列 {{ item }}</strong>
-        <p>横向滚动适合时间轴、统计卡片带和可拖动泳道。</p>
+        <strong class="demo-scroll-board__item-title">列 {{ item }}</strong>
+        <p class="demo-scroll-board__description">横向滚动适合时间轴、统计卡片带和可拖动泳道。</p>
       </article>
     </div>
   </xy-scrollbar>
@@ -30,13 +30,13 @@
   );
 }
 
-.demo-scroll-board__item strong {
+.demo-scroll-board__item-title {
   display: block;
   margin-bottom: 8px;
   color: var(--xy-text-color);
 }
 
-.demo-scroll-board__item p {
+.demo-scroll-board__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

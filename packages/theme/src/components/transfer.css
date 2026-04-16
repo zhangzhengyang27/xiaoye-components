@@ -9,9 +9,10 @@
   display: flex;
   flex-direction: column;
   min-height: 280px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-transfer__panel-header {
@@ -19,7 +20,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 14px;
-  border-bottom: 1px solid var(--xy-border-color-light);
+  border-bottom: 1px solid var(--xy-border-color-subtle);
 }
 
 .xy-transfer__panel-filter {
@@ -40,7 +41,7 @@
 }
 
 .xy-transfer__item.is-disabled {
-  color: var(--xy-text-color-disabled);
+  color: var(--xy-text-color-muted);
 }
 
 .xy-transfer__item-content {
@@ -51,7 +52,7 @@
 }
 
 .xy-transfer__item-description {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-color-subtle);
 }
 
 .xy-transfer__actions {

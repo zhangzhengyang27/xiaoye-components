@@ -51,8 +51,8 @@
   content: "";
   position: absolute;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-border-color) 72%, white);
-  opacity: 0.46;
+  background: color-mix(in srgb, var(--xy-border-color-subtle) 88%, transparent);
+  opacity: 0.4;
   transition:
     background-color 0.18s ease,
     opacity 0.18s ease,
@@ -86,7 +86,7 @@
 .xy-splitter-bar:hover::before,
 .xy-splitter-bar.is-active::before {
   background: color-mix(in srgb, var(--xy-color-primary) 22%, var(--xy-border-color-strong));
-  opacity: 0.8;
+  opacity: 0.62;
 }
 
 .xy-splitter-bar__dragger {
@@ -122,13 +122,9 @@
 
 .xy-splitter-bar__dragger::before {
   opacity: 0;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-strong) 62%, white);
-  background: color-mix(in srgb, var(--xy-bg-color) 78%, transparent);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 8px 20px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(10px) saturate(1.1);
-  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 92%, var(--xy-bg-color-subtle));
+  box-shadow: var(--xy-shadow-xs);
   transform: translate(-50%, -50%) scale(0.72);
 }
 
@@ -172,10 +168,10 @@
 .xy-splitter-bar__grip::before {
   width: 2px;
   height: 2px;
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 58%, white);
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 54%, white);
   box-shadow:
-    0 -5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 58%, white),
-    0 5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 58%, white);
+    0 -5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, white),
+    0 5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, white);
 }
 
 .xy-splitter-bar__dragger--vertical .xy-splitter-bar__grip::before {
@@ -187,9 +183,9 @@
 .xy-splitter-bar__dragger:hover::before,
 .xy-splitter-bar__dragger:focus-visible::before,
 .xy-splitter-bar__dragger.is-active::before {
-  opacity: 0.94;
-  border-color: color-mix(in srgb, var(--xy-color-primary) 24%, white);
-  background: color-mix(in srgb, var(--xy-color-primary) 8%, white);
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 78%, var(--xy-bg-color-floating));
   transform: translate(-50%, -50%) scale(0.94);
 }
 
@@ -252,8 +248,8 @@
 
 .xy-splitter-bar__dragger:focus-visible::before {
   box-shadow:
-    0 0 0 4px color-mix(in srgb, var(--xy-color-primary) 16%, transparent),
-    0 12px 30px rgba(15, 23, 42, 0.12);
+    0 0 0 4px var(--xy-focus-ring-color),
+    var(--xy-shadow-xs);
 }
 
 .xy-splitter-bar__collapse {
@@ -265,11 +261,11 @@
   width: 18px;
   height: 24px;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-bg-color) 92%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 94%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color-secondary);
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow: var(--xy-shadow-xs);
   cursor: pointer;
   opacity: 0;
   transition:
@@ -286,7 +282,8 @@
 
 .xy-splitter-bar__collapse:hover {
   color: var(--xy-color-primary);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 24%, white);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
+  background: var(--xy-color-primary-soft);
 }
 
 .xy-splitter-bar__collapse--horizontal.xy-splitter-bar__collapse--start {

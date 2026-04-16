@@ -42,6 +42,7 @@ const { dragStyle, handlePointerDown, isDragging, resetPosition, updatePosition 
 
 const dialogKls = computed(() => [
   `${ns.base.value}__panel`,
+  props.panelClass,
   ns.is("fullscreen", props.fullscreen),
   ns.is("draggable", props.draggable),
   ns.is("dragging", isDragging.value),

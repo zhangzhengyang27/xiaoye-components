@@ -4,10 +4,10 @@ import type { UploadFileItem } from "xiaoye-components";
 
 const avatarUrl = `data:image/svg+xml;utf8,${encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <rect width="200" height="200" rx="28" fill="#fee2e2"/>
-  <circle cx="100" cy="74" r="34" fill="#fecaca"/>
-  <path d="M42 172C52 134 76 116 100 116C124 116 148 134 158 172Z" fill="#ef4444"/>
-  <text x="24" y="34" font-size="18" fill="#7f1d1d" font-family="Arial">Avatar</text>
+  <rect width="200" height="200" rx="28" fill="#f3e7e1"/>
+  <circle cx="100" cy="74" r="34" fill="#ebd4c7"/>
+  <path d="M42 172C52 134 76 116 100 116C124 116 148 134 158 172Z" fill="#b88f7c"/>
+  <text x="24" y="34" font-size="18" fill="#8b6a59" font-family="Arial">Avatar</text>
 </svg>
 `)}`;
 
@@ -23,9 +23,5 @@ const files = ref<UploadFileItem[]>([
 </script>
 
 <template>
-  <xy-upload
-    v-model:file-list="files"
-    list-type="picture-card"
-    accept=".png,.jpg,.jpeg"
-  />
+  <xy-upload v-model:file-list="files" list-type="picture-card" accept=".png,.jpg,.jpeg" />
 </template>

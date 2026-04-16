@@ -45,7 +45,9 @@ const actions: Array<{ label: string; value: DemoState; status: "primary" | "suc
           <xy-avatar size="lg">OPS</xy-avatar>
           <div class="demo-skeleton-stateflow__content-copy">
             <strong>发布窗口已同步完成</strong>
-            <p>最新一轮灰度指标已写回控制台，接下来可以继续确认清结算链路和消息中心异常项。</p>
+            <p class="demo-skeleton-stateflow__content-description">
+              最新一轮灰度指标已写回控制台，接下来可以继续确认清结算链路和消息中心异常项。
+            </p>
             <xy-space wrap>
               <xy-button type="primary">查看窗口详情</xy-button>
               <xy-button plain>打开监控看板</xy-button>
@@ -103,7 +105,7 @@ const actions: Array<{ label: string; value: DemoState; status: "primary" | "suc
   gap: 12px;
 }
 
-.demo-skeleton-stateflow__content-copy p {
+.demo-skeleton-stateflow__content-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.6;

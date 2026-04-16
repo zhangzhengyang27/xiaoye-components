@@ -19,7 +19,7 @@ const open = ref(false);
         <div class="demo-drawer-header__content">
           <div class="demo-drawer-header__meta">
             <span :id="titleId" :class="titleClass">审阅工作台</span>
-            <small>通过 slot props 保持可访问标题与关闭句柄。</small>
+            <small class="demo-drawer-header__caption">通过 slot props 保持可访问标题与关闭句柄。</small>
           </div>
           <xy-space>
             <xy-tag status="warning">待确认</xy-tag>
@@ -65,7 +65,7 @@ const open = ref(false);
   gap: 4px;
 }
 
-.demo-drawer-header__meta small {
+.demo-drawer-header__caption {
   color: var(--xy-text-color-secondary);
 }
 </style>

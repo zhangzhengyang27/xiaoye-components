@@ -65,23 +65,33 @@
   z-index: var(--xy-z-dropdown);
   width: 36px;
   height: 36px;
-  border: 0;
+  border: 1px solid color-mix(in srgb, var(--xy-bg-color) 12%, transparent);
   border-radius: 50%;
-  background: color-mix(in srgb, #0f172a 64%, transparent);
-  color: white;
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 16%, transparent);
+  color: color-mix(in srgb, var(--xy-bg-color) 92%, var(--xy-text-color-heading));
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transform: translateY(-50%);
   cursor: pointer;
+  box-shadow: var(--xy-shadow-sm);
   transition:
     opacity 0.18s ease,
     background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
     transform 0.18s ease;
 }
 
 .xy-carousel__arrow:hover {
-  background: color-mix(in srgb, #0f172a 78%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 22%, transparent);
+  border-color: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
+}
+
+.xy-carousel__arrow:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 88%, white);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-carousel__arrow--left {
@@ -181,7 +191,7 @@
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: white;
+  background: color-mix(in srgb, var(--xy-bg-color) 84%, transparent);
   opacity: 0.48;
   cursor: pointer;
   transition:
@@ -216,7 +226,10 @@
 }
 
 .xy-carousel .xy-carousel__indicators > .xy-carousel__indicator:hover .xy-carousel__button--custom,
-.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator.is-active .xy-carousel__button--custom {
+.xy-carousel
+  .xy-carousel__indicators
+  > .xy-carousel__indicator.is-active
+  .xy-carousel__button--custom {
   opacity: 1;
 }
 
@@ -236,7 +249,10 @@
   height: 8px;
 }
 
-.xy-carousel .xy-carousel__indicators > .xy-carousel__indicator.is-active .xy-carousel__button:not(.xy-carousel__button--custom) {
+.xy-carousel
+  .xy-carousel__indicators
+  > .xy-carousel__indicator.is-active
+  .xy-carousel__button:not(.xy-carousel__button--custom) {
   transform: scale(1.04);
 }
 
@@ -248,7 +264,7 @@
 }
 
 .xy-carousel__indicators--outside .xy-carousel__button {
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, white);
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 72%, var(--xy-bg-color-subtle));
   opacity: 0.24;
 }
 
@@ -284,7 +300,11 @@
   display: block;
   width: var(--xy-carousel-progress-percent, 0%);
   height: 100%;
-  background: var(--xy-carousel-progress-color, var(--xy-color-primary));
+  background: color-mix(
+    in srgb,
+    var(--xy-carousel-progress-color, var(--xy-color-primary)) 88%,
+    var(--xy-surface-raised)
+  );
   transition: width 0.08s linear;
 }
 
@@ -327,7 +347,6 @@
   padding: 0;
   border-radius: 0;
   background: transparent;
-  backdrop-filter: none;
 }
 
 .xy-carousel__controls--inside.xy-carousel__controls--vertical .xy-carousel__indicators {
@@ -398,8 +417,9 @@
 }
 
 .xy-carousel__thumb:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 36%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-carousel__thumb--line {
@@ -437,7 +457,7 @@
   min-height: 56px;
   padding: 10px 12px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
+  background: var(--xy-bg-color-subtle);
   white-space: nowrap;
   transition:
     background-color 0.18s ease,
@@ -446,7 +466,7 @@
 
 .xy-carousel__thumb.is-active .xy-carousel__thumb--thumbnail,
 .xy-carousel__thumb--thumbnail.is-active {
-  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
+  background: var(--xy-color-primary-soft);
   color: var(--xy-color-primary);
 }
 

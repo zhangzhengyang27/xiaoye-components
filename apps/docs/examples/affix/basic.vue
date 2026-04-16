@@ -3,8 +3,8 @@
     <xy-affix :offset="48">
       <div class="demo-affix-basic__toolbar">
         <div>
-          <strong>审批流快捷操作</strong>
-          <p>继续往下滚，观察这块工具条固定在视口顶部。</p>
+          <strong class="demo-affix-basic__toolbar-title">审批流快捷操作</strong>
+          <p class="demo-affix-basic__toolbar-description">继续往下滚，观察这块工具条固定在视口顶部。</p>
         </div>
         <xy-button type="primary">一键处理</xy-button>
       </div>
@@ -12,8 +12,10 @@
 
     <div class="demo-affix-basic__list">
       <xy-card v-for="item in 10" :key="item" class="demo-affix-basic__card" shadow="hover">
-        <h4>跟进卡片 {{ item }}</h4>
-        <p>滚动页面时，顶部操作会保持可见，适合审批流、筛选摘要和页面内快捷入口。</p>
+        <h4 class="demo-affix-basic__card-title">跟进卡片 {{ item }}</h4>
+        <p class="demo-affix-basic__card-description">
+          滚动页面时，顶部操作会保持可见，适合审批流、筛选摘要和页面内快捷入口。
+        </p>
       </xy-card>
     </div>
   </section>
@@ -32,23 +34,19 @@
   justify-content: space-between;
   gap: 16px;
   padding: 16px 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
   border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--xy-color-primary) 12%, white),
-    rgba(255, 255, 255, 0.96)
-  );
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
 }
 
-.demo-affix-basic__toolbar strong {
+.demo-affix-basic__toolbar-title {
   display: block;
   margin-bottom: 6px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-color-heading);
 }
 
-.demo-affix-basic__toolbar p {
+.demo-affix-basic__toolbar-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -60,11 +58,11 @@
   gap: 14px;
 }
 
-.demo-affix-basic__card h4 {
+.demo-affix-basic__card-title {
   margin: 0 0 8px;
 }
 
-.demo-affix-basic__card p {
+.demo-affix-basic__card-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

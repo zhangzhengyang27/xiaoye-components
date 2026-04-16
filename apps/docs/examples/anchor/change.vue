@@ -26,10 +26,10 @@ function handleClick(_event: MouseEvent, href?: string) {
 <template>
   <div class="demo-anchor-change">
     <div class="demo-anchor-change__panel">
-      <strong>当前高亮</strong>
-      <span>{{ currentHref }}</span>
-      <strong>最近点击</strong>
-      <span>{{ lastClick }}</span>
+      <strong class="demo-anchor-change__panel-label">当前高亮</strong>
+      <span class="demo-anchor-change__panel-value">{{ currentHref }}</span>
+      <strong class="demo-anchor-change__panel-label">最近点击</strong>
+      <span class="demo-anchor-change__panel-value">{{ lastClick }}</span>
     </div>
 
     <div class="demo-anchor-change__layout">
@@ -49,13 +49,14 @@ function handleClick(_event: MouseEvent, href?: string) {
 
       <div class="demo-anchor-change__viewport">
         <section
-          v-for="section in sections"
+          v-for="(section, index) in sections"
           :id="section.id"
           :key="section.id"
           class="demo-anchor-change__section"
+          :class="{ 'is-last': index === sections.length - 1 }"
         >
-          <h4>{{ section.title }}</h4>
-          <p>{{ section.description }}</p>
+          <h4 class="demo-anchor-change__section-title">{{ section.title }}</h4>
+          <p class="demo-anchor-change__section-description">{{ section.description }}</p>
         </section>
       </div>
     </div>
@@ -80,12 +81,12 @@ function handleClick(_event: MouseEvent, href?: string) {
   background: var(--xy-bg-color-muted);
 }
 
-.demo-anchor-change__panel strong {
+.demo-anchor-change__panel-label {
   color: var(--xy-text-color);
   font-size: 13px;
 }
 
-.demo-anchor-change__panel span {
+.demo-anchor-change__panel-value {
   color: var(--xy-text-color-secondary);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
@@ -111,16 +112,16 @@ function handleClick(_event: MouseEvent, href?: string) {
   border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
 }
 
-.demo-anchor-change__section:last-child {
+.demo-anchor-change__section.is-last {
   border-bottom: 0;
 }
 
-.demo-anchor-change__section h4 {
+.demo-anchor-change__section-title {
   margin: 0 0 10px;
   color: var(--xy-text-color);
 }
 
-.demo-anchor-change__section p {
+.demo-anchor-change__section-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

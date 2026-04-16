@@ -28,22 +28,21 @@ function handleScroll(payload: { scrollTop: number }) {
     <xy-affix :offset="72" :z-index="2102" @change="handleChange" @scroll="handleScroll">
       <div class="demo-affix-change__bar" :class="{ 'is-fixed': fixed }">
         <div>
-          <strong>事件联动示例</strong>
-          <p>滚动后观察状态面板和这块摘要条，确认 `change` 是否已经触发。</p>
+          <strong class="demo-affix-change__bar-title">事件联动示例</strong>
+          <p class="demo-affix-change__bar-description">
+            滚动后观察状态面板和这块摘要条，确认 `change` 是否已经触发。
+          </p>
         </div>
         <xy-button type="primary">{{ fixed ? "当前已固定" : "继续向下滚动" }}</xy-button>
       </div>
     </xy-affix>
 
     <div class="demo-affix-change__list">
-      <xy-card
-        v-for="item in 8"
-        :key="item"
-        class="demo-affix-change__card"
-        shadow="hover"
-      >
-        <h4>状态检查项 {{ item }}</h4>
-        <p>如果顶部摘要条进入固定态，状态面板会立即从“未固定”切到“已固定”。</p>
+      <xy-card v-for="item in 8" :key="item" class="demo-affix-change__card" shadow="hover">
+        <h4 class="demo-affix-change__card-title">状态检查项 {{ item }}</h4>
+        <p class="demo-affix-change__card-description">
+          如果顶部摘要条进入固定态，状态面板会立即从“未固定”切到“已固定”。
+        </p>
       </xy-card>
     </div>
   </section>
@@ -62,7 +61,8 @@ function handleScroll(payload: { scrollTop: number }) {
   gap: 10px;
   padding: 12px 14px;
   border-radius: 18px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, white);
 }
 
 .demo-affix-change__bar {
@@ -72,9 +72,9 @@ function handleScroll(payload: { scrollTop: number }) {
   gap: 16px;
   padding: 16px 18px;
   border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, white);
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
   transition:
     box-shadow 0.2s ease,
     border-color 0.2s ease,
@@ -82,16 +82,18 @@ function handleScroll(payload: { scrollTop: number }) {
 }
 
 .demo-affix-change__bar.is-fixed {
-  border-color: color-mix(in srgb, var(--xy-color-success) 28%, white);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+  border-color: color-mix(in srgb, var(--xy-color-success) 12%, var(--xy-border-color-subtle));
+  box-shadow: var(--xy-shadow-sm);
+  transform: translateY(-1px);
 }
 
-.demo-affix-change__bar strong {
+.demo-affix-change__bar-title {
   display: block;
   margin-bottom: 6px;
+  color: var(--xy-text-color-heading);
 }
 
-.demo-affix-change__bar p {
+.demo-affix-change__bar-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -103,11 +105,11 @@ function handleScroll(payload: { scrollTop: number }) {
   gap: 14px;
 }
 
-.demo-affix-change__card h4 {
+.demo-affix-change__card-title {
   margin: 0 0 8px;
 }
 
-.demo-affix-change__card p {
+.demo-affix-change__card-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

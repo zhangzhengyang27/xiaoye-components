@@ -41,14 +41,14 @@ const isLast = computed(() => active.value === panels.length - 1);
         <div class="demo-steps-wizard__header">
           <div>
             <strong>{{ currentPanel.title }}</strong>
-            <p>{{ currentPanel.hint }}</p>
+            <p class="demo-steps-wizard__header-description">{{ currentPanel.hint }}</p>
           </div>
           <xy-tag status="primary" round>第 {{ active + 1 }} / {{ panels.length }} 步</xy-tag>
         </div>
       </template>
 
       <ul class="demo-steps-wizard__list">
-        <li v-for="item in currentPanel.bullets" :key="item">{{ item }}</li>
+        <li v-for="item in currentPanel.bullets" :key="item" class="demo-steps-wizard__item">{{ item }}</li>
       </ul>
 
       <template #footer>
@@ -82,7 +82,7 @@ const isLast = computed(() => active.value === panels.length - 1);
   gap: 16px;
 }
 
-.demo-steps-wizard__header p {
+.demo-steps-wizard__header-description {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -97,7 +97,7 @@ const isLast = computed(() => active.value === panels.length - 1);
   color: var(--xy-text-color);
 }
 
-.demo-steps-wizard__list li {
+.demo-steps-wizard__item {
   line-height: 1.7;
 }
 

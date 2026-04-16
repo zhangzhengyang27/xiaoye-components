@@ -13,6 +13,7 @@ import {
 import { useConfig, useNamespace } from "@xiaoye/composables";
 import XyEmpty from "../../empty";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
+import XyScrollbar from "../../scrollbar";
 import TableBody from "./table-body/body.vue";
 import TableFooter from "./table-footer/footer.vue";
 import TableHeader from "./table-header/header.vue";
@@ -70,7 +71,7 @@ const props = withDefaults(defineProps<TableProps<T>>(), {
   sortOrder: undefined,
   defaultSort: () => ({
     prop: undefined,
-    order: null
+    order: undefined
   }),
   filterValues: undefined,
   defaultFilterValues: () => ({}),
@@ -86,19 +87,24 @@ const props = withDefaults(defineProps<TableProps<T>>(), {
   tableLayout: "fixed",
   scrollbarAlwaysOn: false,
   scrollbarTabindex: undefined,
+  flexible: false,
+  nativeScrollbar: false,
   showOverflowTooltip: false,
   tooltipEffect: undefined,
   tooltipOptions: undefined,
   tooltipFormatter: undefined,
   appendFilterPanelTo: "",
   allowDragLastColumn: true,
-  preserveExpandedContent: false
+  preserveExpandedContent: false,
+  ariaLabel: undefined,
+  ariaLabelledby: undefined,
+  ariaDescribedby: undefined
 });
 
 const emit = defineEmits<{
-  "row-click": [row: T, rowIndex: number, event: MouseEvent | KeyboardEvent];
-  "row-dblclick": [row: T, rowIndex: number, event: MouseEvent];
-  "row-contextmenu": [row: T, rowIndex: number, event: MouseEvent];
+  "row-click": [row: T, column: TableResolvedColumn<T> | undefined, event: MouseEvent | KeyboardEvent];
+  "row-dblclick": [row: T, column: TableResolvedColumn<T> | undefined, event: MouseEvent];
+  "row-contextmenu": [row: T, column: TableResolvedColumn<T> | undefined, event: MouseEvent];
   "cell-click": [
     row: T,
     column: TableResolvedColumn<T>,
@@ -193,10 +199,18 @@ type TableScrollToArg = Parameters<TableLayoutState["scrollTo"]>[0];
 type TableSectionExpose = {
   tableRef: HTMLTableElement | null;
 };
+type TableScrollbarExpose = {
+  wrapRef: HTMLDivElement | null;
+  update: () => void;
+  scrollTo: (options: ScrollToOptions | number, top?: number) => void;
+  setScrollTop: (top: number) => void;
+  setScrollLeft: (left: number) => void;
+};
 
 const mainHeaderTableRef = ref<TableSectionExpose | null>(null);
 const leftHeaderTableRef = ref<TableSectionExpose | null>(null);
 const rightHeaderTableRef = ref<TableSectionExpose | null>(null);
+const bodyScrollbarRef = ref<TableScrollbarExpose | null>(null);
 const mainBodyTableRef = ref<TableSectionExpose | null>(null);
 const leftBodyTableRef = ref<TableSectionExpose | null>(null);
 const rightBodyTableRef = ref<TableSectionExpose | null>(null);
@@ -205,6 +219,7 @@ const leftFooterTableRef = ref<TableSectionExpose | null>(null);
 const rightFooterTableRef = ref<TableSectionExpose | null>(null);
 let rowHeightSyncFrame: number | null = null;
 let rowHeightResizeObserver: ResizeObserver | null = null;
+let autoLayoutSyncFrame: number | null = null;
 
 function getSectionTable(sectionRef: typeof mainHeaderTableRef) {
   return sectionRef.value?.tableRef ?? null;
@@ -313,6 +328,124 @@ function scheduleFixedPanelRowHeightSync() {
   });
 }
 
+function collectAutoLayoutWidths() {
+  if (props.tableLayout !== "auto") {
+    store.clearAutoColumnWidths();
+    return;
+  }
+
+  const table = getSectionTable(mainBodyTableRef);
+
+  if (!table) {
+    return;
+  }
+
+  const measureTable =
+    props.showHeader && props.tableLayout === "auto" ? createAutoLayoutMeasurementTable(table) : table;
+
+  const nextWidths = store.leafColumns.value.reduce<Record<string, number>>((widths, column) => {
+    if (column.width !== undefined) {
+      return widths;
+    }
+
+    if (store.hasColumnWidthOverride(column.uid)) {
+      return widths;
+    }
+
+    const cell =
+      measureTable.querySelector<HTMLElement>(`th[data-column-uid="${column.uid}"]`) ??
+      measureTable.querySelector<HTMLElement>(`tbody tr td[data-column-uid="${column.uid}"]`);
+    const width = cell?.getBoundingClientRect().width ?? 0;
+
+    if (width > 0) {
+      widths[column.uid] = width;
+    }
+
+    return widths;
+  }, {});
+
+  if (measureTable !== table) {
+    measureTable.parentElement?.remove();
+  }
+
+  if (Object.keys(nextWidths).length === 0) {
+    return;
+  }
+
+  store.syncAutoColumnWidths(nextWidths);
+}
+
+function createAutoLayoutMeasurementTable(sourceTable: HTMLTableElement) {
+  if (sourceTable.getBoundingClientRect().width <= 0 || layout.bodyClientWidth.value <= 0) {
+    return sourceTable;
+  }
+
+  const measurementHost = document.createElement("div");
+  const measurementTable = sourceTable.cloneNode(true) as HTMLTableElement;
+  const width = Math.max(
+    layout.bodyClientWidth.value,
+    bodyScrollbarRef.value?.wrapRef?.clientWidth ?? 0,
+    rootRef.value?.clientWidth ?? 0
+  );
+
+  measurementHost.setAttribute("aria-hidden", "true");
+  measurementHost.style.position = "absolute";
+  measurementHost.style.left = "0";
+  measurementHost.style.top = "0";
+  measurementHost.style.width = width > 0 ? `${width}px` : "100%";
+  measurementHost.style.height = "0";
+  measurementHost.style.overflow = "hidden";
+  measurementHost.style.visibility = "hidden";
+  measurementHost.style.pointerEvents = "none";
+  measurementHost.style.zIndex = "-1";
+
+  measurementTable.querySelectorAll("colgroup").forEach((element) => {
+    element.remove();
+  });
+
+  const measurementHead = measurementTable.querySelector("thead.xy-table__body-sizing-header");
+  measurementHead?.classList.remove("xy-table__body-sizing-header");
+  measurementHead?.removeAttribute("aria-hidden");
+
+  const measurementColgroup = document.createElement("colgroup");
+  store.leafColumns.value.forEach((column) => {
+    const col = document.createElement("col");
+
+    if (column.width !== undefined || store.hasColumnWidthOverride(column.uid)) {
+      const widthValue = toCssSize(column.realWidth);
+
+      col.style.width = widthValue;
+      col.style.minWidth = widthValue;
+    }
+
+    measurementColgroup.append(col);
+  });
+
+  measurementTable.prepend(measurementColgroup);
+  measurementTable.style.width = width > 0 ? `${width}px` : "100%";
+  measurementTable.style.minWidth = "100%";
+
+  measurementHost.append(measurementTable);
+  rootRef.value?.append(measurementHost);
+
+  return measurementTable;
+}
+
+function scheduleAutoLayoutSync() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  if (autoLayoutSyncFrame !== null) {
+    window.cancelAnimationFrame(autoLayoutSyncFrame);
+  }
+
+  autoLayoutSyncFrame = window.requestAnimationFrame(() => {
+    autoLayoutSyncFrame = null;
+    collectAutoLayoutWidths();
+  });
+}
+
 function refreshRowHeightObserver() {
   if (typeof ResizeObserver === "undefined") {
     return;
@@ -320,6 +453,7 @@ function refreshRowHeightObserver() {
 
   rowHeightResizeObserver?.disconnect();
   rowHeightResizeObserver = new ResizeObserver(() => {
+    scheduleAutoLayoutSync();
     scheduleFixedPanelRowHeightSync();
   });
   observeRowHeightTables();
@@ -328,13 +462,18 @@ function refreshRowHeightObserver() {
 watch(
   () => [
     store.leafColumns.value.map((column) => `${column.uid}:${column.realWidth}`).join("|"),
+    store.leafColumns.value.length,
     store.bodyRows.value.length,
+    store.hasFixedColumns.value,
+    store.hasLeftFixedColumns.value,
+    store.hasRightFixedColumns.value,
     props.showSummary,
     props.data.length,
     props.showHeader
   ],
   async () => {
     await nextTick();
+    scheduleAutoLayoutSync();
     layout.syncLayout();
     scheduleFixedPanelRowHeightSync();
     refreshRowHeightObserver();
@@ -358,6 +497,7 @@ watch(
   ],
   async () => {
     await nextTick();
+    scheduleAutoLayoutSync();
     scheduleFixedPanelRowHeightSync();
     refreshRowHeightObserver();
   },
@@ -368,6 +508,9 @@ watch(
 
 onMounted(async () => {
   await nextTick();
+  syncFlexibleParentMinWidth();
+  syncBodyWrapperElement();
+  scheduleAutoLayoutSync();
   scheduleFixedPanelRowHeightSync();
   refreshRowHeightObserver();
 });
@@ -379,6 +522,11 @@ onBeforeUnmount(() => {
   if (typeof window !== "undefined" && rowHeightSyncFrame !== null) {
     window.cancelAnimationFrame(rowHeightSyncFrame);
     rowHeightSyncFrame = null;
+  }
+
+  if (typeof window !== "undefined" && autoLayoutSyncFrame !== null) {
+    window.cancelAnimationFrame(autoLayoutSyncFrame);
+    autoLayoutSyncFrame = null;
   }
 });
 
@@ -433,6 +581,8 @@ const tableRootClasses = computed(() => [
   ns.is("clickable", props.clickable),
   ns.is("summary", props.showSummary),
   ns.is("layout-auto", props.tableLayout === "auto"),
+  ns.is("flexible", props.flexible),
+  ns.is("native-scrollbar", props.nativeScrollbar),
   ns.is("scrollable-x", layout.hasHorizontalScroll.value),
   ns.is("scrollable-y", layout.hasVerticalScroll.value),
   ns.is("fixed-columns", store.hasFixedColumns.value),
@@ -452,6 +602,16 @@ const rootStyle = computed(() => [
 const bodyWrapperStyle = computed(() => ({
   height: toCssSize(props.height),
   maxHeight: props.height ? undefined : toCssSize(props.maxHeight)
+}));
+const bodyScrollbarStyle = computed(() => ({
+  height: toCssSize(props.height),
+  maxHeight: props.height ? undefined : toCssSize(props.maxHeight)
+}));
+const appendWrapperStyle = computed(() => ({
+  width: mainTableWidth.value > 0 ? toCssSize(mainTableWidth.value) : undefined,
+  minWidth: "100%",
+  paddingLeft: leftFixedWidth.value > 0 ? toCssSize(leftFixedWidth.value) : undefined,
+  paddingRight: rightFixedWidth.value > 0 ? toCssSize(rightFixedWidth.value) : undefined
 }));
 const leftFixedStyle = computed(() => ({
   width: toCssSize(leftFixedWidth.value)
@@ -490,16 +650,24 @@ function handleHeaderDragend(
   emit("header-dragend", newWidth, oldWidth, column, event);
 }
 
-function handleRowClick(row: T, rowIndex: number, event: MouseEvent | KeyboardEvent) {
-  emit("row-click", row, rowIndex, event);
+function handleRowClick(
+  row: T,
+  column: TableResolvedColumn<T> | undefined,
+  event: MouseEvent | KeyboardEvent
+) {
+  emit("row-click", row, column, event);
 }
 
-function handleRowDblclick(row: T, rowIndex: number, event: MouseEvent) {
-  emit("row-dblclick", row, rowIndex, event);
+function handleRowDblclick(row: T, column: TableResolvedColumn<T> | undefined, event: MouseEvent) {
+  emit("row-dblclick", row, column, event);
 }
 
-function handleRowContextmenu(row: T, rowIndex: number, event: MouseEvent) {
-  emit("row-contextmenu", row, rowIndex, event);
+function handleRowContextmenu(
+  row: T,
+  column: TableResolvedColumn<T> | undefined,
+  event: MouseEvent
+) {
+  emit("row-contextmenu", row, column, event);
 }
 
 function handleCellClick(
@@ -609,22 +777,27 @@ function sort(prop: string, order: TableSortOrder) {
 }
 
 function doLayout() {
+  scheduleAutoLayoutSync();
   layout.syncLayout();
+  bodyScrollbarRef.value?.update();
   scheduleFixedPanelRowHeightSync();
 }
 
 function scrollTo(arg1: TableScrollToArg, arg2?: number) {
-  layout.scrollTo(arg1, arg2);
+  bodyScrollbarRef.value?.scrollTo(arg1, arg2);
+  layout.syncLayout();
   emitScrollState();
 }
 
 function setScrollLeft(left: number) {
-  layout.setScrollLeft(left);
+  bodyScrollbarRef.value?.setScrollLeft(left);
+  layout.syncLayout();
   emitScrollState();
 }
 
 function setScrollTop(top: number) {
-  layout.setScrollTop(top);
+  bodyScrollbarRef.value?.setScrollTop(top);
+  layout.syncLayout();
   emitScrollState();
 }
 
@@ -632,7 +805,62 @@ function updateKeyChildren(key: string | number, children: T[]) {
   store.updateKeyChildren(key, children);
 }
 
+function syncFlexibleParentMinWidth() {
+  const parentElement = rootRef.value?.parentElement;
+
+  if (!parentElement) {
+    return;
+  }
+
+  parentElement.style.minWidth = props.flexible ? "0" : "";
+}
+
+function syncBodyWrapperElement() {
+  layout.bodyWrapperRef.value = bodyScrollbarRef.value?.wrapRef ?? null;
+}
+
+watch(
+  () => bodyScrollbarRef.value?.wrapRef,
+  () => {
+    syncBodyWrapperElement();
+    nextTick(() => {
+      layout.syncLayout();
+      bodyScrollbarRef.value?.update();
+    });
+  },
+  {
+    flush: "post"
+  }
+);
+
+watch(
+  () => props.flexible,
+  () => {
+    syncFlexibleParentMinWidth();
+  }
+);
+
+watch(
+  () => props.tableLayout,
+  async (layoutMode) => {
+    await nextTick();
+
+    if (layoutMode === "auto") {
+      scheduleAutoLayoutSync();
+      return;
+    }
+
+    store.clearAutoColumnWidths();
+  },
+  {
+    flush: "post"
+  }
+);
+
 defineExpose<TableInstance<T>>({
+  get columns() {
+    return store.normalizedColumns.value;
+  },
   clearSelection,
   getSelectionRows,
   toggleAllSelection,
@@ -655,7 +883,13 @@ defineExpose<TableInstance<T>>({
     ref="rootRef"
     :class="tableRootClasses"
     :style="rootStyle"
+    role="table"
     :aria-busy="props.loading"
+    :aria-rowcount="store.bodyRows.value.length"
+    :aria-colcount="store.leafColumns.value.length"
+    :aria-label="props.ariaLabel"
+    :aria-labelledby="props.ariaLabelledby"
+    :aria-describedby="props.ariaDescribedby"
     v-bind="nativeAttrs"
   >
     <div
@@ -743,70 +977,81 @@ defineExpose<TableInstance<T>>({
     </div>
 
     <div
-      :ref="layout.bodyWrapperRef"
       class="xy-table__body-wrapper"
       :style="bodyWrapperStyle"
-      :tabindex="props.scrollbarTabindex"
-      @scroll="handleBodyScroll"
     >
-      <div
-        v-if="props.loading"
-        class="xy-table__loading"
-        :style="resolvedLoading.background ? { background: resolvedLoading.background } : undefined"
+      <xy-scrollbar
+        ref="bodyScrollbarRef"
+        class="xy-table__body-scrollbar"
+        wrap-class="xy-table__body-scroll-wrap"
+        view-class="xy-table__body-scroll-view"
+        :style="bodyScrollbarStyle"
+        :native="props.nativeScrollbar"
+        :always="props.scrollbarAlwaysOn"
+        :tabindex="props.scrollbarTabindex"
+        @scroll="handleBodyScroll"
       >
-        <slot name="loading">
-          <XyLoadingIndicator
-            :text="resolvedLoading.text"
-            :spinner="resolvedLoading.spinner"
-            :svg="resolvedLoading.svg"
-            :svg-view-box="resolvedLoading.svgViewBox"
-            layout="inline"
-            size="md"
-            surface
-          />
-        </slot>
-      </div>
+        <div
+          v-if="props.loading"
+          class="xy-table__loading"
+          :style="resolvedLoading.background ? { background: resolvedLoading.background } : undefined"
+        >
+          <slot name="loading">
+            <XyLoadingIndicator
+              :text="resolvedLoading.text"
+              :spinner="resolvedLoading.spinner"
+              :svg="resolvedLoading.svg"
+              :svg-view-box="resolvedLoading.svgViewBox"
+              layout="inline"
+              size="md"
+              surface
+            />
+          </slot>
+        </div>
 
-      <table-body
-        v-if="store.bodyRows.value.length > 0"
-        ref="mainBodyTableRef"
-        :store="store"
-        panel="main"
-        :table-width="mainTableWidth"
-        :row-class-name="props.rowClassName"
-        :row-style="props.rowStyle"
-        :cell-class-name="props.cellClassName"
-        :cell-style="props.cellStyle"
-        :clickable="props.clickable"
-        :striped="mergedStripe"
-        :highlight-current-row="props.highlightCurrentRow"
-        :indent="props.indent"
-        :span-method="props.spanMethod"
-        :tooltip-formatter="props.tooltipFormatter"
-        :preserve-expanded-content="props.preserveExpandedContent"
-        expanded-row-mode="content"
-        :main-table-width="mainTableWidth"
-        :left-fixed-width="leftFixedWidth"
-        :right-fixed-width="rightFixedWidth"
-        @row-click="handleRowClick"
-        @row-dblclick="handleRowDblclick"
-        @row-contextmenu="handleRowContextmenu"
-        @cell-click="handleCellClick"
-        @cell-dblclick="handleCellDblclick"
-        @cell-contextmenu="handleCellContextmenu"
-        @cell-mouse-enter="handleCellMouseEnter"
-        @cell-mouse-leave="handleCellMouseLeave"
-      />
+        <table-body
+          v-if="store.bodyRows.value.length > 0"
+          ref="mainBodyTableRef"
+          :store="store"
+          panel="main"
+          :table-width="mainTableWidth"
+          :row-class-name="props.rowClassName"
+          :row-style="props.rowStyle"
+          :cell-class-name="props.cellClassName"
+          :cell-style="props.cellStyle"
+          :clickable="props.clickable"
+          :striped="mergedStripe"
+          :highlight-current-row="props.highlightCurrentRow"
+          :indent="props.indent"
+          :span-method="props.spanMethod"
+          :tooltip-formatter="props.tooltipFormatter"
+          :preserve-expanded-content="props.preserveExpandedContent"
+          :table-layout="props.tableLayout"
+          :show-header="props.showHeader"
+          expanded-row-mode="content"
+          :main-table-width="mainTableWidth"
+          :left-fixed-width="leftFixedWidth"
+          :right-fixed-width="rightFixedWidth"
+          @row-click="handleRowClick"
+          @row-dblclick="handleRowDblclick"
+          @row-contextmenu="handleRowContextmenu"
+          @cell-click="handleCellClick"
+          @cell-dblclick="handleCellDblclick"
+          @cell-contextmenu="handleCellContextmenu"
+          @cell-mouse-enter="handleCellMouseEnter"
+          @cell-mouse-leave="handleCellMouseLeave"
+        />
 
-      <div v-else-if="!props.loading" class="xy-table__empty">
-        <slot name="empty">
-          <xy-empty :description="props.emptyText" />
-        </slot>
-      </div>
+        <div v-else-if="!props.loading" class="xy-table__empty">
+          <slot name="empty">
+            <xy-empty :description="props.emptyText" />
+          </slot>
+        </div>
 
-      <div v-if="$slots.append" class="xy-table__append-wrapper">
-        <slot name="append" />
-      </div>
+        <div v-if="$slots.append" class="xy-table__append-wrapper" :style="appendWrapperStyle">
+          <slot name="append" />
+        </div>
+      </xy-scrollbar>
 
       <div
         v-if="store.bodyRows.value.length > 0 && store.hasLeftFixedColumns.value"
@@ -831,6 +1076,8 @@ defineExpose<TableInstance<T>>({
             :span-method="props.spanMethod"
             :tooltip-formatter="props.tooltipFormatter"
             :preserve-expanded-content="props.preserveExpandedContent"
+            :table-layout="props.tableLayout"
+            :show-header="props.showHeader"
             :expanded-row-mode="hasExpandedRows ? 'placeholder' : 'none'"
             :main-table-width="mainTableWidth"
             :left-fixed-width="leftFixedWidth"
@@ -870,6 +1117,8 @@ defineExpose<TableInstance<T>>({
             :span-method="props.spanMethod"
             :tooltip-formatter="props.tooltipFormatter"
             :preserve-expanded-content="props.preserveExpandedContent"
+            :table-layout="props.tableLayout"
+            :show-header="props.showHeader"
             :expanded-row-mode="hasExpandedRows ? 'placeholder' : 'none'"
             :main-table-width="mainTableWidth"
             :left-fixed-width="leftFixedWidth"

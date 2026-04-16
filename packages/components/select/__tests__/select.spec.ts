@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { XyConfigProvider, XySelect } from "@xiaoye/components";
 
 vi.mock("@iconify/vue", () => ({
+  addCollection: vi.fn(),
   Icon: defineComponent({
     name: "MockIconifyIcon",
     inheritAttrs: false,
@@ -135,6 +136,44 @@ describe("XySelect", () => {
 
     expect(wrapper.emitted("update:modelValue")?.[0]).toEqual([null]);
     expect(wrapper.emitted("clear")).toBeTruthy();
+  });
+
+  it("单选空字符串且无对应选项时按空值处理", () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        modelValue: "",
+        clearable: true,
+        placeholder: "全部技术类型",
+        options: [
+          { label: "Canvas", value: "canvas" },
+          { label: "SVG", value: "svg" }
+        ]
+      }
+    });
+
+    expect(wrapper.find(".xy-select__clear").exists()).toBe(false);
+    expect(wrapper.find(".xy-select__selection").classes()).toContain("is-placeholder");
+    expect(wrapper.find(".xy-select__selection").text()).toBe("全部技术类型");
+  });
+
+  it("单选空字符串且存在对应选项时仍按有效值处理", () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        modelValue: "",
+        clearable: true,
+        placeholder: "请选择",
+        options: [
+          { label: "未分类", value: "" },
+          { label: "Canvas", value: "canvas" }
+        ]
+      }
+    });
+
+    expect(wrapper.find(".xy-select__clear").exists()).toBe(true);
+    expect(wrapper.find(".xy-select__selection").classes()).toContain("is-selected");
+    expect(wrapper.find(".xy-select__selection").text()).toBe("未分类");
   });
 
   it("支持分组选项和组选禁用透传", async () => {

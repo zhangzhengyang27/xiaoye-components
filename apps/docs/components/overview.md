@@ -6,57 +6,9 @@ outline: deep
 
 # 组件总览
 
-这页先帮你建立一张“能力地图”。建议先按页面任务找入口，再按组件类别进入单组件页查完整 API，而不是从头逐页扫过去。
+这页先帮你建立一张“能力地图”。按组件类别进入单组件页查完整 API，而不是从头逐页扫过去。
 
-## 先按任务进入
-
-<p class="xy-section-lead">
-  如果你正在搭一个真实后台页面，不需要先通读所有组件。先定位自己处在“操作、录入、反馈还是展示”哪条链路里，阅读效率会更高。
-</p>
-
-<div class="xy-overview-grid">
-  <section class="xy-overview-card">
-    <span class="xy-overview-kicker">01</span>
-    <h3>基础操作</h3>
-    <p>Button、Link、Breadcrumb、Text、Badge、Avatar、Image、Watermark、Card、Carousel、Affix、Anchor、Menu、Tag、Divider、Space、Icon、Tabs、Row、Col、Scrollbar、Splitter 负责主操作、弱跳转、路径导航、正文强调、角标提醒、身份展示、图片承接、水印标识、卡片分区、轮播展示、页内定位、导航骨架、轻量分组、固钉辅助和布局骨架。</p>
-    <a href="/components/button">进入基础组件</a>
-    <a href="/components/breadcrumb">查看 Breadcrumb API</a>
-    <a href="/components/divider">查看 Divider API</a>
-    <a href="/components/anchor">查看 Anchor API</a>
-  </section>
-
-  <section class="xy-overview-card">
-    <span class="xy-overview-kicker">02</span>
-    <h3>表单录入</h3>
-    <p>Input、Radio、Checkbox、Switch、InputTag、Input Number、Rate、Slider、DatePicker、TimePicker、TimeSelect、Select、Form、Upload、Config Provider 负责筛选栏、录入表单和字段校验。</p>
-    <a href="/components/form">进入表单组件</a>
-  </section>
-
-  <section class="xy-overview-card">
-    <span class="xy-overview-kicker">03</span>
-    <h3>反馈与浮层</h3>
-    <p>Alert、Message、Notification、Tooltip、Popover、Popconfirm、Dropdown、Backtop、Collapse、Collapse Transition、Empty、Loading、Skeleton、Result、Dialog、Drawer 负责页面提示、全局反馈、菜单、轻量确认、回顶辅助、折叠收纳、过渡衔接、容器与全屏加载遮罩、空态、结果承接和上下文切换。</p>
-    <a href="/components/empty">进入反馈组件</a>
-    <a href="/examples/skeleton">查看 Skeleton 场景示例</a>
-  </section>
-
-  <section class="xy-overview-card">
-    <span class="xy-overview-kicker">04</span>
-    <h3>数据展示</h3>
-    <p>Statistic、Countdown、Progress、Steps、Timeline、Scheduler、Tree、Table、Pagination 先覆盖后台列表页、时间轴记录、排期面板、资源树和状态面板里最常见的指标读数、倒计时、完成度展示、阶段流转、时间编排、层级配置、行交互和分页切换。Timeline 默认是左侧单线布局，涉及 Timeline、Scheduler 和 Tree 时，建议同时看组件页与场景示例。</p>
-    <a href="/components/statistic">查看 Statistic API</a>
-    <a href="/components/countdown">查看 Countdown API</a>
-    <a href="/components/progress">查看 Progress API</a>
-    <a href="/components/steps">查看 Steps API</a>
-    <a href="/components/timeline">查看 Timeline API</a>
-    <a href="/examples/timeline">查看 Timeline 场景示例</a>
-    <a href="/components/scheduler">查看 Scheduler API</a>
-    <a href="/examples/scheduler">查看 Scheduler 场景示例</a>
-    <a href="/components/tree">查看 Tree API</a>
-  </section>
-</div>
-
-## 再按组件类别进入
+## 按组件类别进入
 
 <p class="xy-section-lead">
   如果你已经知道自己要查哪个组件，直接从下面的分类索引进入会更快。

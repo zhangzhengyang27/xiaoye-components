@@ -34,13 +34,14 @@ const sections = [
 
       <div class="demo-anchor-affix__content">
         <section
-          v-for="section in sections"
+          v-for="(section, index) in sections"
           :id="section.id"
           :key="section.id"
           class="demo-anchor-affix__section"
+          :class="{ 'is-last': index === sections.length - 1 }"
         >
-          <h4>{{ section.title }}</h4>
-          <p>{{ section.description }}</p>
+          <h4 class="demo-anchor-affix__section-title">{{ section.title }}</h4>
+          <p class="demo-anchor-affix__section-description">{{ section.description }}</p>
         </section>
       </div>
     </div>
@@ -74,16 +75,16 @@ const sections = [
   border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
 }
 
-.demo-anchor-affix__section:last-child {
+.demo-anchor-affix__section.is-last {
   border-bottom: 0;
 }
 
-.demo-anchor-affix__section h4 {
+.demo-anchor-affix__section-title {
   margin: 0 0 10px;
   color: var(--xy-text-color);
 }
 
-.demo-anchor-affix__section p {
+.demo-anchor-affix__section-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

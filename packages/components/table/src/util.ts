@@ -25,13 +25,25 @@ import type {
 } from "./table";
 import { toNumberSize } from "./table";
 
+function resolvePathValue(value: unknown, path: string) {
+  return path
+    .split(".")
+    .reduce<unknown>((current, segment) => {
+      if (current == null || typeof current !== "object") {
+        return undefined;
+      }
+
+      return (current as Record<string, unknown>)[segment];
+    }, value);
+}
+
 export function getRowIdentity<T>(row: T, rowIndex: number, rowKey?: TableRowKey<T>) {
   if (typeof rowKey === "function") {
     return rowKey(row, rowIndex);
   }
 
   if (rowKey) {
-    return row[rowKey] as string | number;
+    return resolvePathValue(row, rowKey as string) as string | number;
   }
 
   return rowIndex;
@@ -76,7 +88,8 @@ export function normalizeColumns<T>(
       tableShowOverflowTooltip,
       tableTooltipEffect,
       tableTooltipOptions,
-      maxLevel
+      maxLevel,
+      column.fixed
     )
   );
   const leafColumns = flattenColumns(baseColumns);
@@ -142,8 +155,10 @@ function normalizeColumn<T>(
   tableShowOverflowTooltip: TableOverflowTooltip | undefined,
   tableTooltipEffect: TableOverflowTooltipOptions["effect"] | undefined,
   tableTooltipOptions: TableOverflowTooltipOptions | undefined,
-  maxLevel: number
+  maxLevel: number,
+  inheritedFixed: TableResolvedColumn<T>["fixed"]
 ): TableResolvedColumn<T> {
+  const resolvedFixed = inheritedFixed ?? column.fixed;
   const children = column.children.map((child) =>
     normalizeColumn(
       child,
@@ -151,7 +166,8 @@ function normalizeColumn<T>(
       tableShowOverflowTooltip,
       tableTooltipEffect,
       tableTooltipOptions,
-      maxLevel
+      maxLevel,
+      resolvedFixed
     )
   );
   const isLeaf = children.length === 0;
@@ -174,10 +190,11 @@ function normalizeColumn<T>(
     colSpan: leafCount,
     rowSpan: isLeaf ? maxLevel - column.level + 1 : 1,
     showOverflowTooltip:
-      overflowTooltipOptions !== null
+    overflowTooltipOptions !== null
         ? column.showOverflowTooltip ?? tableShowOverflowTooltip ?? true
         : false,
-    overflowTooltipOptions
+    overflowTooltipOptions,
+    fixed: resolvedFixed
   };
 }
 
@@ -510,20 +527,23 @@ export function resolveTreeNode<T>(
   level: number,
   expanded: boolean,
   loading: boolean,
+  loaded: boolean,
   lazy: boolean,
   treeProps: Required<TableTreeProps>,
   lazyChildrenMap: Map<string | number, T[]>
 ): TableTreeNode {
   const children = getTreeChildren(row, treeProps, lazyChildrenMap, key);
-  const hasChildren = children.length > 0 || Boolean(row[treeProps.hasChildren as keyof T]);
+  const declaredHasChildren = Boolean(row[treeProps.hasChildren as keyof T]);
+  const hasChildren = loaded ? children.length > 0 : children.length > 0 || declaredHasChildren;
 
   return {
     key,
     level,
     expanded,
     loading,
+    loaded,
     hasChildren,
-    isLazy: lazy && Boolean(row[treeProps.hasChildren as keyof T]) && children.length === 0,
+    isLazy: lazy && !loaded && declaredHasChildren && children.length === 0,
     visible: true
   };
 }

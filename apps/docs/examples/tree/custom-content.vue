@@ -42,7 +42,7 @@ function resolveType(state: string) {
         <div class="demo-tree-node">
           <div class="demo-tree-node__main">
             <strong>{{ node.label }}</strong>
-            <small>{{ node.owner }}</small>
+            <small class="demo-tree-node__owner">{{ node.owner }}</small>
           </div>
           <xy-tag size="sm" :type="resolveType(node.state)">
             {{ node.state }}
@@ -70,7 +70,7 @@ function resolveType(state: string) {
   gap: 2px;
 }
 
-.demo-tree-node__main small {
+.demo-tree-node__owner {
   color: var(--xy-text-color-secondary);
 }
 </style>

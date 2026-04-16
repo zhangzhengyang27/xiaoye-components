@@ -30,7 +30,9 @@ const reviewMetrics = [
       <div class="statistic-review-panel__header">
         <div>
           <strong>风控审批摘要</strong>
-          <p>在审批、风控和复核面板里，统计值往往会和占位文案、说明项一起出现，而不总是纯数字。</p>
+          <p class="statistic-review-panel__header-description">
+            在审批、风控和复核面板里，统计值往往会和占位文案、说明项一起出现，而不总是纯数字。
+          </p>
         </div>
         <xy-tag status="warning" round>待人工确认</xy-tag>
       </div>
@@ -52,7 +54,7 @@ const reviewMetrics = [
             <span class="statistic-review-panel__prefix">{{ item.prefix }}</span>
           </template>
         </xy-statistic>
-        <p>{{ item.note }}</p>
+        <p class="statistic-review-panel__item-note">{{ item.note }}</p>
       </div>
     </div>
   </xy-card>
@@ -70,8 +72,8 @@ const reviewMetrics = [
   gap: 16px;
 }
 
-.statistic-review-panel__header p,
-.statistic-review-panel__item p {
+.statistic-review-panel__header-description,
+.statistic-review-panel__item-note {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

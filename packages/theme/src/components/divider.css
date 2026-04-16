@@ -2,8 +2,8 @@
   --xy-divider-border-style: solid;
   --xy-divider-thickness: 1px;
   --xy-divider-spacing: 24px;
-  --xy-divider-color: color-mix(in srgb, var(--xy-border-color-strong) 72%, white);
-  --xy-divider-text-color: var(--xy-text-color-secondary);
+  --xy-divider-color: color-mix(in srgb, var(--xy-border-color-subtle) 92%, transparent);
+  --xy-divider-text-color: var(--xy-text-color-subtle);
   --xy-divider-font-size: var(--xy-font-size-md);
   --xy-divider-text-padding: 18px;
   --xy-divider-content-offset: 24px;
@@ -50,12 +50,18 @@
 .xy-divider__text {
   position: absolute;
   top: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
   padding: 0 var(--xy-divider-text-padding);
+  border: 1px solid transparent;
+  border-radius: var(--xy-radius-pill);
   color: var(--xy-divider-text-color);
   font-size: var(--xy-divider-font-size);
+  font-weight: 560;
   line-height: 1;
   white-space: nowrap;
-  background: var(--xy-bg-color);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 68%, var(--xy-surface-raised));
   transform: translateY(-50%);
 }
 
@@ -73,26 +79,38 @@
 }
 
 .xy-divider.is-neutral {
-  --xy-divider-color: color-mix(in srgb, var(--xy-border-color-strong) 72%, white);
-  --xy-divider-text-color: var(--xy-text-color-secondary);
+  --xy-divider-color: var(--xy-border-color-subtle);
+  --xy-divider-text-color: var(--xy-text-color-subtle);
 }
 
 .xy-divider.is-primary {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-primary) 30%, white);
+  --xy-divider-color: color-mix(
+    in srgb,
+    var(--xy-color-primary) 16%,
+    var(--xy-border-color-subtle)
+  );
   --xy-divider-text-color: var(--xy-color-primary);
 }
 
 .xy-divider.is-success {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-success) 28%, white);
+  --xy-divider-color: color-mix(
+    in srgb,
+    var(--xy-color-success) 16%,
+    var(--xy-border-color-subtle)
+  );
   --xy-divider-text-color: var(--xy-color-success);
 }
 
 .xy-divider.is-warning {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-warning) 28%, white);
+  --xy-divider-color: color-mix(
+    in srgb,
+    var(--xy-color-warning) 18%,
+    var(--xy-border-color-subtle)
+  );
   --xy-divider-text-color: var(--xy-color-warning);
 }
 
 .xy-divider.is-danger {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-danger) 28%, white);
+  --xy-divider-color: color-mix(in srgb, var(--xy-color-danger) 16%, var(--xy-border-color-subtle));
   --xy-divider-text-color: var(--xy-color-danger);
 }

@@ -120,6 +120,34 @@ describe("XyTimePicker", () => {
     expect(wrapper.emitted("update:modelValue")?.[0]).toEqual([["09:15", "18:40"]]);
   });
 
+  it("空范围值时保持 placeholder 且不展示清空按钮", () => {
+    const wrapper = mountTimePicker(XyTimePicker, {
+      props: {
+        isRange: true,
+        modelValue: ["", ""],
+        clearable: true
+      }
+    });
+
+    const values = wrapper.findAll(".xy-time-picker__value");
+    expect(values[0]?.classes()).toContain("is-placeholder");
+    expect(values[1]?.classes()).toContain("is-placeholder");
+    expect(wrapper.find(".xy-time-picker__clear").exists()).toBe(false);
+  });
+
+  it("范围值任一侧有内容时仍展示清空按钮", () => {
+    const wrapper = mountTimePicker(XyTimePicker, {
+      props: {
+        isRange: true,
+        modelValue: ["09:15", ""],
+        clearable: true,
+        format: "HH:mm"
+      }
+    });
+
+    expect(wrapper.find(".xy-time-picker__clear").exists()).toBe(true);
+  });
+
   it("支持禁用时间项", async () => {
     const wrapper = mountTimePicker(XyTimePicker, {
       attachTo: document.body,

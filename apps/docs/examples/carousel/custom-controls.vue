@@ -20,7 +20,7 @@
 
     <template #progress="{ percent }">
       <div class="demo-carousel-progress-bar">
-        <span :style="{ width: `${percent}%` }" />
+        <span class="demo-carousel-progress-bar__value" :style="{ width: `${percent}%` }" />
       </div>
     </template>
   </xy-carousel>
@@ -34,10 +34,18 @@
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  background: linear-gradient(135deg, #0f766e, #2563eb);
-  color: white;
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
+  background:
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--xy-color-primary) 14%, white),
+      transparent 44%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
+  color: var(--xy-text-color);
   font-size: 24px;
   font-weight: 700;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 
 .demo-carousel-indicator {
@@ -64,7 +72,7 @@
   overflow: hidden;
 }
 
-.demo-carousel-progress-bar span {
+.demo-carousel-progress-bar__value {
   display: block;
   height: 100%;
   background: var(--xy-color-primary);

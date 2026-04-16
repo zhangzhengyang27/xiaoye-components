@@ -9,10 +9,12 @@
   line-height: var(--xy-line-height);
   color: var(--xy-text-color);
   overflow-wrap: break-word;
+  border-radius: var(--xy-radius-sm);
 }
 
 .xy-text__content {
   min-width: 0;
+  line-height: inherit;
 }
 
 .xy-text--sm {
@@ -71,11 +73,13 @@
 }
 
 .xy-text.is-strong {
-  font-weight: 600;
+  font-weight: 620;
 }
 
 .xy-text.is-underline {
   text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, currentColor 18%, transparent);
 }
 
 .xy-text.is-delete {
@@ -90,16 +94,33 @@
 .xy-text__toggle {
   border: 0;
   background: transparent;
-  padding: 0;
-  color: var(--xy-text-color-secondary);
+  padding: 4px 8px;
+  border-radius: var(--xy-radius-md);
+  color: var(--xy-text-color-subtle);
   cursor: pointer;
   font-size: var(--xy-font-size-sm);
-  line-height: 1;
+  font-weight: 560;
+  line-height: 1.4;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+  border: 1px solid transparent;
 }
 
 .xy-text__action:hover,
 .xy-text__toggle:hover {
   color: var(--xy-color-primary);
+  background: var(--xy-color-primary-soft);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+}
+
+.xy-text__action:focus-visible,
+.xy-text__toggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-text > .xy-icon {

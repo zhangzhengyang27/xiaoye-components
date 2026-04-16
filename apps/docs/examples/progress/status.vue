@@ -37,7 +37,9 @@ function formatExceptionText(percentage: number) {
       <div class="progress-batch-board__header">
         <div>
           <strong>批处理任务队列</strong>
-          <p>导出、回收和补录任务更适合放在列表行里看，而不是单独摆成一排状态条。</p>
+          <p class="progress-batch-board__header-description">
+            导出、回收和补录任务更适合放在列表行里看，而不是单独摆成一排状态条。
+          </p>
         </div>
         <xy-tag status="neutral" round>共 3 个任务</xy-tag>
       </div>
@@ -52,7 +54,7 @@ function formatExceptionText(percentage: number) {
         <div class="progress-batch-board__meta">
           <div>
             <strong>{{ item.name }}</strong>
-            <p>{{ item.summary }}</p>
+            <p class="progress-batch-board__meta-description">{{ item.summary }}</p>
           </div>
           <xy-tag :status="item.tagStatus" round>{{ item.stage }}</xy-tag>
         </div>
@@ -81,8 +83,8 @@ function formatExceptionText(percentage: number) {
   gap: 16px;
 }
 
-.progress-batch-board__header p,
-.progress-batch-board__meta p {
+.progress-batch-board__header-description,
+.progress-batch-board__meta-description {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;

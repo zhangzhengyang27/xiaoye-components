@@ -26,7 +26,7 @@ const imageUrl = `data:image/svg+xml;utf8,${encodeURIComponent(`
 
     <div class="demo-card-copy">
       <strong>深夜食堂更新</strong>
-      <p>适合图文摘要、内容卡片和带封面的运营位。</p>
+      <p class="demo-card-copy__description">适合图文摘要、内容卡片和带封面的运营位。</p>
     </div>
   </xy-card>
 </template>
@@ -45,7 +45,7 @@ const imageUrl = `data:image/svg+xml;utf8,${encodeURIComponent(`
   gap: 6px;
 }
 
-.demo-card-copy p {
+.demo-card-copy__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
 }

@@ -78,7 +78,7 @@ function handleMoreAction(row: MemberRow, item: { label: string }) {
             <xy-tag :status="value === '值班中' ? 'success' : 'neutral'">{{ value }}</xy-tag>
           </template>
         </xy-table-column>
-        <xy-table-column label="操作" align="right" width="140">
+        <xy-table-column label="操作" align="right" width="184">
           <template #default="{ row }">
             <div class="xy-table-doc-actions">
               <xy-button
@@ -111,3 +111,15 @@ function handleMoreAction(row: MemberRow, item: { label: string }) {
     </div>
   </div>
 </template>
+
+<style scoped>
+.xy-table-doc-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: nowrap;
+  min-width: 0;
+  white-space: nowrap;
+}
+</style>

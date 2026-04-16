@@ -13,19 +13,22 @@
   --xy-alert-close-customed-font-size: 13px;
   --xy-alert-toggle-font-size: 12px;
   --xy-alert-line-clamp: 2;
-  --xy-alert-text-color: var(--xy-color-info);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-info) 12%, white);
-  --xy-alert-description-color: var(--xy-alert-text-color);
-  --xy-alert-close-color: var(--xy-text-color-muted);
-  --xy-alert-toggle-color: color-mix(in srgb, var(--xy-alert-text-color) 88%, white);
-  --xy-alert-card-border-color: color-mix(in srgb, var(--xy-border-color) 92%, white);
-  --xy-alert-card-background: color-mix(in srgb, var(--xy-bg-color) 95%, var(--xy-bg-color-muted));
-  --xy-alert-card-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
-  --xy-alert-banner-background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--xy-alert-bg-color) 96%, white),
-    color-mix(in srgb, var(--xy-alert-bg-color) 82%, white)
+  --xy-alert-text-color: var(--xy-text-color);
+  --xy-alert-title-color: var(--xy-text-color-heading);
+  --xy-alert-accent-color: var(--xy-color-info);
+  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-info) 10%, var(--xy-bg-color-floating));
+  --xy-alert-border-color: color-mix(
+    in srgb,
+    var(--xy-color-info) 14%,
+    var(--xy-border-color-subtle)
   );
+  --xy-alert-description-color: var(--xy-text-color-subtle);
+  --xy-alert-close-color: var(--xy-text-color-muted);
+  --xy-alert-toggle-color: var(--xy-alert-accent-color);
+  --xy-alert-card-border-color: var(--xy-border-color-subtle);
+  --xy-alert-card-background: var(--xy-surface-raised);
+  --xy-alert-card-shadow: var(--xy-shadow-sm);
+  --xy-alert-banner-background: color-mix(in srgb, var(--xy-alert-bg-color) 86%, white);
   --xy-alert-service-top: 16px;
   --xy-alert-service-max-width: 960px;
   --xy-alert-service-z-index: 2100;
@@ -37,10 +40,12 @@
   width: 100%;
   padding: var(--xy-alert-padding);
   box-sizing: border-box;
+  border: 1px solid var(--xy-alert-border-color);
   border-radius: var(--xy-alert-border-radius);
   background: var(--xy-alert-bg-color);
   color: var(--xy-alert-text-color);
   overflow: hidden;
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-alert__icon {
@@ -48,6 +53,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--xy-alert-accent-color);
 }
 
 .xy-alert__icon.is-big {
@@ -71,6 +77,7 @@
 }
 
 .xy-alert__title {
+  color: var(--xy-alert-title-color);
   font-size: var(--xy-alert-title-font-size);
   font-weight: 600;
   line-height: 24px;
@@ -118,6 +125,7 @@
 .xy-alert__toggle:focus-visible {
   outline: 2px solid color-mix(in srgb, currentColor 30%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-alert__actions {
@@ -173,12 +181,14 @@
 }
 
 .xy-alert__close-btn:hover {
+  color: var(--xy-text-color);
   background: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 .xy-alert__close-btn:focus-visible {
   outline: 2px solid color-mix(in srgb, currentColor 30%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-alert--sm {
@@ -235,16 +245,18 @@
 }
 
 .xy-alert.is-light {
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 10%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-alert.is-dark {
-  --xy-alert-description-color: white;
-  --xy-alert-close-color: white;
-  --xy-alert-toggle-color: color-mix(in srgb, white 84%, var(--xy-alert-text-color));
+  --xy-alert-title-color: color-mix(in srgb, var(--xy-bg-color-floating) 96%, white);
+  --xy-alert-description-color: color-mix(in srgb, var(--xy-bg-color-floating) 84%, white);
+  --xy-alert-close-color: color-mix(in srgb, var(--xy-bg-color-floating) 82%, white);
+  --xy-alert-toggle-color: color-mix(in srgb, var(--xy-bg-color-floating) 96%, white);
 
-  background: var(--xy-alert-text-color);
-  color: white;
+  border-color: transparent;
+  background: color-mix(in srgb, var(--xy-text-color-heading) 84%, var(--xy-alert-accent-color));
+  color: color-mix(in srgb, var(--xy-bg-color-floating) 96%, white);
 }
 
 .xy-alert.is-paused {
@@ -254,7 +266,7 @@
 }
 
 .xy-alert--default {
-  border: 0;
+  border-color: var(--xy-alert-border-color);
 }
 
 .xy-alert--banner {
@@ -279,28 +291,53 @@
 }
 
 .xy-alert--primary {
-  --xy-alert-text-color: var(--xy-color-primary);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  --xy-alert-accent-color: var(--xy-color-primary);
+  --xy-alert-bg-color: var(--xy-color-primary-soft);
+  --xy-alert-border-color: color-mix(
+    in srgb,
+    var(--xy-color-primary) 14%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-alert--success {
-  --xy-alert-text-color: var(--xy-color-success);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-success) 12%, white);
+  --xy-alert-accent-color: var(--xy-color-success);
+  --xy-alert-bg-color: var(--xy-color-success-soft);
+  --xy-alert-border-color: color-mix(
+    in srgb,
+    var(--xy-color-success) 14%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-alert--info {
-  --xy-alert-text-color: var(--xy-color-info);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-info) 12%, white);
+  --xy-alert-accent-color: var(--xy-color-info);
+  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-info) 10%, var(--xy-bg-color-floating));
+  --xy-alert-border-color: color-mix(
+    in srgb,
+    var(--xy-color-info) 14%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-alert--warning {
-  --xy-alert-text-color: var(--xy-color-warning);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-warning) 14%, white);
+  --xy-alert-accent-color: var(--xy-color-warning);
+  --xy-alert-bg-color: var(--xy-color-warning-soft);
+  --xy-alert-border-color: color-mix(
+    in srgb,
+    var(--xy-color-warning) 16%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-alert--error {
-  --xy-alert-text-color: var(--xy-color-danger);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-danger) 12%, white);
+  --xy-alert-accent-color: var(--xy-color-danger);
+  --xy-alert-bg-color: var(--xy-color-danger-soft);
+  --xy-alert-border-color: color-mix(
+    in srgb,
+    var(--xy-color-danger) 14%,
+    var(--xy-border-color-subtle)
+  );
 }
 
 .xy-alert-service {
@@ -329,7 +366,9 @@
 
 .xy-alert-service-slide-enter-active,
 .xy-alert-service-slide-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .xy-alert-service-slide-enter-from,

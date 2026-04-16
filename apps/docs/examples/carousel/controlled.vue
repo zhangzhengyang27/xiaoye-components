@@ -12,7 +12,11 @@ const activeIndex = ref(1);
       <xy-button plain @click="activeIndex = 2">切到第 3 页</xy-button>
     </xy-space>
 
-    <xy-carousel :active-index="activeIndex" height="220px" @update:activeIndex="activeIndex = $event">
+    <xy-carousel
+      :active-index="activeIndex"
+      height="220px"
+      @update:activeIndex="activeIndex = $event"
+    >
       <xy-carousel-item v-for="item in 3" :key="`controlled-${item}`">
         <div class="demo-carousel-controlled">Page {{ item }}</div>
       </xy-carousel-item>
@@ -32,9 +36,17 @@ const activeIndex = ref(1);
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  background: linear-gradient(135deg, #2563eb, #0f766e);
-  color: white;
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 24%, var(--xy-border-color));
+  background:
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--xy-color-primary) 22%, white),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
+  color: var(--xy-text-color);
   font-size: 24px;
   font-weight: 700;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 </style>

@@ -5,6 +5,7 @@ import XiaoyeComponents, {
   createConfigProviderContext
 } from "xiaoye-components";
 import XiaoyeProComponents from "xiaoye-pro-components";
+import XiaoyeFrontline from "@xiaoye/frontline";
 import Demo from "./components/Demo.vue";
 import HomeProductLineDemo from "./components/HomeProductLineDemo.vue";
 import ProjectIconGallery from "./components/ProjectIconGallery.vue";
@@ -26,6 +27,7 @@ const theme: Theme = {
     );
     app.use(XiaoyeComponents);
     app.use(XiaoyeProComponents);
+    app.use(XiaoyeFrontline);
     app.component("Demo", Demo);
     app.component("HomeProductLineDemo", HomeProductLineDemo);
     app.component("ProjectIconGallery", ProjectIconGallery);

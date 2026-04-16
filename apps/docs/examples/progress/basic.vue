@@ -37,30 +37,22 @@ const pipelineItems = [
       <div class="progress-release-board__header">
         <div>
           <strong>发布流水线</strong>
-          <p>把构建、验证、灰度和正式发布收进同一块任务面板里看。</p>
+          <p class="progress-release-board__header-description">把构建、验证、灰度和正式发布收进同一块任务面板里看。</p>
         </div>
         <xy-tag status="primary" round>今天 09:20 更新</xy-tag>
       </div>
     </template>
 
     <div class="progress-release-board__list">
-      <div
-        v-for="item in pipelineItems"
-        :key="item.name"
-        class="progress-release-board__item"
-      >
+      <div v-for="item in pipelineItems" :key="item.name" class="progress-release-board__item">
         <div class="progress-release-board__head">
           <div class="progress-release-board__copy">
             <strong>{{ item.name }}</strong>
-            <p>{{ item.owner }}</p>
+            <p class="progress-release-board__copy-description">{{ item.owner }}</p>
           </div>
           <xy-tag :status="item.stageStatus" round>{{ item.stage }}</xy-tag>
         </div>
-        <xy-progress
-          :percentage="item.percentage"
-          :status="item.status"
-          :color="item.color"
-        >
+        <xy-progress :percentage="item.percentage" :status="item.status" :color="item.color">
           <span>{{ item.detail }}</span>
         </xy-progress>
       </div>
@@ -86,8 +78,8 @@ const pipelineItems = [
   gap: 16px;
 }
 
-.progress-release-board__header p,
-.progress-release-board__copy p {
+.progress-release-board__header-description,
+.progress-release-board__copy-description {
   margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
   font-size: 13px;
@@ -104,9 +96,10 @@ const pipelineItems = [
   flex-direction: column;
   gap: 10px;
   padding: 14px 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 78%, white);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.96));
+  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .progress-release-board__head {

@@ -47,6 +47,7 @@ export interface TableTreeNode {
   level: number;
   expanded: boolean;
   loading: boolean;
+  loaded: boolean;
   hasChildren: boolean;
   isLazy: boolean;
   visible: boolean;
@@ -56,6 +57,10 @@ export interface TableHeaderSlotProps<T = Record<string, unknown>> {
   column: TableResolvedColumn<T>;
   sortOrder: TableSortOrder;
   filteredValues: TableFilterValue[];
+}
+
+export interface TableFilterIconSlotProps {
+  filterOpened: boolean;
 }
 
 export interface TableCellSlotProps<T = Record<string, unknown>> {
@@ -68,17 +73,53 @@ export interface TableCellSlotProps<T = Record<string, unknown>> {
   treeNode?: TableTreeNode;
 }
 
+export interface TableExpandSlotProps<T = Record<string, unknown>> extends TableCellSlotProps<T> {
+  expanded: boolean;
+  expandable: boolean;
+}
+
+export interface TableRowClassNameContext<T = Record<string, unknown>> {
+  row: T;
+  rowIndex: number;
+}
+
+export interface TableHeaderRowContext<T = Record<string, unknown>> {
+  row: TableHeaderCell<T>[];
+  rowIndex: number;
+}
+
+export interface TableHeaderCellContext<T = Record<string, unknown>> {
+  row: TableHeaderCell<T>[];
+  rowIndex: number;
+  column: TableResolvedColumn<T>;
+  columnIndex: number;
+}
+
+type TablePathKey<T> = Extract<keyof T, string>;
+type TablePath<T> = T extends object
+  ? {
+      [K in TablePathKey<T>]:
+        T[K] extends readonly unknown[]
+          ? K
+          : T[K] extends object
+            ? K | `${K}.${TablePath<T[K]>}`
+            : K;
+    }[TablePathKey<T>]
+  : never;
+
 export type TableRowKey<T = Record<string, unknown>> =
-  | keyof T
+  | TablePath<T>
   | ((row: T, rowIndex: number) => string | number);
 
 export type TableRowClassName<T = Record<string, unknown>> =
   | string
-  | ((row: T, rowIndex: number) => string);
+  | ((row: T, rowIndex: number) => string)
+  | ((context: TableRowClassNameContext<T>) => string);
 
 export type TableRowStyle<T = Record<string, unknown>> =
   | StyleValue
-  | ((row: T, rowIndex: number) => StyleValue);
+  | ((row: T, rowIndex: number) => StyleValue)
+  | ((context: TableRowClassNameContext<T>) => StyleValue);
 
 export type TableCellClassName<T = Record<string, unknown>> =
   | string
@@ -90,19 +131,23 @@ export type TableCellStyle<T = Record<string, unknown>> =
 
 export type TableHeaderRowClassName =
   | string
-  | ((rowIndex: number) => string);
+  | ((rowIndex: number) => string)
+  | ((context: TableHeaderRowContext) => string);
 
 export type TableHeaderRowStyle =
   | StyleValue
-  | ((rowIndex: number) => StyleValue);
+  | ((rowIndex: number) => StyleValue)
+  | ((context: TableHeaderRowContext) => StyleValue);
 
 export type TableHeaderCellClassName<T = Record<string, unknown>> =
   | string
-  | ((column: TableResolvedColumn<T>, columnIndex: number) => string);
+  | ((column: TableResolvedColumn<T>, columnIndex: number) => string)
+  | ((context: TableHeaderCellContext<T>) => string);
 
 export type TableHeaderCellStyle<T = Record<string, unknown>> =
   | StyleValue
-  | ((column: TableResolvedColumn<T>, columnIndex: number) => StyleValue);
+  | ((column: TableResolvedColumn<T>, columnIndex: number) => StyleValue)
+  | ((context: TableHeaderCellContext<T>) => StyleValue);
 
 export interface TableHeaderCell<T = Record<string, unknown>> {
   column: TableResolvedColumn<T>;
@@ -140,6 +185,7 @@ export interface TableBodyRow<T = Record<string, unknown>> {
 export interface TableColumnProps<T = Record<string, unknown>> {
   type?: TableColumnType;
   prop?: keyof T & string;
+  property?: keyof T & string;
   label?: string;
   columnKey?: string;
   width?: string | number;
@@ -149,6 +195,7 @@ export interface TableColumnProps<T = Record<string, unknown>> {
   className?: string;
   labelClassName?: string;
   formatter?: (row: T, column: TableResolvedColumn<T>, value: unknown, rowIndex: number) => unknown;
+  renderHeader?: (props: TableHeaderSlotProps<T>) => unknown;
   sortable?: TableSortable;
   sortMethod?: (left: T, right: T) => number;
   sortBy?:
@@ -190,6 +237,7 @@ export interface TableResolvedColumn<T = Record<string, unknown>> {
   className: string;
   labelClassName: string;
   formatter?: (row: T, column: TableResolvedColumn<T>, value: unknown, rowIndex: number) => unknown;
+  renderHeader?: (props: TableHeaderSlotProps<T>) => unknown;
   sortable: TableSortable;
   sortMethod?: (left: T, right: T) => number;
   sortBy?:
@@ -219,7 +267,9 @@ export interface TableResolvedColumn<T = Record<string, unknown>> {
   level: number;
   parentUid?: string;
   headerSlot?: (props: TableHeaderSlotProps<T>) => unknown;
+  filterIconSlot?: (props: TableFilterIconSlotProps) => unknown;
   cellSlot?: (props: TableCellSlotProps<T>) => unknown;
+  expandSlot?: (props: TableExpandSlotProps<T>) => unknown;
   leafCount: number;
   colSpan: number;
   rowSpan: number;
@@ -278,6 +328,8 @@ export interface TableProps<T = Record<string, unknown>> {
   tableLayout?: TableLayout;
   scrollbarAlwaysOn?: boolean;
   scrollbarTabindex?: string | number;
+  flexible?: boolean;
+  nativeScrollbar?: boolean;
   showOverflowTooltip?: TableOverflowTooltip;
   tooltipEffect?: TooltipEffect;
   tooltipOptions?: TableOverflowTooltipOptions;
@@ -289,9 +341,13 @@ export interface TableProps<T = Record<string, unknown>> {
   appendFilterPanelTo?: string;
   allowDragLastColumn?: boolean;
   preserveExpandedContent?: boolean;
+  ariaLabel?: string;
+  ariaLabelledby?: string;
+  ariaDescribedby?: string;
 }
 
 export interface TableInstance<T = Record<string, unknown>> {
+  columns: TableResolvedColumn<T>[];
   clearSelection: () => void;
   getSelectionRows: () => T[];
   toggleAllSelection: () => void;
@@ -334,7 +390,10 @@ export function cloneFilterValues(value?: TableFilterValues) {
   return next;
 }
 
-export function toCssSize(value: string | number | undefined) {
+export function toCssSize(value: string | number): string;
+export function toCssSize(value: undefined | null | ""): undefined;
+export function toCssSize(value: string | number | undefined | null): string | undefined;
+export function toCssSize(value: string | number | undefined | null) {
   if (value === undefined || value === null || value === "") {
     return undefined;
   }
@@ -377,4 +436,15 @@ export function toNumberSize(value: string | number | undefined, fallback = 160)
   }
 
   return fallback;
+}
+
+export function prefersObjectCallbackSignature(callback: (...args: any[]) => any) {
+  const source = callback.toString().trim();
+  const arrowIndex = source.indexOf("=>");
+  const paramsSource = arrowIndex >= 0 ? source.slice(0, arrowIndex).trim() : source;
+  const normalized = paramsSource.startsWith("(") && paramsSource.endsWith(")")
+    ? paramsSource.slice(1, -1).trim()
+    : paramsSource;
+
+  return normalized.startsWith("{");
 }

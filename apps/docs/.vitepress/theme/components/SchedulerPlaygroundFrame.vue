@@ -13,7 +13,8 @@ const src = "http://localhost:5175/?scene=scheduler";
     </div>
 
     <div class="scheduler-frame__hint">
-      如果下方显示空白、无法连接或浏览器错误页，通常说明本地 `playground` 还没有启动。先运行 `pnpm dev:playground`，再刷新当前页面。
+      如果下方显示空白、无法连接或浏览器错误页，通常说明本地 `playground` 还没有启动。先运行 `pnpm
+      dev:playground`，再刷新当前页面。
     </div>
 
     <iframe class="scheduler-frame__iframe" :src="src" title="Scheduler Playground" />
@@ -23,11 +24,11 @@ const src = "http://localhost:5175/?scene=scheduler";
 <style scoped>
 .scheduler-frame {
   margin-top: 18px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 24px;
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
   overflow: hidden;
-  background: #fff;
-  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.08);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-card);
 }
 
 .scheduler-frame__bar {
@@ -36,19 +37,19 @@ const src = "http://localhost:5175/?scene=scheduler";
   justify-content: space-between;
   gap: 16px;
   padding: 16px 18px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-  background: linear-gradient(180deg, #f8fafc, #eef2ff);
+  border-bottom: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 34%, white);
 }
 
 .scheduler-frame__bar strong {
   display: block;
   margin-bottom: 4px;
-  color: #1e293b;
+  color: var(--xy-text-color-heading);
 }
 
 .scheduler-frame__bar p {
   margin: 0;
-  color: #64748b;
+  color: var(--xy-text-color-secondary);
   font-size: 14px;
 }
 
@@ -59,17 +60,18 @@ const src = "http://localhost:5175/?scene=scheduler";
   min-height: 38px;
   padding: 0 14px;
   border-radius: 12px;
-  background: #2563eb;
-  color: #fff;
+  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 56%, white);
+  color: var(--xy-color-primary);
   font-weight: 600;
   text-decoration: none;
 }
 
 .scheduler-frame__hint {
   padding: 12px 18px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-  background: rgba(248, 250, 252, 0.92);
-  color: #64748b;
+  border-bottom: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  color: var(--xy-text-color-secondary);
   font-size: 14px;
 }
 
@@ -77,7 +79,7 @@ const src = "http://localhost:5175/?scene=scheduler";
   width: 100%;
   min-height: 920px;
   border: 0;
-  background: #fff;
+  background: var(--xy-bg-color);
 }
 
 @media (max-width: 960px) {

@@ -2,57 +2,57 @@
   <div class="xy-button-overview">
     <div class="xy-button-overview__group">
       <div class="xy-button-overview__label">
-        <strong>基础</strong>
-        <span>Filled</span>
+        <strong class="xy-button-overview__label-title">基础</strong>
+        <span class="xy-button-overview__label-subtitle">Filled</span>
       </div>
       <div class="xy-button-overview__row">
-        <xy-button>默认按钮</xy-button>
-        <xy-button type="primary">主要按钮</xy-button>
-        <xy-button type="success">成功按钮</xy-button>
-        <xy-button type="warning">提醒按钮</xy-button>
-        <xy-button type="danger">危险按钮</xy-button>
+        <xy-button class="xy-button-overview__button">默认按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="primary">主要按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="success">成功按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="warning">提醒按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="danger">危险按钮</xy-button>
       </div>
     </div>
 
     <div class="xy-button-overview__group">
       <div class="xy-button-overview__label">
-        <strong>朴素</strong>
-        <span>Plain</span>
+        <strong class="xy-button-overview__label-title">朴素</strong>
+        <span class="xy-button-overview__label-subtitle">Plain</span>
       </div>
       <div class="xy-button-overview__row">
-        <xy-button plain>默认按钮</xy-button>
-        <xy-button type="primary" plain>主要按钮</xy-button>
-        <xy-button type="success" plain>成功按钮</xy-button>
-        <xy-button type="warning" plain>提醒按钮</xy-button>
-        <xy-button type="danger" plain>危险按钮</xy-button>
+        <xy-button class="xy-button-overview__button" plain>默认按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="primary" plain>主要按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="success" plain>成功按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="warning" plain>提醒按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="danger" plain>危险按钮</xy-button>
       </div>
     </div>
 
     <div class="xy-button-overview__group">
       <div class="xy-button-overview__label">
-        <strong>圆角</strong>
-        <span>Round</span>
+        <strong class="xy-button-overview__label-title">圆角</strong>
+        <span class="xy-button-overview__label-subtitle">Round</span>
       </div>
       <div class="xy-button-overview__row">
-        <xy-button round>默认按钮</xy-button>
-        <xy-button type="primary" round>主要按钮</xy-button>
-        <xy-button type="success" round>成功按钮</xy-button>
-        <xy-button type="warning" round>提醒按钮</xy-button>
-        <xy-button type="danger" round>危险按钮</xy-button>
+        <xy-button class="xy-button-overview__button" round>默认按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="primary" round>主要按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="success" round>成功按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="warning" round>提醒按钮</xy-button>
+        <xy-button class="xy-button-overview__button" type="danger" round>危险按钮</xy-button>
       </div>
     </div>
 
     <div class="xy-button-overview__group">
       <div class="xy-button-overview__label">
-        <strong>圆形</strong>
-        <span>Circle</span>
+        <strong class="xy-button-overview__label-title">圆形</strong>
+        <span class="xy-button-overview__label-subtitle">Circle</span>
       </div>
       <div class="xy-button-overview__row">
-        <xy-button circle icon="mdi:magnify" aria-label="搜索" />
-        <xy-button type="primary" circle icon="mdi:pencil-outline" aria-label="编辑" />
-        <xy-button type="success" circle icon="mdi:check" aria-label="确认" />
-        <xy-button type="warning" circle icon="mdi:star-outline" aria-label="收藏" />
-        <xy-button type="danger" circle icon="mdi:delete-outline" aria-label="删除" />
+        <xy-button class="xy-button-overview__button-circle" circle icon="mdi:magnify" aria-label="搜索" />
+        <xy-button class="xy-button-overview__button-circle" type="primary" circle icon="mdi:pencil-outline" aria-label="编辑" />
+        <xy-button class="xy-button-overview__button-circle" type="success" circle icon="mdi:check" aria-label="确认" />
+        <xy-button class="xy-button-overview__button-circle" type="warning" circle icon="mdi:star-outline" aria-label="收藏" />
+        <xy-button class="xy-button-overview__button-circle" type="danger" circle icon="mdi:delete-outline" aria-label="删除" />
       </div>
     </div>
   </div>
@@ -77,24 +77,24 @@
   flex-direction: column;
   gap: 2px;
   padding: 10px 12px;
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  border: 1px solid var(--xy-border-color-subtle);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.9));
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
   text-align: center;
 }
 
-.xy-button-overview__label strong {
+.xy-button-overview__label-title {
   font-size: 13px;
   line-height: 1.2;
-  color: var(--vp-c-text-1);
+  color: var(--xy-text-color-heading);
 }
 
-.xy-button-overview__label span {
+.xy-button-overview__label-subtitle {
   font-size: 11px;
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--vp-c-text-3);
+  color: var(--xy-text-color-subtle);
 }
 
 .xy-button-overview__row {
@@ -104,12 +104,12 @@
   align-items: center;
 }
 
-.xy-button-overview__row :deep(.xy-button:not(.is-circle)) {
+.xy-button-overview__button {
   flex: 0 0 126px;
   justify-content: center;
 }
 
-.xy-button-overview__row :deep(.xy-button.is-circle) {
+.xy-button-overview__button-circle {
   flex: 0 0 auto;
 }
 
@@ -134,13 +134,13 @@
     gap: 12px;
   }
 
-  .xy-button-overview__row :deep(.xy-button:not(.is-circle)) {
+  .xy-button-overview__button {
     flex-basis: 118px;
   }
 }
 
 @media (max-width: 520px) {
-  .xy-button-overview__row :deep(.xy-button:not(.is-circle)) {
+  .xy-button-overview__button {
     flex: 1 1 calc(50% - 12px);
     min-width: 0;
   }

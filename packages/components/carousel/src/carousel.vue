@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, provide, ref, watch } from "vue";
-import type { PropType, StyleValue } from "vue";
+import { Comment, Fragment, cloneVNode, computed, isVNode, nextTick, onBeforeUnmount, onMounted, provide, ref, watch } from "vue";
+import type { PropType, StyleValue, VNode } from "vue";
 import XyIcon from "../../icon";
 import {
   type CarouselAlignment,
@@ -197,17 +197,12 @@ const root = ref<HTMLElement | null>(null);
 const viewport = ref<HTMLElement | null>(null);
 const viewportSize = ref(0);
 const internalActiveIndex = ref(-1);
-const visualIndex = ref(0);
 const previousIndex = ref(-1);
 const items = ref<import("./context").CarouselItemRegistration[]>([]);
 const hover = ref(false);
 const initialized = ref(false);
 const dragging = ref(false);
 const autoplaySuspended = ref(false);
-const loopTransitionDirection = ref<"next" | "prev" | null>(null);
-const loopTeleporting = ref(false);
-const queuedTarget = ref<number | string | null>(null);
-const restartTimerAfterLoop = ref(false);
 const dragOffset = ref(0);
 const dragMoved = ref(false);
 const dragPointerId = ref<number | null>(null);
@@ -219,13 +214,10 @@ const autoHeight = ref(0);
 const thumbRefs = new Map<number, HTMLElement>();
 let timer: ReturnType<typeof setTimeout> | null = null;
 let autoplayResumeTimer: ReturnType<typeof setTimeout> | null = null;
-let loopResetTimer: ReturnType<typeof setTimeout> | null = null;
-let loopTeleportFrame: ReturnType<typeof setTimeout> | null = null;
 let resizeObserver: ResizeObserver | null = null;
 let progressStart = 0;
 let progressDuration = 0;
 let timerToken = 0;
-let loopResetToken = 0;
 
 function toPxNumber(value: string | number) {
   if (typeof value === "number") {
@@ -253,17 +245,29 @@ const isFadeEffect = computed(
     slidesPerViewValue.value === 1 &&
     !props.centered
 );
-const seamlessLoop = computed(
+const logicalSlideNodes = computed(() => flattenSlideNodes(slots.default?.()));
+const logicalSlideCount = computed(() => logicalSlideNodes.value.length);
+const isTwoLengthLoop = computed(
   () =>
     props.loop &&
     !isCardType.value &&
     !isFadeEffect.value &&
     slidesPerViewValue.value === 1 &&
     slidesPerGroupValue.value === 1 &&
-    !props.centered
+    !props.centered &&
+    logicalSlideCount.value === 2
 );
-const loopBoundaryDuration = computed(() => Math.max(Math.round(props.duration * 0.9), 120));
-const loopBoundaryEasing = computed(() => "linear");
+const placeholderSlideNodes = computed(() => {
+  if (!isTwoLengthLoop.value) {
+    return [];
+  }
+
+  return logicalSlideNodes.value.map((node, index) =>
+    cloneVNode(node, {
+      key: `xy-carousel-placeholder-${index}`
+    })
+  );
+});
 const thumbsEnabled = computed(() => props.thumbs && !isCardType.value);
 const hasLabel = computed(() => items.value.some((item) => `${item.props.label ?? ""}`.length > 0));
 const arrowDisplay = computed(() => props.arrow !== "never" && !isVertical.value);
@@ -359,6 +363,13 @@ const activeIndicatorIndex = computed(() => {
   }
 
   return snapPoints.value.findIndex((point) => point === current);
+});
+const exposedActiveIndex = computed(() => {
+  if (resolvedActiveIndex.value < 0) {
+    return resolvedActiveIndex.value;
+  }
+
+  return isTwoLengthLoop.value ? resolvedActiveIndex.value % logicalSlideCount.value : resolvedActiveIndex.value;
 });
 
 const visibleIndices = computed(() => {
@@ -507,6 +518,45 @@ function toLeadDuration(index: number) {
   return items.value[index]?.props.duration ?? props.interval;
 }
 
+function flattenSlideNodes(nodes: unknown): VNode[] {
+  if (!Array.isArray(nodes)) {
+    return [];
+  }
+
+  const result: VNode[] = [];
+
+  nodes.forEach((node) => {
+    if (!isVNode(node) || node.type === Comment) {
+      return;
+    }
+
+    if (node.type === Fragment) {
+      result.push(...flattenSlideNodes(Array.isArray(node.children) ? node.children : []));
+      return;
+    }
+
+    result.push(node);
+  });
+
+  return result;
+}
+
+function isTwoLengthVisible(index: number) {
+  if (!isTwoLengthLoop.value) {
+    return true;
+  }
+
+  return resolvedActiveIndex.value <= 1 ? index <= 1 : index > 1;
+}
+
+function toLogicalIndex(index: number) {
+  if (!isTwoLengthLoop.value || logicalSlideCount.value <= 0) {
+    return index;
+  }
+
+  return index % logicalSlideCount.value;
+}
+
 function updateViewportSize() {
   if (!viewport.value) {
     viewportSize.value = 0;
@@ -561,81 +611,6 @@ function clearAutoplayResumeTimer() {
     clearTimeout(autoplayResumeTimer);
     autoplayResumeTimer = null;
   }
-}
-
-function clearLoopResetTimer() {
-  if (loopResetTimer) {
-    clearTimeout(loopResetTimer);
-    loopResetTimer = null;
-  }
-
-  if (loopTeleportFrame) {
-    clearTimeout(loopTeleportFrame);
-    loopTeleportFrame = null;
-  }
-}
-
-function syncVisualIndex() {
-  visualIndex.value = resolvedActiveIndex.value < 0 ? 0 : resolvedActiveIndex.value;
-}
-
-function cancelLoopTransition() {
-  loopResetToken += 1;
-  clearLoopResetTimer();
-  loopTransitionDirection.value = null;
-  loopTeleporting.value = false;
-  restartTimerAfterLoop.value = false;
-  syncVisualIndex();
-}
-
-function finalizeLoopBoundaryTransition(currentToken: number) {
-  if (currentToken !== loopResetToken) {
-    return;
-  }
-
-  loopResetTimer = null;
-  loopTeleporting.value = true;
-  // Clear boundary semantics before syncing the visual track so the teleport
-  // frame lands on the real slide positions instead of the cloned edge track.
-  loopTransitionDirection.value = null;
-  syncVisualIndex();
-
-  nextTick(() => {
-    loopTeleportFrame = setTimeout(() => {
-      if (currentToken !== loopResetToken) {
-        return;
-      }
-
-      loopTeleportFrame = null;
-      loopTeleporting.value = false;
-
-      if (queuedTarget.value !== null) {
-        const nextTarget = queuedTarget.value;
-        queuedTarget.value = null;
-        setActiveItem(nextTarget);
-      } else if (restartTimerAfterLoop.value) {
-        restartTimerAfterLoop.value = false;
-        resetTimer();
-      }
-    }, 0);
-  });
-}
-
-function startLoopBoundaryTransition(direction: "next" | "prev") {
-  loopResetToken += 1;
-  clearLoopResetTimer();
-  loopTransitionDirection.value = direction;
-  loopTeleporting.value = false;
-  visualIndex.value = direction === "next" ? items.value.length : -1;
-
-  const currentToken = loopResetToken;
-  loopResetTimer = setTimeout(() => {
-    finalizeLoopBoundaryTransition(currentToken);
-  }, Math.max(loopBoundaryDuration.value + 80, 120));
-}
-
-function isLoopBoundaryTransitioning() {
-  return seamlessLoop.value && loopTransitionDirection.value !== null && !loopTeleporting.value;
 }
 
 function scheduleAutoplayResume(delay = 0) {
@@ -706,22 +681,7 @@ function startTimer() {
 
     const target = getNextAutoplayIndex();
     if (target !== resolvedActiveIndex.value) {
-      const currentIndex = resolvedActiveIndex.value;
-      const firstSnapPoint = snapPoints.value[0] ?? 0;
-      const lastSnapPoint = snapPoints.value[snapPoints.value.length - 1] ?? -1;
-      const boundaryTransitionDirection =
-        seamlessLoop.value &&
-        props.loop &&
-        currentIndex === lastSnapPoint &&
-        target === firstSnapPoint
-          ? "next"
-          : null;
-
-      setActiveItem(target, {
-        boundaryTransitionDirection,
-        deferTimerRestart: Boolean(boundaryTransitionDirection),
-        preserveProgressPercent: boundaryTransitionDirection ? 100 : null
-      });
+      setActiveItem(target);
     } else {
       resetTimer();
     }
@@ -737,7 +697,7 @@ function resetTimer() {
 
 function emitChange(nextIndex: number, previous: number) {
   if (previous > -1 && previous !== nextIndex) {
-    emit("change", nextIndex, previous);
+    emit("change", toLogicalIndex(nextIndex), toLogicalIndex(previous));
   }
 }
 
@@ -830,19 +790,7 @@ function resolveTargetIndex(index: number | string) {
   return Math.min(Math.max(nextIndex, 0), maxIndex.value);
 }
 
-function setActiveItem(
-  index: number | string,
-  options?: {
-    boundaryTransitionDirection?: "next" | "prev" | null;
-    deferTimerRestart?: boolean;
-    preserveProgressPercent?: number | null;
-  }
-) {
-  if (isLoopBoundaryTransitioning()) {
-    queuedTarget.value = index;
-    return;
-  }
-
+function setActiveItem(index: number | string) {
   const nextIndex = resolveTargetIndex(index);
 
   if (nextIndex < 0) {
@@ -851,33 +799,21 @@ function setActiveItem(
 
   const currentIndex = resolvedActiveIndex.value;
   if (nextIndex === currentIndex) {
+    previousIndex.value = currentIndex;
+    resetTimer();
     return;
   }
 
   const previous = currentIndex;
   previousIndex.value = previous;
-  const boundaryDirection = seamlessLoop.value ? options?.boundaryTransitionDirection ?? null : null;
 
   if (isControlled.value) {
-    emit("update:activeIndex", nextIndex);
+    emit("update:activeIndex", toLogicalIndex(nextIndex));
   } else {
     internalActiveIndex.value = nextIndex;
   }
 
-  if (boundaryDirection) {
-    queuedTarget.value = null;
-    restartTimerAfterLoop.value = Boolean(options?.deferTimerRestart);
-    pauseTimer({
-      preserveProgress: props.showProgress && options?.preserveProgressPercent != null,
-      progressPercent: options?.preserveProgressPercent ?? progressPercent.value
-    });
-    startLoopBoundaryTransition(boundaryDirection);
-  } else {
-    cancelLoopTransition();
-    visualIndex.value = nextIndex;
-    resetTimer();
-  }
-
+  resetTimer();
   emitChange(nextIndex, previous);
 }
 
@@ -887,18 +823,8 @@ function prev() {
   }
 
   const current = activeIndicatorIndex.value < 0 ? 0 : activeIndicatorIndex.value;
-  const target =
-    current <= 0 ? (props.loop ? snapPoints.value.length - 1 : 0) : current - 1;
-
-  const targetIndex = snapPoints.value[target] ?? 0;
-  const boundaryTransitionDirection =
-    seamlessLoop.value && props.loop && current <= 0 ? "prev" : null;
-
-  setActiveItem(targetIndex, {
-    boundaryTransitionDirection,
-    deferTimerRestart: Boolean(boundaryTransitionDirection),
-    preserveProgressPercent: boundaryTransitionDirection && props.showProgress ? progressPercent.value : null
-  });
+  const target = current <= 0 ? (props.loop ? snapPoints.value.length - 1 : 0) : current - 1;
+  setActiveItem(snapPoints.value[target] ?? 0);
 }
 
 function next() {
@@ -912,15 +838,7 @@ function next() {
       ? (props.loop ? 0 : current)
       : current + 1;
 
-  const targetIndex = snapPoints.value[target] ?? 0;
-  const boundaryTransitionDirection =
-    seamlessLoop.value && props.loop && current >= snapPoints.value.length - 1 ? "next" : null;
-
-  setActiveItem(targetIndex, {
-    boundaryTransitionDirection,
-    deferTimerRestart: Boolean(boundaryTransitionDirection),
-    preserveProgressPercent: boundaryTransitionDirection && props.showProgress ? progressPercent.value : null
-  });
+  setActiveItem(snapPoints.value[target] ?? 0);
 }
 
 function registerItem(item: import("./context").CarouselItemRegistration) {
@@ -1066,8 +984,6 @@ function handlePointerDown(event: PointerEvent) {
     return;
   }
 
-  queuedTarget.value = null;
-  cancelLoopTransition();
   dragging.value = true;
   autoplaySuspended.value = true;
   dragMoved.value = false;
@@ -1113,19 +1029,6 @@ function handleKeydown(event: KeyboardEvent) {
   }
 }
 
-function handleItemTransitionEnd(event: TransitionEvent) {
-  if (!isLoopBoundaryTransitioning() || event.propertyName !== "transform") {
-    return;
-  }
-
-  const target = event.target as HTMLElement | null;
-  if (!target?.classList.contains("xy-carousel__item")) {
-    return;
-  }
-
-  finalizeLoopBoundaryTransition(loopResetToken);
-}
-
 function handleFocusIn() {
   pauseTimer();
 }
@@ -1155,22 +1058,16 @@ provide(carouselContextKey, {
   viewportSize,
   items,
   resolvedActiveIndex,
-  visualIndex,
   previousIndex,
   activeIndicatorIndex,
   isCardType,
   isVertical,
   isFadeEffect,
-  seamlessLoop,
-  loopTransitionDirection,
-  loopTeleporting,
   loop: computed(() => props.loop),
   trigger: computed(() => props.trigger),
   cardScale: computed(() => props.cardScale),
   duration: computed(() => props.duration),
   easing: computed(() => props.easing),
-  loopBoundaryDuration,
-  loopBoundaryEasing,
   slidesPerView: slidesPerViewValue,
   slidesPerGroup: slidesPerGroupValue,
   centered: computed(() => props.centered || alignMode.value === "center"),
@@ -1187,26 +1084,8 @@ provide(carouselContextKey, {
 });
 
 watch(
-  () => [resolvedActiveIndex.value, seamlessLoop.value],
-  () => {
-    if (!seamlessLoop.value) {
-      cancelLoopTransition();
-      return;
-    }
-
-    if (!loopTransitionDirection.value) {
-      syncVisualIndex();
-    }
-  }
-);
-
-watch(
   () => [props.autoplay, props.interval, props.pauseOnHover, items.value.length, resolvedActiveIndex.value],
   () => {
-    if (restartTimerAfterLoop.value) {
-      return;
-    }
-
     resetTimer();
   }
 );
@@ -1253,7 +1132,6 @@ onMounted(() => {
   }
 
   nextTick(() => {
-    syncVisualIndex();
     updateViewportSize();
     updateAutoHeight();
     observeVisibleItems();
@@ -1273,7 +1151,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   pauseTimer();
   clearAutoplayResumeTimer();
-  clearLoopResetTimer();
   resizeObserver?.disconnect();
   heightObserver.value?.disconnect();
   window.removeEventListener("pointermove", handlePointerMove);
@@ -1282,11 +1159,13 @@ onBeforeUnmount(() => {
 });
 
 defineExpose({
-  activeIndex: resolvedActiveIndex,
+  activeIndex: exposedActiveIndex,
   setActiveItem,
   prev,
   next
 });
+
+const PlaceholderItems = () => placeholderSlideNodes.value;
 </script>
 
 <template>
@@ -1313,21 +1192,22 @@ defineExpose({
           v-for="(item, index) in items"
           :key="`thumb-${item.uid}`"
           :ref="(el) => setThumbRef(index, el)"
+          v-show="isTwoLengthVisible(index)"
           :class="[
             'xy-carousel__thumb',
             `xy-carousel__thumb--${props.thumbsIndicatorType}`,
             index === resolvedActiveIndex ? 'is-active' : ''
           ]"
           type="button"
-          :aria-label="`thumbnail ${index + 1}`"
+          :aria-label="`thumbnail ${toLogicalIndex(index) + 1}`"
           @click="setActiveItem(index)"
         >
           <slot
             v-if="slots.thumb"
             name="thumb"
-            :index="index"
+            :index="toLogicalIndex(index)"
             :active="index === resolvedActiveIndex"
-            :total="items.length"
+            :total="logicalSlideCount || items.length"
             :item="item.props"
           />
           <template v-else>
@@ -1339,7 +1219,7 @@ defineExpose({
 
     <div class="xy-carousel__main">
       <div v-if="props.showProgress && props.progressPlacement === 'top'" class="xy-carousel__progress xy-carousel__progress--top">
-        <slot name="progress" :percent="progressPercent" :active-index="resolvedActiveIndex">
+        <slot name="progress" :percent="progressPercent" :active-index="exposedActiveIndex">
           <span class="xy-carousel__progress-bar" :style="progressStyle" />
         </slot>
       </div>
@@ -1378,13 +1258,13 @@ defineExpose({
         ref="viewport"
         class="xy-carousel__container"
         :style="mainViewportStyle"
-        @transitionend="handleItemTransitionEnd"
       >
+        <PlaceholderItems />
         <slot />
       </div>
 
       <div v-if="props.showProgress && props.progressPlacement === 'bottom'" class="xy-carousel__progress xy-carousel__progress--bottom">
-        <slot name="progress" :percent="progressPercent" :active-index="resolvedActiveIndex">
+        <slot name="progress" :percent="progressPercent" :active-index="exposedActiveIndex">
           <span class="xy-carousel__progress-bar" :style="progressStyle" />
         </slot>
       </div>
@@ -1394,6 +1274,7 @@ defineExpose({
           <li
             v-for="(snapPoint, index) in snapPoints"
             :key="`indicator-${snapPoint}`"
+            v-show="isTwoLengthVisible(index)"
             :class="[
               'xy-carousel__indicator',
               `xy-carousel__indicator--${props.direction}`,
@@ -1408,15 +1289,15 @@ defineExpose({
                   'xy-carousel__button',
                   slots.indicator ? 'xy-carousel__button--custom' : ''
                 ]"
-              :aria-label="`slide ${snapPoint + 1}`"
+              :aria-label="`slide ${toLogicalIndex(snapPoint) + 1}`"
             >
-              <slot
-                v-if="slots.indicator"
-                name="indicator"
-                :index="index"
-                :active="index === activeIndicatorIndex"
-                :total="snapPoints.length"
-              />
+                <slot
+                  v-if="slots.indicator"
+                  name="indicator"
+                  :index="toLogicalIndex(index)"
+                  :active="index === activeIndicatorIndex"
+                  :total="logicalSlideCount || snapPoints.length"
+                />
               <template v-else>
                 <span v-if="hasLabel">{{ items[snapPoint]?.props.label }}</span>
               </template>
@@ -1425,7 +1306,7 @@ defineExpose({
         </ul>
 
         <div v-if="props.showProgress && props.progressPlacement === 'indicator'" class="xy-carousel__progress xy-carousel__progress--indicator">
-          <slot name="progress" :percent="progressPercent" :active-index="resolvedActiveIndex">
+          <slot name="progress" :percent="progressPercent" :active-index="exposedActiveIndex">
             <span class="xy-carousel__progress-bar" :style="progressStyle" />
           </slot>
         </div>
@@ -1441,21 +1322,22 @@ defineExpose({
           v-for="(item, index) in items"
           :key="`thumb-${item.uid}`"
           :ref="(el) => setThumbRef(index, el)"
+          v-show="isTwoLengthVisible(index)"
           :class="[
             'xy-carousel__thumb',
             `xy-carousel__thumb--${props.thumbsIndicatorType}`,
             index === resolvedActiveIndex ? 'is-active' : ''
           ]"
           type="button"
-          :aria-label="`thumbnail ${index + 1}`"
+          :aria-label="`thumbnail ${toLogicalIndex(index) + 1}`"
           @click="setActiveItem(index)"
         >
           <slot
             v-if="slots.thumb"
             name="thumb"
-            :index="index"
+            :index="toLogicalIndex(index)"
             :active="index === resolvedActiveIndex"
-            :total="items.length"
+            :total="logicalSlideCount || items.length"
             :item="item.props"
           />
           <template v-else>

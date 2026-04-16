@@ -81,7 +81,9 @@ const checklist = [
     <div class="demo-skeleton-dashboard__toolbar">
       <div class="demo-skeleton-dashboard__toolbar-copy">
         <strong>发布控制台</strong>
-        <p>同一屏里同时承接 KPI、任务队列和摘要区块，是 Skeleton 在后台页面最常见的落点。</p>
+        <p class="demo-skeleton-dashboard__toolbar-description">
+          同一屏里同时承接 KPI、任务队列和摘要区块，是 Skeleton 在后台页面最常见的落点。
+        </p>
       </div>
 
       <div class="demo-skeleton-dashboard__toolbar-actions">
@@ -128,7 +130,7 @@ const checklist = [
               <xy-tag :status="item.tagStatus" round>{{ item.tag }}</xy-tag>
             </div>
             <div class="demo-skeleton-dashboard__metric-value">{{ item.value }}</div>
-            <p>{{ item.label }}</p>
+            <p class="demo-skeleton-dashboard__metric-description">{{ item.label }}</p>
             <span class="demo-skeleton-dashboard__metric-hint">{{ item.hint }}</span>
           </div>
         </xy-skeleton>
@@ -151,6 +153,7 @@ const checklist = [
                 v-for="item in 4"
                 :key="item"
                 class="demo-skeleton-dashboard__table-row"
+                :class="{ 'is-last': item === 4 }"
               >
                 <xy-skeleton-item variant="h3" style="width: 60%;" />
                 <xy-skeleton-item variant="button" style="width: 84px;" />
@@ -165,13 +168,14 @@ const checklist = [
 
           <div class="demo-skeleton-dashboard__table-real">
             <div
-              v-for="item in releaseRows"
+              v-for="(item, index) in releaseRows"
               :key="item.name"
               class="demo-skeleton-dashboard__table-real-row"
+              :class="{ 'is-last': index === releaseRows.length - 1 }"
             >
               <div class="demo-skeleton-dashboard__service">
                 <strong>{{ item.name }}</strong>
-                <p>{{ item.env }} · Owner {{ item.owner }}</p>
+                <p class="demo-skeleton-dashboard__table-description">{{ item.env }} · Owner {{ item.owner }}</p>
               </div>
               <xy-tag :status="item.status === '已完成' ? 'success' : item.status === '灰度中' ? 'primary' : 'warning'">
                 {{ item.status }}
@@ -182,7 +186,7 @@ const checklist = [
                   :status="item.status === '已完成' ? 'success' : item.status === '待确认' ? 'warning' : ''"
                   :show-text="false"
                 />
-                <span>{{ item.eta }}</span>
+                <span class="demo-skeleton-dashboard__row-meta-note">{{ item.eta }}</span>
               </div>
               <xy-tag :status="item.riskStatus" round>{{ item.risk }}</xy-tag>
             </div>
@@ -213,7 +217,9 @@ const checklist = [
               <strong>当前窗口建议先完成灰度验证</strong>
               <xy-tag status="warning" round>需人工确认 2 项</xy-tag>
             </div>
-            <p>发布、风控和消息中心的任务都还在同一波次内，建议先确认灰度指标再继续放量。</p>
+            <p class="demo-skeleton-dashboard__aside-description">
+              发布、风控和消息中心的任务都还在同一波次内，建议先确认灰度指标再继续放量。
+            </p>
             <ul class="demo-skeleton-dashboard__checklist">
               <li
                 v-for="item in checklist"
@@ -253,7 +259,7 @@ const checklist = [
   gap: 4px;
 }
 
-.demo-skeleton-dashboard__toolbar-copy p {
+.demo-skeleton-dashboard__toolbar-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.6;
@@ -300,14 +306,14 @@ const checklist = [
 }
 
 .demo-skeleton-dashboard__metric-hint,
-.demo-skeleton-dashboard__row-meta span {
+.demo-skeleton-dashboard__row-meta-note {
   color: var(--xy-text-color-secondary);
   font-size: 12px;
 }
 
-.demo-skeleton-dashboard__metric-real p,
-.demo-skeleton-dashboard__table-real-row p,
-.demo-skeleton-dashboard__aside-real p {
+.demo-skeleton-dashboard__metric-description,
+.demo-skeleton-dashboard__table-description,
+.demo-skeleton-dashboard__aside-description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.6;
@@ -351,8 +357,8 @@ const checklist = [
   border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 80%, white);
 }
 
-.demo-skeleton-dashboard__table-row:last-child,
-.demo-skeleton-dashboard__table-real-row:last-child {
+.demo-skeleton-dashboard__table-row.is-last,
+.demo-skeleton-dashboard__table-real-row.is-last {
   padding-bottom: 0;
   border-bottom: none;
 }

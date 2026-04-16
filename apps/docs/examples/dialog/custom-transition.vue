@@ -4,7 +4,7 @@ import { ref } from "vue";
 const open = ref(false);
 
 const transition = {
-  name: "xy-dialog-zoom",
+  name: "demo-dialog-custom-transition__zoom",
   onAfterEnter() {
     console.info("dialog zoom enter");
   }
@@ -19,6 +19,7 @@ const transition = {
       v-model="open"
       title="自定义动画"
       :transition="transition"
+      panel-class="demo-dialog-custom-transition__panel"
       width="520px"
     >
       <p>这里使用对象形式的 `transition`，便于和自定义过渡类名或 hook 一起工作。</p>
@@ -27,27 +28,26 @@ const transition = {
 </template>
 
 <style scoped>
-.xy-dialog-zoom-enter-active,
-.xy-dialog-zoom-leave-active {
+.demo-dialog-custom-transition__zoom-enter-active,
+.demo-dialog-custom-transition__zoom-leave-active {
   transition: opacity 0.24s ease;
 }
 
-.xy-dialog-zoom-enter-active :deep(.xy-dialog__panel),
-.xy-dialog-zoom-leave-active :deep(.xy-dialog__panel) {
+:global(.demo-dialog-custom-transition__zoom-enter-active .demo-dialog-custom-transition__panel),
+:global(.demo-dialog-custom-transition__zoom-leave-active .demo-dialog-custom-transition__panel) {
   transition:
     transform 0.24s ease,
     opacity 0.24s ease;
 }
 
-.xy-dialog-zoom-enter-from,
-.xy-dialog-zoom-leave-to {
+.demo-dialog-custom-transition__zoom-enter-from,
+.demo-dialog-custom-transition__zoom-leave-to {
   opacity: 0;
 }
 
-.xy-dialog-zoom-enter-from :deep(.xy-dialog__panel),
-.xy-dialog-zoom-leave-to :deep(.xy-dialog__panel) {
+:global(.demo-dialog-custom-transition__zoom-enter-from .demo-dialog-custom-transition__panel),
+:global(.demo-dialog-custom-transition__zoom-leave-to .demo-dialog-custom-transition__panel) {
   transform: scale(0.92);
   opacity: 0;
 }
 </style>
-

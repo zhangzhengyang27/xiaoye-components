@@ -16,8 +16,14 @@ carousel/basic
 
 ## 无缝循环边界
 
-:::demo 普通单页 `slide` 循环会把首尾切换收成更连续的轨道，边界点击会排队执行，自动播放进度也会在边界过渡完成后再重置。
+:::demo 普通单页 `slide` 循环会直接回绕真实索引，并把首尾项重排到相邻轨道，减少切到边界后再“收一下”的感觉。
 carousel/seamless-loop
+:::
+
+## 两项循环补位
+
+:::demo 当只有 2 项内容且开启 `loop` 时，会自动补位成 4 个物理 slide，保持循环切换和指示器索引都更自然。
+carousel/two-items-loop
 :::
 
 ## 指示器与箭头
@@ -120,10 +126,11 @@ carousel/methods
 
 - `effect='fade'` 只在普通单页模式下生效；当 `type='card'`、`slides-per-view > 1` 或 `centered` 开启时，会自动回退为普通滑动。
 - `type='card'` 是独立模式，不与 `slides-per-view / slides-per-group / gap / centered` 这类内容流布局能力混用。
-- 普通单页 `slide` 且 `loop=true` 时，首尾切换会进入无缝边界轨道；边界过渡中的再次点击会排队到当前过渡结束后再执行。
+- 普通单页 `slide` 且 `loop=true` 时，首尾切换会直接回绕真实索引，并通过 slide 重排保持首尾衔接更连续。
+- 当只有 2 项内容且 `loop=true` 时，会自动补位为 4 个物理 slide；对外暴露的 `activeIndex`、`change` 和 `update:activeIndex` 仍然保持 0 / 1 这组逻辑索引。
 - `height='auto'` 配合 `virtual` 且一屏展示多项时，会退回按当前激活项测量高度，避免窗口化场景的高度抖动。
 - 自动播放除了受 `pause-on-hover` 控制外，在焦点进入轮播区和拖拽过程中也会暂停，交互结束后再恢复计时。
-- 开启 `show-progress` 时，自动播放在无缝边界过渡期间会保留进度，等边界过渡完成后再开始下一轮计时。
+- 开启 `show-progress` 时，自动播放切换到下一项后会立即按新一轮节奏重新计时。
 - 开启 `keyboard` 后，横向支持 `Left / Right`，纵向支持 `Up / Down`，同时支持 `Home / End` 快速跳到首尾。
 
 ## API

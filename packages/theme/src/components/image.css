@@ -1,9 +1,19 @@
 .xy-image {
-  --xy-image-placeholder-bg: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
-  --xy-image-error-bg: color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
+  --xy-image-placeholder-bg: color-mix(
+    in srgb,
+    var(--xy-bg-color-subtle) 78%,
+    var(--xy-surface-raised)
+  );
+  --xy-image-error-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-surface-raised));
   --xy-image-error-color: var(--xy-text-color-secondary);
-  --xy-image-viewer-mask: rgba(15, 23, 42, 0.82);
-  --xy-image-viewer-btn-bg: rgba(15, 23, 42, 0.64);
+  --xy-image-viewer-mask: color-mix(in srgb, var(--xy-overlay-color) 92%, transparent);
+  --xy-image-viewer-btn-bg: color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent);
+  --xy-image-viewer-btn-border: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
+  --xy-image-viewer-btn-color: color-mix(
+    in srgb,
+    var(--xy-bg-color) 92%,
+    var(--xy-text-color-heading)
+  );
 
   position: relative;
   display: inline-block;
@@ -45,6 +55,7 @@
 
 .xy-image__placeholder {
   background: var(--xy-image-placeholder-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 72%, transparent);
 }
 
 .xy-image__error {
@@ -54,6 +65,7 @@
   background: var(--xy-image-error-bg);
   color: var(--xy-image-error-color);
   font-size: var(--xy-font-size-sm);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 72%, transparent);
 }
 
 .xy-image-viewer {
@@ -83,9 +95,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--xy-bg-color);
   font-size: var(--xy-font-size-sm);
-  background: rgba(15, 23, 42, 0.18);
+  background: color-mix(in srgb, var(--xy-overlay-color) 18%, transparent);
   pointer-events: none;
 }
 
@@ -98,7 +110,7 @@
 .xy-image-viewer__image {
   display: block;
   object-fit: contain;
-  box-shadow: var(--xy-shadow-lg);
+  box-shadow: var(--xy-shadow-modal);
   transform-origin: center center;
   transition:
     transform 0.18s ease,
@@ -129,17 +141,19 @@
   min-height: 160px;
   padding: 24px;
   border-radius: var(--xy-radius-lg);
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
+  border: 1px solid color-mix(in srgb, var(--xy-bg-color) 12%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 14%, transparent);
+  color: var(--xy-bg-color);
   text-align: center;
+  box-shadow: var(--xy-shadow-sm);
 }
 
 .xy-image-viewer__retry {
   padding: 8px 14px;
   border: 0;
   border-radius: var(--xy-radius-pill);
-  background: rgba(255, 255, 255, 0.16);
-  color: white;
+  background: color-mix(in srgb, var(--xy-bg-color) 16%, transparent);
+  color: inherit;
   cursor: pointer;
   transition:
     background-color 0.18s ease,
@@ -147,7 +161,16 @@
 }
 
 .xy-image-viewer__retry:hover {
-  background: rgba(255, 255, 255, 0.24);
+  background: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
+}
+
+.xy-image-viewer__retry:focus-visible,
+.xy-image-viewer__close:focus-visible,
+.xy-image-viewer__arrow:focus-visible,
+.xy-image-viewer__action:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 88%, white);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-image-viewer__close,
@@ -160,17 +183,12 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid rgba(148, 163, 184, 0.14);
+  border: 1px solid var(--xy-image-viewer-btn-border);
   border-radius: 999px;
-  background:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.76), rgba(15, 23, 42, 0.64)),
-    radial-gradient(circle at top, rgba(45, 212, 191, 0.1), transparent 55%);
-  color: rgba(248, 250, 252, 0.9);
+  background: var(--xy-image-viewer-btn-bg);
+  color: var(--xy-image-viewer-btn-color);
   cursor: pointer;
-  box-shadow:
-    0 14px 32px rgba(15, 23, 42, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  box-shadow: var(--xy-shadow-sm);
   opacity: 0.84;
   transition:
     transform 0.18s ease,
@@ -182,8 +200,8 @@
 
 .xy-image-viewer__close:hover {
   transform: translateY(-1px);
-  border-color: rgba(191, 219, 254, 0.22);
-  color: #ffffff;
+  border-color: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
+  color: var(--xy-bg-color);
   opacity: 1;
 }
 
@@ -192,9 +210,6 @@
   right: 22px;
   width: 40px;
   height: 40px;
-  box-shadow:
-    0 12px 26px rgba(15, 23, 42, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .xy-image-viewer__arrow {
@@ -202,15 +217,12 @@
   width: 40px;
   height: 40px;
   transform: translateY(-50%);
-  box-shadow:
-    0 14px 32px rgba(15, 23, 42, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .xy-image-viewer__arrow:hover:not(:disabled) {
   transform: translateY(calc(-50% - 1px));
-  border-color: rgba(191, 219, 254, 0.22);
-  color: #ffffff;
+  border-color: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
+  color: var(--xy-bg-color);
   opacity: 1;
 }
 
@@ -234,18 +246,13 @@
   bottom: 82px;
   transform: translateX(-50%);
   padding: 9px 14px;
-  border: 1px solid rgba(191, 219, 254, 0.18);
+  border: 1px solid var(--xy-image-viewer-btn-border);
   border-radius: var(--xy-radius-pill);
-  background:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.76), rgba(15, 23, 42, 0.64)),
-    radial-gradient(circle at top, rgba(45, 212, 191, 0.08), transparent 55%);
-  color: white;
-  box-shadow:
-    0 12px 28px rgba(15, 23, 42, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent);
+  color: var(--xy-bg-color);
+  box-shadow: var(--xy-shadow-sm);
   font-size: var(--xy-font-size-sm);
   letter-spacing: 0.01em;
-  backdrop-filter: blur(12px);
   opacity: 0.9;
   transition:
     opacity 0.18s ease,
@@ -268,19 +275,19 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(191, 219, 254, 0.78);
+  color: color-mix(in srgb, var(--xy-bg-color) 72%, transparent);
 }
 
 .xy-image-viewer__progress-divider {
   width: 1px;
   height: 16px;
-  background: rgba(191, 219, 254, 0.22);
+  background: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
 }
 
 .xy-image-viewer__progress-value {
   font-size: 14px;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--xy-bg-color);
 }
 
 .xy-image-viewer__actions {
@@ -292,16 +299,11 @@
   align-items: center;
   gap: 6px;
   padding: 8px;
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  border: 1px solid var(--xy-image-viewer-btn-border);
   border-radius: var(--xy-radius-pill);
-  background:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.66)),
-    radial-gradient(circle at top, rgba(45, 212, 191, 0.1), transparent 55%);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 16%, transparent);
   transform: translateX(-50%);
-  box-shadow:
-    0 16px 34px rgba(15, 23, 42, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  box-shadow: var(--xy-shadow-sm);
   opacity: 0.92;
   transition:
     opacity 0.18s ease,
@@ -320,7 +322,7 @@
 .xy-image-viewer__actions:hover,
 .xy-image-viewer__actions:focus-within {
   opacity: 1;
-  border-color: rgba(191, 219, 254, 0.22);
+  border-color: color-mix(in srgb, var(--xy-bg-color) 20%, transparent);
 }
 
 .xy-image-viewer__action {
@@ -333,7 +335,7 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: rgba(241, 245, 249, 0.94);
+  color: color-mix(in srgb, var(--xy-bg-color) 94%, var(--xy-text-color-heading));
   cursor: pointer;
   transition:
     transform 0.18s ease,
@@ -345,12 +347,12 @@
 .xy-image-viewer__action-divider {
   width: 1px;
   height: 18px;
-  background: rgba(148, 163, 184, 0.22);
+  background: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
 }
 
 .xy-image-viewer__action:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: color-mix(in srgb, var(--xy-bg-color) 12%, transparent);
+  color: var(--xy-bg-color);
   transform: translateY(-1px);
 }
 
@@ -360,11 +362,11 @@
 }
 
 .xy-image-viewer__action--accent {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(45, 212, 191, 0.22));
-  color: #ccfbf1;
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 22%, transparent);
+  color: color-mix(in srgb, var(--xy-bg-color) 92%, var(--xy-color-primary-soft));
 }
 
 .xy-image-viewer__action--accent:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.34), rgba(45, 212, 191, 0.3));
-  color: #ecfeff;
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 32%, transparent);
+  color: var(--xy-bg-color);
 }

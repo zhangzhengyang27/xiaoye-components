@@ -91,15 +91,18 @@ function permissionChecker(permission: string | string[] | undefined) {
   <section class="demo-menu-items">
     <header class="demo-menu-items__header">
       <div class="demo-menu-items__title">
-        <strong>items 数据驱动菜单树</strong>
-        <p>`items` 适合后台业务直接从配置生成导航树，配合 `permission-checker`、`badge` 和 `extra-text` 可以快速承接权限与状态展示。</p>
+        <strong class="demo-menu-items__title-text">items 数据驱动菜单树</strong>
+        <p class="demo-menu-items__description">
+          `items` 适合后台业务直接从配置生成导航树，配合 `permission-checker`、`badge` 和
+          `extra-text` 可以快速承接权限与状态展示。
+        </p>
       </div>
 
       <xy-radio-group
         v-model="role"
         type="button"
-        fill="#1d4ed8"
-        text-color="#f8fafc"
+        fill="var(--xy-color-primary-soft)"
+        text-color="var(--xy-color-primary)"
         :options="[
           { label: 'viewer', value: 'viewer' },
           { label: 'ops', value: 'ops' }
@@ -119,11 +122,13 @@ function permissionChecker(permission: string | string[] | undefined) {
 
       <xy-card class="demo-menu-items__panel" shadow="hover">
         <span class="demo-menu-items__kicker">Role Scope</span>
-        <h4>{{ role === "ops" ? "Ops 管理视角" : "Viewer 只读视角" }}</h4>
-        <p>
-          {{ role === "ops"
-            ? "拥有完整系统设置权限，会看到系统设置子菜单和需要复核的权限入口。"
-            : "只展示公共菜单树，所有声明了 ops:manage 的节点都会被裁剪掉。" }}
+        <h4 class="demo-menu-items__panel-title">{{ role === "ops" ? "Ops 管理视角" : "Viewer 只读视角" }}</h4>
+        <p class="demo-menu-items__panel-description">
+          {{
+            role === "ops"
+              ? "拥有完整系统设置权限，会看到系统设置子菜单和需要复核的权限入口。"
+              : "只展示公共菜单树，所有声明了 ops:manage 的节点都会被裁剪掉。"
+          }}
         </p>
 
         <xy-space wrap>
@@ -144,11 +149,14 @@ function permissionChecker(permission: string | string[] | undefined) {
   flex-direction: column;
   gap: 18px;
   padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 8%, white), transparent 36%),
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color) 96%, white), var(--xy-bg-color));
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
+    var(--xy-surface-raised)
+  );
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .demo-menu-items__header {
@@ -164,12 +172,12 @@ function permissionChecker(permission: string | string[] | undefined) {
   gap: 6px;
 }
 
-.demo-menu-items__title strong {
+.demo-menu-items__title-text {
   color: var(--xy-text-color);
   font-size: 18px;
 }
 
-.demo-menu-items__title p {
+.demo-menu-items__description {
   margin: 0;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;
@@ -184,118 +192,105 @@ function permissionChecker(permission: string | string[] | undefined) {
 
 .demo-menu-items__sidebar {
   padding: 10px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 86%, white);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-card);
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu--vertical) {
+:global(.demo-menu-items__sidebar .xy-menu--vertical) {
   gap: 4px;
   padding: 6px;
   border-radius: 18px;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu--vertical > li + li),
-.demo-menu-items__sidebar :deep(.xy-menu-item-group__list > li + li),
-.demo-menu-items__sidebar :deep(.xy-sub-menu__wrap > li + li) {
-  margin-top: 0;
-}
-
-.demo-menu-items__sidebar :deep(.xy-menu--vertical > .xy-menu-item),
-.demo-menu-items__sidebar :deep(.xy-menu--vertical > .xy-sub-menu > .xy-sub-menu__title) {
+:global(.demo-menu-items__sidebar .xy-menu--vertical > .xy-menu-item),
+:global(.demo-menu-items__sidebar .xy-menu--vertical > .xy-sub-menu > .xy-menu__item-surface) {
   min-height: 34px;
   padding: 5px 10px;
   border-radius: 11px;
   line-height: 1.2;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu-item:hover),
-.demo-menu-items__sidebar :deep(.xy-sub-menu__title:hover) {
-  background: color-mix(in srgb, var(--xy-color-primary) 7%, white);
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 14%, white),
-    0 8px 16px rgba(15, 23, 42, 0.05);
+:global(.demo-menu-items__sidebar .xy-menu-item:hover),
+:global(.demo-menu-items__sidebar .xy-sub-menu > .xy-menu__item-surface:hover) {
+  background: var(--xy-bg-color-subtle);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
   transform: none;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu-item.is-active),
-.demo-menu-items__sidebar :deep(.xy-sub-menu.is-active > .xy-sub-menu__title) {
-  color: color-mix(in srgb, var(--xy-color-primary) 90%, #1d4ed8);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--xy-color-primary) 11%, white),
-    color-mix(in srgb, var(--xy-color-primary) 6%, white)
-  );
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, white),
-    0 10px 20px rgba(37, 99, 235, 0.08);
+:global(.demo-menu-items__sidebar .xy-menu-item.is-active),
+:global(.demo-menu-items__sidebar .xy-sub-menu.is-active > .xy-menu__item-surface) {
+  color: var(--xy-color-primary);
+  background: var(--xy-color-primary-soft);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu-item__content),
-.demo-menu-items__sidebar :deep(.xy-sub-menu__title-content) {
+:global(.demo-menu-items__sidebar .xy-menu__item-content) {
   gap: 7px;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu-item-group) {
+:global(.demo-menu-items__sidebar .xy-menu-item-group) {
   margin: 4px 0;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu-item-group__title) {
+:global(.demo-menu-items__sidebar .xy-menu__group-title) {
   padding: 2px 10px 4px;
-  color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, #64748b);
+  color: var(--xy-text-color-muted);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1.2;
 }
 
-.demo-menu-items__sidebar :deep(.xy-sub-menu__wrap) {
+:global(.demo-menu-items__sidebar .xy-menu__sub-list) {
   margin: 0;
   padding: 4px 0 4px 10px;
 }
 
-.demo-menu-items__sidebar :deep(.xy-sub-menu__wrap .xy-menu-item) {
+:global(.demo-menu-items__sidebar .xy-menu__sub-list > .xy-menu-item) {
   min-height: 34px;
   padding: 5px 10px;
   border-radius: 10px;
   line-height: 1.2;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu__item-row) {
+:global(.demo-menu-items__sidebar .xy-menu__item-row) {
   gap: 8px;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu__item-main) {
+:global(.demo-menu-items__sidebar .xy-menu__item-main) {
   gap: 7px;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu__item-meta) {
+:global(.demo-menu-items__sidebar .xy-menu__item-meta) {
   gap: 8px;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu__item-badge) {
+:global(.demo-menu-items__sidebar .xy-menu__item-badge) {
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  color: color-mix(in srgb, var(--xy-color-primary) 88%, #1d4ed8);
+  background: var(--xy-color-primary-soft);
+  color: var(--xy-color-primary);
   font-size: 11px;
   font-weight: 700;
   line-height: 1;
 }
 
-.demo-menu-items__sidebar :deep(.xy-menu__item-extra) {
-  color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, #64748b);
+:global(.demo-menu-items__sidebar .xy-menu__item-extra) {
+  color: var(--xy-text-color-secondary);
   font-size: 11px;
   font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
 }
 
-.demo-menu-items__sidebar :deep(.xy-icon) {
+:global(.demo-menu-items__sidebar .xy-icon) {
   font-size: 17px;
-  color: color-mix(in srgb, var(--xy-color-primary) 88%, #2563eb);
+  color: var(--xy-color-primary);
 }
 
 .demo-menu-items__panel {
@@ -312,11 +307,11 @@ function permissionChecker(permission: string | string[] | undefined) {
   text-transform: uppercase;
 }
 
-.demo-menu-items__panel h4 {
+.demo-menu-items__panel-title {
   margin: 0 0 10px;
 }
 
-.demo-menu-items__panel p {
+.demo-menu-items__panel-description {
   margin: 0 0 16px;
   color: var(--xy-text-color-secondary);
   line-height: 1.7;

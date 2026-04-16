@@ -5,7 +5,7 @@
   gap: var(--xy-space-2);
   border: 1px solid transparent;
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color);
+  background: var(--xy-surface-raised);
   color: var(--xy-text-color);
   cursor: pointer;
   transition:
@@ -15,7 +15,7 @@
     box-shadow 0.18s ease;
   white-space: nowrap;
   position: relative;
-  font-weight: 500;
+  font-weight: 560;
   user-select: none;
   text-decoration: none;
 }
@@ -29,8 +29,9 @@
 }
 
 .xy-button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
 
 .xy-button:disabled,
@@ -58,17 +59,17 @@
 }
 
 .xy-button--default {
-  border-color: var(--xy-border-color);
+  border-color: var(--xy-border-color-subtle);
 }
 
 .xy-button--default:hover:not(:disabled):not(.is-disabled) {
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-color-subtle);
   border-color: var(--xy-border-color-strong);
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-button--default:active:not(:disabled):not(.is-disabled) {
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-bg-color-muted));
 }
 
 .xy-button--primary,
@@ -86,16 +87,16 @@
 .xy-button--primary:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-primary) 88%, black);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 88%, black);
-  box-shadow: var(--xy-shadow-sm);
+  background: var(--xy-color-primary-hover);
+  border-color: var(--xy-color-primary-hover);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-button--primary:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-primary) 78%, black);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 78%, black);
+  background: var(--xy-color-primary-active);
+  border-color: var(--xy-color-primary-active);
 }
 
 .xy-button--success {
@@ -106,16 +107,16 @@
 .xy-button--success:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-success) 88%, black);
-  border-color: color-mix(in srgb, var(--xy-color-success) 88%, black);
-  box-shadow: var(--xy-shadow-sm);
+  background: var(--xy-color-success-hover);
+  border-color: var(--xy-color-success-hover);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-button--success:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-success) 78%, black);
-  border-color: color-mix(in srgb, var(--xy-color-success) 78%, black);
+  background: var(--xy-color-success-active);
+  border-color: var(--xy-color-success-active);
 }
 
 .xy-button--warning {
@@ -126,16 +127,16 @@
 .xy-button--warning:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-warning) 88%, black);
-  border-color: color-mix(in srgb, var(--xy-color-warning) 88%, black);
-  box-shadow: var(--xy-shadow-sm);
+  background: var(--xy-color-warning-hover);
+  border-color: var(--xy-color-warning-hover);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-button--warning:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-warning) 78%, black);
-  border-color: color-mix(in srgb, var(--xy-color-warning) 78%, black);
+  background: var(--xy-color-warning-active);
+  border-color: var(--xy-color-warning-active);
 }
 
 .xy-button--danger {
@@ -146,16 +147,16 @@
 .xy-button--danger:hover:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-danger) 88%, black);
-  border-color: color-mix(in srgb, var(--xy-color-danger) 88%, black);
-  box-shadow: var(--xy-shadow-sm);
+  background: var(--xy-color-danger-hover);
+  border-color: var(--xy-color-danger-hover);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-button--danger:active:not(:disabled):not(.is-disabled):not(.is-plain):not(.is-text):not(
     .is-link
   ) {
-  background: color-mix(in srgb, var(--xy-color-danger) 78%, black);
-  border-color: color-mix(in srgb, var(--xy-color-danger) 78%, black);
+  background: var(--xy-color-danger-active);
+  border-color: var(--xy-color-danger-active);
 }
 
 .xy-button.is-plain {
@@ -163,83 +164,80 @@
 }
 
 .xy-button.is-plain.xy-button--default {
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-color-subtle);
+  border-color: var(--xy-border-color-subtle);
 }
 
 .xy-button.is-plain:hover:not(:disabled):not(.is-disabled) {
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow: var(--xy-shadow-xs);
 }
 
 .xy-button.is-plain.xy-button--primary {
   color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 26%, white);
+  background: var(--xy-color-primary-soft);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
 }
 
 .xy-button.is-plain.xy-button--success {
   color: var(--xy-color-success);
-  background: color-mix(in srgb, var(--xy-color-success) 12%, white);
-  border-color: color-mix(in srgb, var(--xy-color-success) 28%, white);
+  background: var(--xy-color-success-soft);
+  border-color: color-mix(in srgb, var(--xy-color-success) 16%, var(--xy-border-color-subtle));
 }
 
 .xy-button.is-plain.xy-button--warning {
   color: var(--xy-color-warning);
-  background: color-mix(in srgb, var(--xy-color-warning) 14%, white);
-  border-color: color-mix(in srgb, var(--xy-color-warning) 30%, white);
+  background: var(--xy-color-warning-soft);
+  border-color: color-mix(in srgb, var(--xy-color-warning) 18%, var(--xy-border-color-subtle));
 }
 
 .xy-button.is-plain.xy-button--danger {
   color: var(--xy-color-danger);
-  background: color-mix(in srgb, var(--xy-color-danger) 12%, white);
-  border-color: color-mix(in srgb, var(--xy-color-danger) 28%, white);
+  background: var(--xy-color-danger-soft);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 16%, var(--xy-border-color-subtle));
 }
 
 .xy-button.is-plain.xy-button--primary:hover:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: var(--xy-color-primary);
-  border-color: var(--xy-color-primary);
+  background: var(--xy-color-primary-soft-hover);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 22%, var(--xy-border-color));
 }
 
 .xy-button.is-plain.xy-button--primary:active:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: color-mix(in srgb, var(--xy-color-primary) 84%, black);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 84%, black);
+  color: var(--xy-color-primary-active);
+  background: color-mix(in srgb, var(--xy-color-primary-soft-hover) 72%, white);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 28%, var(--xy-border-color));
 }
 
 .xy-button.is-plain.xy-button--success:hover:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: var(--xy-color-success);
-  border-color: var(--xy-color-success);
+  background: var(--xy-color-success-soft-hover);
+  border-color: color-mix(in srgb, var(--xy-color-success) 22%, var(--xy-border-color));
 }
 
 .xy-button.is-plain.xy-button--success:active:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: color-mix(in srgb, var(--xy-color-success) 84%, black);
-  border-color: color-mix(in srgb, var(--xy-color-success) 84%, black);
+  color: var(--xy-color-success-active);
+  background: color-mix(in srgb, var(--xy-color-success-soft-hover) 72%, white);
+  border-color: color-mix(in srgb, var(--xy-color-success) 28%, var(--xy-border-color));
 }
 
 .xy-button.is-plain.xy-button--warning:hover:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: var(--xy-color-warning);
-  border-color: var(--xy-color-warning);
+  background: var(--xy-color-warning-soft-hover);
+  border-color: color-mix(in srgb, var(--xy-color-warning) 24%, var(--xy-border-color));
 }
 
 .xy-button.is-plain.xy-button--warning:active:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: color-mix(in srgb, var(--xy-color-warning) 84%, black);
-  border-color: color-mix(in srgb, var(--xy-color-warning) 84%, black);
+  color: var(--xy-color-warning-active);
+  background: color-mix(in srgb, var(--xy-color-warning-soft-hover) 72%, white);
+  border-color: color-mix(in srgb, var(--xy-color-warning) 30%, var(--xy-border-color));
 }
 
 .xy-button.is-plain.xy-button--danger:hover:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: var(--xy-color-danger);
-  border-color: var(--xy-color-danger);
+  background: var(--xy-color-danger-soft-hover);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 22%, var(--xy-border-color));
 }
 
 .xy-button.is-plain.xy-button--danger:active:not(:disabled):not(.is-disabled) {
-  color: #fff;
-  background: color-mix(in srgb, var(--xy-color-danger) 84%, black);
-  border-color: color-mix(in srgb, var(--xy-color-danger) 84%, black);
+  color: var(--xy-color-danger-active);
+  background: color-mix(in srgb, var(--xy-color-danger-soft-hover) 72%, white);
+  border-color: color-mix(in srgb, var(--xy-color-danger) 28%, var(--xy-border-color));
 }
 
 .xy-button.is-text,
@@ -280,15 +278,15 @@
 }
 
 .xy-button.is-text.is-has-bg {
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-color-subtle);
 }
 
 .xy-button.is-text:hover:not(:disabled):not(.is-disabled) {
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 72%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-bg-color-muted));
 }
 
 .xy-button.is-text:active:not(:disabled):not(.is-disabled) {
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 88%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, var(--xy-bg-color));
 }
 
 .xy-button.is-link {

@@ -4,9 +4,9 @@
     <xy-divider direction="vertical" />
     <span>最近保存于 10:24</span>
     <xy-divider direction="vertical" border-style="dashed" />
-    <a href="javascript:void(0)">查看草稿历史</a>
+    <a class="divider-demo-vertical__link" href="javascript:void(0)">查看草稿历史</a>
     <xy-divider direction="vertical" status="success" />
-    <a href="javascript:void(0)">提交审批</a>
+    <a class="divider-demo-vertical__link" href="javascript:void(0)">提交审批</a>
   </div>
 </template>
 
@@ -20,7 +20,7 @@
   color: var(--xy-text-color-secondary);
 }
 
-.divider-demo-vertical a {
+.divider-demo-vertical__link {
   color: var(--xy-color-primary);
   text-decoration: none;
 }

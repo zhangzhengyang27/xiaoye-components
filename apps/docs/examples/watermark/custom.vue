@@ -4,7 +4,7 @@ import { reactive } from "vue";
 const config = reactive({
   content: "Xiaoye Components",
   font: {
-    color: "rgba(15, 23, 42, 0.14)",
+    color: "color-mix(in srgb, var(--xy-text-color) 12%, transparent)",
     fontSize: 16
   },
   zIndex: 9,
@@ -27,8 +27,10 @@ const config = reactive({
     >
       <section class="xy-doc-watermark-playground__surface">
         <span class="xy-doc-watermark-playground__status">Trial</span>
-        <h4>自定义水印参数面板</h4>
-        <p>适合在灰度环境、内部演示环境或试用环境里快速确认水印密度、角度和字体强度。</p>
+        <h4 class="xy-doc-watermark-playground__title">自定义水印参数面板</h4>
+        <p class="xy-doc-watermark-playground__description">
+          适合在灰度环境、内部演示环境或试用环境里快速确认水印密度、角度和字体强度。
+        </p>
       </section>
     </xy-watermark>
 
@@ -38,7 +40,10 @@ const config = reactive({
       </xy-form-item>
 
       <xy-form-item label="Color">
-        <xy-input v-model="config.font.color" placeholder="例如 rgba(15, 23, 42, 0.14)" />
+        <xy-input
+          v-model="config.font.color"
+          placeholder="例如 color-mix(in srgb, var(--xy-text-color) 12%, transparent)"
+        />
       </xy-form-item>
 
       <xy-form-item label="Font Size">
@@ -54,14 +59,14 @@ const config = reactive({
       </xy-form-item>
 
       <xy-form-item label="Gap">
-        <xy-space style="width: 100%;">
+        <xy-space style="width: 100%">
           <xy-input-number v-model="config.gap[0]" controls-position="right" :min="0" />
           <xy-input-number v-model="config.gap[1]" controls-position="right" :min="0" />
         </xy-space>
       </xy-form-item>
 
       <xy-form-item label="Offset">
-        <xy-space style="width: 100%;">
+        <xy-space style="width: 100%">
           <xy-input-number v-model="config.offset[0]" controls-position="right" :min="0" />
           <xy-input-number v-model="config.offset[1]" controls-position="right" :min="0" />
         </xy-space>
@@ -84,42 +89,43 @@ const config = reactive({
 .xy-doc-watermark-playground__surface {
   min-height: 320px;
   padding: 28px;
-  border-radius: 28px;
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 249, 0.94)),
-    radial-gradient(circle at top right, rgba(37, 99, 235, 0.14), transparent 38%);
-  box-shadow: 0 24px 72px rgba(15, 23, 42, 0.08);
+    linear-gradient(145deg, color-mix(in srgb, var(--xy-color-info) 8%, white), transparent 46%),
+    color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  box-shadow: var(--xy-shadow-card);
 }
 
 .xy-doc-watermark-playground__status {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(14, 165, 233, 0.14);
-  color: #0369a1;
+  background: var(--xy-color-info-soft, var(--xy-bg-color-subtle));
+  color: var(--xy-color-info);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.xy-doc-watermark-playground__surface h4 {
+.xy-doc-watermark-playground__title {
   margin: 18px 0 12px;
-  color: #0f172a;
+  color: var(--xy-text-color-heading);
   font-size: 28px;
 }
 
-.xy-doc-watermark-playground__surface p {
+.xy-doc-watermark-playground__description {
   max-width: 520px;
   margin: 0;
-  color: #475569;
+  color: var(--xy-text-color-secondary);
   line-height: 1.7;
 }
 
 .xy-doc-watermark-playground__form {
   padding: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 24px;
-  background: rgba(248, 250, 252, 0.92);
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: var(--xy-radius-xl);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
 }
 
 @media (max-width: 960px) {

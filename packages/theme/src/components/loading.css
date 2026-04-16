@@ -8,8 +8,8 @@
 
 .xy-loading-mask {
   --xy-loading-text-font-size: 14px;
-  --xy-loading-text-color: var(--xy-text-color);
-  --xy-loading-mask-background: color-mix(in srgb, var(--xy-overlay-color) 46%, white);
+  --xy-loading-text-color: var(--xy-text-color-subtle);
+  --xy-loading-mask-background: color-mix(in srgb, var(--xy-overlay-color) 22%, transparent);
 
   position: absolute;
   inset: 0;
@@ -17,7 +17,6 @@
   align-items: center;
   justify-content: center;
   background: var(--xy-loading-mask-background);
-  backdrop-filter: blur(2px);
   opacity: 1;
   transition: opacity 0.2s ease;
 }
@@ -65,9 +64,10 @@
 .xy-loading__indicator.is-surface {
   min-width: 112px;
   padding: 18px 22px;
-  border-radius: 20px;
-  background: color-mix(in srgb, var(--xy-bg-color) 92%, transparent);
-  box-shadow: var(--xy-shadow-md);
+  border-radius: calc(var(--xy-radius-lg) + 2px);
+  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-surface-raised));
+  box-shadow: var(--xy-shadow-sm);
 }
 
 .xy-loading-mask.is-fullscreen .xy-loading__indicator.is-surface {
@@ -92,7 +92,7 @@
 
 .xy-loading__path {
   stroke: var(--xy-color-primary);
-  stroke-width: 3;
+  stroke-width: 2.75;
   stroke-linecap: round;
   animation: xy-loading-dash 1.5s ease-in-out infinite;
 }
@@ -102,7 +102,7 @@
   margin: 0;
   color: var(--xy-loading-text-color);
   font-size: var(--xy-loading-indicator-text-size);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 @keyframes xy-loading-rotate {

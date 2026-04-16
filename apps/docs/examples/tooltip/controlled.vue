@@ -18,7 +18,7 @@
     </xy-space>
 
     <p class="demo-tooltip-controlled__status">
-      当前状态：<strong>{{ visible ? "已打开" : "已关闭" }}</strong>
+      当前状态：<strong class="demo-tooltip-controlled__status-value">{{ visible ? "已打开" : "已关闭" }}</strong>
     </p>
   </div>
 </template>
@@ -40,7 +40,7 @@ const visible = ref(false);
   color: var(--xy-text-color-secondary);
 }
 
-.demo-tooltip-controlled__status strong {
+.demo-tooltip-controlled__status-value {
   color: var(--xy-text-color);
 }
 </style>
