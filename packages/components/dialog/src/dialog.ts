@@ -7,6 +7,13 @@ export type DialogBeforeCloseFn = (
   reason?: DialogCloseReason
 ) => void | Promise<void>;
 export type DialogTransition = string | TransitionProps;
+export type DialogModelValueChangeHandler = (value: boolean) => void;
+export type DialogFullscreenChangeHandler = (value: boolean) => void;
+export type DialogResizeHandler = (
+  event: MouseEvent,
+  width: number,
+  height: number
+) => void;
 
 export interface DialogGlobalConfig {
   alignCenter?: boolean;

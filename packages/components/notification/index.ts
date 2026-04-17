@@ -1,6 +1,8 @@
 import Notification from "./src/notification.vue";
 import type {
+  NotificationClickHandler,
   NotificationCloseFilter,
+  NotificationCloseHandler,
   NotificationCloseReason,
   NotificationContent,
   NotificationGlobalConfig,
@@ -11,6 +13,7 @@ import type {
   NotificationParams,
   NotificationParamsTyped,
   NotificationPosition,
+  NotificationModelValueChangeHandler,
   NotificationProps,
   NotificationSnapshot,
   NotificationSnapshotEntry,
@@ -27,7 +30,9 @@ import notification from "./src/service";
 import { withInstall, withInstallFunction } from "@xiaoye/utils";
 
 export type {
+  NotificationClickHandler,
   NotificationCloseFilter,
+  NotificationCloseHandler,
   NotificationCloseReason,
   NotificationContent,
   NotificationGlobalConfig,
@@ -38,6 +43,7 @@ export type {
   NotificationParams,
   NotificationParamsTyped,
   NotificationPosition,
+  NotificationModelValueChangeHandler,
   NotificationProps,
   NotificationSnapshot,
   NotificationSnapshotEntry,

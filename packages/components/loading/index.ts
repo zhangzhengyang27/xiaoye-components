@@ -3,11 +3,14 @@ import vLoading from "./src/directive";
 import type { ElementLoading, LoadingBinding } from "./src/directive";
 import type { LoadingInstance } from "./src/loading";
 import { XyLoadingService } from "./src/service";
+import type { LoadingService } from "./src/service";
 import type {
   LoadingGlobalConfig,
   LoadingOptions,
   LoadingOptionsResolved,
-  LoadingParentElement
+  LoadingParentElement,
+  LoadingText,
+  LoadingUpdatableOptions
 } from "./src/types";
 
 export type {
@@ -17,7 +20,10 @@ export type {
   LoadingInstance,
   LoadingOptions,
   LoadingOptionsResolved,
-  LoadingParentElement
+  LoadingParentElement,
+  LoadingService,
+  LoadingText,
+  LoadingUpdatableOptions
 };
 
 export const XyLoading = {

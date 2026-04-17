@@ -144,13 +144,15 @@ XyMessage.closeAll({
 });
 ```
 
+`XyMessageService` 是 `XyMessage` 的别名，函数签名和快捷方法完全一致。
+
 ### Message Options
 
 | 字段                             | 说明                                       | 类型                                                                                | 默认值              |
 | -------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------- | ------------------- |
-| `message`                        | 消息内容，支持字符串、VNode 或渲染函数     | `string \| number \| VNode \| (() => VNodeChild)`                                   | `''`                |
-| `render`                         | 自定义渲染函数，优先级高于 `message`       | `() => VNodeChild`                                                                  | `undefined`         |
-| `type`                           | 消息类型                                   | `'primary' \| 'success' \| 'info' \| 'warning' \| 'error'`                          | `'info'`            |
+| `message`                        | 消息内容，支持字符串、VNode 或渲染函数     | `MessageContent`                                                                     | `''`                |
+| `render`                         | 自定义渲染函数，优先级高于 `message`       | `MessageOptions["render"]`                                                          | `undefined`         |
+| `type`                           | 消息类型                                   | `MessageType`                                                                        | `'info'`            |
 | `plain`                          | 是否使用更轻的外观                         | `boolean`                                                                           | `false`             |
 | `icon`                           | 自定义图标名                               | `string`                                                                            | `按 type 自动推导`  |
 | `show-icon`                      | 是否显示图标                               | `boolean`                                                                           | `true`              |
@@ -159,7 +161,7 @@ XyMessage.closeAll({
 | `duration`                       | 自动关闭时长，单位毫秒，`0` 表示不自动关闭 | `number`                                                                            | `3000`              |
 | `show-close`                     | 是否显示关闭按钮                           | `boolean`                                                                           | `false`             |
 | `offset`                         | 第一条消息距视口的偏移                     | `number`                                                                            | `16`                |
-| `placement`                      | 消息出现位置                               | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'`             |
+| `placement`                      | 消息出现位置                               | `MessagePlacement`                                                                   | `'top'`             |
 | `append-to`                      | 自定义挂载容器                             | `string \| HTMLElement`                                                             | `document.body`     |
 | `grouping`                       | 是否启用消息合并                           | `boolean`                                                                           | `false`             |
 | `group-key`                      | 显式指定合并键，适合 VNode / render 消息   | `string`                                                                            | `undefined`         |
@@ -173,10 +175,10 @@ XyMessage.closeAll({
 | `pause-on-page-hidden`           | 页面隐藏时是否暂停自动关闭                 | `boolean`                                                                           | `false`             |
 | `reset-on-repeat`                | 合并重复消息时是否重置自动关闭计时         | `boolean`                                                                           | `true`              |
 | `transition`                     | 自定义过渡名称                             | `string`                                                                            | `'xy-message-fade'` |
-| `before-close`                   | 关闭前拦截                                 | `(done, ctx) => void \| Promise<void>`                                              | `undefined`         |
-| `on-click`                       | 点击消息时触发                             | `(ctx) => void`                                                                     | `undefined`         |
-| `on-close`                       | 消息开始关闭时触发，带关闭原因             | `(ctx) => void`                                                                     | `undefined`         |
-| `on-closed`                      | 消息完全关闭后触发，带关闭原因             | `(ctx) => void`                                                                     | `undefined`         |
+| `before-close`                   | 关闭前拦截                                 | `MessageBeforeCloseFn`                                                              | `undefined`         |
+| `on-click`                       | 点击消息时触发                             | `MessageClickHandler`                                                               | `undefined`         |
+| `on-close`                       | 消息开始关闭时触发，带关闭原因             | `MessageLifecycleHandler`                                                           | `undefined`         |
+| `on-closed`                      | 消息完全关闭后触发，带关闭原因             | `MessageLifecycleHandler`                                                           | `undefined`         |
 
 ### Message Close Reason
 
@@ -194,40 +196,31 @@ XyMessage.closeAll({
 | 字段             | 说明                                           | 类型                                    |
 | ---------------- | ---------------------------------------------- | --------------------------------------- |
 | `id`             | 当前消息实例 id                                | `string`                                |
-| `close(reason?)` | 主动关闭当前消息，可显式指定关闭原因           | `(reason?: MessageCloseReason) => void` |
-| `update(patch)`  | 更新当前消息的文案、类型、位置、交互策略等配置 | `(patch: MessageUpdateOptions) => void` |
+| `close(reason?)` | 主动关闭当前消息，可显式指定关闭原因           | `MessageHandler["close"]`               |
+| `update(patch)`  | 更新当前消息的文案、类型、位置、交互策略等配置 | `MessageHandler["update"]`              |
+
+### Message Snapshot
+
+消息状态快照类型为 `MessageSnapshot`。
+
+### Message Close Filter
+
+批量关闭和状态过滤条件类型为 `MessageCloseFilter`。
 
 ### 快捷方法
 
-| 方法                                       | 说明                                                                                         |
-| ------------------------------------------ | -------------------------------------------------------------------------------------------- |
-| `XyMessage.primary(options)`               | 打开 primary 类型消息                                                                        |
-| `XyMessage.success(options)`               | 打开 success 类型消息                                                                        |
-| `XyMessage.info(options)`                  | 打开 info 类型消息                                                                           |
-| `XyMessage.warning(options)`               | 打开 warning 类型消息                                                                        |
-| `XyMessage.error(options)`                 | 打开 error 类型消息                                                                          |
-| `XyMessage.withContext(appContext?)`       | 返回绑定指定 appContext 的消息 API；对 `$message.withContext()` 来说，缺省参数会继承当前 app |
-| `XyMessage.closeAll(typeOrFilter?)`        | 关闭全部消息，支持按类型或过滤对象批量关闭                                                   |
-| `XyMessage.closeAllByPlacement(placement)` | 按 placement 批量关闭消息                                                                    |
-| `XyMessage.getState(filter?)`              | 获取当前消息实例快照                                                                         |
+| 方法                                       | 说明                                                                                         | 类型 |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------- | ---- |
+| `XyMessage.primary(options)`               | 打开 primary 类型消息                                                                        | `Message["primary"]` |
+| `XyMessage.success(options)`               | 打开 success 类型消息                                                                        | `Message["success"]` |
+| `XyMessage.info(options)`                  | 打开 info 类型消息                                                                           | `Message["info"]` |
+| `XyMessage.warning(options)`               | 打开 warning 类型消息                                                                        | `Message["warning"]` |
+| `XyMessage.error(options)`                 | 打开 error 类型消息                                                                          | `Message["error"]` |
+| `XyMessage.withContext(appContext?)`       | 返回绑定指定 appContext 的消息 API；对 `$message.withContext()` 来说，缺省参数会继承当前 app | `Message["withContext"]` |
+| `XyMessage.closeAll(typeOrFilter?)`        | 关闭全部消息，支持按类型或过滤对象批量关闭                                                   | `Message["closeAll"]` |
+| `XyMessage.closeAllByPlacement(placement)` | 按 placement 批量关闭消息                                                                    | `Message["closeAllByPlacement"]` |
+| `XyMessage.getState(filter?)`              | 获取当前消息实例快照                                                                         | `Message["getState"]` |
 
 ### ConfigProvider.message
 
-| 字段                 | 说明                         | 类型                                        |
-| -------------------- | ---------------------------- | ------------------------------------------- |
-| `max`                | 默认并发消息上限             | `number`                                    |
-| `maxByPlacement`     | 按 placement 设置独立上限    | `Partial<Record<MessagePlacement, number>>` |
-| `grouping`           | 默认是否启用消息合并         | `boolean`                                   |
-| `duration`           | 默认自动关闭时长             | `number`                                    |
-| `offset`             | 默认偏移量                   | `number`                                    |
-| `showClose`          | 默认是否显示关闭按钮         | `boolean`                                   |
-| `showIcon`           | 默认是否显示图标             | `boolean`                                   |
-| `plain`              | 默认 plain 风格              | `boolean`                                   |
-| `placement`          | 默认消息位置                 | `MessagePlacement`                          |
-| `closeOnClick`       | 默认是否点击消息关闭         | `boolean`                                   |
-| `closeOnPressEscape` | 默认是否响应 `Esc`           | `boolean`                                   |
-| `pauseOnHover`       | 默认是否悬停暂停             | `boolean`                                   |
-| `pauseOnFocus`       | 默认是否聚焦暂停             | `boolean`                                   |
-| `pauseOnPageHidden`  | 默认是否页面隐藏暂停         | `boolean`                                   |
-| `transition`         | 默认过渡名称                 | `string`                                    |
-| `resetOnRepeat`      | 默认是否在重复合并时重置计时 | `boolean`                                   |
+`ConfigProvider.message` 的类型为 `MessageGlobalConfig`。

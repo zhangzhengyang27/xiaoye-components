@@ -70,8 +70,8 @@ input/form
 
 | 属性                  | 说明                 | 类型                                                                                      | 默认值               |
 | --------------------- | -------------------- | ----------------------------------------------------------------------------------------- | -------------------- |
-| `model-value`         | 当前值               | `string \| number \| null \| undefined`                                                   | `''`                 |
-| `model-modifiers`     | `v-model` 修饰符     | `{ lazy?: true; number?: true; trim?: true }`                                             | `{}`                 |
+| `model-value`         | 当前值               | `InputProps["modelValue"]`                                                                 | `''`                 |
+| `model-modifiers`     | `v-model` 修饰符     | `InputModelModifiers`                                                                    | `{}`                 |
 | `id`                  | 原生 id              | `string`                                                                                  | —                    |
 | `placeholder`         | 占位文本             | `string`                                                                                  | `''`                 |
 | `disabled`            | 是否禁用             | `boolean`                                                                                 | `false`              |
@@ -80,18 +80,18 @@ input/form
 | `clear-icon`          | 自定义清空图标       | `string`                                                                                  | `'mdi:close-circle'` |
 | `show-password`       | 是否显示密码切换按钮 | `boolean`                                                                                 | `false`              |
 | `show-word-limit`     | 是否显示字数统计     | `boolean`                                                                                 | `false`              |
-| `word-limit-position` | 字数统计位置         | `'inside' \| 'outside'`                                                                   | `'inside'`           |
-| `type`                | 输入类型             | `'text' \| 'textarea' \| 'number' \| 'password' \| 'email' \| 'search' \| 'tel' \| 'url'` | `'text'`             |
-| `size`                | 组件尺寸             | `ComponentSize`                                                                           | 跟随全局配置         |
+| `word-limit-position` | 字数统计位置         | `InputProps["wordLimitPosition"]`                                                         | `'inside'`           |
+| `type`                | 输入类型             | `InputType`                                                                              | `'text'`             |
+| `size`                | 组件尺寸             | `InputProps["size"]`                                                                       | 跟随全局配置         |
 | `maxlength`           | 最大长度             | `string \| number`                                                                        | —                    |
 | `minlength`           | 最小长度             | `string \| number`                                                                        | —                    |
 | `rows`                | textarea 行数        | `number`                                                                                  | `2`                  |
-| `resize`              | textarea resize 方向 | `'none' \| 'both' \| 'horizontal' \| 'vertical'`                                          | `'vertical'`         |
-| `autosize`            | textarea 自动高度    | `boolean \| { minRows?: number; maxRows?: number }`                                       | `false`              |
+| `resize`              | textarea resize 方向 | `InputProps["resize"]`                                                                    | `'vertical'`         |
+| `autosize`            | textarea 自动高度    | `InputAutoSize`                                                                          | `false`              |
 | `prefix-icon`         | 前置图标             | `string`                                                                                  | `''`                 |
 | `suffix-icon`         | 后置图标             | `string`                                                                                  | `''`                 |
-| `formatter`           | 显示格式化函数       | `(value: string) => string`                                                               | —                    |
-| `parser`              | 输入解析函数         | `(value: string) => string`                                                               | —                    |
+| `formatter`           | 显示格式化函数       | `InputProps["formatter"]`                                                                 | —                    |
+| `parser`              | 输入解析函数         | `InputProps["parser"]`                                                                    | —                    |
 | `autocomplete`        | 原生 autocomplete    | `string`                                                                                  | `'off'`              |
 | `form`                | 原生 form            | `string`                                                                                  | —                    |
 | `tabindex`            | 原生 tabindex        | `string \| number`                                                                        | —                    |
@@ -106,12 +106,12 @@ input/form
 
 | 事件                 | 说明                           | 参数               |
 | -------------------- | ------------------------------ | ------------------ |
-| `update:model-value` | 输入值变化时触发               | `string \| number` |
-| `input`              | 原生输入联动时触发             | `string \| number` |
-| `change`             | 原生 `change` 触发时返回当前值 | `string \| number` |
+| `update:model-value` | 输入值变化时触发               | `InputValueChangeHandler` |
+| `input`              | 原生输入联动时触发             | `InputValueChangeHandler` |
+| `change`             | 原生 `change` 触发时返回当前值 | `InputValueChangeHandler` |
 | `clear`              | 点击清空按钮时触发             | —                  |
-| `focus`              | 获得焦点时触发                 | `FocusEvent`       |
-| `blur`               | 失去焦点时触发                 | `FocusEvent`       |
+| `focus`              | 获得焦点时触发                 | `InputFocusHandler`       |
+| `blur`               | 失去焦点时触发                 | `InputFocusHandler`       |
 
 ### Input Slots
 
@@ -121,16 +121,16 @@ input/form
 | `append`        | 输入框后置区域                         |
 | `prefix`        | 输入框前缀内容                         |
 | `suffix`        | 输入框后缀内容                         |
-| `password-icon` | 自定义密码切换图标，接收 `{ visible }` |
+| `password-icon` | 自定义密码切换图标，接收 `InputPasswordIconSlotProps` |
 
 ### Input Exposes
 
 | 暴露项     | 说明                 | 类型                                                           |
 | ---------- | -------------------- | -------------------------------------------------------------- |
-| `ref`      | 当前原生输入元素引用 | `ComputedRef<HTMLInputElement \| HTMLTextAreaElement \| null>` |
-| `input`    | 单行输入框引用       | `ShallowRef<HTMLInputElement \| null>`                         |
-| `textarea` | 多行输入框引用       | `ShallowRef<HTMLTextAreaElement \| null>`                      |
-| `focus`    | 聚焦输入框           | `() => void`                                                   |
-| `blur`     | 让输入框失焦         | `() => void`                                                   |
-| `select`   | 选中当前文本         | `() => void`                                                   |
-| `clear`    | 清空当前值           | `() => void`                                                   |
+| `ref`      | 当前原生输入元素引用 | `InputInstance["ref"]` |
+| `input`    | 单行输入框引用       | `InputInstance["input"]` |
+| `textarea` | 多行输入框引用       | `InputInstance["textarea"]` |
+| `focus`    | 聚焦输入框           | `InputInstance["focus"]` |
+| `blur`     | 让输入框失焦         | `InputInstance["blur"]` |
+| `select`   | 选中当前文本         | `InputInstance["select"]` |
+| `clear`    | 清空当前值           | `InputInstance["clear"]` |

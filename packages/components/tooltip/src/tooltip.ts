@@ -6,6 +6,7 @@ export const tooltipTriggers = ["hover", "click", "focus", "contextmenu", "manua
 
 export type TooltipEffect = (typeof tooltipEffects)[number];
 export type TooltipTrigger = (typeof tooltipTriggers)[number];
+export type TooltipModelValueChangeHandler = (value: boolean) => void;
 
 export interface TooltipPopperOptions {
   strategy?: Strategy;

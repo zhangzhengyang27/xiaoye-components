@@ -1,5 +1,13 @@
 import Dialog from "./src/dialog.vue";
-import type { DialogBeforeCloseFn, DialogCloseReason, DialogGlobalConfig, DialogProps } from "./src/dialog";
+import type {
+  DialogBeforeCloseFn,
+  DialogCloseReason,
+  DialogFullscreenChangeHandler,
+  DialogGlobalConfig,
+  DialogModelValueChangeHandler,
+  DialogProps,
+  DialogResizeHandler
+} from "./src/dialog";
 import type { DialogContentInstance } from "./src/dialog-content";
 import type {
   DialogAlertOptions,
@@ -18,9 +26,12 @@ export type {
   DialogBeforeCloseFn,
   DialogCloseReason,
   DialogConfirmOptions,
+  DialogFullscreenChangeHandler,
   DialogGlobalConfig,
+  DialogModelValueChangeHandler,
   DialogPromptOptions,
   DialogProps,
+  DialogResizeHandler,
   DialogServiceHandle,
   DialogServiceOpenOptions,
   DialogServiceResult,

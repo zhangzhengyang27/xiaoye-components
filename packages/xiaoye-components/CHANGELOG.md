@@ -1,10 +1,18 @@
 # xiaoye-components
 
-## 0.4.0
+## 0.5.0
 
 ### Minor Changes
 
-- 重构设计令牌系统并新增 frontline 组件模块
+- 补充一批稳定公开入口，并继续收口组件文档与类型边界。
+  - 为多个组件新增并导出稳定的事件 handler、slot props、instance 与 service 类型
+  - Dialog 新增公开的 `panel-class` 入口，Watermark 新增实例方法 `removeWatermark`
+  - Table 补齐公开的事件、payload、formatter 上下文与稳定 style hook
+  - 组件文档中的属性、事件、插槽与公开导出进一步统一到稳定类型入口
+
+## 0.4.0
+
+### Minor Changes
 
 ## 0.3.0
 

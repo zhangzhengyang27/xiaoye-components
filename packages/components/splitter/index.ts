@@ -3,18 +3,23 @@ import SplitterPanel from "./src/split-panel.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
 import type {
+  SplitterCollapseHandler,
   SplitterCollapseDirection,
   SplitterLayout,
   SplitterProps,
+  SplitterResizeHandler,
   SplitterSize
 } from "./src/splitter";
-import type { SplitterPanelProps } from "./src/split-panel";
+import type { SplitterPanelProps, SplitterPanelSizeChangeHandler } from "./src/split-panel";
 
 export type {
+  SplitterCollapseHandler,
   SplitterCollapseDirection,
   SplitterLayout,
   SplitterPanelProps,
+  SplitterPanelSizeChangeHandler,
   SplitterProps,
+  SplitterResizeHandler,
   SplitterSize
 };
 

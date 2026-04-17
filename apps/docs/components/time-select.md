@@ -69,10 +69,10 @@ time-select/controlled
 
 | 事件                 | 说明               | 参数             |
 | -------------------- | ------------------ | ---------------- |
-| `update:model-value` | 选中值变化时触发   | `string \| null` |
-| `change`             | 值变化后触发       | `string \| null` |
+| `update:model-value` | 选中值变化时触发   | `TimeSelectValueChangeHandler` |
+| `change`             | 选中时间项或点击清空后触发 | `TimeSelectValueChangeHandler` |
 | `clear`              | 点击清空按钮时触发 | —                |
-| `visible-change`     | 面板显隐变化时触发 | `boolean`        |
+| `visible-change`     | 面板显隐变化时触发 | `TimeSelectVisibleChangeHandler`        |
 | `focus`              | 打开面板时触发     | —                |
 | `blur`               | 面板关闭时触发     | —                |
 
@@ -80,7 +80,7 @@ time-select/controlled
 
 | 暴露项  | 说明               | 类型                  |
 | ------- | ------------------ | --------------------- |
-| `focus` | 聚焦触发器         | `() => void`          |
-| `blur`  | 关闭并让触发器失焦 | `() => Promise<void>` |
-| `open`  | 打开下拉面板       | `() => Promise<void>` |
-| `close` | 关闭下拉面板       | `() => Promise<void>` |
+| `focus` | 聚焦触发器         | `TimeSelectInstance["focus"]` |
+| `blur`  | 关闭并让触发器失焦 | `TimeSelectInstance["blur"]` |
+| `open`  | 打开下拉面板       | `TimeSelectInstance["open"]` |
+| `close` | 关闭下拉面板       | `TimeSelectInstance["close"]` |

@@ -6,6 +6,18 @@ export interface AutoCompleteOption<T = string | number> extends SelectOption<T>
   disabled?: boolean;
 }
 
+export type AutoCompleteValueChangeHandler = (value: AutoCompleteValue) => void;
+export type AutoCompleteVisibleChangeHandler = (value: boolean) => void;
+export type AutoCompleteSearchChangeHandler = (value: string) => void;
+export type AutoCompleteSelectHandler<T = string | number> = (
+  option: AutoCompleteOption<T>
+) => void;
+
+export interface AutoCompleteOptionSlotProps<T = string | number> {
+  option: AutoCompleteOption<T>;
+  active: boolean;
+}
+
 export interface AutoCompleteProps<T = string | number> {
   modelValue?: string;
   options: AutoCompleteOption<T>[];
@@ -29,5 +41,11 @@ export interface AutoCompleteProps<T = string | number> {
 }
 
 export type AutoCompleteValue = string;
+export interface AutoCompleteInstance {
+  focus: () => void;
+  blur: () => Promise<void>;
+  open: () => Promise<void>;
+  close: (shouldValidate?: boolean, restoreFocus?: boolean) => Promise<void>;
+}
 
 export const DEFAULT_LOADING_ICON = "mdi:loading";

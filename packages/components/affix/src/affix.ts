@@ -4,6 +4,8 @@ export const affixPositions = ["top", "bottom"] as const;
 
 export type AffixPosition = (typeof affixPositions)[number];
 export type AffixZIndex = number | string;
+export type AffixChangeHandler = (fixed: boolean) => void;
+export type AffixScrollHandler = (payload: AffixScrollPayload) => void;
 
 export interface AffixScrollPayload {
   scrollTop: number;

@@ -1,8 +1,12 @@
+import type TreeSelect from "./tree-select.vue";
 import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
 import type { ComponentSize } from "@xiaoye/utils";
 import type { TreeData, TreeKey, TreeOptionProps } from "../../tree";
 import type { FilterNodeMethodFunction, LoadFunction } from "../../tree/src/tree.type";
+
+export type TreeSelectValueChangeHandler = (value: TreeKey | null) => void;
+export type TreeSelectVisibleChangeHandler = (value: boolean) => void;
 
 export interface TreeSelectProps {
   modelValue?: TreeKey | null;
@@ -26,3 +30,5 @@ export interface TreeSelectProps {
   popperClass?: string;
   popperStyle?: StyleValue;
 }
+
+export type TreeSelectInstance = InstanceType<typeof TreeSelect>;

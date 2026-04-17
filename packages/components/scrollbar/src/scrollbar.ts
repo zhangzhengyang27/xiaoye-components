@@ -1,4 +1,5 @@
 import type { StyleValue } from "vue";
+import type Scrollbar from "./scrollbar.vue";
 
 export interface ScrollbarProps {
   distance?: number;
@@ -20,4 +21,10 @@ export interface ScrollbarProps {
   ariaOrientation?: "horizontal" | "vertical" | "undefined";
 }
 
+export interface ScrollbarScrollPayload {
+  scrollTop: number;
+  scrollLeft: number;
+}
+
 export type ScrollbarDirection = "top" | "bottom" | "left" | "right";
+export type ScrollbarInstance = InstanceType<typeof Scrollbar>;

@@ -28,20 +28,10 @@ config-provider/message
 
 ## Loading 默认配置
 
-`ConfigProvider.loading` 适合统一整站的 loading 视觉和时序策略：
+`ConfigProvider.loading` 适合统一整站的 loading 视觉和时序策略，类型为 `LoadingGlobalConfig`：
 
 ```ts
-interface LoadingGlobalConfig {
-  text?: string;
-  background?: string;
-  spinner?: string;
-  svg?: string;
-  svgViewBox?: string;
-  delay?: number;
-  minDuration?: number;
-  fullscreen?: boolean;
-  lock?: boolean;
-}
+type LoadingGlobalConfig = ConfigProviderProps["loading"];
 ```
 
 - 独立 `v-loading`、`XyLoadingService()` 和 `$loading()` 会完整读取这组默认值。
@@ -63,9 +53,9 @@ interface LoadingGlobalConfig {
 | 属性           | 说明                             | 类型                       | 默认值 |
 | -------------- | -------------------------------- | -------------------------- | ------ |
 | `namespace`    | 全局命名空间前缀                 | `string`                   | `'xy'` |
-| `locale`       | 全局文案对象，会透传到配置上下文 | `Record<string, string>`   | `{}`   |
+| `locale`       | 全局文案对象，会透传到配置上下文 | `ConfigProviderProps["locale"]` | `{}`   |
 | `z-index`      | 弹层类组件的基础层级             | `number`                   | `2000` |
-| `size`         | 默认尺寸                         | `'sm' \| 'md' \| 'lg'`     | `'md'` |
+| `size`         | 默认尺寸                         | `ConfigProviderProps["size"]` | `'md'` |
 | `dialog`       | Dialog 服务和组件的全局默认配置  | `DialogGlobalConfig`       | `{}`   |
 | `loading`      | Loading 的全局默认配置           | `LoadingGlobalConfig`      | `{}`   |
 | `message`      | Message 的全局默认配置           | `MessageGlobalConfig`      | `{}`   |

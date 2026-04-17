@@ -31,7 +31,7 @@
 .xy-switch__input:focus-visible ~ .xy-switch__core {
   outline: 2px solid color-mix(in srgb, var(--xy-switch-on-color) 58%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-switch__label {

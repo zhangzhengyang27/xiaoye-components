@@ -88,11 +88,11 @@ export const primitiveTokens = {
     danger: "#e5484d"
   },
   radius: {
-    xs: "8px",
-    sm: "8px",
-    md: "12px",
-    lg: "18px",
-    xl: "24px",
+    xs: "2px",
+    sm: "2px",
+    md: "2px",
+    lg: "4px",
+    xl: "6px",
     pill: "999px"
   },
   fontSize: {

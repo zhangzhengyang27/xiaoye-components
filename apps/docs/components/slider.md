@@ -44,27 +44,27 @@ slider/form
 
 | 属性                  | 说明                        | 类型                                     | 默认值       |
 | --------------------- | --------------------------- | ---------------------------------------- | ------------ |
-| `model-value`         | 当前值                      | `number \| [number, number]`             | `0`          |
+| `model-value`         | 当前值                      | `SliderValue`                            | `0`          |
 | `id`                  | 根节点 id                   | `string`                                 | `undefined`  |
 | `min`                 | 最小值                      | `number`                                 | `0`          |
 | `max`                 | 最大值                      | `number`                                 | `100`        |
 | `step`                | 步长                        | `number`                                 | `1`          |
 | `show-input`          | 是否显示输入框              | `boolean`                                | `false`      |
 | `show-input-controls` | 输入框是否显示控制按钮      | `boolean`                                | `true`       |
-| `size`                | 滑块尺寸                    | `'sm' \| 'md' \| 'lg'`                   | 跟随全局配置 |
-| `input-size`          | 输入框尺寸                  | `'sm' \| 'md' \| 'lg'`                   | 跟随 `size`  |
+| `size`                | 滑块尺寸                    | `SliderProps["size"]`                   | 跟随全局配置 |
+| `input-size`          | 输入框尺寸                  | `SliderProps["inputSize"]`              | 跟随 `size`  |
 | `show-stops`          | 是否显示步长断点            | `boolean`                                | `false`      |
 | `show-tooltip`        | 是否显示 tooltip            | `boolean`                                | `true`       |
-| `format-tooltip`      | tooltip 格式化函数          | `(value: number) => number \| string`    | `undefined`  |
+| `format-tooltip`      | tooltip 格式化函数          | `SliderProps["formatTooltip"]`           | `undefined`  |
 | `disabled`            | 是否禁用                    | `boolean`                                | `false`      |
 | `range`               | 是否为范围选择              | `boolean`                                | `false`      |
 | `vertical`            | 是否纵向展示                | `boolean`                                | `false`      |
 | `height`              | 纵向模式下的轨道高度        | `string`                                 | `'180px'`    |
 | `range-start-label`   | 范围起点的无障碍说明        | `string`                                 | `'起始值'`   |
 | `range-end-label`     | 范围终点的无障碍说明        | `string`                                 | `'结束值'`   |
-| `format-value-text`   | `aria-valuetext` 格式化函数 | `(value: number) => string`              | `undefined`  |
+| `format-value-text`   | `aria-valuetext` 格式化函数 | `SliderProps["formatValueText"]`         | `undefined`  |
 | `tooltip-class`       | tooltip 自定义类名          | `string`                                 | `''`         |
-| `placement`           | tooltip 位置                | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'`      |
+| `placement`           | tooltip 位置                | `SliderPlacement`                        | `'top'`      |
 | `validate-event`      | 是否触发表单校验            | `boolean`                                | `true`       |
 | `persistent`          | tooltip 隐藏时是否保留 DOM  | `boolean`                                | `true`       |
 | `aria-label`          | 单值模式下的无障碍说明      | `string`                                 | `undefined`  |
@@ -73,15 +73,15 @@ slider/form
 
 | 事件                 | 说明                 | 参数                         |
 | -------------------- | -------------------- | ---------------------------- |
-| `update:model-value` | 当前值变化时触发     | `number \| [number, number]` |
-| `input`              | 拖拽或输入过程中触发 | `number \| [number, number]` |
-| `change`             | 提交变更后触发       | `number \| [number, number]` |
-| `focus`              | 拖拽点获得焦点时触发 | `FocusEvent`                 |
-| `blur`               | 拖拽点失去焦点时触发 | `FocusEvent`                 |
+| `update:model-value` | 当前值变化时触发     | `SliderValueChangeHandler` |
+| `input`              | 拖拽或输入过程中触发 | `SliderValueChangeHandler` |
+| `change`             | 提交变更后触发       | `SliderValueChangeHandler` |
+| `focus`              | 拖拽点获得焦点时触发 | `SliderFocusHandler`                 |
+| `blur`               | 拖拽点失去焦点时触发 | `SliderFocusHandler`                 |
 
 ### Slider Exposes
 
 | 暴露项  | 说明         | 类型         |
 | ------- | ------------ | ------------ |
-| `focus` | 聚焦第一个点 | `() => void` |
-| `blur`  | 让拖拽点失焦 | `() => void` |
+| `focus` | 聚焦第一个点 | `SliderInstance["focus"]` |
+| `blur`  | 让拖拽点失焦 | `SliderInstance["blur"]` |

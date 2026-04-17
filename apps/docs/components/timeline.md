@@ -50,9 +50,9 @@ timeline/compact
 
 | 属性      | 说明                                                                                                                                     | 类型                                                     | 默认值      |
 | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------- |
-| `mode`    | 布局模式；推荐按 `start -> end -> alternate -> alternate-reverse` 的顺序理解：`start` 为左侧单线，`end` 为右侧镜像，后两者为中轴双侧布局 | `'start' \| 'alternate' \| 'alternate-reverse' \| 'end'` | `'start'`   |
+| `mode`    | 布局模式；推荐按 `start -> end -> alternate -> alternate-reverse` 的顺序理解：`start` 为左侧单线，`end` 为右侧镜像，后两者为中轴双侧布局 | `TimelineMode` | `'start'`   |
 | `reverse` | 是否反转默认插槽内容顺序                                                                                                                 | `boolean`                                                | `false`     |
-| `density` | 信息密度；`compact` 适合抽屉、侧栏和详情区                                                                                               | `'default' \| 'compact'`                                 | `'default'` |
+| `density` | 信息密度；`compact` 适合抽屉、侧栏和详情区                                                                                               | `TimelineDensity`                                        | `'default'` |
 
 ### Timeline Slots
 
@@ -83,11 +83,11 @@ timeline/compact
 | `timestamp`      | 时间戳文案                                                                     | `string`                                                             | `''`        |
 | `hide-timestamp` | 是否隐藏时间戳                                                                 | `boolean`                                                            | `false`     |
 | `center`         | 是否把时间戳切到对侧并做垂直居中展示；主要用于 `alternate / alternate-reverse` | `boolean`                                                            | `false`     |
-| `placement`      | 时间戳在内容区域的位置                                                         | `'top' \| 'bottom'`                                                  | `'bottom'`  |
-| `type`           | 节点语义色                                                                     | `'' \| 'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `''`        |
-| `state`          | 流程态；负责 done / current / pending / blocked 这类流程表达                   | `'default' \| 'done' \| 'current' \| 'pending' \| 'blocked'`         | `'default'` |
+| `placement`      | 时间戳在内容区域的位置                                                         | `TimelineItemPlacement`                                              | `'bottom'`  |
+| `type`           | 节点语义色                                                                     | `TimelineItemType`                                                   | `''`        |
+| `state`          | 流程态；负责 done / current / pending / blocked 这类流程表达                   | `TimelineItemState`                                                  | `'default'` |
 | `color`          | 自定义节点颜色                                                                 | `string`                                                             | `''`        |
-| `size`           | 节点尺寸                                                                       | `'normal' \| 'large'`                                                | `'normal'`  |
+| `size`           | 节点尺寸                                                                       | `TimelineItemSize`                                                   | `'normal'`  |
 | `icon`           | 字符串图标名，内部由 `xy-icon` 渲染                                            | `string`                                                             | `''`        |
 | `hollow`         | 是否显示为空心节点；`state='pending'` 时默认会走空心节点                       | `boolean`                                                            | `false`     |
 

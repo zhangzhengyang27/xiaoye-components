@@ -14,6 +14,9 @@ export type AlertCloseReason = (typeof alertCloseReasons)[number];
 export type AlertDoneFn = (cancel?: boolean) => void;
 export type AlertBeforeCloseFn = (done: AlertDoneFn) => void | Promise<void>;
 export type AlertServiceClosedFn = (reason: AlertCloseReason) => void;
+export type AlertCloseHandler = (event: MouseEvent) => void;
+export type AlertModelValueChangeHandler = (value: boolean) => void;
+export type AlertAutoCloseHandler = () => void;
 
 export interface AlertProps {
   modelValue?: boolean;

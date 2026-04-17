@@ -38,23 +38,23 @@ progress/circle
 
 | 属性             | 说明                                   | 类型                                                                                                 | 默认值                               |
 | ---------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `type`           | 进度条类型                             | `'line' \| 'circle' \| 'dashboard'`                                                                  | `'line'`                             |
+| `type`           | 进度条类型                             | `ProgressType`                                                                                        | `'line'`                             |
 | `percentage`     | 当前百分比，会自动收敛到 `0 - 100`     | `number`                                                                                             | `0`                                  |
-| `status`         | 当前状态                               | `'' \| 'success' \| 'exception' \| 'warning'`                                                        | `''`                                 |
+| `status`         | 当前状态                               | `ProgressStatus`                                                                                      | `''`                                 |
 | `indeterminate`  | 是否展示不确定进度动画                 | `boolean`                                                                                            | `false`                              |
 | `duration`       | 不确定进度或条纹流动的动画时长         | `number`                                                                                             | `3`                                  |
 | `stroke-width`   | 线形轨道高度或圆环描边宽度             | `number`                                                                                             | `6`                                  |
-| `stroke-linecap` | 圆环描边端点样式                       | `'butt' \| 'round' \| 'square'`                                                                      | `'round'`                            |
+| `stroke-linecap` | 圆环描边端点样式                       | `ProgressStrokeLinecap`                                                                               | `'round'`                            |
 | `text-inside`    | 是否把文本放进线形进度条内部           | `boolean`                                                                                            | `false`                              |
 | `width`          | `circle / dashboard` 的画布宽高        | `number`                                                                                             | `126`                                |
 | `show-text`      | 是否显示进度文案                       | `boolean`                                                                                            | `true`                               |
-| `color`          | 自定义颜色，支持字符串、分段数组或函数 | `string \| Array<string \| { color: string; percentage: number }> \| (percentage: number) => string` | `''`                                 |
+| `color`          | 自定义颜色，支持字符串、分段数组或函数 | `ProgressColor`                                                                                       | `''`                                 |
 | `striped`        | 是否开启条纹纹理                       | `boolean`                                                                                            | `false`                              |
 | `striped-flow`   | 是否开启条纹流动动画                   | `boolean`                                                                                            | `false`                              |
-| `format`         | 自定义文案格式化函数                   | `(percentage: number) => string`                                                                     | `(percentage) => \`${percentage}%\`` |
+| `format`         | 自定义文案格式化函数                   | `ProgressFormatter`                                                                                   | `(percentage) => \`${percentage}%\`` |
 
 ### Progress Slots
 
 | 插槽      | 说明                                                         | 参数                              |
 | --------- | ------------------------------------------------------------ | --------------------------------- |
-| `default` | 自定义进度文案，线形外侧、线形内侧和圆形中心文案都走这个插槽 | `{ percentage, content, status }` |
+| `default` | 自定义进度文案，线形外侧、线形内侧和圆形中心文案都走这个插槽 | `ProgressDefaultSlotProps` |

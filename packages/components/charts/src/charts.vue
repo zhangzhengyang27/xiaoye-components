@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import type { EChartsCoreOption } from "echarts";
-import * as echarts from "echarts";
-import { useNamespace } from "@xiaoye/composables";
-import type {
-  ChartsLoadingOptions,
-  ChartsProps,
-  ChartsSetOptionOptions
-} from "./charts";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
+import type { EChartsCoreOption } from "./echarts"
+import { init } from "./echarts"
+import { useNamespace } from "@xiaoye/composables"
+import type { ChartsLoadingOptions, ChartsProps, ChartsSetOptionOptions } from "./charts"
 
 defineOptions({
   name: "XyCharts"
-});
+})
 
 const props = withDefaults(defineProps<ChartsProps>(), {
   option: undefined,
@@ -23,83 +19,83 @@ const props = withDefaults(defineProps<ChartsProps>(), {
   loadingOptions: undefined,
   autoresize: true,
   setOptionOptions: undefined
-});
+})
 
-const emit = defineEmits(["init", "ready", "click"]);
+const emit = defineEmits(["init", "ready", "click"])
 
-const ns = useNamespace("charts");
-const rootRef = ref<HTMLDivElement | null>(null);
-const chartRef = ref<any>(null);
-let resizeObserver: ResizeObserver | null = null;
-let removeResizeListener: (() => void) | null = null;
+const ns = useNamespace("charts")
+const rootRef = ref<HTMLDivElement | null>(null)
+const chartRef = ref<any>(null)
+let resizeObserver: ResizeObserver | null = null
+let removeResizeListener: (() => void) | null = null
 
 const rootStyle = computed(() => ({
   width: typeof props.width === "number" ? `${props.width}px` : props.width,
   height: typeof props.height === "number" ? `${props.height}px` : props.height
-}));
+}))
 
 function createChart() {
   if (!rootRef.value) {
-    return;
+    return
   }
 
-  chartRef.value?.dispose();
-  chartRef.value = echarts.init(rootRef.value, props.theme, props.initOptions);
+  chartRef.value?.dispose()
+  chartRef.value = init(rootRef.value, props.theme, props.initOptions)
 
   if (props.option) {
-    chartRef.value.setOption(props.option, props.setOptionOptions);
+    chartRef.value.setOption(props.option, props.setOptionOptions)
   }
 
   if (props.loading) {
-    chartRef.value.showLoading(props.loadingOptions);
+    chartRef.value.showLoading(props.loadingOptions)
   }
 
   chartRef.value.on("click", (params: unknown) => {
-    emit("click", params);
-  });
+    emit("click", params)
+  })
 
-  emit("init", chartRef.value);
-  emit("ready", chartRef.value);
+  emit("init", chartRef.value)
+  emit("ready", chartRef.value)
 }
 
 function resize() {
-  chartRef.value?.resize();
+  chartRef.value?.resize()
 }
 
 function setOption(option: EChartsCoreOption, setOptionOptions?: ChartsSetOptionOptions) {
-  chartRef.value?.setOption(option, setOptionOptions ?? props.setOptionOptions);
+  chartRef.value?.setOption(option, setOptionOptions ?? props.setOptionOptions)
 }
 
 function showLoading(loadingOptions?: ChartsLoadingOptions) {
-  chartRef.value?.showLoading(undefined, loadingOptions ?? props.loadingOptions);
+  chartRef.value?.showLoading(loadingOptions ?? props.loadingOptions)
 }
 
 function hideLoading() {
-  chartRef.value?.hideLoading();
+  chartRef.value?.hideLoading()
 }
 
 function syncResizeListener() {
-  resizeObserver?.disconnect();
-  resizeObserver = null;
-  removeResizeListener?.();
-  removeResizeListener = null;
+  resizeObserver?.disconnect()
+  resizeObserver = null
+  removeResizeListener?.()
+  removeResizeListener = null
 
   if (!props.autoresize) {
-    return;
+    return
   }
 
   if (typeof ResizeObserver !== "undefined" && rootRef.value) {
     resizeObserver = new ResizeObserver(() => {
-      resize();
-    });
-    resizeObserver.observe(rootRef.value);
-    return;
+      resize()
+    })
+    resizeObserver.observe(rootRef.value)
+    return
   }
 
   if (typeof window !== "undefined") {
-    const handler = () => resize();
-    window.addEventListener("resize", handler);
-    removeResizeListener = () => window.removeEventListener("resize", handler);
+    const handler = () => resize()
+    window.addEventListener("resize", handler)
+    removeResizeListener = () => window.removeEventListener("resize", handler)
   }
 }
 
@@ -107,77 +103,77 @@ watch(
   () => props.option,
   (option) => {
     if (!chartRef.value || !option) {
-      return;
+      return
     }
 
-    chartRef.value.setOption(option, props.setOptionOptions);
+    chartRef.value.setOption(option, props.setOptionOptions)
   },
   {
     deep: true
   }
-);
+)
 
 watch(
   () => props.loading,
   (loading) => {
     if (!chartRef.value) {
-      return;
+      return
     }
 
     if (loading) {
-      showLoading();
-      return;
+      showLoading()
+      return
     }
 
-    hideLoading();
+    hideLoading()
   }
-);
+)
 
 watch(
   () => props.loadingOptions,
   () => {
     if (props.loading) {
-      showLoading();
+      showLoading()
     }
   },
   {
     deep: true
   }
-);
+)
 
 watch(
   () => [props.theme, props.initOptions] as const,
   async () => {
-    await nextTick();
-    createChart();
-    syncResizeListener();
+    await nextTick()
+    createChart()
+    syncResizeListener()
   },
   {
     deep: true
   }
-);
+)
 
 watch(
   () => props.autoresize,
   () => {
-    syncResizeListener();
+    syncResizeListener()
   }
-);
+)
 
 onMounted(async () => {
-  await nextTick();
-  createChart();
-  syncResizeListener();
-});
+  await nextTick()
+  createChart()
+  syncResizeListener()
+})
 
 onBeforeUnmount(() => {
-  resizeObserver?.disconnect();
-  resizeObserver = null;
-  removeResizeListener?.();
-  removeResizeListener = null;
-  chartRef.value?.dispose();
-  chartRef.value = null;
-});
+  resizeObserver?.disconnect()
+  resizeObserver = null
+  removeResizeListener?.()
+  removeResizeListener = null
+  chartRef.value?.dispose()
+  chartRef.value = null
+})
 
 defineExpose({
   chart: chartRef,
@@ -185,7 +181,7 @@ defineExpose({
   setOption,
   showLoading,
   hideLoading
-});
+})
 </script>
 
 <template>

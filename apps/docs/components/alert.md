@@ -151,19 +151,19 @@ alert/service-dedupe
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 受控显示状态 | `boolean` | `undefined` |
+| `model-value` | 受控显示状态 | `AlertProps["modelValue"]` | `undefined` |
 | `title` | 提示标题 | `string` | `''` |
 | `description` | 描述文案 | `string` | `''` |
-| `type` | 提示类型 | `'primary' \| 'success' \| 'info' \| 'warning' \| 'error'` | `'info'` |
+| `type` | 提示类型 | `AlertType` | `'info'` |
 | `closable` | 是否可关闭 | `boolean` | `true` |
 | `close-text` | 自定义关闭文案 | `string` | `''` |
 | `show-icon` | 是否显示图标 | `boolean` | `false` |
 | `center` | 是否居中显示内容 | `boolean` | `false` |
-| `effect` | 主题风格 | `'light' \| 'dark'` | `'light'` |
+| `effect` | 主题风格 | `AlertEffect` | `'light'` |
 | `duration` | 自动关闭时长，单位毫秒，`0` 表示不自动关闭 | `number` | `0` |
-| `size` | 组件尺寸，未传时跟随全局配置 | `'sm' \| 'md' \| 'lg'` | `全局 size / 'md'` |
-| `variant` | 布局变体 | `'default' \| 'banner' \| 'card'` | `'default'` |
-| `before-close` | 手动关闭前拦截函数 | `(done: (cancel?: boolean) => void) => void \| Promise<void>` | `undefined` |
+| `size` | 组件尺寸，未传时跟随全局配置 | `AlertProps["size"]` | `全局 size / 'md'` |
+| `variant` | 布局变体 | `AlertVariant` | `'default'` |
+| `before-close` | 手动关闭前拦截函数 | `AlertBeforeCloseFn` | `undefined` |
 | `pause-on-hover` | 自动关闭时悬停是否暂停计时 | `boolean` | `false` |
 | `pause-on-focus` | 自动关闭时聚焦内部元素是否暂停计时 | `boolean` | `false` |
 | `pause-on-page-hidden` | 页面隐藏时是否暂停自动关闭计时 | `boolean` | `false` |
@@ -177,9 +177,9 @@ alert/service-dedupe
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `close` | 手动关闭提示时触发 | `(event: MouseEvent) => void` |
-| `update:modelValue` | 受控模式下同步显示状态 | `(value: boolean) => void` |
-| `auto-close` | 自动关闭定时器触发时发出 | `() => void` |
+| `close` | 手动关闭提示时触发 | `AlertCloseHandler` |
+| `update:modelValue` | 受控模式下同步显示状态 | `AlertModelValueChangeHandler` |
+| `auto-close` | 自动关闭定时器触发时发出 | `AlertAutoCloseHandler` |
 
 ### Alert Slots
 
@@ -228,20 +228,20 @@ console.log(snapshot.queueLength, snapshot.total);
 | --- | --- | --- |
 | `title` | 提示标题 | `string` |
 | `description` | 描述文案 | `string` |
-| `type` | 提示类型 | `'primary' \| 'success' \| 'info' \| 'warning' \| 'error'` |
+| `type` | 提示类型 | `AlertType` |
 | `closable` | 是否可关闭 | `boolean` |
 | `closeText` | 自定义关闭文案 | `string` |
 | `showIcon` | 是否显示图标 | `boolean` |
 | `center` | 是否居中显示内容 | `boolean` |
-| `effect` | 主题风格 | `'light' \| 'dark'` |
+| `effect` | 主题风格 | `AlertEffect` |
 | `duration` | 自动关闭时长 | `number` |
-| `size` | 组件尺寸 | `'sm' \| 'md' \| 'lg'` |
+| `size` | 组件尺寸 | `AlertServiceOptions["size"]` |
 | `groupKey` | 服务提示分组键；相同键会合并更新已有项而不是重复入队 | `string` |
 | `appendTo` | 服务宿主挂载目标，支持 CSS 选择器或 HTMLElement | `string \| HTMLElement` |
 | `maxQueue` | 等待队列最大长度，不包含当前展示项 | `number` |
-| `overflowStrategy` | 队列超限时的处理策略 | `'drop-oldest' \| 'drop-newest'` |
-| `onClosed` | 服务项关闭后的回调，可收到关闭原因 | `(reason: 'manual' \| 'auto' \| 'close-all' \| 'overflow') => void` |
-| `beforeClose` | 手动关闭前拦截函数 | `(done: (cancel?: boolean) => void) => void \| Promise<void>` |
+| `overflowStrategy` | 队列超限时的处理策略 | `AlertOverflowStrategy` |
+| `onClosed` | 服务项关闭后的回调，可收到关闭原因 | `AlertServiceClosedFn` |
+| `beforeClose` | 手动关闭前拦截函数 | `AlertBeforeCloseFn` |
 | `pauseOnHover` | 自动关闭时悬停是否暂停计时 | `boolean` |
 | `pauseOnFocus` | 自动关闭时聚焦内部元素是否暂停计时 | `boolean` |
 | `pauseOnPageHidden` | 页面隐藏时是否暂停自动关闭计时 | `boolean` |
@@ -255,16 +255,20 @@ console.log(snapshot.queueLength, snapshot.total);
 
 | 方法 | 说明 | 签名 |
 | --- | --- | --- |
-| `close` | 手动关闭当前服务提示 | `() => void` |
-| `update` | 更新当前项或排队项的配置 | `(patch: Partial<AlertServiceOptions>) => void` |
+| `close` | 手动关闭当前服务提示 | `AlertServiceHandle["close"]` |
+| `update` | 更新当前项或排队项的配置 | `AlertServiceHandle["update"]` |
+
+### Alert Service Snapshot
+
+服务状态快照类型为 `AlertServiceSnapshot`。
 
 ### Alert Service Methods
 
 | 方法 | 说明 | 签名 |
 | --- | --- | --- |
-| `open` | 打开顶部横幅服务提示 | `(options: AlertServiceOptions) => AlertServiceHandle` |
-| `getState` | 获取当前服务状态的只读快照 | `() => { current: AlertServiceSnapshotEntry \| null; queue: AlertServiceSnapshotEntry[]; queueLength: number; total: number }` |
-| `closeAll` | 清空当前项和等待队列 | `() => void` |
+| `open` | 打开顶部横幅服务提示 | `AlertService["open"]` |
+| `getState` | 获取当前服务状态的只读快照 | `AlertService["getState"]` |
+| `closeAll` | 清空当前项和等待队列 | `AlertService["closeAll"]` |
 
 ### Alert CSS Variables
 

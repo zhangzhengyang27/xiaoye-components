@@ -2,10 +2,25 @@ import Anchor from "./src/anchor.vue";
 import AnchorLink from "./src/anchor-link.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
-import type { AnchorContainer, AnchorDirection, AnchorInstance, AnchorProps } from "./src/anchor";
+import type {
+  AnchorChangeHandler,
+  AnchorClickHandler,
+  AnchorContainer,
+  AnchorDirection,
+  AnchorInstance,
+  AnchorProps
+} from "./src/anchor";
 import type { AnchorLinkProps } from "./src/anchor-link";
 
-export type { AnchorContainer, AnchorDirection, AnchorInstance, AnchorLinkProps, AnchorProps };
+export type {
+  AnchorChangeHandler,
+  AnchorClickHandler,
+  AnchorContainer,
+  AnchorDirection,
+  AnchorInstance,
+  AnchorLinkProps,
+  AnchorProps
+};
 
 export const XyAnchorLink = withInstall(AnchorLink, "xy-anchor-link");
 

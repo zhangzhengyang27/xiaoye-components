@@ -74,19 +74,19 @@ avatar/page-collaboration
 
 | 属性      | 说明                     | 类型                                                                   | 默认值       |
 | --------- | ------------------------ | ---------------------------------------------------------------------- | ------------ |
-| `size`    | 头像尺寸                 | `number \| ComponentSize`                                              | 跟随全局配置 |
-| `shape`   | 头像形状                 | `'circle' \| 'square'`                                                 | `'circle'`   |
+| `size`    | 头像尺寸                 | `AvatarProps["size"]`                                                  | 跟随全局配置 |
+| `shape`   | 头像形状                 | `AvatarShape`                                                         | `'circle'`   |
 | `icon`    | 图片失败或无图片时的图标 | `string`                                                               | `''`         |
 | `src`     | 图片地址                 | `string`                                                               | `''`         |
 | `alt`     | 原生图片 `alt`           | `string`                                                               | `''`         |
 | `src-set` | 原生图片 `srcset`        | `string`                                                               | `''`         |
-| `fit`     | 图片裁切方式             | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'`             | `'cover'`    |
+| `fit`     | 图片裁切方式             | `AvatarFit`                                                           | `'cover'`    |
 
 ### Avatar Events
 
 | 事件    | 说明               | 参数    |
 | ------- | ------------------ | ------- |
-| `error` | 图片加载失败时触发 | `Event` |
+| `error` | 图片加载失败时触发 | `AvatarErrorHandler` |
 
 ### Avatar Slots
 
@@ -98,17 +98,17 @@ avatar/page-collaboration
 
 | 属性                       | 说明                         | 类型                                     | 默认值   |
 | -------------------------- | ---------------------------- | ---------------------------------------- | -------- |
-| `size`                     | 分组内头像默认尺寸           | `number \| ComponentSize`                | —        |
-| `shape`                    | 分组内头像默认形状           | `'circle' \| 'square'`                   | —        |
+| `size`                     | 分组内头像默认尺寸           | `AvatarGroupProps["size"]`              | —        |
+| `shape`                    | 分组内头像默认形状           | `AvatarShape`                              | —        |
 | `items`                    | 数据驱动头像项列表           | `AvatarGroupItem[]`                      | `[]`     |
-| `direction`                | 堆叠方向                     | `'horizontal' \| 'vertical'`             | `'horizontal'` |
+| `direction`                | 堆叠方向                     | `AvatarGroupProps["direction"]`          | `'horizontal'` |
 | `gutter`                   | 头像重叠间距，单位 px        | `number`                                 | `8`      |
 | `reverse`                  | 是否反转视觉层叠顺序         | `boolean`                                | `false`  |
 | `inline`                   | 是否使用 `inline-flex` 布局  | `boolean`                                | `true`   |
 | `collapse-avatars`         | 是否折叠多余头像             | `boolean`                                | `false`  |
 | `collapse-avatars-tooltip` | 折叠头像是否支持 tooltip 展开 | `boolean`                                | `false`  |
 | `max-collapse-avatars`     | 可见头像上限                 | `number`                                 | `1`      |
-| `placement`                | 折叠 tooltip 位置            | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'`  |
+| `placement`                | 折叠 tooltip 位置            | `AvatarGroupProps["placement"]`          | `'top'`  |
 | `collapse-class`           | 折叠头像自定义类名           | `string`                                 | `''`     |
 | `collapse-style`           | 折叠头像自定义样式           | `StyleValue`                             | `''`     |
 
@@ -122,9 +122,9 @@ avatar/page-collaboration
 | `src` | 图片头像地址 | `string` |
 | `alt` | 图片头像替代文本 | `string` |
 | `src-set` | 图片头像 `srcset` | `string` |
-| `fit` | 图片裁切方式 | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` |
-| `size` | 当前头像项尺寸 | `number \| ComponentSize` |
-| `shape` | 当前头像项形状 | `'circle' \| 'square'` |
+| `fit` | 图片裁切方式 | `AvatarFit` |
+| `size` | 当前头像项尺寸 | `AvatarGroupItem["size"]` |
+| `shape` | 当前头像项形状 | `AvatarShape` |
 | `className` | 头像项根节点类名 | `string` |
 | `style` | 头像项根节点样式 | `StyleValue` |
 
@@ -132,11 +132,11 @@ avatar/page-collaboration
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `item-click` | 数据驱动模式下点击头像项时触发 | `(item, index) => void` |
+| `item-click` | 数据驱动模式下点击头像项时触发 | `AvatarGroupItemClickHandler` |
 
 ### AvatarGroup Slots
 
 | 插槽      | 说明 |
 | --------- | ---- |
 | `default` | 插槽模式下的头像组内容 |
-| `item` | 数据驱动模式下自定义头像项渲染，入参为 `{ item, index }` |
+| `item` | 数据驱动模式下自定义头像项渲染，入参为 `AvatarGroupItemSlotProps` |

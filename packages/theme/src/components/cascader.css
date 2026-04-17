@@ -26,13 +26,13 @@
 
 .xy-cascader.is-open .xy-cascader__trigger {
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-cascader__trigger:focus-visible {
   outline: 0;
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-cascader.is-disabled .xy-cascader__trigger {

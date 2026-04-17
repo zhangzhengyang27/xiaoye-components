@@ -8,11 +8,18 @@ outline: deep
 
 `xy-menu` 用于承接站点主导航、后台侧栏、工作台模块切换和资源入口列表。采用 `xy-menu / xy-sub-menu / xy-menu-item / xy-menu-item-group` 的插槽式子组件结构，并支持受控状态和 `items` 数据驱动能力。
 
-> 可通过自定义样式类覆写 `--xy-menu-horizontal-height` 来调整横向菜单高度，例如：
+> 样式定制优先通过菜单根节点或 `popper-class` 对应根节点覆写公开 CSS 变量，不建议直接依赖 `.xy-menu__*` 这类内部结构类。例如：
 >
 > ```css
-> .your-menu-shell .xy-menu--horizontal {
+> .your-menu-shell {
 >   --xy-menu-horizontal-height: 64px;
+>   --xy-menu-item-radius: 12px;
+>   --xy-menu-hover-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
+> }
+>
+> .your-menu-popup {
+>   --xy-menu-popup-min-width: 240px;
+>   --xy-menu-group-title-padding: 8px 14px 10px;
 > }
 > ```
 
@@ -65,27 +72,53 @@ menu/overflow-offset
 - 需要在横向模式下承接一级导航与二级弹出菜单。
 - 需要在业务层直接控制激活项、展开项，或者从配置数据动态生成导航树。
 
+## 样式变量
+
+常用定制点可直接在 `xy-menu` 根节点或 `popper-class` 根节点覆写以下变量：
+
+| 变量 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--xy-menu-padding` | 菜单根容器内边距 | `8px` |
+| `--xy-menu-gap` | 根容器子项间距 | `6px` |
+| `--xy-menu-radius` | 菜单根容器圆角 | `var(--xy-radius-lg)` |
+| `--xy-menu-horizontal-height` | 横向菜单高度 | `56px` |
+| `--xy-menu-horizontal-item-min-height` | 横向一级项最小高度 | `calc(var(--xy-menu-horizontal-height) - 16px)` |
+| `--xy-menu-item-min-height` | 菜单项最小高度 | `44px` |
+| `--xy-menu-item-padding-inline` | 菜单项横向内边距 | `14px` |
+| `--xy-menu-item-radius` | 菜单项圆角 | `14px` |
+| `--xy-menu-hover-bg` | hover 背景色 | `var(--xy-bg-color-subtle)` |
+| `--xy-menu-hover-shadow` | hover 阴影/描边 | `inset 0 0 0 1px color-mix(...)` |
+| `--xy-menu-active-bg` | 激活态背景色 | `var(--xy-color-primary-soft)` |
+| `--xy-menu-active-color` | 激活态文字色 | `var(--xy-color-primary)` |
+| `--xy-menu-popup-min-width` | 弹出菜单最小宽度 | `216px` |
+| `--xy-menu-popup-padding` | 弹出菜单内边距 | `10px` |
+| `--xy-menu-popup-radius` | 弹出菜单圆角 | `var(--xy-radius-lg)` |
+| `--xy-menu-group-title-padding` | 分组标题内边距 | `6px 14px 8px` |
+| `--xy-menu-sub-list-padding` | 纵向子菜单列表内边距 | `8px 0 8px 14px` |
+| `--xy-menu-badge-bg` | `items` 模式徽标背景色 | `var(--xy-color-primary-soft)` |
+| `--xy-menu-extra-color` | `items` 模式附加信息文字色 | `var(--xy-text-color-subtle)` |
+
 ## Menu API
 
 ### Menu Attributes
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `mode` | 菜单展示模式 | `'horizontal' \| 'vertical'` | `'vertical'` |
+| `mode` | 菜单展示模式 | `MenuMode` | `'vertical'` |
 | `default-active` | 初始激活项 `index` | `string` | `''` |
 | `default-openeds` | 初始展开的子菜单索引集合 | `string[]` | `[]` |
 | `active-index` | 受控激活项 `index` | `string` | `undefined` |
 | `opened-menus` | 受控展开的子菜单索引集合 | `string[]` | `undefined` |
 | `unique-opened` | 是否同一层只允许展开一个子菜单 | `boolean` | `false` |
 | `router` | 是否启用路由模式 | `boolean` | `false` |
-| `menu-trigger` | 横向模式下子菜单触发方式 | `'hover' \| 'click'` | `'hover'` |
+| `menu-trigger` | 横向模式下子菜单触发方式 | `MenuTrigger` | `'hover'` |
 | `collapse` | 是否折叠，仅纵向模式生效 | `boolean` | `false` |
 | `items` | 数据驱动菜单树，和默认插槽二选一 | `MenuDataItem[]` | `undefined` |
-| `permission-checker` | `items` 模式下的权限判定函数 | `(permission, item) => boolean` | `undefined` |
+| `permission-checker` | `items` 模式下的权限判定函数 | `MenuPermissionChecker` | `undefined` |
 | `ellipsis` | 横向模式宽度不足时是否启用收纳 | `boolean` | `true` |
 | `popper-offset` | 所有弹出子菜单的偏移量 | `number` | `6` |
 | `ellipsis-icon` | 横向收纳入口图标 | `string \| Component` | `'mdi:dots-horizontal'` |
-| `popper-effect` | 弹出菜单主题 | `'dark' \| 'light' \| string` | `'dark'` |
+| `popper-effect` | 弹出菜单主题 | `MenuPopperEffect` | `'dark'` |
 | `popper-class` | 弹出菜单自定义类名 | `string` | `''` |
 | `popper-style` | 弹出菜单自定义样式 | `StyleValue` | `undefined` |
 | `show-timeout` | 弹出菜单显示延迟 | `number` | `300` |
@@ -101,11 +134,11 @@ menu/overflow-offset
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `select` | 菜单项被选中时触发 | `(index, indexPath, item, routerResult?)` |
-| `open` | 子菜单展开时触发 | `(index, indexPath)` |
-| `close` | 子菜单收起时触发 | `(index, indexPath)` |
-| `update:activeIndex` | 受控模式下激活项变化时触发 | `(index)` |
-| `update:openedMenus` | 受控模式下展开项集合变化时触发 | `(indexes)` |
+| `select` | 菜单项被选中时触发 | `MenuSelectEvent` |
+| `open` | 子菜单展开时触发 | `MenuOpenEvent` |
+| `close` | 子菜单收起时触发 | `MenuCloseEvent` |
+| `update:activeIndex` | 受控模式下激活项变化时触发 | `MenuActiveIndexChangeHandler` |
+| `update:openedMenus` | 受控模式下展开项集合变化时触发 | `MenuOpenedMenusChangeHandler` |
 
 ### Menu Slots
 
@@ -117,10 +150,10 @@ menu/overflow-offset
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `open` | 主动展开指定子菜单 | `(index: string) => void` |
-| `close` | 主动收起指定子菜单 | `(index: string) => void` |
-| `handleResize` | 手动重新计算横向溢出状态 | `() => void` |
-| `updateActiveIndex` | 主动更新当前激活项 | `(index: string) => void` |
+| `open` | 主动展开指定子菜单 | `MenuExposes["open"]` |
+| `close` | 主动收起指定子菜单 | `MenuExposes["close"]` |
+| `handleResize` | 手动重新计算横向溢出状态 | `MenuExposes["handleResize"]` |
+| `updateActiveIndex` | 主动更新当前激活项 | `MenuExposes["updateActiveIndex"]` |
 
 ## SubMenu API
 
@@ -162,13 +195,13 @@ menu/overflow-offset
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `click` | 点击菜单项时触发 | `(item: MenuItemRegistered) => void` |
+| `click` | 点击菜单项时触发 | `MenuItemClickHandler` |
 
 ### MenuItem Slots
 
 | 插槽 | 说明 |
 | --- | --- |
-| `default` | 菜单项前置内容，常用于图标 |
+| `default` | 菜单项内容；可直接承载完整内容，也可与 `title` 搭配作为前置区 |
 | `title` | 菜单项正文；在折叠态一级菜单项中会自动作为 Tooltip 内容 |
 
 ## MenuItemGroup API
@@ -192,7 +225,7 @@ menu/overflow-offset
 | --- | --- | --- |
 | `index` | 节点唯一标识 | `string` |
 | `label` | 节点显示文案 | `string` |
-| `type` | 节点类型 | `'item' \| 'submenu' \| 'group'` |
+| `type` | 节点类型 | `MenuDataItemType` |
 | `children` | 子节点列表 | `MenuDataItem[]` |
 | `disabled` | 是否禁用 | `boolean` |
 | `route` | 路由模式下的跳转目标 | `RouteLocationRaw` |

@@ -24,7 +24,7 @@ notification/actions-slots
 
 ## Service 基础
 
-:::demo `XyNotificationService.open()` 适合在任意业务模块直接触发浮层通知，并返回一个可继续 `close()` 的句柄。
+:::demo `XyNotificationService()` 和 `XyNotificationService.open()` 都可以直接触发浮层通知，并返回一个可继续 `close()` 的句柄。
 notification/service-basic
 :::
 
@@ -128,7 +128,7 @@ XyNotificationService.open(
 ## 行为说明
 
 - `XyNotification` 是单条通知卡片组件；多条堆叠、四角定位、去重和超限处理都由 `XyNotificationService` / `$notify` 负责。
-- `XyNotificationService.open()` 返回的 handle 现在包含 `id`、`close(reason?)`、`update(patch)`。
+- `XyNotificationService()` 与 `XyNotificationService.open()` 返回的 handle 都包含 `id`、`close(reason?)`、`update(patch)`。
 - 完整安装组件库后，`$notify` 与 `XyNotificationService` 保持同一套调用签名和 typed shortcuts。
 - 通过 `app.use(XyNotificationService)` 注入的 `$notify` 会自动继承当前 app 的 `ConfigProvider.notification` 上下文；`$notify.withContext()` 默认也会绑定当前 app。
 - `XyNotificationService.withContext(appContext)` 适合在多 app、微前端、或跨模块 service 调用中显式指定通知配置来源。
@@ -151,7 +151,7 @@ XyNotificationService.open(
 import { XyNotification, XyNotificationService } from "xiaoye-components";
 import { h } from "vue";
 
-const handle = XyNotificationService.open({
+const handle = XyNotificationService({
   title: "批量发布完成",
   message: () => h("span", "3 个菜单已同步到预发环境。"),
   type: "success",
@@ -205,23 +205,25 @@ scopedNotify.success({
 | ----------------------------- | -------------------------------------------------- | ---------------------------------------------------------------- | ------------- |
 | `model-value`                 | 受控显示状态                                       | `boolean`                                                        | `undefined`   |
 | `title`                       | 通知标题                                           | `string`                                                         | `''`          |
-| `message`                     | 通知正文，支持字符串、VNode 或渲染函数             | `string \| VNode \| (() => VNodeChild)`                          | `''`          |
-| `type`                        | 通知类型                                           | `'primary' \| 'success' \| 'info' \| 'warning' \| 'error' \| ''` | `''`          |
+| `message`                     | 通知正文，支持字符串、VNode 或渲染函数             | `NotificationContent`                                            | `''`          |
+| `type`                        | 通知类型                                           | `NotificationProps["type"]`                                      | `''`          |
 | `duration`                    | 自动关闭时长，单位毫秒，`0` 表示不自动关闭         | `number`                                                         | `4500`        |
 | `show-close`                  | 是否显示关闭按钮                                   | `boolean`                                                        | `true`        |
 | `custom-class`                | 自定义 class                                       | `string`                                                         | `''`          |
 | `icon`                        | 自定义图标名称；当 `type` 有值时会优先使用类型图标 | `string`                                                         | `''`          |
 | `close-icon`                  | 自定义关闭图标名称                                 | `string`                                                         | `'mdi:close'` |
 | `dangerously-use-html-string` | 是否把字符串正文按 HTML 渲染                       | `boolean`                                                        | `false`       |
+| `z-index`                     | 自定义当前通知层级                                 | `number`                                                         | `自动递增`    |
+| `timer-key`                   | 手动刷新自动关闭计时器的版本标记                   | `number`                                                         | `0`           |
 
 ### Notification Events
 
 | 事件                | 说明                   | 参数                                                                 |
 | ------------------- | ---------------------- | -------------------------------------------------------------------- |
-| `update:modelValue` | 受控模式下同步显示状态 | `(value: boolean) => void`                                           |
-| `close`             | 通知开始关闭时触发     | `(reason: 'manual' \| 'auto' \| 'escape' \| 'programmatic') => void` |
-| `closed`            | 通知完成关闭后触发     | `(reason: 'manual' \| 'auto' \| 'escape' \| 'programmatic') => void` |
-| `click`             | 点击通知主体时触发     | `(event: MouseEvent) => void`                                        |
+| `update:modelValue` | 受控模式下同步显示状态 | `NotificationModelValueChangeHandler`                                |
+| `close`             | 通知开始关闭时触发     | `NotificationCloseHandler`                                           |
+| `closed`            | 通知完成关闭后触发     | `NotificationCloseHandler`                                           |
+| `click`             | 点击通知主体时触发     | `NotificationClickHandler`                                           |
 
 ### Notification Slots
 
@@ -231,15 +233,22 @@ scopedNotify.success({
 | `default` | 正文内容   |
 | `actions` | 操作区内容 |
 
+### Notification Exposes
+
+| 暴露项 | 说明 | 类型 |
+| --- | --- | --- |
+| `close` | 主动关闭当前通知，可显式指定关闭原因 | `NotificationInstance["close"]` |
+| `visible` | 当前通知是否处于可见状态 | `NotificationInstance["visible"]` |
+
 ### Notification Service Options
 
 | 字段                       | 说明                                                    | 类型                                                                                              |
 | -------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | `title`                    | 通知标题                                                | `string`                                                                                          |
-| `message`                  | 通知正文，支持字符串、VNode 或渲染函数                  | `string \| VNode \| (() => VNodeChild)`                                                           |
-| `type`                     | 通知类型                                                | `'primary' \| 'success' \| 'info' \| 'warning' \| 'error'`                                        |
+| `message`                  | 通知正文，支持字符串、VNode 或渲染函数                  | `NotificationContent`                                                                              |
+| `type`                     | 通知类型                                                | `NotificationType`                                                                                 |
 | `duration`                 | 自动关闭时长                                            | `number`                                                                                          |
-| `position`                 | 通知位置                                                | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'`                                    |
+| `position`                 | 通知位置                                                | `NotificationPosition`                                                                             |
 | `offset`                   | 当前堆叠桶首条通知的起始偏移量，会在内部再叠加 16px gap | `number`                                                                                          |
 | `showClose`                | 是否显示关闭按钮                                        | `boolean`                                                                                         |
 | `customClass`              | 自定义 class                                            | `string`                                                                                          |
@@ -250,64 +259,52 @@ scopedNotify.success({
 | `dangerouslyUseHTMLString` | 是否按 HTML 渲染字符串正文                              | `boolean`                                                                                         |
 | `groupKey`                 | 通知分组键；相同键会合并更新已有通知                    | `string`                                                                                          |
 | `max`                      | 同一位置允许同时显示的最大通知数                        | `number`                                                                                          |
-| `overflowStrategy`         | 超出 `max` 时的处理策略                                 | `'drop-oldest' \| 'drop-newest'`                                                                  |
-| `onClick`                  | 点击通知主体时回调                                      | `() => void`                                                                                      |
-| `onClosed`                 | 关闭完成后的回调                                        | `(reason: 'manual' \| 'auto' \| 'escape' \| 'programmatic' \| 'close-all' \| 'overflow') => void` |
+| `overflowStrategy`         | 超出 `max` 时的处理策略                                 | `NotificationOverflowStrategy`                                                                    |
+| `onClick`                  | 点击通知主体时回调                                      | `NotificationServiceOptions["onClick"]`                                                           |
+| `onClosed`                 | 关闭完成后的回调                                        | `NotificationServiceOptions["onClosed"]` |
 
 ### Notification Close Filter
 
-| 字段        | 说明               | 类型                                                           |
-| ----------- | ------------------ | -------------------------------------------------------------- |
-| `type`      | 按通知类型过滤     | `'primary' \| 'success' \| 'info' \| 'warning' \| 'error'`     |
-| `position`  | 按通知位置过滤     | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` |
-| `target`    | 按挂载容器过滤     | `string \| HTMLElement`                                        |
-| `targetKey` | 按内部容器标识过滤 | `string`                                                       |
-| `groupKey`  | 按分组键过滤       | `string`                                                       |
+批量关闭和状态过滤条件类型为 `NotificationCloseFilter`。
 
 ### Notification Global Config
 
-| 字段                       | 说明                           | 类型                                                           |
-| -------------------------- | ------------------------------ | -------------------------------------------------------------- |
-| `duration`                 | 默认自动关闭时长               | `number`                                                       |
-| `position`                 | 默认通知位置                   | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` |
-| `offset`                   | 默认首条通知偏移               | `number`                                                       |
-| `showClose`                | 默认是否显示关闭按钮           | `boolean`                                                      |
-| `zIndex`                   | 默认层级                       | `number`                                                       |
-| `max`                      | 默认单桶最大并发数             | `number`                                                       |
-| `overflowStrategy`         | 默认超限处理策略               | `'drop-oldest' \| 'drop-newest'`                               |
-| `appendTo`                 | 默认挂载容器                   | `string \| HTMLElement`                                        |
-| `dangerouslyUseHTMLString` | 默认是否按 HTML 渲染字符串正文 | `boolean`                                                      |
+`ConfigProvider.notification` 的类型为 `NotificationGlobalConfig`。
 
 ### Notification Handle
 
 | 字段             | 说明             | 类型                                                                  |
 | ---------------- | ---------------- | --------------------------------------------------------------------- |
 | `id`             | 当前通知实例标识 | `string`                                                              |
-| `close(reason?)` | 主动关闭当前通知 | `(reason?: 'manual' \| 'auto' \| 'escape' \| 'programmatic') => void` |
-| `update(patch)`  | 更新当前通知配置 | `(patch: Partial<NotificationServiceOptions>) => void`                |
+| `close(reason?)` | 主动关闭当前通知 | `NotificationHandler["close"]` |
+| `update(patch)`  | 更新当前通知配置 | `NotificationHandler["update"]` |
+
+### Notification Snapshot
+
+通知状态快照类型为 `NotificationSnapshot`。
 
 ### Service Methods
 
-| 方法                                              | 说明                                                                                      |
-| ------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `XyNotificationService.open(options)`             | 打开一条通知并返回 handle                                                                 |
-| `XyNotificationService.open(options, appContext)` | 显式使用指定 app context 打开通知                                                         |
-| `XyNotificationService.closeAll(filter?)`         | 关闭全部通知，或仅关闭命中过滤条件的通知                                                  |
-| `XyNotificationService.getState(filter?)`         | 获取当前通知快照，支持按过滤条件裁剪                                                      |
-| `XyNotificationService.updateOffsets(position?)`  | 重新计算指定位置通知的偏移                                                                |
-| `XyNotificationService.withContext(appContext?)`  | 返回一个绑定指定上下文的通知 API；对 `$notify.withContext()` 来说，缺省参数会继承当前 app |
+| 方法                                              | 说明                                                                                      | 类型 |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------- | ---- |
+| `XyNotificationService(...)`                      | 直接打开一条通知并返回 handle；可选第二参传入 `appContext`                               | `NotificationServiceFn` |
+| `XyNotificationService.open(...)`                 | 通过显式 `open` 调用打开通知；可选第二参传入 `appContext`                                | `NotificationService["open"]` |
+| `XyNotificationService.closeAll(filter?)`         | 关闭全部通知，或仅关闭命中过滤条件的通知                                                  | `NotificationService["closeAll"]` |
+| `XyNotificationService.getState(filter?)`         | 获取当前通知快照，支持按过滤条件裁剪                                                      | `NotificationService["getState"]` |
+| `XyNotificationService.updateOffsets(position?)`  | 重新计算指定位置通知的偏移                                                                | `NotificationService["updateOffsets"]` |
+| `XyNotificationService.withContext(appContext?)`  | 返回一个绑定指定上下文的通知 API；对 `$notify.withContext()` 来说，缺省参数会继承当前 app | `NotificationService["withContext"]` |
 
 ### Typed Shortcuts
 
-| 方法                                     | 说明                        |
-| ---------------------------------------- | --------------------------- |
-| `XyNotificationService.primary(options)` | 打开 primary 通知           |
-| `XyNotificationService.success(options)` | 打开 success 通知           |
-| `XyNotificationService.info(options)`    | 打开 info 通知              |
-| `XyNotificationService.warning(options)` | 打开 warning 通知           |
-| `XyNotificationService.error(options)`   | 打开 error 通知             |
-| `$notify.primary(options)`               | 全局注入的 primary 快捷方法 |
-| `$notify.success(options)`               | 全局注入的 success 快捷方法 |
-| `$notify.info(options)`                  | 全局注入的 info 快捷方法    |
-| `$notify.warning(options)`               | 全局注入的 warning 快捷方法 |
-| `$notify.error(options)`                 | 全局注入的 error 快捷方法   |
+| 方法                                     | 说明                        | 类型 |
+| ---------------------------------------- | --------------------------- | ---- |
+| `XyNotificationService.primary(options)` | 打开 primary 通知           | `NotificationService["primary"]` |
+| `XyNotificationService.success(options)` | 打开 success 通知           | `NotificationService["success"]` |
+| `XyNotificationService.info(options)`    | 打开 info 通知              | `NotificationService["info"]` |
+| `XyNotificationService.warning(options)` | 打开 warning 通知           | `NotificationService["warning"]` |
+| `XyNotificationService.error(options)`   | 打开 error 通知             | `NotificationService["error"]` |
+| `$notify.primary(options)`               | 全局注入的 primary 快捷方法 | `NotificationService["primary"]` |
+| `$notify.success(options)`               | 全局注入的 success 快捷方法 | `NotificationService["success"]` |
+| `$notify.info(options)`                  | 全局注入的 info 快捷方法    | `NotificationService["info"]` |
+| `$notify.warning(options)`               | 全局注入的 warning 快捷方法 | `NotificationService["warning"]` |
+| `$notify.error(options)`                 | 全局注入的 error 快捷方法   | `NotificationService["error"]` |

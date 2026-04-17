@@ -3,17 +3,24 @@ import RadioButton from "./src/radio-button.vue";
 import RadioGroup from "./src/radio-group.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
-import type { RadioGroupDirection, RadioGroupProps, RadioOption } from "./src/radio-group";
+import type {
+  RadioGroupDirection,
+  RadioGroupOptionSlotProps,
+  RadioGroupProps,
+  RadioOption
+} from "./src/radio-group";
 import type { RadioButtonProps } from "./src/radio-button";
-import type { RadioProps, RadioValue } from "./src/radio";
+import type { RadioProps, RadioValue, RadioValueChangeHandler } from "./src/radio";
 
 export type {
   RadioButtonProps,
   RadioGroupDirection,
+  RadioGroupOptionSlotProps,
   RadioGroupProps,
   RadioOption,
   RadioProps,
-  RadioValue
+  RadioValue,
+  RadioValueChangeHandler
 };
 
 export const XyRadioGroup = withInstall(RadioGroup, "xy-radio-group");

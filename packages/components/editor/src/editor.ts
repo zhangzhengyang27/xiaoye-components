@@ -4,6 +4,11 @@ export interface EditorOptions {
   [key: string]: unknown;
 }
 
+export type EditorModelValueChangeHandler = (value: string) => void;
+export type EditorInstanceHandler = (editor: NonNullable<EditorInstance["editor"]>) => void;
+export type EditorFocusHandler = () => void;
+export type EditorBlurHandler = (value: string) => void;
+
 export interface EditorProps {
   modelValue?: string;
   options?: EditorOptions;

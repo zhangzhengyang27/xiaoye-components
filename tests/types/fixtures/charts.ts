@@ -1,5 +1,6 @@
-import type { ChartsInstance, ChartsProps } from "xiaoye-components";
-import { XyCharts } from "xiaoye-components";
+import { GraphicComponent } from "echarts/components";
+import type { ChartsInstance, ChartsModule, ChartsProps } from "xiaoye-components";
+import { XyCharts, useChartsModules } from "xiaoye-components";
 
 const props: ChartsProps = {
   height: 320,
@@ -22,6 +23,7 @@ const props: ChartsProps = {
 };
 
 declare const instance: ChartsInstance;
+declare const module: ChartsModule;
 
 instance.resize();
 instance.setOption({
@@ -34,6 +36,8 @@ instance.setOption({
 });
 instance.showLoading();
 instance.hideLoading();
+useChartsModules([GraphicComponent]);
+useChartsModules(module);
 
 void props;
 void XyCharts;

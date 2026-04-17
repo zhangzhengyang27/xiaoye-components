@@ -40,6 +40,15 @@ export interface DropdownSelectItem {
   textValue?: string;
 }
 
+export type DropdownModelValueChangeHandler = (value: boolean) => void;
+export type DropdownSelectHandler = (item: DropdownSelectItem | DropdownItem) => void;
+export type DropdownCommandHandler = (
+  command: DropdownCommand | string | undefined,
+  item: DropdownSelectItem | DropdownItem
+) => void;
+export type DropdownVisibleChangeHandler = (value: boolean) => void;
+export type DropdownClickHandler = (event: MouseEvent) => void;
+
 export interface DropdownProps {
   modelValue?: boolean;
   items?: DropdownItem[];

@@ -26,7 +26,7 @@
 
 .xy-input-tag.is-focus .xy-input-tag__wrapper {
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-input-tag__inner {
@@ -127,7 +127,7 @@
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
   border-radius: var(--xy-radius-xs);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-input-tag.is-disabled .xy-input-tag__wrapper {

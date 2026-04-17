@@ -60,18 +60,18 @@ link/icon
 
 | 属性        | 说明              | 类型                                                                     | 默认值      |
 | ----------- | ----------------- | ------------------------------------------------------------------------ | ----------- |
-| `type`      | 链接语义色        | `'default' \| 'primary' \| 'success' \| 'warning' \| 'info' \| 'danger'` | `'default'` |
-| `underline` | 下划线显示策略    | `boolean \| 'always' \| 'never' \| 'hover'`                              | `'hover'`   |
+| `type`      | 链接语义色        | `LinkType` | `'default'` |
+| `underline` | 下划线显示策略    | `LinkUnderline` | `'hover'`   |
 | `disabled`  | 是否禁用交互      | `boolean`                                                                | `false`     |
 | `href`      | 原生链接地址      | `string`                                                                 | `''`        |
-| `target`    | 原生跳转目标      | `'_blank' \| '_parent' \| '_self' \| '_top' \| string`                   | `'_self'`   |
+| `target`    | 原生跳转目标      | `LinkTarget` | `'_self'`   |
 | `icon`      | 前置 Iconify 图标 | `string`                                                                 | —           |
 
 ### Link Events
 
 | 事件    | 说明                           | 参数         |
 | ------- | ------------------------------ | ------------ |
-| `click` | 点击链接时触发；禁用时不会触发 | `MouseEvent` |
+| `click` | 点击链接时触发；禁用时不会触发 | `LinkClickHandler` |
 
 ### Link Slots
 

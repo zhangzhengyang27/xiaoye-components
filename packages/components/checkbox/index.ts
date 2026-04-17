@@ -1,11 +1,16 @@
 import Checkbox from "./src/checkbox.vue";
 import CheckboxButton from "./src/checkbox-button.vue";
 import CheckboxGroup from "./src/checkbox-group.vue";
-import type { CheckboxProps, CheckboxValue } from "./src/checkbox";
+import type {
+  CheckboxProps,
+  CheckboxValue,
+  CheckboxValueChangeHandler
+} from "./src/checkbox";
 import type {
   CheckboxGroupDirection,
   CheckboxGroupProps,
   CheckboxGroupValue,
+  CheckboxGroupValueChangeHandler,
   CheckboxOption
 } from "./src/checkbox-group";
 import type { CheckboxButtonProps } from "./src/checkbox-button";
@@ -16,9 +21,11 @@ export type {
   CheckboxGroupDirection,
   CheckboxGroupProps,
   CheckboxGroupValue,
+  CheckboxGroupValueChangeHandler,
   CheckboxOption,
   CheckboxProps,
-  CheckboxValue
+  CheckboxValue,
+  CheckboxValueChangeHandler
 };
 
 export const XyCheckbox = withInstall(Checkbox, "xy-checkbox");

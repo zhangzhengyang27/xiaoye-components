@@ -57,10 +57,10 @@ editor/overlay-form-publisher
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 当前 Markdown 内容 | `string` | `''` |
-| `options` | 透传给 Vditor 的配置项 | `Record<string, unknown>` | `{}` |
-| `placeholder` | 占位文案 | `string` | `''` |
-| `height` | 编辑器高度 | `string \| number` | `'auto'` |
+| `model-value` | 当前 Markdown 内容 | `EditorProps["modelValue"]` | `''` |
+| `options` | 透传给 Vditor 的配置项 | `EditorProps["options"]` | `{}` |
+| `placeholder` | 占位文案 | `EditorProps["placeholder"]` | `''` |
+| `height` | 编辑器高度 | `EditorProps["height"]` | `'auto'` |
 | `min-height` | 编辑器最小高度 | `string \| number` | `360` |
 | `disabled` | 是否禁用编辑 | `boolean` | `false` |
 
@@ -68,17 +68,17 @@ editor/overlay-form-publisher
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:modelValue` | 内容输入变化时触发 | `(value: string) => void` |
-| `init` | 编辑器实例初始化后触发 | `(editor) => void` |
-| `ready` | 编辑器实例可用后触发 | `(editor) => void` |
-| `focus` | 获取焦点时触发 | `() => void` |
-| `blur` | 失焦时触发 | `(value: string) => void` |
+| `update:modelValue` | 内容输入变化时触发 | `EditorModelValueChangeHandler` |
+| `init` | 编辑器实例初始化后触发 | `EditorInstanceHandler` |
+| `ready` | 编辑器实例可用后触发 | `EditorInstanceHandler` |
+| `focus` | 获取焦点时触发 | `EditorFocusHandler` |
+| `blur` | 失焦时触发 | `EditorBlurHandler` |
 
 ### Editor Exposes
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `editor` | 当前 Vditor 实例引用 | `Vditor \| null` |
-| `getValue` | 获取当前 Markdown 内容 | `() => string` |
-| `setValue` | 主动写入 Markdown 内容 | `(value: string, clearStack?: boolean) => void` |
-| `focus` | 让编辑器获取焦点 | `() => void` |
+| `editor` | 当前 Vditor 实例引用 | `EditorInstance["editor"]` |
+| `getValue` | 获取当前 Markdown 内容 | `EditorInstance["getValue"]` |
+| `setValue` | 主动写入 Markdown 内容 | `EditorInstance["setValue"]` |
+| `focus` | 让编辑器获取焦点 | `EditorInstance["focus"]` |

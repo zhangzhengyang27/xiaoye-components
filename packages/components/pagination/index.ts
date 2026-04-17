@@ -1,8 +1,18 @@
 import Pagination from "./src/pagination.vue";
-import type { PaginationLayoutKey, PaginationProps } from "./src/pagination";
+import type {
+  PaginationChangeHandler,
+  PaginationLayoutKey,
+  PaginationPageHandler,
+  PaginationProps
+} from "./src/pagination";
 import { withInstall } from "@xiaoye/utils";
 
-export type { PaginationLayoutKey, PaginationProps };
+export type {
+  PaginationChangeHandler,
+  PaginationLayoutKey,
+  PaginationPageHandler,
+  PaginationProps
+};
 
 export const XyPagination = withInstall(Pagination, "xy-pagination");
 export default XyPagination;

@@ -12,7 +12,11 @@ import {
 import XyInput from "../../input";
 import { formItemKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
-import type { AutoCompleteOption, AutoCompleteProps } from "./auto-complete";
+import type {
+  AutoCompleteOption,
+  AutoCompleteOptionSlotProps,
+  AutoCompleteProps
+} from "./auto-complete";
 
 type InputExpose = ComponentPublicInstance<{
   focus: () => void;
@@ -49,6 +53,14 @@ const emit = defineEmits<{
   blur: [];
   searchChange: [value: string];
   select: [option: AutoCompleteOption<T>];
+}>();
+
+const slots = defineSlots<{
+  prefix?: () => unknown;
+  suffix?: () => unknown;
+  loading?: () => unknown;
+  empty?: () => unknown;
+  option?: (props: AutoCompleteOptionSlotProps<T>) => unknown;
 }>();
 
 const instance = getCurrentInstance();

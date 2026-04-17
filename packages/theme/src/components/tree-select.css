@@ -26,13 +26,13 @@
 
 .xy-tree-select.is-open .xy-tree-select__trigger {
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-tree-select__trigger:focus-visible {
   outline: 0;
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-tree-select.is-disabled .xy-tree-select__trigger {

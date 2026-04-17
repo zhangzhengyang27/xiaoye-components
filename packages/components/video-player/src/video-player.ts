@@ -2,6 +2,9 @@ export interface VideoPlayerOptions {
   [key: string]: unknown;
 }
 
+export type VideoPlayerPlayerHandler = (player: NonNullable<VideoPlayerInstance["player"]>) => void;
+export type VideoPlayerStateChangeHandler = () => void;
+
 export interface VideoPlayerSource {
   src: string;
   type?: string;

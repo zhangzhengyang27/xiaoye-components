@@ -80,10 +80,10 @@ watermark/fullscreen-target
 | `offset` | 水印距离容器左上角的偏移量，默认取 `gap / 2` | `[number, number]` | `[gap[0] / 2, gap[1] / 2]` |
 | `disabled` | 是否禁用水印渲染 | `boolean` | `false` |
 | `opacity` | 水印层透明度，内部会限制在 `0 ~ 1` | `number` | `1` |
-| `repeat` | 背景重复策略 | `'repeat' \| 'repeat-x' \| 'repeat-y' \| 'no-repeat'` | `'repeat'` |
+| `repeat` | 背景重复策略 | `WatermarkRepeat` | `'repeat'` |
 | `auto-observe` | 是否启用 DOM 观察器做自恢复 | `boolean` | `true` |
 | `fullscreen` | 是否把水印直接挂到 `document.body` 上 | `boolean` | `false` |
-| `target` | 指定外部宿主容器，支持选择器或 `HTMLElement` | `string \| HTMLElement` | `undefined` |
+| `target` | 指定外部宿主容器，支持选择器或 `HTMLElement` | `WatermarkProps["target"]` | `undefined` |
 
 ### WatermarkFont
 
@@ -93,12 +93,12 @@ watermark/fullscreen-target
 | ---- | ---- | ---- | ------ |
 | `color` | 字体颜色 | `string` | `'rgba(0,0,0,.15)'` |
 | `fontSize` | 字号 | `number \| string` | `16` |
-| `fontWeight` | 字重 | `'normal' \| 'bold' \| 'lighter' \| 'bolder' \| number` | `'normal'` |
+| `fontWeight` | 字重 | `WatermarkFontWeight` | `'normal'` |
 | `fontFamily` | 字体族 | `string` | `'sans-serif'` |
 | `fontGap` | 多行文字的行间距 | `number` | `3` |
-| `fontStyle` | 字体样式 | `'none' \| 'normal' \| 'italic' \| 'oblique'` | `'normal'` |
-| `textAlign` | 文本对齐方式 | `'left' \| 'right' \| 'center' \| 'start' \| 'end'` | `'center'` |
-| `textBaseline` | 文本基线 | `'top' \| 'hanging' \| 'middle' \| 'alphabetic' \| 'ideographic' \| 'bottom'` | `'hanging'` |
+| `fontStyle` | 字体样式 | `WatermarkFontStyle` | `'normal'` |
+| `textAlign` | 文本对齐方式 | `WatermarkTextAlign` | `'center'` |
+| `textBaseline` | 文本基线 | `WatermarkTextBaseline` | `'hanging'` |
 
 ### Watermark Slots
 
@@ -111,16 +111,16 @@ watermark/fullscreen-target
 | 事件 | 说明 | 参数 |
 | ---- | ---- | ---- |
 | `rendered` | 每次成功生成并挂载水印后触发 | `WatermarkRenderPayload` |
-| `image-error` | 图片水印加载失败时触发 | `Event` |
+| `image-error` | 图片水印加载失败时触发 | `WatermarkImageErrorHandler` |
 
 ## Exposes
 
 | 暴露项 | 说明 | 类型 |
 | ---- | ---- | ---- |
-| `rerender` | 手动重新生成当前水印 | `() => void` |
-| `getDataUrl` | 获取最近一次成功生成的 base64 数据 | `() => string \| null` |
-| `getTarget` | 获取当前实际水印宿主元素 | `() => HTMLElement \| null` |
-| `removeWatermark` | 手动移除当前水印层，适合验证 `auto-observe` 的恢复行为 | `() => void` |
+| `rerender` | 手动重新生成当前水印 | `WatermarkInstance["rerender"]` |
+| `getDataUrl` | 获取最近一次成功生成的 base64 数据 | `WatermarkInstance["getDataUrl"]` |
+| `getTarget` | 获取当前实际水印宿主元素 | `WatermarkInstance["getTarget"]` |
+| `removeWatermark` | 手动移除当前水印层，适合验证 `auto-observe` 的恢复行为 | `WatermarkInstance["removeWatermark"]` |
 
 ## 行为约定
 

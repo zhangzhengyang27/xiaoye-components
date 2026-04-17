@@ -32,17 +32,17 @@ collapse/guarded
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 当前展开项，手风琴模式下可传单值，非手风琴模式下传数组 | `string \| number \| Array<string \| number>` | `[]` |
+| `model-value` | 当前展开项，手风琴模式下可传单值，非手风琴模式下传数组 | `CollapseModelValue` | `[]` |
 | `accordion` | 是否启用手风琴模式 | `boolean` | `false` |
-| `expand-icon-position` | 展开图标位置 | `'left' \| 'right'` | `'right'` |
-| `before-collapse` | 切换前守卫，返回 `false` 或 rejected Promise 时阻止切换 | `(name) => boolean \| Promise<boolean>` | `undefined` |
+| `expand-icon-position` | 展开图标位置 | `CollapseExpandIconPosition` | `'right'` |
+| `before-collapse` | 切换前守卫，返回 `false` 或 rejected Promise 时阻止切换 | `CollapseBeforeCollapse` | `undefined` |
 
 ### Collapse Events
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:model-value` | 展开项变化 | `string \| number \| Array<string \| number>` |
-| `change` | 展开项变化时触发 | `string \| number \| Array<string \| number>` |
+| `update:model-value` | 展开项变化 | `CollapseModelValue` |
+| `change` | 展开项变化时触发 | `CollapseModelValue` |
 
 ### Collapse Slots
 
@@ -50,17 +50,30 @@ collapse/guarded
 | --- | --- |
 | `default` | `xy-collapse-item` 列表 |
 
+### Collapse Exposes
+
+| 暴露项 | 说明 | 类型 |
+| --- | --- | --- |
+| `activeNames` | 当前内部维护的展开项列表 | `CollapseInstance["activeNames"]` |
+| `setActiveNames` | 主动写入展开项列表，并同步触发 `update:model-value / change` | `CollapseInstance["setActiveNames"]` |
+
 ### CollapseItem Attributes
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `title` | 标题文案 | `string` | `''` |
-| `name` | 唯一标识，不传时自动生成 | `string \| number` | `undefined` |
+| `name` | 唯一标识，不传时自动生成 | `CollapseActiveName` | `undefined` |
 | `disabled` | 是否禁用当前项 | `boolean` | `false` |
 
 ### CollapseItem Slots
 
 | 插槽 | 说明 |
 | --- | --- |
-| `title` | 自定义标题内容，插槽参数：`isActive` |
+| `title` | 自定义标题内容，插槽参数为 `CollapseItemTitleSlotProps` |
 | `default` | 面板主体内容 |
+
+### CollapseItem Exposes
+
+| 暴露项 | 说明 | 类型 |
+| --- | --- | --- |
+| `isActive` | 当前面板项是否处于展开状态 | `CollapseItemInstance["isActive"]` |

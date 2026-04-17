@@ -70,11 +70,11 @@ divider/scene
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `direction` | 分割线方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `content-position` | 默认插槽内容的位置 | `'left' \| 'center' \| 'right'` | `'center'` |
-| `border-style` | 分割线样式，兼容 CSS `border-style` | `CSSStyleDeclaration['borderStyle']` | `'solid'` |
-| `size` | 组件尺寸，未传时跟随全局配置 | `'sm' \| 'md' \| 'lg'` | `全局 size / 'md'` |
-| `status` | 分割线语义色 | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'neutral'` |
+| `direction` | 分割线方向 | `DividerDirection` | `'horizontal'` |
+| `content-position` | 默认插槽内容的位置 | `DividerContentPosition` | `'center'` |
+| `border-style` | 分割线样式，兼容 CSS `border-style` | `DividerBorderStyle` | `'solid'` |
+| `size` | 组件尺寸，未传时跟随全局配置 | `DividerProps["size"]` | `全局 size / 'md'` |
+| `status` | 分割线语义色 | `DividerProps["status"]` | `'neutral'` |
 
 ### Divider Slots
 

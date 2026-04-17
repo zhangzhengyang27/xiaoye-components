@@ -64,17 +64,17 @@ steps/simple
 | --- | --- | --- | --- |
 | `space` | 每个步骤项的间距；支持数字和百分比字符串 | `number \| string` | `''` |
 | `active` | 当前激活步骤，从 `0` 开始计数 | `number` | `0` |
-| `direction` | 展示方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `direction` | 展示方向 | `StepsDirection` | `'horizontal'` |
 | `align-center` | 是否在横向模式下居中标题和描述 | `boolean` | `false` |
 | `simple` | 是否启用紧凑模式 | `boolean` | `false` |
-| `finish-status` | 已完成步骤的状态映射 | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'finish'` |
-| `process-status` | 当前步骤的状态映射 | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'process'` |
+| `finish-status` | 已完成步骤的状态映射 | `StepsStatus` | `'finish'` |
+| `process-status` | 当前步骤的状态映射 | `StepsStatus` | `'process'` |
 
 ### Steps Events
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `change` | `active` 变化时触发 | `(newValue: number, oldValue: number)` |
+| `change` | `active` 变化时触发 | `StepsChangeHandler` |
 
 ### Steps Slots
 
@@ -89,7 +89,7 @@ steps/simple
 | `title` | 步骤标题 | `string` | `''` |
 | `description` | 步骤描述 | `string` | `''` |
 | `icon` | 自定义图标名，内部由 `xy-icon` 渲染 | `string` | `''` |
-| `status` | 显式指定当前步骤状态；不传时由父级自动计算 | `'' \| 'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `''` |
+| `status` | 显式指定当前步骤状态；不传时由父级自动计算 | `StepStatus` | `''` |
 
 ### Step Slots
 

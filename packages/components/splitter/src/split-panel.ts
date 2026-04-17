@@ -7,3 +7,5 @@ export interface SplitterPanelProps {
   resizable?: boolean;
   collapsible?: boolean;
 }
+
+export type SplitterPanelSizeChangeHandler = (value: number) => void;

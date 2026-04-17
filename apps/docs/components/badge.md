@@ -48,7 +48,7 @@ badge/offset
 | `max`         | 最大值，超出时显示 `{max}+` | `number`                                            | `99`       |
 | `is-dot`      | 是否显示为小圆点           | `boolean`                                             | `false`    |
 | `hidden`      | 是否隐藏徽章               | `boolean`                                             | `false`    |
-| `type`        | 徽章类型                   | `'primary' \| 'success' \| 'warning' \| 'info' \| 'danger'` | `'danger'` |
+| `type`        | 徽章类型                   | `BadgeType` | `'danger'` |
 | `show-zero`   | 值为 0 时是否显示          | `boolean`                                             | `true`     |
 | `color`       | 自定义背景色               | `string`                                              | `''`       |
 | `badge-style` | 自定义徽章样式             | `StyleValue`                                          | —          |
@@ -60,10 +60,10 @@ badge/offset
 | 插槽      | 说明                             |
 | --------- | -------------------------------- |
 | `default` | 宿主内容                         |
-| `content` | 自定义徽章内容，接收 `{ value }` |
+| `content` | 自定义徽章内容，接收 `BadgeContentSlotProps` |
 
 ### Badge Exposes
 
 | 暴露项    | 说明         | 类型                    |
 | --------- | ------------ | ----------------------- |
-| `content` | 计算后的徽章值 | `ComputedRef<string>` |
+| `content` | 计算后的徽章值 | `BadgeInstance["content"]` |

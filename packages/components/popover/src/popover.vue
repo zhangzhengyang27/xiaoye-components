@@ -35,6 +35,13 @@ export interface PopoverProps {
   popperStyle?: StyleValue;
 }
 
+export type PopoverTrigger = NonNullable<PopoverProps["trigger"]>;
+export type PopoverModelValueChangeHandler = (value: boolean) => void;
+
+export interface PopoverDefaultSlotProps {
+  close: () => void;
+}
+
 const props = withDefaults(defineProps<PopoverProps>(), {
   modelValue: false,
   title: "",
@@ -109,6 +116,12 @@ const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpd
     zIndex
   }
 );
+
+function closePopover() {
+  closeFloating({
+    immediate: true
+  });
+}
 
 function handleTriggerClick() {
   if (props.trigger !== "click") {
@@ -242,14 +255,7 @@ onBeforeUnmount(() => {
             </slot>
           </header>
           <div class="xy-popover__body">
-            <slot
-              :close="
-                () =>
-                  closeFloating({
-                    immediate: true
-                  })
-              "
-            >
+            <slot :close="closePopover">
               {{ props.content }}
             </slot>
           </div>

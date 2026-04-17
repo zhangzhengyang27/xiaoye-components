@@ -56,16 +56,16 @@ tabs/methods
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 当前激活项 | `string` | 首个可用项 |
-| `default-value` | 非受控场景下的初始激活项 | `string` | `undefined` |
+| `model-value` | 当前激活项 | `TabsProps["modelValue"]` | 首个可用项 |
+| `default-value` | 非受控场景下的初始激活项 | `TabsProps["defaultValue"]` | `undefined` |
 | `items` | 页签项配置 | `TabItem[]` | `[]` |
-| `type` | 页签风格 | `'' \| 'card' \| 'border-card'` | `''` |
-| `tab-position` | 页签位置 | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` |
+| `type` | 页签风格 | `TabsType` | `''` |
+| `tab-position` | 页签位置 | `TabsPosition` | `'top'` |
 | `closable` | 是否默认显示关闭按钮 | `boolean` | `false` |
 | `addable` | 是否显示新增按钮 | `boolean` | `false` |
 | `editable` | 是否同时开启新增和关闭能力 | `boolean` | `false` |
 | `stretch` | 是否拉伸平铺页签 | `boolean` | `false` |
-| `before-leave` | 切换前守卫 | `(newKey, oldKey) => boolean \| void \| Promise<boolean \| void>` | `undefined` |
+| `before-leave` | 切换前守卫 | `TabsBeforeLeave` | `undefined` |
 | `tabindex` | 激活页签的 tabindex | `string \| number` | `0` |
 
 ### TabItem
@@ -81,22 +81,23 @@ tabs/methods
 
 | 事件                 | 说明           | 参数       |
 | -------------------- | -------------- | ---------- |
-| `update:model-value` | 激活项变化     | `string`   |
-| `change`             | 切换页签时触发 | `string`   |
-| `tab-click`          | 点击页签时触发 | `(key: string, event: MouseEvent \| KeyboardEvent)` |
-| `edit`               | 新增或关闭页签时触发 | `(key: string \| undefined, action: 'remove' \| 'add')` |
-| `tab-remove`         | 关闭页签时触发 | `string` |
-| `tab-add`            | 点击新增页签时触发 | — |
+| `update:model-value` | 激活项变化     | `TabsModelValueChangeHandler`   |
+| `change`             | 切换页签时触发 | `TabsChangeHandler`   |
+| `tab-click`          | 点击页签时触发 | `TabsTabClickHandler` |
+| `edit`               | 新增或关闭页签时触发 | `TabsEditHandler` |
+| `tab-remove`         | 关闭页签时触发 | `TabsTabRemoveHandler` |
+| `tab-add`            | 点击新增页签时触发 | `TabsTabAddHandler` |
 
 ### Tabs Slots
 
 | 插槽      | 说明                                          |
 | --------- | --------------------------------------------- |
-| `default` | 面板内容，暴露 `activeKey` 与 `activeItem`    |
+| `default` | 面板内容，插槽参数为 `TabsDefaultSlotProps`    |
 | `add-icon` | 自定义新增按钮图标                           |
 
 ### Tabs Exposes
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `currentName` | 当前激活页签 key | `string` |
+| `currentName` | 当前激活页签 key | `TabsInstance["currentName"]` |
+| `scrollToActiveTab` | 将激活页签滚动到可视区域 | `TabsInstance["scrollToActiveTab"]` |

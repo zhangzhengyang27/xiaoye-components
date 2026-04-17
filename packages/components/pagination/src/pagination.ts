@@ -11,6 +11,9 @@ export type PaginationLayoutKey =
   | "sizes"
   | "slot";
 
+export type PaginationPageHandler = (value: number) => void;
+export type PaginationChangeHandler = (page: number, pageSize: number) => void;
+
 export interface PaginationProps {
   currentPage?: number;
   defaultCurrentPage?: number;

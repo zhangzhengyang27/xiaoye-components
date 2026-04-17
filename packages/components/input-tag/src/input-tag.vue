@@ -3,14 +3,14 @@ defineOptions({
   inheritAttrs: false
 });
 
-import { computed, inject, nextTick, ref, shallowRef, useAttrs, useSlots, watch } from "vue";
+import { computed, inject, nextTick, ref, shallowRef, useAttrs, watch } from "vue";
 import type { StyleValue } from "vue";
 import { useConfig, useNamespace } from "@xiaoye/composables";
 import XyIcon from "../../icon";
 import XyTag from "../../tag";
 import { formItemKey } from "../../form/src/context";
 import { DEFAULT_CLEAR_ICON } from "./input-tag";
-import type { InputTagProps, InputTagTrigger } from "./input-tag";
+import type { InputTagProps, InputTagSlotProps, InputTagTrigger } from "./input-tag";
 
 const props = withDefaults(defineProps<InputTagProps>(), {
   modelValue: undefined,
@@ -53,7 +53,11 @@ const emit = defineEmits<{
 }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
+const slots = defineSlots<{
+  prefix?: () => unknown;
+  suffix?: () => unknown;
+  tag?: (props: InputTagSlotProps) => unknown;
+}>();
 const formItem = inject(formItemKey, null);
 const ns = useNamespace("input-tag");
 const { size: globalSize } = useConfig();

@@ -146,7 +146,7 @@
 }
 
 .xy-radio__original:focus-visible + .xy-radio__inner {
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-radio.is-checked .xy-radio__inner {
@@ -325,7 +325,7 @@
 
 .xy-radio-button__original:focus-visible + .xy-radio-button__inner,
 .xy-radio-button.is-focus .xy-radio-button__inner {
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-radio-button.is-disabled .xy-radio-button__inner {

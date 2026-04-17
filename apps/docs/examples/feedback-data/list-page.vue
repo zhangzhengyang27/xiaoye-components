@@ -26,29 +26,8 @@ watch(showEmpty, (value) => {
   }
 });
 
-function resolveClickedRow(target: EventTarget | null) {
-  const rowElement = target instanceof HTMLElement ? target.closest("tbody tr") : null;
-  const rowText = rowElement?.textContent?.replace(/\s+/g, " ").trim();
-
-  if (!rowText) {
-    return null;
-  }
-
-  return displayRows.value.find((row) => rowText.includes(row.name) && rowText.includes(row.owner)) ?? null;
-}
-
 function rowClassName(row: DemoRow) {
   return row.id === activeRowId.value ? "doc-row-active" : "";
-}
-
-function handleTableClick(event: MouseEvent) {
-  const row = resolveClickedRow(event.target);
-
-  if (!row) {
-    return;
-  }
-
-  activeRowId.value = row.id;
 }
 </script>
 
@@ -62,34 +41,32 @@ function handleTableClick(event: MouseEvent) {
       </xy-tag>
     </xy-space>
 
-    <div @click.capture="handleTableClick">
-      <xy-table
-        v-model:current-row-key="activeRowId"
-        :data="displayRows"
-        :loading="loading"
-        loading-text="正在加载项目列表"
-        row-key="id"
-        :row-class-name="rowClassName"
-        highlight-current-row
-        clickable
-      >
-        <xy-table-column prop="name" label="项目名称" />
-        <xy-table-column prop="owner" label="负责人" />
-        <xy-table-column prop="status" label="状态">
-          <template #default="{ value }">
-            <xy-tag :status="value === '已上线' ? 'success' : 'warning'">{{ value }}</xy-tag>
-          </template>
-        </xy-table-column>
-        <template #loading>
-          正在同步项目数据，请稍候...
+    <xy-table
+      v-model:current-row-key="activeRowId"
+      :data="displayRows"
+      :loading="loading"
+      loading-text="正在加载项目列表"
+      row-key="id"
+      :row-class-name="rowClassName"
+      highlight-current-row
+      clickable
+    >
+      <xy-table-column prop="name" label="项目名称" />
+      <xy-table-column prop="owner" label="负责人" />
+      <xy-table-column prop="status" label="状态">
+        <template #default="{ value }">
+          <xy-tag :status="value === '已上线' ? 'success' : 'warning'">{{ value }}</xy-tag>
         </template>
-        <template #empty>
-          <xy-empty title="暂无项目" description="当前筛选条件没有返回结果">
-            <xy-button plain @click="showEmpty = false">恢复数据</xy-button>
-          </xy-empty>
-        </template>
-      </xy-table>
-    </div>
+      </xy-table-column>
+      <template #loading>
+        正在同步项目数据，请稍候...
+      </template>
+      <template #empty>
+        <xy-empty title="暂无项目" description="当前筛选条件没有返回结果">
+          <xy-button plain @click="showEmpty = false">恢复数据</xy-button>
+        </xy-empty>
+      </template>
+    </xy-table>
 
     <xy-pagination :total="86" />
   </div>

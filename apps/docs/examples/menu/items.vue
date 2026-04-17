@@ -196,101 +196,44 @@ function permissionChecker(permission: string | string[] | undefined) {
   border-radius: var(--xy-radius-lg);
   background: var(--xy-surface-raised);
   box-shadow: var(--xy-shadow-card);
-}
-
-:global(.demo-menu-items__sidebar .xy-menu--vertical) {
-  gap: 4px;
-  padding: 6px;
-  border-radius: 18px;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu--vertical > .xy-menu-item),
-:global(.demo-menu-items__sidebar .xy-menu--vertical > .xy-sub-menu > .xy-menu__item-surface) {
-  min-height: 34px;
-  padding: 5px 10px;
-  border-radius: 11px;
-  line-height: 1.2;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu-item:hover),
-:global(.demo-menu-items__sidebar .xy-sub-menu > .xy-menu__item-surface:hover) {
-  background: var(--xy-bg-color-subtle);
-  box-shadow: inset 0 0 0 1px
+  --xy-menu-padding: 6px;
+  --xy-menu-gap: 4px;
+  --xy-menu-radius: 18px;
+  --xy-menu-item-min-height: 34px;
+  --xy-menu-item-padding-block: 5px;
+  --xy-menu-item-padding-inline: 10px;
+  --xy-menu-item-radius: 11px;
+  --xy-menu-item-line-height: 1.2;
+  --xy-menu-content-gap: 7px;
+  --xy-menu-icon-size: 17px;
+  --xy-menu-icon-color: var(--xy-color-primary);
+  --xy-menu-hover-shadow: inset 0 0 0 1px
     color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
-  transform: none;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu-item.is-active),
-:global(.demo-menu-items__sidebar .xy-sub-menu.is-active > .xy-menu__item-surface) {
-  color: var(--xy-color-primary);
-  background: var(--xy-color-primary-soft);
-  box-shadow: inset 0 0 0 1px
+  --xy-menu-active-bg: var(--xy-color-primary-soft);
+  --xy-menu-active-shadow: inset 0 0 0 1px
     color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__item-content) {
-  gap: 7px;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu-item-group) {
-  margin: 4px 0;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__group-title) {
-  padding: 2px 10px 4px;
-  color: var(--xy-text-color-muted);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__sub-list) {
-  margin: 0;
-  padding: 4px 0 4px 10px;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__sub-list > .xy-menu-item) {
-  min-height: 34px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  line-height: 1.2;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__item-row) {
-  gap: 8px;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__item-main) {
-  gap: 7px;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__item-meta) {
-  gap: 8px;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__item-badge) {
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-:global(.demo-menu-items__sidebar .xy-menu__item-extra) {
-  color: var(--xy-text-color-secondary);
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-:global(.demo-menu-items__sidebar .xy-icon) {
-  font-size: 17px;
-  color: var(--xy-color-primary);
+  --xy-menu-group-margin: 4px 0;
+  --xy-menu-group-title-padding: 2px 10px 4px;
+  --xy-menu-group-title-color: var(--xy-text-color-muted);
+  --xy-menu-group-title-font-size: 11px;
+  --xy-menu-group-title-font-weight: 700;
+  --xy-menu-group-title-letter-spacing: 0.04em;
+  --xy-menu-group-title-line-height: 1.2;
+  --xy-menu-sub-list-padding: 4px 0 4px 10px;
+  --xy-menu-item-row-gap: 8px;
+  --xy-menu-item-main-gap: 7px;
+  --xy-menu-item-meta-gap: 8px;
+  --xy-menu-badge-min-width: 18px;
+  --xy-menu-badge-height: 18px;
+  --xy-menu-badge-padding: 0 5px;
+  --xy-menu-badge-bg: var(--xy-color-primary-soft);
+  --xy-menu-badge-color: var(--xy-color-primary);
+  --xy-menu-badge-font-size: 11px;
+  --xy-menu-extra-color: var(--xy-text-color-secondary);
+  --xy-menu-extra-font-size: 11px;
+  --xy-menu-extra-font-weight: 500;
+  --xy-menu-extra-line-height: 1.2;
+  --xy-menu-extra-white-space: nowrap;
 }
 
 .demo-menu-items__panel {

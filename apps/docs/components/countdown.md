@@ -74,8 +74,8 @@ countdown/approval-deadline
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `change` | 每次倒计时更新时触发 | `(remainingMs: number)` |
-| `finish` | 倒计时结束时触发 | `()` |
+| `change` | 每次倒计时更新时触发 | `CountdownChangeHandler` |
+| `finish` | 倒计时结束时触发 | `CountdownFinishHandler` |
 
 ### Countdown Slots
 
@@ -89,4 +89,4 @@ countdown/approval-deadline
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `displayValue` | 当前展示文本 | `ComputedRef<string>` |
+| `displayValue` | 当前展示文本 | `CountdownInstance["displayValue"]` |

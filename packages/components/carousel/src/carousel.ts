@@ -1,3 +1,5 @@
+import type Carousel from "./carousel.vue";
+
 export const carouselTriggers = ["hover", "click"] as const;
 export const carouselIndicatorPositions = ["", "none", "outside"] as const;
 export const carouselArrows = ["always", "hover", "never"] as const;
@@ -23,6 +25,32 @@ export type CarouselThumbIndicatorType = (typeof carouselThumbIndicatorTypes)[nu
 export type CarouselProgressPlacement = (typeof carouselProgressPlacements)[number];
 export type CarouselAlignment = (typeof carouselAlignments)[number];
 export type CarouselContainScroll = (typeof carouselContainScrolls)[number];
+export type CarouselActiveIndexChangeHandler = (value: number) => void;
+export type CarouselChangeHandler = (current: number, previous: number) => void;
+
+export interface CarouselIndicatorSlotProps {
+  index: number;
+  active: boolean;
+  total: number;
+}
+
+export interface CarouselArrowSlotProps {
+  disabled: boolean;
+}
+
+export interface CarouselProgressSlotProps {
+  percent: number;
+  activeIndex: number;
+}
+
+export interface CarouselThumbSlotItem {
+  name?: string;
+  label?: string | number;
+}
+
+export interface CarouselThumbSlotProps extends CarouselIndicatorSlotProps {
+  item: CarouselThumbSlotItem;
+}
 
 export interface CarouselProps {
   activeIndex?: number;
@@ -65,3 +93,5 @@ export interface CarouselProps {
   ariaLabel?: string;
   keyboard?: boolean;
 }
+
+export type CarouselInstance = InstanceType<typeof Carousel>;

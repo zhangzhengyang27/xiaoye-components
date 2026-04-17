@@ -1,3 +1,5 @@
+import type Skeleton from "./skeleton.vue";
+
 export interface SkeletonThrottleOptions {
   leading?: number;
   trailing?: number;
@@ -13,3 +15,5 @@ export interface SkeletonProps {
   loading?: boolean;
   throttle?: SkeletonThrottle;
 }
+
+export type SkeletonInstance = InstanceType<typeof Skeleton>;

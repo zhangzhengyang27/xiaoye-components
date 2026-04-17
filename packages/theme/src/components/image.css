@@ -170,7 +170,7 @@
 .xy-image-viewer__action:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 88%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-image-viewer__close,

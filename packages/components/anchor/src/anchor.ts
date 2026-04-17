@@ -4,6 +4,8 @@ export const anchorDirections = ["vertical", "horizontal"] as const;
 
 export type AnchorDirection = (typeof anchorDirections)[number];
 export type AnchorContainer = string | HTMLElement | Window | null;
+export type AnchorChangeHandler = (href: string) => void;
+export type AnchorClickHandler = (event: MouseEvent, href?: string) => void;
 
 export interface AnchorProps {
   container?: AnchorContainer;

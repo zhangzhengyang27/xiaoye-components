@@ -41,6 +41,13 @@ export interface FormContext {
   resetFields: (props?: FormProp | FormProp[]) => void;
 }
 
+export interface FormInstance {
+  validate: () => Promise<boolean>;
+  validateField: (prop?: FormProp | FormProp[], trigger?: FormTrigger) => Promise<boolean>;
+  resetFields: (prop?: FormProp | FormProp[]) => void;
+  clearValidate: (prop?: FormProp | FormProp[]) => void;
+}
+
 export interface FormItemContext {
   prop?: FormProp;
   inputId: string;

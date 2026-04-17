@@ -70,26 +70,26 @@ video-player/detail-page-audit
 | `controls` | 是否显示控制条 | `boolean` | `true` |
 | `loop` | 是否循环播放 | `boolean` | `false` |
 | `muted` | 是否静音 | `boolean` | `false` |
-| `preload` | 预加载策略 | `'auto' \| 'metadata' \| 'none'` | `'metadata'` |
+| `preload` | 预加载策略 | `VideoPlayerProps["preload"]` | `'metadata'` |
 | `width` | 容器宽度 | `string \| number` | `'100%'` |
 | `height` | 容器高度 | `string \| number` | `360` |
-| `options` | 透传给 `video.js` 的配置项 | `Record<string, unknown>` | `{}` |
+| `options` | 透传给 `video.js` 的配置项 | `VideoPlayerProps["options"]` | `{}` |
 
 ### VideoPlayer Events
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `init` | 播放器实例初始化后触发 | `(player) => void` |
-| `ready` | 播放器实例可用后触发 | `(player) => void` |
-| `play` | 开始播放时触发 | `() => void` |
-| `pause` | 暂停播放时触发 | `() => void` |
-| `ended` | 播放结束时触发 | `() => void` |
+| `init` | 播放器实例初始化后触发 | `VideoPlayerPlayerHandler` |
+| `ready` | 播放器实例可用后触发 | `VideoPlayerPlayerHandler` |
+| `play` | 开始播放时触发 | `VideoPlayerStateChangeHandler` |
+| `pause` | 暂停播放时触发 | `VideoPlayerStateChangeHandler` |
+| `ended` | 播放结束时触发 | `VideoPlayerStateChangeHandler` |
 
 ### VideoPlayer Exposes
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `player` | 当前 `video.js` 实例引用 | `unknown` |
-| `play` | 开始播放 | `() => Promise<void> \| void` |
-| `pause` | 暂停播放 | `() => void` |
-| `load` | 加载指定片源列表 | `(sources?: VideoPlayerSource[]) => void` |
+| `player` | 当前 `video.js` 实例引用 | `VideoPlayerInstance["player"]` |
+| `play` | 开始播放 | `VideoPlayerInstance["play"]` |
+| `pause` | 暂停播放 | `VideoPlayerInstance["pause"]` |
+| `load` | 加载指定片源列表 | `VideoPlayerInstance["load"]` |

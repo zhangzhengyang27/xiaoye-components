@@ -46,9 +46,9 @@ input-tag/form
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 当前标签列表 | `string[] \| undefined` | `undefined` |
+| `model-value` | 当前标签列表 | `InputTagValue` | `undefined` |
 | `max` | 最大标签数量 | `number` | `undefined` |
-| `trigger` | 提交标签的触发键 | `'Enter' \| 'Space'` | `'Enter'` |
+| `trigger` | 提交标签的触发键 | `InputTagTrigger` | `'Enter'` |
 | `draggable` | 是否启用拖拽排序 | `boolean` | `false` |
 | `delimiter` | 自动拆分标签的分隔符 | `string \| RegExp` | `''` |
 | `size` | 组件尺寸 | `ComponentSize` | 跟随全局配置 |
@@ -76,14 +76,14 @@ input-tag/form
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:model-value` | 标签列表变化时触发 | `string[] \| undefined` |
-| `change` | 标签列表确认变化时触发 | `string[] \| undefined` |
-| `input` | 输入框内容变化时触发 | `string` |
-| `add-tag` | 新增标签时触发 | `string \| string[]` |
-| `remove-tag` | 删除标签时触发 | `(value: string, index: number)` |
-| `drag-tag` | 拖拽排序完成时触发 | `(oldIndex: number, newIndex: number, value: string)` |
-| `focus` | 获得焦点时触发 | `FocusEvent` |
-| `blur` | 失去焦点时触发 | `FocusEvent` |
+| `update:model-value` | 标签列表变化时触发 | `InputTagValueChangeHandler` |
+| `change` | 标签列表确认变化时触发 | `InputTagValueChangeHandler` |
+| `input` | 输入框内容变化时触发 | `InputTagInputHandler` |
+| `add-tag` | 新增标签时触发 | `InputTagAddTagHandler` |
+| `remove-tag` | 删除标签时触发 | `InputTagRemoveTagHandler` |
+| `drag-tag` | 拖拽排序完成时触发 | `InputTagDragTagHandler` |
+| `focus` | 获得焦点时触发 | `InputTagFocusHandler` |
+| `blur` | 失去焦点时触发 | `InputTagFocusHandler` |
 | `clear` | 清空全部标签时触发 | — |
 
 ### InputTag Slots
@@ -92,13 +92,13 @@ input-tag/form
 | --- | --- |
 | `prefix` | 输入框前缀内容 |
 | `suffix` | 输入框后缀内容 |
-| `tag` | 自定义标签内容，接收 `{ value, index }` |
+| `tag` | 自定义标签内容，接收 `InputTagSlotProps` |
 
 ### InputTag Exposes
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `input` | 原生输入框引用 | `ShallowRef<HTMLInputElement \| null>` |
-| `focus` | 聚焦输入框 | `() => void` |
-| `blur` | 让输入框失焦 | `() => void` |
-| `clear` | 清空全部标签 | `() => Promise<void>` |
+| `input` | 原生输入框引用 | `InputTagInstance["input"]` |
+| `focus` | 聚焦输入框 | `InputTagInstance["focus"]` |
+| `blur` | 让输入框失焦 | `InputTagInstance["blur"]` |
+| `clear` | 清空全部标签 | `InputTagInstance["clear"]` |

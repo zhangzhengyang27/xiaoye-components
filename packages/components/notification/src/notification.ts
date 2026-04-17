@@ -44,6 +44,9 @@ export type NotificationServiceCloseReason =
 export type NotificationOverflowStrategy =
   (typeof notificationOverflowStrategies)[number];
 export type NotificationContent = string | VNode | (() => VNodeChild);
+export type NotificationModelValueChangeHandler = (value: boolean) => void;
+export type NotificationCloseHandler = (reason: NotificationCloseReason) => void;
+export type NotificationClickHandler = (event: MouseEvent) => void;
 
 export interface NotificationCloseFilter {
   type?: NotificationType;
@@ -174,6 +177,7 @@ export interface NotificationService extends NotificationServiceFn {
 
 export type NotificationInstance = InstanceType<typeof Notification> & {
   close: (reason?: NotificationCloseReason) => void;
+  visible: boolean;
 };
 
 export const NOTIFICATION_TYPE_ICON_MAP: Record<NotificationType, string> = {

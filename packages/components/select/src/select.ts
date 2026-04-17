@@ -10,11 +10,20 @@ export interface SelectOptionGroup<T = string | number> {
 
 export type SelectOptionItem<T = string | number> = SelectOption<T> | SelectOptionGroup<T>;
 export type SelectValue<T = string | number> = T | T[] | null;
+export type SelectValueChangeHandler<T = string | number> = (value: SelectValue<T>) => void;
+export type SelectVisibleChangeHandler = (value: boolean) => void;
+export type SelectSearchChangeHandler = (value: string) => void;
 
 export interface FlatSelectOption<T = string | number> extends SelectOption<T> {
   flatIndex: number;
   groupLabel?: string;
   created?: boolean;
+}
+
+export interface SelectOptionSlotProps<T = string | number> {
+  option: FlatSelectOption<T>;
+  selected: boolean;
+  active: boolean;
 }
 
 export interface SelectProps<T = string | number> {
@@ -49,6 +58,13 @@ export interface SelectProps<T = string | number> {
   fitInputWidth?: boolean;
   dropdownMinWidth?: string | number;
   dropdownMaxWidth?: string | number;
+}
+
+export interface SelectInstance {
+  focus: () => void;
+  blur: () => Promise<void>;
+  open: () => Promise<void>;
+  close: (shouldValidate?: boolean, restoreFocus?: boolean) => Promise<void>;
 }
 
 export const DEFAULT_CLEAR_ICON = "mdi:close-circle";

@@ -18,7 +18,7 @@ export const libraryExternal = [
   "@iconify/vue",
   "@floating-ui/dom",
   "async-validator",
-  "echarts",
+  /^echarts(?:\/.+)?$/,
   "@fullcalendar/core",
   "@fullcalendar/core/locales/zh-cn",
   "@fullcalendar/daygrid",

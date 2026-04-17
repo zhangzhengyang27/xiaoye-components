@@ -4,27 +4,37 @@ import DropdownItemComponent from "./src/dropdown-item.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
 import type {
+  DropdownClickHandler,
   DropdownCommand,
+  DropdownCommandHandler,
   DropdownItem,
+  DropdownModelValueChangeHandler,
   DropdownPopperOptions,
   DropdownProps,
   DropdownRole,
+  DropdownSelectHandler,
   DropdownSelectItem,
-  DropdownTrigger
+  DropdownTrigger,
+  DropdownVisibleChangeHandler
 } from "./src/dropdown";
 import type { DropdownItemProps } from "./src/dropdown-item";
 import type { DropdownMenuProps } from "./src/dropdown-menu";
 
 export type {
+  DropdownClickHandler,
   DropdownCommand,
+  DropdownCommandHandler,
   DropdownItem,
   DropdownItemProps,
   DropdownMenuProps,
+  DropdownModelValueChangeHandler,
   DropdownPopperOptions,
   DropdownProps,
   DropdownRole,
+  DropdownSelectHandler,
   DropdownSelectItem,
-  DropdownTrigger
+  DropdownTrigger,
+  DropdownVisibleChangeHandler
 };
 
 export const XyDropdownMenu = withInstall(DropdownMenu, "xy-dropdown-menu");

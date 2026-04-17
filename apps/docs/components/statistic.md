@@ -58,7 +58,7 @@ statistic/review-panel
 | `precision` | 小数位数，按四舍五入处理 | `number` | `0` |
 | `decimal-separator` | 小数分隔符 | `string` | `'.'` |
 | `group-separator` | 千分位分隔符 | `string` | `','` |
-| `formatter` | 自定义展示函数 | `(value: number \| string) => string \| number` | `undefined` |
+| `formatter` | 自定义展示函数 | `StatisticFormatter` | `undefined` |
 | `value-style` | 数值区域样式 | `StyleValue` | `undefined` |
 
 ### Statistic Slots
@@ -73,7 +73,7 @@ statistic/review-panel
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `displayValue` | 当前实际展示文本 | `ComputedRef<string \| number>` |
+| `displayValue` | 当前实际展示文本 | `StatisticInstance["displayValue"]` |
 
 ### CSS Variables
 

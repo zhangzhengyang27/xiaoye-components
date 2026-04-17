@@ -12,6 +12,8 @@ export interface TagProps {
   icon?: string;
 }
 
+export type TagCloseHandler = (event: MouseEvent) => void;
+
 const props = withDefaults(defineProps<TagProps>(), {
   status: "neutral",
   size: undefined,

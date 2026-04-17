@@ -46,11 +46,11 @@ form/nested
 
 | 属性             | 说明         | 类型                           | 默认值    |
 | ---------------- | ------------ | ------------------------------ | --------- |
-| `model`          | 表单数据对象 | `Record<string, unknown>`      | —         |
+| `model`          | 表单数据对象 | `FormProps["model"]`           | —         |
 | `rules`          | 校验规则集合 | `FormRules`                    | `{}`      |
 | `label-width`    | 标签宽度     | `string \| number`             | `'112px'` |
-| `label-position` | 标签布局方式 | `'left' \| 'top'`              | `'left'`  |
-| `size`           | 表单默认尺寸 | `ComponentSize`                | `'md'`    |
+| `label-position` | 标签布局方式 | `FormProps["labelPosition"]`   | `'left'`  |
+| `size`           | 表单默认尺寸 | `FormProps["size"]`            | `'md'`    |
 | `inline`         | 是否启用内联布局 | `boolean`                   | `false`   |
 | `disabled`       | 是否整表禁用 | `boolean`                     | `false`   |
 | `scroll-to-error` | 校验失败时滚动到首个错误字段 | `boolean`  | `false`   |
@@ -58,12 +58,12 @@ form/nested
 
 ### Form Exposes
 
-| 方法                             | 说明                                         |
-| -------------------------------- | -------------------------------------------- |
-| `validate()`                     | 校验整个表单                                 |
-| `validateField(props, trigger?)` | 校验指定字段                                 |
-| `resetFields(props?)`            | 重置指定字段或整表单                         |
-| `clearValidate(props?)`          | 清空指定字段或整表单的校验信息               |
+| 方法                             | 说明                                         | 签名 |
+| -------------------------------- | -------------------------------------------- | ---- |
+| `validate()`                     | 校验整个表单                                 | `FormInstance["validate"]` |
+| `validateField(props, trigger?)` | 校验指定字段                                 | `FormInstance["validateField"]` |
+| `resetFields(props?)`            | 重置指定字段或整表单                         | `FormInstance["resetFields"]` |
+| `clearValidate(props?)`          | 清空指定字段或整表单的校验信息               | `FormInstance["clearValidate"]` |
 
 ## FormItem API
 
@@ -72,7 +72,7 @@ form/nested
 | 属性       | 说明                           | 类型           | 默认值  |
 | ---------- | ------------------------------ | -------------- | ------- |
 | `label`    | 字段标签                       | `string`       | `''`    |
-| `prop`     | 对应的模型字段名               | `string \| string[]` | `''` |
+| `prop`     | 对应的模型字段名               | `FormProp` | `''` |
 | `rules`    | 当前项额外规则                 | `XyFormRule[]` | `[]`    |
 | `required` | 是否必填                       | `boolean`      | `false` |
 | `help`     | 帮助或占位提示文案             | `string`       | `''`    |

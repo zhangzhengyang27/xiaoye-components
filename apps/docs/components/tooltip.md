@@ -72,7 +72,7 @@ tooltip/advanced
 | `popper-class`| 浮层容器自定义类名     | `string`                                                             | `''` |
 | `popper-style`| 浮层容器自定义样式     | `StyleValue`                                                         | `undefined` |
 | `aria-label`  | 自定义辅助说明文本     | `string`                                                             | `undefined` |
-| `effect`      | 视觉主题               | `'dark' \| 'light'`                                                  | `'dark'` |
+| `effect`      | 视觉主题               | `TooltipEffect`                                                      | `'dark'` |
 | `raw-content` | 是否把 `content` 当作 HTML 字符串渲染 | `boolean`                                                | `false` |
 | `transition`  | 过渡动画名称           | `string`                                                             | `'xy-fade'` |
 | `virtual-ref` | 虚拟触发引用           | `ReferenceElement \| null`                                           | `null` |
@@ -83,20 +83,17 @@ tooltip/advanced
 
 ### Tooltip Popper Options
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `strategy` | 定位策略 | `'absolute' \| 'fixed'` | `'fixed'` |
-| `z-index` | 浮层层级 | `number` | 跟随全局 overlay 栈 |
-| `arrow-padding` | 箭头与边界的安全距离 | `number` | `8` |
-| `shift-padding` | `shift` 中间件的边界留白 | `number` | `8` |
-| `flip` | 是否允许翻转 | `boolean` | `true` |
-| `fallback-placements` | 翻转候选方向 | `Placement[]` | `[]` |
+`popper-options` 的类型为 `TooltipPopperOptions`：
+
+```ts
+type TooltipPopperOptions = TooltipProps["popperOptions"];
+```
 
 ### Tooltip Events
 
 | 事件                 | 说明         | 参数      |
 | -------------------- | ------------ | --------- |
-| `update:model-value` | 开关状态变化 | `boolean` |
+| `update:model-value` | 开关状态变化 | `TooltipModelValueChangeHandler` |
 | `before-show`        | 打开前触发   | —         |
 | `open`               | 打开时触发   | —         |
 | `show`               | 进入过渡结束后触发 | —      |
@@ -115,9 +112,9 @@ tooltip/advanced
 
 | 名称 | 说明 | 类型 |
 | --- | --- | --- |
-| `triggerRef` | 当前触发节点引用 | `Ref<HTMLElement \| null>` |
-| `contentRef` | 当前内容节点引用 | `Ref<HTMLElement \| null>` |
-| `show` | 立即打开 Tooltip | `() => void` |
-| `hide` | 立即关闭 Tooltip | `() => void` |
-| `updatePopper` | 重新计算定位 | `() => Promise<void>` |
-| `isFocusInsideContent` | 判断焦点是否位于内容区 | `(event?: FocusEvent) => boolean` |
+| `triggerRef` | 当前触发节点引用 | `TooltipExposed["triggerRef"]` |
+| `contentRef` | 当前内容节点引用 | `TooltipExposed["contentRef"]` |
+| `show` | 立即打开 Tooltip | `TooltipExposed["show"]` |
+| `hide` | 立即关闭 Tooltip | `TooltipExposed["hide"]` |
+| `updatePopper` | 重新计算定位 | `TooltipExposed["updatePopper"]` |
+| `isFocusInsideContent` | 判断焦点是否位于内容区 | `TooltipExposed["isFocusInsideContent"]` |

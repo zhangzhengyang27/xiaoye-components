@@ -153,8 +153,6 @@ importers:
 
   packages/composables: {}
 
-  packages/frontline: {}
-
   packages/pro-components: {}
 
   packages/theme: {}

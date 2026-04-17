@@ -1,7 +1,10 @@
 import Alert from "./src/alert.vue";
 import type {
+  AlertAutoCloseHandler,
+  AlertCloseHandler,
   AlertCloseReason,
   AlertEffect,
+  AlertModelValueChangeHandler,
   AlertOverflowStrategy,
   AlertProps,
   AlertServiceSnapshot,
@@ -18,15 +21,20 @@ import type {
   AlertServiceUpdateOptions
 } from "./src/alert";
 import { XyAlertService } from "./src/service";
+import type { AlertService } from "./src/service";
 import { withInstall } from "@xiaoye/utils";
 
 export type {
+  AlertAutoCloseHandler,
   AlertBeforeCloseFn,
+  AlertCloseHandler,
   AlertCloseReason,
   AlertDoneFn,
   AlertEffect,
+  AlertModelValueChangeHandler,
   AlertOverflowStrategy,
   AlertProps,
+  AlertService,
   AlertServiceClosedFn,
   AlertServiceHandle,
   AlertServiceOptions,

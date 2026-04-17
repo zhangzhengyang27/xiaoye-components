@@ -142,35 +142,35 @@ carousel/methods
 | `initial-index`       | 初始激活项索引       | `number`                                                  | `0`           |
 | `active-index`        | 当前激活项索引（受控） | `number`                                                | —             |
 | `height`              | 走马灯高度           | `string`                                                  | `''`          |
-| `trigger`             | 指示器触发方式       | `'hover' \| 'click'`                                      | `'hover'`     |
+| `trigger`             | 指示器触发方式       | `CarouselTrigger`                                         | `'hover'`     |
 | `autoplay`            | 是否自动播放         | `boolean`                                                 | `true`        |
 | `interval`            | 自动播放间隔         | `number`                                                  | `3000`        |
-| `indicator-position`  | 指示器位置           | `'' \| 'none' \| 'outside'`                               | `''`          |
-| `arrow`               | 箭头显示时机         | `'always' \| 'hover' \| 'never'`                          | `'hover'`     |
-| `type`                | 走马灯类型           | `'' \| 'card'`                                            | `''`          |
+| `indicator-position`  | 指示器位置           | `CarouselIndicatorPosition`                               | `''`          |
+| `arrow`               | 箭头显示时机         | `CarouselArrow`                                           | `'hover'`     |
+| `type`                | 走马灯类型           | `CarouselType`                                            | `''`          |
 | `card-scale`          | 卡片模式缩放比例     | `number`                                                  | `0.83`        |
 | `loop`                | 是否循环显示         | `boolean`                                                 | `true`        |
-| `direction`           | 展示方向             | `'horizontal' \| 'vertical'`                              | `'horizontal'` |
+| `direction`           | 展示方向             | `CarouselDirection`                                       | `'horizontal'` |
 | `pause-on-hover`      | 鼠标移入时是否暂停   | `boolean`                                                 | `true`        |
 | `draggable`           | 是否支持拖拽切换     | `boolean`                                                 | `true`        |
-| `effect`              | 动画效果             | `'slide' \| 'fade'`                                       | `'slide'`     |
+| `effect`              | 动画效果             | `CarouselEffect`                                          | `'slide'`     |
 | `duration`            | 动画时长             | `number`                                                  | `400`         |
 | `easing`              | 动画缓动函数         | `string`                                                  | `cubic-bezier(0.22, 0.61, 0.36, 1)` |
 | `slides-per-view`     | 可视 slide 数量      | `number`                                                  | `1`           |
 | `slides-per-group`    | 每次翻页数量         | `number`                                                  | `1`           |
 | `gap`                 | slide 间距           | `number \| string`                                        | `0`           |
 | `centered`            | 是否居中当前页       | `boolean`                                                 | `false`       |
-| `indicator-type`      | 指示器样式           | `'line' \| 'dot'`                                         | `line`        |
+| `indicator-type`      | 指示器样式           | `CarouselIndicatorType`                                   | `line`        |
 | `thumbs`              | 是否显示缩略图条     | `boolean`                                                 | `false`       |
-| `thumbs-placement`    | 缩略图条位置         | `'bottom' \| 'top' \| 'left' \| 'right'`                 | `'bottom'`    |
+| `thumbs-placement`    | 缩略图条位置         | `CarouselThumbPlacement`                                  | `'bottom'`    |
 | `thumbs-per-view`     | 缩略图条每屏可见数量 | `number`                                                  | `5`           |
 | `thumbs-gap`          | 缩略图间距           | `number \| string`                                        | `8`           |
-| `thumbs-indicator-type` | 缩略图样式         | `'thumbnail' \| 'line' \| 'dot'`                          | `'thumbnail'` |
+| `thumbs-indicator-type` | 缩略图样式         | `CarouselThumbIndicatorType`                              | `'thumbnail'` |
 | `show-progress`       | 是否显示自动播放进度 | `boolean`                                                 | `false`       |
-| `progress-placement`  | 进度条位置           | `'bottom' \| 'top' \| 'indicator'`                        | `'bottom'`    |
+| `progress-placement`  | 进度条位置           | `CarouselProgressPlacement`                               | `'bottom'`    |
 | `progress-color`      | 进度条颜色           | `string`                                                  | `''`          |
-| `align`               | 内容流对齐方式       | `'start' \| 'center' \| 'end'`                            | `'start'`     |
-| `contain-scroll`      | 内容流边界策略       | `'trim' \| 'keep'`                                        | `'trim'`      |
+| `align`               | 内容流对齐方式       | `CarouselAlignment`                                       | `'start'`     |
+| `contain-scroll`      | 内容流边界策略       | `CarouselContainScroll`                                   | `'trim'`      |
 | `peek`                | 露出边缘尺寸         | `number \| string`                                        | `0`           |
 | `lazy`                | 是否启用邻近懒渲染   | `boolean`                                                 | `false`       |
 | `lazy-range`          | 邻近懒渲染范围       | `number`                                                  | `1`           |
@@ -183,17 +183,17 @@ carousel/methods
 
 | 事件     | 说明             | 参数                         |
 | -------- | ---------------- | ---------------------------- |
-| `update:activeIndex` | 受控模式下当前页变更 | `(value: number)` |
-| `change` | 当前激活项切换时触发 | `(current: number, previous: number)` |
+| `update:activeIndex` | 受控模式下当前页变更 | `CarouselActiveIndexChangeHandler` |
+| `change` | 当前激活项切换时触发 | `CarouselChangeHandler` |
 
 ### Carousel Exposes
 
 | 暴露项         | 说明                   | 类型                                 |
 | -------------- | ---------------------- | ------------------------------------ |
-| `activeIndex`  | 当前激活项索引         | `Ref<number>`                        |
-| `setActiveItem`| 手动切换到指定项       | `(index: number \| string) => void` |
-| `prev`         | 切换到上一项           | `() => void`                         |
-| `next`         | 切换到下一项           | `() => void`                         |
+| `activeIndex`  | 当前激活项索引         | `CarouselInstance["activeIndex"]`    |
+| `setActiveItem`| 手动切换到指定项       | `CarouselInstance["setActiveItem"]`  |
+| `prev`         | 切换到上一项           | `CarouselInstance["prev"]`           |
+| `next`         | 切换到下一项           | `CarouselInstance["next"]`           |
 
 ### CarouselItem Attributes
 
@@ -209,8 +209,8 @@ carousel/methods
 | 插槽         | 说明 |
 | ------------ | ---- |
 | `default`    | 轮播项列表，通常传入 `xy-carousel-item` |
-| `indicator`  | 自定义指示器，接收 `{ index, active, total }` |
-| `arrow-prev` | 自定义上一页箭头 |
-| `arrow-next` | 自定义下一页箭头 |
-| `progress`   | 自定义进度条，接收 `{ percent, activeIndex }` |
-| `thumb`      | 自定义缩略图项，接收 `{ index, active, total, item }` |
+| `indicator`  | 自定义指示器，接收 `CarouselIndicatorSlotProps` |
+| `arrow-prev` | 自定义上一页箭头，接收 `CarouselArrowSlotProps` |
+| `arrow-next` | 自定义下一页箭头，接收 `CarouselArrowSlotProps` |
+| `progress`   | 自定义进度条，接收 `CarouselProgressSlotProps` |
+| `thumb`      | 自定义缩略图项，接收 `CarouselThumbSlotProps` |

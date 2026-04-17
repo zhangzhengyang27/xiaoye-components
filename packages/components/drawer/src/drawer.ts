@@ -8,6 +8,19 @@ export type DrawerPlacement = (typeof drawerPlacements)[number];
 export type DrawerDirection = (typeof drawerDirections)[number];
 export type DrawerTransition = string | TransitionProps;
 export type DrawerCloseReason = "close" | "backdrop" | "escape" | "programmatic";
+export type DrawerModelValueChangeHandler = (value: boolean) => void;
+export type DrawerResizeHandler = (event: MouseEvent, size: number) => void;
+
+export interface DrawerHeaderSlotProps {
+  close: () => void;
+  titleId: string;
+  titleClass: string;
+}
+
+export interface DrawerTitleSlotProps {
+  titleId: string;
+  titleClass: string;
+}
 
 export interface DrawerProps {
   modelValue?: boolean;

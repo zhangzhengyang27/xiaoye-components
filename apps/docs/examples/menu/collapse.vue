@@ -28,8 +28,13 @@ const collapsed = ref(true);
       </header>
 
       <div class="demo-menu-collapse__workspace">
-        <div class="demo-menu-collapse__sidebar">
-          <xy-menu default-active="alerts" :collapse="collapsed" :default-openeds="['ops']">
+        <div :class="['demo-menu-collapse__sidebar', { 'is-collapsed': collapsed }]">
+          <xy-menu
+            class="demo-menu-collapse__menu"
+            default-active="alerts"
+            :collapse="collapsed"
+            :default-openeds="['ops']"
+          >
             <xy-sub-menu index="ops">
               <template #title>
                 <xy-icon icon="mdi:server-outline" />
@@ -137,74 +142,38 @@ const collapsed = ref(true);
     var(--xy-surface-raised)
   );
   box-shadow: var(--xy-shadow-card);
+  --xy-menu-padding: 6px;
+  --xy-menu-gap: 4px;
+  --xy-menu-radius: 18px;
+  --xy-menu-item-min-height: 34px;
+  --xy-menu-item-padding-block: 5px;
+  --xy-menu-item-padding-inline: 10px;
+  --xy-menu-item-radius: 11px;
+  --xy-menu-item-line-height: 1.2;
+  --xy-menu-content-gap: 7px;
+  --xy-menu-icon-size: 1em;
+  --xy-menu-sub-list-padding: 4px 0 4px 10px;
 }
 
-:global(.demo-menu-collapse__sidebar .xy-menu) {
+.demo-menu-collapse__menu {
   width: 100%;
 }
 
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical) {
-  gap: 4px;
-  padding: 6px;
-  border-radius: 18px;
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical > .xy-menu-item),
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical > .xy-sub-menu > .xy-menu__item-surface) {
-  min-height: 34px;
-  padding: 5px 10px;
-  border-radius: 11px;
-  line-height: 1.2;
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu__item-content) {
-  gap: 7px;
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu__sub-list) {
-  margin: 0;
-  padding: 4px 0 4px 10px;
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu__sub-list > .xy-menu-item) {
-  min-height: 34px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  line-height: 1.2;
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse) {
-  width: 78px;
-  padding: 8px 6px;
-  gap: 8px;
-  border-radius: 22px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse > .xy-menu-item),
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse > .xy-sub-menu > .xy-menu__item-surface) {
-  min-height: 42px;
-  padding-inline: 8px;
-  border-radius: 14px;
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse > .xy-menu-item:hover),
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse > .xy-sub-menu > .xy-menu__item-surface:hover) {
-  transform: none;
-  box-shadow: inset 0 0 0 1px
+.demo-menu-collapse__sidebar.is-collapsed {
+  --xy-menu-padding: 8px 6px;
+  --xy-menu-gap: 8px;
+  --xy-menu-radius: 22px;
+  --xy-menu-bg-color: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  --xy-menu-collapse-width: 78px;
+  --xy-menu-collapsed-item-min-height: 42px;
+  --xy-menu-collapsed-item-padding-inline: 8px;
+  --xy-menu-collapsed-item-radius: 14px;
+  --xy-menu-icon-size: 18px;
+  --xy-menu-hover-shadow: inset 0 0 0 1px
     color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse > .xy-menu-item.is-active),
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse > .xy-sub-menu.is-active > .xy-menu__item-surface) {
-  color: var(--xy-color-primary);
-  background: var(--xy-color-primary-soft);
-  box-shadow: inset 0 0 0 1px
+  --xy-menu-active-bg: var(--xy-color-primary-soft);
+  --xy-menu-active-shadow: inset 0 0 0 1px
     color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
-}
-
-:global(.demo-menu-collapse__sidebar .xy-menu--vertical.is-collapse .xy-icon) {
-  font-size: 18px;
 }
 
 .demo-menu-collapse__panel {

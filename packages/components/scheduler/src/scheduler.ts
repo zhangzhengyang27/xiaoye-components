@@ -1,3 +1,4 @@
+import type Scheduler from "./scheduler.vue";
 import type {
   DatesSetArg,
   DateSelectArg,
@@ -43,6 +44,8 @@ export interface SchedulerProps {
   height?: string | number;
   showNowIndicator?: boolean;
 }
+
+export type SchedulerInstance = InstanceType<typeof Scheduler>;
 
 export interface SchedulerDateClickPayload {
   date: string;

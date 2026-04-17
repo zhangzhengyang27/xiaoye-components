@@ -36,6 +36,63 @@ export interface TableSortState {
   order?: TableSortOrder;
 }
 
+export interface TableSortChangePayload<T = Record<string, unknown>> {
+  column: TableResolvedColumn<T>;
+  prop: string | undefined;
+  order: TableSortOrder;
+}
+
+export type TableRowClickHandler<T = Record<string, unknown>> = (
+  row: T,
+  column: TableResolvedColumn<T> | undefined,
+  event: MouseEvent | KeyboardEvent
+) => void;
+export type TableRowMouseHandler<T = Record<string, unknown>> = (
+  row: T,
+  column: TableResolvedColumn<T> | undefined,
+  event: MouseEvent
+) => void;
+export type TableCellMouseHandler<T = Record<string, unknown>> = (
+  row: T,
+  column: TableResolvedColumn<T>,
+  cell: HTMLTableCellElement,
+  event: MouseEvent
+) => void;
+export type TableHeaderMouseHandler<T = Record<string, unknown>> = (
+  column: TableResolvedColumn<T>,
+  event: MouseEvent
+) => void;
+export type TableHeaderDragendHandler<T = Record<string, unknown>> = (
+  newWidth: number,
+  oldWidth: number,
+  column: TableResolvedColumn<T>,
+  event: MouseEvent
+) => void;
+export type TableSelectionChangeHandler<T = Record<string, unknown>> = (selection: T[]) => void;
+export type TableSelectHandler<T = Record<string, unknown>> = (
+  selection: T[],
+  row: T
+) => void;
+export type TableCurrentChangeHandler<T = Record<string, unknown>> = (
+  currentRow: T | null,
+  oldCurrentRow: T | null
+) => void;
+export type TableFilterChangeHandler = (value: TableFilterValues) => void;
+export type TableExpandChangeHandler<T = Record<string, unknown>> = (
+  row: T,
+  expandedRows: T[] | boolean
+) => void;
+export type TableCurrentRowKeyChangeHandler = (value: string | number | null) => void;
+export type TableSortPropChangeHandler = (value: string | undefined) => void;
+export type TableSortOrderChangeHandler = (value: TableSortOrder) => void;
+export type TableFilterValuesChangeHandler = (value: TableFilterValues) => void;
+export type TableExpandRowKeysChangeHandler = (value: Array<string | number>) => void;
+
+export interface TableScrollPayload {
+  scrollLeft: number;
+  scrollTop: number;
+}
+
 export interface TableTreeProps {
   hasChildren?: string;
   children?: string;
@@ -76,6 +133,11 @@ export interface TableCellSlotProps<T = Record<string, unknown>> {
 export interface TableExpandSlotProps<T = Record<string, unknown>> extends TableCellSlotProps<T> {
   expanded: boolean;
   expandable: boolean;
+}
+
+export interface TableTooltipFormatterContext<T = Record<string, unknown>>
+  extends TableCellSlotProps<T> {
+  cellValue: unknown;
 }
 
 export interface TableRowClassNameContext<T = Record<string, unknown>> {
@@ -210,11 +272,7 @@ export interface TableColumnProps<T = Record<string, unknown>> {
   filterPlacement?: Placement;
   filterClassName?: string;
   showOverflowTooltip?: TableOverflowTooltip;
-  tooltipFormatter?: (
-    context: TableCellSlotProps<T> & {
-      cellValue: unknown;
-    }
-  ) => unknown;
+  tooltipFormatter?: (context: TableTooltipFormatterContext<T>) => unknown;
   fixed?: TableColumnFixed;
   selectable?: (row: T, rowIndex: number) => boolean;
   reserveSelection?: boolean;
@@ -252,11 +310,7 @@ export interface TableResolvedColumn<T = Record<string, unknown>> {
   filterPlacement?: Placement;
   filterClassName: string;
   showOverflowTooltip?: TableOverflowTooltip;
-  tooltipFormatter?: (
-    context: TableCellSlotProps<T> & {
-      cellValue: unknown;
-    }
-  ) => unknown;
+  tooltipFormatter?: (context: TableTooltipFormatterContext<T>) => unknown;
   overflowTooltipOptions: TableOverflowTooltipOptions | null;
   fixed?: "left" | "right";
   selectable?: (row: T, rowIndex: number) => boolean;
@@ -333,11 +387,7 @@ export interface TableProps<T = Record<string, unknown>> {
   showOverflowTooltip?: TableOverflowTooltip;
   tooltipEffect?: TooltipEffect;
   tooltipOptions?: TableOverflowTooltipOptions;
-  tooltipFormatter?: (
-    context: TableCellSlotProps<T> & {
-      cellValue: unknown;
-    }
-  ) => unknown;
+  tooltipFormatter?: (context: TableTooltipFormatterContext<T>) => unknown;
   appendFilterPanelTo?: string;
   allowDragLastColumn?: boolean;
   preserveExpandedContent?: boolean;

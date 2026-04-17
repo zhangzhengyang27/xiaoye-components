@@ -99,7 +99,7 @@ popconfirm/virtual-triggering
 | `close-delay` | 关闭延时白名单属性 | `number` | `60` |
 | `show-after` | 打开延时别名，优先级高于 `open-delay` | `number` | `undefined` |
 | `hide-after` | 关闭延时别名，优先级高于 `close-delay`；确认/取消成功后也遵循该延时 | `number` | `200` |
-| `effect` | 视觉风格 | `'light' \| 'dark'` | `'light'` |
+| `effect` | 视觉风格 | `PopconfirmEffect` | `'light'` |
 | `teleported` | 是否通过 Teleport 挂载到外层容器 | `boolean` | `true` |
 | `append-to` | Teleport 的挂载目标 | `string \| HTMLElement` | `'body'` |
 | `persistent` | 关闭后是否保留 DOM | `boolean` | `false` |
@@ -117,8 +117,8 @@ popconfirm/virtual-triggering
 | `hide-icon` | 是否隐藏图标 | `boolean` | `false` |
 | `confirm-button-text` | 确认按钮文案；未传时回退到 `locale.popconfirmConfirmButtonText` 或 `'确定'` | `string` | `undefined` |
 | `cancel-button-text` | 取消按钮文案；未传时回退到 `locale.popconfirmCancelButtonText` 或 `'取消'` | `string` | `undefined` |
-| `confirm-button-type` | 确认按钮类型 | `ButtonType \| 'text'` | `'primary'` |
-| `cancel-button-type` | 取消按钮类型 | `ButtonType \| 'text'` | `'text'` |
+| `confirm-button-type` | 确认按钮类型 | `PopconfirmButtonType` | `'primary'` |
+| `cancel-button-type` | 取消按钮类型 | `PopconfirmButtonType` | `'text'` |
 | `confirm-button-props` | 透传给确认按钮的补充配置；不会覆盖内部 loading/disabled 和 `confirm-button-type` | `Partial<ButtonProps>` | `undefined` |
 | `cancel-button-props` | 透传给取消按钮的补充配置；不会覆盖内部 loading/disabled 和 `cancel-button-type` | `Partial<ButtonProps>` | `undefined` |
 | `before-confirm` | 确认前置 hook，支持返回 `boolean` 或 `Promise` | `PopconfirmHook` | `undefined` |
@@ -130,27 +130,27 @@ popconfirm/virtual-triggering
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:model-value` | 开关状态变化 | `boolean` |
+| `update:model-value` | 开关状态变化 | `PopconfirmModelValueChangeHandler` |
 | `before-show` | 面板即将打开时触发 | — |
 | `show` | 面板完成进入后触发 | — |
 | `before-hide` | 面板即将关闭时触发 | — |
 | `hide` | 面板完成离开后触发 | — |
 | `open` | 浮层逻辑打开时触发 | — |
 | `close` | 浮层逻辑关闭时触发 | — |
-| `confirm` | 确认动作完成后触发 | `MouseEvent` |
-| `cancel` | 取消动作完成后触发 | `MouseEvent` |
+| `confirm` | 确认动作完成后触发 | `PopconfirmActionHandler` |
+| `cancel` | 取消动作完成后触发 | `PopconfirmActionHandler` |
 
 ### Popconfirm Slots
 
 | 插槽 | 说明 |
 | --- | --- |
 | `reference` | 触发区域；常规模式下通过点击它打开确认框 |
-| `default` | 正文区；插槽参数为 `{ confirm, cancel, close, confirming, cancelling }` |
-| `actions` | 自定义操作区；插槽参数为 `{ confirm, cancel, close, confirming, cancelling }` |
+| `default` | 正文区；插槽参数为 `PopconfirmSlotProps` |
+| `actions` | 自定义操作区；插槽参数为 `PopconfirmSlotProps` |
 
 ### Popconfirm Exposes
 
 | 名称 | 说明 | 类型 |
 | --- | --- | --- |
-| `hide` | 立即关闭确认框 | `() => void` |
-| `popperRef` | 面板根节点引用 | `Ref<HTMLElement \| null>` |
+| `hide` | 立即关闭确认框 | `PopconfirmInstance["hide"]` |
+| `popperRef` | 面板根节点引用 | `PopconfirmInstance["popperRef"]` |

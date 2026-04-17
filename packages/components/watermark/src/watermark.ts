@@ -12,6 +12,7 @@ export type WatermarkTextBaseline =
   | "bottom";
 export type WatermarkRepeat = "repeat" | "repeat-x" | "repeat-y" | "no-repeat";
 export type WatermarkRenderSource = "text" | "image";
+export type WatermarkImageErrorHandler = (event: Event) => void;
 
 export interface WatermarkRenderPayload {
   dataUrl: string;

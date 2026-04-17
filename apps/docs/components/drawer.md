@@ -87,11 +87,11 @@ drawer/modal
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 是否打开抽屉 | `boolean` | `false` |
+| `model-value` | 是否打开抽屉 | `DrawerProps["modelValue"]` | `false` |
 | `title` | 抽屉标题；当你完全自定义 `header` 时，仍建议传入用于可访问名称兜底 | `string` | `''` |
-| `size` | 抽屉宽度或高度；左右方向作用于宽度，上下方向作用于高度 | `string \| number` | `420` |
-| `placement` | 项目内保留的打开方向写法 | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` |
-| `direction` | 方向别名，优先级高于 `placement` | `'ltr' \| 'rtl' \| 'ttb' \| 'btt'` | `undefined` |
+| `size` | 抽屉宽度或高度；左右方向作用于宽度，上下方向作用于高度 | `DrawerProps["size"]` | `420` |
+| `placement` | 项目内保留的打开方向写法 | `DrawerPlacement` | `'right'` |
+| `direction` | 方向别名，优先级高于 `placement` | `DrawerDirection` | `undefined` |
 | `append-to-body` | 默认是否 teleport 到 `body` | `boolean` | `true` |
 | `append-to` | teleport 挂载目标；传入后会覆盖 `append-to-body` | `string \| HTMLElement` | `'body'` |
 | `modal` | 是否显示遮罩层 | `boolean` | `true` |
@@ -107,7 +107,7 @@ drawer/modal
 | `show-close` | 是否显示右上角关闭按钮 | `boolean` | `true` |
 | `lock-scroll` | 打开时是否锁定 `body` 滚动 | `boolean` | `true` |
 | `with-header` | 是否渲染默认头部容器 | `boolean` | `true` |
-| `before-close` | 关闭前拦截函数，第二个参数会给出触发来源：`close`、`backdrop`、`escape`、`programmatic` | `(done: (cancel?: boolean) => void, reason?: DrawerCloseReason) => void \| Promise<void>` | `undefined` |
+| `before-close` | 关闭前拦截函数，第二个参数会给出触发来源：`close`、`backdrop`、`escape`、`programmatic` | `DrawerProps["beforeClose"]` | `undefined` |
 | `resizable` | 是否允许拖动边缘调整尺寸 | `boolean` | `false` |
 | `custom-class` | 面板自定义类名的兼容别名，建议改用组件原生 `class` | `string` | `''` |
 | `header-class` | 头部容器自定义类名 | `string` | `''` |
@@ -118,36 +118,36 @@ drawer/modal
 | `modal-fade` | 是否保留遮罩层淡入淡出 | `boolean` | `true` |
 | `close-icon` | 关闭按钮图标，使用图标字符串 | `string` | `'mdi:close'` |
 | `fullscreen` | 是否让抽屉占满整个视口 | `boolean` | `false` |
-| `transition` | 自定义过渡配置，支持过渡名或 Vue Transition 对象 | `string \| TransitionProps` | `'xy-drawer-fade'` |
+| `transition` | 自定义过渡配置，支持过渡名或 Vue Transition 对象 | `DrawerTransition` | `'xy-drawer-fade'` |
 
 ### Drawer Events
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:model-value` | 开关状态变化 | `boolean` |
+| `update:model-value` | 开关状态变化 | `DrawerModelValueChangeHandler` |
 | `open` | 打开时触发 | — |
 | `opened` | 进入完成后触发 | — |
 | `close` | 关闭时触发 | — |
 | `closed` | 离开完成后触发 | — |
 | `open-auto-focus` | 抽屉打开并完成初始聚焦后触发 | — |
 | `close-auto-focus` | 抽屉关闭并恢复焦点后触发 | — |
-| `resize-start` | 开始拖拽尺寸时触发 | `(event: MouseEvent, size: number)` |
-| `resize` | 拖拽尺寸过程中触发 | `(event: MouseEvent, size: number)` |
-| `resize-end` | 结束拖拽尺寸时触发 | `(event: MouseEvent, size: number)` |
+| `resize-start` | 开始拖拽尺寸时触发 | `DrawerResizeHandler` |
+| `resize` | 拖拽尺寸过程中触发 | `DrawerResizeHandler` |
+| `resize-end` | 结束拖拽尺寸时触发 | `DrawerResizeHandler` |
 
 ### Drawer Slots
 
 | 插槽 | 说明 |
 | --- | --- |
-| `header` | 自定义头部，插槽参数为 `{ close, titleId, titleClass }` |
+| `header` | 自定义头部，插槽参数为 `DrawerHeaderSlotProps` |
 | `default` | 主体内容 |
 | `footer` | 底部操作区 |
-| `title` | 与 `header` 类似的兼容插槽，仅用于对齐旧用法，建议优先使用 `header` |
+| `title` | 与 `header` 类似的兼容插槽，仅用于对齐旧用法，建议优先使用 `header`；插槽参数为 `DrawerTitleSlotProps` |
 
 ### Drawer Exposes
 
-| 名称 | 说明 |
-| --- | --- |
-| `handleClose` | 主动触发关闭流程，会经过 `before-close` 拦截 |
-| `afterEnter` | 进入完成回调的兼容 expose，建议优先使用 `opened` 事件 |
-| `afterLeave` | 离开完成回调的兼容 expose，建议优先使用 `closed` 事件 |
+| 名称 | 说明 | 类型 |
+| --- | --- | --- |
+| `handleClose` | 主动触发关闭流程，会经过 `before-close` 拦截 | `DrawerInstance["handleClose"]` |
+| `afterEnter` | 进入完成回调的兼容 expose，建议优先使用 `opened` 事件 | `DrawerInstance["afterEnter"]` |
+| `afterLeave` | 离开完成回调的兼容 expose，建议优先使用 `closed` 事件 | `DrawerInstance["afterLeave"]` |

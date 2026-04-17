@@ -6,6 +6,7 @@ export type LinkType = (typeof linkTypes)[number];
 export type LinkUnderlineMode = (typeof linkUnderlineModes)[number];
 export type LinkUnderline = boolean | LinkUnderlineMode;
 export type LinkTarget = "_blank" | "_parent" | "_self" | "_top" | (string & NonNullable<unknown>);
+export type LinkClickHandler = (event: MouseEvent) => void;
 
 export interface LinkProps {
   type?: LinkType;

@@ -30,7 +30,7 @@
 
 .xy-input.is-focus .xy-input__wrapper {
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-input--sm .xy-input__wrapper {
@@ -202,7 +202,7 @@
 
 .xy-textarea.is-focus .xy-textarea__inner {
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-textarea__clear {

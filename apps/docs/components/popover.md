@@ -51,7 +51,7 @@ popover/nested-overlay
 | `close-on-outside` | 点击外部是否关闭  | `boolean`          | `true`     |
 | `close-on-esc`     | `Escape` 是否关闭 | `boolean`          | `true`     |
 | `disabled`         | 是否禁用          | `boolean`          | `false`    |
-| `trigger`          | 触发方式          | `'click' \| 'hover' \| 'focus' \| 'manual'` | `'click'` |
+| `trigger`          | 触发方式          | `PopoverTrigger` | `'click'` |
 | `open-delay`       | 打开延迟          | `number`           | `80`       |
 | `close-delay`      | 关闭延迟          | `number`           | `60`       |
 | `show-after`       | 打开延迟别名，优先级高于 `open-delay` | `number` | `undefined` |
@@ -69,7 +69,7 @@ popover/nested-overlay
 
 | 事件                 | 说明         | 参数      |
 | -------------------- | ------------ | --------- |
-| `update:model-value` | 开关状态变化 | `boolean` |
+| `update:model-value` | 开关状态变化 | `PopoverModelValueChangeHandler` |
 | `open`               | 打开时触发   | —         |
 | `close`              | 关闭时触发   | —         |
 
@@ -80,4 +80,4 @@ popover/nested-overlay
 | `reference` | 推荐的触发区域插槽 |
 | `trigger`   | 兼容的触发区域插槽 |
 | `header`    | 自定义头部   |
-| `default`   | 面板主体内容，插槽参数为 `{ close }` |
+| `default`   | 面板主体内容，插槽参数为 `PopoverDefaultSlotProps` |

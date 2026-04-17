@@ -1,6 +1,9 @@
+import type Switch from "./switch.vue";
 import type { ComponentSize } from "@xiaoye/utils";
 
 export type SwitchValue = boolean | string | number;
+export type SwitchValueChangeHandler = (value: SwitchValue) => void;
+export type SwitchFocusHandler = (event: FocusEvent) => void;
 
 export interface SwitchProps {
   modelValue?: SwitchValue;
@@ -24,5 +27,7 @@ export interface SwitchProps {
   tabindex?: string | number;
   ariaLabel?: string;
 }
+
+export type SwitchInstance = InstanceType<typeof Switch>;
 
 export const DEFAULT_LOADING_ICON = "mdi:loading";

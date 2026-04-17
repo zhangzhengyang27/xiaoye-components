@@ -39,12 +39,12 @@
   --xy-surface-raised: #fdfdff;
   --xy-surface-sunken: #f8f9fc;
   --xy-overlay-color: rgba(28, 28, 30, 0.42);
-  --xy-focus-ring-color: rgba(91, 118, 254, 0.22);
-  --xy-radius-xs: 8px;
-  --xy-radius-sm: 8px;
-  --xy-radius-md: 12px;
-  --xy-radius-lg: 18px;
-  --xy-radius-xl: 24px;
+  --xy-focus-ring-color: rgba(91, 118, 254, 0.14);
+  --xy-radius-xs: 2px;
+  --xy-radius-sm: 2px;
+  --xy-radius-md: 2px;
+  --xy-radius-lg: 4px;
+  --xy-radius-xl: 6px;
   --xy-radius-pill: 999px;
   --xy-space-1: 4px;
   --xy-space-2: 8px;

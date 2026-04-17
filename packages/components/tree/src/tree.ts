@@ -45,6 +45,69 @@ export interface TreeProps {
   icon?: string | Component;
 }
 
+export type TreeNodeClickHandler = (
+  data: TreeNodeData,
+  node: Node,
+  nodeInstance: ComponentInternalInstance | null,
+  event: MouseEvent
+) => void;
+export type TreeNodeContextmenuHandler = (
+  event: Event,
+  data: TreeNodeData,
+  node: Node,
+  nodeInstance: ComponentInternalInstance | null
+) => void;
+export type TreeCurrentChangeHandler = (
+  data: TreeNodeData | null,
+  node: Node | null
+) => void;
+export type TreeNodeExpandHandler = (
+  data: TreeNodeData,
+  node: Node,
+  nodeInstance: ComponentInternalInstance | null
+) => void;
+export type TreeNodeCollapseHandler = (
+  data: TreeNodeData,
+  node: Node,
+  nodeInstance: ComponentInternalInstance | null
+) => void;
+export type TreeNodeDragStartHandler = (draggingNode: Node, event: DragEvent) => void;
+export type TreeNodeDragEnterHandler = (
+  draggingNode: Node,
+  dropNode: Node,
+  event: DragEvent
+) => void;
+export type TreeNodeDragLeaveHandler = (
+  draggingNode: Node,
+  dropNode: Node,
+  event: DragEvent
+) => void;
+export type TreeNodeDragOverHandler = (
+  draggingNode: Node,
+  dropNode: Node,
+  event: DragEvent
+) => void;
+export type TreeNodeDragEndHandler = (
+  draggingNode: Node,
+  dropNode: Node | null,
+  dropType: NodeDropType,
+  event: DragEvent,
+  detail: TreeDragPayload
+) => void;
+export type TreeNodeDropHandler = (
+  draggingNode: Node,
+  dropNode: Node,
+  dropType: Exclude<NodeDropType, "none">,
+  event: DragEvent,
+  detail: TreeDragPayload
+) => void;
+export type TreeCheckChangeHandler = (
+  data: TreeNodeData,
+  checked: boolean,
+  indeterminate: boolean
+) => void;
+export type TreeCheckHandler = (data: TreeNodeData, checkedInfo: CheckedInfo) => void;
+
 export const DEFAULT_TREE_EMPTY_TEXT = "暂无数据";
 export const DEFAULT_TREE_EXPAND_ICON = "mdi:chevron-right";
 export const DEFAULT_TREE_LOADING_ICON = "mdi:loading";

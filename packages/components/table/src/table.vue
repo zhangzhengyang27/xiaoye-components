@@ -23,6 +23,8 @@ import type {
   TableInstance,
   TableProps,
   TableResolvedColumn,
+  TableScrollPayload,
+  TableSortChangePayload,
   TableSortOrder
 } from "./table";
 import { toCssSize } from "./table";
@@ -147,12 +149,10 @@ const emit = defineEmits<{
   select: [selection: T[], row: T];
   "select-all": [selection: T[]];
   "current-change": [currentRow: T | null, oldCurrentRow: T | null];
-  "sort-change": [
-    payload: { column: TableResolvedColumn<T>; prop: string | undefined; order: TableSortOrder }
-  ];
+  "sort-change": [payload: TableSortChangePayload<T>];
   "filter-change": [value: TableFilterValues];
   "expand-change": [row: T, expandedRows: T[] | boolean];
-  scroll: [payload: { scrollLeft: number; scrollTop: number }];
+  scroll: [payload: TableScrollPayload];
   "update:currentRowKey": [value: string | number | null];
   "update:sortProp": [value: string | undefined];
   "update:sortOrder": [value: TableSortOrder];

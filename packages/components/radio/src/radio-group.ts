@@ -12,6 +12,13 @@ export interface RadioOption {
   description?: string;
 }
 
+export interface RadioGroupOptionSlotProps {
+  option: RadioOption;
+  checked: boolean;
+  disabled: boolean;
+  type: "radio" | "button";
+}
+
 export interface RadioGroupProps {
   modelValue?: RadioValue;
   options?: RadioOption[];

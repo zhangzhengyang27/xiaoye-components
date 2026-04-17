@@ -12,6 +12,12 @@ export interface ProgressColorStop {
   percentage: number;
 }
 
+export interface ProgressDefaultSlotProps {
+  percentage: number;
+  content: string;
+  status: ProgressStatus;
+}
+
 export type ProgressColorMap = Array<string | ProgressColorStop>;
 export type ProgressFormatter = (percentage: number) => string;
 export type ProgressColor = string | ProgressColorMap | ProgressFormatter;

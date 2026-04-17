@@ -81,13 +81,13 @@ pagination/disabled
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:current-page` | 当前页变化时触发 | `number` |
-| `update:page-size` | 每页条数变化时触发 | `number` |
-| `current-change` | 当前页变化时触发 | `number` |
-| `size-change` | 每页条数变化时触发 | `number` |
-| `prev-click` | 点击上一页时触发 | `number` |
-| `next-click` | 点击下一页时触发 | `number` |
-| `change` | 页码或每页条数变化时统一触发 | `(page, pageSize)` |
+| `update:current-page` | 当前页变化时触发 | `PaginationPageHandler` |
+| `update:page-size` | 每页条数变化时触发 | `PaginationPageHandler` |
+| `current-change` | 当前页变化时触发 | `PaginationPageHandler` |
+| `size-change` | 每页条数变化时触发 | `PaginationPageHandler` |
+| `prev-click` | 点击上一页时触发 | `PaginationPageHandler` |
+| `next-click` | 点击下一页时触发 | `PaginationPageHandler` |
+| `change` | 页码或每页条数变化时统一触发 | `PaginationChangeHandler` |
 
 ### Pagination Slots
 

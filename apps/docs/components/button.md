@@ -140,11 +140,11 @@ button/form-reset
 
 | 属性           | 说明                       | 类型                                                           | 默认值          |
 | -------------- | -------------------------- | -------------------------------------------------------------- | --------------- |
-| `type`         | 按钮类型                   | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'`     |
-| `size`         | 按钮尺寸                   | `'sm' \| 'md' \| 'lg'`                                         | 跟随全局配置    |
+| `type`         | 按钮类型                   | `ButtonType` | `'default'`     |
+| `size`         | 按钮尺寸                   | `ButtonProps["size"]`                                           | 跟随全局配置    |
 | `disabled`     | 是否禁用交互               | `boolean`                                                      | `false`         |
 | `icon`         | 前置 Iconify 图标          | `string`                                                       | —               |
-| `native-type`  | 原生按钮类型               | `'button' \| 'submit' \| 'reset'`                              | `'button'`      |
+| `native-type`  | 原生按钮类型               | `ButtonNativeType` | `'button'`      |
 | `loading`      | 是否显示加载态，并阻止点击 | `boolean`                                                      | `false`         |
 | `loading-icon` | 自定义加载图标             | `string`                                                       | `'mdi:loading'` |
 | `plain`        | 是否为朴素按钮             | `boolean`                                                      | `false`         |
@@ -161,7 +161,7 @@ button/form-reset
 
 | 事件    | 说明                                                  | 参数         |
 | ------- | ----------------------------------------------------- | ------------ |
-| `click` | 点击按钮时触发；当 `loading` 或 `disabled` 时不会触发 | `MouseEvent` |
+| `click` | 点击按钮时触发；当 `loading` 或 `disabled` 时不会触发 | `ButtonClickHandler` |
 
 ### Button Slots
 
@@ -177,10 +177,10 @@ button/form-reset
 
 | 暴露项     | 说明             | 类型                         |
 | ---------- | ---------------- | ---------------------------- |
-| `ref`      | 按钮根节点引用   | `Ref<HTMLElement \| null>`   |
-| `size`     | 解析后的尺寸     | `ComputedRef<ComponentSize>` |
-| `type`     | 解析后的按钮类型 | `ComputedRef<ButtonType>`    |
-| `disabled` | 解析后的禁用状态 | `ComputedRef<boolean>`       |
+| `ref`      | 按钮根节点引用   | `ButtonInstance["ref"]`      |
+| `size`     | 解析后的尺寸     | `ButtonInstance["size"]`     |
+| `type`     | 解析后的按钮类型 | `ButtonInstance["type"]`     |
+| `disabled` | 解析后的禁用状态 | `ButtonInstance["disabled"]` |
 
 ## ButtonGroup API
 
@@ -188,9 +188,9 @@ button/form-reset
 
 | 属性        | 说明                   | 类型                                                           | 默认值         |
 | ----------- | ---------------------- | -------------------------------------------------------------- | -------------- |
-| `size`      | 向组内按钮透传尺寸     | `'sm' \| 'md' \| 'lg'`                                         | 跟随全局配置   |
-| `type`      | 向组内按钮透传按钮类型 | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | —              |
-| `direction` | 按钮组排列方向         | `'horizontal' \| 'vertical'`                                   | `'horizontal'` |
+| `size`      | 向组内按钮透传尺寸     | `ButtonGroupProps["size"]`                                      | 跟随全局配置   |
+| `type`      | 向组内按钮透传按钮类型 | `ButtonType` | —              |
+| `direction` | 按钮组排列方向         | `ButtonGroupDirection` | `'horizontal'` |
 
 ### ButtonGroup Slots
 

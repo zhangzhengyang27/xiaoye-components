@@ -13,7 +13,8 @@ import type {
   UploadFileItem,
   UploadProgressEvent,
   UploadProps,
-  UploadRawFile
+  UploadRawFile,
+  UploadRemoveOptions
 } from "./upload";
 
 const props = withDefaults(defineProps<UploadProps>(), {
@@ -272,7 +273,7 @@ async function handleError(error: Error, rawFile: UploadRawFile) {
 
 async function handleRemove(
   file: UploadFileItem | UploadRawFile,
-  options?: { skipBeforeRemove?: boolean; emitRemove?: boolean }
+  options?: UploadRemoveOptions
 ) {
   const targetFile = findFile(file);
 

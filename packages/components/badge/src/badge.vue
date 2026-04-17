@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import type { StyleValue } from "vue";
 import { useNamespace } from "@xiaoye/composables";
-import type { BadgeProps } from "./badge";
+import type { BadgeContentSlotProps, BadgeProps } from "./badge";
 
 const props = withDefaults(defineProps<BadgeProps>(), {
   value: "",
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<BadgeProps>(), {
 
 const slots = defineSlots<{
   default?: () => unknown;
-  content?: (props: { value: string }) => unknown;
+  content?: (props: BadgeContentSlotProps) => unknown;
 }>();
 
 const ns = useNamespace("badge");

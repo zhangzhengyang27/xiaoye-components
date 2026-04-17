@@ -64,8 +64,8 @@ row/responsive
 | --------- | ------------------- | ------------------------------------------------------------------------------------- | --------- |
 | `tag`     | 渲染的根标签        | `string`                                                                              | `'div'`   |
 | `gutter`  | 栅格间距，单位为 px | `number`                                                                              | `0`       |
-| `justify` | 主轴对齐方式        | `'start' \| 'center' \| 'end' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
-| `align`   | 交叉轴对齐方式      | `'top' \| 'middle' \| 'bottom'`                                                       | —         |
+| `justify` | 主轴对齐方式        | `RowJustify`                                                                          | `'start'` |
+| `align`   | 交叉轴对齐方式      | `RowAlign`                                                                            | —         |
 
 ### Row Slots
 
@@ -84,11 +84,11 @@ row/responsive
 | `offset` | 左侧偏移的栅格数           | `number`                                                                     | `0`     |
 | `pull`   | 向左位移的栅格数           | `number`                                                                     | `0`     |
 | `push`   | 向右位移的栅格数           | `number`                                                                     | `0`     |
-| `xs`     | `< 768px` 的响应式列配置   | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `sm`     | `>= 768px` 的响应式列配置  | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `md`     | `>= 992px` 的响应式列配置  | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `lg`     | `>= 1200px` 的响应式列配置 | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `xl`     | `>= 1920px` 的响应式列配置 | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
+| `xs`     | `< 768px` 的响应式列配置   | `ColSize`                                                                | —       |
+| `sm`     | `>= 768px` 的响应式列配置  | `ColSize`                                                                | —       |
+| `md`     | `>= 992px` 的响应式列配置  | `ColSize`                                                                | —       |
+| `lg`     | `>= 1200px` 的响应式列配置 | `ColSize`                                                                | —       |
+| `xl`     | `>= 1920px` 的响应式列配置 | `ColSize`                                                                | —       |
 
 ### Col Slots
 

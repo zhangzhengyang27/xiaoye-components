@@ -115,7 +115,7 @@
 }
 
 .xy-slider__thumb-wrapper.is-focused .xy-slider__thumb {
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-slider__thumb {

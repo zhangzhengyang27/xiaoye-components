@@ -7,6 +7,11 @@ export interface AudioPlayerTrack {
   cover?: string;
 }
 
+export type AudioPlayerHowlHandler = (howl: NonNullable<AudioPlayerInstance["howl"]>) => void;
+export type AudioPlayerStateChangeHandler = () => void;
+export type AudioPlayerVolumeUpdateHandler = (value: NonNullable<AudioPlayerProps["volume"]>) => void;
+export type AudioPlayerTimeUpdateHandler = (currentTime: number, duration: number) => void;
+
 export interface AudioPlayerProps {
   src?: string | string[];
   track?: AudioPlayerTrack;

@@ -7,12 +7,22 @@ import type Popconfirm from "./popconfirm.vue";
 export type PopconfirmEffect = TooltipEffect;
 export type PopconfirmButtonType = ButtonType | "text";
 export type PopconfirmAction = "confirm" | "cancel";
+export type PopconfirmModelValueChangeHandler = (value: boolean) => void;
+export type PopconfirmActionHandler = (event: MouseEvent) => void;
 
 export interface PopconfirmActionContext {
   action: PopconfirmAction;
   event: MouseEvent;
   close: () => void;
   hide: () => void;
+}
+
+export interface PopconfirmSlotProps {
+  confirm: (event: MouseEvent) => Promise<void>;
+  cancel: (event: MouseEvent) => Promise<void>;
+  close: () => void;
+  confirming: boolean;
+  cancelling: boolean;
 }
 
 export type PopconfirmHook = (

@@ -58,26 +58,26 @@ date-picker/form
 
 | 属性          | 说明                         | 类型                | 默认值         |
 | ------------- | ---------------------------- | ------------------- | -------------- |
-| `model-value` | 当前值                         | `string \| [string, string] \| null` | `null` |
-| `type`        | 选择类型                       | `'date' \| 'daterange' \| 'month' \| 'year' \| 'week'` | `'date'` |
+| `model-value` | 当前值                         | `DatePickerValue` | `null` |
+| `type`        | 选择类型                       | `DatePickerType` | `'date'` |
 | `placeholder` | 占位文本                     | `string`            | `'请选择日期'` |
 | `disabled`    | 是否禁用                     | `boolean`           | `false`        |
 | `clearable`   | 是否支持清空                 | `boolean`           | `false`        |
-| `size`        | 组件尺寸                     | `'sm' \| 'md' \| 'lg'` | 跟随全局配置 |
+| `size`        | 组件尺寸                     | `DatePickerProps["size"]` | 跟随全局配置 |
 | `min`         | 最小可选日期                 | `string`            | `undefined`    |
 | `max`         | 最大可选日期                 | `string`            | `undefined`    |
 | `format`      | 展示格式                     | `string`            | 跟随 `type` 默认格式 |
 | `value-format`| 输出值格式                   | `string`            | 跟随 `type` 默认格式 |
 | `shortcuts`   | 快捷项                       | `DatePickerShortcut[]` | `[]`        |
-| `disabled-date` | 自定义禁用日期             | `(date: Date) => boolean` | `undefined` |
+| `disabled-date` | 自定义禁用日期             | `DatePickerProps["disabledDate"]` | `undefined` |
 
 ### DatePicker Events
 
 | 事件                 | 说明               | 参数                   |
 | -------------------- | ------------------ | ---------------------- |
-| `update:model-value` | 更新日期值         | `string \| null`       |
-| `change`             | 选中值变化         | `string \| null`       |
+| `update:model-value` | 更新日期值         | `DatePickerValueChangeHandler` |
+| `change`             | 选中值变化         | `DatePickerValueChangeHandler` |
 | `clear`              | 清空日期           | —                      |
-| `visible-change`     | 面板开关状态       | `boolean`              |
+| `visible-change`     | 面板开关状态       | `DatePickerVisibleChangeHandler`              |
 | `focus`              | 打开面板时触发     | —                      |
 | `blur`               | 关闭面板时触发     | —                      |

@@ -12,6 +12,12 @@ import {
   upsertAlertServiceEntry
 } from "./service-state";
 
+export interface AlertService {
+  open: (options: AlertServiceOptions) => AlertServiceHandle;
+  getState: () => ReturnType<typeof getAlertServiceSnapshot>;
+  closeAll: () => void;
+}
+
 let serviceHost: HTMLDivElement | null = null;
 let serviceApp: App<Element> | null = null;
 
@@ -124,7 +130,7 @@ function createNoopHandle(): AlertServiceHandle {
   };
 }
 
-export const XyAlertService = {
+export const XyAlertService: AlertService = {
   open(options: AlertServiceOptions): AlertServiceHandle {
     if (!ensureAlertServiceMounted()) {
       return createNoopHandle();

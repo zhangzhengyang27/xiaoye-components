@@ -13,7 +13,13 @@ import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
 import { DEFAULT_CLEAR_ICON, DEFAULT_SUFFIX_ICON } from "./select";
-import type { FlatSelectOption, SelectOptionGroup, SelectOptionItem, SelectProps } from "./select";
+import type {
+  FlatSelectOption,
+  SelectOptionGroup,
+  SelectOptionItem,
+  SelectOptionSlotProps,
+  SelectProps
+} from "./select";
 
 interface SelectRenderGroup<T> {
   label?: string;
@@ -62,6 +68,16 @@ const emit = defineEmits<{
   focus: [];
   blur: [];
   searchChange: [value: string];
+}>();
+
+const slots = defineSlots<{
+  prefix?: () => unknown;
+  suffix?: () => unknown;
+  header?: () => unknown;
+  footer?: () => unknown;
+  loading?: () => unknown;
+  empty?: () => unknown;
+  option?: (props: SelectOptionSlotProps<T>) => unknown;
 }>();
 
 const instance = getCurrentInstance();

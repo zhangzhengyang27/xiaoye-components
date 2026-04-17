@@ -188,8 +188,8 @@ table/multi-state
 | 属性                        | 说明                                                          | 类型                                                                                                                        | 默认值                                                                       |
 | --------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `data`                      | 数据源                                                        | `T[]`                                                                                                                       | `[]`                                                                         |
-| `row-key`                   | 行唯一标识字段或函数                                          | `keyof T \| (row, rowIndex) => string \| number`                                                                            | `undefined`                                                                  |
-| `size`                      | 表格尺寸                                                      | `'sm' \| 'md' \| 'lg'`                                                                                                      | `'md'`                                                                       |
+| `row-key`                   | 行唯一标识字段或函数                                          | `TableProps<T>["rowKey"]`                                                                                                  | `undefined`                                                                  |
+| `size`                      | 表格尺寸                                                      | `TableProps["size"]`                                                                                                        | `'md'`                                                                       |
 | `width`                     | 表格根节点宽度                                                | `string \| number`                                                                                                          | `undefined`                                                                  |
 | `height`                    | 固定高度，超过后表体滚动                                      | `string \| number`                                                                                                          | `undefined`                                                                  |
 | `max-height`                | 最大高度，超过后表体滚动                                      | `string \| number`                                                                                                          | `undefined`                                                                  |
@@ -199,37 +199,37 @@ table/multi-state
 | `show-header`               | 是否显示表头                                                  | `boolean`                                                                                                                   | `true`                                                                       |
 | `show-summary`              | 是否显示汇总行                                                | `boolean`                                                                                                                   | `false`                                                                      |
 | `sum-text`                  | 汇总行第一列文案                                              | `string`                                                                                                                    | `'合计'`                                                                     |
-| `summary-method`            | 自定义汇总行计算                                              | `({ columns, data }) => unknown[]`                                                                                          | `undefined`                                                                  |
+| `summary-method`            | 自定义汇总行计算                                              | `TableProps<T>["summaryMethod"]`                                                                                           | `undefined`                                                                  |
 | `empty-text`                | 默认空态文案                                                  | `string`                                                                                                                    | `'暂无数据'`                                                                 |
 | `loading`                   | 是否显示加载态遮罩                                            | `boolean`                                                                                                                   | `false`                                                                      |
 | `loading-text`              | 默认加载文案                                                  | `string`                                                                                                                    | `'Loading...'`                                                               |
 | `highlight-current-row`     | 是否高亮当前行                                                | `boolean`                                                                                                                   | `false`                                                                      |
-| `current-row-key`           | 当前行 key，受控模式                                          | `string \| number \| null`                                                                                                  | `undefined`                                                                  |
-| `default-current-row-key`   | 当前行 key 的非受控初始值                                     | `string \| number \| null`                                                                                                  | `null`                                                                       |
-| `default-sort`              | 默认排序配置；只传 `prop` 时会默认按升序生效                  | `{ prop?: string; order?: 'ascending' \| 'descending' \| null }`                                                            | `{ prop: undefined, order: undefined }`                                      |
-| `expand-row-keys`           | 展开行 key 列表                                               | `Array<string \| number>`                                                                                                   | `undefined`                                                                  |
+| `current-row-key`           | 当前行 key，受控模式                                          | `TableProps<T>["currentRowKey"]`                                                                                           | `undefined`                                                                  |
+| `default-current-row-key`   | 当前行 key 的非受控初始值                                     | `TableProps<T>["defaultCurrentRowKey"]`                                                                                    | `null`                                                                       |
+| `default-sort`              | 默认排序配置；只传 `prop` 时会默认按升序生效                  | `TableSortState`                                                                                                            | `{ prop: undefined, order: undefined }`                                      |
+| `expand-row-keys`           | 展开行 key 列表                                               | `TableProps<T>["expandRowKeys"]`                                                                                           | `undefined`                                                                  |
 | `default-expand-all`        | 是否默认展开全部可展开行/树节点                               | `boolean`                                                                                                                   | `false`                                                                      |
-| `row-expandable`            | 控制 `type="expand"` 行是否可展开                             | `(row, rowIndex) => boolean`                                                                                                | `undefined`                                                                  |
-| `span-method`               | 单元格合并逻辑                                                | `({ row, rowIndex, column, columnIndex }) => [rowspan, colspan] \| { rowspan, colspan }`                                    | `undefined`                                                                  |
+| `row-expandable`            | 控制 `type="expand"` 行是否可展开                             | `TableProps<T>["rowExpandable"]`                                                                                           | `undefined`                                                                  |
+| `span-method`               | 单元格合并逻辑                                                | `TableProps<T>["spanMethod"]`                                                                                              | `undefined`                                                                  |
 | `select-on-indeterminate`   | 头部勾选在半选态下是否直接全选                                | `boolean`                                                                                                                   | `true`                                                                       |
 | `indent`                    | 树形缩进宽度                                                  | `number`                                                                                                                    | `16`                                                                         |
-| `tree-props`                | 树形字段配置                                                  | `{ children?: string; hasChildren?: string; checkStrictly?: boolean }`                                                      | `{ children: 'children', hasChildren: 'hasChildren', checkStrictly: false }` |
+| `tree-props`                | 树形字段配置                                                  | `TableTreeProps`                                                                                                            | `{ children: 'children', hasChildren: 'hasChildren', checkStrictly: false }` |
 | `lazy`                      | 是否启用懒加载树节点                                          | `boolean`                                                                                                                   | `false`                                                                      |
-| `load`                      | 懒加载回调                                                    | `(row, treeNode, resolve) => void`                                                                                          | `undefined`                                                                  |
-| `table-layout`              | 表格布局算法                                                  | `'fixed' \| 'auto'`                                                                                                         | `'fixed'`                                                                    |
-| `show-overflow-tooltip`     | 是否为默认文本链路统一开启溢出 tooltip，可传 tooltip 配置对象 | `boolean \| { effect?, enterable?, hideAfter?, offset?, placement?, popperClass?, popperOptions?, showAfter?, showArrow? }` | `false`                                                                      |
-| `tooltip-effect`            | 全表默认溢出 tooltip 主题                                     | `'dark' \| 'light'`                                                                                                         | `undefined`                                                                  |
-| `tooltip-options`           | 全表默认溢出 tooltip 配置                                     | `{ effect?, enterable?, hideAfter?, offset?, placement?, popperClass?, popperOptions?, showAfter?, showArrow? }`            | `undefined`                                                                  |
-| `tooltip-formatter`         | 自定义溢出 tooltip 文案                                       | `({ row, column, value, cellValue }) => unknown`                                                                            | `undefined`                                                                  |
+| `load`                      | 懒加载回调                                                    | `TableProps<T>["load"]`                                                                                                    | `undefined`                                                                  |
+| `table-layout`              | 表格布局算法                                                  | `TableLayout`                                                                                                         | `'fixed'`                                                                    |
+| `show-overflow-tooltip`     | 是否为默认文本链路统一开启溢出 tooltip，可传 tooltip 配置对象 | `TableOverflowTooltip`                                                                                                       | `false`                                                                      |
+| `tooltip-effect`            | 全表默认溢出 tooltip 主题                                     | `TableProps["tooltipEffect"]`                                                                                               | `undefined`                                                                  |
+| `tooltip-options`           | 全表默认溢出 tooltip 配置                                     | `TableOverflowTooltipOptions`                                                                                                | `undefined`                                                                  |
+| `tooltip-formatter`         | 自定义溢出 tooltip 文案                                       | `TableProps<T>["tooltipFormatter"]`                                                                                        | `undefined`                                                                  |
 | `append-filter-panel-to`    | 指定筛选面板挂载节点选择器                                    | `string`                                                                                                                    | `''`                                                                         |
-| `row-class-name`            | 行 class 或 class 计算函数                                    | `string \| ({ row, rowIndex }) => string`                                                                                   | `''`                                                                         |
-| `row-style`                 | 行样式或样式计算函数                                          | `StyleValue \| ({ row, rowIndex }) => StyleValue`                                                                           | `undefined`                                                                  |
-| `cell-class-name`           | 单元格 class 或 class 计算函数                                | `string \| (cellMeta) => string`                                                                                            | `''`                                                                         |
-| `cell-style`                | 单元格样式或样式计算函数                                      | `StyleValue \| (cellMeta) => StyleValue`                                                                                    | `undefined`                                                                  |
-| `header-row-class-name`     | 表头行 class 或 class 计算函数                                | `string \| ({ row, rowIndex }) => string`                                                                                   | `''`                                                                         |
-| `header-row-style`          | 表头行样式或样式计算函数                                      | `StyleValue \| ({ row, rowIndex }) => StyleValue`                                                                           | `undefined`                                                                  |
-| `header-cell-class-name`    | 表头单元格 class 或 class 计算函数                            | `string \| ({ row, rowIndex, column, columnIndex }) => string`                                                              | `''`                                                                         |
-| `header-cell-style`         | 表头单元格样式或样式计算函数                                  | `StyleValue \| ({ row, rowIndex, column, columnIndex }) => StyleValue`                                                     | `undefined`                                                                  |
+| `row-class-name`            | 行 class 或 class 计算函数                                    | `TableRowClassName<T>`                                                                                                      | `''`                                                                         |
+| `row-style`                 | 行样式或样式计算函数                                          | `TableRowStyle<T>`                                                                                                          | `undefined`                                                                  |
+| `cell-class-name`           | 单元格 class 或 class 计算函数                                | `TableProps<T>["cellClassName"]`                                                                                           | `''`                                                                         |
+| `cell-style`                | 单元格样式或样式计算函数                                      | `TableProps<T>["cellStyle"]`                                                                                               | `undefined`                                                                  |
+| `header-row-class-name`     | 表头行 class 或 class 计算函数                                | `TableHeaderRowClassName`                                                                                                   | `''`                                                                         |
+| `header-row-style`          | 表头行样式或样式计算函数                                      | `TableHeaderRowStyle`                                                                                                       | `undefined`                                                                  |
+| `header-cell-class-name`    | 表头单元格 class 或 class 计算函数                            | `TableHeaderCellClassName<T>`                                                                                               | `''`                                                                         |
+| `header-cell-style`         | 表头单元格样式或样式计算函数                                  | `TableHeaderCellStyle<T>`                                                                                                   | `undefined`                                                                  |
 | `class-name`                | 表格根节点附加 class                                          | `string`                                                                                                                    | `''`                                                                         |
 | `style`                     | 表格根节点附加样式                                            | `StyleValue`                                                                                                                | `undefined`                                                                  |
 | `clickable`                 | 是否把主表体行视为可点击项，并补齐键盘聚焦与回车触发          | `boolean`                                                                                                                   | `false`                                                                      |
@@ -263,30 +263,32 @@ table/multi-state
 
 | 事件                   | 说明                                         | 参数                                                 |
 | ---------------------- | -------------------------------------------- | ---------------------------------------------------- |
-| `row-click`            | 行点击或键盘触发时派发                       | `(row, column, event)`                               |
-| `row-dblclick`         | 行双击时派发                                 | `(row, column, event)`                               |
-| `row-contextmenu`      | 行右键时派发                                 | `(row, column, event)`                               |
-| `cell-click`           | 单元格点击时派发                             | `(row, column, cell, event)`                         |
-| `cell-dblclick`        | 单元格双击时派发                             | `(row, column, cell, event)`                         |
-| `cell-contextmenu`     | 单元格右键时派发                             | `(row, column, cell, event)`                         |
-| `cell-mouse-enter`     | 鼠标进入单元格时派发                         | `(row, column, cell, event)`                         |
-| `cell-mouse-leave`     | 鼠标离开单元格时派发                         | `(row, column, cell, event)`                         |
-| `header-click`         | 表头点击时派发                               | `(column, event)`                                    |
-| `header-contextmenu`   | 表头右键时派发                               | `(column, event)`                                    |
-| `header-dragend`       | 列拖拽结束时派发                             | `(newWidth, oldWidth, column, event)`                |
-| `selection-change`     | 选择结果变化时派发                           | `(selectionRows)`                                    |
-| `select`               | 单行选择变化时派发                           | `(selectionRows, row)`                               |
-| `select-all`           | 头部全选变化时派发                           | `(selectionRows)`                                    |
-| `current-change`       | 当前高亮行变化时派发                         | `(currentRow, oldCurrentRow)`                        |
-| `sort-change`          | 排序变化时派发                               | `({ column, prop, order })`                          |
-| `filter-change`        | 筛选变化时派发                               | `(filterValues)`                                     |
-| `expand-change`        | 展开行或树节点变化时派发                     | `(row, expandedRows \| expanded)`                    |
-| `scroll`               | 表体滚动、固定列联动滚动或实例方法滚动后派发 | `({ scrollLeft, scrollTop })`                        |
-| `update:currentRowKey` | 当前行 key 更新                              | `string \| number \| null`                           |
-| `update:sortProp`      | 兼容排序列更新                               | `string \| undefined`                                |
-| `update:sortOrder`     | 兼容排序方向更新                             | `'ascending' \| 'descending' \| null`                |
-| `update:filterValues`  | 兼容筛选状态更新                             | `Record<string, Array<string \| number \| boolean>>` |
-| `update:expandRowKeys` | 展开行 key 更新                              | `Array<string \| number>`                            |
+| `row-click`            | 行点击或键盘触发时派发                       | `TableRowClickHandler<T>`                               |
+| `row-dblclick`         | 行双击时派发                                 | `TableRowMouseHandler<T>`                               |
+| `row-contextmenu`      | 行右键时派发                                 | `TableRowMouseHandler<T>`                               |
+| `cell-click`           | 单元格点击时派发                             | `TableCellMouseHandler<T>`                         |
+| `cell-dblclick`        | 单元格双击时派发                             | `TableCellMouseHandler<T>`                         |
+| `cell-contextmenu`     | 单元格右键时派发                             | `TableCellMouseHandler<T>`                         |
+| `cell-mouse-enter`     | 鼠标进入单元格时派发                         | `TableCellMouseHandler<T>`                         |
+| `cell-mouse-leave`     | 鼠标离开单元格时派发                         | `TableCellMouseHandler<T>`                         |
+| `header-click`         | 表头点击时派发                               | `TableHeaderMouseHandler<T>`                                    |
+| `header-contextmenu`   | 表头右键时派发                               | `TableHeaderMouseHandler<T>`                                    |
+| `header-dragend`       | 列拖拽结束时派发                             | `TableHeaderDragendHandler<T>`                |
+| `selection-change`     | 选择结果变化时派发                           | `TableSelectionChangeHandler<T>`                                    |
+| `select`               | 单行选择变化时派发                           | `TableSelectHandler<T>`                               |
+| `select-all`           | 头部全选变化时派发                           | `TableSelectionChangeHandler<T>`                                    |
+| `current-change`       | 当前高亮行变化时派发                         | `TableCurrentChangeHandler<T>`                        |
+| `sort-change`          | 排序变化时派发                               | `TableSortChangePayload<T>`                          |
+| `filter-change`        | 筛选变化时派发                               | `TableFilterChangeHandler`                                     |
+| `expand-change`        | 展开行或树节点变化时派发                     | `TableExpandChangeHandler<T>`                    |
+| `scroll`               | 表体滚动、固定列联动滚动或实例方法滚动后派发 | `TableScrollPayload`                                 |
+| `update:currentRowKey` | 当前行 key 更新                              | `TableCurrentRowKeyChangeHandler`                           |
+| `update:sortProp`      | 兼容排序列更新                               | `TableSortPropChangeHandler`                                |
+| `update:sortOrder`     | 兼容排序方向更新                             | `TableSortOrderChangeHandler`                                     |
+| `update:filterValues`  | 兼容筛选状态更新                             | `TableFilterValuesChangeHandler`                                  |
+| `update:expandRowKeys` | 展开行 key 更新                              | `TableExpandRowKeysChangeHandler`                            |
+
+> 事件名在运行时和类型层以 camelCase 暴露，例如 `update:currentRowKey`；在 Vue 模板里监听或使用 `v-model` 时，推荐写成 kebab-case，例如 `@update:current-row-key`、`v-model:current-row-key`。
 
 ### Accessibility Notes
 
@@ -301,26 +303,42 @@ table/multi-state
 
 | 方法                 | 说明                                                      | 签名                                          |
 | -------------------- | --------------------------------------------------------- | --------------------------------------------- |
-| `clearSelection`     | 清空当前选择                                              | `() => void`                                  |
-| `getSelectionRows`   | 获取当前选择行                                            | `() => T[]`                                   |
-| `toggleAllSelection` | 切换当前页全选                                            | `() => void`                                  |
-| `toggleRowSelection` | 切换单行选择状态；第三参数可显式决定是否忽略 `selectable` | `(row, selected?, ignoreSelectable?) => void` |
-| `toggleRowExpansion` | 切换展开行状态                                            | `(row, expanded?) => void`                    |
-| `setCurrentRow`      | 设置当前高亮行                                            | `(row?) => void`                              |
-| `clearSort`          | 清空排序                                                  | `() => void`                                  |
-| `clearFilter`        | 清空筛选                                                  | `(columnKeys?) => void`                       |
-| `sort`               | 主动设置排序                                              | `(prop, order) => void`                       |
-| `doLayout`           | 重新同步布局与滚动度量                                    | `() => void`                                  |
-| `scrollTo`           | 滚动到指定位置                                            | `(options \| left, top?) => void`             |
-| `setScrollTop`       | 设置纵向滚动位置                                          | `(top) => void`                               |
-| `setScrollLeft`      | 设置横向滚动位置                                          | `(left) => void`                              |
-| `updateKeyChildren`  | 在 lazy 模式下按 `row-key` 主动写回某个节点的子节点       | `(key, children) => void`                     |
+| `clearSelection`     | 清空当前选择                                              | `TableInstance<T>["clearSelection"]`          |
+| `getSelectionRows`   | 获取当前选择行                                            | `TableInstance<T>["getSelectionRows"]`        |
+| `toggleAllSelection` | 切换当前页全选                                            | `TableInstance<T>["toggleAllSelection"]`      |
+| `toggleRowSelection` | 切换单行选择状态；第三参数可显式决定是否忽略 `selectable` | `TableInstance<T>["toggleRowSelection"]`      |
+| `toggleRowExpansion` | 切换展开行状态                                            | `TableInstance<T>["toggleRowExpansion"]`      |
+| `setCurrentRow`      | 设置当前高亮行                                            | `TableInstance<T>["setCurrentRow"]`           |
+| `clearSort`          | 清空排序                                                  | `TableInstance<T>["clearSort"]`               |
+| `clearFilter`        | 清空筛选                                                  | `TableInstance<T>["clearFilter"]`             |
+| `sort`               | 主动设置排序                                              | `TableInstance<T>["sort"]`                    |
+| `doLayout`           | 重新同步布局与滚动度量                                    | `TableInstance<T>["doLayout"]`                |
+| `scrollTo`           | 滚动到指定位置                                            | `TableInstance<T>["scrollTo"]`                |
+| `setScrollTop`       | 设置纵向滚动位置                                          | `TableInstance<T>["setScrollTop"]`            |
+| `setScrollLeft`      | 设置横向滚动位置                                          | `TableInstance<T>["setScrollLeft"]`           |
+| `updateKeyChildren`  | 在 lazy 模式下按 `row-key` 主动写回某个节点的子节点       | `TableInstance<T>["updateKeyChildren"]`       |
 
 ### Table Exposes
 
-| 名称       | 说明                 | 类型                      |
-| ---------- | -------------------- | ------------------------- |
-| `columns`  | 当前解析后的列上下文 | `TableResolvedColumn<T>[]` |
+> 下表中的方法同时也是实例方法；如果通过 `ref` 获取表格实例，可直接调用这些暴露项。
+
+| 名称                 | 说明                                 | 类型                                          |
+| -------------------- | ------------------------------------ | --------------------------------------------- |
+| `columns`            | 当前解析后的列上下文                 | `TableInstance<T>["columns"]`                 |
+| `clearSelection`     | 清空当前选择                         | `TableInstance<T>["clearSelection"]`          |
+| `getSelectionRows`   | 获取当前选择行                       | `TableInstance<T>["getSelectionRows"]`        |
+| `toggleAllSelection` | 切换当前页全选                       | `TableInstance<T>["toggleAllSelection"]`      |
+| `toggleRowSelection` | 切换单行选择状态                     | `TableInstance<T>["toggleRowSelection"]`      |
+| `toggleRowExpansion` | 切换展开行状态                       | `TableInstance<T>["toggleRowExpansion"]`      |
+| `setCurrentRow`      | 设置当前高亮行                       | `TableInstance<T>["setCurrentRow"]`           |
+| `clearSort`          | 清空排序                             | `TableInstance<T>["clearSort"]`               |
+| `clearFilter`        | 清空筛选                             | `TableInstance<T>["clearFilter"]`             |
+| `sort`               | 主动设置排序                         | `TableInstance<T>["sort"]`                    |
+| `doLayout`           | 重新同步布局与滚动度量               | `TableInstance<T>["doLayout"]`                |
+| `scrollTo`           | 滚动到指定位置                       | `TableInstance<T>["scrollTo"]`                |
+| `setScrollTop`       | 设置纵向滚动位置                     | `TableInstance<T>["setScrollTop"]`            |
+| `setScrollLeft`      | 设置横向滚动位置                     | `TableInstance<T>["setScrollLeft"]`           |
+| `updateKeyChildren`  | 在 lazy 模式下按 `row-key` 主动写回子节点 | `TableInstance<T>["updateKeyChildren"]`    |
 
 ### Table Slots
 
@@ -335,41 +353,42 @@ table/multi-state
 
 | 属性                    | 说明                                                      | 类型                                                                                                                        | 默认值                              |
 | ----------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| `type`                  | 列类型                                                    | `'default' \| 'selection' \| 'index' \| 'expand'`                                                                           | `'default'`                         |
+| `type`                  | 列类型                                                    | `TableColumnType`                                                                           | `'default'`                         |
 | `prop`                  | 读取行数据的字段名                                        | `keyof T & string`                                                                                                          | `undefined`                         |
 | `property`              | `prop` 的兼容别名                                         | `keyof T & string`                                                                                                          | `undefined`                         |
 | `label`                 | 列标题                                                    | `string`                                                                                                                    | `''`                                |
 | `column-key`            | 列状态 key，筛选和排序优先使用它                          | `string`                                                                                                                    | `undefined`                         |
 | `width`                 | 列宽                                                      | `string \| number`                                                                                                          | `undefined`                         |
 | `min-width`             | 最小列宽                                                  | `string \| number`                                                                                                          | `undefined`                         |
-| `align`                 | 单元格对齐方式                                            | `'left' \| 'center' \| 'right'`                                                                                             | `'left'`                            |
-| `header-align`          | 表头对齐方式                                              | `'left' \| 'center' \| 'right'`                                                                                             | 跟随 `align`                        |
+| `align`                 | 单元格对齐方式                                            | `TableAlign`                                                                                             | `'left'`                            |
+| `header-align`          | 表头对齐方式                                              | `TableAlign`                                                                                             | 跟随 `align`                        |
 | `class-name`            | 单元格 class                                              | `string`                                                                                                                    | `''`                                |
 | `label-class-name`      | 表头 class                                                | `string`                                                                                                                    | `''`                                |
-| `formatter`             | 默认单元格格式化函数                                      | `(row, column, value, rowIndex) => unknown`                                                                                 | `undefined`                         |
-| `sortable`              | 是否开启排序；`'custom'` 表示远程排序                     | `boolean \| 'custom'`                                                                                                       | `false`                             |
-| `sort-method`           | 本地排序函数                                              | `(left, right) => number`                                                                                                   | `undefined`                         |
-| `sort-by`               | 指定排序字段或排序读取函数                                | `string \| Function \| Array<string \| Function>`                                                                           | `undefined`                         |
-| `sort-orders`           | 排序切换顺序                                              | `Array<'ascending' \| 'descending' \| null>`                                                                                | `['ascending', 'descending', null]` |
-| `filters`               | 列筛选项                                                  | `Array<{ text: string; value: string \| number \| boolean }>`                                                               | `[]`                                |
-| `filtered-value`        | 当前列筛选状态                                            | `Array<string \| number \| boolean>`                                                                                        | `undefined`                         |
-| `filter-method`         | 自定义筛选函数                                            | `(value, row, column) => boolean`                                                                                           | `undefined`                         |
-| `filter-multiple`       | 是否多选筛选                                              | `boolean`                                                                                                                   | `true`                              |
-| `filter-placement`      | 当前列筛选面板的浮层位置                                  | `Placement`                                                                                                                 | `'bottom-start'`                    |
-| `filter-class-name`     | 当前列筛选面板的附加 class                                | `string`                                                                                                                    | `''`                                |
-| `show-overflow-tooltip` | 当前列是否启用溢出 tooltip，可传 tooltip 配置对象         | `boolean \| { effect?, enterable?, hideAfter?, offset?, placement?, popperClass?, popperOptions?, showAfter?, showArrow? }` | 跟随表格 `show-overflow-tooltip`    |
-| `tooltip-formatter`     | 当前列自定义溢出 tooltip 文案，优先级高于表格级 formatter | `({ row, rowIndex, column, columnIndex, value, cellValue }) => unknown`                                                     | `undefined`                         |
-| `fixed`                 | 固定列位置                                                | `true \| 'left' \| 'right'`                                                                                                 | `undefined`                         |
-| `selectable`            | `selection` 列的可选行判断                                | `(row, rowIndex) => boolean`                                                                                                | `undefined`                         |
-| `reserve-selection`     | `selection` 列是否按 `row-key` 保留选择状态               | `boolean`                                                                                                                   | `false`                             |
-| `index`                 | `index` 列起始值或自定义序号函数                          | `number \| (index) => number`                                                                                               | `undefined`                         |
-| `resizable`             | 当前叶子列是否允许拖拽列宽                                | `boolean`                                                                                                                   | `true`                              |
+| `formatter`             | 默认单元格格式化函数                                      | `TableColumnProps<T>["formatter"]`                                                                                 | `undefined`                         |
+| `render-header`         | 函数式自定义表头内容                                      | `TableColumnProps<T>["renderHeader"]`                                                                               | `undefined`                         |
+| `sortable`              | 是否开启排序；`'custom'` 表示远程排序                     | `TableSortable`                                                                                                       | `false`                             |
+| `sort-method`           | 本地排序函数                                              | `TableColumnProps<T>["sortMethod"]`                                                                                                   | `undefined`                         |
+| `sort-by`               | 指定排序字段或排序读取函数                                | `TableColumnProps<T>["sortBy"]`                                                                           | `undefined`                         |
+| `sort-orders`           | 排序切换顺序                                              | `TableColumnProps<T>["sortOrders"]`                                                                                | `['ascending', 'descending', null]` |
+| `filters`               | 列筛选项                                                  | `TableColumnProps<T>["filters"]`                                                                                            | `[]`                                |
+| `filtered-value`        | 当前列筛选状态                                            | `TableColumnProps<T>["filteredValue"]`                                                                                        | `undefined`                         |
+| `filter-method`         | 自定义筛选函数                                            | `TableColumnProps<T>["filterMethod"]`                                                                                           | `undefined`                         |
+| `filter-multiple`       | 是否多选筛选                                              | `TableColumnProps<T>["filterMultiple"]`                                                                                     | `true`                              |
+| `filter-placement`      | 当前列筛选面板的浮层位置                                  | `TableColumnProps<T>["filterPlacement"]`                                                                                    | `'bottom-start'`                    |
+| `filter-class-name`     | 当前列筛选面板的附加 class                                | `TableColumnProps<T>["filterClassName"]`                                                                                    | `''`                                |
+| `show-overflow-tooltip` | 当前列是否启用溢出 tooltip，可传 tooltip 配置对象         | `TableOverflowTooltip`                                                                                                       | 跟随表格 `show-overflow-tooltip`    |
+| `tooltip-formatter`     | 当前列自定义溢出 tooltip 文案，优先级高于表格级 formatter | `TableColumnProps<T>["tooltipFormatter"]`                                                                                   | `undefined`                         |
+| `fixed`                 | 固定列位置                                                | `TableColumnFixed`                                                                                                 | `undefined`                         |
+| `selectable`            | `selection` 列的可选行判断                                | `TableColumnProps<T>["selectable"]`                                                                                                | `undefined`                         |
+| `reserve-selection`     | `selection` 列是否按 `row-key` 保留选择状态               | `TableColumnProps<T>["reserveSelection"]`                                                                                   | `false`                             |
+| `index`                 | `index` 列起始值或自定义序号函数                          | `TableColumnProps<T>["index"]`                                                                                               | `undefined`                         |
+| `resizable`             | 当前叶子列是否允许拖拽列宽                                | `TableColumnProps<T>["resizable"]`                                                                                          | `true`                              |
 
 ### TableColumn Slots
 
 | 插槽          | 说明                                                 | 参数                                                                |
 | ------------- | ---------------------------------------------------- | ------------------------------------------------------------------- |
-| `default`     | 自定义单元格内容；`type="expand"` 时用于渲染展开内容 | `{ row, rowIndex, column, columnIndex, value, expanded, treeNode }` |
-| `expand`      | `type="expand"` 的专用展开内容槽位，优先级高于默认槽 | `{ row, rowIndex, column, columnIndex, value, expanded, expandable, treeNode }` |
-| `header`      | 自定义表头内容                                       | `{ column, sortOrder, filteredValues }`                             |
-| `filter-icon` | 自定义筛选图标                                       | `{ filterOpened }`                                                  |
+| `default`     | 自定义单元格内容；`type="expand"` 时用于渲染展开内容 | `TableCellSlotProps<T>`                                               |
+| `expand`      | `type="expand"` 的专用展开内容槽位，优先级高于默认槽 | `TableExpandSlotProps<T>`                                             |
+| `header`      | 自定义表头内容                                       | `TableHeaderSlotProps<T>`                                             |
+| `filter-icon` | 自定义筛选图标                                       | `TableFilterIconSlotProps`                                            |

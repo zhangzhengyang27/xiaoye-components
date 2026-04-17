@@ -1,8 +1,22 @@
 import Editor from "./src/editor.vue";
-import type { EditorInstance, EditorProps } from "./src/editor";
+import type {
+  EditorBlurHandler,
+  EditorFocusHandler,
+  EditorInstance,
+  EditorInstanceHandler,
+  EditorModelValueChangeHandler,
+  EditorProps
+} from "./src/editor";
 import { withInstall } from "@xiaoye/utils";
 
-export type { EditorInstance, EditorProps };
+export type {
+  EditorBlurHandler,
+  EditorFocusHandler,
+  EditorInstance,
+  EditorInstanceHandler,
+  EditorModelValueChangeHandler,
+  EditorProps
+};
 
 export const XyEditor = withInstall(Editor, "xy-editor");
 export default XyEditor;

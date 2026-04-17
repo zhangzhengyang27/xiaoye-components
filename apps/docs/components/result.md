@@ -54,10 +54,10 @@ result/custom
 | `title` | 结果标题 | `string` | `undefined` |
 | `description` | 主描述文案，优先级高于 `sub-title` / `subTitle` | `string` | `undefined` |
 | `sub-title` | 兼容描述字段 | `string` | `''` |
-| `icon` | 图标语义 | `'primary' \| 'success' \| 'warning' \| 'info' \| 'error'` | `undefined` |
-| `status` | 当前库风格状态语义，并兼容后台状态码场景 | `'neutral' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'error' \| '403' \| '404' \| '500'` | `'neutral'` |
-| `size` | 组件尺寸，未传时跟随全局配置 | `'sm' \| 'md' \| 'lg'` | `全局 size / 'md'` |
-| `variant` | 视觉变体 | `'plain' \| 'card'` | `'plain'` |
+| `icon` | 图标语义 | `ResultIconType` | `undefined` |
+| `status` | 当前库风格状态语义，并兼容后台状态码场景 | `ResultStatus` | `'neutral'` |
+| `size` | 组件尺寸，未传时跟随全局配置 | `ResultProps["size"]` | `全局 size / 'md'` |
+| `variant` | 视觉变体 | `ResultVariant` | `'plain'` |
 | `icon-size` | 自定义图标尺寸 | `string \| number` | `undefined` |
 
 ### Result Slots

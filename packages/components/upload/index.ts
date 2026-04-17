@@ -1,10 +1,12 @@
 import Upload from "./src/upload.vue";
 import type {
   UploadFileItem,
+  UploadInstance,
   UploadListType,
   UploadProgressEvent,
   UploadProps,
   UploadRawFile,
+  UploadRemoveOptions,
   UploadRequestHandler,
   UploadRequestOptions,
   UploadStatus
@@ -13,10 +15,12 @@ import { withInstall } from "@xiaoye/utils";
 
 export type {
   UploadFileItem,
+  UploadInstance,
   UploadListType,
   UploadProgressEvent,
   UploadProps,
   UploadRawFile,
+  UploadRemoveOptions,
   UploadRequestHandler,
   UploadRequestOptions,
   UploadStatus

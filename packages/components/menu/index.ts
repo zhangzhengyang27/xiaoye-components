@@ -5,13 +5,16 @@ import SubMenu from "./src/sub-menu.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
 import type {
+  MenuActiveIndexChangeHandler,
   MenuCloseEvent,
   MenuDataItem,
   MenuDataItemType,
   MenuExposes,
   MenuIcon,
+  MenuItemClickHandler,
   MenuMode,
   MenuOpenEvent,
+  MenuOpenedMenusChangeHandler,
   MenuPopperEffect,
   MenuPermissionChecker,
   MenuProps,
@@ -25,6 +28,7 @@ import type { MenuItemClicked, MenuItemRegistered } from "./src/types";
 import type { SubMenuProps } from "./src/sub-menu";
 
 export type {
+  MenuActiveIndexChangeHandler,
   MenuCloseEvent,
   MenuDataItem,
   MenuDataItemType,
@@ -32,11 +36,13 @@ export type {
   MenuIcon,
   MenuInstance,
   MenuItemClicked,
+  MenuItemClickHandler,
   MenuItemGroupProps,
   MenuItemProps,
   MenuItemRegistered,
   MenuMode,
   MenuOpenEvent,
+  MenuOpenedMenusChangeHandler,
   MenuPopperEffect,
   MenuPermissionChecker,
   MenuProps,

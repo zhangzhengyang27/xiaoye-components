@@ -17,6 +17,13 @@ export interface AvatarGroupItem {
   style?: StyleValue;
 }
 
+export interface AvatarGroupItemSlotProps {
+  item: AvatarGroupItem;
+  index: number;
+}
+
+export type AvatarGroupItemClickHandler = (item: AvatarGroupItem, index: number) => void;
+
 export interface AvatarGroupProps {
   size?: number | ComponentSize;
   shape?: AvatarShape;

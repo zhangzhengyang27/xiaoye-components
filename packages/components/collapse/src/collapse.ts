@@ -1,3 +1,4 @@
+import type Collapse from "./collapse.vue";
 import type {
   CollapseActiveName,
   CollapseBeforeCollapse,
@@ -18,6 +19,8 @@ export interface CollapseProps {
   expandIconPosition?: CollapseExpandIconPosition;
   beforeCollapse?: CollapseBeforeCollapse;
 }
+
+export type CollapseInstance = InstanceType<typeof Collapse>;
 
 export function ensureCollapseNames(value: CollapseModelValue | undefined) {
   if (value == null || value === "") {

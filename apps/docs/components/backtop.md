@@ -35,7 +35,7 @@ backtop/modes
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `click` | 点击按钮时触发 | `(event: MouseEvent) => void` |
+| `click` | 点击按钮时触发 | `BacktopClickHandler` |
 
 ### Backtop Slots
 

@@ -1,6 +1,7 @@
 import type { ComponentSize } from "@xiaoye/utils";
 
 export type CheckboxValue = string | number | boolean;
+export type CheckboxValueChangeHandler = (value: CheckboxValue) => void;
 
 export interface CheckboxProps {
   id?: string;

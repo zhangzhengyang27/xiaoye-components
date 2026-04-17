@@ -1,4 +1,8 @@
+import type TimeSelect from "./time-select.vue";
 import type { ComponentSize } from "@xiaoye/utils";
+
+export type TimeSelectValueChangeHandler = (value: string | null) => void;
+export type TimeSelectVisibleChangeHandler = (value: boolean) => void;
 
 export interface TimeSelectProps {
   modelValue?: string | null;
@@ -22,6 +26,8 @@ export interface TimeSelectOption {
   disabled: boolean;
   totalMinutes: number;
 }
+
+export type TimeSelectInstance = InstanceType<typeof TimeSelect>;
 
 export const DEFAULT_PLACEHOLDER = "请选择时间";
 export const DEFAULT_START = "09:00";

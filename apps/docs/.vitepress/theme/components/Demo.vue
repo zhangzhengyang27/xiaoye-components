@@ -1,32 +1,27 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { useData } from "vitepress";
+import type { DemoSourceItem } from "../../utils/demo-source";
 
 const props = defineProps<{
-  sources: string;
   path: string;
   description: string;
   sandbox?: boolean;
+  sourceLoader?: () => Promise<{ default: DemoSourceItem[] }>;
 }>();
 
 const storageKey = "xy-docs-demo-lang";
 const expanded = ref(false);
 const copied = ref(false);
 const activeLang = ref("TS");
+const sourceItems = ref<DemoSourceItem[]>([]);
+const sourcesLoading = ref(false);
+const sourcesLoaded = ref(false);
 let copiedTimer: ReturnType<typeof setTimeout> | null = null;
 
 const { theme } = useData();
 
 const decodedDescription = computed(() => decodeURIComponent(props.description));
-const sourceItems = computed(() => {
-  const parsed = JSON.parse(decodeURIComponent(props.sources)) as Array<{
-    label: string;
-    raw: string;
-    rendered: string;
-  }>;
-
-  return parsed.filter((item) => item.raw.trim().length > 0);
-});
 const currentSource = computed(
   () => sourceItems.value.find((item) => item.label === activeLang.value) ?? sourceItems.value[0]
 );
@@ -44,7 +39,25 @@ const codeLink = computed(() => {
   return `https://github.com/${repo}/blob/${docsBranch}/${docsDir}/examples/${props.path}.vue`;
 });
 
+async function ensureSourcesLoaded() {
+  if (sourcesLoaded.value || sourcesLoading.value || !props.sourceLoader) {
+    return;
+  }
+
+  sourcesLoading.value = true;
+
+  try {
+    const module = await props.sourceLoader();
+    sourceItems.value = module.default.filter((item) => item.raw.trim().length > 0);
+    sourcesLoaded.value = true;
+  } finally {
+    sourcesLoading.value = false;
+  }
+}
+
 async function copySource() {
+  await ensureSourcesLoaded();
+
   if (!currentSource.value || typeof navigator === "undefined" || !navigator.clipboard) {
     return;
   }
@@ -73,6 +86,14 @@ onMounted(() => {
   }
 });
 
+watch(expanded, async (value) => {
+  if (!value) {
+    return;
+  }
+
+  await ensureSourcesLoaded();
+});
+
 watch(activeLang, (value) => {
   if (typeof localStorage === "undefined") {
     return;
@@ -94,7 +115,7 @@ watch(activeLang, (value) => {
     </div>
 
     <div class="vp-demo__toolbar">
-      <div class="vp-demo__tabs">
+      <div v-if="sourceItems.length" class="vp-demo__tabs">
         <button
           v-for="item in sourceItems"
           :key="item.label"
@@ -134,7 +155,11 @@ watch(activeLang, (value) => {
       </div>
     </div>
 
-    <div v-if="expanded && currentSource" class="vp-demo__source">
+    <div v-if="expanded && sourcesLoading" class="vp-demo__source">
+      <div class="vp-demo__loading">代码加载中...</div>
+    </div>
+
+    <div v-else-if="expanded && currentSource" class="vp-demo__source">
       <div class="vp-demo__source-inner" v-html="currentSource.rendered" />
     </div>
   </div>
@@ -246,6 +271,12 @@ watch(activeLang, (value) => {
 .vp-demo__source {
   border-top: 1px solid var(--xy-border-color-subtle);
   background: var(--xy-doc-code-bg);
+}
+
+.vp-demo__loading {
+  padding: 18px 20px 22px;
+  color: var(--xy-text-color-secondary);
+  font-size: 13px;
 }
 
 .vp-demo__source-inner :deep(div[class*="language-"]) {

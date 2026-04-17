@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import mdContainer from "markdown-it-container";
 import type { MarkdownRenderer } from "vitepress";
 import { getDemoComponentName } from "../utils/demo";
+import { setDemoSource } from "../utils/demo-source";
 import { sfcTs2js } from "../utils/ts2js";
 
 interface ContainerOpts {
@@ -82,15 +83,15 @@ function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
         const needsSandbox = shouldEnableSandbox(source);
         const renderCode = (code: string) =>
           md.render(`\`\`\`vue\n${code}${code.endsWith("\n") ? "" : "\n"}\`\`\``);
-        const sources = encodeURIComponent(
-          JSON.stringify([
-            { label: "TS", raw: source, rendered: renderCode(source) },
-            { label: "JS", raw: jsSource, rendered: renderCode(jsSource) }
-          ])
-        );
         const encodedDescription = encodeURIComponent(md.render(description));
+        const sourceItems = [
+          { label: "TS", raw: source, rendered: renderCode(source) },
+          { label: "JS", raw: jsSource, rendered: renderCode(jsSource) }
+        ];
 
-        return `<Demo sources="${sources}" path="${sourceFile}" description="${encodedDescription}"${needsSandbox ? " sandbox" : ""}>
+        setDemoSource(sourceFile, sourceItems);
+
+        return `<Demo :source-loader="${componentName}SourceLoader" path="${sourceFile}" description="${encodedDescription}"${needsSandbox ? " sandbox" : ""}>
   <template #source><${componentName} /></template>`;
       }
 

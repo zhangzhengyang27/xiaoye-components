@@ -130,10 +130,10 @@ tree/drag-guards
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `data` | 树节点数据 | `Array<Record<string, any>>` | `[]` |
+| `data` | 树节点数据 | `TreeData` | `[]` |
 | `empty-text` | 默认空态描述文案 | `string` | `'暂无数据'` |
 | `node-key` | 节点唯一 key 字段名；涉及 key 的回显和方法时必填 | `string` | `undefined` |
-| `props` | 节点字段映射 | `{ children?, label?, disabled?, isLeaf?, class?, contentClass? }` | `{ children: 'children', label: 'label', disabled: 'disabled' }` |
+| `props` | 节点字段映射 | `TreeOptionProps` | `{ children: 'children', label: 'label', disabled: 'disabled' }` |
 | `render-after-expand` | 是否首次展开后再渲染子节点 | `boolean` | `true` |
 | `highlight-current` | 是否高亮当前节点 | `boolean` | `false` |
 | `default-expand-all` | 是否默认展开全部节点 | `boolean` | `false` |
@@ -143,79 +143,72 @@ tree/drag-guards
 | `check-descendants` | 懒加载节点勾选时是否继续把勾选状态传播到后代 | `boolean` | `false` |
 | `check-on-click-node` | 点击节点时是否直接切换勾选状态 | `boolean` | `false` |
 | `check-on-click-leaf` | 点击叶子节点时是否直接切换勾选状态 | `boolean` | `true` |
-| `default-checked-keys` | 默认勾选节点 key 列表 | `Array<string \| number>` | `undefined` |
-| `default-expanded-keys` | 默认展开节点 key 列表 | `Array<string \| number>` | `undefined` |
-| `current-node-key` | 当前节点 key，受控回显 | `string \| number \| null` | `undefined` |
-| `filter-node-method` | 节点过滤函数 | `(value, data, node) => boolean` | `undefined` |
+| `default-checked-keys` | 默认勾选节点 key 列表 | `TreeKey[]` | `undefined` |
+| `default-expanded-keys` | 默认展开节点 key 列表 | `TreeKey[]` | `undefined` |
+| `current-node-key` | 当前节点 key，受控回显 | `TreeKey \| null` | `undefined` |
+| `filter-node-method` | 节点过滤函数 | `TreeProps["filterNodeMethod"]` | `undefined` |
 | `lazy` | 是否启用懒加载节点 | `boolean` | `false` |
-| `load` | 懒加载回调 | `(node, resolve, reject) => void` | `undefined` |
+| `load` | 懒加载回调 | `TreeProps["load"]` | `undefined` |
 | `draggable` | 是否启用节点拖拽 | `boolean` | `false` |
-| `allow-drag` | 控制节点是否允许被拖动 | `(node) => boolean` | `undefined` |
-| `allow-drop` | 控制目标节点的 `prev / inner / next` 三种落点是否允许放置 | `(draggingNode, dropNode, type) => boolean` | `undefined` |
+| `allow-drag` | 控制节点是否允许被拖动 | `AllowDragFunction` | `undefined` |
+| `allow-drop` | 控制目标节点的 `prev / inner / next` 三种落点是否允许放置 | `AllowDropFunction` | `undefined` |
 | `accordion` | 是否同级只保留一个展开节点 | `boolean` | `false` |
 | `indent` | 相邻层级缩进宽度 | `number` | `18` |
 | `icon` | 自定义展开图标 | `string \| Component` | `'mdi:chevron-right'` |
-| `render-content` | 渲染函数形式的节点内容自定义 | `(h, { node, data, store }) => VNode \| VNode[]` | `undefined` |
+| `render-content` | 渲染函数形式的节点内容自定义 | `TreeProps["renderContent"]` | `undefined` |
 
 ### Tree Events
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `node-click` | 点击节点内容时触发 | `(data, node, nodeInstance, event)` |
-| `node-contextmenu` | 右键节点时触发 | `(event, data, node, nodeInstance)` |
-| `current-change` | 当前节点变化时触发 | `(data, node)` |
-| `node-expand` | 节点展开时触发 | `(data, node, nodeInstance)` |
-| `node-collapse` | 节点收起时触发 | `(data, node, nodeInstance)` |
-| `node-drag-start` | 节点开始拖拽时触发 | `(draggingNode, event)` |
-| `node-drag-enter` | 拖拽节点进入目标节点时触发 | `(draggingNode, dropNode, event)` |
-| `node-drag-leave` | 拖拽节点离开目标节点时触发 | `(draggingNode, dropNode, event)` |
-| `node-drag-over` | 拖拽节点在目标节点上移动时触发 | `(draggingNode, dropNode, event)` |
-| `node-drag-end` | 拖拽结束时触发，即使没有成功放置也会触发 | `(draggingNode, dropNode \| null, dropType, event, detail)` |
-| `node-drop` | 节点成功放置后触发 | `(draggingNode, dropNode, dropType, event, detail)` |
-| `check-change` | 单个节点勾选状态变化时触发 | `(data, checked, indeterminate)` |
-| `check` | 点击勾选框后触发 | `(data, { checkedNodes, checkedKeys, halfCheckedNodes, halfCheckedKeys })` |
+| `node-click` | 点击节点内容时触发 | `TreeNodeClickHandler` |
+| `node-contextmenu` | 右键节点时触发 | `TreeNodeContextmenuHandler` |
+| `current-change` | 当前节点变化时触发 | `TreeCurrentChangeHandler` |
+| `node-expand` | 节点展开时触发 | `TreeNodeExpandHandler` |
+| `node-collapse` | 节点收起时触发 | `TreeNodeCollapseHandler` |
+| `node-drag-start` | 节点开始拖拽时触发 | `TreeNodeDragStartHandler` |
+| `node-drag-enter` | 拖拽节点进入目标节点时触发 | `TreeNodeDragEnterHandler` |
+| `node-drag-leave` | 拖拽节点离开目标节点时触发 | `TreeNodeDragLeaveHandler` |
+| `node-drag-over` | 拖拽节点在目标节点上移动时触发 | `TreeNodeDragOverHandler` |
+| `node-drag-end` | 拖拽结束时触发，即使没有成功放置也会触发 | `TreeNodeDragEndHandler` |
+| `node-drop` | 节点成功放置后触发 | `TreeNodeDropHandler` |
+| `check-change` | 单个节点勾选状态变化时触发 | `TreeCheckChangeHandler` |
+| `check` | 点击勾选框后触发 | `TreeCheckHandler` |
 
 ### Tree Slots
 
 | 插槽 | 说明 | 参数 |
 | --- | --- | --- |
-| `default` | 自定义节点内容 | `{ node, data }` |
+| `default` | 自定义节点内容 | `RenderContentContext` |
 | `empty` | 自定义空态内容 | — |
 
 ### Tree Methods
 
 | 方法 | 说明 | 签名 |
 | --- | --- | --- |
-| `filter` | 过滤全部节点 | `(value) => void` |
-| `updateKeyChildren` | 替换某个节点的直接子节点，依赖 `node-key` | `(key, data) => void` |
-| `getNodePath` | 获取某个节点从根到当前项的路径，依赖 `node-key` | `(dataOrKey) => TreeNodeData[]` |
-| `getCheckedNodes` | 获取勾选节点数据 | `(leafOnly?, includeHalfChecked?) => TreeNodeData[]` |
-| `setCheckedNodes` | 按节点数据设置勾选状态 | `(nodes, leafOnly?) => void` |
-| `getCheckedKeys` | 获取勾选节点 key | `(leafOnly?) => Array<string \| number>` |
-| `setCheckedKeys` | 按 key 设置勾选状态，依赖 `node-key` | `(keys, leafOnly?) => void` |
-| `setChecked` | 设置单个节点勾选状态 | `(dataOrKey, checked, deep) => void` |
-| `getHalfCheckedNodes` | 获取半选节点数据 | `() => TreeNodeData[]` |
-| `getHalfCheckedKeys` | 获取半选节点 key | `() => Array<string \| number>` |
-| `getCurrentKey` | 获取当前节点 key | `() => string \| number \| null` |
-| `getCurrentNode` | 获取当前节点数据 | `() => TreeNodeData \| null` |
-| `setCurrentKey` | 按 key 设置当前节点 | `(key, shouldAutoExpandParent?) => void` |
-| `setCurrentNode` | 按节点数据或节点实例设置当前节点 | `(node, shouldAutoExpandParent?) => void` |
-| `getNode` | 根据 key 或节点数据获取节点实例 | `(dataOrKey) => Node \| null` |
-| `remove` | 删除节点 | `(dataOrNode) => void` |
-| `append` | 追加子节点 | `(data, parentNode?) => void` |
-| `insertBefore` | 在指定节点前插入新节点 | `(data, refNode) => void` |
-| `insertAfter` | 在指定节点后插入新节点 | `(data, refNode) => void` |
+| `filter` | 过滤全部节点 | `TreeExposes["filter"]` |
+| `updateKeyChildren` | 替换某个节点的直接子节点，依赖 `node-key` | `TreeExposes["updateKeyChildren"]` |
+| `getNodePath` | 获取某个节点从根到当前项的路径，依赖 `node-key` | `TreeExposes["getNodePath"]` |
+| `getCheckedNodes` | 获取勾选节点数据 | `TreeExposes["getCheckedNodes"]` |
+| `setCheckedNodes` | 按节点数据设置勾选状态 | `TreeExposes["setCheckedNodes"]` |
+| `getCheckedKeys` | 获取勾选节点 key | `TreeExposes["getCheckedKeys"]` |
+| `setCheckedKeys` | 按 key 设置勾选状态，依赖 `node-key` | `TreeExposes["setCheckedKeys"]` |
+| `setChecked` | 设置单个节点勾选状态 | `TreeExposes["setChecked"]` |
+| `getHalfCheckedNodes` | 获取半选节点数据 | `TreeExposes["getHalfCheckedNodes"]` |
+| `getHalfCheckedKeys` | 获取半选节点 key | `TreeExposes["getHalfCheckedKeys"]` |
+| `getCurrentKey` | 获取当前节点 key | `TreeExposes["getCurrentKey"]` |
+| `getCurrentNode` | 获取当前节点数据 | `TreeExposes["getCurrentNode"]` |
+| `setCurrentKey` | 按 key 设置当前节点 | `TreeExposes["setCurrentKey"]` |
+| `setCurrentNode` | 按节点数据或节点实例设置当前节点 | `TreeExposes["setCurrentNode"]` |
+| `getNode` | 根据 key 或节点数据获取节点实例 | `TreeExposes["getNode"]` |
+| `remove` | 删除节点 | `TreeExposes["remove"]` |
+| `append` | 追加子节点 | `TreeExposes["append"]` |
+| `insertBefore` | 在指定节点前插入新节点 | `TreeExposes["insertBefore"]` |
+| `insertAfter` | 在指定节点后插入新节点 | `TreeExposes["insertAfter"]` |
 
 ### props 字段映射
 
-| 字段 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `children` | 子节点字段名 | `string` | `'children'` |
-| `label` | 节点文案字段名或读取函数 | `string \| (data, node) => string` | `'label'` |
-| `disabled` | 禁用状态字段名或读取函数 | `string \| (data, node) => boolean` | `'disabled'` |
-| `isLeaf` | 叶子节点字段名或读取函数，仅懒加载时特别有用 | `string \| (data, node) => boolean` | `undefined` |
-| `class` | 自定义节点 class 或 class 计算函数 | `string \| Record<string, boolean> \| (data, node) => string \| Record<string, boolean>` | `undefined` |
-| `contentClass` | 自定义节点内容区 class 或 class 计算函数 | `string \| Record<string, boolean> \| (data, node) => string \| Record<string, boolean>` | `undefined` |
+字段映射配置类型为 `TreeOptionProps`。
 
 ## 行为说明
 

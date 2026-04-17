@@ -85,8 +85,8 @@ select/methods
 
 | 属性                 | 说明                         | 类型                                          | 默认值               |
 | -------------------- | ---------------------------- | --------------------------------------------- | -------------------- |
-| `model-value`        | 当前选中值                   | `string \| number \| Array<string \| number> \| null` | `null` |
-| `options`            | 选项列表                     | `(SelectOption<T> \| SelectOptionGroup<T>)[]` | —                    |
+| `model-value`        | 当前选中值                   | `SelectProps<T>["modelValue"]`                   | `null` |
+| `options`            | 选项列表                     | `SelectProps<T>["options"]`                   | —                    |
 | `placeholder`        | 未选择时的占位提示           | `string`                                      | `'请选择'`           |
 | `disabled`           | 是否禁用                     | `boolean`                                     | `false`              |
 | `clearable`          | 是否允许清空当前选中值       | `boolean`                                     | `false`              |
@@ -96,7 +96,7 @@ select/methods
 | `max-tag-count`      | 折叠前最多展示的标签数       | `number`                                      | `undefined`          |
 | `remote`             | 是否启用远程搜索             | `boolean`                                     | `false`              |
 | `allow-create`       | 是否允许按搜索词创建新项     | `boolean`                                     | `false`              |
-| `size`               | 组件尺寸                     | `'sm' \| 'md' \| 'lg'`                        | 跟随全局配置         |
+| `size`               | 组件尺寸                     | `SelectProps["size"]`                         | 跟随全局配置         |
 | `no-data-text`       | 无选项时的文案               | `string`                                      | `'暂无选项'`         |
 | `no-match-text`      | 搜索无结果时的文案           | `string`                                      | `'没有匹配项'`       |
 | `loading`            | 是否处于加载态               | `boolean`                                     | `false`              |
@@ -112,6 +112,7 @@ select/methods
 | `offset`             | 下拉面板偏移量               | `number`                                      | `12`                 |
 | `popper-class`       | 下拉面板自定义类名           | `string`                                      | `''`                 |
 | `popper-style`       | 下拉面板自定义样式           | `StyleValue`                                  | `''`                 |
+| `fit-trigger-width`  | 兼容别名；当未显式传 `fit-input-width` 时，用它控制下拉面板是否跟随触发器宽度 | `boolean` | `true` |
 | `fit-input-width`    | 是否让下拉面板跟随触发器宽度 | `boolean`                                     | `true`               |
 | `dropdown-min-width` | 下拉面板最小宽度             | `string \| number`                            | —                    |
 | `dropdown-max-width` | 下拉面板最大宽度             | `string \| number`                            | —                    |
@@ -120,30 +121,21 @@ select/methods
 
 | 事件                 | 说明                 | 参数                       |
 | -------------------- | -------------------- | -------------------------- |
-| `update:model-value` | 选中值变化时触发     | `string \| number \| null` |
-| `change`             | 选中值确认变化时触发 | `string \| number \| null` |
+| `update:model-value` | 选中值变化时触发     | `SelectValueChangeHandler<T>` |
+| `change`             | 选中值确认变化时触发 | `SelectValueChangeHandler<T>` |
 | `clear`              | 点击清空按钮时触发   | —                          |
-| `visible-change`     | 下拉打开或关闭时触发 | `boolean`                  |
+| `visible-change`     | 下拉打开或关闭时触发 | `SelectVisibleChangeHandler`                  |
 | `focus`              | 下拉打开时触发       | —                          |
 | `blur`               | 下拉关闭时触发       | —                          |
-| `search-change`      | 搜索关键字变化时触发 | `string`                   |
+| `search-change`      | 搜索关键字变化时触发 | `SelectSearchChangeHandler`                   |
 
 ### Select Option
 
-| 字段          | 说明           | 类型               | 默认值      |
-| ------------- | -------------- | ------------------ | ----------- |
-| `label`       | 选项展示文案   | `string`           | —           |
-| `value`       | 选项值         | `string \| number` | —           |
-| `disabled`    | 是否禁用该选项 | `boolean`          | `false`     |
-| `description` | 辅助描述信息   | `string`           | `undefined` |
+选项类型为 `SelectOption<T>`。
 
 ### Select Option Group
 
-| 字段       | 说明         | 类型                | 默认值  |
-| ---------- | ------------ | ------------------- | ------- |
-| `label`    | 分组标题     | `string`            | —       |
-| `options`  | 分组下的选项 | `SelectOption<T>[]` | —       |
-| `disabled` | 是否禁用整组 | `boolean`           | `false` |
+分组选项类型为 `SelectOptionGroup<T>`。
 
 ### Select Slots
 
@@ -155,13 +147,13 @@ select/methods
 | `footer`  | 下拉面板底部内容                                    |
 | `loading` | 自定义加载态内容                                    |
 | `empty`   | 自定义空态内容                                      |
-| `option`  | 自定义选项内容，接收 `{ option, selected, active }` |
+| `option`  | 自定义选项内容，接收 `SelectOptionSlotProps<T>` |
 
 ### Select Exposes
 
 | 暴露项  | 说明               | 类型                  |
 | ------- | ------------------ | --------------------- |
-| `focus` | 聚焦触发器         | `() => void`          |
-| `blur`  | 关闭并让触发器失焦 | `() => Promise<void>` |
-| `open`  | 打开下拉面板       | `() => Promise<void>` |
-| `close` | 关闭下拉面板       | `() => Promise<void>` |
+| `focus` | 聚焦触发器         | `SelectInstance["focus"]` |
+| `blur`  | 关闭并让触发器失焦 | `SelectInstance["blur"]` |
+| `open`  | 打开下拉面板       | `SelectInstance["open"]` |
+| `close` | 关闭下拉面板       | `SelectInstance["close"]` |

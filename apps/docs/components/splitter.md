@@ -32,25 +32,25 @@ splitter/collapsible
 
 | 属性     | 说明                                 | 类型                             | 默认值         |
 | -------- | ------------------------------------ | -------------------------------- | -------------- |
-| `layout` | 面板排列方向                         | `'horizontal' \| 'vertical'`     | `'horizontal'` |
+| `layout` | 面板排列方向                         | `SplitterLayout`                 | `'horizontal'` |
 | `lazy`   | 是否在拖拽结束后再提交最终尺寸       | `boolean`                        | `false`        |
 
 ### Splitter Events
 
 | 事件            | 说明               | 参数                                  |
 | --------------- | ------------------ | ------------------------------------- |
-| `resize-start`  | 开始拖拽时触发     | `(index: number, sizes: number[])`    |
-| `resize`        | 拖拽过程中触发     | `(index: number, sizes: number[])`    |
-| `resize-end`    | 拖拽结束后触发     | `(index: number, sizes: number[])`    |
-| `collapse`      | 折叠或恢复面板时触发 | `(index: number, direction: 'start' \| 'end', sizes: number[])` |
+| `resize-start`  | 开始拖拽时触发     | `SplitterResizeHandler`    |
+| `resize`        | 拖拽过程中触发     | `SplitterResizeHandler`    |
+| `resize-end`    | 拖拽结束后触发     | `SplitterResizeHandler`    |
+| `collapse`      | 折叠或恢复面板时触发 | `SplitterCollapseHandler` |
 
 ### SplitterPanel Attributes
 
 | 属性          | 说明                                           | 类型                   | 默认值  |
 | ------------- | ---------------------------------------------- | ---------------------- | ------- |
-| `size`        | 初始尺寸或受控尺寸，支持数字、`px`、百分比     | `number \| string`     | —       |
-| `min`         | 最小尺寸，支持数字、`px`、百分比               | `number \| string`     | `0`     |
-| `max`         | 最大尺寸，支持数字、`px`、百分比               | `number \| string`     | —       |
+| `size`        | 初始尺寸或受控尺寸，支持数字、`px`、百分比     | `SplitterSize`         | —       |
+| `min`         | 最小尺寸，支持数字、`px`、百分比               | `SplitterSize`         | `0`     |
+| `max`         | 最大尺寸，支持数字、`px`、百分比               | `SplitterSize`         | —       |
 | `resizable`   | 是否允许通过分隔条调整尺寸                     | `boolean`              | `true`  |
 | `collapsible` | 是否允许通过分隔条快捷折叠当前面板             | `boolean`              | `false` |
 
@@ -58,7 +58,7 @@ splitter/collapsible
 
 | 事件          | 说明                     | 参数       |
 | ------------- | ------------------------ | ---------- |
-| `update:size` | 当前面板尺寸变化时触发   | `number`   |
+| `update:size` | 当前面板尺寸变化时触发   | `SplitterPanelSizeChangeHandler`   |
 
 ### Splitter Slots
 

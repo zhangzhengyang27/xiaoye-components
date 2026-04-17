@@ -204,83 +204,41 @@ function handleSelect(index: string, indexPath: string[]) {
   gap: 10px;
 }
 
-:global(.demo-menu-basic__menu .xy-menu--horizontal) {
-  min-height: 48px;
-  padding: 6px;
-  border: none;
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white) !important;
-  box-shadow: none;
-}
-
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu__more) {
-  margin: 0;
-}
-
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu > .xy-menu__horizontal-trigger),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu__more > .xy-menu__horizontal-trigger) {
-  min-height: 42px;
-  align-items: center;
-  margin: 0;
-  padding-inline: 14px;
-  border-radius: 12px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  box-shadow: inset 0 0 0 1px transparent;
-}
-
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item:hover),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu > .xy-menu__horizontal-trigger:hover),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu__more > .xy-menu__horizontal-trigger:hover),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu.is-opened > .xy-menu__horizontal-trigger) {
-  background: var(--xy-bg-color-subtle);
-  color: var(--xy-text-color-heading);
-  box-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
-}
-
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-menu-item.is-active),
-:global(.demo-menu-basic__menu .xy-menu--horizontal > .xy-sub-menu.is-active > .xy-menu__horizontal-trigger) {
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
-  box-shadow: inset 0 0 0 1px
+.demo-menu-basic__menu {
+  --xy-menu-horizontal-height: 48px;
+  --xy-menu-padding: 6px;
+  --xy-menu-border: none;
+  --xy-menu-radius: 16px;
+  --xy-menu-bg-color: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
+  --xy-menu-shadow: none;
+  --xy-menu-horizontal-item-min-height: 42px;
+  --xy-menu-horizontal-item-padding-inline: 14px;
+  --xy-menu-item-radius: 12px;
+  --xy-menu-item-font-weight: 600;
+  --xy-menu-item-letter-spacing: 0.01em;
+  --xy-menu-hover-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
+  --xy-menu-active-bg: var(--xy-color-primary-soft);
+  --xy-menu-active-shadow: inset 0 0 0 1px
     color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
 }
 
-:global(.xy-menu__popup.demo-menu-basic__popup) {
-  min-width: 224px;
-  padding: 10px;
-  border-color: var(--xy-border-color-subtle);
-  border-radius: 20px;
-  background: var(--xy-bg-color-floating);
-  box-shadow: var(--xy-shadow-popup);
-}
-
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__item-surface) {
-  min-height: 40px;
-  padding-inline: 14px;
-  border-radius: 13px;
-  color: var(--xy-text-color);
-  font-weight: 600;
-}
-
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__group-title) {
-  padding: 8px 14px 10px;
-  color: var(--xy-text-color-muted);
-  letter-spacing: 0.08em;
-}
-
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__item-surface:hover) {
-  background: var(--xy-bg-color-subtle);
-  box-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
-}
-
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-menu__item-surface.is-active),
-:global(.xy-menu__popup.demo-menu-basic__popup .xy-sub-menu.is-active > .xy-menu__item-surface) {
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+.demo-menu-basic__popup {
+  --xy-menu-popup-min-width: 224px;
+  --xy-menu-popup-padding: 10px;
+  --xy-menu-popup-border-color: var(--xy-border-color-subtle);
+  --xy-menu-popup-radius: 20px;
+  --xy-menu-popup-bg: var(--xy-bg-color-floating);
+  --xy-menu-popup-shadow: var(--xy-shadow-popup);
+  --xy-menu-item-min-height: 40px;
+  --xy-menu-item-padding-inline: 14px;
+  --xy-menu-item-radius: 13px;
+  --xy-menu-item-font-weight: 600;
+  --xy-menu-group-title-padding: 8px 14px 10px;
+  --xy-menu-group-title-color: var(--xy-text-color-muted);
+  --xy-menu-group-title-letter-spacing: 0.08em;
+  --xy-menu-hover-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
+  --xy-menu-active-bg: var(--xy-color-primary-soft);
+  --xy-menu-active-shadow: none;
 }
 
 @media (max-width: 860px) {

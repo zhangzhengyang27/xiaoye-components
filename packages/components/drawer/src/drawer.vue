@@ -13,8 +13,10 @@ import { useResizable } from "./use-resizable"
 import type {
   DrawerCloseReason,
   DrawerDirection,
+  DrawerHeaderSlotProps,
   DrawerPlacement,
   DrawerProps,
+  DrawerTitleSlotProps,
   DrawerTransition
 } from "./drawer"
 
@@ -67,8 +69,8 @@ const emit = defineEmits<{
 }>()
 
 const slots = defineSlots<{
-  header?: (props: { close: () => void; titleId: string; titleClass: string }) => unknown
-  title?: (props: { titleId: string; titleClass: string }) => unknown
+  header?: (props: DrawerHeaderSlotProps) => unknown
+  title?: (props: DrawerTitleSlotProps) => unknown
   default?: () => unknown
   footer?: () => unknown
 }>()

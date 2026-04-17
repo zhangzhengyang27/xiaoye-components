@@ -1,3 +1,5 @@
+import type Image from "./image.vue";
+
 export const imageFits = ["fill", "contain", "cover", "none", "scale-down"] as const;
 export const imageLoadingTypes = ["eager", "lazy"] as const;
 
@@ -10,6 +12,29 @@ export type ImageViewerAction =
   | "clockwise"
   | "anticlockwise"
   | "toggleMode";
+export type ImageLoadHandler = (event: Event) => void;
+export type ImageErrorHandler = (event: Event) => void;
+export type ImageSwitchHandler = (index: number) => void;
+
+export interface ImageViewerErrorSlotProps {
+  activeIndex: number;
+  src: string;
+  retry: () => void;
+}
+
+export interface ImageViewerProgressSlotProps {
+  activeIndex: number;
+  total: number;
+}
+
+export interface ImageViewerToolbarSlotProps {
+  actions: (action: ImageViewerAction) => void;
+  prev: () => void;
+  next: () => void;
+  reset: () => void;
+  activeIndex: number;
+  setActiveItem: (index: number) => void;
+}
 
 export interface ImageProps {
   src?: string;
@@ -32,3 +57,5 @@ export interface ImageProps {
   showProgress?: boolean;
   crossorigin?: ImageCrossorigin;
 }
+
+export type ImageInstance = InstanceType<typeof Image>;

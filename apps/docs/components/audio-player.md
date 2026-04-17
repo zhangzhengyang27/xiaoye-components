@@ -66,7 +66,7 @@ audio-player/detail-page-review
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `src` | 音频源地址 | `string \| string[]` | — |
+| `src` | 音频源地址 | `AudioPlayerTrack["src"]` | — |
 | `track` | 带元信息的音轨对象，优先级高于 `src / title / artist` | `AudioPlayerTrack` | — |
 | `title` | 音频标题 | `string` | `''` |
 | `artist` | 作者或来源说明 | `string` | `''` |
@@ -80,21 +80,21 @@ audio-player/detail-page-review
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `init` | 音频实例初始化后触发 | `(howl) => void` |
-| `ready` | 音频加载完成后触发 | `(howl) => void` |
-| `play` | 开始播放时触发 | `() => void` |
-| `pause` | 暂停播放时触发 | `() => void` |
-| `end` | 播放结束时触发 | `() => void` |
-| `update:volume` | 内部音量变化时触发 | `(value: number) => void` |
-| `time-update` | 播放进度更新时触发 | `(currentTime: number, duration: number) => void` |
+| `init` | 音频实例初始化后触发 | `AudioPlayerHowlHandler` |
+| `ready` | 音频加载完成后触发 | `AudioPlayerHowlHandler` |
+| `play` | 开始播放时触发 | `AudioPlayerStateChangeHandler` |
+| `pause` | 暂停播放时触发 | `AudioPlayerStateChangeHandler` |
+| `end` | 播放结束时触发 | `AudioPlayerStateChangeHandler` |
+| `update:volume` | 内部音量变化时触发 | `AudioPlayerVolumeUpdateHandler` |
+| `time-update` | 播放进度更新时触发 | `AudioPlayerTimeUpdateHandler` |
 
 ### AudioPlayer Exposes
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `howl` | 当前 Howler 实例引用 | `Howl \| null` |
-| `play` | 开始播放 | `() => void` |
-| `pause` | 暂停播放 | `() => void` |
-| `stop` | 停止播放并回到起点 | `() => void` |
-| `seek` | 跳转到指定秒数 | `(seconds: number) => void` |
-| `setVolume` | 设置音量 | `(value: number) => void` |
+| `howl` | 当前 Howler 实例引用 | `AudioPlayerInstance["howl"]` |
+| `play` | 开始播放 | `AudioPlayerInstance["play"]` |
+| `pause` | 暂停播放 | `AudioPlayerInstance["pause"]` |
+| `stop` | 停止播放并回到起点 | `AudioPlayerInstance["stop"]` |
+| `seek` | 跳转到指定秒数 | `AudioPlayerInstance["seek"]` |
+| `setVolume` | 设置音量 | `AudioPlayerInstance["setVolume"]` |

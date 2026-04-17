@@ -37,7 +37,7 @@ export const semanticTokens = {
   colorSurfaceRaised: "#fdfdff",
   colorSurfaceSunken: primitiveTokens.color.ink["50"],
   colorOverlay: "rgba(28, 28, 30, 0.42)",
-  colorFocusRing: "rgba(91, 118, 254, 0.22)",
+  colorFocusRing: "rgba(91, 118, 254, 0.14)",
   radius: primitiveTokens.radius.md,
   radiusControl: primitiveTokens.radius.md,
   radiusContainer: primitiveTokens.radius.lg,

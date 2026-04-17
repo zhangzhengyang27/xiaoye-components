@@ -51,9 +51,9 @@ affix/teleported
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `offset` | 与顶部或底部的偏移距离，单位 px | `number` | `0` |
-| `position` | 固定位置 | `'top' \| 'bottom'` | `'top'` |
+| `position` | 固定位置 | `AffixPosition` | `'top'` |
 | `target` | 目标容器选择器 | `string` | `''` |
-| `z-index` | 固定节点层级 | `number \| string` | `100` |
+| `z-index` | 固定节点层级 | `AffixZIndex` | `100` |
 | `teleported` | 固定态时是否通过 Teleport 挂载到外部容器 | `boolean` | `false` |
 | `append-to` | Teleport 的挂载目标 | `string \| HTMLElement` | `'body'` |
 
@@ -61,8 +61,8 @@ affix/teleported
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `change` | 固定状态变化时触发 | `(fixed: boolean) => void` |
-| `scroll` | 监听到滚动后触发 | `({ scrollTop: number, fixed: boolean }) => void` |
+| `change` | 固定状态变化时触发 | `AffixChangeHandler` |
+| `scroll` | 监听到滚动后触发 | `AffixScrollHandler` |
 
 ### Affix Slots
 
@@ -74,8 +74,8 @@ affix/teleported
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `update` | 立即重新计算固钉状态 | `() => void` |
-| `updateRoot` | 重新测量占位尺寸并刷新固钉状态 | `() => Promise<void> \| void` |
+| `update` | 立即重新计算固钉状态 | `AffixInstance["update"]` |
+| `updateRoot` | 重新测量占位尺寸并刷新固钉状态 | `AffixInstance["updateRoot"]` |
 
 ## 行为约定
 

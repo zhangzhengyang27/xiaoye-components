@@ -52,8 +52,8 @@ tag/editable
 
 | 属性       | 说明              | 类型              | 默认值       |
 | ---------- | ----------------- | ----------------- | ------------ |
-| `status`   | 状态色            | `ComponentStatus` | `'neutral'`  |
-| `size`     | 标签尺寸          | `ComponentSize`   | 跟随全局配置 |
+| `status`   | 状态色            | `TagProps["status"]` | `'neutral'`  |
+| `size`     | 标签尺寸          | `TagProps["size"]`   | 跟随全局配置 |
 | `round`    | 是否为圆角样式    | `boolean`         | `false`      |
 | `closable` | 是否显示关闭按钮  | `boolean`         | `false`      |
 | `icon`     | 前置 Iconify 图标 | `string`          | `''`         |
@@ -62,7 +62,7 @@ tag/editable
 
 | 事件    | 说明               | 参数         |
 | ------- | ------------------ | ------------ |
-| `close` | 点击关闭按钮时触发 | `MouseEvent` |
+| `close` | 点击关闭按钮时触发 | `TagCloseHandler` |
 
 ### Tag Slots
 

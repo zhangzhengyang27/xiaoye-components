@@ -58,10 +58,10 @@ switch/form
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 当前值 | `boolean \| string \| number` | `false` |
+| `model-value` | 当前值 | `SwitchProps["modelValue"]` | `false` |
 | `disabled` | 是否禁用 | `boolean` | `false` |
 | `loading` | 是否显示加载态并阻止交互 | `boolean` | `false` |
-| `size` | 组件尺寸 | `ComponentSize` | 跟随全局配置 |
+| `size` | 组件尺寸 | `SwitchProps["size"]` | 跟随全局配置 |
 | `width` | 自定义轨道宽度 | `string \| number` | `undefined` |
 | `inline-prompt` | 是否把状态内容放到轨道内部 | `boolean` | `false` |
 | `inactive-action-icon` | 未选中时拇指内图标 | `string` | `''` |
@@ -70,11 +70,11 @@ switch/form
 | `inactive-icon` | 未选中状态图标 | `string` | `''` |
 | `active-text` | 选中状态文案 | `string` | `''` |
 | `inactive-text` | 未选中状态文案 | `string` | `''` |
-| `active-value` | 选中状态值 | `boolean \| string \| number` | `true` |
-| `inactive-value` | 未选中状态值 | `boolean \| string \| number` | `false` |
+| `active-value` | 选中状态值 | `SwitchValue` | `true` |
+| `inactive-value` | 未选中状态值 | `SwitchValue` | `false` |
 | `name` | 原生 `name` | `string` | `undefined` |
 | `validate-event` | 是否触发表单校验 | `boolean` | `true` |
-| `before-change` | 切换前守卫 | `() => boolean \| Promise<boolean>` | `undefined` |
+| `before-change` | 切换前守卫 | `SwitchProps["beforeChange"]` | `undefined` |
 | `id` | 原生 id | `string` | `undefined` |
 | `tabindex` | 原生 tabindex | `string \| number` | `undefined` |
 | `aria-label` | 原生 aria-label | `string` | `undefined` |
@@ -83,11 +83,11 @@ switch/form
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:model-value` | 状态变化时触发 | `boolean \| string \| number` |
-| `change` | 用户确认切换后触发 | `boolean \| string \| number` |
-| `input` | 状态变化时同步触发 | `boolean \| string \| number` |
-| `focus` | 获得焦点时触发 | `FocusEvent` |
-| `blur` | 失去焦点时触发 | `FocusEvent` |
+| `update:model-value` | 状态变化时触发 | `SwitchValueChangeHandler` |
+| `change` | 用户确认切换后触发 | `SwitchValueChangeHandler` |
+| `input` | 状态变化时同步触发 | `SwitchValueChangeHandler` |
+| `focus` | 获得焦点时触发 | `SwitchFocusHandler` |
+| `blur` | 失去焦点时触发 | `SwitchFocusHandler` |
 
 ### Switch Slots
 
@@ -102,5 +102,5 @@ switch/form
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `focus` | 聚焦开关 | `() => void` |
-| `checked` | 当前是否处于选中态 | `ComputedRef<boolean>` |
+| `focus` | 聚焦开关 | `SwitchInstance["focus"]` |
+| `checked` | 当前是否处于选中态 | `SwitchInstance["checked"]` |

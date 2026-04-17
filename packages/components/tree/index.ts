@@ -16,6 +16,21 @@ import type {
   TreeOptionProps
 } from "./src/tree.type";
 import type { TreeInstance } from "./src/instance";
+import type {
+  TreeCheckChangeHandler,
+  TreeCheckHandler,
+  TreeCurrentChangeHandler,
+  TreeNodeClickHandler,
+  TreeNodeCollapseHandler,
+  TreeNodeContextmenuHandler,
+  TreeNodeDragEndHandler,
+  TreeNodeDragEnterHandler,
+  TreeNodeDragLeaveHandler,
+  TreeNodeDragOverHandler,
+  TreeNodeDragStartHandler,
+  TreeNodeDropHandler,
+  TreeNodeExpandHandler
+} from "./src/tree";
 
 export type {
   AllowDragFunction,
@@ -28,7 +43,20 @@ export type {
   TreeExposes,
   TreeInstance,
   TreeKey,
+  TreeCheckChangeHandler,
+  TreeCheckHandler,
   TreeNodeData,
+  TreeCurrentChangeHandler,
+  TreeNodeClickHandler,
+  TreeNodeCollapseHandler,
+  TreeNodeContextmenuHandler,
+  TreeNodeDragEndHandler,
+  TreeNodeDragEnterHandler,
+  TreeNodeDragLeaveHandler,
+  TreeNodeDragOverHandler,
+  TreeNodeDragStartHandler,
+  TreeNodeDropHandler,
+  TreeNodeExpandHandler,
   TreeOptionProps,
   TreeProps
 };

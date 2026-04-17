@@ -66,7 +66,7 @@ breadcrumb/navigation
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `to` | 路由目标，宿主项目存在 `$router` 时优先走路由导航 | `string \| Record<string, unknown>` | `''` |
+| `to` | 路由目标，宿主项目存在 `$router` 时优先走路由导航 | `BreadcrumbRouteTarget` | `''` |
 | `replace` | 路由跳转时是否替换历史记录 | `boolean` | `false` |
 | `href` | 原生链接地址 | `string` | `''` |
 | `target` | 原生链接目标 | `LinkTarget` | `'_self'` |

@@ -50,11 +50,11 @@ radio/form
 
 | 属性          | 说明                         | 类型                             | 默认值      |
 | ------------- | ---------------------------- | -------------------------------- | ----------- |
-| `model-value` | 当前选中值，仅单独使用时生效 | `string \| number \| boolean`    | —           |
-| `value`       | 单选项的值                   | `string \| number \| boolean`    | —           |
+| `model-value` | 当前选中值，仅单独使用时生效 | `RadioValue`                     | —           |
+| `value`       | 单选项的值                   | `RadioValue`                     | —           |
 | `label`       | 展示文案                     | `string`                         | —           |
 | `disabled`    | 是否禁用                     | `boolean`                        | `false`     |
-| `size`        | 尺寸                         | `'sm' \| 'md' \| 'lg'`           | `全局尺寸`  |
+| `size`        | 尺寸                         | `RadioProps["size"]`             | `全局尺寸`  |
 | `name`        | 原生 `name` 属性             | `string`                         | —           |
 | `border`      | 是否显示边框样式             | `boolean`                        | `false`     |
 
@@ -62,8 +62,8 @@ radio/form
 
 | 事件                 | 说明               | 参数                               |
 | -------------------- | ------------------ | ---------------------------------- |
-| `update:model-value` | 选中值变化时触发   | `string \| number \| boolean`      |
-| `change`             | 用户切换选项时触发 | `string \| number \| boolean`      |
+| `update:model-value` | 选中值变化时触发   | `RadioValueChangeHandler`          |
+| `change`             | 用户切换选项时触发 | `RadioValueChangeHandler`          |
 
 ### Radio Slots
 
@@ -75,11 +75,11 @@ radio/form
 
 | 属性          | 说明                         | 类型                             | 默认值      |
 | ------------- | ---------------------------- | -------------------------------- | ----------- |
-| `model-value` | 当前选中值，仅单独使用时生效 | `string \| number \| boolean`    | —           |
-| `value`       | 单选项的值                   | `string \| number \| boolean`    | —           |
+| `model-value` | 当前选中值，仅单独使用时生效 | `RadioValue`                     | —           |
+| `value`       | 单选项的值                   | `RadioValue`                     | —           |
 | `label`       | 展示文案                     | `string`                         | —           |
 | `disabled`    | 是否禁用                     | `boolean`                        | `false`     |
-| `size`        | 尺寸                         | `'sm' \| 'md' \| 'lg'`           | `全局尺寸`  |
+| `size`        | 尺寸                         | `RadioButtonProps["size"]`       | `全局尺寸`  |
 | `name`        | 原生 `name` 属性             | `string`                         | —           |
 
 ### RadioButton Slots
@@ -92,13 +92,13 @@ radio/form
 
 | 属性             | 说明                         | 类型                               | 默认值         |
 | ---------------- | ---------------------------- | ---------------------------------- | -------------- |
-| `model-value`    | 当前选中值                   | `string \| number \| boolean`      | —              |
+| `model-value`    | 当前选中值                   | `RadioValue`                       | —              |
 | `options`        | 选项数组                     | `RadioOption[]`                    | `[]`           |
-| `type`           | 组内渲染类型                 | `'radio' \| 'button'`              | `'radio'`      |
+| `type`           | 组内渲染类型                 | `RadioGroupProps["type"]`          | `'radio'`      |
 | `disabled`       | 是否整体禁用                 | `boolean`                          | `false`        |
-| `size`           | 组内单选项尺寸               | `'sm' \| 'md' \| 'lg'`             | `全局尺寸`     |
+| `size`           | 组内单选项尺寸               | `RadioGroupProps["size"]`          | `全局尺寸`     |
 | `name`           | 原生 `name` 属性             | `string`                           | 自动生成       |
-| `direction`      | 排列方向                     | `'horizontal' \| 'vertical'`       | `'horizontal'` |
+| `direction`      | 排列方向                     | `RadioGroupDirection`              | `'horizontal'` |
 | `validate-event` | 是否在值变化时触发表单校验   | `boolean`                          | `true`         |
 | `aria-label`     | `radiogroup` 的辅助标签      | `string`                           | `'radio-group'`|
 | `fill`           | 按钮化单选激活态背景色       | `string`                           | 主色           |
@@ -117,12 +117,12 @@ radio/form
 
 | 事件                 | 说明               | 参数                               |
 | -------------------- | ------------------ | ---------------------------------- |
-| `update:model-value` | 选中值变化时触发   | `string \| number \| boolean`      |
-| `change`             | 用户切换选项时触发 | `string \| number \| boolean`      |
+| `update:model-value` | 选中值变化时触发   | `RadioValueChangeHandler`          |
+| `change`             | 用户切换选项时触发 | `RadioValueChangeHandler`          |
 
 ### RadioGroup Slots
 
 | 插槽      | 说明                                                                      |
 | --------- | ------------------------------------------------------------------------- |
-| `default` | 自定义渲染 `xy-radio` / `xy-radio-button`                                 |
-| `option`  | `options` 模式下自定义每个选项内容，暴露 `option`、`checked`、`disabled`、`type` |
+| `default` | 自定义渲染 `xy-radio` / `xy-radio-button`；存在时会覆盖 `options` 的默认渲染 |
+| `option`  | `options` 模式下自定义每个选项内容，插槽参数为 `RadioGroupOptionSlotProps` |

@@ -6,6 +6,7 @@ import {
 } from "../../../packages/pro-components/component-manifest";
 import { workspaceAlias } from "../../../scripts/config/aliases";
 import { demoMdPlugin } from "./plugins/demo";
+import { demoSourcePlugin } from "./plugins/demo-source";
 import { markdownTransform } from "./plugins/markdown-transform";
 import { tableWrapperMdPlugin } from "./plugins/table-wrapper";
 
@@ -32,7 +33,6 @@ export default defineConfig({
       { text: "指南", link: "/guide/quick-start" },
       { text: "组件", link: "/components/overview" },
       { text: "增强", link: "/pro-components/overview" },
-      { text: "实验", link: "/frontline/overview" },
       { text: "示例", link: "/examples/admin" }
     ],
     sidebar: {
@@ -59,22 +59,6 @@ export default defineConfig({
           items: [{ text: "增强组件总览", link: "/pro-components/overview" }]
         },
         ...proComponentDocsSidebarGroups
-      ],
-      "/frontline/": [
-        {
-          text: "前台实验线",
-          items: [
-            { text: "实验线总览", link: "/frontline/overview" },
-            { text: "实验线规约", link: "/frontline/conventions" },
-            { text: "产品线准入清单", link: "/frontline/admission-checklist" },
-            { text: "正式出口草案", link: "/frontline/formal-export-plan" },
-            { text: "容器 Anatomy", link: "/frontline/container-anatomy" },
-            { text: "搜索与菜单 Anatomy", link: "/frontline/search-anatomy" },
-            { text: "API 边界清单", link: "/frontline/api-boundary" },
-            { text: "废弃计划", link: "/frontline/deprecation-plan" },
-            { text: "前台页面样板", link: "/frontline/showcase" }
-          ]
-        }
       ],
       "/examples/": [
         {
@@ -108,9 +92,38 @@ export default defineConfig({
     }
   },
   vite: {
-    plugins: [markdownTransform()],
+    plugins: [markdownTransform(), demoSourcePlugin()],
     resolve: {
       alias: workspaceAlias
+    },
+    build: {
+      cssCodeSplit: true,
+      chunkSizeWarningLimit: 700,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules/echarts")) {
+              return "vendor-echarts";
+            }
+
+            if (
+              id.includes("node_modules/video.js") ||
+              id.includes("node_modules/vditor") ||
+              id.includes("node_modules/howler")
+            ) {
+              return "vendor-media";
+            }
+
+            if (
+              id.includes("node_modules/@fullcalendar") ||
+              id.includes("node_modules/sortablejs") ||
+              id.includes("node_modules/rrule")
+            ) {
+              return "vendor-scheduler";
+            }
+          }
+        }
+      }
     }
   }
 });

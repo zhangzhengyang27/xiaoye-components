@@ -16,6 +16,7 @@ import type {
   PopconfirmAction,
   PopconfirmActionContext,
   PopconfirmButtonType,
+  PopconfirmSlotProps,
   PopconfirmProps
 } from "./popconfirm";
 
@@ -72,20 +73,8 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   reference?: () => unknown;
-  default?: (scope: {
-    confirm: (event: MouseEvent) => Promise<void>;
-    cancel: (event: MouseEvent) => Promise<void>;
-    close: () => void;
-    confirming: boolean;
-    cancelling: boolean;
-  }) => unknown;
-  actions?: (scope: {
-    confirm: (event: MouseEvent) => Promise<void>;
-    cancel: (event: MouseEvent) => Promise<void>;
-    close: () => void;
-    confirming: boolean;
-    cancelling: boolean;
-  }) => unknown;
+  default?: (scope: PopconfirmSlotProps) => unknown;
+  actions?: (scope: PopconfirmSlotProps) => unknown;
 }>();
 
 const ns = useNamespace("popconfirm");

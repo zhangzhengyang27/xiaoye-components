@@ -15,7 +15,7 @@ import XyTooltip from "../../tooltip";
 import XyAvatar from "./avatar.vue";
 import { avatarGroupContextKey } from "./context";
 import type { AvatarShape } from "./avatar";
-import type { AvatarGroupItem, AvatarGroupProps } from "./avatar-group";
+import type { AvatarGroupItem, AvatarGroupItemSlotProps, AvatarGroupProps } from "./avatar-group";
 
 function flattenChildren(children?: VNodeArrayChildren) {
   const queue: VNode[] = [];
@@ -127,7 +127,7 @@ export default defineComponent({
       const rendered = slots.item?.({
         item,
         index
-      });
+      } satisfies AvatarGroupItemSlotProps);
 
       const contentNode =
         rendered && rendered.length > 0

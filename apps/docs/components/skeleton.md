@@ -59,7 +59,7 @@ skeleton/variants
 | `count` | 重复渲染多少组骨架模板 | `number` | `1` |
 | `rows` | 默认模板下的段落行数 | `number` | `3` |
 | `loading` | 是否展示骨架，占位结束后渲染默认插槽 | `boolean` | `true` |
-| `throttle` | 骨架切换节流配置，支持数字或对象写法 | `number \| { leading?: number; trailing?: number; initVal?: boolean }` | `0` |
+| `throttle` | 骨架切换节流配置，支持数字或对象写法 | `SkeletonThrottle` | `0` |
 
 ### Skeleton Slots
 
@@ -72,10 +72,10 @@ skeleton/variants
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `uiLoading` | 节流后的最终加载态 | `Ref<boolean>` |
+| `uiLoading` | 节流后的最终加载态 | `SkeletonInstance["uiLoading"]` |
 
 ### SkeletonItem Attributes
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `variant` | 骨架单元类型 | `'circle' \| 'rect' \| 'h1' \| 'h3' \| 'text' \| 'caption' \| 'p' \| 'image' \| 'button'` | `'text'` |
+| `variant` | 骨架单元类型 | `SkeletonItemVariant` | `'text'` |

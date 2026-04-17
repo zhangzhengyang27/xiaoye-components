@@ -138,24 +138,10 @@ dialog/service-prompt
 
 ## ConfigProvider 默认项
 
-增强计划里，`ConfigProvider` 会为 Dialog 提供全局默认配置段：
+增强计划里，`ConfigProvider` 会为 Dialog 提供 `DialogGlobalConfig` 这组全局默认配置：
 
 ```ts
-interface ConfigProviderProps {
-  dialog?: {
-    alignCenter?: boolean;
-    draggable?: boolean;
-    overflow?: boolean;
-    lockScroll?: boolean;
-    closeOnClickModal?: boolean;
-    closeOnPressEscape?: boolean;
-    transition?: string | TransitionProps;
-    resizable?: boolean;
-    maximizable?: boolean;
-    stickyHeader?: boolean;
-    stickyFooter?: boolean;
-  };
-}
+type DialogGlobalConfig = ConfigProviderProps["dialog"];
 ```
 
 - `ConfigProvider.dialog` 只负责高频默认值，不覆盖业务本身的内容结构。
@@ -217,13 +203,25 @@ const promptResult = await XyDialogService.prompt({
 ### 结果约定
 
 ```ts
-interface DialogServiceResult {
-  action: "confirm" | "cancel" | "close" | "backdrop" | "escape" | "programmatic";
-  value?: string;
-}
+const result: DialogServiceResult = await handle.result;
 ```
 
-- `open()` 返回 `DialogServiceHandle`，包含 `id`、`close()`、`update()`、`result`。
+#### Dialog Service Handle
+
+| 字段 | 说明 | 类型 |
+| --- | --- | --- |
+| `id` | 当前 service 弹框实例标识 | `DialogServiceHandle["id"]` |
+| `close` | 主动关闭当前弹框 | `DialogServiceHandle["close"]` |
+| `update` | 更新当前弹框配置 | `DialogServiceHandle["update"]` |
+| `result` | 关闭后的结果 Promise | `DialogServiceHandle["result"]` |
+
+#### Dialog Service Result
+
+| 字段 | 说明 | 类型 |
+| --- | --- | --- |
+| `action` | 最终关闭动作 | `DialogServiceResult["action"]` |
+| `value` | prompt 场景下的输入值 | `DialogServiceResult["value"]` |
+
 - `alert()` 适合单按钮提示。
 - `confirm()` 返回布尔值，适合标准确认流程。
 - `prompt()` 返回 `{ confirmed, value }`，适合轻量输入。
@@ -238,7 +236,7 @@ interface DialogServiceResult {
 | `title`                 | 对话框标题                                           | `string`                                                                                  | `''`               |
 | `append-to-body`        | 是否 teleport 到 `body`                              | `boolean`                                                                                 | `false`            |
 | `append-to`             | teleport 挂载目标                                    | `string \| HTMLElement`                                                                   | `'body'`           |
-| `before-close`          | 关闭前拦截函数，仅拦截内建关闭入口，并透出关闭原因   | `(done: (cancel?: boolean) => void, reason?: DialogCloseReason) => void \| Promise<void>` | `undefined`        |
+| `before-close`          | 关闭前拦截函数，仅拦截内建关闭入口，并透出关闭原因   | `DialogBeforeCloseFn`                                                                    | `undefined`        |
 | `destroy-on-close`      | 关闭后是否销毁内容                                   | `boolean`                                                                                 | `false`            |
 | `close-on-click-modal`  | 点击遮罩是否关闭                                     | `boolean`                                                                                 | `true`             |
 | `close-on-press-escape` | 按下 `Escape` 是否关闭                               | `boolean`                                                                                 | `true`             |
@@ -280,8 +278,8 @@ interface DialogServiceResult {
 
 | 事件                 | 说明                     | 参数                                                 |
 | -------------------- | ------------------------ | ---------------------------------------------------- |
-| `update:model-value` | 对话框开关状态变化时触发 | `boolean`                                            |
-| `update:fullscreen`  | 最大化/还原切换时触发    | `boolean`                                            |
+| `update:model-value` | 对话框开关状态变化时触发 | `DialogModelValueChangeHandler`                                            |
+| `update:fullscreen`  | 最大化/还原切换时触发    | `DialogFullscreenChangeHandler`                                            |
 | `open`               | 打开时触发               | —                                                    |
 | `opened`             | 进入完成后触发           | —                                                    |
 | `close`              | 关闭时触发               | —                                                    |
@@ -290,9 +288,9 @@ interface DialogServiceResult {
 | `close-auto-focus`   | 关闭后恢复焦点时触发     | —                                                    |
 | `maximize`           | 切换到全屏/最大化时触发  | —                                                    |
 | `restore`            | 从全屏/最大化恢复时触发  | —                                                    |
-| `resize-start`       | 开始调整尺寸时触发       | `(event: MouseEvent, width: number, height: number)` |
-| `resize`             | 调整尺寸过程中触发       | `(event: MouseEvent, width: number, height: number)` |
-| `resize-end`         | 结束调整尺寸时触发       | `(event: MouseEvent, width: number, height: number)` |
+| `resize-start`       | 开始调整尺寸时触发       | `DialogResizeHandler` |
+| `resize`             | 调整尺寸过程中触发       | `DialogResizeHandler` |
+| `resize-end`         | 结束调整尺寸时触发       | `DialogResizeHandler` |
 
 ### Dialog Slots
 
@@ -307,7 +305,7 @@ interface DialogServiceResult {
 
 | 名称               | 说明                                     | 类型                                   |
 | ------------------ | ---------------------------------------- | -------------------------------------- |
-| `visible`          | 当前可见状态                             | `Ref<boolean>`                         |
-| `dialogContentRef` | 内容层实例，可继续访问拖拽和尺寸控制方法 | `DialogContentInstance \| null`        |
-| `resetPosition`    | 重置拖拽位移                             | `() => void`                           |
-| `handleClose`      | 触发内建关闭流程，可显式指定关闭原因     | `(reason?: DialogCloseReason) => void` |
+| `visible`          | 当前可见状态                             | `DialogInstance["visible"]`            |
+| `dialogContentRef` | 内容层实例，可继续访问拖拽和尺寸控制方法 | `DialogInstance["dialogContentRef"]`    |
+| `resetPosition`    | 重置拖拽位移                             | `DialogInstance["resetPosition"]`      |
+| `handleClose`      | 触发内建关闭流程，可显式指定关闭原因     | `DialogInstance["handleClose"]`        |

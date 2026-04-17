@@ -2,6 +2,8 @@ import type { ComponentSize } from "@xiaoye/utils";
 
 export type DatePickerType = "date" | "daterange" | "month" | "year" | "week";
 export type DatePickerValue = string | [string, string] | null;
+export type DatePickerValueChangeHandler = (value: DatePickerValue) => void;
+export type DatePickerVisibleChangeHandler = (value: boolean) => void;
 
 export interface DatePickerShortcut {
   label: string;

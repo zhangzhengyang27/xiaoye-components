@@ -1,3 +1,4 @@
+import type Button from "./button.vue";
 import type { Component } from "vue";
 import type { ComponentSize } from "@xiaoye/utils";
 
@@ -13,6 +14,7 @@ export const buttonNativeTypes = ["button", "submit", "reset"] as const;
 
 export type ButtonType = (typeof buttonTypes)[number];
 export type ButtonNativeType = (typeof buttonNativeTypes)[number];
+export type ButtonClickHandler = (event: MouseEvent) => void;
 
 export const DEFAULT_LOADING_ICON = "mdi:loading";
 
@@ -34,3 +36,5 @@ export interface ButtonProps {
   block?: boolean;
   tag?: string | Component;
 }
+
+export type ButtonInstance = InstanceType<typeof Button>;

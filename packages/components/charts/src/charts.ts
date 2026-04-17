@@ -1,9 +1,11 @@
-import type { EChartsCoreOption } from "echarts";
+import type { EChartsCoreOption, EChartsInitOpts, EChartsType, SetOptionOpts } from "./echarts";
 
-export type ChartsECharts = unknown;
-export type ChartsInitOptions = Record<string, unknown>;
-export type ChartsSetOptionOptions = Record<string, unknown>;
+export type ChartsECharts = EChartsType;
+export type ChartsInitOptions = EChartsInitOpts;
+export type ChartsSetOptionOptions = SetOptionOpts;
 export type ChartsLoadingOptions = Record<string, unknown>;
+export type ChartsInstanceHandler = (chart: NonNullable<ChartsInstance["chart"]>) => void;
+export type ChartsClickHandler = (params: unknown) => void;
 
 export interface ChartsProps {
   option?: EChartsCoreOption;

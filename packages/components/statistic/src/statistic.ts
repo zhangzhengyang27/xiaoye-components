@@ -1,6 +1,8 @@
 import type { StyleValue } from "vue";
+import type Statistic from "./statistic.vue";
 
 export type StatisticFormatter = (value: number | string) => string | number;
+export type StatisticInstance = InstanceType<typeof Statistic>;
 
 export interface StatisticProps {
   value?: number | string;

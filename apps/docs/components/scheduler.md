@@ -106,7 +106,7 @@ const events: SchedulerEvent[] = [
 | 属性                 | 说明                   | 类型                              | 默认值                     | 典型用途 |
 | -------------------- | ---------------------- | --------------------------------- | -------------------------- | -------- |
 | `model-value`        | 当前焦点日期           | `string`                          | `undefined`                | 跟随用户翻页同步当前日期，或和页面状态、URL 参数联动 |
-| `view`               | 当前视图               | `'month' \| 'week' \| 'day'`      | `'month'`                  | 初始化成月视图、周视图或日视图 |
+| `view`               | 当前视图               | `SchedulerView`                   | `'month'`                  | 初始化成月视图、周视图或日视图 |
 | `views`              | 允许切换的视图列表     | `SchedulerView[]`                 | `['month', 'week', 'day']` | 限制用户只能在指定视图之间切换 |
 | `events`             | 事件列表               | `SchedulerEvent[]`                | `[]`                       | 渲染业务排期、会议、值班或日程数据 |
 | `locale`             | 日历语言               | `string`                          | `'zh-cn'`                  | 切换中英文或对接国际化页面 |
@@ -188,10 +188,16 @@ const events: SchedulerEvent[] = [
 
 ### Scheduler Slots
 
-| 插槽               | 说明                 | 典型用途 |
-| ------------------ | -------------------- | -------- |
-| `event-content`    | 自定义事件块内容     | 给事件块补标签、状态、负责人等业务信息 |
-| `day-cell-content` | 自定义日期单元格内容 | 给日期格补统计数字、节日、今日标识等辅助信息 |
+| 插槽 | 说明 | 插槽参数 | 典型用途 |
+| --- | --- | --- | --- |
+| `event-content` | 自定义事件块内容 | `SchedulerEventContentSlotProps` | 给事件块补标签、状态、负责人等业务信息 |
+| `day-cell-content` | 自定义日期单元格内容 | `SchedulerDayCellContentSlotProps` | 给日期格补统计数字、节日、今日标识等辅助信息 |
+
+### Scheduler Exposes
+
+| 暴露项 | 说明 | 类型 |
+| --- | --- | --- |
+| `getApi` | 获取底层 FullCalendar 实例 API；可用于主动翻页、切换视图或读取当前日历状态 | `SchedulerInstance["getApi"]` |
 
 ### SchedulerEvent
 
@@ -199,13 +205,13 @@ const events: SchedulerEvent[] = [
 | ----------------- | ----------------------- | ----------------------------------- |
 | `id`              | 事件唯一标识            | `string`                            |
 | `title`           | 事件标题                | `string`                            |
-| `start`           | 开始时间                | `string \| Date`                    |
-| `end`             | 结束时间                | `string \| Date`                    |
+| `start`           | 开始时间                | `SchedulerDateInput`                |
+| `end`             | 结束时间                | `SchedulerDateInput`                |
 | `allDay`          | 是否全天事件            | `boolean`                           |
-| `rrule`           | 重复规则                | `string \| Record<string, unknown>` |
+| `rrule`           | 重复规则                | `SchedulerRRuleInput`               |
 | `duration`        | 重复事件时长            | `string`                            |
 | `editable`        | 事件级是否可拖拽        | `boolean`                           |
 | `className`       | 事件类名                | `string \| string[]`                |
 | `sourceId`        | 重复实例对应的源事件 id | `string`                            |
 | `occurrenceStart` | 重复实例起始时间        | `string`                            |
-| `extendedProps`   | 透传的额外业务字段      | `Record<string, unknown>`           |
+| `extendedProps`   | 透传的额外业务字段      | `SchedulerEvent["extendedProps"]`   |

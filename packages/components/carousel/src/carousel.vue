@@ -5,12 +5,16 @@ import XyIcon from "../../icon";
 import {
   type CarouselAlignment,
   type CarouselArrow,
+  type CarouselArrowSlotProps,
   type CarouselContainScroll,
   type CarouselDirection,
   type CarouselEffect,
+  type CarouselIndicatorSlotProps,
   type CarouselIndicatorPosition,
   type CarouselIndicatorType,
+  type CarouselProgressSlotProps,
   type CarouselProgressPlacement,
+  type CarouselThumbSlotProps,
   type CarouselThumbIndicatorType,
   type CarouselThumbPlacement,
   type CarouselTrigger,
@@ -185,11 +189,11 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   default?: () => unknown;
-  indicator?: (props: { index: number; active: boolean; total: number }) => unknown;
-  "arrow-prev"?: (props: { disabled: boolean }) => unknown;
-  "arrow-next"?: (props: { disabled: boolean }) => unknown;
-  progress?: (props: { percent: number; activeIndex: number }) => unknown;
-  thumb?: (props: { index: number; active: boolean; total: number; item: { name?: string; label?: string | number } }) => unknown;
+  indicator?: (props: CarouselIndicatorSlotProps) => unknown;
+  "arrow-prev"?: (props: CarouselArrowSlotProps) => unknown;
+  "arrow-next"?: (props: CarouselArrowSlotProps) => unknown;
+  progress?: (props: CarouselProgressSlotProps) => unknown;
+  thumb?: (props: CarouselThumbSlotProps) => unknown;
 }>();
 
 const ns = useNamespace("carousel");

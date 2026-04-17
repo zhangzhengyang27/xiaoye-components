@@ -32,10 +32,10 @@ space/wrap
 
 | 属性        | 说明           | 类型                                               | 默认值         |
 | ----------- | -------------- | -------------------------------------------------- | -------------- |
-| `size`      | 间距大小       | `number \| 'sm' \| 'md' \| 'lg'`                   | `'md'`         |
-| `direction` | 排列方向       | `'horizontal' \| 'vertical'`                       | `'horizontal'` |
+| `size`      | 间距大小       | `SpaceProps["size"]`                               | `'md'`         |
+| `direction` | 排列方向       | `SpaceProps["direction"]`                          | `'horizontal'` |
 | `wrap`      | 是否允许换行   | `boolean`                                          | `false`        |
-| `align`     | 交叉轴对齐方式 | `'start' \| 'center' \| 'end' \| 'stretch'`        | `'center'`     |
+| `align`     | 交叉轴对齐方式 | `SpaceProps["align"]`                              | `'center'`     |
 
 ### Space Slots
 

@@ -56,26 +56,26 @@ anchor/affix
 
 | 属性        | 说明                                                    | 类型                                      | 默认值       |
 | ----------- | ------------------------------------------------------- | ----------------------------------------- | ------------ |
-| `container` | 滚动容器，可传选择器、`HTMLElement`、`window` 或 `null` | `string \| HTMLElement \| Window \| null` | `null`       |
+| `container` | 滚动容器，可传选择器、`HTMLElement`、`window` 或 `null` | `AnchorContainer` | `null`       |
 | `offset`    | 锚点滚动后的额外偏移距离                                | `number`                                  | `0`          |
 | `bound`     | 提前触发 active 切换的边界偏移                          | `number`                                  | `15`         |
 | `duration`  | 平滑滚动时长，单位毫秒                                  | `number`                                  | `300`        |
 | `marker`    | 是否显示 marker 指示条                                  | `boolean`                                 | `true`       |
-| `direction` | 导航方向                                                | `'vertical' \| 'horizontal'`              | `'vertical'` |
+| `direction` | 导航方向                                                | `AnchorDirection`                         | `'vertical'` |
 | `sync-hash` | 是否在挂载、点击和滚动时同步 URL hash                   | `boolean`                                 | `true`       |
 
 ### Anchor Events
 
 | 事件     | 说明                   | 参数                                         |
 | -------- | ---------------------- | -------------------------------------------- |
-| `change` | 当前高亮锚点变化时触发 | `(href: string) => void`                     |
-| `click`  | 点击锚点时触发         | `(event: MouseEvent, href?: string) => void` |
+| `change` | 当前高亮锚点变化时触发 | `AnchorChangeHandler`                        |
+| `click`  | 点击锚点时触发         | `AnchorClickHandler`                         |
 
 ### Anchor Exposes
 
 | 暴露项     | 说明               | 类型                      |
 | ---------- | ------------------ | ------------------------- |
-| `scrollTo` | 手动滚动到指定锚点 | `(href?: string) => void` |
+| `scrollTo` | 手动滚动到指定锚点 | `AnchorInstance["scrollTo"]` |
 
 ### Anchor Slots
 

@@ -111,9 +111,9 @@ upload/list
 | ------------------ | ------------------------ | --------------------------------------------------------------- | ------------ |
 | `file-list`        | 当前文件列表             | `UploadFileItem[]`                                              | `[]`         |
 | `action`           | 上传地址                 | `string`                                                        | `'#'`        |
-| `headers`          | 请求头                   | `Record<string, string \| number \| boolean \| null \| undefined>` | `{}`      |
+| `headers`          | 请求头                   | `UploadProps["headers"]`                                         | `{}`      |
 | `method`           | 上传方法                 | `string`                                                        | `'post'`     |
-| `data`             | 额外上传参数             | `Record<string, unknown> \| (file) => Record<string, unknown>` | `{}`         |
+| `data`             | 额外上传参数             | `UploadProps["data"]` | `{}`         |
 | `name`             | 文件字段名               | `string`                                                        | `'file'`     |
 | `accept`           | 原生文件类型限制         | `string`                                                        | `''`         |
 | `multiple`         | 是否支持多选             | `boolean`                                                       | `false`      |
@@ -123,22 +123,22 @@ upload/list
 | `directory`        | 是否支持目录选择         | `boolean`                                                       | `false`      |
 | `paste`            | 是否支持粘贴上传         | `boolean`                                                       | `false`      |
 | `tip`              | 上传提示文案             | `string`                                                        | `''`         |
-| `size`             | 组件尺寸                 | `'sm' \| 'md' \| 'lg'`                                          | 跟随全局配置 |
+| `size`             | 组件尺寸                 | `UploadProps["size"]`                                           | 跟随全局配置 |
 | `auto-upload`      | 是否自动上传             | `boolean`                                                       | `true`       |
 | `show-file-list`   | 是否显示文件列表         | `boolean`                                                       | `true`       |
 | `with-credentials` | 是否携带 cookie          | `boolean`                                                       | `false`      |
-| `list-type`        | 文件列表展示类型         | `'text' \| 'picture' \| 'picture-card'`                         | `'text'`     |
-| `before-upload`    | 上传前钩子               | `(file) => boolean \| Promise<boolean \| File \| Blob \| void>` | `undefined` |
-| `before-remove`    | 删除前钩子               | `(file, files) => boolean \| Promise<boolean>`                  | `undefined` |
-| `on-change`        | 文件选择或状态变化钩子   | `(file, files) => void`                                         | `undefined` |
-| `on-remove`        | 删除文件钩子             | `(file, files) => void`                                         | `undefined` |
-| `on-preview`       | 点击预览钩子             | `(file) => void`                                                | `undefined` |
-| `preview-file`     | 自定义预览地址解析       | `(file) => string \| Promise<string \| undefined>`              | `undefined` |
-| `on-success`       | 上传成功钩子             | `(response, file, files) => void`                               | `undefined` |
-| `on-progress`      | 上传进度钩子             | `(event, file, files) => void`                                  | `undefined` |
-| `on-error`         | 上传失败钩子             | `(error, file, files) => void`                                  | `undefined` |
-| `on-exceed`        | 超限钩子                 | `(files, fileList) => void`                                     | `undefined` |
-| `http-request`     | 自定义上传请求实现       | `(options) => XMLHttpRequest \| Promise<unknown> \| void`       | `undefined` |
+| `list-type`        | 文件列表展示类型         | `UploadListType`                                                | `'text'`     |
+| `before-upload`    | 上传前钩子               | `UploadProps["beforeUpload"]`                                   | `undefined` |
+| `before-remove`    | 删除前钩子               | `UploadProps["beforeRemove"]`                                   | `undefined` |
+| `on-change`        | 文件选择或状态变化钩子   | `UploadProps["onChange"]`                                       | `undefined` |
+| `on-remove`        | 删除文件钩子             | `UploadProps["onRemove"]`                                       | `undefined` |
+| `on-preview`       | 点击预览钩子             | `UploadProps["onPreview"]`                                      | `undefined` |
+| `preview-file`     | 自定义预览地址解析       | `UploadProps["previewFile"]`                                    | `undefined` |
+| `on-success`       | 上传成功钩子             | `UploadProps["onSuccess"]`                                      | `undefined` |
+| `on-progress`      | 上传进度钩子             | `UploadProps["onProgress"]`                                     | `undefined` |
+| `on-error`         | 上传失败钩子             | `UploadProps["onError"]`                                        | `undefined` |
+| `on-exceed`        | 超限钩子                 | `UploadProps["onExceed"]`                                       | `undefined` |
+| `http-request`     | 自定义上传请求实现       | `UploadRequestHandler`                                          | `undefined` |
 
 ### UploadFileItem
 
@@ -148,7 +148,7 @@ upload/list
 | `name`       | 文件名         | `string`                                  |
 | `size`       | 文件大小       | `number`                                  |
 | `type`       | MIME 类型      | `string`                                  |
-| `status`     | 当前状态       | `'ready' \| 'uploading' \| 'success' \| 'fail'` |
+| `status`     | 当前状态       | `UploadStatus` |
 | `percentage` | 上传进度       | `number`                                  |
 | `response`   | 上传响应       | `unknown`                                 |
 | `url`        | 文件地址       | `string`                                  |
@@ -164,9 +164,11 @@ upload/list
 
 | 暴露项       | 说明             | 类型                              |
 | ------------ | ---------------- | --------------------------------- |
-| `submit`     | 手动上传待上传项 | `() => Promise<void>`             |
-| `abort`      | 取消上传         | `(file?: UploadFileItem) => void` |
-| `clearFiles` | 清空当前文件列表 | `() => Promise<void>`             |
+| `submit`     | 手动上传待上传项 | `UploadInstance["submit"]`        |
+| `abort`      | 取消上传         | `UploadInstance["abort"]`         |
+| `clearFiles` | 清空当前文件列表 | `UploadInstance["clearFiles"]`    |
+| `handleStart` | 手动把原始文件加入队列 | `UploadInstance["handleStart"]` |
+| `handleRemove` | 手动移除文件项 | `UploadInstance["handleRemove"]` |
 
 ### Upload Slots
 

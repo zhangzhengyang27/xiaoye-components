@@ -26,6 +26,18 @@ charts/combo
 charts/interactive
 :::
 
+## 扩展注册
+
+:::demo 默认已经覆盖常见折线、柱状、雷达、仪表盘和漏斗图；如果需要 `graphic` 这类默认未内置的组件，可以通过 `useChartsModules(...)` 继续补注册。
+charts/extended-modules
+:::
+
+## 默认模块覆盖
+
+:::demo `radar / gauge / funnel` 已经包含在默认预注册集合中，可以直接作为业务图表使用，不需要再额外调用注册 helper。
+charts/radar-gauge-funnel
+:::
+
 ## 仪表盘工作台
 
 :::demo 图表通常不会单独存在，而是放在统计卡片、筛选动作和概览卡片之间，这个示例更接近真实后台工作台布局。
@@ -47,9 +59,18 @@ charts/page-container-analytics
 ## 使用约定
 
 - `xy-charts` 只负责 ECharts 实例生命周期、尺寸同步和加载态联动，不内置数据请求协议。
+- 组件默认预注册了中后台常见图表模块，可直接承接 `line / bar / pie / scatter / radar / gauge / funnel` 与 `grid / tooltip / axisPointer / legend / title / dataset / dataZoom / toolbox` 等能力，不需要像纯 `echarts/core` 那样先手动补基础注册。
+- 如果页面需要更冷门的图表或组件，可以从包根导出调用 `useChartsModules(...)` 继续补注册，使用方式与 `vue-echarts` 的 `use(...)` 类似。
 - `theme`、`initOptions` 变化时会重建图表实例；普通数据更新优先直接更新 `option`，或通过 expose 的 `setOption` 做局部重绘。
 - `autoresize` 默认开启，适合放在自适应卡片、响应式网格和工作台概览布局中。
 - 点击交互统一通过 `click` 事件抛出原始 ECharts 参数，方便接筛选、联动跳转和 drill down。
+
+```ts
+import { GraphicComponent } from "echarts/components"
+import { useChartsModules } from "xiaoye-components"
+
+useChartsModules([GraphicComponent])
+```
 
 ## API
 
@@ -61,26 +82,26 @@ charts/page-container-analytics
 | `theme` | 图表主题名或主题对象 | `string \| object` | — |
 | `width` | 容器宽度 | `string \| number` | `'100%'` |
 | `height` | 容器高度 | `string \| number` | `360` |
-| `init-options` | 初始化参数，会在创建实例时传给 `echarts.init` | `Record<string, unknown>` | — |
+| `init-options` | 初始化参数，会在创建实例时传给 `echarts.init` | `ChartsInitOptions` | — |
 | `loading` | 是否显示加载态 | `boolean` | `false` |
-| `loading-options` | 加载态配置 | `Record<string, unknown>` | — |
+| `loading-options` | 加载态配置 | `ChartsLoadingOptions` | — |
 | `autoresize` | 是否自动监听容器尺寸变化并调用 `resize` | `boolean` | `true` |
-| `set-option-options` | 更新配置时传给 `setOption` 的第二个参数 | `Record<string, unknown>` | — |
+| `set-option-options` | 更新配置时传给 `setOption` 的第二个参数 | `ChartsSetOptionOptions` | — |
 
 ### Charts Events
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `init` | 图表实例创建完成后触发 | `(chart) => void` |
-| `ready` | 图表实例可用后触发 | `(chart) => void` |
-| `click` | 图表元素点击时触发 | `(params) => void` |
+| `init` | 图表实例创建完成后触发 | `ChartsInstanceHandler` |
+| `ready` | 图表实例可用后触发 | `ChartsInstanceHandler` |
+| `click` | 图表元素点击时触发 | `ChartsClickHandler` |
 
 ### Charts Exposes
 
 | 暴露项 | 说明 | 类型 |
 | --- | --- | --- |
-| `chart` | 当前图表实例引用 | `unknown \| null` |
-| `resize` | 手动触发图表重排 | `() => void` |
-| `setOption` | 手动更新图表配置 | `(option, setOptionOptions?) => void` |
-| `showLoading` | 手动显示加载态 | `(loadingOptions?) => void` |
-| `hideLoading` | 手动隐藏加载态 | `() => void` |
+| `chart` | 当前图表实例引用 | `ChartsInstance["chart"]` |
+| `resize` | 手动触发图表重排 | `ChartsInstance["resize"]` |
+| `setOption` | 手动更新图表配置 | `ChartsInstance["setOption"]` |
+| `showLoading` | 手动显示加载态 | `ChartsInstance["showLoading"]` |
+| `hideLoading` | 手动隐藏加载态 | `ChartsInstance["hideLoading"]` |

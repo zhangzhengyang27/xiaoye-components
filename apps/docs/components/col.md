@@ -43,11 +43,11 @@ row/responsive
 | `offset` | 左侧偏移的栅格数           | `number`                                                                     | `0`     |
 | `pull`   | 向左位移的栅格数           | `number`                                                                     | `0`     |
 | `push`   | 向右位移的栅格数           | `number`                                                                     | `0`     |
-| `xs`     | `< 768px` 的响应式列配置   | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `sm`     | `>= 768px` 的响应式列配置  | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `md`     | `>= 992px` 的响应式列配置  | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `lg`     | `>= 1200px` 的响应式列配置 | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
-| `xl`     | `>= 1920px` 的响应式列配置 | `number \| { span?: number; offset?: number; pull?: number; push?: number }` | —       |
+| `xs`     | `< 768px` 的响应式列配置   | `ColSize`                                                                | —       |
+| `sm`     | `>= 768px` 的响应式列配置  | `ColSize`                                                                | —       |
+| `md`     | `>= 992px` 的响应式列配置  | `ColSize`                                                                | —       |
+| `lg`     | `>= 1200px` 的响应式列配置 | `ColSize`                                                                | —       |
+| `xl`     | `>= 1920px` 的响应式列配置 | `ColSize`                                                                | —       |
 
 ### Col Slots
 

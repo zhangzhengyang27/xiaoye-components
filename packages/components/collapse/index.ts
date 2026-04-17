@@ -2,8 +2,12 @@ import Collapse from "./src/collapse.vue";
 import CollapseItem from "./src/collapse-item.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
-import type { CollapseProps } from "./src/collapse";
-import type { CollapseItemProps } from "./src/collapse-item";
+import type { CollapseInstance, CollapseProps } from "./src/collapse";
+import type {
+  CollapseItemInstance,
+  CollapseItemProps,
+  CollapseItemTitleSlotProps
+} from "./src/collapse-item";
 import type {
   CollapseActiveName,
   CollapseBeforeCollapse,
@@ -15,7 +19,10 @@ export type {
   CollapseActiveName,
   CollapseBeforeCollapse,
   CollapseExpandIconPosition,
+  CollapseInstance,
   CollapseItemProps,
+  CollapseItemInstance,
+  CollapseItemTitleSlotProps,
   CollapseModelValue,
   CollapseProps
 };

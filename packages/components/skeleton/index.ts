@@ -3,6 +3,7 @@ import SkeletonItem from "./src/skeleton-item.vue";
 import type { SFCWithInstall } from "@xiaoye/utils";
 import { withInstall } from "@xiaoye/utils";
 import type {
+  SkeletonInstance,
   SkeletonProps,
   SkeletonThrottle,
   SkeletonThrottleOptions
@@ -15,6 +16,7 @@ import type {
 export type {
   SkeletonItemProps,
   SkeletonItemVariant,
+  SkeletonInstance,
   SkeletonProps,
   SkeletonThrottle,
   SkeletonThrottleOptions

@@ -32,14 +32,6 @@ export const workspaceAlias = [
     replacement: `${resolveWorkspacePath("../../packages/pro-components/")}/$1`
   },
   {
-    find: "@xiaoye/frontline",
-    replacement: resolveWorkspacePath("../../packages/frontline/index.ts")
-  },
-  {
-    find: /^@xiaoye\/frontline\/(.*)$/,
-    replacement: `${resolveWorkspacePath("../../packages/frontline/")}/$1`
-  },
-  {
     find: "@xiaoye/composables",
     replacement: resolveWorkspacePath("../../packages/composables/index.ts")
   },
@@ -66,9 +58,5 @@ export const workspaceAlias = [
   {
     find: "xiaoye-pro-components",
     replacement: resolveWorkspacePath("../../packages/xiaoye-pro-components/index.ts")
-  },
-  {
-    find: "xiaoye-frontline",
-    replacement: resolveWorkspacePath("../../packages/frontline/index.ts")
   }
 ] as const;

@@ -62,8 +62,8 @@ text/expandable
 
 | 属性         | 说明               | 类型                                                                     | 默认值       |
 | ------------ | ------------------ | ------------------------------------------------------------------------ | ------------ |
-| `type`       | 文本语义色         | `'default' \| 'primary' \| 'success' \| 'info' \| 'warning' \| 'danger'` | `'default'`  |
-| `size`       | 文本尺寸           | `'sm' \| 'md' \| 'lg'`                                                   | 跟随全局配置 |
+| `type`       | 文本语义色         | `TextType` | `'default'`  |
+| `size`       | 文本尺寸           | `TextProps["size"]`                                                      | 跟随全局配置 |
 | `truncated`  | 是否启用单行省略   | `boolean`                                                                | `false`      |
 | `line-clamp` | 多行省略的最大行数 | `number \| string`                                                       | —            |
 | `tag`        | 渲染的根标签       | `string`                                                                 | `'span'`     |

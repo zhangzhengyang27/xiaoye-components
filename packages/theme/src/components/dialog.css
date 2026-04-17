@@ -177,7 +177,7 @@
 .xy-dialog__panel:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-dialog__icon-component {
@@ -221,7 +221,7 @@
   height: 10px;
   border-right: 2px solid color-mix(in srgb, var(--xy-text-color-secondary) 72%, transparent);
   border-bottom: 2px solid color-mix(in srgb, var(--xy-text-color-secondary) 72%, transparent);
-  border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 2px;
 }
 
 .xy-dialog-service-prompt {

@@ -2,6 +2,7 @@ import Tooltip from "./src/tooltip.vue";
 import type {
   TooltipEffect,
   TooltipExposed,
+  TooltipModelValueChangeHandler,
   TooltipPopperOptions,
   TooltipProps,
   TooltipTrigger
@@ -11,6 +12,7 @@ import { withInstall } from "@xiaoye/utils";
 export type {
   TooltipEffect,
   TooltipExposed,
+  TooltipModelValueChangeHandler,
   TooltipPopperOptions,
   TooltipProps,
   TooltipTrigger

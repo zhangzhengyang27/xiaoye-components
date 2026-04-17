@@ -1,3 +1,4 @@
+import type Cascader from "./cascader.vue";
 import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
 import type { ComponentSize } from "@xiaoye/utils";
@@ -5,6 +6,9 @@ import type { ComponentSize } from "@xiaoye/utils";
 export type CascaderKey = string | number;
 export type CascaderValue = CascaderKey[] | null;
 export type CascaderOptionData = Record<string, any>;
+export type CascaderValueChangeHandler = (value: CascaderValue) => void;
+export type CascaderVisibleChangeHandler = (value: boolean) => void;
+export type CascaderSearchChangeHandler = (value: string) => void;
 
 export interface CascaderFieldNames {
   label?: string;
@@ -38,3 +42,5 @@ export interface CascaderProps {
   popperClass?: string;
   popperStyle?: StyleValue;
 }
+
+export type CascaderInstance = InstanceType<typeof Cascader>;

@@ -51,27 +51,27 @@ time-picker/form
 
 | 属性                | 说明             | 类型                                         | 默认值         |
 | ------------------- | ---------------- | -------------------------------------------- | -------------- |
-| `model-value`       | 当前值           | `string \| [string, string] \| null`         | `null`         |
+| `model-value`       | 当前值           | `TimePickerValue`                            | `null`         |
 | `placeholder`       | 单值占位文本     | `string`                                     | `'请选择时间'` |
 | `start-placeholder` | 范围开始占位文本 | `string`                                     | `'开始时间'`   |
 | `end-placeholder`   | 范围结束占位文本 | `string`                                     | `'结束时间'`   |
 | `disabled`          | 是否禁用         | `boolean`                                    | `false`        |
 | `clearable`         | 是否支持清空     | `boolean`                                    | `false`        |
-| `size`              | 组件尺寸         | `'sm' \| 'md' \| 'lg'`                       | 跟随全局配置   |
+| `size`              | 组件尺寸         | `TimePickerProps["size"]`                    | 跟随全局配置   |
 | `format`            | 显示与输出格式   | `string`                                     | `'HH:mm:ss'`   |
 | `is-range`          | 是否开启范围选择 | `boolean`                                    | `false`        |
 | `validate-event`    | 是否触发表单校验 | `boolean`                                    | `true`         |
-| `disabled-hours`    | 禁用小时         | `() => number[]`                             | `undefined`    |
-| `disabled-minutes`  | 禁用分钟         | `(hour: number) => number[]`                 | `undefined`    |
-| `disabled-seconds`  | 禁用秒           | `(hour: number, minute: number) => number[]` | `undefined`    |
+| `disabled-hours`    | 禁用小时         | `TimePickerProps["disabledHours"]`           | `undefined`    |
+| `disabled-minutes`  | 禁用分钟         | `TimePickerProps["disabledMinutes"]`         | `undefined`    |
+| `disabled-seconds`  | 禁用秒           | `TimePickerProps["disabledSeconds"]`         | `undefined`    |
 
 ### TimePicker Events
 
 | 事件                 | 说明         | 参数                                 |
 | -------------------- | ------------ | ------------------------------------ |
-| `update:model-value` | 更新时间值   | `string \| [string, string] \| null` |
-| `change`             | 确认值变化   | `string \| [string, string] \| null` |
-| `clear`              | 清空值       | —                                    |
-| `visible-change`     | 面板开关状态 | `boolean`                            |
+| `update:model-value` | 更新时间值   | `TimePickerModelValueChangeHandler` |
+| `change`             | 确认值变化   | `TimePickerChangeHandler` |
+| `clear`              | 点击清空按钮时触发 | —                                |
+| `visible-change`     | 面板开关状态 | `TimePickerVisibleChangeHandler`                            |
 | `focus`              | 打开面板触发 | —                                    |
 | `blur`               | 关闭面板触发 | —                                    |

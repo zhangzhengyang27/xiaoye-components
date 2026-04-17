@@ -68,8 +68,8 @@ checkbox/form
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 当前值 | `string \| number \| boolean` | `undefined` |
-| `value` | 当前项值 | `string \| number \| boolean` | `undefined` |
+| `model-value` | 当前值 | `CheckboxValue` | `undefined` |
+| `value` | 当前项值 | `CheckboxValue` | `undefined` |
 | `label` | 展示文案 | `string \| number \| boolean` | `undefined` |
 | `indeterminate` | 是否为中间态，仅控制样式 | `boolean` | `false` |
 | `disabled` | 是否禁用 | `boolean` | `false` |
@@ -89,8 +89,8 @@ checkbox/form
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:model-value` | 选中值变化时触发 | `string \| number \| boolean` |
-| `change` | 用户切换时触发 | `string \| number \| boolean` |
+| `update:model-value` | 选中值变化时触发 | `CheckboxValueChangeHandler` |
+| `change` | 用户切换时触发 | `CheckboxValueChangeHandler` |
 
 ### Checkbox Slots
 
@@ -102,13 +102,13 @@ checkbox/form
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `model-value` | 当前选中值数组 | `CheckboxValue[]` | `[]` |
+| `model-value` | 当前选中值数组 | `CheckboxGroupValue` | `[]` |
 | `options` | 选项数组 | `CheckboxOption[]` | `[]` |
-| `type` | 组内渲染类型 | `'checkbox' \| 'button'` | `'checkbox'` |
+| `type` | 组内渲染类型 | `CheckboxGroupProps["type"]` | `'checkbox'` |
 | `disabled` | 是否整体禁用 | `boolean` | `false` |
 | `size` | 组内尺寸 | `ComponentSize` | 跟随全局配置 |
 | `name` | 原生 `name` | `string` | 自动生成 |
-| `direction` | 排列方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `direction` | 排列方向 | `CheckboxGroupDirection` | `'horizontal'` |
 | `validate-event` | 是否触发表单校验 | `boolean` | `true` |
 | `aria-label` | `group` 的辅助标签 | `string` | `'checkbox-group'` |
 | `fill` | 按钮化激活态背景色 | `string` | `undefined` |
@@ -120,8 +120,14 @@ checkbox/form
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:model-value` | 选中值数组变化时触发 | `CheckboxValue[]` |
-| `change` | 用户切换时触发 | `CheckboxValue[]` |
+| `update:model-value` | 选中值数组变化时触发 | `CheckboxGroupValueChangeHandler` |
+| `change` | 用户切换时触发 | `CheckboxGroupValueChangeHandler` |
+
+### CheckboxGroup Slots
+
+| 插槽 | 说明 |
+| --- | --- |
+| `default` | 自定义渲染整组 `xy-checkbox` / `xy-checkbox-button`；存在时会覆盖 `options` 的默认渲染 |
 
 ### CheckboxOption
 

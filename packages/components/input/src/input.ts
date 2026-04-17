@@ -1,3 +1,4 @@
+import type Input from "./input.vue";
 import type { HTMLAttributes, StyleValue } from "vue";
 import type { ComponentSize } from "@xiaoye/utils";
 
@@ -8,6 +9,11 @@ export type InputModelModifiers = {
 };
 
 export type InputAutoSize = { minRows?: number; maxRows?: number } | boolean;
+export interface InputPasswordIconSlotProps {
+  visible: boolean;
+}
+export type InputValueChangeHandler = (value: string | number) => void;
+export type InputFocusHandler = (event: FocusEvent) => void;
 
 export type InputType =
   | "text"
@@ -53,6 +59,8 @@ export interface InputProps {
   inputmode?: HTMLAttributes["inputmode"];
   name?: string;
 }
+
+export type InputInstance = InstanceType<typeof Input>;
 
 export const DEFAULT_CLEAR_ICON = "mdi:close-circle";
 export const DEFAULT_PASSWORD_VISIBLE_ICON = "mdi:eye-outline";

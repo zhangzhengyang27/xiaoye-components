@@ -11,6 +11,7 @@ import XyIcon from "../../icon";
 import type {
   ProgressColorMap,
   ProgressColorStop,
+  ProgressDefaultSlotProps,
   ProgressProps,
   ProgressStatus
 } from "./progress";
@@ -40,7 +41,7 @@ const props = withDefaults(defineProps<ProgressProps>(), {
 });
 
 const slots = defineSlots<{
-  default?: (props: { percentage: number; content: string; status: ProgressStatus }) => unknown;
+  default?: (props: ProgressDefaultSlotProps) => unknown;
 }>();
 
 const attrs = useAttrs();

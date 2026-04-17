@@ -57,35 +57,35 @@ input-number/methods
 
 | 属性                  | 说明                  | 类型                               | 默认值                    |
 | --------------------- | --------------------- | ---------------------------------- | ------------------------- |
-| `model-value`         | 当前值                | `number \| null`                   | `null`                    |
+| `model-value`         | 当前值                | `InputNumberProps["modelValue"]`  | `null`                    |
 | `min`                 | 最小值                | `number`                           | `Number.MIN_SAFE_INTEGER` |
 | `max`                 | 最大值                | `number`                           | `Number.MAX_SAFE_INTEGER` |
 | `step`                | 步进值                | `number`                           | `1`                       |
 | `step-strictly`       | 是否只允许步长倍数    | `boolean`                          | `false`                   |
 | `precision`           | 数值精度              | `number`                           | `undefined`               |
-| `size`                | 组件尺寸              | `'sm' \| 'md' \| 'lg'`             | 跟随全局配置              |
+| `size`                | 组件尺寸              | `InputNumberProps["size"]`         | 跟随全局配置              |
 | `disabled`            | 是否禁用              | `boolean`                          | `false`                   |
 | `readonly`            | 是否只读              | `boolean`                          | `false`                   |
 | `controls`            | 是否显示步进按钮      | `boolean`                          | `true`                    |
-| `controls-position`   | 控制按钮位置          | `'' \| 'right'`                    | `''`                      |
-| `value-on-clear`      | 清空后的回写值        | `'min' \| 'max' \| number \| null` | `null`                    |
+| `controls-position`   | 控制按钮位置          | `InputNumberProps["controlsPosition"]` | `''`                  |
+| `value-on-clear`      | 清空后的回写值        | `InputNumberProps["valueOnClear"]` | `null`                    |
 | `placeholder`         | 占位文本              | `string`                           | `''`                      |
 | `name`                | 原生 `name`           | `string`                           | `undefined`               |
 | `validate-event`      | 是否触发表单校验      | `boolean`                          | `true`                    |
 | `aria-label`          | 原生 `aria-label`     | `string`                           | `undefined`               |
 | `inputmode`           | 原生 `inputmode`      | `HTMLAttributes['inputmode']`      | 自动推导                  |
-| `align`               | 数值对齐方式          | `'left' \| 'center' \| 'right'`    | `'center'`                |
+| `align`               | 数值对齐方式          | `InputNumberProps["align"]`        | `'center'`                |
 | `disabled-scientific` | 是否禁用 `e / E` 输入 | `boolean`                          | `false`                   |
 
 ### Input Number Events
 
 | 事件                 | 说明             | 参数                                                |
 | -------------------- | ---------------- | --------------------------------------------------- |
-| `update:model-value` | 当前值变化时触发 | `number \| null`                                    |
-| `input`              | 输入中触发       | `number \| null`                                    |
-| `change`             | 确认变更时触发   | `(value: number \| null, oldValue: number \| null)` |
-| `focus`              | 获得焦点时触发   | `FocusEvent`                                        |
-| `blur`               | 失去焦点时触发   | `FocusEvent`                                        |
+| `update:model-value` | 当前值变化时触发 | `InputNumberValueChangeHandler`                                    |
+| `input`              | 输入中触发       | `InputNumberValueChangeHandler`                                    |
+| `change`             | 确认变更时触发   | `InputNumberChangeHandler` |
+| `focus`              | 获得焦点时触发   | `InputNumberFocusHandler`                                        |
+| `blur`               | 失去焦点时触发   | `InputNumberFocusHandler`                                        |
 
 ### Input Number Slots
 
@@ -98,8 +98,8 @@ input-number/methods
 
 | 暴露项     | 说明           | 类型                                   |
 | ---------- | -------------- | -------------------------------------- |
-| `input`    | 原生输入框引用 | `ShallowRef<HTMLInputElement \| null>` |
-| `focus`    | 聚焦输入框     | `() => void`                           |
-| `blur`     | 让输入框失焦   | `() => void`                           |
-| `increase` | 按当前步长增加 | `() => void`                           |
-| `decrease` | 按当前步长减少 | `() => void`                           |
+| `input`    | 原生输入框引用 | `InputNumberInstance["input"]` |
+| `focus`    | 聚焦输入框     | `InputNumberInstance["focus"]` |
+| `blur`     | 让输入框失焦   | `InputNumberInstance["blur"]` |
+| `increase` | 按当前步长增加 | `InputNumberInstance["increase"]` |
+| `decrease` | 按当前步长减少 | `InputNumberInstance["decrease"]` |

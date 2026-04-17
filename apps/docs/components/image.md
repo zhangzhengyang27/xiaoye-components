@@ -56,8 +56,8 @@ image/preview-toolbar
 | ---- | ---- | ---- | ------ |
 | `src` | 图片地址 | `string` | `''` |
 | `alt` | 原生图片 `alt` 文案 | `string` | `''` |
-| `fit` | 图片裁切方式 | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'` |
-| `loading` | 原生图片加载策略 | `'eager' \| 'lazy'` | `undefined` |
+| `fit` | 图片裁切方式 | `ImageFit` | `'cover'` |
+| `loading` | 原生图片加载策略 | `ImageLoading` | `undefined` |
 | `lazy` | 是否启用基于 `IntersectionObserver` 的懒加载 | `boolean` | `false` |
 | `scroll-container` | 懒加载监听容器，支持选择器或 HTMLElement | `string \| HTMLElement` | `undefined` |
 | `preview-src-list` | 预览图片列表 | `string[]` | `[]` |
@@ -72,17 +72,17 @@ image/preview-toolbar
 | `min-scale` | 预览层最小缩放比例 | `number` | `0.2` |
 | `max-scale` | 预览层最大缩放比例 | `number` | `7` |
 | `show-progress` | 是否显示预览进度 | `boolean` | `false` |
-| `crossorigin` | 原生图片 `crossorigin` 属性 | `'' \| 'anonymous' \| 'use-credentials'` | `''` |
+| `crossorigin` | 原生图片 `crossorigin` 属性 | `ImageCrossorigin` | `''` |
 
 ### Image Events
 
 | 事件 | 说明 | 参数 |
 | ---- | ---- | ---- |
-| `load` | 图片加载成功时触发 | `Event` |
-| `error` | 图片加载失败时触发 | `Event` |
+| `load` | 图片加载成功时触发 | `ImageLoadHandler` |
+| `error` | 图片加载失败时触发 | `ImageErrorHandler` |
 | `show` | 打开预览层时触发 | — |
 | `close` | 关闭预览层时触发 | — |
-| `switch` | 预览图片切换时触发 | `number` |
+| `switch` | 预览图片切换时触发 | `ImageSwitchHandler` |
 
 ### Image Slots
 
@@ -90,16 +90,16 @@ image/preview-toolbar
 | ---- | ---- |
 | `placeholder` | 自定义加载占位内容 |
 | `error` | 自定义加载失败内容 |
-| `progress` | 自定义预览进度内容，接收 `{ activeIndex, total }` |
-| `toolbar` | 自定义预览工具栏，接收 `{ actions, prev, next, reset, activeIndex, setActiveItem }` |
-| `viewer-error` | 自定义预览大图失败内容，接收 `{ activeIndex, src, retry }` |
+| `progress` | 自定义预览进度内容，接收 `ImageViewerProgressSlotProps` |
+| `toolbar` | 自定义预览工具栏，接收 `ImageViewerToolbarSlotProps` |
+| `viewer-error` | 自定义预览大图失败内容，接收 `ImageViewerErrorSlotProps` |
 
 ### Image Exposes
 
 | 暴露项 | 说明 | 类型 |
 | ---- | ---- | ---- |
-| `showPreview` | 手动打开预览层 | `() => void` |
-| `closePreview` | 手动关闭预览层 | `() => void` |
+| `showPreview` | 手动打开预览层 | `ImageInstance["showPreview"]` |
+| `closePreview` | 手动关闭预览层 | `ImageInstance["closePreview"]` |
 
 ## 预览交互约定
 

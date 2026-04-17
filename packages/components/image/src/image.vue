@@ -7,7 +7,12 @@ import { computed, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue"
 import type { CSSProperties } from "vue";
 import { useNamespace } from "@xiaoye/composables";
 import ImageViewer from "./image-viewer.vue";
-import type { ImageProps, ImageViewerAction } from "./image";
+import type {
+  ImageProps,
+  ImageViewerErrorSlotProps,
+  ImageViewerProgressSlotProps,
+  ImageViewerToolbarSlotProps
+} from "./image";
 
 const props = withDefaults(defineProps<ImageProps>(), {
   src: "",
@@ -42,16 +47,9 @@ const emit = defineEmits<{
 const slots = defineSlots<{
   placeholder?: () => unknown;
   error?: () => unknown;
-  "viewer-error"?: (props: { activeIndex: number; src: string; retry: () => void }) => unknown;
-  progress?: (props: { activeIndex: number; total: number }) => unknown;
-  toolbar?: (props: {
-    actions: (action: ImageViewerAction) => void;
-    prev: () => void;
-    next: () => void;
-    reset: () => void;
-    activeIndex: number;
-    setActiveItem: (index: number) => void;
-  }) => unknown;
+  "viewer-error"?: (props: ImageViewerErrorSlotProps) => unknown;
+  progress?: (props: ImageViewerProgressSlotProps) => unknown;
+  toolbar?: (props: ImageViewerToolbarSlotProps) => unknown;
 }>();
 
 const attrs = useAttrs();

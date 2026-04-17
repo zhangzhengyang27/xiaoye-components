@@ -131,18 +131,18 @@ app.config.globalProperties.$loading({
 | `body`        | 是否把遮罩挂到 `document.body`                    | `boolean`                    | `false`         |
 | `fullscreen`  | 是否使用 fullscreen 形态                          | `boolean`                    | `true`          |
 | `lock`        | fullscreen 时是否锁定 body 滚动                   | `boolean`                    | `false`         |
-| `text`        | 加载文案                                          | `string \| VNode \| VNode[]` | `''`            |
+| `text`        | 加载文案                                          | `LoadingText`                | `''`            |
 | `spinner`     | 自定义 spinner class                              | `string`                     | `''`            |
 | `background`  | 自定义遮罩背景色                                  | `string`                     | `''`            |
 | `customClass` | 遮罩自定义 class                                  | `string`                     | `''`            |
 | `svg`         | 自定义 SVG 片段                                   | `string`                     | `''`            |
 | `svgViewBox`  | 自定义 SVG 的 `viewBox`                           | `string`                     | `'0 0 50 50'`   |
-| `visible`     | 初始显示状态                                      | `boolean`                    | `true`          |
+| `visible`     | 当前可见状态；创建时默认显示，也可通过 `instance.update({ visible })` 在运行时切换 | `boolean` | `true` |
 | `delay`       | 延迟显示时长，单位毫秒                            | `number`                     | `0`             |
 | `minDuration` | 实际显示后的最短可见时长，单位毫秒                | `number`                     | `0`             |
 | `groupKey`    | service 复用键；相同 key 会复用已有实例           | `string`                     | `undefined`     |
-| `beforeClose` | 关闭前拦截；返回 `false` 会阻止关闭               | `() => boolean`              | `undefined`     |
-| `closed`      | 完全关闭并卸载后触发                              | `() => void`                 | `undefined`     |
+| `beforeClose` | 关闭前拦截；返回 `false` 会阻止关闭               | `LoadingOptions["beforeClose"]` | `undefined`     |
+| `closed`      | 完全关闭并卸载后触发                              | `LoadingOptions["closed"]`      | `undefined`     |
 
 ### Directive
 
@@ -168,34 +168,40 @@ app.config.globalProperties.$loading({
 
 | 方法      | 说明                      | 签名                                         |
 | --------- | ------------------------- | -------------------------------------------- |
-| `close`   | 关闭并卸载 loading        | `() => void`                                 |
-| `setText` | 更新加载文案              | `(text: string \| VNode \| VNode[]) => void` |
-| `update`  | 更新运行中的 loading 配置 | `(patch: Partial<LoadingOptions>) => void`   |
+| `close`   | 关闭并卸载 loading        | `LoadingInstance["close"]`                   |
+| `setText` | 更新加载文案              | `LoadingInstance["setText"]`                 |
+| `update`  | 更新运行中的 loading 配置 | `LoadingInstance["update"]`                  |
+
+### Loading Instance State
+
+| 字段 | 说明 | 类型 |
+| --- | --- | --- |
+| `visible` | 当前 loading 是否可见 | `LoadingInstance["visible"]` |
+| `text` | 当前加载文案 | `LoadingInstance["text"]` |
+| `background` | 当前遮罩背景色 | `LoadingInstance["background"]` |
+| `spinner` | 当前 spinner class | `LoadingInstance["spinner"]` |
+| `svg` | 当前 SVG 片段 | `LoadingInstance["svg"]` |
+| `svgViewBox` | 当前 SVG `viewBox` | `LoadingInstance["svgViewBox"]` |
+| `fullscreen` | 当前是否为 fullscreen 形态 | `LoadingInstance["fullscreen"]` |
+| `lock` | 当前是否锁滚动 | `LoadingInstance["lock"]` |
+| `customClass` | 当前自定义 class | `LoadingInstance["customClass"]` |
+| `zIndex` | 当前遮罩层级 | `LoadingInstance["zIndex"]` |
+| `$el` | 当前遮罩根元素 | `LoadingInstance["$el"]` |
 
 ### Loading Service
 
 | 方法                                   | 说明                           | 签名                                                                                                                     |
 | -------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `XyLoadingService(options?, context?)` | 创建一个 loading 实例          | `(options?: LoadingOptions, context?: AppContext \| null) => LoadingInstance`                                            |
-| `closeAll()`                           | 关闭当前所有 service loading   | `() => void`                                                                                                             |
-| `with(task, options?, context?)`       | 包裹异步任务并在结束后自动关闭 | `<T>(task: Promise<T> \| (() => T \| Promise<T>), options?: LoadingOptions, context?: AppContext \| null) => Promise<T>` |
+| `XyLoadingService(...)`                | 创建一个 loading 实例          | `LoadingService`                                                                                                         |
+| `XyLoadingService.closeAll()`          | 关闭当前所有 service loading   | `LoadingService["closeAll"]`                                                                                             |
+| `XyLoadingService.with(...)`           | 包裹异步任务并在结束后自动关闭 | `LoadingService["with"]`                                                                                                 |
 
 ### Loading Global Config
 
-`ConfigProvider.loading` 的类型如下：
+`ConfigProvider.loading` 的类型为 `LoadingGlobalConfig`：
 
 ```ts
-interface LoadingGlobalConfig {
-  text?: string;
-  background?: string;
-  spinner?: string;
-  svg?: string;
-  svgViewBox?: string;
-  delay?: number;
-  minDuration?: number;
-  fullscreen?: boolean;
-  lock?: boolean;
-}
+type LoadingGlobalConfig = ConfigProviderProps["loading"];
 ```
 
 - 独立 `v-loading` 与 `XyLoadingService()` 会完整读取这组默认值。

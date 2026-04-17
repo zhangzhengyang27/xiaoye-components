@@ -24,7 +24,7 @@
 .xy-time-select__trigger:focus-visible {
   outline: 0;
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-time-select__trigger:hover:not(:disabled),
@@ -221,7 +221,7 @@
 .xy-time-select__clear:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
 .xy-time-select.is-error .xy-time-select__trigger {

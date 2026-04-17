@@ -51,7 +51,7 @@ card/states
 | 属性           | 说明               | 类型                              | 默认值     |
 | -------------- | ------------------ | --------------------------------- | ---------- |
 | `size`         | 卡片密度           | `ComponentSize`                   | 跟随全局配置 |
-| `variant`      | 卡片表面风格       | `'default' \| 'muted'`            | `'default'` |
+| `variant`      | 卡片表面风格       | `CardVariant`                     | `'default'` |
 | `bordered`     | 是否显示外边框     | `boolean`                         | `true`      |
 | `header`       | 头部内容           | `string`                          | `''`        |
 | `footer`       | 底部内容           | `string`                          | `''`        |
@@ -62,7 +62,7 @@ card/states
 | `footer-class` | 底部自定义类名     | `string`                          | `''`        |
 | `header-divider` | 是否显示头部分隔线 | `boolean`                       | `true`      |
 | `footer-divider` | 是否显示底部分隔线 | `boolean`                       | `true`      |
-| `shadow`       | 阴影显示方式       | `'always' \| 'hover' \| 'never'`  | `'always'`  |
+| `shadow`       | 阴影显示方式       | `CardShadow`                      | `'always'`  |
 | `loading`      | 是否显示加载态     | `boolean`                         | `false`     |
 | `loading-text` | 默认加载态文案     | `string`                          | `'加载中'`  |
 | `empty`        | 是否显示空态       | `boolean`                         | `false`     |

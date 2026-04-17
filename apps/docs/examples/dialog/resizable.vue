@@ -4,8 +4,8 @@ import { ref } from "vue";
 const open = ref(false);
 const lastSize = ref("最近一次尺寸调整：尚未触发");
 
-function handleResize(_event: MouseEvent, size: { width: number; height: number }) {
-  lastSize.value = `最近一次尺寸调整：${size.width} x ${size.height}`;
+function handleResize(_event: MouseEvent, width: number, height: number) {
+  lastSize.value = `最近一次尺寸调整：${width} x ${height}`;
 }
 </script>
 
@@ -29,4 +29,3 @@ function handleResize(_event: MouseEvent, size: { width: number; height: number 
     </xy-dialog>
   </div>
 </template>
-

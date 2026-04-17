@@ -72,14 +72,14 @@ scrollbar/filter-panel
 | `id`               | 视图容器 id                           | `string`                                    | —       |
 | `role`             | 视图容器 role                         | `string`                                    | —       |
 | `aria-label`       | 视图容器 aria-label                   | `string`                                    | —       |
-| `aria-orientation` | 视图容器 aria-orientation             | `'horizontal' \| 'vertical' \| 'undefined'` | —       |
+| `aria-orientation` | 视图容器 aria-orientation             | `ScrollbarProps["ariaOrientation"]`     | —       |
 
 ### Scrollbar Events
 
 | 事件         | 说明               | 参数                                        |
 | ------------ | ------------------ | ------------------------------------------- |
-| `scroll`     | 滚动时触发         | `{ scrollTop: number; scrollLeft: number }` |
-| `endReached` | 滚动接近边界时触发 | `'top' \| 'bottom' \| 'left' \| 'right'`    |
+| `scroll`     | 滚动时触发         | `ScrollbarScrollPayload`                    |
+| `endReached` | 滚动接近边界时触发 | `ScrollbarDirection`    |
 
 ### Scrollbar Slots
 
@@ -91,12 +91,12 @@ scrollbar/filter-panel
 
 | 暴露项          | 说明               | 类型                                    |
 | --------------- | ------------------ | --------------------------------------- |
-| `wrapRef`       | 滚动容器引用       | `Ref<HTMLDivElement \| null>`           |
-| `update`        | 手动更新滚动条状态 | `() => void`                            |
-| `scrollTo`      | 滚动到指定位置     | `(x, y) => void` 或 `(options) => void` |
-| `setScrollTop`  | 设置纵向滚动位置   | `(value: number) => void`               |
-| `setScrollLeft` | 设置横向滚动位置   | `(value: number) => void`               |
-| `handleScroll`  | 手动触发滚动同步   | `() => void`                            |
+| `wrapRef`       | 滚动容器引用       | `ScrollbarInstance["wrapRef"]`          |
+| `update`        | 手动更新滚动条状态 | `ScrollbarInstance["update"]`           |
+| `scrollTo`      | 滚动到指定位置     | `ScrollbarInstance["scrollTo"]`         |
+| `setScrollTop`  | 设置纵向滚动位置   | `ScrollbarInstance["setScrollTop"]`     |
+| `setScrollLeft` | 设置横向滚动位置   | `ScrollbarInstance["setScrollLeft"]`    |
+| `handleScroll`  | 手动触发滚动同步   | `ScrollbarInstance["handleScroll"]`     |
 
 ## 行为约定
 

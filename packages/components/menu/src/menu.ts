@@ -32,6 +32,9 @@ export type MenuSelectEvent = (
 ) => void;
 export type MenuOpenEvent = (index: string, indexPath: string[]) => void;
 export type MenuCloseEvent = (index: string, indexPath: string[]) => void;
+export type MenuActiveIndexChangeHandler = (value: string) => void;
+export type MenuOpenedMenusChangeHandler = (value: string[]) => void;
+export type MenuItemClickHandler = (item: MenuItemClicked) => void;
 
 export interface MenuProps {
   mode?: MenuMode;

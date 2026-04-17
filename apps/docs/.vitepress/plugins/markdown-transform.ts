@@ -16,7 +16,7 @@ function resolveExamplesRoot(id: string) {
 
 function injectImports(code: string, id: string, demoPaths: string[]) {
   const examplesRoot = resolveExamplesRoot(id);
-  const imports = demoPaths.map((demoPath) => {
+  const declarations = demoPaths.map((demoPath) => {
     const componentName = getDemoComponentName(demoPath);
     const examplePath = path.resolve(examplesRoot, `${demoPath}.vue`);
     let relativePath = path.relative(path.dirname(id), examplePath).replaceAll(path.sep, "/");
@@ -25,20 +25,24 @@ function injectImports(code: string, id: string, demoPaths: string[]) {
       relativePath = `./${relativePath}`;
     }
 
-    return `import ${componentName} from "${relativePath}";`;
+    return [
+      `const ${componentName} = defineAsyncComponent(() => import("${relativePath}"));`,
+      `const ${componentName}SourceLoader = () => import("virtual:xy-demo-source:${demoPath}");`
+    ].join("\n");
   });
+  const injectedBlock = `import { defineAsyncComponent } from "vue";\n${declarations.join("\n")}`;
 
   const existingScriptSetup = code.match(/<script\s+setup\b[^>]*>/);
 
   if (existingScriptSetup?.index !== undefined) {
     const insertAt = existingScriptSetup.index + existingScriptSetup[0].length;
 
-    return `${code.slice(0, insertAt)}\n${imports.join("\n")}${code.slice(insertAt)}`;
+    return `${code.slice(0, insertAt)}\n${injectedBlock}${code.slice(insertAt)}`;
   }
 
   const script = `
 <script setup lang="ts">
-${imports.join("\n")}
+${injectedBlock}
 </script>
 `;
 

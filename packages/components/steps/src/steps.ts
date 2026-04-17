@@ -3,6 +3,7 @@ export const stepsStatuses = ["wait", "process", "finish", "error", "success"] a
 
 export type StepsDirection = (typeof stepsDirections)[number];
 export type StepsStatus = (typeof stepsStatuses)[number];
+export type StepsChangeHandler = (newValue: number, oldValue: number) => void;
 
 export interface StepsProps {
   space?: number | string;

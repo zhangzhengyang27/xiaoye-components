@@ -1,7 +1,10 @@
+import type Slider from "./slider.vue";
 import type { ComponentSize } from "@xiaoye/utils";
 
 export type SliderValue = number | [number, number];
 export type SliderPlacement = "top" | "bottom" | "left" | "right";
+export type SliderValueChangeHandler = (value: SliderValue) => void;
+export type SliderFocusHandler = (event: FocusEvent) => void;
 
 export interface SliderProps {
   modelValue?: SliderValue;
@@ -29,3 +32,5 @@ export interface SliderProps {
   persistent?: boolean;
   ariaLabel?: string;
 }
+
+export type SliderInstance = InstanceType<typeof Slider>;

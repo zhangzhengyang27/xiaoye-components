@@ -1,6 +1,9 @@
 import type { ComponentSize } from "@xiaoye/utils";
 
 export type TimePickerValue = string | [string, string] | null;
+export type TimePickerModelValueChangeHandler = (value: TimePickerValue) => void;
+export type TimePickerChangeHandler = (value: TimePickerValue) => void;
+export type TimePickerVisibleChangeHandler = (value: boolean) => void;
 
 export interface TimePickerProps {
   modelValue?: TimePickerValue;

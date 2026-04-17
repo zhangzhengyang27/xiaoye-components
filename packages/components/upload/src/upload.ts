@@ -1,3 +1,4 @@
+import type Upload from "./upload.vue";
 import type { ComponentSize } from "@xiaoye/utils";
 
 export type UploadStatus = "ready" | "uploading" | "success" | "fail";
@@ -35,6 +36,11 @@ export interface UploadRequestOptions {
   onProgress: (event: UploadProgressEvent) => void;
   onSuccess: (response: unknown) => void;
   onError: (error: Error) => void;
+}
+
+export interface UploadRemoveOptions {
+  skipBeforeRemove?: boolean;
+  emitRemove?: boolean;
 }
 
 export type UploadRequestHandler = (
@@ -77,6 +83,8 @@ export interface UploadProps {
   onExceed?: (files: File[], filesList: UploadFileItem[]) => void;
   httpRequest?: UploadRequestHandler;
 }
+
+export type UploadInstance = InstanceType<typeof Upload>;
 
 let uploadSeed = 0;
 

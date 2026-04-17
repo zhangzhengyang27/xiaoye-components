@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, onUpdated, ref, watch } from "vue";
 import type { CSSProperties, StyleValue } from "vue";
 import { useNamespace } from "@xiaoye/composables";
-import type { ScrollbarDirection, ScrollbarProps } from "./scrollbar";
+import type { ScrollbarDirection, ScrollbarProps, ScrollbarScrollPayload } from "./scrollbar";
 
 const BAR_GAP = 4;
 
@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<ScrollbarProps>(), {
 });
 
 const emit = defineEmits<{
-  scroll: [payload: { scrollTop: number; scrollLeft: number }];
+  scroll: [payload: ScrollbarScrollPayload];
   endReached: [direction: ScrollbarDirection];
 }>();
 

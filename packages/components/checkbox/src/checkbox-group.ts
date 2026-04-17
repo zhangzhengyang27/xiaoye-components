@@ -5,6 +5,7 @@ export const checkboxGroupDirections = ["horizontal", "vertical"] as const;
 
 export type CheckboxGroupDirection = (typeof checkboxGroupDirections)[number];
 export type CheckboxGroupValue = CheckboxValue[];
+export type CheckboxGroupValueChangeHandler = (value: CheckboxGroupValue) => void;
 
 export interface CheckboxOption {
   label: string;
