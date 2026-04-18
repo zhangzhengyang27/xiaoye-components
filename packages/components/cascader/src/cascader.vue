@@ -25,6 +25,11 @@ interface SearchResult {
   labels: string[];
 }
 
+const CASCADER_COLUMN_MIN_WIDTH = 180;
+const CASCADER_COLUMN_GAP = 8;
+const CASCADER_DROPDOWN_PADDING = 16;
+const CASCADER_DROPDOWN_MIN_WIDTH = 240;
+
 const props = withDefaults(defineProps<CascaderProps>(), {
   modelValue: null,
   options: () => [],
@@ -88,7 +93,6 @@ const {
   arrowRef: dropdownArrowRef,
   placement: computed(() => props.placement),
   offset: computed(() => props.offset),
-  matchTriggerWidth: true,
   zIndex
 });
 
@@ -179,7 +183,29 @@ const displayLabel = computed(() => {
 
 const showClear = computed(() => props.clearable && selectedPath.value.length > 0 && !mergedDisabled.value);
 
-const dropdownStyle = computed<StyleValue>(() => [floatingStyle.value, props.popperStyle]);
+const dropdownWidth = computed(() => {
+  const triggerWidth = triggerRef.value?.offsetWidth ?? 0;
+
+  if (searchResults.value.length > 0) {
+    return Math.max(triggerWidth, CASCADER_DROPDOWN_MIN_WIDTH);
+  }
+
+  const columnCount = Math.max(columns.value.length, 1);
+  const columnsWidth =
+    columnCount * CASCADER_COLUMN_MIN_WIDTH +
+    Math.max(columnCount - 1, 0) * CASCADER_COLUMN_GAP +
+    CASCADER_DROPDOWN_PADDING;
+
+  return Math.max(triggerWidth, columnsWidth, CASCADER_DROPDOWN_MIN_WIDTH);
+});
+
+const dropdownStyle = computed<StyleValue>(() => [
+  floatingStyle.value,
+  {
+    width: `${dropdownWidth.value}px`
+  },
+  props.popperStyle
+]);
 
 function flattenOptions(
   options: CascaderOptionData[],

@@ -30,10 +30,19 @@ describe("XyCascader", () => {
     });
 
     await wrapper.get(".xy-cascader__trigger").trigger("click");
+    const trigger = wrapper.get(".xy-cascader__trigger").element as HTMLElement;
+    Object.defineProperty(trigger, "offsetWidth", {
+      value: 240,
+      configurable: true
+    });
+
     const firstColumnButtons = Array.from(document.body.querySelectorAll(".xy-cascader__column:first-child .xy-cascader__option"));
     await (firstColumnButtons[0] as HTMLButtonElement).click();
     await nextTick();
+
+    const dropdown = document.body.querySelector(".xy-cascader__dropdown") as HTMLElement | null;
     const secondColumnButtons = Array.from(document.body.querySelectorAll(".xy-cascader__column:nth-child(2) .xy-cascader__option"));
+    expect(dropdown?.style.width).toBe("384px");
     await (secondColumnButtons[0] as HTMLButtonElement).click();
 
     expect(wrapper.emitted("update:modelValue")?.[0]?.[0]).toEqual([1, 11]);
