@@ -49,6 +49,11 @@
   background: var(--xy-color-success-soft);
 }
 
+.xy-tag--info {
+  color: var(--xy-color-info);
+  background: color-mix(in srgb, var(--xy-color-info) 12%, white);
+}
+
 .xy-tag--warning {
   color: var(--xy-color-warning);
   background: var(--xy-color-warning-soft);

@@ -53,6 +53,7 @@ tag/editable
 | 属性       | 说明              | 类型              | 默认值       |
 | ---------- | ----------------- | ----------------- | ------------ |
 | `status`   | 状态色            | `TagProps["status"]` | `'neutral'`  |
+| `type`     | 兼容旧项目的状态别名，支持 `default / primary / success / info / warning / danger` | `TagProps["type"]` | `undefined` |
 | `size`     | 标签尺寸          | `TagProps["size"]`   | 跟随全局配置 |
 | `round`    | 是否为圆角样式    | `boolean`         | `false`      |
 | `closable` | 是否显示关闭按钮  | `boolean`         | `false`      |

@@ -21,6 +21,22 @@ describe("XyTag", () => {
     expect(wrapper.classes()).toContain("is-round");
   });
 
+  it("兼容 legacy type，并支持 info 语义色", () => {
+    const wrapper = mount(XyTag, {
+      props: {
+        type: "info",
+        closable: true
+      },
+      slots: {
+        default: "信息标签"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-tag--info");
+    expect(wrapper.classes()).not.toContain("xy-tag--neutral");
+    expect(wrapper.classes()).toContain("is-closable");
+  });
+
   it("支持 icon prop，并为内容区域补图标结构", () => {
     const wrapper = mount(XyTag, {
       props: {
@@ -60,6 +76,21 @@ describe("XyTag", () => {
 
     expect(wrapper.find('[data-icon="mdi:check"]').exists()).toBe(true);
     expect(wrapper.find(".custom-icon").exists()).toBe(false);
+  });
+
+  it("status 优先于 legacy type", () => {
+    const wrapper = mount(XyTag, {
+      props: {
+        status: "success",
+        type: "danger"
+      },
+      slots: {
+        default: "优先级"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-tag--success");
+    expect(wrapper.classes()).not.toContain("xy-tag--danger");
   });
 
   it("支持 closable 并使用关闭图标按钮", async () => {

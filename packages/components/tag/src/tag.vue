@@ -4,8 +4,12 @@ import { useConfig, useNamespace } from "@xiaoye/composables";
 import { computed, useSlots } from "vue";
 import XyIcon from "../../icon";
 
+type TagLegacyType = "default" | "primary" | "success" | "info" | "warning" | "danger";
+type TagVisualStatus = ComponentStatus | "info";
+
 export interface TagProps {
   status?: ComponentStatus;
+  type?: TagLegacyType;
   size?: ComponentSize;
   round?: boolean;
   closable?: boolean;
@@ -15,7 +19,6 @@ export interface TagProps {
 export type TagCloseHandler = (event: MouseEvent) => void;
 
 const props = withDefaults(defineProps<TagProps>(), {
-  status: "neutral",
   size: undefined,
   round: false,
   closable: false,
@@ -30,6 +33,25 @@ const { size: globalSize } = useConfig();
 const slots = useSlots();
 const ns = useNamespace("tag");
 const mergedSize = computed(() => props.size ?? globalSize.value);
+const resolvedStatus = computed<TagVisualStatus>(() => {
+  if (props.status) {
+    return props.status;
+  }
+
+  switch (props.type) {
+    case "default":
+      return "neutral";
+    case "info":
+      return "info";
+    case "primary":
+    case "success":
+    case "warning":
+    case "danger":
+      return props.type;
+    default:
+      return "neutral";
+  }
+});
 const iconSizeMap = {
   sm: 12,
   md: 14,
@@ -50,7 +72,7 @@ const closeIconSize = computed(() => closeIconSizeMap[mergedSize.value]);
   <span
     :class="[
       ns.base.value,
-      `${ns.base.value}--${props.status}`,
+      `${ns.base.value}--${resolvedStatus}`,
       `${ns.base.value}--${mergedSize}`,
       ns.is('round', props.round),
       ns.is('closable', props.closable),
