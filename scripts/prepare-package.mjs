@@ -329,7 +329,9 @@ function removeUnusedVueDefaultImports(source) {
   return rewritten;
 }
 
-function writeCssTypes() {
+function writeCssArtifacts() {
+  const styleEntryPath = path.join(target.distDir, "style.css");
+  const styleEntrySource = ['@import "./index.css";', ""].join("\n");
   const styleTypesPath = path.join(target.distDir, "style.css.d.ts");
   const styleTypesSource = [
     "declare const stylesheet: string;",
@@ -337,6 +339,7 @@ function writeCssTypes() {
     ""
   ].join("\n");
 
+  fs.writeFileSync(styleEntryPath, styleEntrySource, "utf8");
   fs.writeFileSync(styleTypesPath, styleTypesSource, "utf8");
 }
 
@@ -784,7 +787,7 @@ for (const filePath of walkDir(typesDir)) {
 }
 
 rewriteRootTypesEntry(path.join(typesDir, "index.d.ts"), target.entryPath);
-writeCssTypes();
+writeCssArtifacts();
 rewritePublicModuleIndexes();
 rewriteProblematicVueDeclarations();
 

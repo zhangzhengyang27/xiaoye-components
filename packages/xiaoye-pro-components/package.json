@@ -33,7 +33,7 @@
     },
     "./style.css": {
       "types": "./dist/style.css.d.ts",
-      "default": "./dist/index.css"
+      "default": "./dist/style.css"
     }
   },
   "files": [
