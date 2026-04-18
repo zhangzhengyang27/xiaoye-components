@@ -80,6 +80,7 @@ menu/overflow-offset
 | --- | --- | --- |
 | `--xy-menu-padding` | 菜单根容器内边距 | `8px` |
 | `--xy-menu-gap` | 根容器子项间距 | `6px` |
+| `--xy-menu-border` | 菜单根容器边框 | `none` |
 | `--xy-menu-radius` | 菜单根容器圆角 | `var(--xy-radius-lg)` |
 | `--xy-menu-horizontal-height` | 横向菜单高度 | `56px` |
 | `--xy-menu-horizontal-item-min-height` | 横向一级项最小高度 | `calc(var(--xy-menu-horizontal-height) - 16px)` |
