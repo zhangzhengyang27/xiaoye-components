@@ -28,8 +28,26 @@ charts/interactive
 
 ## 扩展注册
 
-:::demo 默认已经覆盖常见折线、柱状、雷达、仪表盘和漏斗图；如果需要 `graphic` 这类默认未内置的组件，可以通过 `useChartsModules(...)` 继续补注册。
+:::demo 默认已经覆盖常见折线、柱状、极坐标、雷达、仪表盘和漏斗图；如果需要 `graphic` 这类默认未内置的组件，可以通过 `useChartsModules(...)` 继续补注册。
 charts/extended-modules
+:::
+
+## 扩展注册：日历热力图
+
+:::demo `calendar + heatmap + visualMap` 这类组合适合显式注册，既能保持默认集合轻量，也能让业务按需补齐高级模块。
+charts/calendar-heatmap
+:::
+
+## 扩展注册：Timeline
+
+:::demo `timeline` 常见于季度切换、阶段回放和历史快照，这类能力默认不内置，按需注册会更清晰。
+charts/timeline-quarterly
+:::
+
+## 扩展注册：Sankey
+
+:::demo `sankey` 适合承接流程流向和转化链路分析，示例演示只补图表模块本身即可工作。
+charts/sankey-service-flow
 :::
 
 ## 默认模块覆盖
@@ -59,8 +77,8 @@ charts/page-container-analytics
 ## 使用约定
 
 - `xy-charts` 只负责 ECharts 实例生命周期、尺寸同步和加载态联动，不内置数据请求协议。
-- 组件默认预注册了中后台常见图表模块，可直接承接 `line / bar / pie / scatter / radar / gauge / funnel` 与 `grid / tooltip / axisPointer / legend / title / dataset / dataZoom / toolbox` 等能力，不需要像纯 `echarts/core` 那样先手动补基础注册。
-- 如果页面需要更冷门的图表或组件，可以从包根导出调用 `useChartsModules(...)` 继续补注册，使用方式与 `vue-echarts` 的 `use(...)` 类似。
+- 组件默认预注册了中后台常见图表模块，可直接承接 `line / bar / pie / scatter / radar / gauge / funnel`，以及 `polar` 坐标系和 `grid / tooltip / axisPointer / legend / title / dataset / dataZoom / toolbox` 等能力，不需要像纯 `echarts/core` 那样先手动补基础注册。
+- 如果页面需要更冷门的图表或组件，可以从包根导出调用 `useChartsModules(...)` 继续补注册，使用方式与 `vue-echarts` 的 `use(...)` 类似。上面的 `graphic / calendar / visualMap / timeline / sankey` 示例就是推荐写法。
 - `theme`、`initOptions` 变化时会重建图表实例；普通数据更新优先直接更新 `option`，或通过 expose 的 `setOption` 做局部重绘。
 - `autoresize` 默认开启，适合放在自适应卡片、响应式网格和工作台概览布局中。
 - 点击交互统一通过 `click` 事件抛出原始 ECharts 参数，方便接筛选、联动跳转和 drill down。

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue"
 import type { EChartsCoreOption } from "./echarts"
 import { init } from "./echarts"
 import { useNamespace } from "@xiaoye/composables"
@@ -25,7 +25,7 @@ const emit = defineEmits(["init", "ready", "click"])
 
 const ns = useNamespace("charts")
 const rootRef = ref<HTMLDivElement | null>(null)
-const chartRef = ref<any>(null)
+const chartRef = shallowRef<any>(null)
 let resizeObserver: ResizeObserver | null = null
 let removeResizeListener: (() => void) | null = null
 
@@ -85,7 +85,12 @@ function syncResizeListener() {
   }
 
   if (typeof ResizeObserver !== "undefined" && rootRef.value) {
+    let isFirstObservation = true
     resizeObserver = new ResizeObserver(() => {
+      if (isFirstObservation) {
+        isFirstObservation = false
+        return
+      }
       resize()
     })
     resizeObserver.observe(rootRef.value)

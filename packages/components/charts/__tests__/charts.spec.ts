@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { nextTick } from "vue";
-import { describe, expect, it, vi } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { XyCharts, useChartsModules } from "@xiaoye/components";
 
 const echartsCoreMock = vi.hoisted(() => {
@@ -39,6 +39,7 @@ const echartsModuleTokens = vi.hoisted(() => ({
   MarkAreaComponent: Symbol("MarkAreaComponent"),
   MarkLineComponent: Symbol("MarkLineComponent"),
   MarkPointComponent: Symbol("MarkPointComponent"),
+  PolarComponent: Symbol("PolarComponent"),
   RadarComponent: Symbol("RadarComponent"),
   TitleComponent: Symbol("TitleComponent"),
   ToolboxComponent: Symbol("ToolboxComponent"),
@@ -49,6 +50,40 @@ const echartsModuleTokens = vi.hoisted(() => ({
   CanvasRenderer: Symbol("CanvasRenderer"),
   SVGRenderer: Symbol("SVGRenderer")
 }));
+
+const resizeObserverMock = vi.hoisted(() => {
+  const instances: Array<{
+    callback: ResizeObserverCallback;
+    observe: ReturnType<typeof vi.fn>;
+    disconnect: ReturnType<typeof vi.fn>;
+    emit: (entries?: ResizeObserverEntry[]) => void;
+  }> = [];
+
+  class MockResizeObserver {
+    callback: ResizeObserverCallback;
+    observe = vi.fn(() => {
+      this.callback([], this as unknown as ResizeObserver);
+    });
+    disconnect = vi.fn();
+
+    constructor(callback: ResizeObserverCallback) {
+      this.callback = callback;
+      instances.push({
+        callback,
+        observe: this.observe,
+        disconnect: this.disconnect,
+        emit: (entries = []) => {
+          callback(entries, this as unknown as ResizeObserver);
+        }
+      });
+    }
+  }
+
+  return {
+    MockResizeObserver,
+    instances
+  };
+});
 
 vi.mock("echarts/core", () => ({
   init: echartsCoreMock.init,
@@ -77,6 +112,7 @@ vi.mock("echarts/components", () => ({
   MarkAreaComponent: echartsModuleTokens.MarkAreaComponent,
   MarkLineComponent: echartsModuleTokens.MarkLineComponent,
   MarkPointComponent: echartsModuleTokens.MarkPointComponent,
+  PolarComponent: echartsModuleTokens.PolarComponent,
   RadarComponent: echartsModuleTokens.RadarComponent,
   TitleComponent: echartsModuleTokens.TitleComponent,
   ToolboxComponent: echartsModuleTokens.ToolboxComponent,
@@ -94,6 +130,25 @@ vi.mock("echarts/renderers", () => ({
   SVGRenderer: echartsModuleTokens.SVGRenderer
 }));
 
+beforeAll(() => {
+  vi.stubGlobal("ResizeObserver", resizeObserverMock.MockResizeObserver);
+});
+
+afterAll(() => {
+  vi.unstubAllGlobals();
+});
+
+beforeEach(() => {
+  echartsCoreMock.init.mockClear();
+  echartsCoreMock.chart.setOption.mockClear();
+  echartsCoreMock.chart.showLoading.mockClear();
+  echartsCoreMock.chart.hideLoading.mockClear();
+  echartsCoreMock.chart.resize.mockClear();
+  echartsCoreMock.chart.dispose.mockClear();
+  echartsCoreMock.chart.on.mockClear();
+  resizeObserverMock.instances.length = 0;
+});
+
 describe("XyCharts", () => {
   it("默认注册常见图表模块，并允许继续补充模块", () => {
     expect(echartsCoreMock.use).toHaveBeenCalledWith([
@@ -107,6 +162,7 @@ describe("XyCharts", () => {
       echartsModuleTokens.GaugeChart,
       echartsModuleTokens.FunnelChart,
       echartsModuleTokens.GridComponent,
+      echartsModuleTokens.PolarComponent,
       echartsModuleTokens.TooltipComponent,
       echartsModuleTokens.AxisPointerComponent,
       echartsModuleTokens.LegendComponent,
@@ -182,5 +238,31 @@ describe("XyCharts", () => {
     wrapper.unmount();
 
     expect(echartsCoreMock.chart.dispose).toHaveBeenCalled();
+  });
+
+  it("自动尺寸监听会跳过首次 ResizeObserver 回调，仅在后续尺寸变化时 resize", async () => {
+    mount(XyCharts, {
+      props: {
+        option: {
+          xAxis: {
+            type: "category",
+            data: ["一月"]
+          },
+          yAxis: {
+            type: "value"
+          },
+          series: [{ type: "line", data: [1] }]
+        }
+      }
+    });
+
+    await nextTick();
+
+    expect(resizeObserverMock.instances).toHaveLength(1);
+    expect(echartsCoreMock.chart.resize).not.toHaveBeenCalled();
+
+    resizeObserverMock.instances[0].emit();
+
+    expect(echartsCoreMock.chart.resize).toHaveBeenCalledTimes(1);
   });
 });
