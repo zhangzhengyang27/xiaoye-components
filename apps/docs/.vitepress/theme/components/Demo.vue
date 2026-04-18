@@ -237,6 +237,7 @@ watch(activeLang, (value) => {
   display: flex;
   gap: 2px;
   align-items: center;
+  margin-left: auto;
 }
 
 .vp-demo__icon-btn {
