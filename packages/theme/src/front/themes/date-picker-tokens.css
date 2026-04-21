@@ -1,0 +1,23 @@
+/* ============================================================
+   xyu-date-picker 组件级主题变量
+   ============================================================ */
+
+.xyu-date-picker {
+  /* 输入框 */
+  --xyu-date-picker-control-bg: var(--xyu-bg);
+  --xyu-date-picker-control-border: var(--xyu-border-color);
+  --xyu-date-picker-control-radius: var(--xyu-radius-md);
+  --xyu-date-picker-control-hover-border: var(--xyu-primary);
+
+  /* 文字 */
+  --xyu-date-picker-value-color: var(--xyu-text-primary);
+  --xyu-date-picker-placeholder-color: var(--xyu-text-secondary);
+  --xyu-date-picker-day-color: var(--xyu-text-primary);
+  --xyu-date-picker-day-hover-bg: var(--xyu-bg-secondary);
+  --xyu-date-picker-today-color: var(--xyu-primary);
+  --xyu-date-picker-selected-bg: var(--xyu-primary);
+  --xyu-date-picker-header-color: var(--xyu-text-primary);
+
+  /* 尺寸 */
+  --xyu-date-picker-control-height: 36px;
+}

@@ -1,0 +1,22 @@
+/* ============================================================
+   xyu-color-picker 组件级主题变量
+   ============================================================ */
+
+.xyu-color-picker {
+  /* 触发器 */
+  --xyu-color-picker-trigger-bg: var(--xyu-bg);
+  --xyu-color-picker-trigger-border: var(--xyu-border-color);
+  --xyu-color-picker-trigger-radius: var(--xyu-radius-md);
+  --xyu-color-picker-trigger-hover-border: var(--xyu-primary);
+
+  /* 面板 */
+  --xyu-color-picker-panel-bg: var(--xyu-bg);
+  --xyu-color-picker-panel-border: var(--xyu-border-color);
+  --xyu-color-picker-panel-shadow: var(--xyu-shadow-lg);
+  --xyu-color-picker-panel-radius: var(--xyu-radius-lg);
+
+  /* 尺寸 */
+  --xyu-color-picker-sv-height: 150px;
+  --xyu-color-picker-hue-height: 16px;
+  --xyu-color-picker-dot-size: 20px;
+}

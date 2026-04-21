@@ -43,3 +43,24 @@ export * from "./steps";
 export * from "./alert";
 export * from "./rate";
 export * from "./input-tag";
+
+// Phase 3: 表单组件补全
+export * from "./pagination";
+export * from "./popover";
+export * from "./popconfirm";
+export * from "./upload";
+export * from "./cascader";
+export * from "./date-picker";
+export * from "./time-picker";
+
+// Phase 3: 展示/布局组件
+export * from "./card";
+export * from "./timeline";
+export * from "./result";
+export * from "./divider";
+export * from "./color-picker";
+export * from "./backtop";
+
+// Phase 3: 反馈组件
+export * from "./loading";
+export * from "./message-box";

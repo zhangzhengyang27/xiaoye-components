@@ -1,0 +1,34 @@
+/* ============================================================
+   xyu-pagination 组件级主题变量
+   ============================================================ */
+
+.xyu-pagination {
+  /* 分页器 */
+  --xyu-pagination-pager-bg: var(--xyu-bg);
+  --xyu-pagination-pager-color: var(--xyu-text-primary);
+  --xyu-pagination-pager-hover-bg: var(--xyu-bg-secondary);
+  --xyu-pagination-pager-active-bg: var(--xyu-primary);
+  --xyu-pagination-pager-border: var(--xyu-border-color);
+
+  /* 按钮 */
+  --xyu-pagination-btn-bg: var(--xyu-bg);
+  --xyu-pagination-btn-color: var(--xyu-text-primary);
+  --xyu-pagination-btn-hover-bg: var(--xyu-bg-secondary);
+  --xyu-pagination-btn-border: var(--xyu-border-color);
+
+  /* 禁用 */
+  --xyu-pagination-disabled-color: var(--xyu-text-tertiary);
+
+  /* 跳转输入框 */
+  --xyu-pagination-jumper-bg: var(--xyu-bg);
+  --xyu-pagination-jumper-color: var(--xyu-text-primary);
+  --xyu-pagination-jumper-border: var(--xyu-border-color);
+
+  /* 文字 */
+  --xyu-pagination-total-color: var(--xyu-text-secondary);
+  --xyu-pagination-ellipsis-color: var(--xyu-text-secondary);
+
+  /* 尺寸 */
+  --xyu-pagination-size: 32px;
+  --xyu-pagination-font-size: var(--xyu-text-sm);
+}

@@ -1,0 +1,29 @@
+/* ============================================================
+   xyu-card 组件级主题变量
+   ============================================================ */
+
+.xyu-card {
+  /* 背景 */
+  --xyu-card-bg: var(--xyu-bg);
+  --xyu-card-flat-bg: var(--xyu-bg-secondary);
+  --xyu-card-border: var(--xyu-border-color);
+  --xyu-card-radius: var(--xyu-radius-lg);
+
+  /* 阴影 */
+  --xyu-card-shadow: var(--xyu-shadow-sm);
+  --xyu-card-hover-shadow: var(--xyu-shadow-lg);
+
+  /* 间距 */
+  --xyu-card-padding: 16px;
+  --xyu-card-header-padding: 14px 16px;
+  --xyu-card-footer-padding: 10px 16px;
+
+  /* 文字 */
+  --xyu-card-title-color: var(--xyu-text-primary);
+  --xyu-card-subtitle-color: var(--xyu-text-secondary);
+  --xyu-card-body-color: var(--xyu-text-secondary);
+
+  /* 标题 */
+  --xyu-card-title-size: var(--xyu-text-base);
+  --xyu-card-body-size: var(--xyu-text-sm);
+}

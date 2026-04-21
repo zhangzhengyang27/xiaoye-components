@@ -47,3 +47,24 @@
 @import "./src/front-components/alert/alert.css";
 @import "./src/front-components/rate/rate.css";
 @import "./src/front-components/input-tag/input-tag.css";
+
+/* Phase 3: 表单组件 */
+@import "./src/front-components/pagination/pagination.css";
+@import "./src/front-components/popover/popover.css";
+@import "./src/front-components/popconfirm/popconfirm.css";
+@import "./src/front-components/upload/upload.css";
+@import "./src/front-components/cascader/cascader.css";
+@import "./src/front-components/date-picker/date-picker.css";
+@import "./src/front-components/time-picker/time-picker.css";
+
+/* Phase 3: 展示/布局组件 */
+@import "./src/front-components/card/card.css";
+@import "./src/front-components/timeline/timeline.css";
+@import "./src/front-components/result/result.css";
+@import "./src/front-components/divider/divider.css";
+@import "./src/front-components/color-picker/color-picker.css";
+@import "./src/front-components/backtop/backtop.css";
+
+/* Phase 3: 反馈组件 */
+@import "./src/front-components/loading/loading.css";
+@import "./src/front-components/message-box/message-box.css";

@@ -1,0 +1,29 @@
+/* ============================================================
+   xyu-timeline 组件级主题变量
+   ============================================================ */
+
+.xyu-timeline {
+  /* 轴线 */
+  --xyu-timeline-tail-color: var(--xyu-border-color);
+  --xyu-timeline-tail-width: 2px;
+
+  /* 节点 */
+  --xyu-timeline-dot-size: 14px;
+  --xyu-timeline-dot-color: var(--xyu-text-secondary);
+  --xyu-timeline-dot-border: 2px;
+
+  /* 状态颜色 */
+  --xyu-timeline-success-color: var(--xyu-success);
+  --xyu-timeline-error-color: var(--xyu-error);
+  --xyu-timeline-warning-color: var(--xyu-warning);
+  --xyu-timeline-processing-color: var(--xyu-primary);
+
+  /* 文字 */
+  --xyu-timeline-timestamp-color: var(--xyu-text-secondary);
+  --xyu-timeline-body-color: var(--xyu-text-primary);
+
+  /* 尺寸 */
+  --xyu-timeline-dot-font-size: 8px;
+  --xyu-timeline-timestamp-size: var(--xyu-text-sm);
+  --xyu-timeline-body-size: var(--xyu-text-base);
+}

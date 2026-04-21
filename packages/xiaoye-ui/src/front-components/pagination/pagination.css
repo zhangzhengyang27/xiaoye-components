@@ -1,0 +1,151 @@
+/* ============================================================
+   xyu-pagination 样式
+   ============================================================ */
+
+.xyu-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--xyu-font-sans);
+  flex-wrap: wrap;
+}
+
+/* ---- total ---- */
+.xyu-pagination__total {
+  margin-right: 8px;
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+  white-space: nowrap;
+}
+
+/* ---- pager button ---- */
+.xyu-pagination__pager {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  border: 1px solid var(--xyu-border-color);
+  border-radius: var(--xyu-radius-md);
+  background: var(--xyu-bg);
+  color: var(--xyu-text-primary);
+  font-size: var(--xyu-text-sm);
+  font-family: var(--xyu-font-sans);
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.xyu-pagination__pager:hover:not(:disabled) {
+  border-color: var(--xyu-primary);
+  color: var(--xyu-primary);
+}
+
+.xyu-pagination__pager.is-active {
+  background: var(--xyu-primary);
+  border-color: var(--xyu-primary);
+  color: #fff;
+  cursor: default;
+}
+
+.xyu-pagination__pager:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- prev / next ---- */
+.xyu-pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--xyu-border-color);
+  border-radius: var(--xyu-radius-md);
+  background: var(--xyu-bg);
+  color: var(--xyu-text-primary);
+  font-size: var(--xyu-text-sm);
+  font-family: var(--xyu-font-sans);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.xyu-pagination__btn:hover:not(:disabled) {
+  border-color: var(--xyu-primary);
+  color: var(--xyu-primary);
+}
+
+.xyu-pagination__btn.is-disabled,
+.xyu-pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- ellipsis ---- */
+.xyu-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  color: var(--xyu-text-secondary);
+  font-size: var(--xyu-text-sm);
+  user-select: none;
+}
+
+/* ---- jumper ---- */
+.xyu-pagination__jumper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+  white-space: nowrap;
+}
+
+.xyu-pagination__jumper-input {
+  width: 44px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--xyu-border-color);
+  border-radius: var(--xyu-radius-md);
+  background: var(--xyu-bg);
+  color: var(--xyu-text-primary);
+  font-size: var(--xyu-text-sm);
+  font-family: var(--xyu-font-sans);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.xyu-pagination__jumper-input:focus {
+  border-color: var(--xyu-primary);
+}
+
+.xyu-pagination__jumper-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- background variant ---- */
+.is-background .xyu-pagination__pager,
+.is-background .xyu-pagination__btn {
+  background: var(--xyu-bg-secondary);
+}
+
+/* ---- small size ---- */
+.is-small .xyu-pagination__pager,
+.is-small .xyu-pagination__btn {
+  min-width: 26px;
+  height: 26px;
+  font-size: 12px;
+}
+
+.is-small .xyu-pagination__jumper-input {
+  width: 36px;
+  height: 26px;
+  font-size: 12px;
+}

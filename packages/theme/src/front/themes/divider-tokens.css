@@ -1,0 +1,14 @@
+/* ============================================================
+   xyu-divider 组件级主题变量
+   ============================================================ */
+
+.xyu-divider {
+  /* 分隔线 */
+  --xyu-divider-border-color: var(--xyu-border-color);
+  --xyu-divider-border-style: solid;
+  --xyu-divider-border-width: 1px;
+
+  /* 文字 */
+  --xyu-divider-text-color: var(--xyu-text-secondary);
+  --xyu-divider-text-size: var(--xyu-text-sm);
+}

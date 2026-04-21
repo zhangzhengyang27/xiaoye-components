@@ -1,0 +1,27 @@
+/* ============================================================
+   xyu-cascader 组件级主题变量
+   ============================================================ */
+
+.xyu-cascader {
+  /* 输入框 */
+  --xyu-cascader-control-bg: var(--xyu-bg);
+  --xyu-cascader-control-border: var(--xyu-border-color);
+  --xyu-cascader-control-radius: var(--xyu-radius-md);
+  --xyu-cascader-control-hover-border: var(--xyu-primary);
+
+  /* 文字 */
+  --xyu-cascader-value-color: var(--xyu-text-primary);
+  --xyu-cascader-placeholder-color: var(--xyu-text-secondary);
+  --xyu-cascader-option-color: var(--xyu-text-primary);
+  --xyu-cascader-option-hover-bg: var(--xyu-bg-secondary);
+  --xyu-cascader-option-selected-color: var(--xyu-primary);
+
+  /* 尺寸 */
+  --xyu-cascader-control-height: 36px;
+  --xyu-cascader-control-min-width: 180px;
+
+  /* 下拉面板 */
+  --xyu-cascader-dropdown-bg: var(--xyu-bg);
+  --xyu-cascader-dropdown-border: var(--xyu-border-color);
+  --xyu-cascader-dropdown-shadow: var(--xyu-shadow-lg);
+}

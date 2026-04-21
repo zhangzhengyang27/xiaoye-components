@@ -1,0 +1,98 @@
+/* ============================================================
+   xyu-timeline 样式
+   ============================================================ */
+
+.xyu-timeline {
+  position: relative;
+  font-family: var(--xyu-font-sans);
+}
+
+/* ---- vertical ---- */
+.xyu-timeline--vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ---- horizontal ---- */
+.xyu-timeline--horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+}
+
+/* ---- item ---- */
+.xyu-timeline-item {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  padding-bottom: 20px;
+}
+
+.xyu-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.xyu-timeline-item:last-child .xyu-timeline-item__tail {
+  display: none;
+}
+
+/* ---- tail ---- */
+.xyu-timeline-item__tail {
+  position: absolute;
+  left: 6px;
+  top: 16px;
+  bottom: 0;
+  width: 2px;
+  background: var(--xyu-border-color);
+}
+
+.xyu-timeline--horizontal .xyu-timeline-item__tail {
+  top: 6px;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  width: auto;
+  height: 2px;
+}
+
+/* ---- dot ---- */
+.xyu-timeline-item__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--xyu-bg);
+  border: 2px solid currentColor;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+  margin-top: 2px;
+}
+
+.xyu-timeline-item__dot.is-hollow {
+  background: var(--xyu-bg);
+  color: var(--xyu-border-color) !important;
+  border-color: currentColor !important;
+}
+
+/* ---- content ---- */
+.xyu-timeline-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.xyu-timeline-item__timestamp {
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.xyu-timeline-item__body {
+  font-size: var(--xyu-text-base);
+  color: var(--xyu-text-primary);
+  line-height: 1.6;
+}

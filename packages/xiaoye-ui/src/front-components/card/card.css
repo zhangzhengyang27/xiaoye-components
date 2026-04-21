@@ -1,0 +1,82 @@
+/* ============================================================
+   xyu-card 样式
+   ============================================================ */
+
+.xyu-card {
+  background: var(--xyu-bg);
+  border-radius: var(--xyu-radius-lg);
+  overflow: hidden;
+  font-family: var(--xyu-font-sans);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+/* ---- 类型 ---- */
+.xyu-card.is-bordered {
+  border: 1px solid var(--xyu-border-color);
+}
+
+.xyu-card.is-shadow {
+  box-shadow: var(--xyu-shadow-md);
+}
+
+.xyu-card.is-flat {
+  background: var(--xyu-bg-secondary);
+}
+
+.xyu-card.is-hoverable {
+  cursor: pointer;
+}
+
+.xyu-card.is-hoverable:hover {
+  box-shadow: var(--xyu-shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* ---- header ---- */
+.xyu-card__header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--xyu-border-color);
+}
+
+.xyu-card__header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.xyu-card__title {
+  font-weight: 600;
+  font-size: var(--xyu-text-base);
+  color: var(--xyu-text-primary);
+}
+
+.xyu-card__sub-title {
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+}
+
+/* ---- cover ---- */
+.xyu-card__cover {
+  width: 100%;
+}
+
+.xyu-card__cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- body ---- */
+.xyu-card__body {
+  padding: 16px;
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+}
+
+/* ---- footer ---- */
+.xyu-card__footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--xyu-border-color);
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+}

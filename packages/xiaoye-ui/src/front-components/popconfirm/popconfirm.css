@@ -1,0 +1,110 @@
+/* ============================================================
+   xyu-popconfirm 样式
+   ============================================================ */
+
+.xyu-popconfirm {
+  display: inline-block;
+}
+
+.xyu-popconfirm__trigger {
+  display: inline-flex;
+}
+
+/* ---- popper ---- */
+.xyu-popconfirm__popper {
+  position: fixed;
+  z-index: 99999;
+  min-width: 180px;
+  background: var(--xyu-bg);
+  border: 1px solid var(--xyu-border-color);
+  border-radius: var(--xyu-radius-lg);
+  box-shadow: var(--xyu-shadow-lg);
+  font-family: var(--xyu-font-sans);
+  transform-origin: center bottom;
+}
+
+.xyu-popper--top { transform: translateX(-50%) translateY(calc(-100% - 8px)); }
+.xyu-popper--top-start { transform: translateX(0) translateY(calc(-100% - 8px)); }
+.xyu-popper--top-end { transform: translateX(-100%) translateY(calc(-100% - 8px)); }
+.xyu-popper--bottom { transform: translateX(-50%) translateY(8px); }
+.xyu-popper--bottom-start { transform: translateX(0) translateY(8px); }
+.xyu-popper--bottom-end { transform: translateX(-100%) translateY(8px); }
+.xyu-popper--left { transform: translateX(calc(-100% - 8px)) translateY(-50%); }
+.xyu-popper--right { transform: translateX(8px) translateY(-50%); }
+
+/* ---- content ---- */
+.xyu-popconfirm__content {
+  padding: 12px 14px;
+}
+
+/* ---- text ---- */
+.xyu-popconfirm__text {
+  margin-bottom: 10px;
+}
+
+.xyu-popconfirm__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: var(--xyu-text-base);
+  color: var(--xyu-text-primary);
+}
+
+.xyu-popconfirm__icon {
+  font-size: 16px;
+}
+
+.xyu-popconfirm__message {
+  margin: 6px 0 0 22px;
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+  line-height: 1.5;
+}
+
+/* ---- actions ---- */
+.xyu-popconfirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.xyu-popconfirm__btn {
+  padding: 4px 12px;
+  border-radius: var(--xyu-radius-md);
+  font-size: var(--xyu-text-sm);
+  font-family: var(--xyu-font-sans);
+  cursor: pointer;
+  border: 1px solid var(--xyu-border-color);
+  background: var(--xyu-bg);
+  color: var(--xyu-text-primary);
+  transition: all 0.2s;
+}
+
+.xyu-popconfirm__btn:hover {
+  opacity: 0.85;
+}
+
+.xyu-popconfirm__btn--confirm.xyu-btn--primary {
+  background: var(--xyu-primary);
+  border-color: var(--xyu-primary);
+  color: #fff;
+}
+
+.xyu-popconfirm__btn--confirm.xyu-btn--danger {
+  background: var(--xyu-error);
+  border-color: var(--xyu-error);
+  color: #fff;
+}
+
+/* ---- animation ---- */
+@keyframes xyu-popover-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes xyu-popover-leave {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.xyu-popover-enter-active { animation: xyu-popover-enter 0.2s ease-out; }
+.xyu-popover-leave-active { animation: xyu-popover-leave 0.15s ease-in; }

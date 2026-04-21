@@ -1,0 +1,44 @@
+/* ============================================================
+   xyu-backtop 样式
+   ============================================================ */
+
+.xyu-backtop {
+  position: fixed;
+  z-index: 99998;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--xyu-bg);
+  border: 1px solid var(--xyu-border-color);
+  border-radius: var(--xyu-radius-md);
+  box-shadow: var(--xyu-shadow-md);
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--xyu-text-primary);
+  transition: background 0.2s, transform 0.2s;
+  font-family: var(--xyu-font-sans);
+}
+
+.xyu-backtop:hover {
+  background: var(--xyu-bg-secondary);
+  transform: translateY(-2px);
+}
+
+.xyu-backtop__default {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ---- animation ---- */
+@keyframes xyu-backtop-enter {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes xyu-backtop-leave {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.8); }
+}
+.xyu-backtop-fade-enter-active { animation: xyu-backtop-enter 0.2s ease-out; }
+.xyu-backtop-fade-leave-active { animation: xyu-backtop-leave 0.15s ease-in; }

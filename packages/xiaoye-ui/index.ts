@@ -48,6 +48,27 @@ export * from "./src/front-components/alert";
 export * from "./src/front-components/rate";
 export * from "./src/front-components/input-tag";
 
+// Phase 3: 表单组件补全
+export * from "./src/front-components/pagination";
+export * from "./src/front-components/popover";
+export * from "./src/front-components/popconfirm";
+export * from "./src/front-components/upload";
+export * from "./src/front-components/cascader";
+export * from "./src/front-components/date-picker";
+export * from "./src/front-components/time-picker";
+
+// Phase 3: 展示/布局组件
+export * from "./src/front-components/card";
+export * from "./src/front-components/timeline";
+export * from "./src/front-components/result";
+export * from "./src/front-components/divider";
+export * from "./src/front-components/color-picker";
+export * from "./src/front-components/backtop";
+
+// Phase 3: 反馈组件
+export * from "./src/front-components/loading";
+export { default as XyuMessageBox, XyuMessageBoxService } from "./src/front-components/message-box";
+
 // Composables
 export * from "./src/composables";
 
@@ -84,6 +105,22 @@ import { XyuSteps, XyuStep } from "./src/front-components/steps";
 import { XyuAlert } from "./src/front-components/alert";
 import { XyuRate } from "./src/front-components/rate";
 import { XyuInputTag } from "./src/front-components/input-tag";
+// Phase 3
+import { XyuPagination, XyuPager } from "./src/front-components/pagination";
+import { XyuPopover } from "./src/front-components/popover";
+import { XyuPopconfirm } from "./src/front-components/popconfirm";
+import { XyuUpload } from "./src/front-components/upload";
+import { XyuCascader } from "./src/front-components/cascader";
+import { XyuDatePicker } from "./src/front-components/date-picker";
+import { XyuTimePicker } from "./src/front-components/time-picker";
+import { XyuCard } from "./src/front-components/card";
+import { XyuTimeline, XyuTimelineItem } from "./src/front-components/timeline";
+import { XyuResult } from "./src/front-components/result";
+import { XyuDivider } from "./src/front-components/divider";
+import { XyuColorPicker } from "./src/front-components/color-picker";
+import { XyuBacktop } from "./src/front-components/backtop";
+import { XyuLoading } from "./src/front-components/loading";
+import { XyuMessageBox } from "./src/front-components/message-box";
 
 const INSTALL_KEY = Symbol.for("xiaoye-ui:installed");
 
@@ -136,7 +173,25 @@ const installableExports = [
   XyuStep,
   XyuAlert,
   XyuRate,
-  XyuInputTag
+  XyuInputTag,
+  // Phase 3
+  XyuPagination,
+  XyuPager,
+  XyuPopover,
+  XyuPopconfirm,
+  XyuUpload,
+  XyuCascader,
+  XyuDatePicker,
+  XyuTimePicker,
+  XyuCard,
+  XyuTimeline,
+  XyuTimelineItem,
+  XyuResult,
+  XyuDivider,
+  XyuColorPicker,
+  XyuBacktop,
+  XyuLoading,
+  XyuMessageBox
 ].filter(isInstallableExport);
 
 export function install(app: App) {

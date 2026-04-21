@@ -1,0 +1,21 @@
+/* ============================================================
+   xyu-message-box 组件级主题变量
+   ============================================================ */
+
+.xyu-message-box {
+  /* 背景 */
+  --xyu-message-box-bg: var(--xyu-bg);
+  --xyu-message-box-radius: var(--xyu-radius-xl);
+  --xyu-message-box-shadow: var(--xyu-shadow-xl);
+  --xyu-message-box-overlay-bg: rgba(0, 0, 0, 0.45);
+
+  /* 间距 */
+  --xyu-message-box-padding: 18px 20px;
+  --xyu-message-box-body-padding: 16px 20px;
+
+  /* 文字 */
+  --xyu-message-box-title-color: var(--xyu-text-primary);
+  --xyu-message-box-message-color: var(--xyu-text-secondary);
+  --xyu-message-box-title-size: var(--xyu-text-lg);
+  --xyu-message-box-message-size: var(--xyu-text-base);
+}

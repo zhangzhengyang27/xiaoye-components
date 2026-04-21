@@ -1,0 +1,29 @@
+/* ============================================================
+   xyu-upload 组件级主题变量
+   ============================================================ */
+
+.xyu-upload {
+  /* 拖拽区域 */
+  --xyu-upload-drag-bg: var(--xyu-bg-secondary);
+  --xyu-upload-drag-border: var(--xyu-border-color);
+  --xyu-upload-drag-hover-border: var(--xyu-primary);
+  --xyu-upload-drag-radius: var(--xyu-radius-lg);
+
+  /* 文字 */
+  --xyu-upload-drag-color: var(--xyu-text-secondary);
+  --xyu-upload-tip-color: var(--xyu-text-tertiary);
+
+  /* 文件列表 */
+  --xyu-upload-file-bg: var(--xyu-bg-secondary);
+  --xyu-upload-file-border: var(--xyu-border-color);
+  --xyu-upload-file-hover-bg: var(--xyu-bg);
+
+  /* 状态 */
+  --xyu-upload-success-color: var(--xyu-success);
+  --xyu-upload-error-color: var(--xyu-error);
+
+  /* 文件项文字 */
+  --xyu-upload-file-name-color: var(--xyu-text-primary);
+  --xyu-upload-file-size-color: var(--xyu-text-secondary);
+  --xyu-upload-file-error-color: var(--xyu-error);
+}

@@ -1,0 +1,19 @@
+/* ============================================================
+   xyu-loading 组件级主题变量
+   ============================================================ */
+
+.xyu-loading {
+  /* 颜色 */
+  --xyu-loading-color: var(--xyu-primary);
+  --xyu-loading-mask-bg: rgba(255, 255, 255, 0.72);
+  --xyu-loading-dark-mask-bg: rgba(0, 0, 0, 0.45);
+
+  /* 文字 */
+  --xyu-loading-text-color: var(--xyu-text-secondary);
+  --xyu-loading-text-size: var(--xyu-text-sm);
+
+  /* 尺寸 */
+  --xyu-loading-ring-size: 32px;
+  --xyu-loading-dot-size: 8px;
+  --xyu-loading-wave-height: 32px;
+}

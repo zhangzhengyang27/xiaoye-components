@@ -1,0 +1,24 @@
+/* ============================================================
+   xyu-result 组件级主题变量
+   ============================================================ */
+
+.xyu-result {
+  /* 间距 */
+  --xyu-result-padding: 32px;
+  --xyu-result-gap: 16px;
+
+  /* 图标 */
+  --xyu-result-icon-size: 64px;
+  --xyu-result-success-color: var(--xyu-success);
+  --xyu-result-warning-color: var(--xyu-warning);
+  --xyu-result-error-color: var(--xyu-error);
+  --xyu-result-info-color: var(--xyu-primary);
+
+  /* 文字 */
+  --xyu-result-title-color: var(--xyu-text-primary);
+  --xyu-result-description-color: var(--xyu-text-secondary);
+
+  /* 尺寸 */
+  --xyu-result-title-size: var(--xyu-text-xl);
+  --xyu-result-description-size: var(--xyu-text-base);
+}
