@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { XyButton, XyCard } from "@xiaoye/components";
 import type { FilterPanelProps } from "./filter-panel";
 

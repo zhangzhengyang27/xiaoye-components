@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, toRef } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { ButtonGroupProps } from "./button-group";
 import { buttonGroupContextKey } from "./constants";
 

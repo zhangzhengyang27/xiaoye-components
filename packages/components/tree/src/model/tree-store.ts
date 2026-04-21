@@ -1,6 +1,6 @@
 import Node from "./node";
 import { NODE_KEY, getNodeKey } from "./util";
-import { warnOnce } from "@xiaoye/utils";
+import { warnOnce } from "@xiaoye/primitives";
 import type {
   FilterValue,
   TreeData,

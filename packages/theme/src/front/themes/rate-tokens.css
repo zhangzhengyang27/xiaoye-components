@@ -1,0 +1,20 @@
+/* ============================================================
+   xyu-rate 组件级主题变量
+   ============================================================ */
+
+.xyu-rate {
+  /* 尺寸 */
+  --xyu-rate-size: 22px;
+  --xyu-rate-gap: 6px;
+  --xyu-rate-sm-size: 18px;
+  --xyu-rate-lg-size: 26px;
+
+  /* 颜色 */
+  --xyu-rate-fill-color: var(--xyu-warning);
+  --xyu-rate-void-color: var(--xyu-bg-tertiary);
+  --xyu-rate-disabled-void-color: var(--xyu-border-disabled);
+
+  /* 文字 */
+  --xyu-rate-text-size: var(--xyu-text-sm);
+  --xyu-rate-text-color: var(--xyu-text-secondary);
+}

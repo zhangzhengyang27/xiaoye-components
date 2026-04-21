@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { SplitterCollapseDirection, SplitterLayout } from "./splitter";
 
 const props = withDefaults(

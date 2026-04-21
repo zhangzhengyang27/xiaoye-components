@@ -4,7 +4,7 @@ import type {
   ListPageActionRef,
   ListPageProps
 } from "./src/list-page";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ListPageBatchAction, ListPageActionRef, ListPageProps };
 

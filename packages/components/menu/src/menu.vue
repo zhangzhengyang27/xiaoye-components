@@ -22,8 +22,8 @@ import {
 } from "vue";
 import type { Component, PropType, VNode } from "vue";
 import type { NavigationFailure, RouteLocationRaw, Router } from "vue-router";
-import { bindClickOutside, warnOnce } from "@xiaoye/utils";
-import { useFloatingPanel, useFloatingVisibility, useNamespace } from "@xiaoye/composables";
+import { bindClickOutside, warnOnce } from "@xiaoye/primitives";
+import { useFloatingPanel, useFloatingVisibility, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import MenuItemComponent from "./menu-item.vue";
 import MenuItemGroupComponent from "./menu-item-group.vue";

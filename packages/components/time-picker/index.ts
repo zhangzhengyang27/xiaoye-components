@@ -6,7 +6,7 @@ import type {
   TimePickerValue,
   TimePickerVisibleChangeHandler
 } from "./src/time-picker";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   TimePickerChangeHandler,

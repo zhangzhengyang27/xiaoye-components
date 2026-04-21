@@ -1,6 +1,6 @@
 import Icon from "./src/icon.vue";
 import type { IconProps } from "./src/icon.vue";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { IconProps };
 

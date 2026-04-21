@@ -7,7 +7,7 @@ import {
   useFloatingPanel,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import XyInput from "../../input";
 import XyTree from "../../tree";

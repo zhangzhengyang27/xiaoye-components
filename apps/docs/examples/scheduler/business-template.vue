@@ -272,16 +272,16 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
         <label class="scheduler-template__field">
           <span>开始时间</span>
           <input
-            class="scheduler-template__field-input"
             v-model="editorDraft.startAt"
+            class="scheduler-template__field-input"
             :type="editorDraft.isAllDay ? 'date' : 'datetime-local'"
           />
         </label>
         <label class="scheduler-template__field">
           <span>结束时间</span>
           <input
-            class="scheduler-template__field-input"
             v-model="editorDraft.endAt"
+            class="scheduler-template__field-input"
             :type="editorDraft.isAllDay ? 'date' : 'datetime-local'"
           />
         </label>

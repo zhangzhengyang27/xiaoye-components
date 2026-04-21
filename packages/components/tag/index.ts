@@ -1,6 +1,6 @@
 import Tag from "./src/tag.vue";
 import type { TagCloseHandler, TagProps } from "./src/tag.vue";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { TagCloseHandler, TagProps };
 

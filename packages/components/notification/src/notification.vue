@@ -10,7 +10,7 @@ import {
   watch
 } from "vue";
 import type { PropType, VNodeChild } from "vue";
-import { useNamespace, useZIndex } from "@xiaoye/composables";
+import { useNamespace, useZIndex } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import {
   NOTIFICATION_CLOSE_ICON,

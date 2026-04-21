@@ -1,0 +1,24 @@
+/* ============================================================
+   xyu-progress 组件级主题变量
+   ============================================================ */
+
+.xyu-progress {
+  /* 轨道 */
+  --xyu-progress-track-bg: var(--xyu-bg-tertiary);
+  --xyu-progress-track-height: 8px;
+  --xyu-progress-track-radius: var(--xyu-radius-pill);
+
+  /* 填充 */
+  --xyu-progress-fill-color: var(--xyu-primary);
+  --xyu-progress-success-color: var(--xyu-success);
+  --xyu-progress-warning-color: var(--xyu-warning);
+  --xyu-progress-error-color: var(--xyu-error);
+
+  /* 文字 */
+  --xyu-progress-text-color: var(--xyu-text-secondary);
+  --xyu-progress-text-size: var(--xyu-text-sm);
+
+  /* 圆环 */
+  --xyu-progress-ring-size: 126px;
+  --xyu-progress-ring-stroke-width: 8px;
+}

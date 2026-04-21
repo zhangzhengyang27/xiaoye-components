@@ -5,7 +5,7 @@ defineOptions({
 });
 
 import { computed, onBeforeUnmount, onMounted, ref, useAttrs } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { DropdownMenuProps } from "./dropdown-menu";
 import { useDropdown } from "./use-dropdown";
 

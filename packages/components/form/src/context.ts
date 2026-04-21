@@ -1,6 +1,6 @@
 import type { InjectionKey, Ref } from "vue";
 import type { RuleItem } from "async-validator";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { FormProp } from "./utils";
 
 export type FormTrigger = "blur" | "change";

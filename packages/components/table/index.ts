@@ -1,7 +1,7 @@
 import Table from "./src/table.vue";
 import TableColumn from "./src/table-column.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type {
   TableAlign,
   TableCellClassName,

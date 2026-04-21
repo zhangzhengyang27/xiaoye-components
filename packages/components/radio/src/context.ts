@@ -1,5 +1,5 @@
 import type { ComputedRef, InjectionKey, Ref } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { RadioValue } from "./radio";
 
 export interface RadioGroupContext {

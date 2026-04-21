@@ -1,5 +1,5 @@
 import type Switch from "./switch.vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type SwitchValue = boolean | string | number;
 export type SwitchValueChangeHandler = (value: SwitchValue) => void;

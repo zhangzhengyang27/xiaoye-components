@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { CheckboxValue } from "./checkbox";
 
 export const checkboxGroupDirections = ["horizontal", "vertical"] as const;

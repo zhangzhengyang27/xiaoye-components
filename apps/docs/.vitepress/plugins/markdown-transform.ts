@@ -6,12 +6,22 @@ function resolveExamplesRoot(id: string) {
   const docsMarker = `${path.sep}apps${path.sep}docs${path.sep}`;
   const markerIndex = id.lastIndexOf(docsMarker);
 
+  let baseRoot: string;
   if (markerIndex < 0) {
-    return path.resolve(path.dirname(id), "../examples");
+    baseRoot = path.resolve(path.dirname(id), "../examples");
+  } else {
+    baseRoot = path.resolve(id.slice(0, markerIndex + docsMarker.length), "examples");
   }
 
-  const docsRoot = id.slice(0, markerIndex + docsMarker.length);
-  return path.resolve(docsRoot, "examples");
+  // 前台组件文档在 /front/ 目录下，示例在 examples/front/ 子目录下
+  if (
+    id.includes(`${path.sep}front${path.sep}`) ||
+    id.includes(`${path.sep}components${path.sep}front${path.sep}`)
+  ) {
+    return path.resolve(baseRoot, "front");
+  }
+
+  return baseRoot;
 }
 
 function injectImports(code: string, id: string, demoPaths: string[]) {
@@ -68,8 +78,9 @@ export function markdownTransform(): Plugin {
       const isComponentDoc = id.includes(`${docsRoot}components${path.sep}`);
       const isProComponentDoc = id.includes(`${docsRoot}pro-components${path.sep}`);
       const isExampleDoc = id.includes(`${docsRoot}examples${path.sep}`);
+      const isFrontDoc = id.includes(`${path.sep}front${path.sep}`);
 
-      if (!isComponentDoc && !isProComponentDoc && !isExampleDoc) {
+      if (!isComponentDoc && !isProComponentDoc && !isExampleDoc && !isFrontDoc) {
         return;
       }
 

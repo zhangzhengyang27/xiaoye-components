@@ -5,7 +5,7 @@ defineOptions({
 
 import { computed, inject, nextTick, ref, shallowRef, useAttrs, watch } from "vue";
 import type { StyleValue } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import XyTag from "../../tag";
 import { formItemKey } from "../../form/src/context";

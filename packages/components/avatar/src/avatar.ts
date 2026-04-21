@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type AvatarShape = "circle" | "square";
 export type AvatarFit = "fill" | "contain" | "cover" | "none" | "scale-down";

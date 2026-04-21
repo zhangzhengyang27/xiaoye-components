@@ -1,0 +1,180 @@
+/* ============================================================
+   xiaoye-ui 前台主题 - 设计令牌
+   风格：极简精准（Clean Minimal）
+   ============================================================ */
+
+[data-theme="front"],
+[data-theme="light"] {
+  /* 圆角 */
+  --xyu-radius-xs: 2px;
+  --xyu-radius-sm: 4px;
+  --xyu-radius-md: 6px;
+  --xyu-radius-lg: 8px;
+  --xyu-radius-xl: 12px;
+  --xyu-radius-2xl: 16px;
+  --xyu-radius-pill: 9999px;
+
+  /* 阴影：极轻、无彩色 */
+  --xyu-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --xyu-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --xyu-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --xyu-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --xyu-shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.12);
+
+  /* 主色：低饱和蓝紫 */
+  --xyu-primary: #5b76fe;
+  --xyu-primary-hover: #4a62e8;
+  --xyu-primary-active: #3d53d4;
+  --xyu-primary-light: rgba(91, 118, 254, 0.08);
+  --xyu-primary-light-hover: rgba(91, 118, 254, 0.12);
+
+  /* 中性色 */
+  --xyu-text-primary: #1a1a2e;
+  --xyu-text-secondary: #6b7280;
+  --xyu-text-tertiary: #9ca3af;
+  --xyu-text-disabled: #d1d5db;
+
+  --xyu-bg: #ffffff;
+  --xyu-bg-secondary: #f9fafb;
+  --xyu-bg-tertiary: #f3f4f6;
+  --xyu-bg-overlay: rgba(0, 0, 0, 0.4);
+
+  --xyu-border: #e5e7eb;
+  --xyu-border-hover: #d1d5db;
+  --xyu-border-focus: #5b76fe;
+  --xyu-border-disabled: #f3f4f6;
+
+  /* 语义色 */
+  --xyu-success: #10b981;
+  --xyu-success-light: rgba(16, 185, 129, 0.08);
+  --xyu-warning: #f59e0b;
+  --xyu-warning-light: rgba(245, 158, 11, 0.08);
+  --xyu-error: #ef4444;
+  --xyu-error-light: rgba(239, 68, 68, 0.08);
+  --xyu-info: #3b82f6;
+  --xyu-info-light: rgba(59, 130, 246, 0.08);
+
+  /* 价格红 */
+  --xyu-price: #ff4d4f;
+
+  /* Focus ring */
+  --xyu-focus-ring: 0 0 0 2px rgba(91, 118, 254, 0.3);
+
+  /* 过渡 */
+  --xyu-transition-fast: 0.1s ease;
+  --xyu-transition: 0.15s ease;
+  --xyu-transition-slow: 0.25s ease;
+
+  /* 字体 */
+  --xyu-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+  --xyu-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+
+  /* 字号 */
+  --xyu-text-xs: 12px;
+  --xyu-text-sm: 13px;
+  --xyu-text-base: 14px;
+  --xyu-text-lg: 16px;
+  --xyu-text-xl: 18px;
+  --xyu-text-2xl: 20px;
+  --xyu-text-3xl: 24px;
+
+  /* 行高 */
+  --xyu-leading-tight: 1.25;
+  --xyu-leading-normal: 1.5;
+  --xyu-leading-relaxed: 1.625;
+
+  /* 间距（基于 4px 网格） */
+  --xyu-space-1: 4px;
+  --xyu-space-2: 8px;
+  --xyu-space-3: 12px;
+  --xyu-space-4: 16px;
+  --xyu-space-5: 20px;
+  --xyu-space-6: 24px;
+  --xyu-space-8: 32px;
+  --xyu-space-10: 40px;
+  --xyu-space-12: 48px;
+
+  /* Phase 2 组件专用 token */
+  --xyu-rate-size: 22px;
+  --xyu-rate-glow-color: #fbbf24;
+  --xyu-progress-height: 8px;
+  --xyu-progress-ring-size: 126px;
+  --xyu-upload-drag-border-radius: var(--xyu-radius-lg);
+  --xyu-upload-drag-bg: var(--xyu-primary-light);
+  --xyu-space-gap: 8px;
+  --xyu-space-gap-lg: 16px;
+  --xyu-pagination-btn-size: 32px;
+}
+
+/* ============================================================
+   暗色模式
+   ============================================================ */
+
+[data-theme="front"][data-theme-mode="dark"],
+[data-theme="dark"] {
+  /* 圆角（不变） */
+  --xyu-radius-xs: 2px;
+  --xyu-radius-sm: 4px;
+  --xyu-radius-md: 6px;
+  --xyu-radius-lg: 8px;
+  --xyu-radius-xl: 12px;
+  --xyu-radius-2xl: 16px;
+  --xyu-radius-pill: 9999px;
+
+  /* 阴影：暗色加深 */
+  --xyu-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --xyu-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --xyu-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --xyu-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --xyu-shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.7);
+
+  /* 主色（亮色模式微调） */
+  --xyu-primary: #7b93ff;
+  --xyu-primary-hover: #8fa3ff;
+  --xyu-primary-active: #6b80f0;
+  --xyu-primary-light: rgba(123, 147, 255, 0.12);
+  --xyu-primary-light-hover: rgba(123, 147, 255, 0.18);
+
+  /* 中性色 */
+  --xyu-text-primary: #f0f0f5;
+  --xyu-text-secondary: #a0a0b8;
+  --xyu-text-tertiary: #6b6b8a;
+  --xyu-text-disabled: #3d3d5c;
+
+  --xyu-bg: #1a1a2e;
+  --xyu-bg-secondary: #16162a;
+  --xyu-bg-tertiary: #22223b;
+  --xyu-bg-overlay: rgba(0, 0, 0, 0.6);
+
+  --xyu-border: #2e2e4a;
+  --xyu-border-hover: #3d3d60;
+  --xyu-border-focus: #7b93ff;
+  --xyu-border-disabled: #22223b;
+
+  /* 语义色 */
+  --xyu-success: #34d399;
+  --xyu-success-light: rgba(52, 211, 153, 0.12);
+  --xyu-warning: #fbbf24;
+  --xyu-warning-light: rgba(251, 191, 36, 0.12);
+  --xyu-error: #f87171;
+  --xyu-error-light: rgba(248, 113, 113, 0.12);
+  --xyu-info: #60a5fa;
+  --xyu-info-light: rgba(96, 165, 250, 0.12);
+
+  /* 价格红 */
+  --xyu-price: #ff6b6b;
+
+  /* Focus ring */
+  --xyu-focus-ring: 0 0 0 2px rgba(123, 147, 255, 0.4);
+
+  /* 过渡 */
+  --xyu-transition-fast: 0.1s ease;
+  --xyu-transition: 0.15s ease;
+  --xyu-transition-slow: 0.25s ease;
+
+  /* Phase 2 token（暗色加深版） */
+  --xyu-rate-glow-color: #fbbf24;
+}

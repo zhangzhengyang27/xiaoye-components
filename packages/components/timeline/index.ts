@@ -1,5 +1,5 @@
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import Timeline from "./src/timeline";
 import TimelineGroup from "./src/timeline-group.vue";
 import TimelineItem from "./src/timeline-item.vue";

@@ -6,7 +6,7 @@ import type {
   ChartsProps
 } from "./src/charts";
 import type { ChartsModule } from "./src/echarts";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 import { defaultChartsModules, useChartsModules } from "./src/echarts";
 
 export type {

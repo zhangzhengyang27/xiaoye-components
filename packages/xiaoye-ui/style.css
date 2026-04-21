@@ -1,0 +1,49 @@
+@import "xiaoye-primitives/style.css";
+@import "../theme/src/front/front-tokens.css";
+@import "../theme/src/front/front-base.css";
+
+/* 现有前台组件 */
+@import "./src/front-components/product-card/product-card.css";
+@import "./src/front-components/marketing-modal/marketing-modal.css";
+@import "./src/front-components/image-gallery/image-gallery.css";
+@import "./src/front-components/sku-selector/sku-selector.css";
+@import "./src/front-components/address-picker/address-picker.css";
+
+/* Phase 1-A */
+@import "./src/front-components/button/button.css";
+@import "./src/front-components/input/input.css";
+@import "./src/front-components/text/text.css";
+@import "./src/front-components/link/link.css";
+@import "./src/front-components/tag/tag.css";
+@import "./src/front-components/badge/badge.css";
+
+/* Phase 1-B */
+@import "./src/front-components/select/select.css";
+@import "./src/front-components/checkbox/checkbox.css";
+@import "./src/front-components/radio/radio.css";
+@import "./src/front-components/switch/switch.css";
+@import "./src/front-components/input-number/input-number.css";
+@import "./src/front-components/slider/slider.css";
+
+/* Phase 1-C */
+@import "./src/front-components/avatar/avatar.css";
+@import "./src/front-components/image/image.css";
+@import "./src/front-components/empty/empty.css";
+@import "./src/front-components/skeleton/skeleton.css";
+@import "./src/front-components/tabs/tabs.css";
+@import "./src/front-components/dropdown/dropdown.css";
+@import "./src/front-components/tooltip/tooltip.css";
+
+/* Phase 1-D */
+@import "./src/front-components/dialog/dialog.css";
+@import "./src/front-components/drawer/drawer.css";
+@import "./src/front-components/message/message.css";
+@import "./src/front-components/notification/notification.css";
+
+/* Phase 2 */
+@import "./src/front-components/space/space.css";
+@import "./src/front-components/progress/progress.css";
+@import "./src/front-components/steps/steps.css";
+@import "./src/front-components/alert/alert.css";
+@import "./src/front-components/rate/rate.css";
+@import "./src/front-components/input-tag/input-tag.css";

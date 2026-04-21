@@ -7,7 +7,7 @@ import type {
   DatePickerValueChangeHandler,
   DatePickerVisibleChangeHandler
 } from "./src/date-picker";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   DatePickerProps,

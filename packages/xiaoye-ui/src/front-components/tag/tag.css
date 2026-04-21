@@ -1,0 +1,100 @@
+/* ============================================================
+   xyu-tag 样式
+   ============================================================ */
+
+.xyu-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid transparent;
+  font-family: var(--xyu-font-sans);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ---- 尺寸 ---- */
+.xyu-tag--sm {
+  padding: 2px 6px;
+  font-size: 11px;
+  border-radius: var(--xyu-radius-sm);
+}
+
+.xyu-tag--md {
+  padding: 3px 8px;
+  font-size: var(--xyu-text-xs);
+  border-radius: var(--xyu-radius-sm);
+}
+
+.xyu-tag--lg {
+  padding: 4px 10px;
+  font-size: var(--xyu-text-sm);
+  border-radius: var(--xyu-radius-md);
+}
+
+/* ---- 类型 ---- */
+.xyu-tag--default {
+  background: var(--xyu-bg-secondary);
+  border-color: var(--xyu-border);
+  color: var(--xyu-text-secondary);
+}
+
+.xyu-tag--primary {
+  background: var(--xyu-primary-light);
+  border-color: var(--xyu-primary);
+  color: var(--xyu-primary);
+}
+
+.xyu-tag--success {
+  background: var(--xyu-success-light);
+  border-color: var(--xyu-success);
+  color: var(--xyu-success);
+}
+
+.xyu-tag--warning {
+  background: var(--xyu-warning-light);
+  border-color: var(--xyu-warning);
+  color: var(--xyu-warning);
+}
+
+.xyu-tag--danger {
+  background: var(--xyu-error-light);
+  border-color: var(--xyu-error);
+  color: var(--xyu-error);
+}
+
+.xyu-tag--info {
+  background: var(--xyu-info-light);
+  border-color: var(--xyu-info);
+  color: var(--xyu-info);
+}
+
+/* ---- round ---- */
+.xyu-tag.is-round {
+  border-radius: var(--xyu-radius-pill);
+}
+
+/* ---- closable ---- */
+.xyu-tag__content {
+  display: inline-flex;
+  align-items: center;
+}
+
+.xyu-tag__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 1px;
+  border-radius: 50%;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity var(--xyu-transition-fast);
+  flex-shrink: 0;
+}
+
+.xyu-tag__close:hover {
+  opacity: 1;
+}

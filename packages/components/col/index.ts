@@ -1,6 +1,6 @@
 import Col from "./src/col.vue";
 import type { ColBreakpoint, ColProps, ColSize, ColSizeObject } from "./src/col";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ColBreakpoint, ColProps, ColSize, ColSizeObject };
 

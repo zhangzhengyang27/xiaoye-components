@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import ImgEmpty from "./img-empty.vue";
 
 export interface EmptyProps {

@@ -19,7 +19,7 @@ import interactionPlugin, {
 } from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import FullCalendar from "@fullcalendar/vue3";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type {
   SchedulerDateClickPayload,
   SchedulerDropPayload,

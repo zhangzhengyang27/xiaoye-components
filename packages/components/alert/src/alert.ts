@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export const alertTypes = ["primary", "success", "info", "warning", "error"] as const;
 export const alertEffects = ["light", "dark"] as const;

@@ -14,7 +14,7 @@ import {
   useListNavigation,
   useOverlayStack,
   useNamespace
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 import XyButton from "../../button";
 import { XyButtonGroup } from "../../button";
 import XyIcon from "../../icon";

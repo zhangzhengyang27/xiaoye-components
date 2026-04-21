@@ -1,6 +1,6 @@
 import CrudPage from "./src/crud-page.vue";
 import type { CrudPageProps } from "./src/crud-page";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { CrudPageProps };
 

@@ -27,7 +27,7 @@ import type {
   NotificationTypedFn
 } from "./src/notification";
 import notification from "./src/service";
-import { withInstall, withInstallFunction } from "@xiaoye/utils";
+import { withInstall, withInstallFunction } from "@xiaoye/primitives";
 
 export type {
   NotificationClickHandler,

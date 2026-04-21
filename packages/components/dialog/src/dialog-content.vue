@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, useSlots } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { XyIcon } from "../../icon";
 import { XyLoadingIndicator } from "../../loading/src/shared";
 import { dialogContentPropsDefaults } from "./dialog-content";

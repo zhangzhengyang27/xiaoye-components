@@ -1,0 +1,316 @@
+/* ============================================================
+   xyu-button 样式
+   风格：极简精准（Clean Minimal）
+   ============================================================ */
+
+.xyu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: var(--xyu-radius-md);
+  font-family: var(--xyu-font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--xyu-transition-fast);
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: none;
+  text-decoration: none;
+  position: relative;
+}
+
+/* ---- 尺寸 ---- */
+.xyu-button--sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: var(--xyu-text-sm);
+}
+
+.xyu-button--md {
+  height: 36px;
+  padding: 0 16px;
+  font-size: var(--xyu-text-base);
+}
+
+.xyu-button--lg {
+  height: 44px;
+  padding: 0 20px;
+  font-size: var(--xyu-text-lg);
+}
+
+/* ---- 类型：default ---- */
+.xyu-button--default {
+  background: var(--xyu-bg);
+  border-color: var(--xyu-border);
+  color: var(--xyu-text-primary);
+}
+
+.xyu-button--default:hover:not(.is-disabled) {
+  border-color: var(--xyu-border-hover);
+  color: var(--xyu-text-primary);
+}
+
+.xyu-button--default:active:not(.is-disabled) {
+  background: var(--xyu-bg-secondary);
+}
+
+/* ---- 类型：primary ---- */
+.xyu-button--primary {
+  background: var(--xyu-primary);
+  border-color: var(--xyu-primary);
+  color: #fff;
+}
+
+.xyu-button--primary:hover:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  background: var(--xyu-primary-hover);
+  border-color: var(--xyu-primary-hover);
+}
+
+.xyu-button--primary:active:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  background: var(--xyu-primary-active);
+  border-color: var(--xyu-primary-active);
+}
+
+/* ---- 类型：success ---- */
+.xyu-button--success {
+  background: var(--xyu-success);
+  border-color: var(--xyu-success);
+  color: #fff;
+}
+
+.xyu-button--success:hover:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.92);
+}
+
+.xyu-button--success:active:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.85);
+}
+
+/* ---- 类型：warning ---- */
+.xyu-button--warning {
+  background: var(--xyu-warning);
+  border-color: var(--xyu-warning);
+  color: #fff;
+}
+
+.xyu-button--warning:hover:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.92);
+}
+
+.xyu-button--warning:active:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.85);
+}
+
+/* ---- 类型：danger ---- */
+.xyu-button--danger {
+  background: var(--xyu-error);
+  border-color: var(--xyu-error);
+  color: #fff;
+}
+
+.xyu-button--danger:hover:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.92);
+}
+
+.xyu-button--danger:active:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.85);
+}
+
+/* ---- 类型：info ---- */
+.xyu-button--info {
+  background: var(--xyu-info);
+  border-color: var(--xyu-info);
+  color: #fff;
+}
+
+.xyu-button--info:hover:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.92);
+}
+
+.xyu-button--info:active:not(.is-disabled):not(.is-plain):not(.is-text):not(.is-link) {
+  filter: brightness(0.85);
+}
+
+/* ---- plain 变体 ---- */
+.xyu-button.is-plain {
+  background: transparent;
+}
+
+.xyu-button.is-plain.xyu-button--default {
+  background: var(--xyu-bg-secondary);
+  border-color: var(--xyu-border);
+}
+
+.xyu-button.is-plain.xyu-button--default:hover:not(.is-disabled) {
+  background: var(--xyu-bg-tertiary);
+}
+
+.xyu-button.is-plain.xyu-button--primary {
+  color: var(--xyu-primary);
+  background: var(--xyu-primary-light);
+  border-color: var(--xyu-primary);
+}
+
+.xyu-button.is-plain.xyu-button--primary:hover:not(.is-disabled) {
+  background: var(--xyu-primary-light-hover);
+}
+
+.xyu-button.is-plain.xyu-button--success {
+  color: var(--xyu-success);
+  background: var(--xyu-success-light);
+  border-color: var(--xyu-success);
+}
+
+.xyu-button.is-plain.xyu-button--success:hover:not(.is-disabled) {
+  filter: brightness(0.95);
+}
+
+.xyu-button.is-plain.xyu-button--warning {
+  color: var(--xyu-warning);
+  background: var(--xyu-warning-light);
+  border-color: var(--xyu-warning);
+}
+
+.xyu-button.is-plain.xyu-button--danger {
+  color: var(--xyu-error);
+  background: var(--xyu-error-light);
+  border-color: var(--xyu-error);
+}
+
+.xyu-button.is-plain.xyu-button--danger:hover:not(.is-disabled) {
+  filter: brightness(0.95);
+}
+
+.xyu-button.is-plain.xyu-button--info {
+  color: var(--xyu-info);
+  background: var(--xyu-info-light);
+  border-color: var(--xyu-info);
+}
+
+/* ---- text / link 变体 ---- */
+.xyu-button.is-text,
+.xyu-button.is-link {
+  background: transparent;
+  border-color: transparent;
+}
+
+.xyu-button.is-text:hover:not(.is-disabled),
+.xyu-button.is-link:hover:not(.is-disabled) {
+  transform: none;
+}
+
+.xyu-button.is-text.xyu-button--default,
+.xyu-button.is-link.xyu-button--default {
+  color: var(--xyu-text-primary);
+}
+
+.xyu-button.is-text.xyu-button--primary,
+.xyu-button.is-link.xyu-button--primary {
+  color: var(--xyu-primary);
+}
+
+.xyu-button.is-text.xyu-button--success,
+.xyu-button.is-link.xyu-button--success {
+  color: var(--xyu-success);
+}
+
+.xyu-button.is-text.xyu-button--warning,
+.xyu-button.is-link.xyu-button--warning {
+  color: var(--xyu-warning);
+}
+
+.xyu-button.is-text.xyu-button--danger,
+.xyu-button.is-link.xyu-button--danger {
+  color: var(--xyu-error);
+}
+
+.xyu-button.is-text.xyu-button--info,
+.xyu-button.is-link.xyu-button--info {
+  color: var(--xyu-info);
+}
+
+.xyu-button.is-link {
+  padding-inline: 0;
+}
+
+.xyu-button.is-link:hover:not(.is-disabled) {
+  text-decoration: underline;
+}
+
+/* ---- round ---- */
+.xyu-button.is-round {
+  border-radius: var(--xyu-radius-pill);
+}
+
+/* ---- circle ---- */
+.xyu-button.is-circle {
+  padding-inline: 0;
+}
+
+.xyu-button--sm.is-circle {
+  width: 32px;
+}
+
+.xyu-button--md.is-circle {
+  width: 36px;
+}
+
+.xyu-button--lg.is-circle {
+  width: 44px;
+}
+
+/* ---- block ---- */
+.xyu-button.is-block {
+  display: flex;
+  width: 100%;
+}
+
+/* ---- disabled ---- */
+.xyu-button.is-disabled,
+.xyu-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ---- focus ---- */
+.xyu-button:focus-visible {
+  outline: none;
+  box-shadow: var(--xyu-focus-ring);
+}
+
+/* ---- icon & label ---- */
+.xyu-button__icon,
+.xyu-button__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.xyu-button.is-icon-only {
+  gap: 0;
+}
+
+.xyu-button__label {
+  min-width: 0;
+}
+
+/* ---- loading ---- */
+.xyu-button.is-loading {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---- spin animation ---- */
+@keyframes xyu-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.xyu-spin {
+  animation: xyu-spin 0.8s linear infinite;
+}

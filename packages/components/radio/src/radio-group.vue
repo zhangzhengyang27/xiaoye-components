@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Fragment, computed, inject, isVNode, nextTick, provide, toRef } from "vue";
 import type { VNode, VNodeArrayChildren } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import { formItemKey } from "../../form/src/context";
 import XyRadio from "./radio.vue";
 import XyRadioButton from "./radio-button.vue";

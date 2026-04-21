@@ -29,4 +29,40 @@ describe("XyRequestForm", () => {
       name: "账单中心"
     });
   });
+
+  it("readonly 时复用只读展示协议而不是继续渲染提交表单", () => {
+    const wrapper = mount(XyRequestForm, {
+      props: {
+        title: "查看成员",
+        readonly: true,
+        immediate: false,
+        model: {
+          name: "账单中心",
+          status: "enabled"
+        },
+        schema: [
+          {
+            prop: "name",
+            label: "名称"
+          },
+          {
+            prop: "status",
+            label: "状态",
+            valueType: "tag",
+            options: [
+              {
+                label: "启用",
+                value: "enabled",
+                status: "success"
+              }
+            ]
+          }
+        ]
+      }
+    });
+
+    expect(wrapper.find(".xy-descriptions").exists()).toBe(true);
+    expect(wrapper.text()).toContain("账单中心");
+    expect(wrapper.text()).toContain("启用");
+  });
 });

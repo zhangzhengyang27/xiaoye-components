@@ -15,10 +15,24 @@ export function extractDemoPaths(code: string) {
   const paths: string[] = [];
 
   for (let index = 0; index < lines.length; index += 1) {
-    if (!/^:::\s*demo\b/.test(lines[index].trim())) {
+    const trimmed = lines[index].trim();
+    const matched = trimmed.match(/^:::\s*demo\s*(.*)$/);
+
+    if (!matched) {
       continue;
     }
 
+    // 单行形式: :::demo path/to/example — 路径在 matched[1]
+    const afterDemo = matched[1]?.trim();
+    if (afterDemo) {
+      // 判断 matched[1] 是否像文件路径（纯 ASCII 字母数字+连字符/斜杠/点）
+      if (/^[a-zA-Z0-9_/.-]+$/.test(afterDemo)) {
+        paths.push(afterDemo);
+        continue;
+      }
+    }
+
+    // 两行形式: :::demo description\npath/to/example\n:::
     let cursor = index + 1;
 
     while (cursor < lines.length) {

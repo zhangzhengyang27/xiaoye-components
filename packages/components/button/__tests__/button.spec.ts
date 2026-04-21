@@ -3,8 +3,8 @@ import { defineComponent, h, nextTick, reactive } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyButton, XyButtonGroup, XyForm, XyFormItem, XyInput } from "@xiaoye/components";
 
-vi.mock("@xiaoye/utils", async () => {
-  const actual = await vi.importActual<typeof import("@xiaoye/utils")>("@xiaoye/utils");
+vi.mock("@xiaoye/primitives", async () => {
+  const actual = await vi.importActual<typeof import("@xiaoye/primitives")>("@xiaoye/primitives");
 
   return {
     ...actual,

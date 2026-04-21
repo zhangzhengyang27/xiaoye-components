@@ -1,3 +1,8 @@
+---
+description: 
+alwaysApply: true
+---
+
 # AGENTS.md
 
 ## 通用要求
@@ -24,7 +29,7 @@
 
 ## 增强层导出规则
 
-- 增强组件源码统一位于 `packages/pro-components/<name>`，并通过 `packages/pro-components/component-manifest.json` 维护 21 个正式公开增强组件清单。
+- 增强组件源码统一位于 `packages/pro-components/<name>`，并通过 `packages/pro-components/component-manifest.json` 维护正式公开增强组件清单。
 - 新增或修改增强组件时，优先同步检查这些入口是否需要更新：
   - `packages/pro-components/component-manifest.json`
   - `packages/pro-components/exports.ts`
@@ -48,6 +53,35 @@
   - `pnpm check:pro-components`
   - `pnpm typecheck:types`
   - 视影响范围再补 `pnpm typecheck:packages`、`pnpm build:docs`、`pnpm build:lib`
+
+## 前台层（xiaoye-ui）导出规则
+
+- `xiaoye-ui` 由两部分组成：前台专属组件（`src/front-components/`）和 Headless 风格组合 API（`src/headless/`）。
+- 前台专属组件前缀为 `xyu-`（Vue 组件名如 `XyuButton`、模板标签如 `xyu-button`），与 `@xiaoye/components` 的 `Xy-` 前缀完全区隔，避免同项目同时安装两包时的命名冲突。
+- 前台专属组件目录结构：`src/front-components/<name>/index.ts` + `src/front-components/<name>/<name>.vue` + `src/front-components/<name>/<name>.css` + `src/front-components/<name>/<name>.ts`（类型定义）。
+- Headless 组合 API：`src/headless/<name>/index.ts` + 各子组件 `.vue`。
+- `packages/xiaoye-ui/src/front-components/index.ts` 统一导出前台专属组件。
+- `packages/xiaoye-ui/src/index.ts` 统一导出 Headless 组合 API。
+- `packages/xiaoye-ui/index.ts` 是包根入口，聚合 `src/headless` 和 `src/front-components`。
+- `packages/xiaoye-ui/style.css` 是样式入口，导入 `xiaoye-primitives` 基础样式和前台主题覆盖，以及各组件 CSS。
+- `packages/xiaoye-ui/component-manifest.json` 维护所有前台组件清单（含 installExports）。
+- 新增前台专属组件时，同步更新：
+  - `packages/xiaoye-ui/src/front-components/index.ts`
+  - `packages/xiaoye-ui/style.css`
+  - `packages/xiaoye-ui/component-manifest.json`
+- 新增 Headless 组合 API 时，同步更新：
+  - `packages/xiaoye-ui/src/index.ts`
+
+### 前台专属组件清单
+
+| 前缀 | 组件 |
+|------|------|
+| `xyu-` | `button`、`input`、`textarea`（合并到 input）、`text`、`link`、`tag`、`badge` |
+| `xyu-` | `select`、`checkbox`、`radio`、`switch`、`input-number`、`slider` |
+| `xyu-` | `avatar`、`image`、`empty`、`skeleton`、`tabs`、`tab-pane`、`dropdown`、`tooltip` |
+| `xyu-` | `dialog`、`drawer`、`message`、`notification` |
+| `xyu-`（Phase 2） | `space`、`progress`、`steps`、`step`、`alert`、`rate`、`input-tag` |
+| `Xyu*` | `ProductCard`、`MarketingModal`、`ImageGallery`、`SkuSelector`、`AddressPicker` |
 
 ## 当前组件范围
 
@@ -102,11 +136,17 @@
 - `apps/docs`：VitePress 文档站，组件文档、示例和首页内容都在这里。
 - `apps/playground`：本地联调 playground。
 - `packages/components`：组件源码、安装入口和单测。
-- `packages/composables`：跨组件复用的组合式逻辑。
+- `packages/xiaoye-primitives/src/composables`：跨组件复用的组合式逻辑。
 - `packages/theme`：组件样式入口与 CSS 实现。
 - `packages/tokens`：设计令牌相关源码。
-- `packages/utils`：类型、DOM、Vue 工具函数。
+- `packages/xiaoye-primitives/src/utils`：类型、DOM、Vue 工具函数。
 - `packages/xiaoye-components`：聚合导出、安装入口和发布产物。
+- `packages/xiaoye-ui`：
+  - 前台专属组件：`src/front-components/`
+    - 业务组件：`product-card/`、`marketing-modal/`、`image-gallery/`、`sku-selector/`、`address-picker/`
+    - 基础组件 Phase 1：`button/`、`input/`、`text/`、`link/`、`tag/`、`badge/`、`select/`、`checkbox/`、`radio/`、`switch/`、`input-number/`、`slider/`、`avatar/`、`image/`、`empty/`、`skeleton/`、`tabs/`、`dropdown/`、`tooltip/`、`dialog/`、`drawer/`、`message/`、`notification/`
+    - 基础组件 Phase 2：`space/`、`progress/`、`steps/`、`step/`、`alert/`、`rate/`、`input-tag/`
+  - Headless 组合 API：`src/headless/transition/`、`src/headless/dialog/`、`src/headless/menu/`、`src/headless/listbox/`、`src/headless/combobox/`、`src/headless/switch/`、`src/headless/disclosure/`、`src/headless/radio-group/`、`src/headless/tabs/`、`src/headless/popover/`
 - `tests/types`：类型测试夹具与独立 tsconfig。
 - `scripts`：仓库脚本。
 - `.changeset`：版本变更记录。
@@ -120,6 +160,8 @@
   - `apps/docs/.vitepress/.temp`
   - `apps/playground/dist`
   - `packages/xiaoye-components/dist`
+  - `packages/xiaoye-ui/dist`
+  - `packages/xiaoye-primitives/dist`
   - `coverage`
   - `output/`
 - 修改忽略规则时，先以根目录 `.gitignore` 为准，避免把调试日志、页面快照或构建产物带入提交。

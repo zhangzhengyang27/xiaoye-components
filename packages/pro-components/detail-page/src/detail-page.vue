@@ -2,8 +2,18 @@
 import { XyAsyncStateContainer } from "../../async-state-container";
 import { computed } from "vue";
 import { XyAuditTimeline } from "../../audit-timeline";
-import { XyBreadcrumb, XyBreadcrumbItem, XyButton, XyCard, XyLink, XyTag } from "@xiaoye/components";
+import { resolveProDescriptionsItems } from "../../field-schema";
+import {
+  XyBreadcrumb,
+  XyBreadcrumbItem,
+  XyButton,
+  XyCard,
+  XyDescriptions,
+  XyLink,
+  XyTag
+} from "@xiaoye/components";
 import type { DetailPageProps } from "./detail-page";
+import type { DetailSectionItem } from "./detail-page";
 
 defineOptions({
   name: "XyDetailPage"
@@ -25,6 +35,14 @@ const props = withDefaults(defineProps<DetailPageProps>(), {
 const visibleChanges = computed(() =>
   props.changes.filter((item) => item.status !== "same")
 );
+
+function resolveSectionItems(section: DetailSectionItem) {
+  if (section.schema?.length) {
+    return resolveProDescriptionsItems(section.schema, section.model ?? {});
+  }
+
+  return section.items ?? [];
+}
 
 function resolveDiffStatus(status?: string) {
   if (status === "added") return "success";
@@ -99,7 +117,15 @@ function resolveDiffStatus(status?: string) {
             </p>
           </div>
           <div class="xy-detail-page__section-body">
-            <slot :name="section.key" :section="section" />
+            <slot :name="section.key" :section="section">
+              <xy-descriptions
+                v-if="resolveSectionItems(section).length"
+                border
+                :column="section.descriptionsProps?.column ?? 2"
+                v-bind="section.descriptionsProps"
+                :items="resolveSectionItems(section)"
+              />
+            </slot>
           </div>
         </section>
       </div>

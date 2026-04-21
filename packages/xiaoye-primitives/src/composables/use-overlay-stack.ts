@@ -1,0 +1,87 @@
+import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { toValue } from "vue";
+import type { MaybeRefOrGetter } from "vue";
+
+const stack = ref<Set<symbol>>(new Set());
+const zIndexCounter = ref(2000);
+
+interface OverlayEntry {
+  id: symbol;
+  zIndex: number;
+  isTopMost: () => boolean;
+  openLayer: () => void;
+  closeLayer: () => void;
+}
+
+function notifyStackChange() {
+  stack.value = new Set(stack.value);
+}
+
+function getTopEntry(): OverlayEntry | undefined {
+  let top: OverlayEntry | undefined;
+  let maxZ = -Infinity;
+
+  for (const entry of stack.value) {
+    if (entry.zIndex > maxZ) {
+      maxZ = entry.zIndex;
+      top = entry;
+    }
+  }
+
+  return top;
+}
+
+function createOverlayEntry(): OverlayEntry {
+  const id = Symbol("overlay");
+  let closed = false;
+
+  const entry: OverlayEntry = {
+    id,
+    zIndex: -1,
+    isTopMost: () => {
+      if (closed) return false;
+      const top = getTopEntry();
+      return top?.id === id;
+    },
+    openLayer: () => {
+      if (closed) return;
+      entry.zIndex = ++zIndexCounter.value;
+      stack.value.add(entry);
+      notifyStackChange();
+    },
+    closeLayer: () => {
+      if (closed) return;
+      closed = true;
+      stack.value.delete(entry);
+      notifyStackChange();
+    }
+  };
+
+  return entry;
+}
+
+export interface OverlayStackEntry {
+  zIndex: ReturnType<typeof computed<number>>;
+  isTopMost: () => boolean;
+  openLayer: () => void;
+  closeLayer: () => void;
+}
+
+export function useOverlayStack(): OverlayStackEntry {
+  const entry = createOverlayEntry();
+
+  onMounted(() => {
+    entry.openLayer();
+  });
+
+  onBeforeUnmount(() => {
+    entry.closeLayer();
+  });
+
+  return {
+    zIndex: computed(() => entry.zIndex),
+    isTopMost: entry.isTopMost,
+    openLayer: entry.openLayer,
+    closeLayer: entry.closeLayer
+  };
+}

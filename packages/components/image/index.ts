@@ -1,4 +1,5 @@
 import Image from "./src/image.vue";
+import ImageViewer from "./src/image-viewer.vue";
 import type {
   ImageCrossorigin,
   ImageErrorHandler,
@@ -13,7 +14,7 @@ import type {
   ImageViewerProgressSlotProps,
   ImageViewerToolbarSlotProps
 } from "./src/image";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   ImageCrossorigin,
@@ -31,4 +32,5 @@ export type {
 };
 
 export const XyImage = withInstall(Image, "xy-image");
+export const XyImageViewer = withInstall(ImageViewer, "xy-image-viewer");
 export default XyImage;

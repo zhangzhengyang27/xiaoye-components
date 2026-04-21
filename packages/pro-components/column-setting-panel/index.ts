@@ -3,7 +3,7 @@ import type {
   ColumnSettingPanelColumn,
   ColumnSettingPanelProps
 } from "./src/column-setting-panel";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ColumnSettingPanelColumn, ColumnSettingPanelProps };
 

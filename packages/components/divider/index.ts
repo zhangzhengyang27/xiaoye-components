@@ -5,7 +5,7 @@ import type {
   DividerDirection,
   DividerProps
 } from "./src/divider";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { DividerBorderStyle, DividerContentPosition, DividerDirection, DividerProps };
 

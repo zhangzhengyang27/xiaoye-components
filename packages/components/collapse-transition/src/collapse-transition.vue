@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { RendererElement } from "vue";
 
 defineOptions({

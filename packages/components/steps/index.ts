@@ -1,7 +1,7 @@
 import Step from "./src/step.vue";
 import Steps from "./src/steps.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type { StepProps, StepStatus } from "./src/step";
 import type { StepsChangeHandler, StepsDirection, StepsProps, StepsStatus } from "./src/steps";
 

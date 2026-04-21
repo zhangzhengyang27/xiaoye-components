@@ -5,7 +5,7 @@ import type {
   LoginFormProps,
   LoginFormThirdPartyItem
 } from "./src/login-form";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   LoginFormInstance,

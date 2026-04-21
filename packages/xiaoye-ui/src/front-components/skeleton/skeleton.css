@@ -1,0 +1,54 @@
+/* ============================================================
+   xyu-skeleton 样式
+   ============================================================ */
+
+.xyu-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--xyu-font-sans);
+}
+
+.xyu-skeleton__item {
+  background: linear-gradient(
+    90deg,
+    var(--xyu-bg-tertiary) 25%,
+    var(--xyu-bg-secondary) 50%,
+    var(--xyu-bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+}
+
+.xyu-skeleton__item--text {
+  border-radius: var(--xyu-radius-sm);
+  height: 14px;
+  width: 100%;
+}
+
+.xyu-skeleton__item--rectangular {
+  border-radius: var(--xyu-radius-md);
+  height: 120px;
+  width: 100%;
+}
+
+.xyu-skeleton__item--circular {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+.xyu-skeleton__item--rounded {
+  border-radius: var(--xyu-radius-xl);
+  height: 80px;
+  width: 100%;
+}
+
+/* 动画 */
+@keyframes xyu-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.xyu-skeleton__item.is-animated {
+  animation: xyu-shimmer 1.5s ease-in-out infinite;
+}

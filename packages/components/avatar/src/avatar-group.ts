@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { StyleValue } from "vue";
 import type { TooltipProps } from "../../tooltip";
 import type { AvatarFit, AvatarProps, AvatarShape } from "./avatar";

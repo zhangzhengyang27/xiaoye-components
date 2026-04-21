@@ -1,7 +1,7 @@
 import type TreeSelect from "./tree-select.vue";
 import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { TreeData, TreeKey, TreeOptionProps } from "../../tree";
 import type { FilterNodeMethodFunction, LoadFunction } from "../../tree/src/tree.type";
 

@@ -1,6 +1,6 @@
 import Text from "./src/text.vue";
 import type { TextProps, TextType } from "./src/text";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { TextProps, TextType };
 

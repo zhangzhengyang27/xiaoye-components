@@ -1,6 +1,8 @@
 export { XySearchForm } from "./search-form";
 export { XyProForm } from "./pro-form";
 export { XyOverlayForm } from "./overlay-form";
+export { XyDialogForm } from "./dialog-form";
+export { XyDrawerForm } from "./drawer-form";
 export { XyStepsForm } from "./steps-form";
 export { XyFilterPanel } from "./filter-panel";
 export { XyRequestForm } from "./request-form";

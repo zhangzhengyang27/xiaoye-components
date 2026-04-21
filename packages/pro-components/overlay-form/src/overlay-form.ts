@@ -1,5 +1,5 @@
 import type { DialogProps, DrawerProps, FormRules } from "@xiaoye/components";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { ProFieldSchema } from "../../core";
 
 export type OverlayFormContainer = "drawer" | "modal";

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { cloneVNode, computed, defineComponent, h, inject, useSlots } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { timelineContextKey } from "./context";
 import { flattenTimelineChildren, isTimelineItemVNode } from "./render";
 import type { TimelineGroupProps } from "./timeline-group";

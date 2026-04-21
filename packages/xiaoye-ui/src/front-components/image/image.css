@@ -1,0 +1,82 @@
+/* ============================================================
+   xyu-image 样式
+   ============================================================ */
+
+.xyu-image {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  background: var(--xyu-bg-tertiary);
+  border-radius: var(--xyu-radius-md);
+}
+
+.xyu-image__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: opacity var(--xyu-transition);
+}
+
+.xyu-image__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--xyu-text-tertiary);
+  background: var(--xyu-bg-tertiary);
+  min-width: 60px;
+  min-height: 60px;
+}
+
+/* ---- preview ---- */
+.xyu-image__preview {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.xyu-image__preview-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--xyu-radius-md);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.xyu-image__preview-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--xyu-transition-fast);
+}
+
+.xyu-image__preview-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ---- fade 动画 ---- */
+.xyu-image-fade-enter-active,
+.xyu-image-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.xyu-image-fade-enter-from,
+.xyu-image-fade-leave-to {
+  opacity: 0;
+}

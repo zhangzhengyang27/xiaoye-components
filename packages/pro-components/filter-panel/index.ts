@@ -1,6 +1,6 @@
 import FilterPanel from "./src/filter-panel.vue";
 import type { FilterPanelProps } from "./src/filter-panel";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { FilterPanelProps };
 

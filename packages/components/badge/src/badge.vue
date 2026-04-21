@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { StyleValue } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { BadgeContentSlotProps, BadgeProps } from "./badge";
 
 const props = withDefaults(defineProps<BadgeProps>(), {

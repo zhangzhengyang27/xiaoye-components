@@ -1,6 +1,6 @@
 import Empty from "./src/empty.vue";
 import type { EmptyProps } from "./src/empty.vue";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { EmptyProps };
 

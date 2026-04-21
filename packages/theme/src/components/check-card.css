@@ -1,0 +1,160 @@
+.xy-check-card {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--xy-border-color);
+  border-radius: var(--xy-radius-lg);
+  background: var(--xy-surface-raised);
+  box-shadow: var(--xy-shadow-xs);
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.xy-check-card:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--xy-color-primary) 42%, white);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 18%, transparent),
+    var(--xy-shadow-sm);
+}
+
+.xy-check-card:hover:not(.is-disabled),
+.xy-check-card:focus-visible:not(.is-disabled) {
+  border-color: color-mix(in srgb, var(--xy-color-primary) 20%, var(--xy-border-color));
+  box-shadow: var(--xy-shadow-sm);
+  transform: translateY(-1px);
+}
+
+.xy-check-card--sm {
+  gap: 12px;
+  padding: 14px;
+}
+
+.xy-check-card--md {
+  gap: 16px;
+  padding: 18px;
+}
+
+.xy-check-card--lg {
+  gap: 18px;
+  padding: 22px;
+}
+
+.xy-check-card.is-checked {
+  border-color: color-mix(in srgb, var(--xy-color-primary) 60%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 50%, var(--xy-surface-raised));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 14%, transparent),
+    var(--xy-shadow-sm);
+}
+
+.xy-check-card.is-disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.xy-check-card__indicator {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--xy-border-color-strong);
+  border-radius: 999px;
+  color: transparent;
+  background: var(--xy-bg-color);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.xy-check-card.is-checked .xy-check-card__indicator {
+  border-color: var(--xy-color-primary);
+  color: white;
+  background: var(--xy-color-primary);
+}
+
+.xy-check-card__avatar {
+  flex: none;
+  padding-top: 2px;
+}
+
+.xy-check-card__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.xy-check-card__header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.xy-check-card__header-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.xy-check-card__title {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--xy-text-color-heading);
+}
+
+.xy-check-card__tag {
+  display: inline-flex;
+  align-items: center;
+}
+
+.xy-check-card__description {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--xy-text-color-secondary);
+}
+
+.xy-check-card__extra {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  flex: none;
+  min-height: 24px;
+  padding: 0;
+  border: none;
+  color: var(--xy-color-primary);
+  font: inherit;
+  line-height: 1.4;
+  background: transparent;
+  cursor: pointer;
+}
+
+.xy-check-card__extra:hover:not(:disabled),
+.xy-check-card__extra:focus-visible:not(:disabled) {
+  color: var(--xy-color-primary-hover);
+  outline: none;
+}
+
+.xy-check-card__extra:disabled {
+  cursor: not-allowed;
+}

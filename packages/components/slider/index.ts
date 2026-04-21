@@ -7,7 +7,7 @@ import type {
   SliderValue,
   SliderValueChangeHandler
 } from "./src/slider";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   SliderFocusHandler,

@@ -6,7 +6,7 @@ import type {
   SwitchValue,
   SwitchValueChangeHandler
 } from "./src/switch";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   SwitchFocusHandler,

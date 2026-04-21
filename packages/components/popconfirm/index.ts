@@ -12,7 +12,7 @@ import type {
   ,
   PopconfirmSlotProps
 } from "./src/popconfirm";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   PopconfirmAction,

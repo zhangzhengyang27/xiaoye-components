@@ -1,6 +1,6 @@
 import { cloneVNode, computed, defineComponent, h, provide } from "vue";
 import type { PropType } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { timelineContextKey } from "./context";
 import {
   countTimelineItemsInNode,

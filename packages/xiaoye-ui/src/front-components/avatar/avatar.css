@@ -1,0 +1,36 @@
+/* ============================================================
+   xyu-avatar 样式
+   ============================================================ */
+
+.xyu-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--xyu-bg-tertiary);
+  color: var(--xyu-text-tertiary);
+  flex-shrink: 0;
+  font-family: var(--xyu-font-sans);
+  font-weight: 600;
+  user-select: none;
+}
+
+.xyu-avatar--circle {
+  border-radius: 50%;
+}
+
+.xyu-avatar--square {
+  border-radius: var(--xyu-radius-md);
+}
+
+.xyu-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.xyu-avatar__initials {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--xyu-text-secondary);
+}

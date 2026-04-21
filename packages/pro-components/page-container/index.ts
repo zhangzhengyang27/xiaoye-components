@@ -1,6 +1,6 @@
 import PageContainer from "./src/page-container.vue";
 import type { PageContainerProps } from "./src/page-container";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { PageContainerProps };
 

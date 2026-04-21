@@ -5,7 +5,7 @@ defineOptions({
 
 import { computed, inject, nextTick, shallowRef, useAttrs, useSlots, watch } from "vue";
 import type { ComputedRef, StyleValue } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import { DEFAULT_LOADING_ICON } from "./switch";

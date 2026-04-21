@@ -5,7 +5,7 @@ defineOptions({
 });
 
 import { computed, provide, ref, useAttrs } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import BreadcrumbItem from "./breadcrumb-item.vue";
 import type { BreadcrumbProps } from "./breadcrumb";
 import { breadcrumbContextKey } from "./context";

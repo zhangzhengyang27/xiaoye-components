@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { computed, ref, useSlots } from "vue";
-import { useNamespace } from "@xiaoye/composables";
-import { XyDialog, XyDrawer } from "@xiaoye/components";
+import { useNamespace } from "@xiaoye/primitives";
+import { XyDescriptions, XyDialog, XyDrawer } from "@xiaoye/components";
 import type {
   DialogCloseReason,
   DialogInstance,
   DrawerCloseReason,
   DrawerInstance
 } from "@xiaoye/components";
+import { resolveProDescriptionsItems } from "../../field-schema";
 import type { DetailPanelProps } from "./detail-panel";
 
 defineOptions({
@@ -20,6 +21,9 @@ const props = withDefaults(defineProps<DetailPanelProps>(), {
   description: "",
   loading: false,
   container: "drawer",
+  model: () => ({}),
+  schema: () => [],
+  descriptionsProps: () => ({}),
   drawerProps: () => ({}),
   dialogProps: () => ({})
 });
@@ -38,6 +42,8 @@ const resolvedTitle = computed(() => props.title || "详情信息");
 const hasDescription = computed(() => Boolean(props.description) || Boolean(slots.description));
 const hasTimeline = computed(() => Boolean(slots.timeline));
 const hasActions = computed(() => Boolean(slots.actions));
+const detailItems = computed(() => resolveProDescriptionsItems(props.schema, props.model));
+const hasDetailItems = computed(() => detailItems.value.length > 0);
 
 function requestClose(reason: DrawerCloseReason | DialogCloseReason = "programmatic") {
   if (props.container === "drawer" && drawerRef.value) {
@@ -96,6 +102,14 @@ defineExpose({
 
       <template v-else>
         <div class="xy-detail-panel__content">
+          <xy-descriptions
+            v-if="hasDetailItems"
+            class="xy-detail-panel__descriptions"
+            border
+            :column="props.descriptionsProps?.column ?? 2"
+            v-bind="props.descriptionsProps"
+            :items="detailItems"
+          />
           <slot />
         </div>
 
@@ -129,8 +143,24 @@ defineExpose({
       <template v-else>
         <div class="xy-detail-panel__body-content">
           <div v-if="$slots.default" class="xy-detail-panel__content">
+            <xy-descriptions
+              v-if="hasDetailItems"
+              class="xy-detail-panel__descriptions"
+              border
+              :column="props.descriptionsProps?.column ?? 2"
+              v-bind="props.descriptionsProps"
+              :items="detailItems"
+            />
             <slot />
           </div>
+          <xy-descriptions
+            v-else-if="hasDetailItems"
+            class="xy-detail-panel__descriptions"
+            border
+            :column="props.descriptionsProps?.column ?? 2"
+            v-bind="props.descriptionsProps"
+            :items="detailItems"
+          />
           <div v-if="$slots.timeline" class="xy-detail-panel__timeline">
             <slot name="timeline" />
           </div>

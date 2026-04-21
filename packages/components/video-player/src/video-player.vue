@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { VideoPlayerProps, VideoPlayerSource } from "./video-player";
 
 defineOptions({

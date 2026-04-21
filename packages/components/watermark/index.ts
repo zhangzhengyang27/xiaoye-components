@@ -12,7 +12,7 @@ import type {
   WatermarkTextAlign,
   WatermarkTextBaseline
 } from "./src/watermark";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   WatermarkFont,

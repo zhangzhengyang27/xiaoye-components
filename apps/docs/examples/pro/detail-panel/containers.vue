@@ -62,6 +62,44 @@ const currentTimeline = computed(() => {
   return timelineMap[currentTask.value.id] ?? [];
 });
 
+const detailSchema = [
+  {
+    prop: "owner",
+    label: "负责人"
+  },
+  {
+    prop: "id",
+    label: "任务编号"
+  },
+  {
+    prop: "status",
+    label: "状态",
+    valueType: "tag",
+    options: [
+      {
+        label: "待审核",
+        value: "待审核",
+        status: "warning"
+      },
+      {
+        label: "上线中",
+        value: "上线中",
+        status: "primary"
+      },
+      {
+        label: "已完成",
+        value: "已完成",
+        status: "success"
+      }
+    ]
+  },
+  {
+    prop: "summary",
+    label: "说明",
+    span: 2
+  }
+];
+
 function openDrawer(row: TaskRow) {
   currentTask.value = row;
   drawerOpen.value = true;
@@ -122,22 +160,15 @@ function resolveStatusTag(status?: TaskRow["status"]) {
       container="drawer"
       :title="currentTask?.title ?? '任务详情'"
       description="当前更适合保留列表上下文时，优先使用抽屉。"
+      :model="currentTask ?? {}"
+      :schema="detailSchema"
+      :descriptions-props="{ column: 2, border: true }"
     >
       <template #meta>
         <xy-tag :status="resolveStatusTag(currentTask?.status)">
           {{ currentTask?.status ?? "待审核" }}
         </xy-tag>
       </template>
-
-      <xy-card header="任务概览">
-        <xy-descriptions :column="2" border>
-          <xy-descriptions-item label="负责人">{{ currentTask?.owner ?? "-" }}</xy-descriptions-item>
-          <xy-descriptions-item label="任务编号">{{ currentTask?.id ?? "-" }}</xy-descriptions-item>
-          <xy-descriptions-item label="说明" :span="2">
-            {{ currentTask?.summary ?? "-" }}
-          </xy-descriptions-item>
-        </xy-descriptions>
-      </xy-card>
 
       <template #timeline>
         <xy-card header="操作记录">
@@ -151,16 +182,10 @@ function resolveStatusTag(status?: TaskRow["status"]) {
       container="dialog"
       :title="currentTask?.title ?? '任务详情'"
       description="当前只需要快速确认关键信息时，优先使用弹窗。"
+      :model="currentTask ?? {}"
+      :schema="detailSchema"
+      :descriptions-props="{ column: 2, border: true }"
     >
-      <xy-card header="任务信息">
-        <xy-descriptions :column="2" border>
-          <xy-descriptions-item label="负责人">{{ currentTask?.owner ?? "-" }}</xy-descriptions-item>
-          <xy-descriptions-item label="状态">{{ currentTask?.status ?? "-" }}</xy-descriptions-item>
-          <xy-descriptions-item label="说明" :span="2">
-            {{ currentTask?.summary ?? "-" }}
-          </xy-descriptions-item>
-        </xy-descriptions>
-      </xy-card>
 
       <template #timeline>
         <xy-card header="最近记录">

@@ -72,6 +72,7 @@ export interface TableStore<T = Record<string, unknown>> {
   getSelectionRows: () => T[];
   toggleRowExpansion: (row: T, expanded?: boolean) => void;
   toggleTreeRow: (row: T) => void;
+  setAllTreeRowsExpanded: (expanded?: boolean) => void;
   setHoveredRow: (row?: T | null) => void;
   getRowKey: (row: T, rowIndex: number) => string | number;
   setColumnWidth: (uid: string, width: number) => void;
@@ -1112,6 +1113,26 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     emit("expand-change", row, expanded);
   }
 
+  function setAllTreeRowsExpanded(expanded = true) {
+    const nextKeys = expanded
+      ? new Set(
+          sourceNodeRecords.value
+            .filter((record) => record.treeNode.hasChildren)
+            .map((record) => record.key)
+        )
+      : new Set<string | number>();
+
+    innerTreeExpandKeys.value = nextKeys;
+
+    if (expanded && props.load) {
+      sourceNodeRecords.value.forEach((record) => {
+        if (record.treeNode.hasChildren && record.treeNode.isLazy) {
+          loadLazyChildren(record);
+        }
+      });
+    }
+  }
+
   function loadLazyChildren(record: SourceNode<T>) {
     if (!props.load || lazyChildrenMap.value.has(record.key) || lazyLoadingKeys.value.has(record.key)) {
       return;
@@ -1272,6 +1293,7 @@ export function useTableStore<T extends Record<string, unknown>>(options: {
     getSelectionRows,
     toggleRowExpansion,
     toggleTreeRow,
+    setAllTreeRowsExpanded,
     setHoveredRow,
     getRowKey,
     setColumnWidth,

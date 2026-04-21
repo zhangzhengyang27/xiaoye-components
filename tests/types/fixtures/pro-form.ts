@@ -6,6 +6,13 @@ const props: ProFormProps = {
     name: "小叶"
   },
   columns: 2,
+  readonly: true,
+  schema: [
+    {
+      prop: "name",
+      label: "名称"
+    }
+  ],
   showSubmit: true
 };
 

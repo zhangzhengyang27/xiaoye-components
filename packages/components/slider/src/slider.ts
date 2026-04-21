@@ -1,5 +1,5 @@
 import type Slider from "./slider.vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type SliderValue = number | [number, number];
 export type SliderPlacement = "top" | "bottom" | "left" | "right";

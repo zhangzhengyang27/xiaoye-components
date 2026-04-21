@@ -1,6 +1,6 @@
 import Card from "./src/card.vue";
 import type { CardProps, CardShadow, CardVariant } from "./src/card";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { CardProps, CardShadow, CardVariant };
 

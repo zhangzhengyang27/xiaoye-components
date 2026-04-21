@@ -24,6 +24,22 @@
     "styleImports": ["overlay-form"]
   },
   {
+    "name": "dialog-form",
+    "docsGroup": "form",
+    "docsText": "DialogForm 弹窗表单",
+    "installExports": ["XyDialogForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-dialog-form" }],
+    "styleImports": ["dialog-form"]
+  },
+  {
+    "name": "drawer-form",
+    "docsGroup": "form",
+    "docsText": "DrawerForm 抽屉表单",
+    "installExports": ["XyDrawerForm"],
+    "installChecks": [{ "kind": "component", "name": "xy-drawer-form" }],
+    "styleImports": ["drawer-form"]
+  },
+  {
     "name": "steps-form",
     "docsGroup": "form",
     "docsText": "StepsForm 分步表单",

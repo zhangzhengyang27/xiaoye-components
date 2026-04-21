@@ -8,7 +8,7 @@ import {
   useListNavigation,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 import XyInput from "../../input";
 import { formItemKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
@@ -55,7 +55,7 @@ const emit = defineEmits<{
   select: [option: AutoCompleteOption<T>];
 }>();
 
-const slots = defineSlots<{
+defineSlots<{
   prefix?: () => unknown;
   suffix?: () => unknown;
   loading?: () => unknown;

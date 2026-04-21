@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, toRaw, useSlots, watch } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { XyButton, XyDialog, XyDrawer, XyForm } from "@xiaoye/components";
 import type {
   DialogCloseReason,
@@ -206,7 +206,6 @@ defineExpose({
         <xy-pro-form
           v-else-if="hasSchema"
           ref="formRef"
-          v-slots="formSlots"
           :model="props.model"
           :schema="props.schema"
           :rules="props.rules"
@@ -217,7 +216,11 @@ defineExpose({
           :show-submit="false"
           :show-reset="false"
           class="xy-overlay-form__form"
-        />
+        >
+          <template v-for="(_, name) in formSlots" :key="name" #[name]="slotProps">
+            <slot :name="name" v-bind="slotProps ?? {}" />
+          </template>
+        </xy-pro-form>
         <xy-form
           v-else
           ref="formRef"

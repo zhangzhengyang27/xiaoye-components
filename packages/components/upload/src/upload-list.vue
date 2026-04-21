@@ -4,7 +4,7 @@ defineOptions({
 });
 
 import { computed, ref } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import type { UploadFileItem, UploadListType } from "./upload";
 

@@ -23,3 +23,9 @@ pro/pro-table/toolbar-search
 :::demo loading 和 empty 的优先级是固定的，错误态仍然建议由页面层自己承接。
 pro/pro-table/states
 :::
+
+## 显示协议
+
+:::demo `valueType / formatter / render / renderHTML` 现在已经可以先在 `xy-pro-table` 列定义中落地，优先补齐后台列表的展示闭环。
+pro/pro-table/display-value-types
+:::

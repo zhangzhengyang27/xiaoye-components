@@ -1,0 +1,23 @@
+/* ============================================================
+   xyu-input-tag 组件级主题变量
+   ============================================================ */
+
+.xyu-input-tag {
+  /* 尺寸 */
+  --xyu-input-tag-height-sm: 28px;
+  --xyu-input-tag-height-md: 36px;
+  --xyu-input-tag-height-lg: 44px;
+  --xyu-input-tag-radius: var(--xyu-radius-md);
+
+  /* 颜色 */
+  --xyu-input-tag-border-color: var(--xyu-border);
+  --xyu-input-tag-border-focus-color: var(--xyu-border-focus);
+  --xyu-input-tag-bg: var(--xyu-bg);
+  --xyu-input-tag-text-color: var(--xyu-text-primary);
+  --xyu-input-tag-placeholder-color: var(--xyu-text-tertiary);
+
+  /* 标签 */
+  --xyu-input-tag-tag-radius: var(--xyu-radius-sm);
+  --xyu-input-tag-tag-bg: var(--xyu-primary-light);
+  --xyu-input-tag-tag-color: var(--xyu-primary);
+}

@@ -1,4 +1,4 @@
-import type { ComponentSize, ComponentStatus } from "@xiaoye/utils";
+import type { ComponentSize, ComponentStatus } from "@xiaoye/primitives";
 
 export const resultIconTypes = ["primary", "success", "warning", "info", "error"] as const;
 export const resultVariants = ["plain", "card"] as const;

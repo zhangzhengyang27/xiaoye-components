@@ -4,7 +4,7 @@ import type {
   AuditTimelineEntry,
   AuditTimelineProps
 } from "./src/audit-timeline";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   AuditTimelineAttachment,

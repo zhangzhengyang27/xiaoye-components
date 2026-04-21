@@ -344,12 +344,21 @@ function writeCssArtifacts() {
 }
 
 function rewriteSourceSpecifier(sourceFilePath, distFilePath, specifier) {
+  if (specifier === "@xiaoye/primitives") {
+    return (
+      path.posix.relative(
+        path.posix.dirname(path.relative(typesDir, distFilePath).split(path.sep).join("/")),
+        "xiaoye-primitives/index.js"
+      ) || "./xiaoye-primitives/index.js"
+    );
+  }
+
   if (specifier === "@xiaoye/utils") {
     return (
       path.posix.relative(
         path.posix.dirname(path.relative(typesDir, distFilePath).split(path.sep).join("/")),
-        "utils/index.js"
-      ) || "./utils/index.js"
+        "xiaoye-primitives/src/utils/index.js"
+      ) || "./xiaoye-primitives/src/utils/index.js"
     );
   }
 

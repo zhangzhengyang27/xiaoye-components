@@ -7,6 +7,8 @@ import XiaoyeProComponents, {
   XyCrudPage,
   XyDetailPage,
   XyDetailPanel,
+  XyDialogForm,
+  XyDrawerForm,
   XyExportTaskPanel,
   XyFilterPanel,
   XyHeaderTabs,
@@ -39,6 +41,10 @@ import XiaoyeProComponents, {
   type DetailPageBreadcrumbItem,
   type DetailPageProps,
   type DetailPanelProps,
+  type DialogFormProps,
+  type DialogFormSubmitPayload,
+  type DrawerFormProps,
+  type DrawerFormSubmitPayload,
   type ExportTaskItem,
   type FilterPanelProps,
   type HeaderTabItem,
@@ -58,7 +64,11 @@ import XiaoyeProComponents, {
   type PageIcon,
   type PageMetaItem,
   type PageToolbarProps,
+  type ProDisplayOption,
+  type ProDisplayRenderContext,
+  type ProDisplayValueType,
   type ProFormProps,
+  type ProFieldSchema,
   type ProTableProps,
   type RequestFormSubmitContext,
   type SavedViewTabItem,
@@ -122,6 +132,34 @@ const overlayPayload: OverlayFormSubmitPayload = {
   }
 };
 
+const dialogFormProps: DialogFormProps = {
+  open: true,
+  model: {
+    name: "控制台"
+  }
+};
+
+const dialogPayload: DialogFormSubmitPayload = {
+  mode: "edit",
+  model: {
+    name: "控制台"
+  }
+};
+
+const drawerFormProps: DrawerFormProps = {
+  open: true,
+  model: {
+    name: "控制台"
+  }
+};
+
+const drawerPayload: DrawerFormSubmitPayload = {
+  mode: "create",
+  model: {
+    name: "控制台"
+  }
+};
+
 const tableProps: ProTableProps<Row> = {
   data: [{ id: 1, name: "控制台" }],
   columns: [
@@ -133,6 +171,30 @@ const tableProps: ProTableProps<Row> = {
   draggableRow: true,
   draggableColumn: true
 };
+
+const displayValueType: ProDisplayValueType = "copy";
+
+const displayOptions: ProDisplayOption[] = [
+  {
+    label: "审核中",
+    value: "reviewing",
+    status: "warning"
+  }
+];
+
+const fieldSchema: ProFieldSchema[] = [
+  {
+    prop: "status",
+    label: "状态",
+    valueType: displayValueType,
+    options: displayOptions
+  }
+];
+
+const displayContext = {} as ProDisplayRenderContext<
+  { status: string },
+  ProFieldSchema
+>;
 
 const headerTabItems: HeaderTabItem[] = [
   {
@@ -248,7 +310,11 @@ const auditItems: AuditTimelineEntry[] = [
 const detailPanelProps: DetailPanelProps = {
   open: true,
   title: "详情面板",
-  container: "drawer"
+  container: "drawer",
+  model: {
+    status: "reviewing"
+  },
+  schema: fieldSchema
 };
 
 const detailPageProps: DetailPageProps = {
@@ -365,6 +431,8 @@ void XyDetailPage;
 void XyAsyncStateContainer;
 void XyListPage;
 void XyCrudPage;
+void XyDialogForm;
+void XyDrawerForm;
 void XySplitLayoutPage;
 void XyApprovalFlowPanel;
 void XyImportWizard;
@@ -381,6 +449,14 @@ void loginFormThirdPartyItems;
 void loginFormProps;
 void overlayFormProps;
 void overlayPayload;
+void displayValueType;
+void displayOptions;
+void fieldSchema;
+void displayContext;
+void dialogFormProps;
+void dialogPayload;
+void drawerFormProps;
+void drawerPayload;
 void tableProps;
 void filterPanelProps;
 void pageToolbarProps;

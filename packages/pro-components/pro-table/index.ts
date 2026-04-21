@@ -4,7 +4,7 @@ import type {
   ProTableInstance,
   ProTableProps
 } from "./src/pro-table";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   ProTableColumn,

@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type CheckboxValue = string | number | boolean;
 export type CheckboxValueChangeHandler = (value: CheckboxValue) => void;

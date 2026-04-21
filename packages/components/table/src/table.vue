@@ -10,7 +10,7 @@ import {
   useAttrs,
   watch
 } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyEmpty from "../../empty";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
 import XyScrollbar from "../../scrollbar";
@@ -98,6 +98,9 @@ const props = withDefaults(defineProps<TableProps<T>>(), {
   appendFilterPanelTo: "",
   allowDragLastColumn: true,
   preserveExpandedContent: false,
+  virtual: false,
+  virtualItemSize: 48,
+  virtualOverscan: 6,
   ariaLabel: undefined,
   ariaLabelledby: undefined,
   ariaDescribedby: undefined
@@ -545,7 +548,7 @@ const rightFixedWidth = computed(() =>
   store.rightFixedLeafColumns.value.reduce((total, column) => total + column.realWidth, 0)
 );
 const fixedBodyInnerStyle = computed(() => ({
-  transform: `translateY(-${layout.scrollTop.value}px)`
+  transform: props.virtual ? undefined : `translateY(-${layout.scrollTop.value}px)`
 }));
 const scrollingStateClass = computed(() => {
   if (!layout.hasHorizontalScroll.value) {
@@ -801,6 +804,10 @@ function setScrollTop(top: number) {
   emitScrollState();
 }
 
+function setAllTreeRowsExpanded(expanded = true) {
+  store.setAllTreeRowsExpanded(expanded);
+}
+
 function updateKeyChildren(key: string | number, children: T[]) {
   store.updateKeyChildren(key, children);
 }
@@ -861,6 +868,9 @@ defineExpose<TableInstance<T>>({
   get columns() {
     return store.normalizedColumns.value;
   },
+  get bodyRows() {
+    return store.bodyRows.value;
+  },
   clearSelection,
   getSelectionRows,
   toggleAllSelection,
@@ -874,6 +884,7 @@ defineExpose<TableInstance<T>>({
   scrollTo,
   setScrollLeft,
   setScrollTop,
+  setAllTreeRowsExpanded,
   updateKeyChildren
 });
 </script>
@@ -1028,6 +1039,11 @@ defineExpose<TableInstance<T>>({
           :preserve-expanded-content="props.preserveExpandedContent"
           :table-layout="props.tableLayout"
           :show-header="props.showHeader"
+          :virtual="props.virtual"
+          :virtual-item-size="props.virtualItemSize"
+          :virtual-overscan="props.virtualOverscan"
+          :scroll-top="layout.scrollTop.value"
+          :viewport-height="layout.bodyClientHeight.value"
           expanded-row-mode="content"
           :main-table-width="mainTableWidth"
           :left-fixed-width="leftFixedWidth"
@@ -1078,6 +1094,11 @@ defineExpose<TableInstance<T>>({
             :preserve-expanded-content="props.preserveExpandedContent"
             :table-layout="props.tableLayout"
             :show-header="props.showHeader"
+            :virtual="props.virtual"
+            :virtual-item-size="props.virtualItemSize"
+            :virtual-overscan="props.virtualOverscan"
+            :scroll-top="layout.scrollTop.value"
+            :viewport-height="layout.bodyClientHeight.value"
             :expanded-row-mode="hasExpandedRows ? 'placeholder' : 'none'"
             :main-table-width="mainTableWidth"
             :left-fixed-width="leftFixedWidth"
@@ -1119,6 +1140,11 @@ defineExpose<TableInstance<T>>({
             :preserve-expanded-content="props.preserveExpandedContent"
             :table-layout="props.tableLayout"
             :show-header="props.showHeader"
+            :virtual="props.virtual"
+            :virtual-item-size="props.virtualItemSize"
+            :virtual-overscan="props.virtualOverscan"
+            :scroll-top="layout.scrollTop.value"
+            :viewport-height="layout.bodyClientHeight.value"
             :expanded-row-mode="hasExpandedRows ? 'placeholder' : 'none'"
             :main-table-width="mainTableWidth"
             :left-fixed-width="leftFixedWidth"

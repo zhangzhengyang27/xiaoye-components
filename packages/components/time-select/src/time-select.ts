@@ -1,5 +1,5 @@
 import type TimeSelect from "./time-select.vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type TimeSelectValueChangeHandler = (value: string | null) => void;
 export type TimeSelectVisibleChangeHandler = (value: boolean) => void;

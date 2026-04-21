@@ -1,4 +1,4 @@
-import type { ComponentStatus } from "@xiaoye/utils";
+import type { ComponentStatus } from "@xiaoye/primitives";
 
 export const timelineItemPlacements = ["top", "bottom"] as const;
 export const timelineItemTypes = [

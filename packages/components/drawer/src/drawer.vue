@@ -6,8 +6,8 @@ import {
   useFocusTrap,
   useNamespace,
   useOverlayDialog
-} from "@xiaoye/composables"
-import { warnOnce } from "@xiaoye/utils"
+} from "@xiaoye/primitives"
+import { warnOnce } from "@xiaoye/primitives"
 import { XyIcon } from "../../icon"
 import { useResizable } from "./use-resizable"
 import type {

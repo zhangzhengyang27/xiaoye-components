@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { warnOnce } from "@xiaoye/utils";
+import { warnOnce } from "@xiaoye/primitives";
 import DialogServiceContainer from "./dialog-service-container.vue";
 import {
   closeAllDialogServiceEntries,

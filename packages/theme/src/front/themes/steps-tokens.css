@@ -1,0 +1,24 @@
+/* ============================================================
+   xyu-steps 组件级主题变量
+   ============================================================ */
+
+.xyu-steps {
+  /* 圆点尺寸 */
+  --xyu-steps-icon-size: 28px;
+  --xyu-steps-line-height: 2px;
+
+  /* 颜色 */
+  --xyu-steps-wait-color: var(--xyu-text-tertiary);
+  --xyu-steps-process-color: var(--xyu-primary);
+  --xyu-steps-finish-color: var(--xyu-primary);
+  --xyu-steps-success-color: var(--xyu-success);
+  --xyu-steps-error-color: var(--xyu-error);
+  --xyu-steps-line-bg: var(--xyu-border);
+  --xyu-steps-line-finish-bg: var(--xyu-primary);
+
+  /* 文字 */
+  --xyu-steps-title-size: var(--xyu-text-sm);
+  --xyu-steps-title-color: var(--xyu-text-primary);
+  --xyu-steps-description-size: var(--xyu-text-xs);
+  --xyu-steps-description-color: var(--xyu-text-tertiary);
+}

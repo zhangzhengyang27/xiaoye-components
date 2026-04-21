@@ -8,7 +8,7 @@ import type {
   AudioPlayerTrack,
   AudioPlayerVolumeUpdateHandler
 } from "./src/audio-player";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   AudioPlayerHowlHandler,

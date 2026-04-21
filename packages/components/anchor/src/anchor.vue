@@ -14,7 +14,7 @@ import {
   watch
 } from "vue";
 import type { CSSProperties } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { anchorContextKey } from "./context";
 import type { AnchorContainer, AnchorDirection, AnchorProps } from "./anchor";
 

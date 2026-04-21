@@ -1,4 +1,5 @@
 import type { DescriptionsDataItem, DescriptionsProps } from "xiaoye-components";
+import { h } from "vue";
 
 const props: DescriptionsProps = {
   column: 2,
@@ -26,6 +27,11 @@ const props: DescriptionsProps = {
         href: "https://example.com/detail"
       },
       className: "item-class"
+    },
+    {
+      label: "预算",
+      value: 128000.5,
+      valueType: "money"
     }
   ]
 };
@@ -39,9 +45,32 @@ const items: DescriptionsDataItem[] = [
   {
     label: "状态",
     value: "启用",
+    valueType: "tag",
+    options: [
+      {
+        label: "启用",
+        value: "启用",
+        status: "success"
+      }
+    ],
     tag: {
       text: "启用"
     }
+  },
+  {
+    label: "负责人卡片",
+    value: "小叶",
+    formatter: (_row, _column, value) => `负责人：${String(value ?? "-")}`
+  },
+  {
+    label: "复制字段",
+    value: "workspace-token",
+    valueType: "copy"
+  },
+  {
+    label: "自定义渲染",
+    value: "稳定",
+    render: (value) => h("strong", String(value ?? "-"))
   }
 ];
 

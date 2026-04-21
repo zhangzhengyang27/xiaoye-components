@@ -5,7 +5,7 @@ defineOptions({
 
 import { computed, onBeforeUnmount, onMounted, ref, useAttrs, watch } from "vue";
 import type { CSSProperties } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import ImageViewer from "./image-viewer.vue";
 import type {
   ImageProps,

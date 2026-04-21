@@ -1,6 +1,6 @@
 import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
-import type { ComponentSize, SelectOption } from "@xiaoye/utils";
+import type { ComponentSize, SelectOption } from "@xiaoye/primitives";
 
 export interface SelectOptionGroup<T = string | number> {
   label: string;

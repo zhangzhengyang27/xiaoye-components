@@ -2,7 +2,41 @@
 const sections = [
   {
     key: "base",
-    title: "基础信息"
+    title: "基础信息",
+    model: {
+      owner: "小叶",
+      status: "reviewing",
+      updatedAt: "2026-04-18T14:30:00+08:00",
+      budget: 128000.5
+    },
+    schema: [
+      {
+        prop: "owner",
+        label: "负责人"
+      },
+      {
+        prop: "status",
+        label: "状态",
+        valueType: "tag",
+        options: [
+          {
+            label: "审核中",
+            value: "reviewing",
+            status: "warning"
+          }
+        ]
+      },
+      {
+        prop: "updatedAt",
+        label: "最近更新",
+        valueType: "datetime"
+      },
+      {
+        prop: "budget",
+        label: "预算",
+        valueType: "money"
+      }
+    ]
   }
 ];
 
@@ -44,12 +78,5 @@ const logs = [
     :attachments="attachments"
     :changes="changes"
     :logs="logs"
-  >
-    <template #base>
-      <xy-descriptions :column="2" border>
-        <xy-descriptions-item label="负责人">小叶</xy-descriptions-item>
-        <xy-descriptions-item label="状态">审核中</xy-descriptions-item>
-      </xy-descriptions>
-    </template>
-  </xy-detail-page>
+  />
 </template>

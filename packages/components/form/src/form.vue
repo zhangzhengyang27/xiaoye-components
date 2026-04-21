@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, watch } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { FormFieldContext, FormProps, FormTrigger } from "./context";
 import { formKey } from "./context";
 import type { FormProp } from "./utils";

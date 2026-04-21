@@ -5,7 +5,7 @@ defineOptions({
 });
 
 import { computed, toRef, useAttrs } from "vue";
-import { useNamespace, useThrottleRender } from "@xiaoye/composables";
+import { useNamespace, useThrottleRender } from "@xiaoye/primitives";
 import XySkeletonItem from "./skeleton-item.vue";
 import type { SkeletonProps } from "./skeleton";
 

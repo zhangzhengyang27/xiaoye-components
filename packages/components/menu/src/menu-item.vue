@@ -5,7 +5,7 @@ defineOptions({
 
 import { computed, onBeforeUnmount, onMounted } from "vue";
 import { useSlots } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { menuItemEmits } from "./menu-item";
 import type { MenuItemProps } from "./menu-item";
 import { useMenu } from "./use-menu";

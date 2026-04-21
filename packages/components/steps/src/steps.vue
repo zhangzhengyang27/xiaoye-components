@@ -4,7 +4,7 @@ defineOptions({
 });
 
 import { computed, nextTick, onMounted, onUpdated, provide, shallowRef, watch } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { stepsContextKey } from "./context";
 import type { StepState } from "./context";
 import type { StepsProps } from "./steps";

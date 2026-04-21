@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch } from "vue";
 import type { CSSProperties } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import { avatarGroupContextKey } from "./context";
 import type { AvatarProps } from "./avatar";

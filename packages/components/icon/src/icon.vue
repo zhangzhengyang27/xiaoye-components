@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { Icon as IconifyIcon } from "@iconify/vue"
-import { useNamespace } from "@xiaoye/composables"
+import { useNamespace } from "@xiaoye/primitives"
 import { registerLocalMdiCollection } from "./mdi"
 
 export interface IconProps {

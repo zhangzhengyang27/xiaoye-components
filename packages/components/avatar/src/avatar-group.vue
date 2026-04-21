@@ -10,7 +10,7 @@ import {
   useSlots
 } from "vue";
 import type { PropType, StyleValue, VNode, VNodeArrayChildren } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import XyTooltip from "../../tooltip";
 import XyAvatar from "./avatar.vue";
 import { avatarGroupContextKey } from "./context";

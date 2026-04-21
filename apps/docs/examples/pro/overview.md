@@ -21,6 +21,8 @@ outline: deep
 
 - [ProForm 场景示例](/examples/pro/pro-form)
 - [OverlayForm 场景示例](/examples/pro/overlay-form)
+- [DialogForm 场景示例](/examples/pro/dialog-form)
+- [DrawerForm 场景示例](/examples/pro/drawer-form)
 - [LoginForm 场景示例](/examples/pro/login-form)
 - [RequestForm 场景示例](/examples/pro/request-form)
 - [StepsForm 场景示例](/examples/pro/steps-form)

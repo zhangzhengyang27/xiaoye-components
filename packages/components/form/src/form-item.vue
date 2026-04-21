@@ -9,7 +9,7 @@ import {
   ref,
   toRaw
 } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type {
   FormFieldContext,
   FormTrigger,

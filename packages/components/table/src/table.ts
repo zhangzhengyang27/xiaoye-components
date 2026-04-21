@@ -391,6 +391,9 @@ export interface TableProps<T = Record<string, unknown>> {
   appendFilterPanelTo?: string;
   allowDragLastColumn?: boolean;
   preserveExpandedContent?: boolean;
+  virtual?: boolean;
+  virtualItemSize?: number;
+  virtualOverscan?: number;
   ariaLabel?: string;
   ariaLabelledby?: string;
   ariaDescribedby?: string;
@@ -398,6 +401,7 @@ export interface TableProps<T = Record<string, unknown>> {
 
 export interface TableInstance<T = Record<string, unknown>> {
   columns: TableResolvedColumn<T>[];
+  bodyRows: TableBodyRow<T>[];
   clearSelection: () => void;
   getSelectionRows: () => T[];
   toggleAllSelection: () => void;
@@ -411,6 +415,7 @@ export interface TableInstance<T = Record<string, unknown>> {
   scrollTo: (options: ScrollToOptions | number, top?: number) => void;
   setScrollTop: (top: number) => void;
   setScrollLeft: (left: number) => void;
+  setAllTreeRowsExpanded: (expanded?: boolean) => void;
   updateKeyChildren: (key: string | number, children: T[]) => void;
 }
 

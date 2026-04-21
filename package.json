@@ -10,7 +10,8 @@
     "dev:playground": "pnpm --filter @xiaoye/playground dev",
     "check:components": "node scripts/check-components.mjs",
     "check:pro-components": "node scripts/check-pro-components.mjs",
-    "lint": "pnpm check:components && pnpm check:pro-components && eslint .",
+    "check:ui-components": "node scripts/check-ui-components.mjs",
+    "lint": "pnpm check:components && pnpm check:pro-components && pnpm check:ui-components && eslint .",
     "typecheck": "pnpm run typecheck:packages && pnpm run typecheck:types",
     "typecheck:packages": "vue-tsc -p tsconfig/packages.json --noEmit && vue-tsc -p tsconfig/apps.json --noEmit",
     "typecheck:types": "vue-tsc -p tests/types/tsconfig.json --noEmit",
@@ -18,16 +19,18 @@
     "test:watch": "vitest",
     "test:e2e:admin": "playwright test tests/e2e/admin-flow.spec.ts",
     "build": "pnpm run build:lib && pnpm run build:docs && pnpm run build:playground",
-    "build:lib": "pnpm run build:lib:base && pnpm run build:lib:pro",
+    "build:lib": "pnpm run build:primitives && pnpm run build:lib:base && pnpm run build:lib:pro && pnpm run build:lib:ui",
+    "build:primitives": "vite build -c vite.primitives.config.ts",
     "build:lib:base": "vite build && node scripts/prepare-package.mjs base",
     "build:lib:pro": "vite build -c vite.pro.config.ts && node scripts/prepare-package.mjs pro",
+    "build:lib:ui": "vite build -c vite.ui.config.ts",
     "build:docs": "pnpm --filter @xiaoye/docs docs:build",
     "build:playground": "pnpm --filter @xiaoye/playground build",
     "preview:docs": "pnpm --filter @xiaoye/docs docs:preview",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
-    "clean": "rimraf packages/xiaoye-components/dist packages/xiaoye-pro-components/dist apps/docs/.vitepress/dist apps/playground/dist"
+    "clean": "rimraf packages/xiaoye-primitives/dist packages/xiaoye-components/dist packages/xiaoye-pro-components/dist packages/xiaoye-ui/dist apps/docs/.vitepress/dist apps/playground/dist"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4",
@@ -73,6 +76,7 @@
     "vitest": "^4.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.6.4",
-    "vue-tsc": "^2.2.8"
+    "vue-tsc": "^2.2.8",
+    "xlsx": "^0.18.5"
   }
 }

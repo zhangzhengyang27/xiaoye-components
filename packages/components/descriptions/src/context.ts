@@ -1,5 +1,5 @@
 import type { ComputedRef, InjectionKey } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export interface DescriptionsContext {
   border: ComputedRef<boolean>;

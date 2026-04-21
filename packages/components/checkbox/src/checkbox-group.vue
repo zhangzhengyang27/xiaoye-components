@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, provide, toRef } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import { formItemKey } from "../../form/src/context";
 import Checkbox from "./checkbox.vue";
 import CheckboxButton from "./checkbox-button.vue";

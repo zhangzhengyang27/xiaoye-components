@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useSlots } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../../components/loading/src/shared";
 import { XyPageHeader } from "../../page-header";
 import type { PageContainerProps } from "./page-container";

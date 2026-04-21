@@ -1,0 +1,35 @@
+/* ============================================================
+   xyu-alert 组件级主题变量
+   ============================================================ */
+
+.xyu-alert {
+  /* 间距 */
+  --xyu-alert-padding: 12px 16px;
+  --xyu-alert-gap: 10px;
+  --xyu-alert-radius: var(--xyu-radius-lg);
+  --xyu-alert-icon-size: 16px;
+
+  /* 文字 */
+  --xyu-alert-title-size: var(--xyu-text-base);
+  --xyu-alert-description-size: var(--xyu-text-sm);
+  --xyu-alert-title-color: var(--xyu-text-primary);
+  --xyu-alert-text-color: var(--xyu-text-secondary);
+  --xyu-alert-close-color: var(--xyu-text-tertiary);
+
+  /* 类型颜色 */
+  --xyu-alert-primary-bg: var(--xyu-primary-light);
+  --xyu-alert-primary-border: rgba(91, 118, 254, 0.2);
+  --xyu-alert-primary-accent: var(--xyu-primary);
+  --xyu-alert-success-bg: var(--xyu-success-light);
+  --xyu-alert-success-border: rgba(16, 185, 129, 0.2);
+  --xyu-alert-success-accent: var(--xyu-success);
+  --xyu-alert-warning-bg: var(--xyu-warning-light);
+  --xyu-alert-warning-border: rgba(245, 158, 11, 0.2);
+  --xyu-alert-warning-accent: var(--xyu-warning);
+  --xyu-alert-error-bg: var(--xyu-error-light);
+  --xyu-alert-error-border: rgba(239, 68, 68, 0.2);
+  --xyu-alert-error-accent: var(--xyu-error);
+  --xyu-alert-info-bg: rgba(59, 130, 246, 0.08);
+  --xyu-alert-info-border: rgba(59, 130, 246, 0.2);
+  --xyu-alert-info-accent: var(--xyu-info);
+}

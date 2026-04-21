@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, provide, ref, useSlots } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { computed, defineComponent, provide, ref, useSlots, type PropType } from "vue";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
+import { renderDisplayValue } from "../../shared/display-renderer";
 import XyCollapseTransition from "../../collapse-transition";
 import XyIcon from "../../icon";
 import XyLink from "../../link";
@@ -29,6 +30,29 @@ const gridTemplateColumns = computed(() => `repeat(${Math.max(props.column, 1)},
 const normalizedItems = computed(() => props.items ?? []);
 const collapsed = ref(props.collapse);
 
+const DescriptionsDisplayValue = defineComponent({
+  name: "XyDescriptionsDisplayValue",
+  props: {
+    item: {
+      type: Object as PropType<DescriptionsDataItem>,
+      required: true
+    },
+    rowIndex: {
+      type: Number,
+      required: true
+    }
+  },
+  setup(rendererProps) {
+    return () =>
+      renderDisplayValue({
+        value: rendererProps.item.value,
+        row: rendererProps.item.row ?? {},
+        rowIndex: rendererProps.rowIndex,
+        column: rendererProps.item
+      });
+  }
+});
+
 function resolveTagText(item: DescriptionsDataItem) {
   if (typeof item.tag === "string") {
     return item.tag;
@@ -43,6 +67,17 @@ function resolveTagProps(item: DescriptionsDataItem) {
   }
 
   return item.tag.props;
+}
+
+function shouldUseDisplayRenderer(item: DescriptionsDataItem) {
+  return Boolean(
+    item.valueType ||
+    item.options?.length ||
+    item.formatter ||
+    item.render ||
+    item.renderHTML ||
+    item.emptyValue
+  );
 }
 
 function toggleCollapse() {
@@ -98,7 +133,7 @@ provide(descriptionsKey, {
       <div v-show="!collapsed" class="xy-descriptions__body" :style="{ gridTemplateColumns }">
         <slot v-if="normalizedItems.length === 0" />
         <descriptions-item
-          v-for="item in normalizedItems"
+          v-for="(item, index) in normalizedItems"
           v-else
           :key="`${item.label}-${item.value ?? ''}`"
           :label="item.label"
@@ -125,6 +160,11 @@ provide(descriptionsKey, {
           <xy-link v-else-if="item.link" v-bind="item.link">
             {{ item.value }}
           </xy-link>
+          <descriptions-display-value
+            v-else-if="shouldUseDisplayRenderer(item)"
+            :item="item"
+            :row-index="index"
+          />
           <template v-else>
             {{ item.value }}
           </template>

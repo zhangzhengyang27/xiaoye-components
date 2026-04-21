@@ -1,0 +1,16 @@
+/* ============================================================
+   xyu-space 组件级主题变量
+   ============================================================ */
+
+.xyu-space {
+  /* 尺寸 */
+  --xyu-space-item-gap: 8px;
+  --xyu-space-wrap-gap: 8px;
+
+  /* 尺寸映射 */
+  --xyu-space-xs-gap: 4px;
+  --xyu-space-sm-gap: 8px;
+  --xyu-space-md-gap: 12px;
+  --xyu-space-lg-gap: 16px;
+  --xyu-space-xl-gap: 24px;
+}

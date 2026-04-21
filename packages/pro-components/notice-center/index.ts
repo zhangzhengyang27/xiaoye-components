@@ -5,7 +5,7 @@ import type {
   NoticeCenterProps,
   NoticeCenterTab
 } from "./src/notice-center";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   NoticeCenterAction,

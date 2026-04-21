@@ -1,6 +1,6 @@
 import { computed, shallowRef } from "vue";
 import type { ComputedRef, InjectionKey, MaybeRef } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { DialogGlobalConfig } from "../../dialog/src/dialog";
 import type { LoadingGlobalConfig } from "../../loading/src/types";
 import type { MessageGlobalConfig } from "../../message/src/message";

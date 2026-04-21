@@ -4,7 +4,7 @@ defineOptions({
 });
 
 import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { anchorContextKey } from "./context";
 import type { AnchorLinkProps } from "./anchor-link";
 

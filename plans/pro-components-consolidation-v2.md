@@ -8,7 +8,7 @@
 - `xiaoye-pro-components` 收束为中后台业务增强组件库。
 - 旧的 `internal/`、`legacy/` 目录已经从 `packages/pro-components` 物理删除。
 - docs 专用 legacy 安装层已经移除，文档主题直接安装正式公开包。
-- 增强层公开面已经从更分散的旧形态，收口为当前 `component-manifest.json` 中维护的 21 个正式公开增强组件。
+- 增强层公开面已经从更分散的旧形态，收口为当前 `component-manifest.json` 中维护的正式公开增强组件。
 
 ## 当前公开增强组件
 
@@ -52,12 +52,12 @@
 
 以下重复边界已经合并到新的公开心智中：
 
-- `drawer-form` + `modal-form` -> `overlay-form`
+- `drawer-form` + `modal-form` -> `overlay-form` 作为统一内核
 - `steps-form` + `drawer-steps-form` -> `steps-form`
 - `detail-drawer` + `detail-dialog` -> `detail-panel`
 - `master-detail-page` + `split-view-page` -> `split-layout-page`
 
-这些旧名字不再作为正式公开组件维护，也不再占据 docs 一级导航。
+当前又补回了 `dialog-form` / `drawer-form` 两个 facade，但它们只作为 `overlay-form` 的语义化包装公开，不再各自维护独立内核。
 
 ## 当前边界约定
 
@@ -72,7 +72,7 @@
 
 当前 `@xiaoye/pro-components` / `xiaoye-pro-components` 的根入口遵循两条固定规则：
 
-- `packages/pro-components/exports.ts` 只允许显式导出 21 个正式公开增强组件值，不再使用 `export *`。
+- `packages/pro-components/exports.ts` 只允许显式导出正式公开增强组件值，不再使用 `export *`。
 - `packages/pro-components/index.ts` 只允许导出两类类型：
   - 每个正式公开增强组件的主 `Props / Instance / 主数据类型`
   - `core.ts` 中稳定的共享协议类型

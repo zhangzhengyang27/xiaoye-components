@@ -1,5 +1,5 @@
 import type Upload from "./upload.vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type UploadStatus = "ready" | "uploading" | "success" | "fail";
 export type Awaitable<T> = T | Promise<T>;

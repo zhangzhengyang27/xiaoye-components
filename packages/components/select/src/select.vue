@@ -8,7 +8,7 @@ import {
   useListNavigation,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
@@ -70,7 +70,7 @@ const emit = defineEmits<{
   searchChange: [value: string];
 }>();
 
-const slots = defineSlots<{
+defineSlots<{
   prefix?: () => unknown;
   suffix?: () => unknown;
   header?: () => unknown;

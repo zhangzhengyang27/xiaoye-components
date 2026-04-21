@@ -9,7 +9,7 @@ import {
   XyInput,
   type FormRules
 } from "@xiaoye/components";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type {
   LoginFormInstance,
   LoginFormModel,

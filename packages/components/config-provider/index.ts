@@ -7,7 +7,7 @@ import {
   DEFAULT_Z_INDEX
 } from "./src/context";
 import type { ConfigProviderContext, ConfigProviderProps } from "./src/context";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ConfigProviderContext, ConfigProviderProps };
 export {

@@ -1,5 +1,6 @@
 import type { ProFieldSchema } from "../../core";
 import type { DrawerProps } from "@xiaoye/components";
+import type { DescriptionsProps } from "@xiaoye/components";
 
 export interface StepsFormStep {
   key: string;
@@ -18,6 +19,7 @@ export interface StepsFormProps {
   defaultActive?: number;
   loading?: boolean;
   readonly?: boolean;
+  readonlyDescriptionsProps?: Omit<DescriptionsProps, "items" | "title" | "extra">;
   submitting?: boolean;
   nextText?: string;
   prevText?: string;

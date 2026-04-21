@@ -5,7 +5,7 @@ import type {
   ScrollbarProps,
   ScrollbarScrollPayload
 } from "./src/scrollbar";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ScrollbarDirection, ScrollbarInstance, ScrollbarProps, ScrollbarScrollPayload };
 

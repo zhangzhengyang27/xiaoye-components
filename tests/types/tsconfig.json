@@ -12,6 +12,8 @@
     "./fixtures/crud-page.ts",
     "./fixtures/detail-page.ts",
     "./fixtures/detail-panel.ts",
+    "./fixtures/dialog-form.ts",
+    "./fixtures/drawer-form.ts",
     "./fixtures/export-task-panel.ts",
     "./fixtures/filter-panel.ts",
     "./fixtures/import-result-table.ts",

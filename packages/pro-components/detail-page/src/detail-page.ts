@@ -1,5 +1,7 @@
 import type { AuditTimelineEntry } from "../../audit-timeline";
 import type { ProPageAction } from "../../core";
+import type { ProFieldSchema } from "../../core";
+import type { DescriptionsDataItem, DescriptionsProps } from "@xiaoye/components";
 
 export interface DetailPageBreadcrumbItem {
   label: string;
@@ -14,6 +16,10 @@ export interface DetailSectionItem {
   key: string;
   title: string;
   description?: string;
+  model?: Record<string, unknown>;
+  schema?: ProFieldSchema[];
+  items?: DescriptionsDataItem[];
+  descriptionsProps?: Omit<DescriptionsProps, "items" | "title" | "extra">;
 }
 
 export interface DetailPageAttachmentFile {

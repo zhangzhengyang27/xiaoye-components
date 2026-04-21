@@ -5,7 +5,7 @@ defineOptions({
 
 import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted, ref, useSlots, watch } from "vue";
 import type { CSSProperties } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import { stepsContextKey } from "./context";
 import type { StepState } from "./context";

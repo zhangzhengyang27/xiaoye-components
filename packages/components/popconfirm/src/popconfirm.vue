@@ -5,8 +5,8 @@ defineOptions({
 
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import type { StyleValue } from "vue";
-import { focusFirstDescendant } from "@xiaoye/utils";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { focusFirstDescendant } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyButton from "../../button";
 import XyIcon from "../../icon";
 import XyTooltip from "../../tooltip";

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUpdated, ref, watch, useAttrs } from "vue";
 import type { CSSProperties } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import type { TextProps } from "./text";
 

@@ -4,7 +4,7 @@ import type {
   SearchFormInstance,
   SearchFormProps
 } from "./src/search-form";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   SearchFormField,

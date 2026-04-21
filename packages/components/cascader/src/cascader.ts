@@ -1,7 +1,7 @@
 import type Cascader from "./cascader.vue";
 import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type CascaderKey = string | number;
 export type CascaderValue = CascaderKey[] | null;

@@ -186,4 +186,47 @@ describe("XyOverlayForm", () => {
 
     expect(counter.mounted).toBe(2);
   });
+
+  it("mode=view 且使用 schema 时切换为只读详情展示", async () => {
+    const wrapper = mount(XyOverlayForm, {
+      props: {
+        open: true,
+        container: "drawer",
+        drawerProps: {
+          appendToBody: false
+        },
+        mode: "view",
+        model: {
+          owner: "小叶",
+          status: "reviewing"
+        },
+        schema: [
+          {
+            prop: "owner",
+            label: "负责人"
+          },
+          {
+            prop: "status",
+            label: "状态",
+            valueType: "tag",
+            options: [
+              {
+                label: "审核中",
+                value: "reviewing",
+                status: "warning"
+              }
+            ]
+          }
+        ]
+      }
+    });
+
+    await nextTick();
+
+    expect(wrapper.find(".xy-descriptions").exists()).toBe(true);
+    expect(wrapper.text()).toContain("负责人");
+    expect(wrapper.text()).toContain("小叶");
+    expect(wrapper.text()).toContain("审核中");
+    expect(wrapper.text()).not.toContain("保存");
+  });
 });

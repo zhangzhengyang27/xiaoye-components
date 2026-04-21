@@ -1,0 +1,125 @@
+/* ============================================================
+   xyu-radio 样式
+   ============================================================ */
+
+.xyu-radio__wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--xyu-font-sans);
+  user-select: none;
+  vertical-align: middle;
+}
+
+.xyu-radio__wrapper.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* ---- 尺寸 ---- */
+.xyu-radio__wrapper--sm { font-size: var(--xyu-text-sm); }
+.xyu-radio__wrapper--md { font-size: var(--xyu-text-base); }
+.xyu-radio__wrapper--lg { font-size: var(--xyu-text-lg); }
+
+/* ---- bordered ---- */
+.xyu-radio__wrapper.is-bordered {
+  border: 1px solid var(--xyu-border);
+  border-radius: var(--xyu-radius-md);
+  padding: 6px 12px;
+  background: var(--xyu-bg);
+  transition: border-color var(--xyu-transition-fast), box-shadow var(--xyu-transition-fast);
+}
+
+.xyu-radio__wrapper.is-bordered:hover:not(.is-disabled) {
+  border-color: var(--xyu-border-hover);
+}
+
+.xyu-radio__wrapper.is-bordered.is-checked {
+  border-color: var(--xyu-primary);
+  background: var(--xyu-primary-light);
+}
+
+/* ---- hidden input ---- */
+.xyu-radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ---- dot ---- */
+.xyu-radio__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--xyu-border);
+  border-radius: 50%;
+  background: var(--xyu-bg);
+  flex-shrink: 0;
+  transition: all var(--xyu-transition-fast);
+}
+
+.xyu-radio__wrapper--sm .xyu-radio__dot {
+  width: 14px;
+  height: 14px;
+}
+
+.xyu-radio__wrapper--lg .xyu-radio__dot {
+  width: 18px;
+  height: 18px;
+}
+
+.xyu-radio__dot.is-checked {
+  border-color: var(--xyu-primary);
+}
+
+.xyu-radio__dot-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--xyu-primary);
+  transition: transform var(--xyu-transition-fast);
+}
+
+.xyu-radio__wrapper--sm .xyu-radio__dot-inner {
+  width: 6px;
+  height: 6px;
+}
+
+.xyu-radio__wrapper--lg .xyu-radio__dot-inner {
+  width: 10px;
+  height: 10px;
+}
+
+.xyu-radio__dot:hover:not(.is-checked) {
+  border-color: var(--xyu-primary);
+}
+
+.xyu-radio__wrapper.is-disabled .xyu-radio__dot {
+  border-color: var(--xyu-border-disabled);
+  background: var(--xyu-bg-secondary);
+}
+
+/* ---- label ---- */
+.xyu-radio__label {
+  color: var(--xyu-text-primary);
+  line-height: 1;
+}
+
+.xyu-radio__wrapper.is-disabled .xyu-radio__label {
+  color: var(--xyu-text-disabled);
+}
+
+/* ---- focus ---- */
+.xyu-radio__input:focus-visible + .xyu-radio__dot {
+  outline: none;
+  box-shadow: var(--xyu-focus-ring);
+}

@@ -15,7 +15,7 @@ import type {
   TabsTabRemoveHandler,
   TabsType
 } from "./src/tabs";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   TabItem,

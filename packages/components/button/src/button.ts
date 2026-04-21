@@ -1,6 +1,6 @@
 import type Button from "./button.vue";
 import type { Component } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export const buttonTypes = [
   "default",

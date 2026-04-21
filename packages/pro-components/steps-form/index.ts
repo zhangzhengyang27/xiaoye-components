@@ -4,7 +4,7 @@ import type {
   StepsFormProps,
   StepsFormStep
 } from "./src/steps-form";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { StepsFormInstance, StepsFormProps, StepsFormStep };
 

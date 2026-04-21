@@ -12,7 +12,9 @@ outline: deep
 
 - [SearchForm 搜索表单](/pro-components/search-form)：统一筛选栏布局、查询动作和折叠字段。
 - [ProForm 增强表单](/pro-components/pro-form)：统一表单网格、标题和动作区。
-- [OverlayForm 覆盖层表单](/pro-components/overlay-form)：统一覆盖层编辑，不再把抽屉表单和弹窗表单拆成两套主心智。
+- [OverlayForm 覆盖层表单](/pro-components/overlay-form)：统一覆盖层编辑内核。
+- [DialogForm 弹窗表单](/pro-components/dialog-form)：固定弹窗容器的 facade，适合明确的弹窗编辑链路。
+- [DrawerForm 抽屉表单](/pro-components/drawer-form)：固定抽屉容器的 facade，适合保留页面上下文的侧滑编辑链路。
 - [FilterPanel 筛选面板](/pro-components/filter-panel)：统一高级筛选容器。
 - [RequestForm 请求表单](/pro-components/request-form)：统一加载、提交和表单骨架。
 - [LoginForm 登录表单](/pro-components/login-form)：统一认证场景里的登录主链路和第三方登录入口展示。
@@ -56,7 +58,7 @@ outline: deep
 ## 推荐阅读顺序
 
 1. 先看 [SearchForm 搜索表单](/pro-components/search-form)、[ProTable 增强表格](/pro-components/pro-table) 和 [ListPage 列表页面容器](/pro-components/list-page)，理解后台列表页主干。
-2. 再看 [OverlayForm 覆盖层表单](/pro-components/overlay-form)、[LoginForm 登录表单](/pro-components/login-form)、[StepsForm 分步表单](/pro-components/steps-form)、[CrudPage 增删改查页面](/pro-components/crud-page)，补齐编辑链路。
+2. 再看 [OverlayForm 覆盖层表单](/pro-components/overlay-form)、[DialogForm 弹窗表单](/pro-components/dialog-form)、[DrawerForm 抽屉表单](/pro-components/drawer-form)、[LoginForm 登录表单](/pro-components/login-form)、[StepsForm 分步表单](/pro-components/steps-form)、[CrudPage 增删改查页面](/pro-components/crud-page)，补齐编辑链路。
 3. 接着看 [DetailPanel 详情面板](/pro-components/detail-panel)、[DetailPage 详情页面容器](/pro-components/detail-page)、[AuditTimeline 审计时间线](/pro-components/audit-timeline)，补齐查看和历史记录。
 4. 再看 [PageHeader 页面头部](/pro-components/page-header)、[PageContainer 页面容器](/pro-components/page-container)、[StatCard 指标卡片](/pro-components/stat-card)，补齐页面展示壳层。
 5. 最后看 [ApprovalFlowPanel 审批流面板](/pro-components/approval-flow-panel)、[ImportWizard 导入向导](/pro-components/import-wizard)、[ExportTaskPanel 导出任务面板](/pro-components/export-task-panel)，理解更重的业务流场景。

@@ -1,5 +1,5 @@
 import Select from "./src/select.vue";
-import type { SelectOption } from "@xiaoye/utils";
+import type { SelectOption } from "@xiaoye/primitives";
 import type {
   SelectInstance,
   SelectOptionGroup,
@@ -12,7 +12,7 @@ import type {
   SelectValueChangeHandler,
   SelectVisibleChangeHandler
 } from "./src/select";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   SelectInstance,

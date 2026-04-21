@@ -1,6 +1,6 @@
 import TableFilterDrawer from "./src/table-filter-drawer.vue";
 import type { TableFilterDrawerProps } from "./src/table-filter-drawer";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { TableFilterDrawerProps };
 

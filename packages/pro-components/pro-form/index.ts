@@ -1,6 +1,6 @@
 import ProForm from "./src/pro-form.vue";
 import type { ProFormInstance, ProFormProps } from "./src/pro-form";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ProFormInstance, ProFormProps };
 

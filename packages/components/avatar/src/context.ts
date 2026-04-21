@@ -1,5 +1,5 @@
 import type { InjectionKey, Ref } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { AvatarShape } from "./avatar";
 
 export interface AvatarGroupContext {

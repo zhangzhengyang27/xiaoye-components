@@ -1,8 +1,8 @@
 import Dropdown from "./src/dropdown.vue";
 import DropdownMenu from "./src/dropdown-menu.vue";
 import DropdownItemComponent from "./src/dropdown-item.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type {
   DropdownClickHandler,
   DropdownCommand,

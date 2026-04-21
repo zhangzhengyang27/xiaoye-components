@@ -7,7 +7,7 @@ import type {
   EditorModelValueChangeHandler,
   EditorProps
 } from "./src/editor";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   EditorBlurHandler,

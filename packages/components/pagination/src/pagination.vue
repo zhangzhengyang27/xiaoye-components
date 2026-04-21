@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import type { SelectOption } from "@xiaoye/utils";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import type { SelectOption } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XySelect from "../../select";
 import {
   buildPagerItems,

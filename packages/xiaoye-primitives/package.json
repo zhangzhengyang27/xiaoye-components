@@ -1,0 +1,48 @@
+{
+  "name": "xiaoye-primitives",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "xiaoye 组件库基础设施：composables + utils + theme",
+  "license": "MIT",
+  "homepage": "https://github.com/zhangzhengyang27/xiaoye-components#readme",
+  "bugs": {
+    "url": "https://github.com/zhangzhengyang27/xiaoye-components/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangzhengyang27/xiaoye-components.git"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "composables",
+    "utils",
+    "design-system",
+    "ui"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "sideEffects": [
+    "*.css",
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": {
+      "types": "./dist/style.css.d.ts",
+      "default": "./dist/style.css"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}

@@ -1,6 +1,6 @@
 import SplitLayoutPage from "./src/split-layout-page.vue";
 import type { SplitLayoutPageProps } from "./src/split-layout-page";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { SplitLayoutPageProps };
 

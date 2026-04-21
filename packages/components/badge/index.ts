@@ -1,6 +1,6 @@
 import Badge from "./src/badge.vue";
 import type { BadgeContentSlotProps, BadgeInstance, BadgeProps, BadgeType } from "./src/badge";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { BadgeContentSlotProps, BadgeInstance, BadgeProps, BadgeType };
 

@@ -4,6 +4,7 @@ import {
   proComponentDocsSidebarGroups,
   proComponentExampleSidebarGroups
 } from "../../../packages/pro-components/component-manifest";
+import { uiComponentDocsSidebarGroups } from "../../../packages/xiaoye-ui/component-manifest";
 import { workspaceAlias } from "../../../scripts/config/aliases";
 import { demoMdPlugin } from "./plugins/demo";
 import { demoSourcePlugin } from "./plugins/demo-source";
@@ -33,6 +34,7 @@ export default defineConfig({
       { text: "指南", link: "/guide/quick-start" },
       { text: "组件", link: "/components/overview" },
       { text: "增强", link: "/pro-components/overview" },
+      { text: "前台组件", link: "/front/overview" },
       { text: "示例", link: "/examples/admin" }
     ],
     sidebar: {
@@ -52,6 +54,9 @@ export default defineConfig({
           items: [{ text: "组件总览", link: "/components/overview" }]
         },
         ...componentDocsSidebarGroups
+      ],
+      "/front/": [
+        ...uiComponentDocsSidebarGroups
       ],
       "/pro-components/": [
         {
@@ -80,7 +85,18 @@ export default defineConfig({
             text: group.text,
             items: group.items
           }))
-          .filter((group) => group.items.length > 0)
+          .filter((group) => group.items.length > 0),
+        {
+          text: "前台组件示例",
+          collapsed: false,
+          items: [
+            { text: "ProductCard 商品卡片", link: "/examples/front/product-card" },
+            { text: "MarketingModal 营销弹层", link: "/examples/front/marketing-modal" },
+            { text: "ImageGallery 图片画廊", link: "/examples/front/image-gallery" },
+            { text: "SkuSelector SKU选择器", link: "/examples/front/sku-selector" },
+            { text: "AddressPicker 地址选择器", link: "/examples/front/address-picker" }
+          ]
+        }
       ]
     },
     socialLinks: [{ icon: "github", link: "https://github.com/xiaoye/xiaoye-components" }]

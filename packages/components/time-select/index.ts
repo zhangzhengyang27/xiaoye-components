@@ -6,7 +6,7 @@ import type {
   TimeSelectValueChangeHandler,
   TimeSelectVisibleChangeHandler
 } from "./src/time-select";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   TimeSelectInstance,

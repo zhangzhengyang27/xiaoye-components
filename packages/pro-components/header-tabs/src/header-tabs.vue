@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { XyDropdown, XyIcon, XyTabs } from "@xiaoye/components";
 import type { HeaderTabsMenuAction, HeaderTabsProps } from "./header-tabs";
 

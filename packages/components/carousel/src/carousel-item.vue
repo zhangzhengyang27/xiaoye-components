@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted, ref } from "vue";
 import type { CSSProperties } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { carouselContextKey } from "./context";
 import type { CarouselItemProps } from "./carousel-item";
 

@@ -45,6 +45,10 @@
   display: grid;
 }
 
+.xy-pro-form__descriptions {
+  width: 100%;
+}
+
 .xy-pro-form__loading {
   display: flex;
   flex-direction: column;

@@ -49,6 +49,10 @@
   gap: 16px;
 }
 
+.xy-detail-panel__descriptions {
+  width: 100%;
+}
+
 .xy-detail-panel__loading {
   padding: 20px;
   border-radius: var(--xy-radius-lg);

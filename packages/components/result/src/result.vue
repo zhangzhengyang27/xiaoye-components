@@ -5,8 +5,8 @@ defineOptions({
 });
 
 import { computed, useAttrs } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import type { ComponentSize } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import type { ResultProps } from "./result";
 import {

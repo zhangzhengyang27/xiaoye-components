@@ -1,4 +1,5 @@
 import { toRaw, type Component } from "vue";
+import type { DescriptionsDataItem } from "@xiaoye/components";
 import {
   XyAutoComplete,
   XyAvatar,
@@ -21,7 +22,11 @@ import {
   XyTree,
   XySteps
 } from "@xiaoye/components";
-import type { ProFieldSchema } from "./core";
+import type {
+  ProDisplayRenderContext,
+  ProDisplayValueType,
+  ProFieldSchema
+} from "./core";
 
 const builtInComponentMap: Record<string, Component> = {
   input: XyInput,
@@ -47,6 +52,21 @@ const builtInComponentMap: Record<string, Component> = {
   timeline: XyTimeline,
   tree: XyTree,
   steps: XySteps
+};
+
+const componentDisplayValueTypeMap: Partial<
+  Record<NonNullable<ProFieldSchema["component"]>, ProDisplayValueType>
+> = {
+  select: "select",
+  checkbox: "checkbox",
+  "checkbox-group": "checkbox",
+  radio: "radio",
+  "radio-button": "radio",
+  "radio-group": "radio",
+  avatar: "avatar",
+  image: "image",
+  progress: "progress",
+  tag: "tag"
 };
 
 export function cloneProValue<T>(value: T): T {
@@ -145,4 +165,96 @@ export function updateProModelValue(
   value: unknown
 ) {
   model[prop] = value;
+}
+
+export function readProFieldValue(
+  model: Record<string, unknown>,
+  prop: string
+) {
+  return prop.split(".").reduce<unknown>((value, segment) => {
+    if (value && typeof value === "object" && segment in (value as Record<string, unknown>)) {
+      return (value as Record<string, unknown>)[segment];
+    }
+
+    return undefined;
+  }, model);
+}
+
+export function resolveProFieldValueType(field: ProFieldSchema): ProDisplayValueType | undefined {
+  if (field.valueType) {
+    return field.valueType;
+  }
+
+  if (!field.component) {
+    return undefined;
+  }
+
+  return componentDisplayValueTypeMap[field.component];
+}
+
+export function createProFieldDisplayContext(
+  row: Record<string, unknown>,
+  column: ProFieldSchema,
+  rowIndex = 0
+): ProDisplayRenderContext<Record<string, unknown>, ProFieldSchema> {
+  return {
+    row,
+    column,
+    rowIndex
+  };
+}
+
+export function normalizeProFieldDisplayValue(
+  field: ProFieldSchema,
+  value: unknown,
+  row: Record<string, unknown>,
+  rowIndex = 0
+) {
+  const context = createProFieldDisplayContext(row, field, rowIndex);
+
+  if (field.formatter) {
+    return field.formatter(value, context);
+  }
+
+  return value;
+}
+
+export function resolveProDescriptionsItems(
+  schema: ProFieldSchema[],
+  model: Record<string, unknown>,
+  rowIndex = 0
+): DescriptionsDataItem[] {
+  return schema
+    .filter((field) => !resolveProFieldHidden(field, model))
+    .map((field) => ({
+      label: field.label,
+      value: readProFieldValue(model, field.prop),
+      row: model,
+      valueType: resolveProFieldValueType(field),
+      options: field.options,
+      formatter: field.formatter
+        ? (_row, _column, value, nextRowIndex) =>
+            field.formatter?.(value, createProFieldDisplayContext(model, field, nextRowIndex))
+        : undefined,
+      render: field.render
+        ? (value, context) =>
+            field.render?.(
+              value,
+              createProFieldDisplayContext(context.row, field, context.rowIndex)
+            )
+        : undefined,
+      renderHTML: field.renderHTML
+        ? (value, context) =>
+            field.renderHTML?.(
+              value,
+              createProFieldDisplayContext(context.row, field, context.rowIndex)
+            ) ?? ""
+        : undefined,
+      emptyValue: field.emptyValue,
+      span: field.span,
+      defaultSlot: field.slot,
+      className: undefined,
+      labelClassName: undefined,
+      contentClassName: undefined
+    }));
 }

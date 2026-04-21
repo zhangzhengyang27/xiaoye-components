@@ -4,7 +4,7 @@ import type { FormInstance, FormProps } from "./src/context";
 import type { FormItemProps } from "./src/form-item.vue";
 import type { FormRules, XyFormRule } from "./src/context";
 import type { FormProp } from "./src/utils";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { FormInstance, FormProps, FormItemProps, FormRules, XyFormRule, FormProp };
 

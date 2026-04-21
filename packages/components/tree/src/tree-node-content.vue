@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, h, inject, renderSlot } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { NODE_INSTANCE_INJECTION_KEY, ROOT_TREE_INJECTION_KEY } from "./tokens";
 import type { PropType } from "vue";
 import type Node from "./model/node";

@@ -1,6 +1,6 @@
 import Row from "./src/row.vue";
 import type { RowAlign, RowJustify, RowProps } from "./src/row";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { RowAlign, RowJustify, RowProps };
 

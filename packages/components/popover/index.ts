@@ -5,7 +5,7 @@ import type {
   PopoverProps,
   PopoverTrigger
 } from "./src/popover.vue";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   PopoverDefaultSlotProps,

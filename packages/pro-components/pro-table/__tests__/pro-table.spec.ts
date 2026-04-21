@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils";
+import { flushPromises, mount } from "@vue/test-utils";
 import { defineComponent, h, nextTick } from "vue";
 import { describe, expect, it, vi } from "vitest";
 import { XyProTable, XySearchForm } from "@xiaoye/pro-components";
@@ -166,6 +166,105 @@ describe("XyProTable", () => {
     await nextTick();
 
     expect(wrapper.find(".empty-slot").exists()).toBe(true);
+  });
+
+  it("支持 valueType、formatter、render、renderHTML 和 emptyValue 显示协议", () => {
+    const wrapper = mountHost(
+      `
+        <xy-pro-table :data="rows" :columns="columns" :pagination="false" />
+      `,
+      () => ({
+        rows: [
+          {
+            id: 1,
+            name: "成员工作台",
+            status: "enabled",
+            tags: ["core", "urgent"],
+            progress: 76,
+            budget: 128000.5,
+            updatedAt: "2026-04-18T14:30:00+08:00",
+            htmlNote: "可信 <strong class='html-flag'>HTML</strong>",
+            emptyNote: null
+          }
+        ],
+        columns: [
+          {
+            prop: "status",
+            label: "状态",
+            valueType: "select",
+            options: [
+              { label: "启用", value: "enabled", status: "success" },
+              { label: "停用", value: "disabled", status: "danger" }
+            ]
+          },
+          {
+            prop: "tags",
+            label: "标签",
+            valueType: "tag",
+            options: [
+              { label: "核心项目", value: "core", status: "primary" },
+              { label: "加急", value: "urgent", status: "warning" }
+            ]
+          },
+          {
+            prop: "progress",
+            label: "进度",
+            valueType: "progress"
+          },
+          {
+            prop: "budget",
+            label: "预算",
+            valueType: "money"
+          },
+          {
+            prop: "updatedAt",
+            label: "更新时间",
+            valueType: "datetime"
+          },
+          {
+            prop: "emptyNote",
+            label: "空值",
+            emptyValue: "暂无备注"
+          },
+          {
+            prop: "name",
+            label: "格式化",
+            formatter: (_row: Row, _column: unknown, value: unknown) =>
+              `名称：${String(value ?? "-")}`
+          },
+          {
+            prop: "name",
+            key: "render",
+            label: "render",
+            render: (value: unknown) => h("strong", { class: "render-flag" }, String(value ?? "-"))
+          },
+          {
+            prop: "htmlNote",
+            label: "html",
+            renderHTML: (value: unknown) => `<span class="html-wrapper">${String(value ?? "")}</span>`
+          },
+          {
+            prop: "name",
+            key: "copy",
+            label: "copy",
+            valueType: "copy"
+          }
+        ] as ProTableColumn<Row>[]
+      })
+    );
+
+    expect(wrapper.text()).toContain("启用");
+    expect(wrapper.find(".xy-display-value__status-dot.is-success").exists()).toBe(true);
+    expect(wrapper.text()).toContain("核心项目");
+    expect(wrapper.text()).toContain("加急");
+    expect(wrapper.find(".xy-progress").exists()).toBe(true);
+    expect(wrapper.text()).toContain("¥128,000.50");
+    expect(wrapper.text()).toContain("2026/04/18");
+    expect(wrapper.text()).toContain("暂无备注");
+    expect(wrapper.text()).toContain("名称：成员工作台");
+    expect(wrapper.find(".render-flag").exists()).toBe(true);
+    expect(wrapper.find(".html-wrapper .html-flag").exists()).toBe(true);
+    expect(wrapper.find(".xy-text__action").exists()).toBe(true);
   });
 
   it("支持 children、hidden、footer-meta 和分页边界", async () => {
@@ -384,5 +483,340 @@ describe("XyProTable", () => {
     );
 
     expect(wrapper.find(".xy-search-form").exists()).toBe(true);
+  });
+
+  it("支持 request、视图筛选与工作台动作", async () => {
+    const request = vi.fn().mockResolvedValue({
+      data: [
+        {
+          id: 1,
+          name: "发票中心",
+          status: "启用"
+        }
+      ],
+      total: 1
+    });
+
+    const wrapper = mountHost(
+      `
+        <xy-pro-table
+          title="远程列表"
+          :data="[]"
+          :columns="columns"
+          :request="{ request, requestParams: requestParams, immediate: true }"
+          :views="views"
+          :workbench="{ refresh: true, filter: true, export: true }"
+          @request-success="requestEvents.push($event)"
+        />
+      `,
+      () => ({
+        request,
+        requestParams: {
+          tenantId: "demo"
+        },
+        requestEvents: [] as Array<Row[]>,
+        columns: [
+          {
+            prop: "name",
+            label: "名称"
+          },
+          {
+            prop: "status",
+            label: "状态"
+          }
+        ] as ProTableColumn<Row>[],
+        views: {
+          searchModel: {
+            keyword: "发票"
+          },
+          searchFields: [
+            {
+              prop: "keyword",
+              label: "关键词",
+              component: "input"
+            }
+          ],
+          filterModel: {
+            status: "enabled"
+          },
+          filterFields: [
+            {
+              prop: "status",
+              label: "状态",
+              component: "select",
+              options: [
+                {
+                  label: "启用",
+                  value: "enabled"
+                }
+              ]
+            }
+          ],
+          savedViews: [
+            {
+              key: "all",
+              label: "全部"
+            }
+          ]
+        }
+      })
+    );
+
+    await flushPromises();
+
+    expect(request).toHaveBeenCalledTimes(1);
+    expect(request.mock.calls[0]?.[0]).toMatchObject({
+      tenantId: "demo",
+      keyword: "发票",
+      status: "enabled",
+      activeViewKey: "all"
+    });
+    expect(wrapper.text()).toContain("全部");
+    expect(wrapper.find(".xy-search-form").exists()).toBe(true);
+    expect(wrapper.text()).toContain("刷新");
+    expect((wrapper.vm as unknown as { requestEvents: Array<Row[]> }).requestEvents).toHaveLength(1);
+  });
+
+  it("连续触发 request 时只保留最后一次响应结果", async () => {
+    const resolvers: Array<(value: { data: Row[]; total: number }) => void> = [];
+    const request = vi.fn(
+      () =>
+        new Promise<{ data: Row[]; total: number }>((resolve) => {
+          resolvers.push(resolve);
+        })
+    );
+
+    const wrapper = mountHost(
+      `
+        <xy-pro-table
+          :data="[]"
+          :columns="columns"
+          :request="{ request, requestParams, immediate: true }"
+          :table-props="{ rowKey: 'id' }"
+          @request-success="requestEvents.push($event)"
+        />
+      `,
+      () => ({
+        request,
+        requestParams: {
+          keyword: "first"
+        },
+        requestEvents: [] as Array<Row[]>,
+        columns: [
+          {
+            prop: "name",
+            label: "名称"
+          },
+          {
+            prop: "status",
+            label: "状态"
+          }
+        ] as ProTableColumn<Row>[]
+      })
+    );
+
+    await nextTick();
+    expect(request).toHaveBeenCalledTimes(1);
+
+    await wrapper.setData({
+      requestParams: {
+        keyword: "second"
+      }
+    });
+    await nextTick();
+    expect(request).toHaveBeenCalledTimes(2);
+
+    resolvers[1]?.({
+      data: [
+        {
+          id: 2,
+          name: "最新结果",
+          status: "启用"
+        }
+      ],
+      total: 1
+    });
+    await flushPromises();
+
+    expect(wrapper.text()).toContain("最新结果");
+    expect((wrapper.vm as unknown as { requestEvents: Array<Row[]> }).requestEvents).toHaveLength(1);
+
+    resolvers[0]?.({
+      data: [
+        {
+          id: 1,
+          name: "过期结果",
+          status: "停用"
+        }
+      ],
+      total: 1
+    });
+    await flushPromises();
+
+    expect(wrapper.text()).toContain("最新结果");
+    expect(wrapper.text()).not.toContain("过期结果");
+    expect((wrapper.vm as unknown as { requestEvents: Array<Row[]> }).requestEvents).toHaveLength(1);
+  });
+
+  it("支持编辑态 expose 和批量操作条", async () => {
+    const wrapper = mountHost(
+      `
+        <div>
+          <xy-pro-table
+            ref="tableRef"
+            :data="rows"
+            :columns="columns"
+            :editable="{ enabled: true, mode: 'row' }"
+            :batch-actions="[{ key: 'archive', label: '批量归档' }]"
+            :table-select="{ enabled: true, mode: 'multiple' }"
+            :table-props="{ rowKey: 'id' }"
+            @edit-submit="editEvents.push($event.rows)"
+          />
+          <button class="start-edit" @click="$refs.tableRef.startEdit(rows[0])">开始编辑</button>
+          <button class="submit-edit" @click="$refs.tableRef.submitEdit(rows[0])">提交编辑</button>
+        </div>
+      `,
+      () => ({
+        rows: [
+          {
+            id: 1,
+            name: "账单中心",
+            status: "启用"
+          }
+        ],
+        columns: [
+          {
+            type: "selection"
+          },
+          {
+            prop: "name",
+            label: "名称",
+            editable: true
+          },
+          {
+            prop: "status",
+            label: "状态"
+          }
+        ] as ProTableColumn<Row>[],
+        editEvents: [] as Array<Row[]>
+      })
+    );
+
+    (
+      wrapper.vm as unknown as {
+        $refs: { tableRef?: { toggleRowSelection: (row: Row, selected?: boolean) => void } };
+        rows: Row[];
+      }
+    ).$refs.tableRef?.toggleRowSelection(
+      (wrapper.vm as unknown as { rows: Row[] }).rows[0],
+      true
+    );
+    await nextTick();
+    expect(wrapper.find(".xy-pro-table__batch-bar").exists()).toBe(true);
+
+    await wrapper.find(".start-edit").trigger("click");
+    await nextTick();
+    expect(wrapper.find(".xy-pro-table__edit-footer").exists()).toBe(true);
+
+    await wrapper.find(".submit-edit").trigger("click");
+    await nextTick();
+    expect((wrapper.vm as unknown as { editEvents: Array<Row[]> }).editEvents).toHaveLength(1);
+  });
+
+  it("支持右键菜单、虚拟列表和导出打印入口", async () => {
+    const openMock = vi.fn(() => ({
+      document: {
+        write: vi.fn(),
+        close: vi.fn()
+      },
+      focus: vi.fn(),
+      print: vi.fn(),
+      close: vi.fn()
+    }));
+    const createObjectURLMock = vi.fn(() => "blob:demo");
+    const revokeObjectURLMock = vi.fn();
+    const appendAnchorClick = vi.fn();
+    const originalOpen = window.open;
+    const originalCreateObjectURL = URL.createObjectURL;
+    const originalRevokeObjectURL = URL.revokeObjectURL;
+
+    window.open = openMock as unknown as typeof window.open;
+    URL.createObjectURL = createObjectURLMock;
+    URL.revokeObjectURL = revokeObjectURLMock;
+
+    const createElementSpy = vi.spyOn(document, "createElement");
+    createElementSpy.mockImplementation(((tagName: string) => {
+      const element = document.createElementNS("http://www.w3.org/1999/xhtml", tagName) as HTMLElement;
+
+      if (tagName === "a") {
+        (element as HTMLAnchorElement).click = appendAnchorClick;
+      }
+
+      return element;
+    }) as typeof document.createElement);
+
+    const wrapper = mountHost(
+      `
+        <xy-pro-table
+          :data="rows"
+          :columns="columns"
+          :virtual="{ enabled: true, itemSize: 40, height: 200 }"
+          :contextmenu="{ rowItems: [{ key: 'detail', label: '查看详情' }] }"
+          :workbench="{ export: true, print: true }"
+          :export-options="{ filename: 'members' }"
+          :print-options="{ title: '成员列表' }"
+          :table-props="{ rowKey: 'id' }"
+          @contextmenu-select="contextmenuEvents.push($event)"
+          @export="exportEvents.push($event)"
+          @print="printEvents.push($event)"
+        />
+      `,
+      () => ({
+        rows: Array.from({ length: 60 }, (_, index) => ({
+          id: index + 1,
+          name: `成员-${index + 1}`,
+          status: index % 2 === 0 ? "启用" : "停用"
+        })),
+        columns: [
+          {
+            prop: "name",
+            label: "名称"
+          },
+          {
+            prop: "status",
+            label: "状态"
+          }
+        ] as ProTableColumn<Row>[],
+        contextmenuEvents: [] as Array<unknown>,
+        exportEvents: [] as Array<unknown>,
+        printEvents: [] as Array<unknown>
+      })
+    );
+
+    await wrapper.find(".xy-table__row").trigger("contextmenu");
+    await nextTick();
+    expect(document.body.querySelector(".xy-pro-table__contextmenu")).not.toBeNull();
+
+    (document.body.querySelector(".xy-pro-table__contextmenu-item") as HTMLButtonElement)?.click();
+    await nextTick();
+    expect((wrapper.vm as unknown as { contextmenuEvents: Array<unknown> }).contextmenuEvents).toHaveLength(1);
+
+    expect(wrapper.find(".xy-table__virtual-spacer-row").exists()).toBe(true);
+
+    const toolbarButtons = wrapper.findAll(".xy-pro-table__toolbar-extra .xy-button");
+    await toolbarButtons.at(-2)?.trigger("click");
+    await toolbarButtons.at(-1)?.trigger("click");
+    await nextTick();
+
+    expect((wrapper.vm as unknown as { exportEvents: Array<unknown> }).exportEvents).toHaveLength(1);
+    expect((wrapper.vm as unknown as { printEvents: Array<unknown> }).printEvents).toHaveLength(1);
+    expect(createObjectURLMock).toHaveBeenCalledTimes(1);
+    expect(appendAnchorClick).toHaveBeenCalledTimes(1);
+    expect(openMock).toHaveBeenCalledTimes(1);
+
+    createElementSpy.mockRestore();
+    window.open = originalOpen;
+    URL.createObjectURL = originalCreateObjectURL;
+    URL.revokeObjectURL = originalRevokeObjectURL;
   });
 });

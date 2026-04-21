@@ -5,7 +5,7 @@ import type {
   TreeSelectValueChangeHandler,
   TreeSelectVisibleChangeHandler
 } from "./src/tree-select";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   TreeSelectInstance,

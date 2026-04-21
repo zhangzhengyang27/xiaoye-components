@@ -3,7 +3,7 @@ import type {
   ApprovalFlowNode,
   ApprovalFlowPanelProps
 } from "./src/approval-flow-panel";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ApprovalFlowNode, ApprovalFlowPanelProps };
 

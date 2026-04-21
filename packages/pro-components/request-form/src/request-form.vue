@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<RequestFormProps>(), {
   labelWidth: "112px",
   labelPosition: "top",
   size: "md",
+  readonly: false,
   immediate: true,
   initialRequest: undefined,
   submitRequest: undefined
@@ -63,6 +64,10 @@ async function load(action = "load") {
 }
 
 async function submit() {
+  if (props.readonly) {
+    return false;
+  }
+
   const valid = await formRef.value?.validate();
 
   if (!valid) {
@@ -127,6 +132,7 @@ defineExpose({
       :label-width="props.labelWidth"
       :label-position="props.labelPosition"
       :size="props.size"
+      :readonly="props.readonly"
       :submitting="submitting"
       @submit="submit"
     >

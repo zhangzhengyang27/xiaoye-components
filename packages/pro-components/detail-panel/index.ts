@@ -3,7 +3,7 @@ import type {
   DetailPanelInstance,
   DetailPanelProps
 } from "./src/detail-panel";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { DetailPanelInstance, DetailPanelProps };
 

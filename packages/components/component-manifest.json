@@ -81,6 +81,17 @@
     "styleImports": ["card"]
   },
   {
+    "name": "check-card",
+    "docsGroup": "basic",
+    "docsText": "Check Card 选择卡片",
+    "installExports": ["XyCheckCard", "XyCheckCardGroup"],
+    "installChecks": [
+      { "kind": "component", "name": "xy-check-card" },
+      { "kind": "component", "name": "xy-check-card-group" }
+    ],
+    "styleImports": ["check-card", "check-card-group"]
+  },
+  {
     "name": "carousel",
     "docsGroup": "basic",
     "docsText": "Carousel 走马灯",

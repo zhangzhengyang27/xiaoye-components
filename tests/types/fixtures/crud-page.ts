@@ -23,6 +23,12 @@ const props: CrudPageProps<Row> = {
     name: ""
   },
   formType: "drawer",
+  detailSchema: [
+    {
+      prop: "name",
+      label: "名称"
+    }
+  ],
   detailType: "dialog"
 };
 

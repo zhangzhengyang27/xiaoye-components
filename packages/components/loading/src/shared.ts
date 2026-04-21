@@ -1,6 +1,6 @@
 import { defineComponent, h } from "vue";
 import type { PropType } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { LoadingGlobalConfig, LoadingText } from "./types";
 import { DEFAULT_LOADING_SVG_VIEW_BOX } from "./types";
 

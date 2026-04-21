@@ -38,6 +38,12 @@ descriptions/data-driven
 descriptions/items
 :::
 
+## 显示协议
+
+:::demo `items` 现在也支持 `valueType / formatter / render / renderHTML / emptyValue`，适合和列表页共用统一的只读显示规则。
+descriptions/display-protocol
+:::
+
 ## API
 
 ### Descriptions Attributes
@@ -53,7 +59,6 @@ descriptions/items
 | `direction`   | 布局方向     | `DescriptionsProps["direction"]` | `'horizontal'` |
 | `collapse`    | 是否默认收起并显示折叠切换 | `boolean` | `false` |
 | `items`       | 数据驱动条目数组 | `DescriptionsDataItem[]` | `[]` |
-| `items`       | 数据驱动条目数组 | `DescriptionsDataItem[]`   | `[]`           |
 
 ### Descriptions Slots
 
@@ -76,9 +81,16 @@ descriptions/items
 | --- | --- | --- |
 | `label` | 条目标签 | `string` |
 | `value` | 条目值 | `string \| number` |
+| `row` | 渲染上下文里的原始记录 | `Record<string, unknown>` |
 | `icon` | 标签前图标 | `string` |
 | `tag` | 标签态渲染配置 | `string \| DescriptionsDataTag` |
 | `link` | 链接态渲染配置 | `LinkProps` |
+| `value-type` | 只读显示值类型 | `'text' \| 'select' \| 'radio' \| 'checkbox' \| 'tag' \| 'progress' \| 'link' \| 'image' \| 'avatar' \| 'money' \| 'date' \| 'datetime' \| 'code'` |
+| `options` | 选择类值类型的选项映射 | `Array<SelectOption \| SelectOptionGroup>` |
+| `formatter` | 文本格式化函数，沿用四参签名 | `(row, column, value, rowIndex) => unknown` |
+| `render` | 自定义 VNode 渲染函数 | `(value, { row, column, rowIndex }) => VNodeChild` |
+| `render-html` | 自定义 HTML 字符串渲染，仅适合可信内容 | `(value, { row, column, rowIndex }) => string` |
+| `empty-value` | 空值占位文案 | `string` |
 | `class-name` | 条目根类名 | `string` |
 | `label-class-name` | 标签区类名 | `string` |
 | `content-class-name` | 内容区类名 | `string` |

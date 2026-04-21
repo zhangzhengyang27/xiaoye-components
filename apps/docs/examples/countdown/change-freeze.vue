@@ -95,9 +95,9 @@ function handleFinish() {
 
     <div class="countdown-freeze-panel__body">
       <xy-countdown
-        class="countdown-freeze-panel__countdown"
         v-if="currentTarget"
         :key="stage"
+        class="countdown-freeze-panel__countdown"
         :value="currentTarget"
         :title="currentTitle"
         format="HH:mm:ss"

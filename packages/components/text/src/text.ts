@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export const textTypes = ["default", "primary", "success", "info", "warning", "danger"] as const;
 

@@ -1,7 +1,7 @@
 import Splitter from "./src/splitter.vue";
 import SplitterPanel from "./src/split-panel.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type {
   SplitterCollapseHandler,
   SplitterCollapseDirection,

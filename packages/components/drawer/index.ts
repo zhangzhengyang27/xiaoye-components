@@ -11,7 +11,7 @@ import type {
   DrawerTitleSlotProps,
   DrawerTransition
 } from "./src/drawer";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   DrawerCloseReason,

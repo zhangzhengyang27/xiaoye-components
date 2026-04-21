@@ -58,6 +58,7 @@ const componentDirs = fs
   .readdirSync(path.join(repoRoot, "packages/components"), { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
+  .filter((name) => name !== "shared")
   .sort();
 
 const exportedComponentNames = collectByRegex(

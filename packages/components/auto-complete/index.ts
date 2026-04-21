@@ -1,5 +1,5 @@
 import AutoComplete from "./src/auto-complete.vue";
-import type { SelectOption } from "@xiaoye/utils";
+import type { SelectOption } from "@xiaoye/primitives";
 import type {
   AutoCompleteInstance,
   AutoCompleteOption,
@@ -12,7 +12,7 @@ import type {
   AutoCompleteValueChangeHandler,
   AutoCompleteVisibleChangeHandler
 } from "./src/auto-complete";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   AutoCompleteInstance,

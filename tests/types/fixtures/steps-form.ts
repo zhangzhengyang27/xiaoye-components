@@ -15,6 +15,7 @@ const props: StepsFormProps = {
   model: {
     name: "小叶"
   },
+  readonly: true,
   steps
 };
 

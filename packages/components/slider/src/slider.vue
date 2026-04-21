@@ -4,7 +4,7 @@ defineOptions({
 });
 
 import { computed, inject, nextTick, onBeforeUnmount, ref, shallowRef, useAttrs, watch } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyInputNumber from "../../input-number";
 import { formItemKey } from "../../form/src/context";
 import type { SliderProps, SliderValue } from "./slider";

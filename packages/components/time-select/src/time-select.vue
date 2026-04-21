@@ -7,7 +7,7 @@ import {
   useListNavigation,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import { formKey, formItemKey } from "../../form/src/context";
 import { setPathValue } from "../../form/src/utils";

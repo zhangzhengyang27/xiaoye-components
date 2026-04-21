@@ -1,0 +1,114 @@
+/* ============================================================
+   xyu-switch 样式
+   ============================================================ */
+
+.xyu-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--xyu-font-sans);
+  outline: none;
+}
+
+.xyu-switch.is-disabled,
+.xyu-switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.xyu-switch:focus-visible {
+  outline: none;
+}
+
+.xyu-switch:focus-visible .xyu-switch__track {
+  box-shadow: var(--xyu-focus-ring);
+}
+
+/* ---- track ---- */
+.xyu-switch__track {
+  position: relative;
+  border-radius: var(--xyu-radius-pill);
+  background: var(--xyu-border);
+  transition: background-color var(--xyu-transition-fast);
+  flex-shrink: 0;
+}
+
+.xyu-switch.is-checked .xyu-switch__track {
+  background: var(--xyu-primary);
+}
+
+/* ---- thumb ---- */
+.xyu-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: transform var(--xyu-transition-fast);
+}
+
+.xyu-switch.is-checked .xyu-switch__thumb {
+  transform: translateX(14px);
+}
+
+/* ---- 尺寸 ---- */
+.xyu-switch--sm .xyu-switch__track {
+  width: 32px;
+  height: 18px;
+}
+
+.xyu-switch--sm .xyu-switch__thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.xyu-switch--sm.is-checked .xyu-switch__thumb {
+  transform: translateX(16px);
+}
+
+.xyu-switch--md .xyu-switch__track {
+  width: 40px;
+  height: 22px;
+}
+
+.xyu-switch--md .xyu-switch__thumb {
+  width: 16px;
+  height: 16px;
+}
+
+.xyu-switch--md.is-checked .xyu-switch__thumb {
+  transform: translateX(20px);
+}
+
+.xyu-switch--lg .xyu-switch__track {
+  width: 50px;
+  height: 28px;
+}
+
+.xyu-switch--lg .xyu-switch__thumb {
+  width: 22px;
+  height: 22px;
+}
+
+.xyu-switch--lg.is-checked .xyu-switch__thumb {
+  transform: translateX(24px);
+}
+
+/* ---- label ---- */
+.xyu-switch__label {
+  font-size: var(--xyu-text-base);
+  color: var(--xyu-text-secondary);
+  user-select: none;
+}
+
+/* ---- loading ---- */
+.xyu-switch.is-loading {
+  cursor: wait;
+}

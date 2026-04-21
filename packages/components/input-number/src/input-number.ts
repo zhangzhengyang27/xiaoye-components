@@ -1,6 +1,6 @@
 import type InputNumber from "./input-number.vue";
 import type { HTMLAttributes } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type InputNumberValueChangeHandler = (value: number | null) => void;
 export type InputNumberChangeHandler = (

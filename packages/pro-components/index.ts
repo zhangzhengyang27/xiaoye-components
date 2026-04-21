@@ -18,6 +18,16 @@ export type {
   OverlayFormSubmitPayload
 } from "./overlay-form";
 export type {
+  DialogFormInstance,
+  DialogFormProps,
+  DialogFormSubmitPayload
+} from "./dialog-form";
+export type {
+  DrawerFormInstance,
+  DrawerFormProps,
+  DrawerFormSubmitPayload
+} from "./drawer-form";
+export type {
   StepsFormInstance,
   StepsFormProps,
   StepsFormStep
@@ -115,6 +125,13 @@ export type {
 } from "./export-task-panel";
 export type {
   ProActionRef,
+  ProDisplayFormatter,
+  ProDisplayHtmlRenderer,
+  ProDisplayOption,
+  ProDisplayOptionGroup,
+  ProDisplayRenderContext,
+  ProDisplayRenderer,
+  ProDisplayValueType,
   ProFieldSchema,
   ProFieldSchemaBuiltinComponent,
   ProFieldSchemaOption,

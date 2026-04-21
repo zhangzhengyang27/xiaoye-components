@@ -12,7 +12,7 @@ export default createLibraryConfig({
     "packages/components/**/*.vue",
     "packages/pro-components/**/*.ts",
     "packages/pro-components/**/*.vue",
-    "packages/utils/**/*.ts",
+    "packages/xiaoye-primitives/src/utils/**/*.ts",
     "packages/xiaoye-components/**/*.ts",
     "packages/xiaoye-pro-components/**/*.ts"
   ]

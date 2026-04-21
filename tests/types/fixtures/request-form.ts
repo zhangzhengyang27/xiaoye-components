@@ -5,6 +5,13 @@ const props: RequestFormProps = {
   model: {
     name: "小叶"
   },
+  readonly: true,
+  schema: [
+    {
+      prop: "name",
+      label: "名称"
+    }
+  ],
   immediate: false
 };
 

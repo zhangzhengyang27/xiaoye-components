@@ -1,5 +1,5 @@
 import { computed, nextTick, ref, watch } from "vue";
-import { useConfig, useDismissibleLayer, useFocusTrap, useOverlayDialog } from "@xiaoye/composables";
+import { useConfig, useDismissibleLayer, useFocusTrap, useOverlayDialog } from "@xiaoye/primitives";
 import { useDialogResizable } from "./use-dialog-resizable";
 import type {
   DialogCloseReason,

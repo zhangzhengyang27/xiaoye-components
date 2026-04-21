@@ -12,7 +12,7 @@ import type {
   CascaderValueChangeHandler,
   CascaderVisibleChangeHandler
 } from "./src/cascader";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   CascaderInstance,

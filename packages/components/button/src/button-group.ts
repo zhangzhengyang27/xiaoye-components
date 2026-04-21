@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { ButtonType } from "./button";
 
 export const buttonGroupDirections = ["horizontal", "vertical"] as const;

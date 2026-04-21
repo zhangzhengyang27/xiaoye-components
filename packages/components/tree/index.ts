@@ -1,6 +1,6 @@
 import Tree from "./src/tree.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type { TreeProps } from "./src/tree";
 import type {
   AllowDragFunction,

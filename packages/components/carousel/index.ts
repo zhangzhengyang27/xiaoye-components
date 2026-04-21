@@ -24,7 +24,7 @@ import type {
   CarouselType
 } from "./src/carousel";
 import type { CarouselItemProps } from "./src/carousel-item";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   CarouselActiveIndexChangeHandler,

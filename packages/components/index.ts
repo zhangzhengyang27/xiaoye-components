@@ -9,6 +9,7 @@ export * from "./avatar";
 export * from "./image";
 export * from "./watermark";
 export * from "./card";
+export * from "./check-card";
 export * from "./carousel";
 export * from "./affix";
 export * from "./alert";

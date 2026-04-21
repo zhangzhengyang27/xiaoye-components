@@ -1,6 +1,6 @@
 import PageHeader from "./src/page-header.vue";
 import type { PageHeaderProps, PageIcon, PageMetaItem } from "./src/page-header";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { PageHeaderProps, PageIcon, PageMetaItem };
 

@@ -7,7 +7,7 @@ import type {
   LinkUnderline,
   LinkUnderlineMode
 } from "./src/link";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { LinkClickHandler, LinkProps, LinkTarget, LinkType, LinkUnderline, LinkUnderlineMode };
 

@@ -1,6 +1,6 @@
 import ImportWizard from "./src/import-wizard.vue";
 import type { ImportWizardProps, ImportWizardStep } from "./src/import-wizard";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ImportWizardProps, ImportWizardStep };
 

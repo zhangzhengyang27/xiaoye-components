@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import {
   Comment,
   Fragment,
@@ -12,7 +12,7 @@ import {
   watch,
   type VNode
 } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import {
   ALERT_CLOSE_ICON,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, getCurrentInstance, inject, onBeforeUnmount, ref } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { SplitterPanelProps } from "./split-panel";
 import { splitterContextKey } from "./context";
 import SplitBar from "./split-bar.vue";

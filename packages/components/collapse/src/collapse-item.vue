@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import XyCollapseTransition from "../../collapse-transition";
 import { collapseContextKey } from "./context";
 import type { CollapseItemProps } from "./collapse-item";

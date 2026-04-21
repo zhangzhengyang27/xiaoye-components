@@ -10,8 +10,8 @@ export default createLibraryConfig({
   dtsInclude: [
     "packages/components/**/*.ts",
     "packages/components/**/*.vue",
-    "packages/composables/**/*.ts",
-    "packages/utils/**/*.ts",
+    "packages/xiaoye-primitives/src/composables/**/*.ts",
+    "packages/xiaoye-primitives/src/utils/**/*.ts",
     "packages/tokens/**/*.ts",
     "packages/xiaoye-components/**/*.ts"
   ]

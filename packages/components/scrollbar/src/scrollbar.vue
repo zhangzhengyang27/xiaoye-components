@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, onUpdated, ref, watch } from "vue";
 import type { CSSProperties, StyleValue } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { ScrollbarDirection, ScrollbarProps, ScrollbarScrollPayload } from "./scrollbar";
 
 const BAR_GAP = 4;

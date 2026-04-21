@@ -1,8 +1,8 @@
 import Radio from "./src/radio.vue";
 import RadioButton from "./src/radio-button.vue";
 import RadioGroup from "./src/radio-group.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type {
   RadioGroupDirection,
   RadioGroupOptionSlotProps,

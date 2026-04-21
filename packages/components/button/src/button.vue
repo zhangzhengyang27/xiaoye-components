@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs, watchEffect } from "vue"
-import { useNamespace } from "@xiaoye/composables"
-import { isDev, warnOnce } from "@xiaoye/utils"
+import { useNamespace } from "@xiaoye/primitives"
+import { isDev, warnOnce } from "@xiaoye/primitives"
 import XyIcon from "../../icon"
 import { DEFAULT_LOADING_ICON } from "./button"
 import type { ButtonProps } from "./button"

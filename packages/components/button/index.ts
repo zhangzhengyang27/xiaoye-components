@@ -8,7 +8,7 @@ import type {
   ButtonType
 } from "./src/button";
 import type { ButtonGroupDirection, ButtonGroupProps } from "./src/button-group";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   ButtonClickHandler,

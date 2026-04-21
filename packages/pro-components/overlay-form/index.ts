@@ -4,7 +4,7 @@ import type {
   OverlayFormProps,
   OverlayFormSubmitPayload
 } from "./src/overlay-form";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   OverlayFormInstance,

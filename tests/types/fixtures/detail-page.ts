@@ -35,7 +35,28 @@ const props: DetailPageProps = {
   sections: [
     {
       key: "basic",
-      title: "基础信息"
+      title: "基础信息",
+      model: {
+        status: "approved"
+      },
+      schema: [
+        {
+          prop: "status",
+          label: "状态",
+          valueType: "tag",
+          options: [
+            {
+              label: "已通过",
+              value: "approved",
+              status: "success"
+            }
+          ]
+        }
+      ],
+      descriptionsProps: {
+        column: 2,
+        border: true
+      }
     }
   ],
   attachments

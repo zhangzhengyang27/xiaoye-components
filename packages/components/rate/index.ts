@@ -7,7 +7,7 @@ import type {
   RateProps,
   RateValueChangeHandler
 } from "./src/rate";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   RateColorMap,

@@ -1,0 +1,30 @@
+<script setup lang="ts">
+import { ref } from "vue";
+
+const product = ref({
+  image: "https://picsum.photos/400/400?random=30",
+  title: "Apple iPhone 15 Pro Max 256GB",
+  description: "全新A17 Pro芯片，钛金属设计，Action按钮",
+  price: 9999,
+  originalPrice: 10999
+});
+</script>
+
+<template>
+  <div class="demo-product-card-horizontal">
+    <xy-product-card
+      :image="product.image"
+      :title="product.title"
+      :description="product.description"
+      :price="product.price"
+      :original-price="product.originalPrice"
+      :horizontal="true"
+    />
+  </div>
+</template>
+
+<style scoped>
+.demo-product-card-horizontal {
+  max-width: 500px;
+}
+</style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, toRaw, watch, useSlots, type Component } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import {
   XyAvatar,
   XyButton,

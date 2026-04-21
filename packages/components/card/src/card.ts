@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { StyleValue } from "vue";
 
 export const cardShadows = ["always", "hover", "never"] as const;

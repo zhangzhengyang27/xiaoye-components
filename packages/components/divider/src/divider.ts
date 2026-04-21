@@ -1,4 +1,4 @@
-import type { ComponentSize, ComponentStatus } from "@xiaoye/utils";
+import type { ComponentSize, ComponentStatus } from "@xiaoye/primitives";
 
 export const dividerDirections = ["horizontal", "vertical"] as const;
 export const dividerContentPositions = ["left", "center", "right"] as const;

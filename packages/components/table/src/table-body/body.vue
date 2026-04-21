@@ -68,6 +68,11 @@ const props = withDefaults(
     preserveExpandedContent?: boolean;
     tableLayout?: "fixed" | "auto";
     showHeader?: boolean;
+    virtual?: boolean;
+    virtualItemSize?: number;
+    virtualOverscan?: number;
+    scrollTop?: number;
+    viewportHeight?: number;
   }>(),
   {
     columns: undefined,
@@ -89,7 +94,12 @@ const props = withDefaults(
     rightFixedWidth: 0,
     preserveExpandedContent: false,
     tableLayout: "fixed",
-    showHeader: true
+    showHeader: true,
+    virtual: false,
+    virtualItemSize: 48,
+    virtualOverscan: 6,
+    scrollTop: 0,
+    viewportHeight: 0
   }
 );
 
@@ -121,7 +131,7 @@ const shouldUseAutoColgroup = computed(
 const shouldRenderSizingHeader = computed(
   () => props.panel === "main" && props.tableLayout === "auto" && props.showHeader
 );
-const renderRows = computed(() => {
+const allRenderRows = computed(() => {
   const skipped = new Set<string>();
 
   return props.store.bodyRows.value.map((item) => {
@@ -199,6 +209,36 @@ const renderRows = computed(() => {
     };
   });
 });
+const virtualWindow = computed(() => {
+  if (!props.virtual) {
+    return {
+      start: 0,
+      end: allRenderRows.value.length,
+      top: 0,
+      bottom: 0
+    };
+  }
+
+  const itemSize = Math.max(1, Math.round(props.virtualItemSize));
+  const overscan = Math.max(0, Math.floor(props.virtualOverscan));
+  const total = allRenderRows.value.length;
+  const viewportHeight = Math.max(itemSize, Math.round(props.viewportHeight || itemSize * 8));
+  const start = Math.max(0, Math.floor((props.scrollTop || 0) / itemSize) - overscan);
+  const end = Math.min(
+    total,
+    Math.ceil(((props.scrollTop || 0) + viewportHeight) / itemSize) + overscan
+  );
+
+  return {
+    start,
+    end,
+    top: start * itemSize,
+    bottom: Math.max(0, (total - end) * itemSize)
+  };
+});
+const renderRows = computed(() =>
+  allRenderRows.value.slice(virtualWindow.value.start, virtualWindow.value.end)
+);
 
 watch(
   () => props.store.bodyRows.value.map((item) => `${String(item.key)}:${item.expanded ? 1 : 0}`).join("|"),
@@ -259,21 +299,33 @@ function resolveRowClassName(row: T, rowIndex: number) {
 
 function resolveRowStyle(row: T, rowIndex: number) {
   const callback = props.rowStyle as any;
-  return typeof props.rowStyle === "function"
-    ? prefersObjectCallbackSignature(callback)
-      ? callback({
-          row,
-          rowIndex
-        })
-      : callback(row, rowIndex)
-    : props.rowStyle;
+  const resolvedStyle =
+    typeof props.rowStyle === "function"
+      ? prefersObjectCallbackSignature(callback)
+        ? callback({
+            row,
+            rowIndex
+          })
+        : callback(row, rowIndex)
+      : props.rowStyle;
+
+  if (!props.virtual) {
+    return resolvedStyle;
+  }
+
+  return [
+    resolvedStyle,
+    {
+      height: `${Math.max(1, props.virtualItemSize)}px`
+    }
+  ];
 }
 
 function resolveCellClassName(cell: RenderCell<T>) {
   const className =
     typeof props.cellClassName === "function" ? props.cellClassName(cell.meta) : props.cellClassName;
   const endsAtLastBodyRow =
-    cell.span.rowspan > 1 && cell.meta.rowIndex + cell.span.rowspan >= renderRows.value.length;
+    cell.span.rowspan > 1 && cell.meta.rowIndex + cell.span.rowspan >= allRenderRows.value.length;
 
   return [
     "xy-table__cell",
@@ -389,6 +441,10 @@ function resolveRowEventColumn(event: MouseEvent | KeyboardEvent) {
 }
 
 function shouldRenderExpandedRow(row: T, rowIndex: number) {
+  if (props.virtual) {
+    return false;
+  }
+
   if (props.expandedRowMode === "none") {
     return false;
   }
@@ -545,6 +601,17 @@ defineExpose({
       </tr>
     </thead>
     <tbody v-if="renderRows.length > 0">
+      <tr
+        v-if="props.virtual && virtualWindow.top > 0"
+        class="xy-table__virtual-spacer-row"
+        aria-hidden="true"
+      >
+        <td
+          class="xy-table__virtual-spacer"
+          :colspan="Math.max(1, leafColumns.length)"
+          :style="{ height: `${virtualWindow.top}px` }"
+        />
+      </tr>
       <template v-for="rowState in renderRows" :key="rowState.item.key">
         <tr
           :class="resolveRowClassName(rowState.item.row, rowState.item.rowIndex)"
@@ -689,6 +756,17 @@ defineExpose({
           </td>
         </tr>
       </template>
+      <tr
+        v-if="props.virtual && virtualWindow.bottom > 0"
+        class="xy-table__virtual-spacer-row"
+        aria-hidden="true"
+      >
+        <td
+          class="xy-table__virtual-spacer"
+          :colspan="Math.max(1, leafColumns.length)"
+          :style="{ height: `${virtualWindow.bottom}px` }"
+        />
+      </tr>
     </tbody>
   </table>
 </template>

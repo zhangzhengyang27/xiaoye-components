@@ -1,5 +1,5 @@
 import { computed, inject, ref } from "vue";
-import { useConfig } from "@xiaoye/composables";
+import { useConfig } from "@xiaoye/primitives";
 import { formKey } from "../../form/src/context";
 import type { ButtonProps, ButtonType } from "./button";
 import { buttonGroupContextKey } from "./constants";

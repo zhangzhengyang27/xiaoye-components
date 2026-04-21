@@ -1,7 +1,7 @@
 import Collapse from "./src/collapse.vue";
 import CollapseItem from "./src/collapse-item.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type { CollapseInstance, CollapseProps } from "./src/collapse";
 import type {
   CollapseItemInstance,

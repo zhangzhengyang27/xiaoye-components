@@ -2,14 +2,14 @@
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
-import { focusFirstDescendant } from "@xiaoye/utils";
+import { focusFirstDescendant } from "@xiaoye/primitives";
 import {
   useDismissibleLayer,
   useFloatingPanel,
   useFloatingVisibility,
   useOverlayStack,
   useNamespace
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 
 export interface PopoverProps {
   modelValue?: boolean;

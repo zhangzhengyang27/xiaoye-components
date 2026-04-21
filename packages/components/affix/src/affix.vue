@@ -11,7 +11,7 @@ import {
   watch
 } from "vue";
 import type { CSSProperties } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { AffixProps, AffixScrollPayload } from "./affix";
 
 type ScrollContainer = HTMLElement | Window;

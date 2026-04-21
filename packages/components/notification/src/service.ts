@@ -1,6 +1,6 @@
 import { createVNode, isVNode, nextTick, render } from "vue";
 import type { AppContext, ComponentInternalInstance, VNode } from "vue";
-import { warnOnce } from "@xiaoye/utils";
+import { warnOnce } from "@xiaoye/primitives";
 import {
   configProviderKey,
   getGlobalNotificationConfig,

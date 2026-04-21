@@ -3,7 +3,7 @@ defineOptions({
   name: "XyMenuItemGroup"
 });
 
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { MenuItemGroupProps } from "./menu-item-group";
 
 const props = withDefaults(defineProps<MenuItemGroupProps>(), {

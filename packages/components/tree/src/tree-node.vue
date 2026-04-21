@@ -97,7 +97,7 @@ import {
   ref,
   watch
 } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { XyCheckbox } from "../../checkbox";
 import { XyCollapseTransition } from "../../collapse-transition";
 import { XyIcon } from "../../icon";

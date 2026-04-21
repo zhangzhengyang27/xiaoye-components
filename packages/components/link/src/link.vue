@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs, useSlots } from "vue";
 import type { AnchorHTMLAttributes } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import type { LinkProps, LinkUnderlineMode } from "./link";
 

@@ -5,7 +5,7 @@ defineOptions({
 });
 
 import { computed, useAttrs } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { StatisticProps } from "./statistic";
 
 const props = withDefaults(defineProps<StatisticProps>(), {

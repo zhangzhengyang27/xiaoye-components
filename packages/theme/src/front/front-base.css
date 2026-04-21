@@ -1,0 +1,144 @@
+/* ============================================================
+   xiaoye-ui 前台主题 - 基础 reset
+   为 xyu-* 组件提供默认样式覆盖
+   ============================================================ */
+
+/* Phase 2 组件 token */
+@import "./themes/space-tokens.css";
+@import "./themes/progress-tokens.css";
+@import "./themes/steps-tokens.css";
+@import "./themes/alert-tokens.css";
+@import "./themes/rate-tokens.css";
+@import "./themes/input-tag-tokens.css";
+
+/* 按钮基础 */
+.xyu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--xyu-font-sans);
+  font-size: var(--xyu-text-base);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--xyu-radius-md);
+  cursor: pointer;
+  transition: all var(--xyu-transition-fast);
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: none;
+}
+
+.xyu-btn:focus-visible {
+  box-shadow: var(--xyu-focus-ring);
+}
+
+.xyu-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* 输入框基础 */
+.xyu-input__wrapper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--xyu-border);
+  border-radius: var(--xyu-radius-md);
+  background: var(--xyu-bg);
+  transition: border-color var(--xyu-transition-fast), box-shadow var(--xyu-transition-fast);
+  overflow: hidden;
+}
+
+.xyu-input__wrapper:focus-within {
+  border-color: var(--xyu-border-focus);
+  box-shadow: var(--xyu-focus-ring);
+}
+
+.xyu-input__wrapper.is-disabled {
+  background: var(--xyu-bg-secondary);
+  border-color: var(--xyu-border-disabled);
+  cursor: not-allowed;
+}
+
+.xyu-input__inner {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--xyu-font-sans);
+  font-size: var(--xyu-text-base);
+  color: var(--xyu-text-primary);
+  padding: 0;
+}
+
+.xyu-input__inner::placeholder {
+  color: var(--xyu-text-tertiary);
+}
+
+/* 卡片基础 */
+.xyu-card {
+  background: var(--xyu-bg);
+  border-radius: var(--xyu-radius-lg);
+  border: 1px solid var(--xyu-border);
+  box-shadow: var(--xyu-shadow-xs);
+  transition: box-shadow var(--xyu-transition), transform var(--xyu-transition);
+}
+
+.xyu-card--hoverable:hover {
+  box-shadow: var(--xyu-shadow-md);
+  transform: translateY(-1px);
+}
+
+/* 标签基础 */
+.xyu-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: var(--xyu-text-xs);
+  line-height: var(--xyu-leading-normal);
+  border-radius: var(--xyu-radius-sm);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* 下拉/弹出层基础 */
+.xyu-popper {
+  background: var(--xyu-bg);
+  border: 1px solid var(--xyu-border);
+  border-radius: var(--xyu-radius-lg);
+  box-shadow: var(--xyu-shadow-lg);
+}
+
+/* 遮罩层 */
+.xyu-overlay {
+  background: var(--xyu-bg-overlay);
+}
+
+/* 滚动条样式 */
+.xyu-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.xyu-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.xyu-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--xyu-border);
+  border-radius: 3px;
+}
+
+.xyu-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--xyu-border-hover);
+}
+
+/* 选中态 */
+.xyu-checked {
+  background-color: var(--xyu-primary);
+  border-color: var(--xyu-primary);
+  color: #fff;
+}

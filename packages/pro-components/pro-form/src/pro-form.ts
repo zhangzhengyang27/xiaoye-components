@@ -1,5 +1,5 @@
-import type { ComponentSize } from "@xiaoye/utils";
-import type { FormProp, FormRules } from "@xiaoye/components";
+import type { ComponentSize } from "@xiaoye/primitives";
+import type { DescriptionsProps, FormProp, FormRules } from "@xiaoye/components";
 import type { ProFieldSchema } from "../../core";
 
 export interface ProFormProps {
@@ -14,6 +14,7 @@ export interface ProFormProps {
   columns?: number;
   loading?: boolean;
   readonly?: boolean;
+  readonlyDescriptionsProps?: Omit<DescriptionsProps, "items" | "title" | "extra">;
   submitting?: boolean;
   submitText?: string;
   resetText?: string;

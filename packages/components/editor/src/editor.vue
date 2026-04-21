@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { EditorProps } from "./editor";
 
 defineOptions({

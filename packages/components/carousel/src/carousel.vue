@@ -21,7 +21,7 @@ import {
   type CarouselType
 } from "./carousel";
 import { carouselContextKey } from "./context";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 
 const props = defineProps({
   initialIndex: {
@@ -1194,9 +1194,9 @@ const PlaceholderItems = () => placeholderSlideNodes.value;
       <div class="xy-carousel__thumbs-track" :style="thumbsTrackStyle">
         <button
           v-for="(item, index) in items"
+          v-show="isTwoLengthVisible(index)"
           :key="`thumb-${item.uid}`"
           :ref="(el) => setThumbRef(index, el)"
-          v-show="isTwoLengthVisible(index)"
           :class="[
             'xy-carousel__thumb',
             `xy-carousel__thumb--${props.thumbsIndicatorType}`,
@@ -1277,8 +1277,8 @@ const PlaceholderItems = () => placeholderSlideNodes.value;
         <ul v-if="showIndicators" :class="indicatorsClasses">
           <li
             v-for="(snapPoint, index) in snapPoints"
-            :key="`indicator-${snapPoint}`"
             v-show="isTwoLengthVisible(index)"
+            :key="`indicator-${snapPoint}`"
             :class="[
               'xy-carousel__indicator',
               `xy-carousel__indicator--${props.direction}`,
@@ -1324,9 +1324,9 @@ const PlaceholderItems = () => placeholderSlideNodes.value;
       <div class="xy-carousel__thumbs-track" :style="thumbsTrackStyle">
         <button
           v-for="(item, index) in items"
+          v-show="isTwoLengthVisible(index)"
           :key="`thumb-${item.uid}`"
           :ref="(el) => setThumbRef(index, el)"
-          v-show="isTwoLengthVisible(index)"
           :class="[
             'xy-carousel__thumb',
             `xy-carousel__thumb--${props.thumbsIndicatorType}`,

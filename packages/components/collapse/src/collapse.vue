@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, ref, watch } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { collapseContextKey } from "./context";
 import { ensureCollapseNames } from "./collapse";
 import type { CollapseActiveName, CollapseModelValue } from "./context";

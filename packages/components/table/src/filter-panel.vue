@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import type { Placement, ReferenceElement } from "@floating-ui/dom";
-import { useDismissibleLayer, useFloatingPanel, useOverlayStack } from "@xiaoye/composables";
+import { useDismissibleLayer, useFloatingPanel, useOverlayStack } from "@xiaoye/primitives";
 import XyCheckbox from "../../checkbox";
 import type { TableFilterOption, TableFilterValue } from "./table";
 

@@ -7,11 +7,18 @@ import type {
 const props: OverlayFormProps = {
   open: true,
   container: "drawer",
+  mode: "view",
   resetOnClose: true,
   destroyOnClose: true,
   model: {
     name: "成员台账"
-  }
+  },
+  schema: [
+    {
+      prop: "name",
+      label: "名称"
+    }
+  ]
 };
 
 const payload: OverlayFormSubmitPayload = {

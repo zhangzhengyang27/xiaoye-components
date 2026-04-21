@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type RadioValue = string | number | boolean;
 export type RadioValueChangeHandler = (value: RadioValue) => void;

@@ -1,6 +1,6 @@
 import { createApp, defineComponent, h, reactive, ref, toRefs } from "vue";
 import type { AppContext, ComponentPublicInstance, Ref } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { XyLoadingIndicator } from "./shared";
 import type { LoadingOptionsResolved, LoadingText, LoadingUpdatableOptions } from "./types";
 

@@ -5,7 +5,7 @@ import type {
   PaginationPageHandler,
   PaginationProps
 } from "./src/pagination";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   PaginationChangeHandler,

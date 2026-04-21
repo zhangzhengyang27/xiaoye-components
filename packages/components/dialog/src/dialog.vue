@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, getCurrentInstance, nextTick, ref, useSlots, watch } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import { resolveLoadingVisualConfig } from "../../loading/src/shared";
 import DialogContent from "./dialog-content.vue";
 import { dialogProps } from "./dialog";

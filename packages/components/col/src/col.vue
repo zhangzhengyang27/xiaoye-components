@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject } from "vue";
 import type { CSSProperties } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { rowContextKey } from "../../row/src/row";
 import { colBreakpoints, colPositionProps } from "./col";
 import type { ColBreakpoint, ColProps, ColSize, ColSizeObject, ColPositionProp } from "./col";

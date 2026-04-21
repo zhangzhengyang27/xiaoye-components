@@ -1,4 +1,4 @@
-import { withInstallFunction } from "@xiaoye/utils";
+import { withInstallFunction } from "@xiaoye/primitives";
 import message from "./src/method";
 import type {
   Message,

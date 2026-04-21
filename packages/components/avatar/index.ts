@@ -12,7 +12,7 @@ import type {
   AvatarGroupItemSlotProps,
   AvatarGroupProps
 } from "./src/avatar-group";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   AvatarErrorHandler,

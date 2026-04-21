@@ -5,7 +5,7 @@ import {
   configProviderKey,
   getGlobalLoadingConfig
 } from "../../config-provider/src/context";
-import { warnOnce } from "@xiaoye/utils";
+import { warnOnce } from "@xiaoye/primitives";
 import { createLoadingComponent } from "./loading";
 import type { LoadingInstance } from "./loading";
 import {

@@ -1,5 +1,5 @@
 import type { FormRules } from "@xiaoye/components";
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 import type { ProActionRef, ProFieldSchema, ProRequestContext } from "../../core";
 
 export interface RequestFormSubmitContext extends ProRequestContext {
@@ -15,6 +15,7 @@ export interface RequestFormProps {
   labelWidth?: string | number;
   labelPosition?: "left" | "top";
   size?: ComponentSize;
+  readonly?: boolean;
   immediate?: boolean;
   initialRequest?: (ctx: ProRequestContext) => Promise<Record<string, unknown>>;
   submitRequest?: (ctx: RequestFormSubmitContext) => Promise<unknown>;

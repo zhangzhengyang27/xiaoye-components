@@ -1,0 +1,206 @@
+[
+  {
+    "name": "product-card",
+    "docsText": "ProductCard 商品卡片",
+    "installExports": ["XyuProductCard"],
+    "styleImports": ["product-card"]
+  },
+  {
+    "name": "marketing-modal",
+    "docsText": "MarketingModal 营销弹层",
+    "installExports": ["XyuMarketingModal"],
+    "styleImports": ["marketing-modal"]
+  },
+  {
+    "name": "image-gallery",
+    "docsText": "ImageGallery 图片画廊",
+    "installExports": ["XyuImageGallery"],
+    "styleImports": ["image-gallery"]
+  },
+  {
+    "name": "sku-selector",
+    "docsText": "SkuSelector SKU选择器",
+    "installExports": ["XyuSkuSelector"],
+    "styleImports": ["sku-selector"]
+  },
+  {
+    "name": "address-picker",
+    "docsText": "AddressPicker 地址选择器",
+    "installExports": ["XyuAddressPicker"],
+    "styleImports": ["address-picker"]
+  },
+  {
+    "name": "button",
+    "docsText": "Button 按钮",
+    "installExports": ["XyuButton"],
+    "styleImports": ["button"]
+  },
+  {
+    "name": "input",
+    "docsText": "Input 输入框",
+    "installExports": ["XyuInput"],
+    "styleImports": ["input"]
+  },
+  {
+    "name": "text",
+    "docsText": "Text 文本",
+    "installExports": ["XyuText"],
+    "styleImports": ["text"]
+  },
+  {
+    "name": "link",
+    "docsText": "Link 链接",
+    "installExports": ["XyuLink"],
+    "styleImports": ["link"]
+  },
+  {
+    "name": "tag",
+    "docsText": "Tag 标签",
+    "installExports": ["XyuTag"],
+    "styleImports": ["tag"]
+  },
+  {
+    "name": "badge",
+    "docsText": "Badge 徽标",
+    "installExports": ["XyuBadge"],
+    "styleImports": ["badge"]
+  },
+  {
+    "name": "select",
+    "docsText": "Select 选择器",
+    "installExports": ["XyuSelect"],
+    "styleImports": ["select"]
+  },
+  {
+    "name": "checkbox",
+    "docsText": "Checkbox 多选框",
+    "installExports": ["XyuCheckbox"],
+    "styleImports": ["checkbox"]
+  },
+  {
+    "name": "radio",
+    "docsText": "Radio 单选框",
+    "installExports": ["XyuRadio"],
+    "styleImports": ["radio"]
+  },
+  {
+    "name": "switch",
+    "docsText": "Switch 开关",
+    "installExports": ["XyuSwitch"],
+    "styleImports": ["switch"]
+  },
+  {
+    "name": "input-number",
+    "docsText": "InputNumber 数字输入",
+    "installExports": ["XyuInputNumber"],
+    "styleImports": ["input-number"]
+  },
+  {
+    "name": "slider",
+    "docsText": "Slider 滑块",
+    "installExports": ["XyuSlider"],
+    "styleImports": ["slider"]
+  },
+  {
+    "name": "avatar",
+    "docsText": "Avatar 头像",
+    "installExports": ["XyuAvatar"],
+    "styleImports": ["avatar"]
+  },
+  {
+    "name": "image",
+    "docsText": "Image 图片",
+    "installExports": ["XyuImage"],
+    "styleImports": ["image"]
+  },
+  {
+    "name": "empty",
+    "docsText": "Empty 空状态",
+    "installExports": ["XyuEmpty"],
+    "styleImports": ["empty"]
+  },
+  {
+    "name": "skeleton",
+    "docsText": "Skeleton 骨架屏",
+    "installExports": ["XyuSkeleton"],
+    "styleImports": ["skeleton"]
+  },
+  {
+    "name": "tabs",
+    "docsText": "Tabs 标签页",
+    "installExports": ["XyuTabs", "XyuTabPane"],
+    "styleImports": ["tabs"]
+  },
+  {
+    "name": "dropdown",
+    "docsText": "Dropdown 下拉菜单",
+    "installExports": ["XyuDropdown"],
+    "styleImports": ["dropdown"]
+  },
+  {
+    "name": "tooltip",
+    "docsText": "Tooltip 文字提示",
+    "installExports": ["XyuTooltip"],
+    "styleImports": ["tooltip"]
+  },
+  {
+    "name": "dialog",
+    "docsText": "Dialog 对话框",
+    "installExports": ["XyuDialog"],
+    "styleImports": ["dialog"]
+  },
+  {
+    "name": "drawer",
+    "docsText": "Drawer 抽屉",
+    "installExports": ["XyuDrawer"],
+    "styleImports": ["drawer"]
+  },
+  {
+    "name": "message",
+    "docsText": "Message 消息提示",
+    "installExports": ["XyuMessage"],
+    "styleImports": ["message"]
+  },
+  {
+    "name": "notification",
+    "docsText": "Notification 通知",
+    "installExports": ["XyuNotification"],
+    "styleImports": ["notification"]
+  },
+  {
+    "name": "space",
+    "docsText": "Space 间距",
+    "installExports": ["XyuSpace"],
+    "styleImports": ["space"]
+  },
+  {
+    "name": "progress",
+    "docsText": "Progress 进度条",
+    "installExports": ["XyuProgress"],
+    "styleImports": ["progress"]
+  },
+  {
+    "name": "steps",
+    "docsText": "Steps 步骤条",
+    "installExports": ["XyuSteps", "XyuStep"],
+    "styleImports": ["steps"]
+  },
+  {
+    "name": "alert",
+    "docsText": "Alert 警告提示",
+    "installExports": ["XyuAlert"],
+    "styleImports": ["alert"]
+  },
+  {
+    "name": "rate",
+    "docsText": "Rate 评分",
+    "installExports": ["XyuRate"],
+    "styleImports": ["rate"]
+  },
+  {
+    "name": "input-tag",
+    "docsText": "InputTag 标签输入",
+    "installExports": ["XyuInputTag"],
+    "styleImports": ["input-tag"]
+  }
+]

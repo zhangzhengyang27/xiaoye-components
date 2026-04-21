@@ -9,7 +9,7 @@ import type {
   InputType,
   InputValueChangeHandler
 } from "./src/input";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   InputAutoSize,

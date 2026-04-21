@@ -29,8 +29,8 @@ onMounted(() => {
     <div v-if="!timedOut" class="countdown-approval-panel__body">
       <div class="countdown-approval-panel__summary">
         <xy-countdown
-          class="countdown-approval-panel__countdown"
           v-if="deadline"
+          class="countdown-approval-panel__countdown"
           :value="deadline"
           format="HH:mm:ss"
           @finish="timedOut = true"
@@ -64,8 +64,8 @@ onMounted(() => {
     </div>
 
     <xy-result
-      class="countdown-approval-panel__result"
       v-else
+      class="countdown-approval-panel__result"
       title="审批已自动退回"
       description="处理窗口已经结束，系统已撤回本次申请并向提交人发送了站内通知。你可以查看历史记录或重新发起审批。"
       status="warning"

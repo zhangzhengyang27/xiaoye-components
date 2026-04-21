@@ -15,7 +15,7 @@ import {
   watch
 } from "vue";
 import type { Component, StyleValue, VNode } from "vue";
-import { useFloatingPanel, useNamespace } from "@xiaoye/composables";
+import { useFloatingPanel, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import XyMenuCollapseTransition from "./menu-collapse-transition.vue";
 import { subMenuContextKey } from "./tokens";

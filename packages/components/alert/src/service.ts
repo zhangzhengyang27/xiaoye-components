@@ -1,5 +1,5 @@
 import { createApp, type App } from "vue";
-import { warnOnce } from "@xiaoye/utils";
+import { warnOnce } from "@xiaoye/primitives";
 import type { AlertServiceHandle, AlertServiceOptions } from "./alert";
 import AlertServiceContainer from "./alert-service-container.vue";
 import {

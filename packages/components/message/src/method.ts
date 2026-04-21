@@ -1,6 +1,6 @@
 import { createVNode, isVNode, render } from "vue";
 import type { AppContext } from "vue";
-import { warnOnce } from "@xiaoye/utils";
+import { warnOnce } from "@xiaoye/primitives";
 import {
   configProviderKey,
   getGlobalMessageConfig,

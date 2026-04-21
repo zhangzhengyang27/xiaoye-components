@@ -2,8 +2,8 @@ import Menu from "./src/menu.vue";
 import MenuItem from "./src/menu-item.vue";
 import MenuItemGroup from "./src/menu-item-group.vue";
 import SubMenu from "./src/sub-menu.vue";
-import type { SFCWithInstall } from "@xiaoye/utils";
-import { withInstall } from "@xiaoye/utils";
+import type { SFCWithInstall } from "@xiaoye/primitives";
+import { withInstall } from "@xiaoye/primitives";
 import type {
   MenuActiveIndexChangeHandler,
   MenuCloseEvent,

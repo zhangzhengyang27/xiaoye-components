@@ -3,7 +3,7 @@ import type {
   ImportResultSummary,
   ImportResultTableProps
 } from "./src/import-result-table";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ImportResultSummary, ImportResultTableProps };
 

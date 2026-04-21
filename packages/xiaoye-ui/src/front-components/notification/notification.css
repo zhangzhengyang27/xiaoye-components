@@ -1,0 +1,79 @@
+/* ============================================================
+   xyu-notification 样式
+   ============================================================ */
+
+.xyu-notification {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 360px;
+  padding: 16px;
+  background: var(--xyu-bg);
+  border: 1px solid var(--xyu-border);
+  border-radius: var(--xyu-radius-xl);
+  box-shadow: var(--xyu-shadow-xl);
+  font-family: var(--xyu-font-sans);
+  position: fixed;
+  pointer-events: auto;
+}
+
+.xyu-notification__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.xyu-notification--success .xyu-notification__icon { color: var(--xyu-success); }
+.xyu-notification--warning .xyu-notification__icon { color: var(--xyu-warning); }
+.xyu-notification--error .xyu-notification__icon { color: var(--xyu-error); }
+.xyu-notification--info .xyu-notification__icon { color: var(--xyu-info); }
+
+.xyu-notification__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.xyu-notification__title {
+  font-size: var(--xyu-text-base);
+  font-weight: 600;
+  color: var(--xyu-text-primary);
+  line-height: var(--xyu-leading-tight);
+  margin-bottom: 4px;
+}
+
+.xyu-notification__message {
+  font-size: var(--xyu-text-sm);
+  color: var(--xyu-text-secondary);
+  line-height: var(--xyu-leading-normal);
+}
+
+.xyu-notification__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--xyu-text-tertiary);
+  padding: 2px;
+  border-radius: 50%;
+  transition: color var(--xyu-transition-fast);
+  flex-shrink: 0;
+}
+
+.xyu-notification__close:hover {
+  color: var(--xyu-text-secondary);
+}
+
+/* 动画 */
+@keyframes xyu-notification-enter {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes xyu-notification-leave {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(100%); }
+}
+
+.xyu-notification-enter-active { animation: xyu-notification-enter 0.25s ease-out; }
+.xyu-notification-leave-active { animation: xyu-notification-leave 0.2s ease-in; }

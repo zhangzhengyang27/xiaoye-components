@@ -4,7 +4,7 @@ defineOptions({
 });
 
 import { computed, inject, nextTick, onBeforeUnmount, shallowRef, useAttrs, watch } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import { formItemKey } from "../../form/src/context";
 import UploadContent from "./upload-content.vue";
 import UploadList from "./upload-list.vue";

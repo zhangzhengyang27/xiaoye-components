@@ -1,0 +1,90 @@
+/* ============================================================
+   xyu-link 样式
+   ============================================================ */
+
+.xyu-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--xyu-font-sans);
+  font-size: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--xyu-transition-fast);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.xyu-link:focus-visible {
+  outline: none;
+  box-shadow: var(--xyu-focus-ring);
+  border-radius: 2px;
+}
+
+/* ---- underline ---- */
+.xyu-link.is-underline-always {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.xyu-link.is-underline-hover:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.xyu-link.is-underline-never {
+  text-decoration: none;
+}
+
+/* ---- 类型 ---- */
+.xyu-link--default {
+  color: var(--xyu-text-primary);
+}
+
+.xyu-link--default:hover:not(.is-disabled) {
+  color: var(--xyu-primary);
+}
+
+.xyu-link--primary {
+  color: var(--xyu-primary);
+}
+
+.xyu-link--primary:hover:not(.is-disabled) {
+  color: var(--xyu-primary-hover);
+}
+
+.xyu-link--success {
+  color: var(--xyu-success);
+}
+
+.xyu-link--success:hover:not(.is-disabled) {
+  filter: brightness(0.88);
+}
+
+.xyu-link--warning {
+  color: var(--xyu-warning);
+}
+
+.xyu-link--warning:hover:not(.is-disabled) {
+  filter: brightness(0.88);
+}
+
+.xyu-link--danger {
+  color: var(--xyu-error);
+}
+
+.xyu-link--danger:hover:not(.is-disabled) {
+  filter: brightness(0.88);
+}
+
+.xyu-link--info {
+  color: var(--xyu-info);
+}
+
+/* ---- disabled ---- */
+.xyu-link.is-disabled {
+  color: var(--xyu-text-disabled);
+  cursor: not-allowed;
+  text-decoration: none;
+}

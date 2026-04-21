@@ -4,7 +4,7 @@ import type {
   AvatarMenuItem,
   AvatarMenuProps
 } from "./src/avatar-menu";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { AvatarMenuCommand, AvatarMenuItem, AvatarMenuProps };
 

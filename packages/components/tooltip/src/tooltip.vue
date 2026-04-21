@@ -5,7 +5,7 @@ defineOptions({
 
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import type { ReferenceElement, Strategy } from "@floating-ui/dom";
-import { useDismissibleLayer, useFloatingPanel, useFloatingVisibility, useOverlayStack } from "@xiaoye/composables";
+import { useDismissibleLayer, useFloatingPanel, useFloatingVisibility, useOverlayStack } from "@xiaoye/primitives";
 import XyTooltipContent from "./content.vue";
 import XyTooltipTrigger from "./trigger.vue";
 import {

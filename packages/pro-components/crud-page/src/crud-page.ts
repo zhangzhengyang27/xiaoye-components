@@ -1,4 +1,4 @@
-import type { FormRules } from "@xiaoye/components";
+import type { DescriptionsProps, FormRules } from "@xiaoye/components";
 import type { SearchFormField } from "../../search-form";
 import type { ListPageBatchAction } from "../../list-page";
 import type { ProFieldSchema, ProPageAction } from "../../core";
@@ -17,5 +17,7 @@ export interface CrudPageProps<T = Record<string, unknown>> {
   formSchema?: ProFieldSchema[];
   formRules?: FormRules;
   formType?: "drawer" | "modal";
+  detailSchema?: ProFieldSchema[];
+  detailDescriptionsProps?: Omit<DescriptionsProps, "items" | "title" | "extra">;
   detailType?: "drawer" | "dialog" | "none";
 }

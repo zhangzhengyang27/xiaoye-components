@@ -15,6 +15,7 @@ interface ContainerOpts {
 
 const docsRoot = fileURLToPath(new URL("../../", import.meta.url));
 const examplesRoot = path.resolve(docsRoot, "examples");
+const frontExamplesRoot = path.resolve(examplesRoot, "front");
 /**
  * Sandbox 判断逻辑（简化版）
  *
@@ -68,17 +69,51 @@ function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
       const matched = tokens[idx].info.trim().match(/^demo\s*(.*)$/);
 
       if (tokens[idx].nesting === 1) {
-        const description = matched?.[1] ?? "";
-        const sourceFileToken = tokens[idx + 2];
-        const sourceFile = sourceFileToken.children?.[0]?.content?.trim() ?? "";
-        const sourcePath = path.resolve(examplesRoot, `${sourceFile}.vue`);
+        // 路径来源有两种语法：
+        // 1. 单行: :::demo path/to/example  → 路径在 matched[1]，无描述
+        // 2. 两行: :::demo description\npath/to/example\n:::  → 描述在 matched[1]，路径在后续 token 中
+        // 通过路径模式（纯 ASCII 字母数字 + 连字符/斜杠/点）判断 matched[1] 是否为路径
+        let sourceFile = "";
+        let description = "";
+        const matchedPath = matched?.[1] ?? "";
+        const isPathLike = /^[a-zA-Z0-9_/.-]+$/.test(matchedPath);
+        if (isPathLike) {
+          sourceFile = matchedPath;
+        } else {
+          description = matchedPath;
+          for (let i = idx + 2; i < tokens.length; i++) {
+            const token = tokens[i];
+            if (token.type === "container_demo_close") break;
+            const content = token.children?.[0]?.content?.trim() ?? "";
+            if (content && content !== ":::" && /^#[^]/.test(content) === false) {
+              sourceFile = content;
+              break;
+            }
+          }
+        }
+
+        // 前台组件示例在 examples/front/ 下，普通组件在 examples/ 下
+        // 支持 /front/ 和 /components/front/ 两种文档路径
+        // 先尝试普通路径，再尝试前台路径
+        let sourcePath = path.resolve(examplesRoot, `${sourceFile}.vue`);
+        let isFrontExample = false;
+        if (!fs.existsSync(sourcePath)) {
+          sourcePath = path.resolve(frontExamplesRoot, `${sourceFile}.vue`);
+          if (fs.existsSync(sourcePath)) {
+            isFrontExample = true;
+          }
+        }
 
         if (!sourceFile || !fs.existsSync(sourcePath)) {
           throw new Error(`Incorrect source file: ${sourceFile}`);
         }
 
+        // 前台组件示例需要加上 front/ 前缀，以便 Demo.vue 生成正确的 GitHub 链接
+        const demoPath = isFrontExample ? `front/${sourceFile}` : sourceFile;
+
         const source = fs.readFileSync(sourcePath, "utf-8");
         const jsSource = sfcTs2js(source);
+        // 使用原始 sourceFile 生成组件名，与 markdown-transform.ts 保持一致
         const componentName = getDemoComponentName(sourceFile);
         const needsSandbox = shouldEnableSandbox(source);
         const renderCode = (code: string) =>
@@ -89,9 +124,9 @@ function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
           { label: "JS", raw: jsSource, rendered: renderCode(jsSource) }
         ];
 
-        setDemoSource(sourceFile, sourceItems);
+        setDemoSource(demoPath, sourceItems);
 
-        return `<Demo :source-loader="${componentName}SourceLoader" path="${sourceFile}" description="${encodedDescription}"${needsSandbox ? " sandbox" : ""}>
+        return `<Demo :source-loader="${componentName}SourceLoader" path="${demoPath}" description="${encodedDescription}"${needsSandbox ? " sandbox" : ""}>
   <template #source><${componentName} /></template>`;
       }
 

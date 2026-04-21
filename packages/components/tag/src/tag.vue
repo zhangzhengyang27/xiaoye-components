@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { ComponentSize, ComponentStatus } from "@xiaoye/utils";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import type { ComponentSize, ComponentStatus } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import { computed, useSlots } from "vue";
 import XyIcon from "../../icon";
 
@@ -19,6 +19,8 @@ export interface TagProps {
 export type TagCloseHandler = (event: MouseEvent) => void;
 
 const props = withDefaults(defineProps<TagProps>(), {
+  status: undefined,
+  type: undefined,
   size: undefined,
   round: false,
   closable: false,

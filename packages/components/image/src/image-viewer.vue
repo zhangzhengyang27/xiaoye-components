@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
-import { lockBodyScroll, unlockBodyScroll } from "@xiaoye/utils";
+import { lockBodyScroll, unlockBodyScroll } from "@xiaoye/primitives";
 import {
   useFocusTrap,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import type { ImageViewerAction } from "./image";
 

@@ -1,6 +1,6 @@
 import Transfer from "./src/transfer.vue";
 import type { TransferItem, TransferKey, TransferProps } from "./src/transfer";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { TransferItem, TransferKey, TransferProps };
 

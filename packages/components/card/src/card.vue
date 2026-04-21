@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { PropType, StyleValue } from "vue";
-import type { ComponentSize } from "@xiaoye/utils";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import type { ComponentSize } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyEmpty from "../../empty";
 import XyIcon from "../../icon";
 import { cardShadows, cardVariants } from "./card";

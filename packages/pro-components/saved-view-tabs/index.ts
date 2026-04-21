@@ -1,6 +1,6 @@
 import SavedViewTabs from "./src/saved-view-tabs.vue";
 import type { SavedViewTabItem, SavedViewTabsProps } from "./src/saved-view-tabs";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { SavedViewTabItem, SavedViewTabsProps };
 

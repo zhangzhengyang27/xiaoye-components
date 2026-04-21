@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type DatePickerType = "date" | "daterange" | "month" | "year" | "week";
 export type DatePickerValue = string | [string, string] | null;

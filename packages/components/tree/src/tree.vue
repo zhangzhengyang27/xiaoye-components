@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import { computed, getCurrentInstance, nextTick, provide, ref, useSlots, watch, watchEffect } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { XyEmpty } from "../../empty";
 import Node from "./model/node";
 import TreeStore from "./model/tree-store";

@@ -265,6 +265,14 @@
   transition: background-color 0.18s ease;
 }
 
+.xy-table__virtual-spacer-row > .xy-table__virtual-spacer {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  line-height: 0;
+  pointer-events: none;
+}
+
 .xy-table__body-table .xy-table__row:hover > .xy-table__cell {
   background: var(--xy-table-row-hover-background);
 }

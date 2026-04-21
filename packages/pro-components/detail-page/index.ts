@@ -5,7 +5,7 @@ import type {
   DetailPageBreadcrumbItem,
   DetailPageProps
 } from "./src/detail-page";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   DetailPageAction,

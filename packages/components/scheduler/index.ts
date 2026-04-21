@@ -16,7 +16,7 @@ import type {
   SchedulerView,
   SchedulerViewChangePayload
 } from "./src/scheduler";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   SchedulerDateClickPayload,

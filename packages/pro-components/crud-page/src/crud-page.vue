@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<CrudPageProps<any>>(), {
   formSchema: () => [],
   formRules: () => ({}),
   formType: "drawer",
+  detailSchema: () => [],
+  detailDescriptionsProps: () => ({}),
   detailType: "drawer"
 });
 
@@ -169,6 +171,9 @@ const ListPageRenderer = defineComponent({
       v-model:open="detailOpen"
       :container="props.detailType === 'dialog' ? 'dialog' : 'drawer'"
       :title="String(currentRow?.name ?? '详情信息')"
+      :model="currentRow ?? {}"
+      :schema="props.detailSchema"
+      :descriptions-props="props.detailDescriptionsProps"
     >
       <slot name="detail" :row="currentRow" />
     </xy-detail-panel>

@@ -22,7 +22,7 @@ import type {
 } from "./src/alert";
 import { XyAlertService } from "./src/service";
 import type { AlertService } from "./src/service";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   AlertAutoCloseHandler,

@@ -6,7 +6,7 @@ import type {
   CountdownProps,
   CountdownValue
 } from "./src/countdown";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   CountdownChangeHandler,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, provide } from "vue";
 import type { CSSProperties } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { RowProps } from "./row";
 import { rowContextKey } from "./row";
 

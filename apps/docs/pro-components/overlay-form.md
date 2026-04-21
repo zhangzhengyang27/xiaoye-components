@@ -6,7 +6,7 @@ outline: deep
 
 # OverlayForm 覆盖层表单
 
-`xy-overlay-form` 用来统一表达“在当前页面上下文中打开一个覆盖层表单”的能力，通过 `container="drawer" | "modal"` 收口抽屉与弹窗两种编辑容器。
+`xy-overlay-form` 用来统一表达“在当前页面上下文中打开一个覆盖层表单”的能力，通过 `container="drawer" | "modal"` 收口抽屉与弹窗两种编辑容器。若页面已经明确固定使用其中一种容器，也可以直接使用 `xy-dialog-form` 或 `xy-drawer-form` 这两个 facade。
 
 ## 覆盖层编辑场景
 
@@ -22,9 +22,10 @@ pro/overlay-form/close-lifecycle
 
 ## 当前定位
 
-- 统一表达覆盖层编辑，不再要求使用方先区分“抽屉表单”还是“弹窗表单”。
+- 统一表达覆盖层编辑内核，不要求使用方为抽屉和弹窗维护两套底层逻辑。
 - 适合后台列表页中的创建、编辑、补充说明、轻量审批等链路。
 - 在收口后的公开体系里，它应是 `CrudPage`、`ListPage` 和详情链路的上游编辑容器。
+- 当 `mode='view'` 时，会直接切到只读详情展示协议，而不是继续显示禁用态字段控件。
 
 ## OverlayForm API
 

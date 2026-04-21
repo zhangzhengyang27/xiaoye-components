@@ -1,6 +1,11 @@
 import type { SearchFormField } from "../../search-form";
 import type { ButtonType } from "@xiaoye/components";
-import type { ProTableColumn } from "../../pro-table";
+import type {
+  ProTableColumn,
+  ProTableEditableConfig,
+  ProTableVirtualConfig,
+  ProTableWorkbenchConfig
+} from "../../pro-table/src/pro-table";
 import type { ProActionRef, ProPageAction, ProRequestContext, ProRequestResult } from "../../core";
 
 export interface ListPageBatchAction {
@@ -25,6 +30,9 @@ export interface ListPageProps<T = Record<string, unknown>> {
   batchActions?: ListPageBatchAction[];
   immediate?: boolean;
   pageSize?: number;
+  workbench?: ProTableWorkbenchConfig;
+  editable?: ProTableEditableConfig<T>;
+  virtual?: ProTableVirtualConfig;
 }
 
 export interface ListPageActionRef extends ProActionRef {

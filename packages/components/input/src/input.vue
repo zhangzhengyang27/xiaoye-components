@@ -15,7 +15,7 @@ import {
   watch
 } from "vue";
 import type { CSSProperties, StyleValue } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/composables";
+import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import {

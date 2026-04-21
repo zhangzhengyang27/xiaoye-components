@@ -8,7 +8,7 @@ import {
   useFloatingPanel,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/composables";
+} from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import type {

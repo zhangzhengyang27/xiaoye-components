@@ -5,7 +5,7 @@ import type {
   ResultStatus,
   ResultVariant
 } from "./src/result";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { ResultIconType, ResultProps, ResultStatus, ResultVariant };
 

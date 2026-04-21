@@ -14,7 +14,7 @@ import type {
   CheckboxOption
 } from "./src/checkbox-group";
 import type { CheckboxButtonProps } from "./src/checkbox-button";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   CheckboxButtonProps,

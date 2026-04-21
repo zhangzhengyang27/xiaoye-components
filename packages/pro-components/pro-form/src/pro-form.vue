@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, useSlots } from "vue";
-import { useNamespace } from "@xiaoye/composables";
-import { XyButton, XyForm, XyFormItem } from "@xiaoye/components";
+import { useNamespace } from "@xiaoye/primitives";
+import { XyButton, XyDescriptions, XyForm, XyFormItem } from "@xiaoye/components";
 import type { FormProp } from "@xiaoye/components";
 import {
   cloneProValue,
+  resolveProDescriptionsItems,
   resolveProFieldComponent,
   resolveProFieldDisabled,
   resolveProFieldHidden,
@@ -35,6 +36,7 @@ const props = withDefaults(defineProps<ProFormProps>(), {
   columns: 2,
   loading: false,
   readonly: false,
+  readonlyDescriptionsProps: () => ({}),
   submitting: false,
   submitText: "保存",
   resetText: "重置",
@@ -62,8 +64,25 @@ const hasHeader = computed(() =>
   Boolean(props.title) || Boolean(props.description) || Boolean(slots.header)
 );
 const hasSchemaFields = computed(() => visibleSchema.value.length > 0);
+const showReadonlyDescriptions = computed(() => props.readonly && hasSchemaFields.value);
+const readonlyItems = computed(() => resolveProDescriptionsItems(visibleSchema.value, props.model));
+
+const descriptionSlots = computed<Record<string, ((payload?: unknown) => unknown) | undefined>>(() => {
+  const {
+    actions: _actions,
+    header: _header,
+    meta: _meta,
+    ...rest
+  } = slots;
+
+  return rest;
+});
 
 async function submit() {
+  if (props.readonly) {
+    return false;
+  }
+
   const valid = await formRef.value?.validate();
 
   if (!valid) {
@@ -108,7 +127,7 @@ defineExpose({
     </div>
 
     <xy-form
-      v-else
+      v-else-if="!showReadonlyDescriptions"
       ref="formRef"
       :model="props.model"
       :rules="props.rules"
@@ -153,6 +172,23 @@ defineExpose({
         </div>
       </div>
     </xy-form>
+    <xy-descriptions
+      v-else
+      class="xy-pro-form__descriptions"
+      border
+      :column="props.readonlyDescriptionsProps?.column ?? normalizedColumns"
+      :label-width="props.readonlyDescriptionsProps?.labelWidth ?? props.labelWidth"
+      :direction="
+        props.readonlyDescriptionsProps?.direction ??
+        (props.labelPosition === 'left' ? 'horizontal' : 'vertical')
+      "
+      v-bind="props.readonlyDescriptionsProps"
+      :items="readonlyItems"
+    >
+      <template v-for="(_, name) in descriptionSlots" :key="name" #[name]="slotProps">
+        <slot :name="name" v-bind="slotProps ?? {}" />
+      </template>
+    </xy-descriptions>
 
     <div v-if="props.showReset || props.showSubmit || $slots.actions" class="xy-pro-form__footer">
       <slot

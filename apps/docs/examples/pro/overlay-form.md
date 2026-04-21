@@ -17,3 +17,9 @@ pro/overlay-form/placements
 :::demo 对比 `resetOnClose` 与 `destroyOnClose` 的关闭后行为差异。
 pro/overlay-form/close-lifecycle
 :::
+
+## 查看态
+
+:::demo `mode=\"view\"` 现在不再只是把字段 disable 掉，而是直接复用只读详情展示协议。
+pro/overlay-form/view-mode
+:::

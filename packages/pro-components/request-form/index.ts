@@ -1,6 +1,6 @@
 import RequestForm from "./src/request-form.vue";
 import type { RequestFormProps, RequestFormSubmitContext } from "./src/request-form";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type { RequestFormProps, RequestFormSubmitContext };
 

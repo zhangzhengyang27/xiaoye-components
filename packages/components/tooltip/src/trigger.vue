@@ -6,7 +6,7 @@ defineOptions({
 
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 import type { ReferenceElement } from "@floating-ui/dom";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import type { TooltipTrigger } from "./tooltip";
 import {
   includesTooltipTrigger,

@@ -10,7 +10,7 @@ import type {
   ProgressStrokeLinecap,
   ProgressType
 } from "./src/progress";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   ProgressColor,

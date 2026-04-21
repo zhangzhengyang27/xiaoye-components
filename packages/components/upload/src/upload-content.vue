@@ -5,7 +5,7 @@ defineOptions({
 });
 
 import { computed, ref, shallowRef } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import { ajaxUpload, genFileId } from "./upload";
 import type {
   Awaitable,

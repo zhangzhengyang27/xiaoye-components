@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { XyEmpty, XyLink, XyTag, XyText, XyTimeline, XyTimelineItem } from "@xiaoye/components";
-import type { ComponentStatus } from "@xiaoye/utils";
+import type { ComponentStatus } from "@xiaoye/primitives";
 import type {
   AuditTimelineAttachment,
   AuditTimelineEntry,

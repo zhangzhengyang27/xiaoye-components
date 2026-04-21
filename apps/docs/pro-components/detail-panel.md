@@ -23,6 +23,7 @@ pro/detail-panel/containers
 ## 当前边界
 
 - 更复杂的详情区块能力，继续建议通过 `DetailPage + AuditTimeline` 这种页面级组合承接。
+- 当详情字段本身已经有稳定 schema 时，优先直接传 `schema + model`，不要再为简单资料卡重复写一遍模板。
 
 ## DetailPanel API
 
@@ -35,6 +36,9 @@ pro/detail-panel/containers
 | `title` | 标题 | `string` | `'详情信息'` |
 | `description` | 说明文案 | `string` | `''` |
 | `loading` | 是否显示加载态 | `boolean` | `false` |
+| `model` | 当前详情数据对象 | `Record<string, unknown>` | `{}` |
+| `schema` | 只读详情字段 schema，复用增强层显示协议 | `ProFieldSchema[]` | `[]` |
+| `descriptions-props` | 透传给内置 `xy-descriptions` 的属性 | `Omit<DescriptionsProps, 'items' \| 'title' \| 'extra'>` | `{}` |
 | `drawer-props` | 透传给抽屉容器的属性 | `Partial<DrawerProps>` | `{}` |
 | `dialog-props` | 透传给弹窗容器的属性 | `Partial<DialogProps>` | `{}` |
 

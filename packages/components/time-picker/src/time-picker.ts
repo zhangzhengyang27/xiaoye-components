@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/utils";
+import type { ComponentSize } from "@xiaoye/primitives";
 
 export type TimePickerValue = string | [string, string] | null;
 export type TimePickerModelValueChangeHandler = (value: TimePickerValue) => void;

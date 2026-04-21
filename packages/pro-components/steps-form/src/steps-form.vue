@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<StepsFormProps>(), {
   defaultActive: 0,
   loading: false,
   readonly: false,
+  readonlyDescriptionsProps: () => ({}),
   submitting: false,
   nextText: "下一步",
   prevText: "上一步",
@@ -42,6 +43,9 @@ const formRef = ref<ProFormInstance | null>(null);
 const activeBridge = computed(() => props.active ?? innerActive.value);
 const currentStep = computed(() => props.steps[activeBridge.value]);
 const resolvedTitle = computed(() => props.title || "分步表单");
+const showSubmitAction = computed(
+  () => !props.readonly && activeBridge.value === props.steps.length - 1
+);
 
 watch(
   () => props.active,
@@ -84,6 +88,10 @@ async function prev() {
 }
 
 async function submit() {
+  if (props.readonly) {
+    return;
+  }
+
   const valid = await formRef.value?.validate();
 
   if (!valid) {
@@ -139,6 +147,7 @@ defineExpose({
         :schema="currentStep?.schema ?? []"
         :loading="props.loading"
         :readonly="props.readonly"
+        :readonly-descriptions-props="props.readonlyDescriptionsProps"
         :submitting="props.submitting"
         :show-reset="false"
         :show-submit="false"
@@ -157,7 +166,7 @@ defineExpose({
         >
           {{ props.nextText }}
         </xy-button>
-        <xy-button v-else type="primary" :loading="props.submitting" @click="submit">
+        <xy-button v-else-if="showSubmitAction" type="primary" :loading="props.submitting" @click="submit">
           {{ props.submitText }}
         </xy-button>
       </div>
@@ -190,6 +199,7 @@ defineExpose({
       :schema="currentStep?.schema ?? []"
       :loading="props.loading"
       :readonly="props.readonly"
+      :readonly-descriptions-props="props.readonlyDescriptionsProps"
       :submitting="props.submitting"
       :show-reset="false"
       :show-submit="false"
@@ -208,7 +218,7 @@ defineExpose({
       >
         {{ props.nextText }}
       </xy-button>
-      <xy-button v-else type="primary" :loading="props.submitting" @click="submit">
+      <xy-button v-else-if="showSubmitAction" type="primary" :loading="props.submitting" @click="submit">
         {{ props.submitText }}
       </xy-button>
     </div>

@@ -1,0 +1,127 @@
+/* ============================================================
+   xyu-tabs 样式
+   ============================================================ */
+
+.xyu-tabs {
+  font-family: var(--xyu-font-sans);
+}
+
+/* ---- header ---- */
+.xyu-tabs__header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--xyu-border);
+  gap: 0;
+}
+
+/* ---- tab ---- */
+.xyu-tabs__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: var(--xyu-text-base);
+  color: var(--xyu-text-secondary);
+  transition: color var(--xyu-transition-fast);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.xyu-tabs__tab:hover:not(.is-disabled):not(.is-active) {
+  color: var(--xyu-text-primary);
+}
+
+.xyu-tabs__tab.is-active {
+  color: var(--xyu-primary);
+  font-weight: 500;
+}
+
+.xyu-tabs__tab.is-disabled {
+  color: var(--xyu-text-disabled);
+  cursor: not-allowed;
+}
+
+/* ---- line 类型 ---- */
+.xyu-tabs--line .xyu-tabs__tab.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--xyu-primary);
+  border-radius: 1px 1px 0 0;
+}
+
+/* ---- card 类型 ---- */
+.xyu-tabs--card .xyu-tabs__header {
+  border-bottom: none;
+  gap: 4px;
+}
+
+.xyu-tabs--card .xyu-tabs__tab {
+  border: 1px solid var(--xyu-border);
+  border-bottom: none;
+  border-radius: var(--xyu-radius-md) var(--xyu-radius-md) 0 0;
+  background: var(--xyu-bg-secondary);
+  margin-bottom: -1px;
+}
+
+.xyu-tabs--card .xyu-tabs__tab.is-active {
+  background: var(--xyu-bg);
+  border-color: var(--xyu-border);
+  color: var(--xyu-text-primary);
+}
+
+/* ---- border-card 类型 ---- */
+.xyu-tabs--border-card .xyu-tabs__header {
+  background: var(--xyu-bg-secondary);
+  border-radius: var(--xyu-radius-lg) var(--xyu-radius-lg) 0 0;
+  padding: 4px 4px 0;
+  gap: 2px;
+}
+
+.xyu-tabs--border-card .xyu-tabs__tab {
+  border-radius: var(--xyu-radius-md) var(--xyu-radius-md) 0 0;
+  padding: 8px 20px;
+}
+
+.xyu-tabs--border-card .xyu-tabs__tab.is-active {
+  background: var(--xyu-bg);
+  color: var(--xyu-text-primary);
+}
+
+/* ---- 尺寸 ---- */
+.xyu-tabs--sm .xyu-tabs__tab { padding: 6px 12px; font-size: var(--xyu-text-sm); }
+.xyu-tabs--lg .xyu-tabs__tab { padding: 10px 20px; font-size: var(--xyu-text-lg); }
+
+/* ---- close ---- */
+.xyu-tabs__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 1px;
+  border-radius: 50%;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity var(--xyu-transition-fast);
+}
+
+.xyu-tabs__close:hover {
+  opacity: 1;
+}
+
+/* ---- body ---- */
+.xyu-tabs__body {
+  padding: 16px 0;
+}
+
+.xyu-tab-pane {
+  font-size: var(--xyu-text-base);
+  color: var(--xyu-text-primary);
+}

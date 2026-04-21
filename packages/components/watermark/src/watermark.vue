@@ -6,7 +6,7 @@ defineOptions({
 
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef, useAttrs, watch } from "vue";
 import type { CSSProperties, StyleValue } from "vue";
-import { useNamespace } from "@xiaoye/composables";
+import { useNamespace } from "@xiaoye/primitives";
 import useClips from "./use-clips";
 import {
   getPixelRatio,

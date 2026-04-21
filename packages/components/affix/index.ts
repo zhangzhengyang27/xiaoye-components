@@ -8,7 +8,7 @@ import type {
   AffixScrollPayload,
   AffixZIndex
 } from "./src/affix";
-import { withInstall } from "@xiaoye/utils";
+import { withInstall } from "@xiaoye/primitives";
 
 export type {
   AffixChangeHandler,
