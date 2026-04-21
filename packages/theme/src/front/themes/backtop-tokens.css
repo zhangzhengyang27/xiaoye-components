@@ -1,0 +1,28 @@
+/* ============================================================
+   xyu-backtop 组件级主题变量
+   ============================================================ */
+
+.xyu-backtop {
+  /* 按钮 */
+  --xyu-backtop-size: 40px;
+  --xyu-backtop-radius: var(--xyu-radius-md);
+  --xyu-backtop-bg: var(--xyu-bg);
+  --xyu-backtop-border: var(--xyu-border-color);
+  --xyu-backtop-shadow: var(--xyu-shadow-md);
+
+  /* 图标 */
+  --xyu-backtop-icon-color: var(--xyu-text-secondary);
+  --xyu-backtop-icon-size: 16px;
+
+  /* Hover 状态 */
+  --xyu-backtop-hover-bg: var(--xyu-bg-secondary);
+  --xyu-backtop-hover-border: var(--xyu-border-hover);
+  --xyu-backtop-hover-shadow: var(--xyu-shadow-lg);
+  --xyu-backtop-hover-icon-color: var(--xyu-text-primary);
+
+  /* 滚动距离 */
+  --xyu-backtop-visibility-height: 200px;
+
+  /* 过渡 */
+  --xyu-backtop-transition-duration: 0.3s;
+}

@@ -14,7 +14,7 @@
 }
 
 /* ---- 拖拽区域 ---- */
-.xyu-upload__drap-area {
+.xyu-upload__drag-area {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,13 +26,13 @@
   transition: all 0.2s;
 }
 
-.xyu-upload__drap-area:hover,
-.xyu-upload__drap-area.is-dragover {
+.xyu-upload__drag-area:hover,
+.xyu-upload__drag-area.is-dragover {
   border-color: var(--xyu-primary);
   background: rgba(30, 96, 255, 0.05);
 }
 
-.xyu-upload__drap-area.is-disabled {
+.xyu-upload__drag-area.is-disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -206,13 +206,13 @@
   height: 100%;
 }
 
-.xyu-progress-ring {
+.xyu-upload__progress-ring {
   width: 36px;
   height: 36px;
 }
 
-.xyu-progress-ring svg {
-  transform: rotate(-90deg);
+.xyu-upload__progress-ring svg {
+  /* rotation handled inline in SVG via transform="rotate(-90 20 20)" */
 }
 
 .xyu-upload__preview-img {
@@ -233,7 +233,7 @@
   width: 18px;
   height: 18px;
   background: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  color: var(--xyu-white, #fff);
   border-radius: 50%;
   display: flex;
   align-items: center;

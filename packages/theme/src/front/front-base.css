@@ -10,13 +10,16 @@
 @import "./themes/alert-tokens.css";
 @import "./themes/rate-tokens.css";
 @import "./themes/input-tag-tokens.css";
+@import "./themes/icon-tokens.css";
 
 /* Phase 3 组件 token */
 @import "./themes/pagination-tokens.css";
 @import "./themes/popover-tokens.css";
+@import "./themes/popconfirm-tokens.css";
 @import "./themes/upload-tokens.css";
 @import "./themes/cascader-tokens.css";
 @import "./themes/date-picker-tokens.css";
+@import "./themes/time-picker-tokens.css";
 @import "./themes/card-tokens.css";
 @import "./themes/loading-tokens.css";
 @import "./themes/message-box-tokens.css";
@@ -24,6 +27,7 @@
 @import "./themes/result-tokens.css";
 @import "./themes/color-picker-tokens.css";
 @import "./themes/divider-tokens.css";
+@import "./themes/backtop-tokens.css";
 
 /* 按钮基础 */
 .xyu-btn {
@@ -155,4 +159,21 @@
   background-color: var(--xyu-primary);
   border-color: var(--xyu-primary);
   color: #fff;
+}
+
+/* Icon 组件 */
+.xyu-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.xyu-icon.is-spin {
+  animation: xyu-icon-spin 1s linear infinite;
+}
+
+@keyframes xyu-icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

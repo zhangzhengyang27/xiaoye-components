@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { InputNumberProps } from "./input-number";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<InputNumberProps>(), {
   modelValue: 0,
@@ -24,49 +25,39 @@ const emit = defineEmits<{
 const ns = "xyu-input-number";
 const focused = ref(false);
 
-const inputValue = computed({
-  get: () => props.modelValue,
-  set: (val) => {
-    const num = Number(val);
-    if (isNaN(num)) return;
-    const clamped = Math.min(props.max, Math.max(props.min, num));
-    const final = props.precision !== undefined
-      ? parseFloat(clamped.toFixed(props.precision))
-      : clamped;
-    emit("update:modelValue", final);
-  }
-});
-
 const atMin = computed(() => props.modelValue <= props.min);
 const atMax = computed(() => props.modelValue >= props.max);
 
+function round(val: number) {
+  return props.precision !== undefined
+    ? parseFloat(val.toFixed(props.precision))
+    : val;
+}
+
+function clamp(val: number) {
+  return Math.min(props.max, Math.max(props.min, val));
+}
+
+function emitValue(val: number) {
+  emit("update:modelValue", val);
+  emit("change", val);
+}
+
 function increment() {
   if (props.disabled || props.readonly) return;
-  const newVal = props.modelValue + props.step;
-  const clamped = Math.min(props.max, newVal);
-  const final = props.precision !== undefined
-    ? parseFloat(clamped.toFixed(props.precision))
-    : clamped;
-  emit("update:modelValue", final);
-  emit("change", final);
+  emitValue(round(clamp(props.modelValue + props.step)));
 }
 
 function decrement() {
   if (props.disabled || props.readonly) return;
-  const newVal = props.modelValue - props.step;
-  const clamped = Math.max(props.min, newVal);
-  const final = props.precision !== undefined
-    ? parseFloat(clamped.toFixed(props.precision))
-    : clamped;
-  emit("update:modelValue", final);
-  emit("change", final);
+  emitValue(round(clamp(props.modelValue - props.step)));
 }
 
 function handleInput(e: Event) {
   const target = e.target as HTMLInputElement;
   const val = target.value === "" ? 0 : Number(target.value);
   if (!isNaN(val)) {
-    inputValue.value = val;
+    emitValue(round(clamp(val)));
   }
 }
 </script>
@@ -79,13 +70,11 @@ function handleInput(e: Event) {
         :class="[`${ns}__btn`, `${ns}__btn--dec`, atMin || props.disabled ? 'is-disabled' : '']"
         @click="decrement"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
+        <XyuIcon icon="mdi:minus" :size="12" />
       </span>
 
       <input
-        v-model="inputValue"
+        v-model.number="props.modelValue"
         :class="`${ns}__input`"
         type="number"
         :min="props.min"
@@ -104,10 +93,7 @@ function handleInput(e: Event) {
         :class="[`${ns}__btn`, `${ns}__btn--inc`, atMax || props.disabled ? 'is-disabled' : '']"
         @click="increment"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
+        <XyuIcon icon="mdi:plus" :size="12" />
       </span>
 
       <span
@@ -115,10 +101,7 @@ function handleInput(e: Event) {
         :class="[`${ns}__btn`, `${ns}__btn--inc`, atMax || props.disabled ? 'is-disabled' : '']"
         @click="increment"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
+        <XyuIcon icon="mdi:plus" :size="12" />
       </span>
 
       <span
@@ -126,9 +109,7 @@ function handleInput(e: Event) {
         :class="[`${ns}__btn`, `${ns}__btn--dec`, atMin || props.disabled ? 'is-disabled' : '']"
         @click="decrement"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
+        <XyuIcon icon="mdi:minus" :size="12" />
       </span>
     </div>
   </div>

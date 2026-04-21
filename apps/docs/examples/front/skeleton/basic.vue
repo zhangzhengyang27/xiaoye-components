@@ -1,0 +1,3 @@
+<template>
+  <xyu-skeleton />
+</template>

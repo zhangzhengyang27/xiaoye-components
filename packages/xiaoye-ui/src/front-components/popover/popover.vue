@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, onBeforeUnmount, watch } from "vue";
+import { computed, ref, onBeforeUnmount, onMounted, onUnmounted, watch, nextTick } from "vue";
 import type { PopoverProps, PopoverEmits } from "./popover";
+
+defineOptions({ name: "XyuPopover" });
 
 const props = withDefaults(defineProps<PopoverProps>(), {
   content: "",
@@ -34,6 +36,9 @@ watch(() => props.visible, (val) => {
 watch(() => innerVisible.value, (val) => {
   emit("update:visible", val);
   emit(val ? "show" : "hide");
+  if (val) {
+    nextTick(updatePopoverPosition);
+  }
 });
 
 const isManual = computed(() => props.trigger === "manual");
@@ -46,30 +51,46 @@ const popoverStyle = computed(() => {
   const rect = triggerRef.value.getBoundingClientRect();
   const placement = props.placement ?? "top";
   const gap = props.offset ?? 8;
-  let top = 0, left = 0;
 
-  const vKey = placement.startsWith("top") ? "top" : placement.startsWith("bottom") ? "bottom" : null;
-  const hKey = placement.endsWith("start") ? "start" : placement.endsWith("end") ? "end" : "center";
+  let top = 0;
+  let left = 0;
+  const triggerWidth = rect.width;
+  const triggerHeight = rect.height;
 
-  const tw = triggerRef.value.offsetWidth;
-  const th = triggerRef.value.offsetHeight;
+  // Extract vertical/horizontal positioning intent
+  const isTop = placement.startsWith("top");
+  const isBottom = placement.startsWith("bottom");
+  const isLeft = placement === "left";
+  const isRight = placement === "right";
 
-  if (vKey === "top") {
+  if (isTop) {
+    // Position above trigger, then offset by gap
     top = rect.top - gap;
-    if (hKey === "center") left = rect.left + rect.width / 2;
-    else if (hKey === "start") left = rect.left;
-    else left = rect.right;
-  } else if (vKey === "bottom") {
+    if (isLeft) {
+      // Align left edge of popover with left edge of trigger
+      left = rect.left;
+    } else if (isRight) {
+      // Align right edge of popover with right edge of trigger
+      left = rect.right;
+    } else {
+      // Center: left = center of trigger, CSS will translateX(-50%)
+      left = rect.left + triggerWidth / 2;
+    }
+  } else if (isBottom) {
     top = rect.bottom + gap;
-    if (hKey === "center") left = rect.left + rect.width / 2;
-    else if (hKey === "start") left = rect.left;
-    else left = rect.right;
-  } else if (placement === "left") {
+    if (isLeft) {
+      left = rect.left;
+    } else if (isRight) {
+      left = rect.right;
+    } else {
+      left = rect.left + triggerWidth / 2;
+    }
+  } else if (isLeft) {
     left = rect.left - gap;
-    top = rect.top + rect.height / 2;
-  } else if (placement === "right") {
+    top = rect.top + triggerHeight / 2;
+  } else if (isRight) {
     left = rect.right + gap;
-    top = rect.top + rect.height / 2;
+    top = rect.top + triggerHeight / 2;
   }
 
   const style: Record<string, string> = {
@@ -89,6 +110,11 @@ const popoverClass = computed(() => {
   if (props.showArrow) cls.push("has-arrow");
   return cls;
 });
+
+function updatePopoverPosition() {
+  // Force reactivity re-computation is handled by Vue automatically
+  // This function exists for external callers (scroll/resize handled externally)
+}
 
 function doShow() {
   if (props.disabled || isManual.value) return;
@@ -128,30 +154,50 @@ function onTriggerFocusout() {
   if (isFocus.value) doHide();
 }
 
+function handleClickOutside(e: MouseEvent) {
+  if (!innerVisible.value || isManual.value) return;
+  const target = e.target as Node;
+  if (triggerRef.value && triggerRef.value.contains(target)) return;
+  if (popoverRef.value && popoverRef.value.contains(target)) return;
+  doHide();
+}
+
+function handleScroll() {
+  if (innerVisible.value) doHide();
+}
+
+function handleResize() {
+  if (innerVisible.value) updatePopoverPosition();
+}
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside, true);
+  window.addEventListener("scroll", handleScroll, true);
+  window.addEventListener("resize", handleResize);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside, true);
+  window.removeEventListener("scroll", handleScroll, true);
+  window.removeEventListener("resize", handleResize);
+});
+
 onBeforeUnmount(() => {
   if (showTimer) clearTimeout(showTimer);
   if (hideTimer) clearTimeout(hideTimer);
 });
-
-const slots = defineSlots<{
-  default?: () => unknown;
-  title?: () => unknown;
-  content?: () => unknown;
-}>();
 </script>
 
 <template>
-  <div
-    :class="ns"
-    @mouseenter="onTriggerMouseenter"
-    @mouseleave="onTriggerMouseleave"
-    @focusin="onTriggerFocusin"
-    @focusout="onTriggerFocusout"
-    @click="onTriggerClick"
-  >
+  <div :class="ns">
     <span
-      :ref="(el) => { triggerRef = el as HTMLElement; }"
+      ref="triggerRef"
       :class="`${ns}__trigger`"
+      @mouseenter="onTriggerMouseenter"
+      @mouseleave="onTriggerMouseleave"
+      @focusin="onTriggerFocusin"
+      @focusout="onTriggerFocusout"
+      @click="onTriggerClick"
     >
       <slot />
     </span>
@@ -160,11 +206,11 @@ const slots = defineSlots<{
       <transition :name="props.transitionName">
         <div
           v-if="innerVisible"
-          :ref="(el) => { popoverRef = el as HTMLElement; }"
+          ref="popoverRef"
           :class="popoverClass"
           :style="popoverStyle"
         >
-          <div v-if="slots.title || props.title" :class="`${ns}__title`">
+          <div v-if="$slots.title || props.title" :class="`${ns}__title`">
             <slot name="title">{{ props.title }}</slot>
           </div>
           <div :class="`${ns}__content`">

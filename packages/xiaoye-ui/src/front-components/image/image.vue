@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { ImageProps } from "./image";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<ImageProps>(), {
   src: "",
@@ -58,11 +59,7 @@ function closePreview() {
       @click="openPreview"
     />
     <div v-else :class="`${ns}__placeholder`">
-      <svg width="40%" height="40%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-        <circle cx="8.5" cy="8.5" r="1.5" />
-        <polyline points="21 15 16 10 5 21" />
-      </svg>
+      <XyuIcon icon="mdi:image-outline" :size="40" />
     </div>
 
     <!-- Preview overlay -->
@@ -80,9 +77,7 @@ function closePreview() {
             @click.stop
           />
           <button :class="`${ns}__preview-close`" @click="closePreview" aria-label="关闭">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <XyuIcon icon="mdi:close" :size="24" />
           </button>
         </div>
       </transition>

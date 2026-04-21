@@ -2,6 +2,8 @@
 import { computed } from "vue";
 import type { SpaceProps } from "./space";
 
+defineOptions({ name: "XyuSpace" });
+
 const props = withDefaults(defineProps<SpaceProps>(), {
   size: "md",
   direction: "horizontal",
@@ -16,11 +18,11 @@ const ns = props.prefixCls;
 const gapValue = computed(() => {
   const { size } = props;
   if (Array.isArray(size)) {
-    const [w, h] = size.map((s) => (typeof s === "number" ? `${s}px` : `var(--xyu-space-${s})`));
+    const [w, h] = size.map((s) => (typeof s === "number" ? `${s}px` : `var(--xyu-space-${s}-gap)`));
     return `${h} ${w}`;
   }
   if (typeof size === "number") return `${size}px`;
-  return `var(--xyu-space-${size})`;
+  return `var(--xyu-space-${size}-gap)`;
 });
 
 const spaceClasses = computed(() => [

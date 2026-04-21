@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import type { CascaderProps, CascaderEmits, CascaderOption } from "./cascader";
+import XyuIcon from "../icon/icon.vue";
+
+defineOptions({ name: "XyuCascader" });
 
 const props = withDefaults(defineProps<CascaderProps>(), {
   modelValue: () => [],
@@ -25,6 +28,9 @@ const ns = "xyu-cascader";
 const visible = ref(false);
 const selectedPath = ref<CascaderOption[]>([]);
 const activePath = ref<CascaderOption[]>([]);
+const triggerRef = ref<HTMLElement | null>(null);
+const dropdownTop = ref(0);
+const dropdownLeft = ref(0);
 
 function getOption(value: string | number, options: CascaderOption[]): CascaderOption | null {
   for (const opt of options) {
@@ -75,6 +81,26 @@ const currentOptions = computed(() => {
   return last.children ?? [];
 });
 
+const dropdownStyle = computed(() => ({
+  top: `${dropdownTop.value}px`,
+  left: `${dropdownLeft.value}px`
+}));
+
+function updateDropdownPosition() {
+  if (!triggerRef.value) return;
+  const rect = triggerRef.value.getBoundingClientRect();
+  dropdownTop.value = rect.bottom + 4;
+  dropdownLeft.value = rect.left;
+}
+
+function handleTriggerClick() {
+  if (props.disabled) return;
+  visible.value = !visible.value;
+  if (visible.value) {
+    updateDropdownPosition();
+  }
+}
+
 function handleClick(opt: CascaderOption) {
   if (opt.disabled) return;
   activePath.value.push(opt);
@@ -82,6 +108,10 @@ function handleClick(opt: CascaderOption) {
 
 function handleBack() {
   activePath.value.pop();
+}
+
+function navigateToBreadcrumb(idx: number) {
+  activePath.value = activePath.value.slice(0, idx + 1);
 }
 
 function handleSelect(opt: CascaderOption) {
@@ -102,28 +132,48 @@ function handleClear(e: Event) {
   activePath.value = [];
   emit("update:modelValue", []);
   emit("change", []);
-}
-
-function handleClickOutside() {
   visible.value = false;
-  activePath.value = [];
 }
 
-const slots = defineSlots<{ default?: () => unknown }>();
+function handleClickOutside(e: MouseEvent) {
+  if (!visible.value) return;
+  const target = e.target as Node;
+  const el = triggerRef.value;
+  if (el && !el.contains(target)) {
+    visible.value = false;
+    activePath.value = [];
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside, true);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside, true);
+});
 </script>
 
 <template>
-  <div :class="[ns, props.disabled ? 'is-disabled' : '']">
+  <div :id="ns" :class="[ns, props.disabled ? 'is-disabled' : '']">
     <div
+      ref="triggerRef"
       :class="[`${ns}__control`, visible ? 'is-focus' : '']"
-      @click="!props.disabled && (visible = !visible)"
+      @click.stop="handleTriggerClick"
     >
       <span :class="`${ns}__input`">
         <span v-if="!displayText" :class="`${ns}__placeholder`">{{ props.placeholder }}</span>
         <span v-else :class="`${ns}__value`">{{ displayText }}</span>
       </span>
-      <span v-if="props.clearable && selectedPath.length" :class="`${ns}__clear`" @click="handleClear">✕</span>
-      <span v-else :class="`${ns}__arrow`">{{ visible ? "▲" : "▼" }}</span>
+      <span v-if="props.clearable && selectedPath.length" :class="`${ns}__clear`" @click.stop="handleClear">
+      <XyuIcon icon="mdi:close" :size="12" />
+      </span>
+      <span v-else :class="`${ns}__arrow`">
+      <XyuIcon
+        :icon="visible ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+        :size="10"
+      />
+      </span>
     </div>
 
     <teleport to="body">
@@ -131,7 +181,7 @@ const slots = defineSlots<{ default?: () => unknown }>();
         <div
           v-if="visible"
           :class="[`${ns}__dropdown`, `${ns}__dropdown--${activePath.length || 1}`]"
-          :style="{}"
+          :style="dropdownStyle"
         >
           <!-- 面包屑 -->
           <div v-if="activePath.length > 0" :class="`${ns}__breadcrumb`">
@@ -139,7 +189,7 @@ const slots = defineSlots<{ default?: () => unknown }>();
               v-for="(opt, idx) in activePath"
               :key="idx"
               :class="`${ns}__breadcrumb-item`"
-              @click="activePath = activePath.slice(0, idx + 1)"
+              @click="navigateToBreadcrumb(idx)"
             >
               {{ opt.label }}
               <span v-if="idx < activePath.length - 1"> / </span>
@@ -159,10 +209,11 @@ const slots = defineSlots<{ default?: () => unknown }>();
                 opt.children?.length ? 'has-children' : ''
               ]"
               @click="handleSelect(opt)"
-              @mouseenter="() => {}"
             >
               <span>{{ opt.label }}</span>
-              <span v-if="opt.children?.length" :class="`${ns}__option-arrow`">›</span>
+              <span v-if="opt.children?.length" :class="`${ns}__option-arrow`">
+                <XyuIcon icon="mdi:chevron-right" :size="8" />
+              </span>
             </div>
             <div v-if="currentOptions.length === 0" :class="`${ns}__empty`">无可选项</div>
           </div>

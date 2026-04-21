@@ -2,6 +2,8 @@
 import { computed } from "vue";
 import type { ProgressProps } from "./progress";
 
+defineOptions({ name: "XyuProgress" });
+
 const props = withDefaults(defineProps<ProgressProps>(), {
   type: "line",
   percentage: 0,

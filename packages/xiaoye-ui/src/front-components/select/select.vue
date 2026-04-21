@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onMounted, onBeforeUnmount } from "vue";
 import type { SelectProps, SelectOption } from "./select";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<SelectProps>(), {
   modelValue: null,
@@ -242,18 +243,14 @@ function scrollToFocused() {
           @click="clearSelected"
           aria-label="清除"
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <XyuIcon icon="mdi:close" :size="12" />
         </button>
-        <svg
+        <XyuIcon
           v-else
+          :icon="visible ? 'mdi:chevron-up' : 'mdi:chevron-down'"
           :class="[`${ns}__arrow`, visible ? 'is-open' : '']"
-          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+          :size="14"
+        />
       </span>
     </div>
 
@@ -296,12 +293,11 @@ function scrollToFocused() {
                   @click="toggleOption(opt)"
                 >
                   <span :class="`${ns}__option-label`">{{ opt.label }}</span>
-                  <svg
+                  <XyuIcon
                     v-if="isSelected(opt.value)"
-                    width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+                    icon="mdi:check"
+                    :size="14"
+                  />
                 </div>
               </template>
               <div v-else :class="`${ns}__empty`">

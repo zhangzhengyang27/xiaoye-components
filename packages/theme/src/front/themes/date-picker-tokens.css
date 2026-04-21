@@ -20,4 +20,5 @@
 
   /* 尺寸 */
   --xyu-date-picker-control-height: 36px;
+  --xyu-date-picker-panel-z-index: 99998;
 }

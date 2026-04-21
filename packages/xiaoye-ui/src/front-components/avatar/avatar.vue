@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { AvatarProps } from "./avatar";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<AvatarProps>(), {
   src: "",
@@ -48,18 +49,6 @@ function handleError() {
     <span v-else-if="props.initials && showInitials" :class="`${ns}__initials`">
       {{ props.initials.slice(0, 2) }}
     </span>
-    <svg
-      v-else
-      :class="`${ns}__placeholder`"
-      width="50%"
-      height="50%"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-    >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
+      <XyuIcon icon="mdi:account" :size="iconSize" />
   </div>
 </template>

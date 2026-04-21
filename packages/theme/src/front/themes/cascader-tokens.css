@@ -24,4 +24,8 @@
   --xyu-cascader-dropdown-bg: var(--xyu-bg);
   --xyu-cascader-dropdown-border: var(--xyu-border-color);
   --xyu-cascader-dropdown-shadow: var(--xyu-shadow-lg);
+  --xyu-cascader-dropdown-z-index: 99998;
+
+  /* 动画 */
+  --xyu-cascader-transition-duration: 0.2s;
 }

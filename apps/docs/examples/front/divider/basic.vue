@@ -1,0 +1,3 @@
+<template>
+  <xyu-divider />
+</template>

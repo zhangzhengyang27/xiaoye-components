@@ -2,6 +2,7 @@
 import { inject, computed } from "vue";
 import { checkboxGroupContextKey, type CheckboxGroupOption } from "./checkbox-group-context";
 import type { CheckboxValue } from "./checkbox";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -90,14 +91,7 @@ const ns = "xyu-checkbox-group";
               localValue.includes(opt.value as CheckboxValue) ? 'is-checked' : ''
             ]"
           >
-            <svg
-              v-if="localValue.includes(opt.value as CheckboxValue)"
-              width="12" height="12"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
+              <XyuIcon icon="mdi:check" :size="12" />
           </span>
           <span class="xyu-checkbox__label">{{ opt.label }}</span>
         </label>

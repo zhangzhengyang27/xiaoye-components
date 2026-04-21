@@ -1,0 +1,35 @@
+/* ============================================================
+   xyu-time-picker 组件级主题变量
+   ============================================================ */
+
+.xyu-time-picker {
+  /* 输入框 */
+  --xyu-time-picker-control-bg: var(--xyu-bg);
+  --xyu-time-picker-control-border: var(--xyu-border-color);
+  --xyu-time-picker-control-radius: var(--xyu-radius-md);
+  --xyu-time-picker-control-hover-border: var(--xyu-primary);
+  --xyu-time-picker-control-height: 36px;
+
+  /* 文字 */
+  --xyu-time-picker-value-color: var(--xyu-text-primary);
+  --xyu-time-picker-placeholder-color: var(--xyu-text-secondary);
+
+  /* 面板 */
+  --xyu-time-picker-panel-bg: var(--xyu-bg);
+  --xyu-time-picker-panel-radius: var(--xyu-radius-lg);
+  --xyu-time-picker-panel-shadow: var(--xyu-shadow-lg);
+  --xyu-time-picker-panel-padding: 8px;
+
+  /* 时间列 */
+  --xyu-time-picker-item-color: var(--xyu-text-primary);
+  --xyu-time-picker-item-hover-bg: var(--xyu-bg-secondary);
+  --xyu-time-picker-item-active-bg: var(--xyu-primary-light);
+  --xyu-time-picker-item-active-color: var(--xyu-primary);
+
+  /* 分隔线 */
+  --xyu-time-picker-separator-color: var(--xyu-border-color);
+
+  /* 按钮 */
+  --xyu-time-picker-btn-color: var(--xyu-primary);
+  --xyu-time-picker-btn-hover-color: var(--xyu-primary-hover);
+}

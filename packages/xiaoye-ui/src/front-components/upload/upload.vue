@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import type { UploadProps, UploadEmits, UploadFile } from "./upload";
+import XyuIcon from "../icon/icon.vue";
+
+defineOptions({ name: "XyuUpload" });
 
 const props = withDefaults(defineProps<UploadProps>(), {
   action: "",
@@ -8,8 +11,8 @@ const props = withDefaults(defineProps<UploadProps>(), {
   data: () => ({}),
   multiple: false,
   accept: "",
-  maxSize: Infinity,
-  maxCount: Infinity,
+  maxSize: 0,
+  maxCount: 0,
   disabled: false,
   draggable: false,
   listType: "text",
@@ -25,6 +28,7 @@ const ns = "xyu-upload";
 const inputRef = ref<HTMLInputElement | null>(null);
 const dragover = ref(false);
 const fileList = ref<UploadFile[]>([]);
+const xhrMap = new Map<string, XMLHttpRequest>();
 
 function generateId() {
   return `file-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -35,6 +39,14 @@ function formatSize(size?: number) {
   if (size < 1024) return `${size} B`;
   if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
   return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+const CIRCUMFERENCE = 2 * Math.PI * 16;
+
+function getStrokeDasharray(percentage: number) {
+  const clampedPct = Math.max(0, Math.min(100, percentage));
+  const filled = (clampedPct / 100) * CIRCUMFERENCE;
+  return `${filled.toFixed(2)} ${CIRCUMFERENCE.toFixed(2)}`;
 }
 
 const uploadFiles = computed(() => fileList.value);
@@ -60,18 +72,23 @@ function addFile(rawFile: File) {
 function handleFiles(files: FileList | null) {
   if (!files || files.length === 0) return;
   const fileArr = Array.from(files);
-  if (props.maxCount && fileList.value.length + fileArr.length > props.maxCount) {
+  const max = props.maxCount || Infinity;
+  if (fileList.value.length + fileArr.length > max) {
     emit("exceed", fileArr[0], fileList.value);
     return;
   }
   for (const rawFile of fileArr) {
-    if (rawFile.size > props.maxSize) {
-      fileList.value.push({
+    const limit = props.maxSize || Infinity;
+    if (limit !== Infinity && limit > 0 && rawFile.size > limit) {
+      const failFile: UploadFile = {
+        id: generateId(),
         name: rawFile.name,
         size: rawFile.size,
         status: "fail",
         error: `文件大小超过限制 (${formatSize(props.maxSize)})`
-      });
+      };
+      fileList.value.push(failFile);
+      emit("change", failFile, fileList.value);
       continue;
     }
     addFile(rawFile);
@@ -85,6 +102,7 @@ function uploadFile(file: UploadFile) {
   if (!file.raw || !props.action) return;
   file.status = "uploading";
   const xhr = new XMLHttpRequest();
+  if (file.id) xhrMap.set(file.id, xhr);
   const formData = new FormData();
   formData.append(props.name, file.raw);
   Object.entries(props.data).forEach(([key, val]) => {
@@ -104,7 +122,11 @@ function uploadFile(file: UploadFile) {
   xhr.onload = () => {
     if (xhr.status >= 200 && xhr.status < 300) {
       file.status = "success";
-      file.response = JSON.parse(xhr.responseText || "{}");
+      try {
+        file.response = xhr.responseText ? JSON.parse(xhr.responseText) : {};
+      } catch {
+        file.response = {};
+      }
       emit("success", file.response, file);
     } else {
       file.status = "fail";
@@ -113,13 +135,32 @@ function uploadFile(file: UploadFile) {
     }
     emit("change", file, fileList.value);
     emit("update:fileList", fileList.value);
+    if (file.id) xhrMap.delete(file.id);
   };
   xhr.onerror = () => {
     file.status = "fail";
     file.error = "Network error";
     emit("error", new Error("Network error"), file);
+    emit("change", file, fileList.value);
+    emit("update:fileList", fileList.value);
+    if (file.id) xhrMap.delete(file.id);
+  };
+  xhr.onabort = () => {
+    file.status = "ready";
+    file.percentage = 0;
+    if (file.id) xhrMap.delete(file.id);
   };
   xhr.send(formData);
+}
+
+function abort(file?: UploadFile) {
+  if (file && file.id) {
+    const xhr = xhrMap.get(file.id);
+    if (xhr) xhr.abort();
+  } else {
+    xhrMap.forEach((xhr) => xhr.abort());
+    xhrMap.clear();
+  }
 }
 
 function handleClick() {
@@ -150,6 +191,9 @@ function handleDragleave() {
 }
 
 function handleRemove(file: UploadFile) {
+  if (file.status === "uploading") {
+    abort(file);
+  }
   fileList.value = fileList.value.filter((f) => f.id !== file.id);
   emit("remove", file);
   emit("update:fileList", fileList.value);
@@ -160,16 +204,11 @@ function handlePreview(file: UploadFile) {
   emit("preview", file);
 }
 
-const slots = defineSlots<{
-  default?: () => unknown;
-  trigger?: () => unknown;
-  tip?: () => unknown;
-}>();
+defineExpose({ abort, uploadFile });
 </script>
 
 <template>
   <div :class="ns">
-    <!-- 隐藏的 file input -->
     <input
       ref="inputRef"
       type="file"
@@ -180,10 +219,9 @@ const slots = defineSlots<{
       @change="handleChange"
     />
 
-    <!-- 拖拽区域或触发区域 -->
     <div
       v-if="props.draggable"
-      :class="[`${ns}__drap-area`, dragover ? 'is-dragover' : '', props.disabled ? 'is-disabled' : '']"
+      :class="[`${ns}__drag-area`, dragover ? 'is-dragover' : '', props.disabled ? 'is-disabled' : '']"
       @click="handleClick"
       @drop="handleDrop"
       @dragover="handleDragover"
@@ -191,20 +229,21 @@ const slots = defineSlots<{
     >
       <slot name="trigger">
         <div :class="`${ns}__drag-content`">
-          <div :class="`${ns}__drag-icon`">📤</div>
+          <div :class="`${ns}__drag-icon`">
+            <XyuIcon icon="mdi:upload" :size="36" />
+          </div>
           <div :class="`${ns}__drag-text`">
-            <slot name="default">
+            <slot>
               <span>将文件拖到此处，或 <em>点击上传</em></span>
             </slot>
           </div>
-          <div v-if="slots.tip" :class="`${ns}__tip`">
+          <div v-if="$slots.tip" :class="`${ns}__tip`">
             <slot name="tip" />
           </div>
         </div>
       </slot>
     </div>
 
-    <!-- 非拖拽模式 -->
     <div
       v-else
       :class="[`${ns}__trigger`, props.disabled ? 'is-disabled' : '']"
@@ -215,7 +254,6 @@ const slots = defineSlots<{
       </slot>
     </div>
 
-    <!-- 文件列表 -->
     <div
       v-if="props.showFileList && uploadFiles.length > 0"
       :class="[`${ns}__list`, `${ns}__list--${props.listType}`]"
@@ -225,7 +263,6 @@ const slots = defineSlots<{
         :key="file.id"
         :class="[`${ns}__file`, `${ns}__file--${file.status || 'ready'}`]"
       >
-        <!-- picture-card 模式 -->
         <template v-if="props.listType === 'picture-card'">
           <div
             v-if="file.status === 'uploading'"
@@ -240,7 +277,8 @@ const slots = defineSlots<{
                   stroke="var(--xyu-primary)"
                   stroke-width="3"
                   stroke-linecap="round"
-                  :stroke-dasharray="`${(file.percentage ?? 0) * 1.005} 100.5`"
+                  :stroke-dasharray="getStrokeDasharray(file.percentage ?? 0)"
+                  transform="rotate(-90 20 20)"
                 />
               </svg>
             </div>
@@ -252,11 +290,14 @@ const slots = defineSlots<{
             :class="`${ns}__preview-img`"
             @click="handlePreview(file)"
           />
-          <div v-else :class="`${ns}__file-icon`">📄</div>
-          <span v-if="file.status !== 'uploading'" :class="`${ns}__file-remove`" @click.stop="handleRemove(file)">✕</span>
+          <div v-else :class="`${ns}__file-icon`">
+            <XyuIcon icon="mdi:file-upload" :size="36" />
+          </div>
+          <span v-if="file.status !== 'uploading'" :class="`${ns}__file-remove`" @click.stop="handleRemove(file)">
+            <XyuIcon icon="mdi:close" :size="10" />
+          </span>
         </template>
 
-        <!-- text / picture 模式 -->
         <template v-else>
           <div :class="`${ns}__file-info`">
             <span
@@ -264,7 +305,9 @@ const slots = defineSlots<{
               :class="`${ns}__file-thumb`"
             >
               <img v-if="file.url" :src="file.url" :alt="file.name" />
-              <span v-else>📄</span>
+              <span v-else>
+                <XyuIcon icon="mdi:file-upload" :size="32" />
+              </span>
             </span>
             <div :class="`${ns}__file-details`">
               <span :class="`${ns}__file-name`" @click="handlePreview(file)">{{ file.name }}</span>
@@ -282,7 +325,9 @@ const slots = defineSlots<{
               :class="`${ns}__retry`"
               @click="uploadFile(file)"
             >重试</span>
-            <span :class="`${ns}__remove`" @click="handleRemove(file)">✕</span>
+            <span :class="`${ns}__remove`" @click="handleRemove(file)">
+              <XyuIcon icon="mdi:close" :size="12" />
+            </span>
           </div>
         </template>
       </div>

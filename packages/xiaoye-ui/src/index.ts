@@ -15,6 +15,7 @@ import { XyAddressPicker } from "./front-components/address-picker";
 import { XyProductCard } from "./front-components/product-card";
 import { XySkuSelector } from "./front-components/sku-selector";
 import { XyMarketingModal } from "./front-components/marketing-modal";
+import { XyuIcon } from "./front-components/icon";
 
 export {
   // tabs
@@ -43,6 +44,7 @@ export {
   XyProductCard,
   XySkuSelector,
   XyMarketingModal,
+  XyuIcon,
 };
 
 const XiaoyeUI = {
@@ -97,6 +99,7 @@ const XiaoyeUI = {
     app.component("XyProductCard", XyProductCard);
     app.component("XySkuSelector", XySkuSelector);
     app.component("XyMarketingModal", XyMarketingModal);
+    app.component("XyuIcon", XyuIcon);
   }
 };
 

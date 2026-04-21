@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { CheckboxProps, CheckboxValue } from "./checkbox";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
   modelValue: undefined,
@@ -57,29 +58,7 @@ function handleChange() {
       @change="handleChange"
     />
     <span :class="[`${ns}__box`, isChecked ? 'is-checked' : '', props.indeterminate ? 'is-indeterminate' : '']">
-      <svg
-        v-if="isChecked && !props.indeterminate"
-        width="12" height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-      <svg
-        v-else-if="props.indeterminate"
-        width="12" height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="3"
-        stroke-linecap="round"
-      >
-        <line x1="5" y1="12" x2="19" y2="12" />
-      </svg>
+        <XyuIcon :icon="props.indeterminate ? 'mdi:minus' : 'mdi:check'" :size="12" />
     </span>
     <span v-if="slots.default || props.label" :class="`${ns}__label`">
       <slot>{{ props.label }}</slot>

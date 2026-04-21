@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick } from "vue";
+import { computed, ref, nextTick } from "vue";
 import type { InputProps } from "./input";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<InputProps>(), {
   modelValue: "",
@@ -58,10 +59,15 @@ const showClear = computed(
 );
 
 const showPrefixArea = computed(
-  () => slots.prefix || props.prefixIcon || props.prefixText
+  () => !!slots.prefix || !!props.prefixIcon || !!props.prefixText
 );
 const showSuffixArea = computed(
-  () => slots.suffix || props.suffixIcon || props.suffixText || showClear.value || (isPassword.value && props.showPassword)
+  () =>
+    !!slots.suffix ||
+    !!props.suffixIcon ||
+    !!props.suffixText ||
+    showClear.value ||
+    (isPassword.value && props.showPassword)
 );
 
 const wrapperClasses = computed(() => [
@@ -160,6 +166,7 @@ defineExpose({ focus, blur, select });
   <div v-else :class="wrapperClasses">
     <span v-if="showPrefixArea" :class="`${ns}__prefix`">
       <slot v-if="slots.prefix" name="prefix" />
+      <XyuIcon v-else-if="props.prefixIcon" :icon="props.prefixIcon" :size="14" />
       <span v-else-if="prefixText" :class="`${ns}__prefix-text`">{{ prefixText }}</span>
     </span>
 
@@ -183,7 +190,7 @@ defineExpose({ focus, blur, select });
     />
 
     <span v-if="showSuffixArea" :class="`${ns}__suffix`">
-      <slot v-if="slots.clear-icon" name="clear-icon" />
+      <slot v-if="slots['clear-icon']" name="clear-icon" />
       <button
         v-else-if="showClear"
         :class="`${ns}__clear`"
@@ -192,11 +199,14 @@ defineExpose({ focus, blur, select });
         @click="handleClear"
         aria-label="清除"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
+        <XyuIcon icon="mdi:close" :size="14" />
       </button>
+
+      <XyuIcon
+        v-if="props.suffixIcon && !showClear && !isPassword"
+        :icon="props.suffixIcon"
+        :size="14"
+      />
 
       <button
         v-if="isPassword && showPassword"
@@ -206,15 +216,7 @@ defineExpose({ focus, blur, select });
         @click="togglePasswordVisibility"
         :aria-label="showPwdVisible ? '隐藏密码' : '显示密码'"
       >
-        <svg v-if="showPwdVisible" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-          <line x1="1" y1="1" x2="23" y2="23" />
-        </svg>
-        <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
+        <XyuIcon :icon="showPwdVisible ? 'mdi:eye-off' : 'mdi:eye'" :size="14" />
       </button>
 
       <slot v-if="slots.suffix" name="suffix" />

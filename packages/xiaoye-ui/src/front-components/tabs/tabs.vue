@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, ref } from "vue";
 import type { TabsProps } from "./tabs";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<TabsProps>(), {
   modelValue: "",
@@ -78,9 +79,7 @@ function activate(name: string) {
           @click.stop="removeTab(tab.name)"
           aria-label="关闭"
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <XyuIcon icon="mdi:close" :size="12" />
         </button>
       </div>
     </div>

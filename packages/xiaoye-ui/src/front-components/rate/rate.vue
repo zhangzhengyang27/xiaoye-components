@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { RateProps } from "./rate";
+import XyuIcon from "../icon/icon.vue";
+
+defineOptions({ name: "XyuRate" });
 
 const props = withDefaults(defineProps<RateProps>(), {
   modelValue: 0,
@@ -39,10 +42,6 @@ const rateClasses = computed(() => [
   props.readonly ? "is-readonly" : ""
 ]);
 
-const rateStyle = computed(() => ({
-  color: props.disabled ? "var(--xyu-text-disabled)" : "var(--xyu-text-secondary)"
-}));
-
 const textContent = computed(() => {
   if (!props.showText) return "";
   const texts = props.texts ?? ["极差", "差", "一般", "满意", "很满意"];
@@ -80,7 +79,6 @@ function handleMouseLeave() {
 <template>
   <div
     :class="rateClasses"
-    :style="rateStyle"
     @mouseleave="handleMouseLeave"
   >
     <button
@@ -96,26 +94,21 @@ function handleMouseLeave() {
       @click="handleClick(i)"
       @mouseenter="handleMouseMove(i)"
     >
-      <!-- Void layer -->
-      <span :class="[`${ns}__icon`, `${ns}__icon--void`]">
-        <svg :width="iconSize" :height="iconSize" viewBox="0 0 24 24" :fill="props.voidColor || 'var(--xyu-bg-tertiary)'" stroke="var(--xyu-border)" stroke-width="1.5">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-      </span>
-      <!-- Filled layer -->
-      <span
-        v-if="getStarType(i - 1) !== 'void'"
-        :class="[`${ns}__icon`, `${ns}__icon--filled`]"
+      <XyuIcon
+        icon="mdi:star"
+        :size="iconSize"
         :style="{
-          clipPath: getStarType(i - 1) === 'half'
-            ? 'inset(0 50% 0 0)'
-            : 'inset(0 0 0 0)'
+          color: getStarType(i - 1) !== 'void' ? props.color : undefined,
+          clipPath: getStarType(i - 1) === 'half' ? 'inset(0 50% 0 0)' : undefined,
+          position: 'absolute',
+          top: 0, left: 0
         }"
-      >
-        <svg :width="iconSize" :height="iconSize" viewBox="0 0 24 24" :fill="props.color" stroke="none">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-      </span>
+      />
+      <XyuIcon
+        icon="mdi:star-outline"
+        :size="iconSize"
+        :style="{ color: props.voidColor || 'var(--xyu-bg-tertiary)' }"
+      />
     </button>
 
     <span

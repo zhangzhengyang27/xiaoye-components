@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { ResultProps } from "./result";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<ResultProps>(), {
   type: "info",
@@ -9,18 +10,18 @@ const props = withDefaults(defineProps<ResultProps>(), {
 
 const ns = "xyu-result";
 
-const iconMap: Record<string, string> = {
-  success: "✅",
-  warning: "⚠️",
-  error: "❌",
-  info: "ℹ️",
-  "404": "🔍",
-  "403": "🔒",
-  "500": "💥",
-  empty: "📭"
+const iconName: Record<string, string> = {
+  success: "mdi:check-circle",
+  warning: "mdi:alert",
+  error: "mdi:close-circle",
+  info: "mdi:information",
+  "404": "mdi:map-marker-question",
+  "403": "mdi:lock",
+  "500": "mdi:alert-circle",
+  empty: "mdi:inbox-outline"
 };
 
-const colorMap: Record<string, string> = {
+const iconColor: Record<string, string> = {
   success: "var(--xyu-success)",
   warning: "var(--xyu-warning)",
   error: "var(--xyu-error)",
@@ -31,8 +32,12 @@ const colorMap: Record<string, string> = {
   empty: "var(--xyu-text-secondary)"
 };
 
-const icon = computed(() => props.icon || iconMap[props.type] || "ℹ️");
-const iconColor = computed(() => colorMap[props.type] || "var(--xyu-primary)");
+const resolvedIcon = computed(() => {
+  if (props.icon) return props.icon;
+  return iconName[props.type] || "mdi:information";
+});
+
+const resolvedColor = computed(() => iconColor[props.type] || "var(--xyu-primary)");
 
 const slots = defineSlots<{
   icon?: () => unknown;
@@ -45,8 +50,10 @@ const slots = defineSlots<{
 
 <template>
   <div :class="ns">
-    <div :class="`${ns}__icon`" :style="{ color: iconColor }">
-      <slot name="icon">{{ icon }}</slot>
+    <div :class="`${ns}__icon`" :style="{ color: resolvedColor }">
+      <slot name="icon">
+        <XyuIcon :icon="resolvedIcon" :size="64" />
+      </slot>
     </div>
     <div v-if="slots.title || props.title" :class="`${ns}__title`">
       <slot name="title">{{ props.title }}</slot>

@@ -78,7 +78,7 @@
 /* ---- dropdown ---- */
 .xyu-cascader__dropdown {
   position: fixed;
-  z-index: 99998;
+  z-index: var(--xyu-cascader-dropdown-z-index, 99998);
   min-width: 180px;
   background: var(--xyu-bg);
   border: 1px solid var(--xyu-border-color);
@@ -152,13 +152,21 @@
 }
 
 /* ---- animation ---- */
-@keyframes xyu-zoom-in-top-enter {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+.xyu-zoom-in-top-enter-from {
+  opacity: 0;
+  transform: translateY(-4px);
 }
-@keyframes xyu-zoom-in-top-leave {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-4px); }
+.xyu-zoom-in-top-enter-active {
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
-.xyu-zoom-in-top-enter-active { animation: xyu-zoom-in-top-enter 0.2s ease-out; }
-.xyu-zoom-in-top-leave-active { animation: xyu-zoom-in-top-leave 0.15s ease-in; }
+.xyu-zoom-in-top-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+.xyu-zoom-in-top-leave-active {
+  transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+}
+.xyu-zoom-in-top-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}

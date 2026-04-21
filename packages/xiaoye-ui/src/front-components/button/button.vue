@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { ButtonProps } from "./button";
+import XyuIcon from "../icon/icon.vue";
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   nativeType: "button",
@@ -120,42 +121,24 @@ defineExpose({
     <template v-if="props.loading">
       <slot v-if="slots.loading" name="loading" />
       <span v-else :class="`${ns}__icon ${ns}__icon--loading`">
-        <svg
+        <XyuIcon
           :width="iconSize"
           :height="iconSize"
-          viewBox="0 0 24 24"
-          fill="none"
+          icon="mdi:loading"
           class="xyu-spin"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-dasharray="31.4 31.4"
-            stroke-linecap="round"
-          />
-        </svg>
+        />
       </span>
     </template>
     <template v-else-if="showLeadingIcon">
       <span :class="`${ns}__icon`">
         <slot v-if="slots.prefix" name="prefix" />
         <slot v-else-if="slots.icon" name="icon" />
-        <svg
+        <XyuIcon
           v-else-if="props.icon"
+          :icon="props.icon"
           :width="iconSize"
           :height="iconSize"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path :d="props.icon" />
-        </svg>
+        />
       </span>
     </template>
     <span v-if="hasDefaultSlot" :class="`${ns}__label`">

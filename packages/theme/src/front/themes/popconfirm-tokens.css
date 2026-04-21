@@ -1,0 +1,31 @@
+/* ============================================================
+   xyu-popconfirm 组件级主题变量
+   ============================================================ */
+
+.xyu-popconfirm {
+  /* 弹出层 */
+  --xyu-popconfirm-bg: var(--xyu-bg);
+  --xyu-popconfirm-border: var(--xyu-border-color);
+  --xyu-popconfirm-radius: var(--xyu-radius-lg);
+  --xyu-popconfirm-shadow: var(--xyu-shadow-lg);
+
+  /* 间距 */
+  --xyu-popconfirm-padding: 12px 16px;
+
+  /* 文字 */
+  --xyu-popconfirm-title-color: var(--xyu-text-primary);
+  --xyu-popconfirm-description-color: var(--xyu-text-secondary);
+  --xyu-popconfirm-title-size: var(--xyu-text-base);
+  --xyu-popconfirm-description-size: var(--xyu-text-sm);
+
+  /* 按钮 */
+  --xyu-popconfirm-confirm-btn-color: var(--xyu-bg);
+  --xyu-popconfirm-confirm-btn-bg: var(--xyu-primary);
+  --xyu-popconfirm-confirm-btn-hover-bg: var(--xyu-primary-hover);
+  --xyu-popconfirm-cancel-btn-color: var(--xyu-text-primary);
+  --xyu-popconfirm-cancel-btn-bg: var(--xyu-bg-secondary);
+  --xyu-popconfirm-cancel-btn-hover-bg: var(--xyu-bg-tertiary);
+
+  /* 箭头 */
+  --xyu-popconfirm-arrow-size: 6px;
+}

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { AlertProps } from "./alert";
+import XyuIcon from "../icon/icon.vue";
+
+defineOptions({ name: "XyuAlert" });
 
 const props = withDefaults(defineProps<AlertProps>(), {
   title: "",
@@ -47,15 +50,15 @@ function toggleCollapse() {
   isCollapsed.value = !isCollapsed.value;
 }
 
-const iconMap: Record<string, string> = {
-  primary: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
-  success: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
-  warning: "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z",
-  danger: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z",
-  info: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+const iconName: Record<string, string> = {
+  primary: "mdi:information",
+  success: "mdi:check-circle",
+  warning: "mdi:alert",
+  danger: "mdi:close-circle",
+  info: "mdi:information"
 };
 
-const colorMap: Record<string, string> = {
+const iconColor: Record<string, string> = {
   primary: "var(--xyu-primary)",
   success: "var(--xyu-success)",
   warning: "var(--xyu-warning)",
@@ -68,10 +71,8 @@ const colorMap: Record<string, string> = {
   <transition name="xyu-alert-fade">
     <div v-if="isVisible" :class="alertClasses" role="alert">
       <!-- Icon -->
-      <span v-if="props.showIcon" :class="`${ns}__icon`">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path :d="iconMap[props.type]" fill="currentColor" stroke="none" />
-        </svg>
+      <span v-if="props.showIcon" :class="`${ns}__icon`" :style="{ color: iconColor[props.type] }">
+        <XyuIcon :icon="iconName[props.type]" :size="16" />
       </span>
 
       <!-- Content -->
@@ -107,10 +108,7 @@ const colorMap: Record<string, string> = {
         type="button"
         @click="handleClose"
       >
-        <svg v-if="!props.closeText" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
+        <XyuIcon v-if="!props.closeText" icon="mdi:close" :size="14" />
         <span v-else>{{ props.closeText }}</span>
       </button>
     </div>

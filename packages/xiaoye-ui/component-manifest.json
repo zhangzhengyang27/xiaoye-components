@@ -1,5 +1,11 @@
 [
   {
+    "name": "icon",
+    "docsText": "Icon 图标",
+    "installExports": ["XyuIcon"],
+    "styleImports": []
+  },
+  {
     "name": "product-card",
     "docsText": "ProductCard 商品卡片",
     "installExports": ["XyuProductCard"],
@@ -74,7 +80,7 @@
   {
     "name": "checkbox",
     "docsText": "Checkbox 多选框",
-    "installExports": ["XyuCheckbox"],
+    "installExports": ["XyuCheckbox", "XyuCheckboxGroup"],
     "styleImports": ["checkbox"]
   },
   {
@@ -202,5 +208,95 @@
     "docsText": "InputTag 标签输入",
     "installExports": ["XyuInputTag"],
     "styleImports": ["input-tag"]
+  },
+  {
+    "name": "pagination",
+    "docsText": "Pagination 分页",
+    "installExports": ["XyuPagination"],
+    "styleImports": ["pagination"]
+  },
+  {
+    "name": "popover",
+    "docsText": "Popover 弹出框",
+    "installExports": ["XyuPopover"],
+    "styleImports": ["popover"]
+  },
+  {
+    "name": "popconfirm",
+    "docsText": "Popconfirm 气泡确认框",
+    "installExports": ["XyuPopconfirm"],
+    "styleImports": ["popconfirm"]
+  },
+  {
+    "name": "upload",
+    "docsText": "Upload 上传",
+    "installExports": ["XyuUpload"],
+    "styleImports": ["upload"]
+  },
+  {
+    "name": "cascader",
+    "docsText": "Cascader 级联选择",
+    "installExports": ["XyuCascader"],
+    "styleImports": ["cascader"]
+  },
+  {
+    "name": "date-picker",
+    "docsText": "DatePicker 日期选择",
+    "installExports": ["XyuDatePicker"],
+    "styleImports": ["date-picker"]
+  },
+  {
+    "name": "time-picker",
+    "docsText": "TimePicker 时间选择",
+    "installExports": ["XyuTimePicker"],
+    "styleImports": ["time-picker"]
+  },
+  {
+    "name": "card",
+    "docsText": "Card 卡片",
+    "installExports": ["XyuCard"],
+    "styleImports": ["card"]
+  },
+  {
+    "name": "timeline",
+    "docsText": "Timeline 时间线",
+    "installExports": ["XyuTimeline", "XyuTimelineItem"],
+    "styleImports": ["timeline"]
+  },
+  {
+    "name": "result",
+    "docsText": "Result 结果",
+    "installExports": ["XyuResult"],
+    "styleImports": ["result"]
+  },
+  {
+    "name": "divider",
+    "docsText": "Divider 分割线",
+    "installExports": ["XyuDivider"],
+    "styleImports": ["divider"]
+  },
+  {
+    "name": "color-picker",
+    "docsText": "ColorPicker 颜色选择器",
+    "installExports": ["XyuColorPicker"],
+    "styleImports": ["color-picker"]
+  },
+  {
+    "name": "backtop",
+    "docsText": "Backtop 回到顶部",
+    "installExports": ["XyuBacktop"],
+    "styleImports": ["backtop"]
+  },
+  {
+    "name": "loading",
+    "docsText": "Loading 加载",
+    "installExports": ["XyuLoading"],
+    "styleImports": ["loading"]
+  },
+  {
+    "name": "message-box",
+    "docsText": "MessageBox 消息框",
+    "installExports": ["XyuMessageBox"],
+    "styleImports": ["message-box"]
   }
 ]

@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import type { DatePickerProps, DatePickerEmits } from "./date-picker";
+import XyuIcon from "../icon/icon.vue";
+
+defineOptions({ name: "XyuDatePicker" });
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   modelValue: "",
@@ -18,6 +21,9 @@ const visible = ref(false);
 const selectedDate = ref<Date | null>(null);
 const viewYear = ref(new Date().getFullYear());
 const viewMonth = ref(new Date().getMonth());
+const triggerRef = ref<HTMLElement | null>(null);
+const panelTop = ref(0);
+const panelLeft = ref(0);
 
 const weekDays = ["日", "一", "二", "三", "四", "五", "六"];
 
@@ -56,8 +62,6 @@ const displayText = computed(() => {
   return "";
 });
 
-function formatNumber(n: number) { return String(n).padStart(2, "0"); }
-
 function getCalendarDays(): (Date | null)[] {
   const year = viewYear.value;
   const month = viewMonth.value;
@@ -71,6 +75,34 @@ function getCalendarDays(): (Date | null)[] {
 
 const calendarDays = computed(() => getCalendarDays());
 
+const panelStyle = computed(() => ({
+  top: `${panelTop.value}px`,
+  left: `${panelLeft.value}px`
+}));
+
+function updatePanelPosition() {
+  if (!triggerRef.value) return;
+  const rect = triggerRef.value.getBoundingClientRect();
+  panelTop.value = rect.bottom + 4;
+  panelLeft.value = rect.left;
+}
+
+function handleTriggerClick() {
+  if (props.disabled) return;
+  visible.value = !visible.value;
+  if (visible.value) {
+    updatePanelPosition();
+  }
+}
+
+function prevYear() {
+  viewYear.value--;
+}
+
+function nextYear() {
+  viewYear.value++;
+}
+
 function prevMonth() {
   if (viewMonth.value === 0) { viewMonth.value = 11; viewYear.value--; }
   else viewMonth.value--;
@@ -83,6 +115,7 @@ function nextMonth() {
 
 function selectDay(date: Date | null) {
   if (!date) return;
+  if (props.disabledDate && props.disabledDate(date)) return;
   selectedDate.value = date;
   emitValue();
 }
@@ -116,14 +149,35 @@ function isSelected(date: Date | null) {
     date.getDate() === selectedDate.value.getDate();
 }
 
-const slots = defineSlots<{ default?: () => unknown }>();
+function isDisabled(date: Date | null) {
+  if (!date) return false;
+  return props.disabledDate ? props.disabledDate(date) : false;
+}
+
+function handleClickOutside(e: MouseEvent) {
+  if (!visible.value) return;
+  const target = e.target as Node;
+  const el = triggerRef.value;
+  if (el && !el.contains(target)) {
+    visible.value = false;
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside, true);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside, true);
+});
 </script>
 
 <template>
   <div :class="[ns, props.disabled ? 'is-disabled' : '']">
     <div
+      ref="triggerRef"
       :class="[`${ns}__input`, visible ? 'is-focus' : '']"
-      @click="!props.disabled && (visible = !visible)"
+      @click.stop="handleTriggerClick"
     >
       <input
         type="text"
@@ -133,18 +187,24 @@ const slots = defineSlots<{ default?: () => unknown }>();
         readonly
         :disabled="props.disabled"
       />
-      <span v-if="props.clearable && selectedDate" :class="`${ns}__clear`" @click="handleClear">✕</span>
-      <span v-else :class="`${ns}__icon`">📅</span>
+      <span v-if="props.clearable && selectedDate" :class="`${ns}__clear`" @click.stop="handleClear">
+      <XyuIcon icon="mdi:close" :size="12" />
+      </span>
+      <span v-else :class="`${ns}__icon`">
+        <XyuIcon icon="mdi:calendar" :size="14" />
+      </span>
     </div>
 
     <teleport to="body">
       <transition name="xyu-zoom-in-top">
-        <div v-if="visible" :class="`${ns}__picker`">
+        <div v-if="visible" :class="`${ns}__picker`" :style="panelStyle">
           <!-- Header -->
           <div :class="`${ns}__header`">
+            <span :class="`${ns}__nav`" @click="prevYear" title="上一年">«</span>
             <span :class="`${ns}__nav`" @click="prevMonth">‹</span>
             <span :class="`${ns}__label`">{{ viewYear }}年 {{ viewMonth + 1 }}月</span>
             <span :class="`${ns}__nav`" @click="nextMonth">›</span>
+            <span :class="`${ns}__nav`" @click="nextYear" title="下一年">»</span>
           </div>
 
           <!-- Week days -->
@@ -161,7 +221,8 @@ const slots = defineSlots<{ default?: () => unknown }>();
                 `${ns}__day`,
                 !date ? 'is-empty' : '',
                 date && isToday(date) ? 'is-today' : '',
-                date && isSelected(date) ? 'is-selected' : ''
+                date && isSelected(date) ? 'is-selected' : '',
+                date && isDisabled(date) ? 'is-disabled' : ''
               ]"
               @click="selectDay(date)"
             >
