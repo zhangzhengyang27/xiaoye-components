@@ -15,7 +15,6 @@ interface ContainerOpts {
 
 const docsRoot = fileURLToPath(new URL("../../", import.meta.url));
 const examplesRoot = path.resolve(docsRoot, "examples");
-const frontExamplesRoot = path.resolve(examplesRoot, "front");
 /**
  * Sandbox 判断逻辑（简化版）
  *
@@ -92,24 +91,14 @@ function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
           }
         }
 
-        // 前台组件示例在 examples/front/ 下，普通组件在 examples/ 下
-        // 支持 /front/ 和 /components/front/ 两种文档路径
-        // 先尝试普通路径，再尝试前台路径
+        // 解析示例文件路径
         let sourcePath = path.resolve(examplesRoot, `${sourceFile}.vue`);
-        let isFrontExample = false;
-        if (!fs.existsSync(sourcePath)) {
-          sourcePath = path.resolve(frontExamplesRoot, `${sourceFile}.vue`);
-          if (fs.existsSync(sourcePath)) {
-            isFrontExample = true;
-          }
-        }
 
         if (!sourceFile || !fs.existsSync(sourcePath)) {
           throw new Error(`Incorrect source file: ${sourceFile}`);
         }
 
-        // 前台组件示例需要加上 front/ 前缀，以便 Demo.vue 生成正确的 GitHub 链接
-        const demoPath = isFrontExample ? `front/${sourceFile}` : sourceFile;
+        const demoPath = sourceFile;
 
         const source = fs.readFileSync(sourcePath, "utf-8");
         const jsSource = sfcTs2js(source);

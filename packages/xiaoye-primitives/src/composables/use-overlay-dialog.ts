@@ -25,8 +25,12 @@ export interface OverlayDialogCallbacks {
 
 export interface OverlayDialogReturn {
   visible: ReturnType<typeof useFloatingVisibility>["visible"];
+  rendered: ReturnType<typeof useFloatingVisibility>["rendered"];
   showModal: ReturnType<typeof computed<boolean>>;
   zIndex: ReturnType<typeof computed<number>>;
+  appendTo: ReturnType<typeof computed<string | HTMLElement>>;
+  teleportDisabled: ReturnType<typeof computed<boolean>>;
+  contentRendered: ReturnType<typeof computed<boolean>>;
   isTopMost: () => boolean;
   close: () => void;
   handleAfterEnter: () => void;
@@ -39,7 +43,7 @@ export function useOverlayDialog(
 ): OverlayDialogReturn {
   const overlayStack = useOverlayStack();
 
-  const { visible, close, handleAfterLeave } = useFloatingVisibility({
+  const { visible, rendered, close, handleAfterLeave } = useFloatingVisibility({
     modelValue: () => options.modelValue,
     openDelay: () => options.openDelay,
     closeDelay: () => options.closeDelay,
@@ -60,6 +64,22 @@ export function useOverlayDialog(
       callbacks.onClosed?.();
     }
   });
+
+  const appendTo = computed(() => {
+    if (toValue(options.appendToBody)) {
+      return "body";
+    }
+    return toValue(options.appendTo) ?? "body";
+  });
+
+  const teleportDisabled = computed(() => {
+    if (typeof document === "undefined") {
+      return true;
+    }
+    return false;
+  });
+
+  const contentRendered = computed(() => rendered.value);
 
   const showModal = computed(() => {
     return toValue(options.modal) && visible.value;
@@ -82,8 +102,12 @@ export function useOverlayDialog(
 
   return {
     visible,
+    rendered,
     showModal,
     zIndex,
+    appendTo,
+    teleportDisabled,
+    contentRendered,
     isTopMost: overlayStack.isTopMost,
     close,
     handleAfterEnter: () => {},

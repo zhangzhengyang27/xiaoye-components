@@ -1,3 +1,0 @@
-<template>
-  <xyu-empty />
-</template>

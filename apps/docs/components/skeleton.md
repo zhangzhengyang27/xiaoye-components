@@ -44,10 +44,37 @@ skeleton/variants
 - 需要让页面先稳定布局，避免数据返回前大面积闪动。
 - 希望用户一眼看出"这里会加载出什么结构"，而不是只看到一个通用 loading 图标。
 
-## 接入建议
+## 何时不使用
 
-- 页面层维护真实 `loading` 状态，Skeleton 只负责承接占位反馈，不承担请求逻辑。
-- 结构简单时优先用默认模板；只有当页面骨架明显异于默认段落结构时，再上 `template` 或 `xy-skeleton-item`。
+- 加载时间极短（< 300ms）时，骨架屏闪烁反而影响体验，优先使用 `xy-loading`。
+- 页面结构完全未知时，骨架屏无法提供有意义的占位，应使用通用加载指示器。
+- 需要展示加载进度百分比时，优先使用 `xy-progress`。
+- 需要全屏遮罩加载时，优先使用 `v-loading` 指令。
+
+## 最佳实践
+
+### 页面级骨架屏组合
+
+中后台常见布局是顶部统计卡片 + 下方列表，建议用 `xy-skeleton-item` 手动拼装贴近真实结构的骨架：
+
+```vue
+<xy-skeleton :loading="loading">
+  <template #template>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+      <xy-skeleton-item variant="rect" style="height: 80px" />
+      <xy-skeleton-item variant="rect" style="height: 80px" />
+      <xy-skeleton-item variant="rect" style="height: 80px" />
+      <xy-skeleton-item variant="rect" style="height: 80px" />
+    </div>
+    <xy-skeleton-item variant="rect" style="height: 300px" />
+  </template>
+  <real-page-content />
+</xy-skeleton>
+```
+
+### 状态衔接
+
+页面层维护真实 `loading` 状态，Skeleton 只负责承接占位反馈，不承担请求逻辑。结构简单时优先用默认模板；只有当页面骨架明显异于默认段落结构时，再上 `template` 或 `xy-skeleton-item`。
 
 ## API
 

@@ -48,11 +48,32 @@ link/icon
 - 需要原生链接语义、`href / target` 或浏览器默认跳转行为。
 - 需要比 `xy-button link` 更轻、更接近正文排版的文本操作。
 
-## 什么时候不用 Link
+## 何时不使用
 
 - 当前动作仍然属于表单提交、保存、删除这类页面内操作。
 - 你需要明显的主次操作层级，而不只是正文跳转。
 - 你希望操作和 Button 体系的尺寸、状态、分组能力保持一致。
+
+## 最佳实践
+
+### Link vs Button link
+
+| 场景 | 推荐组件 |
+|------|----------|
+| 跳转到其他页面 | `xy-link` |
+| 当前页面内的动作 | `xy-button link` |
+| 需要原生 `<a>` 语义和浏览器行为 | `xy-link` |
+| 需要按钮的 loading / disabled / 分组 | `xy-button link` |
+
+### 下划线策略
+
+```vue
+<xy-link underline="hover">默认：悬停时显示下划线</xy-link>
+<xy-link underline="always">始终显示下划线</xy-link>
+<xy-link underline="never">不显示下划线</xy-link>
+```
+
+正文中的链接推荐 `hover` 策略，既保留链接感又不会让正文出现过多装饰线。
 
 ## Link API
 

@@ -13,14 +13,6 @@ function resolveExamplesRoot(id: string) {
     baseRoot = path.resolve(id.slice(0, markerIndex + docsMarker.length), "examples");
   }
 
-  // 前台组件文档在 /front/ 目录下，示例在 examples/front/ 子目录下
-  if (
-    id.includes(`${path.sep}front${path.sep}`) ||
-    id.includes(`${path.sep}components${path.sep}front${path.sep}`)
-  ) {
-    return path.resolve(baseRoot, "front");
-  }
-
   return baseRoot;
 }
 
@@ -78,9 +70,7 @@ export function markdownTransform(): Plugin {
       const isComponentDoc = id.includes(`${docsRoot}components${path.sep}`);
       const isProComponentDoc = id.includes(`${docsRoot}pro-components${path.sep}`);
       const isExampleDoc = id.includes(`${docsRoot}examples${path.sep}`);
-      const isFrontDoc = id.includes(`${path.sep}front${path.sep}`);
-
-      if (!isComponentDoc && !isProComponentDoc && !isExampleDoc && !isFrontDoc) {
+      if (!isComponentDoc && !isProComponentDoc && !isExampleDoc) {
         return;
       }
 

@@ -56,6 +56,35 @@ text/expandable
 - 需要在卡片、列表或摘要区控制文本截断，而不想每次都手写样式。
 - 需要保留 `p / strong / del` 这类标签语义，同时接入统一的主题色和字号。
 
+## 何时不使用
+
+- 需要富文本编辑时，Text 不提供编辑能力，应使用 `xy-editor`。
+- 需要可点击跳转的文本时，优先使用 `xy-link`。
+- 需要大段标题时，应使用原生 `<h1>`-`<h6>` 或自定义标题组件。
+- 需要状态标记时，优先使用 `xy-tag`。
+
+## 最佳实践
+
+### 截断策略选择
+
+| 场景 | 推荐方式 |
+|------|----------|
+| 单行溢出省略 | `truncated` |
+| 多行摘要截断 | `line-clamp` |
+| 溢出时显示完整内容 | `ellipsis-tooltip` |
+| 长文本展开收起 | `expandable` + `line-clamp` |
+
+### 语义色使用
+
+```vue
+<xy-text type="success">审核通过</xy-text>
+<xy-text type="danger">已拒绝</xy-text>
+<xy-text type="warning">待处理</xy-text>
+<xy-text type="info">草稿</xy-text>
+```
+
+状态文本建议配合 `xy-tag` 使用——Tag 更适合独立的状态标记，Text 更适合嵌入段落中的状态强调。
+
 ## Text API
 
 ### Text Attributes

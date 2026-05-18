@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { XyMessage } from "xiaoye-components";
 
-function openBasicMessage() {
-  XyMessage("这是一条用于说明当前操作结果的基础提示。");
+// 显示操作结果反馈提示
+function showOperationFeedback() {
+  XyMessage("数据保存成功，已自动同步到服务器。");
 }
 </script>
 
 <template>
-  <xy-button type="primary" @click="openBasicMessage">打开基础提示</xy-button>
+  <!-- 消息提示基础用法：展示全局轻量级操作反馈，常用于保存/删除等操作的即时提示 -->
+  <xy-button type="primary" @click="showOperationFeedback">保存数据</xy-button>
 </template>

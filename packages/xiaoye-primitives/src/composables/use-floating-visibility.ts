@@ -27,12 +27,16 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
 
   function clearTimers() {
     if (openTimer != null) {
-      window.clearTimeout(openTimer);
+      if (typeof window !== "undefined") {
+        window.clearTimeout(openTimer);
+      }
       openTimer = null;
     }
 
     if (closeTimer != null) {
-      window.clearTimeout(closeTimer);
+      if (typeof window !== "undefined") {
+        window.clearTimeout(closeTimer);
+      }
       closeTimer = null;
     }
   }
@@ -87,9 +91,11 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
     const delay = optionsOverride.immediate ? 0 : (toValue(options.openDelay) ?? 0);
 
     if (delay > 0) {
-      openTimer = window.setTimeout(() => {
-        setVisible(true, optionsOverride);
-      }, delay);
+      openTimer = typeof window !== "undefined"
+        ? window.setTimeout(() => {
+            setVisible(true, optionsOverride);
+          }, delay)
+        : null;
       return;
     }
 
@@ -104,9 +110,11 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
     const delay = optionsOverride.immediate ? 0 : (toValue(options.closeDelay) ?? 0);
 
     if (delay > 0) {
-      closeTimer = window.setTimeout(() => {
-        setVisible(false, optionsOverride);
-      }, delay);
+      closeTimer = typeof window !== "undefined"
+        ? window.setTimeout(() => {
+            setVisible(false, optionsOverride);
+          }, delay)
+        : null;
       return;
     }
 

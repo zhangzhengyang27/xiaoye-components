@@ -200,6 +200,7 @@ export function useFocusTrap(
     () => toValue(options.active),
     async (value) => {
       if (value) {
+        if (typeof document === "undefined") return;
         lastFocusedElement =
           document.activeElement instanceof HTMLElement ? document.activeElement : null;
         await focusOnOpen();

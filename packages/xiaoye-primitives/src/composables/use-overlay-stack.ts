@@ -2,9 +2,6 @@ import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref, watch } 
 import { toValue } from "vue";
 import type { MaybeRefOrGetter } from "vue";
 
-const stack = ref<Set<symbol>>(new Set());
-const zIndexCounter = ref(2000);
-
 interface OverlayEntry {
   id: symbol;
   zIndex: number;
@@ -13,52 +10,61 @@ interface OverlayEntry {
   closeLayer: () => void;
 }
 
-function notifyStackChange() {
-  stack.value = new Set(stack.value);
-}
+function createStack() {
+  const stack = ref<Set<symbol>>(new Set());
+  const zIndexCounter = ref(2000);
 
-function getTopEntry(): OverlayEntry | undefined {
-  let top: OverlayEntry | undefined;
-  let maxZ = -Infinity;
-
-  for (const entry of stack.value) {
-    if (entry.zIndex > maxZ) {
-      maxZ = entry.zIndex;
-      top = entry;
-    }
+  function notifyStackChange() {
+    stack.value = new Set(stack.value);
   }
 
-  return top;
-}
+  function getTopEntry(): OverlayEntry | undefined {
+    let top: OverlayEntry | undefined;
+    let maxZ = -Infinity;
 
-function createOverlayEntry(): OverlayEntry {
-  const id = Symbol("overlay");
-  let closed = false;
-
-  const entry: OverlayEntry = {
-    id,
-    zIndex: -1,
-    isTopMost: () => {
-      if (closed) return false;
-      const top = getTopEntry();
-      return top?.id === id;
-    },
-    openLayer: () => {
-      if (closed) return;
-      entry.zIndex = ++zIndexCounter.value;
-      stack.value.add(entry);
-      notifyStackChange();
-    },
-    closeLayer: () => {
-      if (closed) return;
-      closed = true;
-      stack.value.delete(entry);
-      notifyStackChange();
+    for (const entry of stack.value) {
+      if (entry.zIndex > maxZ) {
+        maxZ = entry.zIndex;
+        top = entry;
+      }
     }
-  };
 
-  return entry;
+    return top;
+  }
+
+  function createOverlayEntry(): OverlayEntry {
+    const id = Symbol("overlay");
+    let closed = false;
+
+    const entry: OverlayEntry = {
+      id,
+      zIndex: -1,
+      isTopMost: () => {
+        if (closed) return false;
+        const top = getTopEntry();
+        return top?.id === id;
+      },
+      openLayer: () => {
+        if (closed) return;
+        entry.zIndex = ++zIndexCounter.value;
+        stack.value.add(entry);
+        notifyStackChange();
+      },
+      closeLayer: () => {
+        if (closed) return;
+        closed = true;
+        stack.value.delete(entry);
+        notifyStackChange();
+      }
+    };
+
+    return entry;
+  }
+
+  return { createOverlayEntry };
 }
+
+const globalStack = createStack();
 
 export interface OverlayStackEntry {
   zIndex: ReturnType<typeof computed<number>>;
@@ -68,6 +74,25 @@ export interface OverlayStackEntry {
 }
 
 export function useOverlayStack(): OverlayStackEntry {
+  const instance = getCurrentInstance();
+
+  const stackFactory =
+    typeof document !== "undefined" && instance
+      ? (() => {
+          const stacks = new WeakMap<object, ReturnType<typeof createStack>>();
+          return () => {
+            let s = stacks.get(instance!);
+            if (!s) {
+              s = createStack();
+              stacks.set(instance!, s);
+            }
+            return s;
+          };
+        })()
+      : null;
+
+  const { createOverlayEntry } = stackFactory?.() ?? globalStack;
+
   const entry = createOverlayEntry();
 
   onMounted(() => {

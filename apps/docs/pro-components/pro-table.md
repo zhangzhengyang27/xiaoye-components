@@ -8,6 +8,82 @@ outline: deep
 
 `xy-pro-table` 把工具栏、搜索区、表格本体和分页收成一个稳定闭环，适合后台列表页和运营台页面。
 
+## 何时使用
+
+- 需要快速搭建后台列表页，不想手拼工具栏、搜索区和分页。
+- 需要远程数据加载、自动分页联动的表格工作台。
+- 需要列设置、密度切换、全屏、筛选抽屉等内置工作台能力。
+- 需要行编辑、虚拟滚动、右键菜单等高级表格能力。
+
+## 何时不使用
+
+- 只需要纯展示表格（无工具栏、无分页）时，优先使用 `xy-table`。
+- 需要完全自定义表格布局时，优先使用 `xy-table` + 手动组合。
+- 数据量极小（< 20 条）且无分页需求时，`xy-table` 更轻量。
+
+## 与基础组件的关系
+
+```
+ProTable
+├── 工具栏（内置）         ← 自定义布局，非独立组件
+├── SearchForm（搜索区）    ← 可选，通过 slot 或 request 联动
+├── Table（表格本体）       ← 基于 xy-table，通过 tableProps 透传
+├── Pagination（分页）      ← 内置，与 request 自动联动
+├── ColumnSettingPanel      ← 工作台内置，列显隐配置
+└── TableFilterDrawer       ← 工作台内置，高级筛选
+```
+
+**核心区别**：`xy-table` 是纯表格渲染组件，`xy-pro-table` 在其之上封装了完整的列表页工作台能力。
+
+## 最佳实践
+
+### 远程数据加载
+
+推荐使用 `request` 配置，让 ProTable 自动管理加载态、分页和数据刷新：
+
+```vue
+<xy-pro-table
+  :columns="columns"
+  :request="fetchData"
+/>
+
+<script setup lang="ts">
+async function fetchData(params) {
+  const { data } = await api.getList({
+    page: params.currentPage,
+    pageSize: params.pageSize,
+    ...params.filters
+  })
+  return { data: data.list, total: data.total }
+}
+</script>
+```
+
+### 列定义与显示协议
+
+使用 `value-type` 快速渲染常见数据格式，避免每个列都写自定义插槽：
+
+```ts
+const columns = [
+  { prop: 'name', label: '名称' },
+  { prop: 'status', label: '状态', valueType: 'tag', options: statusOptions },
+  { prop: 'amount', label: '金额', value_type: 'money' },
+  { prop: 'createdAt', label: '创建时间', value_type: 'datetime' },
+]
+```
+
+### 稳定的 row-key
+
+只要涉及选择列、展开行、行编辑或数据刷新后保留状态，都应显式提供稳定的 `row-key`：
+
+```vue
+<xy-pro-table
+  :table-props="{ rowKey: 'id' }"
+  :columns="columns"
+  :data="data"
+/>
+```
+
 ## 基础用法
 
 :::demo 第一版先支持标题、工具栏动作、列 schema 和分页联动，足够承接大多数后台列表页主干。

@@ -8,6 +8,60 @@ outline: deep
 
 `xy-switch` 适合启用/停用、公开/私密、自动/手动这类二值状态切换场景。和 `radio` 不同，它强调的是当前状态的即时切换，而不是一组互斥选项中的选择。
 
+## 何时使用
+
+- 需要表达"开启/关闭"这类即时生效的二值状态切换。
+- 需要在设置面板、权限管理或功能开关中控制启停。
+- 需要配合 `before-change` 做异步确认（如关闭功能前弹出确认）。
+
+## 何时不使用
+
+- 需要在多个互斥选项中选择一个时，优先使用 `xy-radio-group`。
+- 需要表达多选状态时，优先使用 `xy-checkbox-group`。
+- 需要表达"加载中"状态时，优先使用 `xy-button` 的 `loading` 属性。
+
+## 最佳实践
+
+### Switch vs Radio vs Checkbox
+
+| 场景 | 推荐组件 |
+|------|----------|
+| 即时生效的二值切换（开/关） | `xy-switch` |
+| 互斥选项中选一个 | `xy-radio-group` |
+| 多选 | `xy-checkbox-group` |
+
+### 异步确认模式
+
+涉及不可逆操作时（如关闭重要功能），建议配合 `before-change` 做二次确认：
+
+```vue
+<xy-switch
+  v-model="enabled"
+  :before-change="handleBeforeChange"
+/>
+
+<script setup lang="ts">
+async function handleBeforeChange(val: boolean) {
+  if (!val) {
+    return await confirmDialog('确认关闭此功能？')
+  }
+  return true
+}
+</script>
+```
+
+### 枚举值绑定
+
+当后端字段不是布尔值时，使用 `active-value` / `inactive-value` 映射：
+
+```vue
+<xy-switch
+  v-model="status"
+  active-value="ENABLED"
+  inactive-value="DISABLED"
+/>
+```
+
 ## 基础用法
 
 :::demo 最常见的用法是直接用 `v-model` 绑定布尔值，再通过 `active-text / inactive-text` 说明状态语义。
