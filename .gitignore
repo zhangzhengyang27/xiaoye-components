@@ -15,3 +15,4 @@ apps/playground/dist
 output/
 output-*.png
 test-results/
+.trae
