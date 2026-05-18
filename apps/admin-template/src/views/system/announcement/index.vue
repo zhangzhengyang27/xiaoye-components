@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { XyCard, XyTable, XyButton, XyTag, XyMessage, XyIcon, XySpace, XyInput, XyDialog, XyForm, XyFormItem, XySelect, XyDatePicker } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyButton, XyTag, XyMessage, XyIcon, XySpace, XyInput, XyDialog, XyForm, XyFormItem, XySelect, XyDatePicker } from 'xiaoye-components'
 
 interface Announcement {
   id: number
@@ -15,17 +15,6 @@ interface Announcement {
 
 const searchKeyword = ref('')
 const showPublishDialog = ref(false)
-
-const tableColumns = [
-  { title: 'ID', key: 'id', width: 80 },
-  { title: '标题', key: 'title' },
-  { title: '类型', key: 'type', slot: 'type', width: 120 },
-  { title: '发布人', key: 'author', width: 120 },
-  { title: '发布时间', key: 'publishTime', width: 180 },
-  { title: '浏览量', key: 'views', width: 100 },
-  { title: '状态', key: 'status', slot: 'status', width: 100 },
-  { title: '操作', key: 'action', slot: 'action', width: 200 }
-]
 
 const announcements = ref<Announcement[]>([
   { 
@@ -147,36 +136,48 @@ function handleSubmit() {
     </XyCard>
 
     <XyCard>
-      <XyTable :columns="tableColumns" :data="announcements">
-        <template #title="{ record }">
-          <div class="title-cell">
-            <XyIcon :icon="getTypeInfo(record.type).icon" :size="18" />
-            <span>{{ record.title }}</span>
-          </div>
-        </template>
-        <template #type="{ record }">
-          <XyTag :type="getTypeInfo(record.type).color">
-            {{ getTypeInfo(record.type).text }}
-          </XyTag>
-        </template>
-        <template #status="{ record }">
-          <XyTag :type="record.status ? 'success' : 'info'">
-            {{ record.status ? '已发布' : '草稿' }}
-          </XyTag>
-        </template>
-        <template #action="{ record }">
-          <XySpace>
-            <XyButton type="link" size="small" @click="handleView(record)">
-              查看
-            </XyButton>
-            <XyButton type="link" size="small" @click="handleEdit(record)">
-              编辑
-            </XyButton>
-            <XyButton type="link" size="small" danger @click="handleDelete(record)">
-              删除
-            </XyButton>
-          </XySpace>
-        </template>
+      <XyTable :data="announcements">
+        <XyTableColumn prop="id" label="ID" width="80" />
+        <XyTableColumn prop="title" label="标题">
+          <template #default="{ row }">
+            <div class="title-cell">
+              <XyIcon :icon="getTypeInfo(row.type).icon" :size="18" />
+              <span>{{ row.title }}</span>
+            </div>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="type" label="类型" width="120">
+          <template #default="{ row }">
+            <XyTag :type="getTypeInfo(row.type).color">
+              {{ getTypeInfo(row.type).text }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="author" label="发布人" width="120" />
+        <XyTableColumn prop="publishTime" label="发布时间" width="180" />
+        <XyTableColumn prop="views" label="浏览量" width="100" />
+        <XyTableColumn prop="status" label="状态" width="100">
+          <template #default="{ row }">
+            <XyTag :type="row.status ? 'success' : 'info'">
+              {{ row.status ? '已发布' : '草稿' }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn label="操作" width="200">
+          <template #default="{ row }">
+            <XySpace>
+              <XyButton type="link" size="small" @click="handleView(row)">
+                查看
+              </XyButton>
+              <XyButton type="link" size="small" @click="handleEdit(row)">
+                编辑
+              </XyButton>
+              <XyButton type="link" size="small" danger @click="handleDelete(row)">
+                删除
+              </XyButton>
+            </XySpace>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
 

@@ -4,16 +4,14 @@ import { createLibraryConfig } from "./scripts/config/library-build";
 const resolvePath = (target: string) => fileURLToPath(new URL(target, import.meta.url));
 
 export default createLibraryConfig({
-  entry: resolvePath("./packages/xiaoye-pro-components/index.ts"),
+  entry: resolvePath("./packages/pro-components/index.ts"),
   name: "XiaoyeProComponents",
-  outDir: resolvePath("./packages/xiaoye-pro-components/dist"),
+  outDir: resolvePath("./packages/pro-components/dist"),
   dtsInclude: [
     "packages/components/**/*.ts",
     "packages/components/**/*.vue",
     "packages/pro-components/**/*.ts",
     "packages/pro-components/**/*.vue",
-    "packages/xiaoye-primitives/src/utils/**/*.ts",
-    "packages/xiaoye-components/**/*.ts",
-    "packages/xiaoye-pro-components/**/*.ts"
+    "packages/xiaoye-primitives/src/utils/**/*.ts"
   ]
 });

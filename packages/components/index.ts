@@ -1,72 +1,54 @@
-export * from "./config-provider";
-export * from "./icon";
-export * from "./button";
-export * from "./link";
-export * from "./breadcrumb";
-export * from "./text";
-export * from "./badge";
-export * from "./avatar";
-export * from "./image";
-export * from "./watermark";
-export * from "./card";
-export * from "./check-card";
-export * from "./carousel";
-export * from "./affix";
-export * from "./alert";
-export * from "./message";
-export * from "./notification";
-export * from "./anchor";
-export * from "./backtop";
-export * from "./menu";
-export * from "./input";
-export * from "./auto-complete";
-export * from "./cascader";
-export * from "./radio";
-export * from "./checkbox";
-export * from "./switch";
-export * from "./input-tag";
-export * from "./input-number";
-export * from "./rate";
-export * from "./slider";
-export * from "./progress";
-export * from "./steps";
-export * from "./statistic";
-export * from "./countdown";
-export * from "./timeline";
-export * from "./skeleton";
-export * from "./date-picker";
-export * from "./time-picker";
-export * from "./time-select";
-export * from "./scheduler";
-export * from "./select";
-export * from "./tree-select";
-export * from "./descriptions";
-export * from "./tree";
-export * from "./upload";
-export * from "./form";
-export * from "./dialog";
-export * from "./drawer";
-export * from "./divider";
-export * from "./loading";
-export * from "./table";
-export * from "./tooltip";
-export * from "./popover";
-export * from "./popconfirm";
-export * from "./dropdown";
-export * from "./transfer";
-export * from "./collapse";
-export * from "./collapse-transition";
-export * from "./tabs";
-export * from "./tag";
-export * from "./scrollbar";
-export * from "./splitter";
-export * from "./row";
-export * from "./col";
-export * from "./pagination";
-export * from "./result";
-export * from "./empty";
-export * from "./space";
-export * from "./charts";
-export * from "./editor";
-export * from "./audio-player";
-export * from "./video-player";
+import type { App, Plugin } from "vue";
+import "./style.css";
+import * as XiaoyeComponentExports from "./exports";
+import { installableComponentExportNames } from "./component-manifest";
+
+export type { ComponentSize, ComponentStatus, SelectOption } from "@xiaoye/primitives";
+export * from "./exports";
+
+const INSTALL_KEY = Symbol.for("xiaoye-components:installed");
+
+function isInstallableExport(value: unknown): value is Plugin {
+  return (
+    (typeof value === "function" || typeof value === "object") &&
+    value !== null &&
+    "install" in value &&
+    typeof (value as { install?: unknown }).install === "function"
+  );
+}
+
+const installableExports = Array.from(
+  new Set(
+    installableComponentExportNames
+      .map((name) => XiaoyeComponentExports[name as keyof typeof XiaoyeComponentExports])
+      .filter(isInstallableExport)
+  )
+) as Plugin[];
+
+export function install(app: App) {
+  const appWithInstallFlag = app as App & {
+    [INSTALL_KEY]?: boolean;
+  };
+
+  if (appWithInstallFlag[INSTALL_KEY]) {
+    return;
+  }
+
+  appWithInstallFlag[INSTALL_KEY] = true;
+
+  installableExports.forEach((component) => {
+    app.use(component);
+  });
+}
+
+declare module "vue" {
+  interface ComponentCustomProperties {
+    $loading?: typeof import("./loading").XyLoadingService;
+    $message?: typeof import("./message").XyMessage;
+    $notify?: typeof import("./notification").XyNotificationService;
+  }
+}
+
+export default {
+  install
+};

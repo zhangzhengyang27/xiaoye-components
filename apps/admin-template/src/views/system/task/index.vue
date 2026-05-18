@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { XyCard, XyTable, XyButton, XyTag, XyMessage, XyIcon, XySpace, XyInput, XySelect, XyDialog, XyForm, XyFormItem } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyButton, XyTag, XyMessage, XyIcon, XySpace, XyInput, XySelect, XyDialog, XyForm, XyFormItem } from 'xiaoye-components'
 
 interface Task {
   id: number
@@ -18,17 +18,6 @@ const searchKeyword = ref('')
 const statusFilter = ref('')
 const showAddDialog = ref(false)
 
-const tableColumns = [
-  { title: 'ID', key: 'id', width: 80 },
-  { title: '任务名称', key: 'name', width: 200 },
-  { title: '任务分组', key: 'group', width: 150 },
-  { title: 'CRON表达式', key: 'cron', width: 150 },
-  { title: '调用目标', key: 'target', width: 250 },
-  { title: '状态', key: 'status', slot: 'status', width: 120 },
-  { title: '上次执行时间', key: 'lastRunTime', width: 180 },
-  { title: '下次执行时间', key: 'nextRunTime', width: 180 },
-  { title: '操作', key: 'action', slot: 'action', width: 250 }
-]
 
 const tasks = ref<Task[]>([
   {
@@ -206,31 +195,36 @@ function handleSubmit() {
     </XyCard>
 
     <XyCard>
-      <XyTable :columns="tableColumns" :data="tasks">
-        <template #status="{ record }">
-          <div class="status-cell">
-            <XyIcon :icon="getStatusInfo(record.status).icon" :size="16" />
-            <XyTag :type="getStatusInfo(record.status).color" size="small">
-              {{ getStatusInfo(record.status).text }}
-            </XyTag>
-          </div>
-        </template>
-        <template #action="{ record }">
-          <XySpace>
-            <XyButton type="link" size="small" @click="handleExecute(record)">
-              执行
-            </XyButton>
-            <XyButton type="link" size="small" @click="handleToggleStatus(record)">
-              {{ record.status === 'running' ? '停止' : '启动' }}
-            </XyButton>
-            <XyButton type="link" size="small" @click="handleEdit(record)">
-              编辑
-            </XyButton>
-            <XyButton type="link" size="small" danger @click="handleDelete(record)">
-              删除
-            </XyButton>
-          </XySpace>
-        </template>
+      <XyTable :data="tasks">
+        <XyTableColumn prop="id" label="ID" width="80" />
+        <XyTableColumn prop="name" label="任务名称" width="200" />
+        <XyTableColumn prop="group" label="任务分组" width="150" />
+        <XyTableColumn prop="cron" label="CRON表达式" width="150" />
+        <XyTableColumn prop="target" label="调用目标" width="250" />
+        <XyTableColumn prop="status" label="状态" width="120">
+          <template #default="{ row }">
+            <div class="status-cell">
+              <XyIcon :icon="getStatusInfo(row.status).icon" :size="16" />
+              <XyTag :type="getStatusInfo(row.status).color" size="small">
+                {{ getStatusInfo(row.status).text }}
+              </XyTag>
+            </div>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="lastRunTime" label="上次执行时间" width="180" />
+        <XyTableColumn prop="nextRunTime" label="下次执行时间" width="180" />
+        <XyTableColumn label="操作" width="250">
+          <template #default="{ row }">
+            <XySpace>
+              <XyButton type="link" size="small" @click="handleExecute(row)">执行</XyButton>
+              <XyButton type="link" size="small" @click="handleToggleStatus(row)">
+                {{ row.status === 'running' ? '停止' : '启动' }}
+              </XyButton>
+              <XyButton type="link" size="small" @click="handleEdit(row)">编辑</XyButton>
+              <XyButton type="link" size="small" danger @click="handleDelete(row)">删除</XyButton>
+            </XySpace>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
 

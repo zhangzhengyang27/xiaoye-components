@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { XyCard, XyTable, XyTag, XyButton, XyInput, XySelect, XySpace, XyBadge, XyDrawer, XyDescriptions, XyDescriptionsItem, XyTimeline, XyTimelineItem, XyMessage } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyTag, XyButton, XyInput, XySelect, XySpace, XyBadge, XyDrawer, XyDescriptions, XyDescriptionsItem, XyTimeline, XyTimelineItem, XyMessage } from 'xiaoye-components'
 
 const searchText = ref('')
 const orderStatus = ref('')
@@ -58,17 +58,6 @@ const paymentMap: Record<string, string> = {
   alipay: '支付宝',
   card: '银行卡'
 }
-
-const tableColumns = [
-  { title: '订单编号', key: 'id', width: 180 },
-  { title: '客户信息', key: 'customer', slot: 'customer' },
-  { title: '商品信息', key: 'product', slot: 'product' },
-  { title: '订单金额', key: 'amount', slot: 'amount', width: 120 },
-  { title: '订单状态', key: 'status', slot: 'status', width: 100 },
-  { title: '支付方式', key: 'payment', slot: 'payment', width: 100 },
-  { title: '下单时间', key: 'createTime', width: 170 },
-  { title: '操作', key: 'action', slot: 'action', width: 150 }
-]
 
 function getStatusTag(status: string) {
   return statusMap[status] || { text: status, type: 'default' }
@@ -160,51 +149,61 @@ function handleExport() {
     </XyCard>
     
     <XyCard>
-      <XyTable :columns="tableColumns" :data="filteredOrders" stripe>
-        <template #customer="{ record }">
-          <div class="customer-info">
-            <span class="customer-name">{{ record.customer }}</span>
-            <span class="customer-phone">{{ record.phone }}</span>
-          </div>
-        </template>
-        <template #product="{ record }">
-          <div class="product-info">
-            <span class="product-name">{{ record.product }}</span>
-            <span class="product-quantity">x{{ record.quantity }}</span>
-          </div>
-        </template>
-        <template #amount="{ record }">
-          <span class="amount">¥{{ record.amount.toLocaleString() }}</span>
-        </template>
-        <template #status="{ record }">
-          <XyTag :type="getStatusTag(record.status).type">
-            {{ getStatusTag(record.status).text }}
-          </XyTag>
-        </template>
-        <template #payment="{ record }">
-          <span class="payment-text">{{ paymentMap[record.payment] }}</span>
-        </template>
-        <template #action="{ record }">
-          <XySpace>
-            <XyButton type="link" size="small" @click="viewDetail(record)">详情</XyButton>
-            <XyButton 
-              v-if="record.status === 'pending'" 
-              type="link" 
-              size="small" 
-              @click="handleProcess(record)"
-            >
-              处理
-            </XyButton>
-            <XyButton 
-              v-if="record.status === 'processing'" 
-              type="link" 
-              size="small" 
-              @click="handleShip(record)"
-            >
-              发货
-            </XyButton>
-          </XySpace>
-        </template>
+      <XyTable :data="filteredOrders" stripe>
+        <XyTableColumn prop="id" label="订单编号" width="180" />
+        <XyTableColumn prop="customer" label="客户信息">
+          <template #default="{ row }">
+            <div class="customer-info">
+              <span class="customer-name">{{ row.customer }}</span>
+              <span class="customer-phone">{{ row.phone }}</span>
+            </div>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="product" label="商品信息">
+          <template #default="{ row }">
+            <div class="product-info">
+              <span class="product-name">{{ row.product }}</span>
+              <span class="product-quantity">x{{ row.quantity }}</span>
+            </div>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="amount" label="订单金额" width="120" />
+        <XyTableColumn prop="status" label="订单状态" width="100">
+          <template #default="{ row }">
+            <XyTag :type="getStatusTag(row.status).type">
+              {{ getStatusTag(row.status).text }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="payment" label="支付方式" width="100">
+          <template #default="{ row }">
+            <span class="payment-text">{{ paymentMap[row.payment] }}</span>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="createTime" label="下单时间" width="170" />
+        <XyTableColumn label="操作" width="150">
+          <template #default="{ row }">
+            <XySpace>
+              <XyButton type="link" size="small" @click="viewDetail(row)">详情</XyButton>
+              <XyButton 
+                v-if="row.status === 'pending'" 
+                type="link" 
+                size="small" 
+                @click="handleProcess(row)"
+              >
+                处理
+              </XyButton>
+              <XyButton 
+                v-if="row.status === 'processing'" 
+                type="link" 
+                size="small" 
+                @click="handleShip(row)"
+              >
+                发货
+              </XyButton>
+            </XySpace>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
     

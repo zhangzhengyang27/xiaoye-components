@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { XyCard, XyProgress, XyTag, XyButton, XyTable, XyIcon } from 'xiaoye-components'
+import { XyCard, XyProgress, XyTag, XyButton, XyTable, XyTableColumn, XyIcon } from 'xiaoye-components'
 
 const systemStats = ref({
   cpu: 45,
@@ -75,16 +75,6 @@ const logs = ref([
   { time: '2026-05-18 15:15:00', level: 'info', message: '系统备份任务开始执行', source: 'Backup' },
   { time: '2026-05-18 15:10:00', level: 'success', message: '缓存预热完成', source: 'Cache' }
 ])
-
-const tableColumns = [
-  { title: '服务器名称', key: 'name', width: 200 },
-  { title: 'IP地址', key: 'ip', width: 150 },
-  { title: '端口', key: 'port', width: 100 },
-  { title: '状态', key: 'status', slot: 'status', width: 120 },
-  { title: 'CPU使用率', key: 'cpu', slot: 'cpu', width: 200 },
-  { title: '内存使用率', key: 'memory', slot: 'memory', width: 200 },
-  { title: '运行时间', key: 'uptime', width: 150 }
-]
 
 function getStatusInfo(status: string) {
   const info: Record<string, { text: string; color: string }> = {
@@ -206,24 +196,34 @@ function refreshStats() {
       </XyCard>
 
       <XyCard title="服务器状态" class="server-card">
-        <XyTable :columns="tableColumns" :data="serverList">
-          <template #status="{ record }">
-            <XyTag :type="getStatusInfo(record.status).color">
-              {{ getStatusInfo(record.status).text }}
-            </XyTag>
-          </template>
-          <template #cpu="{ record }">
-            <div class="progress-cell">
-              <XyProgress :percent="record.cpu" size="small" />
-              <span>{{ record.cpu }}%</span>
-            </div>
-          </template>
-          <template #memory="{ record }">
-            <div class="progress-cell">
-              <XyProgress :percent="record.memory" size="small" />
-              <span>{{ record.memory }}%</span>
-            </div>
-          </template>
+        <XyTable :data="serverList">
+          <XyTableColumn prop="name" label="服务器名称" width="200" />
+          <XyTableColumn prop="ip" label="IP地址" width="150" />
+          <XyTableColumn prop="port" label="端口" width="100" />
+          <XyTableColumn prop="status" label="状态" width="120">
+            <template #default="{ row }">
+              <XyTag :type="getStatusInfo(row.status).color">
+                {{ getStatusInfo(row.status).text }}
+              </XyTag>
+            </template>
+          </XyTableColumn>
+          <XyTableColumn prop="cpu" label="CPU使用率" width="200">
+            <template #default="{ row }">
+              <div class="progress-cell">
+                <XyProgress :percent="row.cpu" size="small" />
+                <span>{{ row.cpu }}%</span>
+              </div>
+            </template>
+          </XyTableColumn>
+          <XyTableColumn prop="memory" label="内存使用率" width="200">
+            <template #default="{ row }">
+              <div class="progress-cell">
+                <XyProgress :percent="row.memory" size="small" />
+                <span>{{ row.memory }}%</span>
+              </div>
+            </template>
+          </XyTableColumn>
+          <XyTableColumn prop="uptime" label="运行时间" width="150" />
         </XyTable>
       </XyCard>
     </div>

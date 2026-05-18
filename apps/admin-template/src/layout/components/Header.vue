@@ -1,168 +1,222 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
-import { XyIcon, XyDropdown, XyDropdownMenu, XyDropdownItem, XyTooltip } from 'xiaoye-components'
+import { XyIcon, XyAvatar, XyDropdown, XyDropdownMenu, XyDropdownItem, XyBadge } from 'xiaoye-components'
 
-const router = useRouter()
 const appStore = useAppStore()
+const router = useRouter()
 
-function handleLogout() {
-  appStore.logout()
-  router.push('/login')
-}
+const showNotifications = ref(false)
 
-function goToProfile() {
-  router.push('/profile')
-}
+const userMenuOptions = [
+  { key: 'profile', icon: 'mdi:account-circle', label: '个人中心' },
+  { key: 'settings', icon: 'mdi:cog', label: '账户设置' },
+  { divider: true },
+  { key: 'logout', icon: 'mdi:logout', label: '退出登录' }
+]
 
-function goToSettings() {
-  router.push('/settings/basic')
-}
-
-function toggleTheme() {
-  const newMode = appStore.themeMode === 'light' ? 'dark' : 'light'
-  appStore.setThemeMode(newMode)
+function handleUserCommand(command: string) {
+  if (command === 'logout') {
+    appStore.logout()
+    router.push('/login')
+  } else if (command === 'profile') {
+    router.push('/profile')
+  }
 }
 </script>
 
 <template>
-  <div class="admin-header-content">
+  <div class="header-content">
     <div class="header-left">
-      <button class="sidebar-toggle" @click="appStore.toggleSidebar">
-        <XyIcon icon="mdi:menu" :size="20" />
+      <button class="collapse-btn" @click="appStore.toggleSidebar">
+        <XyIcon :icon="appStore.sidebarCollapsed ? 'mdi:menu' : 'mdi:menu-open'" :size="22" />
       </button>
+      
+      <div class="breadcrumb">
+        <span class="breadcrumb-text">控制台</span>
+      </div>
     </div>
     
     <div class="header-right">
-      <XyTooltip content="切换主题">
-        <button class="theme-toggle" @click="toggleTheme">
-          <XyIcon :icon="appStore.themeMode === 'light' ? 'mdi:moon' : 'mdi:sun'" :size="20" />
+      <div class="header-actions">
+        <button class="action-btn" @click="showNotifications = !showNotifications">
+          <XyIcon icon="mdi:bell-outline" :size="20" />
+          <XyBadge :value="2" :max="99" class="notification-badge" />
         </button>
-      </XyTooltip>
-      
-      <XyTooltip content="通知">
-        <button class="notification-btn">
-          <XyIcon icon="mdi:bell" :size="20" />
-          <span class="badge">3</span>
-        </button>
-      </XyTooltip>
-      
-      <XyDropdown>
-        <template #trigger>
-          <button class="user-btn">
-            <XyIcon icon="mdi:account-circle" :size="24" />
-            <span class="user-name">{{ appStore.userInfo?.name }}</span>
-            <XyIcon icon="mdi:chevron-down" :size="16" />
-          </button>
-        </template>
         
-        <XyDropdownMenu>
-          <XyDropdownItem @click="goToProfile">
-            <XyIcon icon="mdi:account" :size="16" />
-            <span>个人中心</span>
-          </XyDropdownItem>
-          <XyDropdownItem @click="goToSettings">
-            <XyIcon icon="mdi:settings" :size="16" />
-            <span>账户设置</span>
-          </XyDropdownItem>
-          <XyDropdownItem divided @click="handleLogout">
-            <XyIcon icon="mdi:logout" :size="16" />
-            <span>退出登录</span>
-          </XyDropdownItem>
-        </XyDropdownMenu>
-      </XyDropdown>
+        <button class="action-btn">
+          <XyIcon icon="mdi:magnify" :size="20" />
+        </button>
+        
+        <button class="action-btn theme-toggle">
+          <XyIcon icon="mdi:theme-light-dark" :size="20" />
+        </button>
+      </div>
+      
+      <div class="user-section">
+        <div class="user-info">
+          <span class="user-name">{{ appStore.userInfo?.name || '管理员' }}</span>
+          <span class="user-role">超级管理员</span>
+        </div>
+        
+        <XyDropdown trigger="click" @command="handleUserCommand">
+          <XyAvatar 
+            :size="40" 
+            class="user-avatar cursor-pointer"
+          >
+            {{ (appStore.userInfo?.name || 'A')[0].toUpperCase() }}
+          </XyAvatar>
+          
+          <template #dropdown>
+            <XyDropdownMenu>
+              <template v-for="option in userMenuOptions" :key="option.key">
+                <XyDropdownItem v-if="!option.divider" :command="option.key">
+                  <XyIcon :icon="option.icon" :size="16" />
+                  <span>{{ option.label }}</span>
+                </XyDropdownItem>
+                <div v-else class="dropdown-divider"></div>
+              </template>
+            </XyDropdownMenu>
+          </template>
+        </XyDropdown>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.admin-header-content {
+.header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   height: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   
-  .header-left {
-    .sidebar-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      border: none;
-      background: #f1f5f9;
-      color: #475569;
-      cursor: pointer;
-      transition: all 0.2s;
-      
-      &:hover {
-        background: #e2e8f0;
-      }
+  .collapse-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+      border-color: rgba(255, 255, 255, 0.1);
     }
   }
   
-  .header-right {
+  .breadcrumb {
+    .breadcrumb-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  
+  .header-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 6px;
     
-    .theme-toggle,
-    .notification-btn {
+    .action-btn {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      border: none;
-      background: #f1f5f9;
-      color: #475569;
-      cursor: pointer;
-      position: relative;
-      transition: all 0.2s;
-      
-      &:hover {
-        background: #e2e8f0;
-      }
-      
-      .badge {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        min-width: 16px;
-        height: 16px;
-        padding: 0 4px;
-        border-radius: 8px;
-        background: #ef4444;
-        color: #fff;
-        font-size: 10px;
-        line-height: 16px;
-        text-align: center;
-      }
-    }
-    
-    .user-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
+      width: 38px;
+      height: 38px;
       border-radius: 8px;
       border: none;
       background: transparent;
-      color: #334155;
+      color: #94a3b8;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       
       &:hover {
-        background: #f1f5f9;
+        background: rgba(255, 255, 255, 0.05);
+        color: #f1f5f9;
       }
       
-      .user-name {
-        font-size: 14px;
-        font-weight: 500;
+      &.theme-toggle:hover {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
+        color: #a5b4fc;
+      }
+      
+      .notification-badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
       }
     }
   }
+  
+  .user-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+    
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      
+      .user-name {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #f1f5f9;
+        line-height: 1.3;
+      }
+      
+      .user-role {
+        font-size: 12px;
+        color: #64748b;
+        line-height: 1.3;
+      }
+    }
+    
+    .user-avatar {
+      transition: transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+.dropdown-divider {
+  height: 1px;
+  margin: 7px 0;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 </style>

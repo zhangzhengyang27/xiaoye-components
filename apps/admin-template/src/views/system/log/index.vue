@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { XyCard, XyTable, XyTag, XyButton, XyInput, XySelect, XyDatePicker, XySpace, XyPopconfirm, XyMessage } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyTag, XyButton, XyInput, XySelect, XyDatePicker, XySpace, XyPopconfirm, XyMessage } from 'xiaoye-components'
 
 type OperationLogType = 'info' | 'success' | 'warning' | 'danger'
 
@@ -23,19 +23,6 @@ const searchForm = ref({
   startTime: '',
   endTime: ''
 })
-
-const tableColumns = [
-  { title: 'ID', key: 'id', width: 80 },
-  { title: '操作类型', key: 'type', slot: 'type', width: 120 },
-  { title: '操作描述', key: 'operation' },
-  { title: '操作人', key: 'operator', width: 120 },
-  { title: '请求方法', key: 'method', width: 150 },
-  { title: 'IP地址', key: 'ip', width: 140 },
-  { title: '执行时间', key: 'duration', width: 120 },
-  { title: '状态', key: 'status', slot: 'status', width: 100 },
-  { title: '操作时间', key: 'time', width: 180 },
-  { title: '操作', key: 'action', slot: 'action', width: 120 }
-]
 
 const operationLogs = ref<OperationLog[]>([
   { id: 1, type: 'info', operation: '查看用户列表', operator: 'admin', method: 'GET /api/users', ip: '192.168.1.100', duration: '520ms', status: 'success', time: '2026-05-18 15:30:45' },
@@ -175,22 +162,35 @@ function viewDetail(_log: OperationLog) {
     </XyCard>
 
     <XyCard>
-      <XyTable :columns="tableColumns" :data="operationLogs">
-        <template #type="{ record }">
-          <XyTag :type="getTypeTag(record.type).color">
-            {{ getTypeTag(record.type).text }}
-          </XyTag>
-        </template>
-        <template #status="{ record }">
-          <XyTag :type="getStatusTag(record.status).color">
-            {{ getStatusTag(record.status).text }}
-          </XyTag>
-        </template>
-        <template #action="{ record }">
-          <XyButton type="link" @click="viewDetail(record)">
-            详情
-          </XyButton>
-        </template>
+      <XyTable :data="operationLogs">
+        <XyTableColumn prop="id" label="ID" width="80" />
+        <XyTableColumn prop="type" label="操作类型" width="120">
+          <template #default="{ row }">
+            <XyTag :type="getTypeTag(row.type).color">
+              {{ getTypeTag(row.type).text }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="operation" label="操作描述" />
+        <XyTableColumn prop="operator" label="操作人" width="120" />
+        <XyTableColumn prop="method" label="请求方法" width="150" />
+        <XyTableColumn prop="ip" label="IP地址" width="140" />
+        <XyTableColumn prop="duration" label="执行时间" width="120" />
+        <XyTableColumn prop="status" label="状态" width="100">
+          <template #default="{ row }">
+            <XyTag :type="getStatusTag(row.status).color">
+              {{ getStatusTag(row.status).text }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="time" label="操作时间" width="180" />
+        <XyTableColumn label="操作" width="120">
+          <template #default="{ row }">
+            <XyButton type="link" @click="viewDetail(row)">
+              详情
+            </XyButton>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
   </div>

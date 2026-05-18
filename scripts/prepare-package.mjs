@@ -4,13 +4,13 @@ import ts from "typescript";
 
 const packageTargets = {
   base: {
-    distDir: path.resolve("packages/xiaoye-components/dist"),
-    entryPath: "xiaoye-components/index.js",
+    distDir: path.resolve("packages/components/dist"),
+    entryPath: "components/index.js",
     packageName: "xiaoye-components"
   },
   pro: {
-    distDir: path.resolve("packages/xiaoye-pro-components/dist"),
-    entryPath: "xiaoye-pro-components/index.js",
+    distDir: path.resolve("packages/pro-components/dist"),
+    entryPath: "pro-components/index.js",
     packageName: "xiaoye-pro-components"
   }
 };

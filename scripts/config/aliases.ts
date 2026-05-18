@@ -19,11 +19,11 @@ export const workspaceAlias = [
   },
   {
     find: "xiaoye-pro-components/style.css",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-pro-components/style.css")
+    replacement: resolveWorkspacePath("../../packages/pro-components/style.css")
   },
   {
     find: "xiaoye-components/style.css",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-components/style.css")
+    replacement: resolveWorkspacePath("../../packages/components/style.css")
   },
   // @xiaoye/components (exact matches before regex)
   {
@@ -108,14 +108,14 @@ export const workspaceAlias = [
   // xiaoye-components (bare import)
   {
     find: "xiaoye-components",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-components/index.ts")
+    replacement: resolveWorkspacePath("../../packages/components/index.ts")
   },
   {
     find: /^xiaoye-components\/(.*)$/,
-    replacement: `${resolveWorkspacePath("../../packages/xiaoye-components/")}/$1`
+    replacement: `${resolveWorkspacePath("../../packages/components/")}/$1`
   },
   {
     find: "xiaoye-pro-components",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-pro-components/index.ts")
+    replacement: resolveWorkspacePath("../../packages/pro-components/index.ts")
   }
 ] as const;

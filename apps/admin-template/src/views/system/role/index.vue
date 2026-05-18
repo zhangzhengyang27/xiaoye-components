@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/user'
-import { XyCard, XyTable, XyButton, XyDialog, XyForm, XyFormItem, XyInput, XyMessage, XyPopconfirm } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyButton, XyDialog, XyForm, XyFormItem, XyInput, XyMessage, XyPopconfirm } from 'xiaoye-components'
 
 const userStore = useUserStore()
 
@@ -12,13 +12,6 @@ const formData = ref({
   name: '',
   description: ''
 })
-
-const tableColumns = [
-  { title: '角色ID', key: 'id' },
-  { title: '角色名称', key: 'name' },
-  { title: '描述', key: 'description' },
-  { title: '操作', key: 'action', slot: 'action' }
-]
 
 function openAddModal() {
   isEdit.value = false
@@ -84,14 +77,19 @@ function handleDelete(id: string) {
     </XyCard>
     
     <XyCard>
-      <XyTable :columns="tableColumns" :data="userStore.roles">
-        <template #action="{ record }">
-          <XyButton type="link" @click="openEditModal(record)">编辑</XyButton>
-          <XyButton type="link" @click="openEditModal(record)">权限配置</XyButton>
-          <XyPopconfirm title="确定删除该角色?" @confirm="handleDelete(record.id)">
-            <XyButton type="link" danger>删除</XyButton>
-          </XyPopconfirm>
-        </template>
+      <XyTable :data="userStore.roles">
+        <XyTableColumn prop="id" label="角色ID" width="80" />
+        <XyTableColumn prop="name" label="角色名称" />
+        <XyTableColumn prop="description" label="描述" />
+        <XyTableColumn label="操作" width="200">
+          <template #default="{ row }">
+            <XyButton type="link" @click="openEditModal(row)">编辑</XyButton>
+            <XyButton type="link" @click="openEditModal(row)">权限配置</XyButton>
+            <XyPopconfirm title="确定删除该角色?" @confirm="handleDelete(row.id)">
+              <XyButton type="link" danger>删除</XyButton>
+            </XyPopconfirm>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
     

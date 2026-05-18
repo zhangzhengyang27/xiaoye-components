@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "xiaoye-components": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/xiaoye-components/packages/mcp-server/dist/index.js"
+      ]
+    }
+  }
+}

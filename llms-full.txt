@@ -1,0 +1,3450 @@
+# xiaoye-components 完整 API 参考
+
+> 自动生成于 2026-05-18T12:54:30.992Z
+> 包含 103 个组件的完整 Props / Events / Slots / Exposes 定义
+
+## 基础组件（@xiaoye/components）
+
+### 基础与展示
+
+#### Button 按钮
+
+页面主操作、次要操作和轻量文本动作入口。
+
+标签：`xy-button` 导出：`XyButton`, `XyButtonGroup`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `type` | `('default' | 'primary' | 'success' | 'warning' | 'danger')` | 'default' | 按钮类型 |
+| `size` | `size` | 跟随全局配置 | 按钮尺寸 |
+| `disabled` | `boolean` | false | 是否禁用交互 |
+| `icon` | `string` | — | 前置 Iconify 图标 |
+| `native-type` | `('button' | 'submit' | 'reset')` | 'button' | 原生按钮类型 |
+| `loading` | `boolean` | false | 是否显示加载态，并阻止点击 |
+| `loading-icon` | `string` | 'mdi:loading' | 自定义加载图标 |
+| `plain` | `boolean` | false | 是否为朴素按钮 |
+| `text` | `boolean` | false | 是否为文本按钮 |
+| `link` | `boolean` | false | 是否为链接按钮 |
+| `bg` | `boolean` | false | 文本按钮是否保留背景 |
+| `autofocus` | `boolean` | false | 是否使用原生自动聚焦能力 |
+| `round` | `boolean` | false | 是否为圆角按钮 |
+| `circle` | `boolean` | false | 是否为圆形按钮 |
+| `block` | `boolean` | false | 是否占满整行宽度 |
+| `tag` | `string | Component` | 'button' | 渲染的根标签 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `click` | `(event: MouseEvent) => void` | 点击按钮时触发；当 loading 或 disabled 时不会触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 按钮主内容 |
+| `icon` | 自定义前置图标，优先级低于 icon prop |
+| `loading` | 自定义加载内容，优先级高于 loading-icon |
+| `prefix` | 按钮前缀内容，当没有 icon / icon 插槽时生效 |
+| `suffix` | 按钮后缀内容，通常用于补充图标或状态提示 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `ref` | `ref` | 按钮根节点引用 |
+| `size` | `size` | 解析后的尺寸 |
+| `type` | `type` | 解析后的按钮类型 |
+| `disabled` | `disabled` | 解析后的禁用状态 |
+
+---
+
+#### Link 文字链接
+
+轻量跳转、说明区弱操作和文本级动作入口。
+
+标签：`xy-link` 导出：`XyLink`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `type` | `LinkType` | 'default' | 链接语义色 |
+| `underline` | `LinkUnderline` | 'hover' | 下划线显示策略 |
+| `disabled` | `boolean` | false | 是否禁用交互 |
+| `href` | `string` | '' | 原生链接地址 |
+| `target` | `LinkTarget` | '_self' | 原生跳转目标 |
+| `icon` | `string` | — | 前置 Iconify 图标 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `click` | `LinkClickHandler` | 点击链接时触发；禁用时不会触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 链接主内容 |
+| `icon` | 自定义后置图标或附加图形 |
+
+---
+
+#### Breadcrumb 面包屑
+
+支持字符或图标分隔、链接跳转和当前页语义的面包屑组件。
+
+标签：`xy-breadcrumb` 导出：`XyBreadcrumb`, `XyBreadcrumbItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `separator` | `string` | '/' | 字符分隔符 |
+| `separator-icon` | `string` | '' | 图标分隔符 |
+| `aria-label` | `string` | '面包屑' | 导航区无障碍标签 |
+| `items` | `BreadcrumbItemData[]` | [] | 声明式面包屑项数组 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 面包屑项列表，通常传入 xy-breadcrumb-item |
+
+---
+
+#### Text 文本
+
+轻量文本语义、颜色强调与截断展示组件。
+
+标签：`xy-text` 导出：`XyText`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `type` | `TextType` | 'default' | 文本语义色 |
+| `size` | `TextProps["size"]` | 跟随全局配置 | 文本尺寸 |
+| `truncated` | `boolean` | false | 是否启用单行省略 |
+| `line-clamp` | `number | string` | — | 多行省略的最大行数 |
+| `tag` | `string` | 'span' | 渲染的根标签 |
+| `copyable` | `boolean` | false | 是否显示复制按钮 |
+| `ellipsis-tooltip` | `boolean` | false | 溢出时是否补充 tooltip |
+| `expandable` | `boolean` | false | 是否支持展开收起 |
+| `strong` | `boolean` | false | 是否加粗显示 |
+| `underline` | `boolean` | false | 是否添加下划线 |
+| `delete` | `boolean` | false | 是否添加删除线 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 文本内容 |
+
+---
+
+#### Badge 徽章
+
+数值、点状和自定义内容徽章组件。
+
+标签：`xy-badge` 导出：`XyBadge`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `value` | `string | number` | '' | 显示值 |
+| `max` | `number` | 99 | 最大值，超出时显示 {max}+ |
+| `is-dot` | `boolean` | false | 是否显示为小圆点 |
+| `hidden` | `boolean` | false | 是否隐藏徽章 |
+| `type` | `BadgeType` | 'danger' | 徽章类型 |
+| `show-zero` | `boolean` | true | 值为 0 时是否显示 |
+| `color` | `string` | '' | 自定义背景色 |
+| `badge-style` | `string | CSSProperties | Array<string | CSSProperties>` | — | 自定义徽章样式 |
+| `offset` | `[number, number]` | [0, 0] | 徽章偏移量 [x, y] |
+| `badge-class` | `string` | '' | 自定义徽章类名 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 宿主内容 |
+| `content` | 自定义徽章内容，接收 BadgeContentSlotProps |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `content` | `BadgeInstance["content"]` | 计算后的徽章值 |
+
+---
+
+#### Avatar 头像
+
+图片、图标或文字头像展示组件。
+
+标签：`xy-avatar` 导出：`XyAvatar`, `XyAvatarGroup`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `size` | `AvatarProps["size"]` | 跟随全局配置 | 头像尺寸 |
+| `shape` | `AvatarShape` | 'circle' | 头像形状 |
+| `icon` | `string` | '' | 图片失败或无图片时的图标 |
+| `src` | `string` | '' | 图片地址 |
+| `alt` | `string` | '' | 原生图片 alt |
+| `src-set` | `string` | '' | 原生图片 srcset |
+| `fit` | `AvatarFit` | 'cover' | 图片裁切方式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `error` | `AvatarErrorHandler` | 图片加载失败时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 当无图片且无 icon 时展示 |
+
+---
+
+#### Image 图片
+
+用于承载图片展示、懒加载和大图预览。
+
+标签：`xy-image` 导出：`XyImage`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `src` | `string` | '' | 图片地址 |
+| `alt` | `string` | '' | 原生图片 alt 文案 |
+| `fit` | `ImageFit` | 'cover' | 图片裁切方式 |
+| `loading` | `ImageLoading` | undefined | 原生图片加载策略 |
+| `lazy` | `boolean` | false | 是否启用基于 IntersectionObserver 的懒加载 |
+| `scroll-container` | `string | HTMLElement` | undefined | 懒加载监听容器，支持选择器或 HTMLElement |
+| `preview-src-list` | `string[]` | [] | 预览图片列表 |
+| `preview-teleported` | `boolean` | false | 预览层是否 Teleport 到 body |
+| `z-index` | `number` | undefined | 预览层层级 |
+| `initial-index` | `number` | 0 | 预览初始索引 |
+| `infinite` | `boolean` | true | 预览翻页是否循环 |
+| `hide-on-click-modal` | `boolean` | false | 点击遮罩是否关闭预览 |
+| `close-on-press-escape` | `boolean` | true | 按下 Escape 是否关闭预览 |
+| `zoom-rate` | `number` | 1.2 | 预览层每次缩放的倍率 |
+| `scale` | `number` | 1 | 预览层初始缩放比例 |
+| `min-scale` | `number` | 0.2 | 预览层最小缩放比例 |
+| `max-scale` | `number` | 7 | 预览层最大缩放比例 |
+| `show-progress` | `boolean` | false | 是否显示预览进度 |
+| `crossorigin` | `ImageCrossorigin` | '' | 原生图片 crossorigin 属性 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `load` | `ImageLoadHandler` | 图片加载成功时触发 |
+| `error` | `ImageErrorHandler` | 图片加载失败时触发 |
+| `show` | `—` | 打开预览层时触发 |
+| `close` | `—` | 关闭预览层时触发 |
+| `switch` | `ImageSwitchHandler` | 预览图片切换时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `placeholder` | 自定义加载占位内容 |
+| `error` | 自定义加载失败内容 |
+| `progress` | 自定义预览进度内容，接收 ImageViewerProgressSlotProps |
+| `toolbar` | 自定义预览工具栏，接收 ImageViewerToolbarSlotProps |
+| `viewer-error` | 自定义预览大图失败内容，接收 ImageViewerErrorSlotProps |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `showPreview` | `ImageInstance["showPreview"]` | 手动打开预览层 |
+| `closePreview` | `ImageInstance["closePreview"]` | 手动关闭预览层 |
+
+---
+
+#### Watermark 水印
+
+用于为容器叠加重复文字或图片水印。
+
+标签：`xy-watermark` 导出：`XyWatermark`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `width` | `number` | 文本模式按内容测量，图片模式为 120 | 水印宽度 |
+| `height` | `number` | 文本模式按内容测量，图片模式为 64 | 水印高度 |
+| `rotate` | `number` | -22 | 绘制时的旋转角度，单位为 ° |
+| `z-index` | `number` | 9 | 水印层层级 |
+| `image` | `string` | — | 图片水印地址，优先级高于 content |
+| `content` | `string | string[]` | 'Xiaoye Components' | 文字水印内容，支持单行或多行 |
+| `font` | `WatermarkFont` | 见下表 | 文字样式配置 |
+| `gap` | `[number, number]` | [100, 100] | 水印之间的水平和垂直间距 |
+| `offset` | `[number, number]` | [gap[0] / 2, gap[1] / 2] | 水印距离容器左上角的偏移量，默认取 gap / 2 |
+| `disabled` | `boolean` | false | 是否禁用水印渲染 |
+| `opacity` | `number` | 1 | 水印层透明度，内部会限制在 0 ~ 1 |
+| `repeat` | `WatermarkRepeat` | 'repeat' | 背景重复策略 |
+| `auto-observe` | `boolean` | true | 是否启用 DOM 观察器做自恢复 |
+| `fullscreen` | `boolean` | false | 是否把水印直接挂到 document.body 上 |
+| `target` | `WatermarkProps["target"]` | undefined | 指定外部宿主容器，支持选择器或 HTMLElement |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 需要叠加水印的内容容器 |
+
+---
+
+#### Card 卡片
+
+头部、主体、底部三段式内容容器。
+
+标签：`xy-card` 导出：`XyCard`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `size` | `('sm' | 'md' | 'lg')` | 跟随全局配置 | 卡片密度 |
+| `variant` | `CardVariant` | 'default' | 卡片表面风格 |
+| `bordered` | `boolean` | true | 是否显示外边框 |
+| `header` | `string` | '' | 头部内容 |
+| `footer` | `string` | '' | 底部内容 |
+| `extra` | `string` | '' | 头部右侧补充内容 |
+| `body-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 主体样式 |
+| `header-class` | `string` | '' | 头部自定义类名 |
+| `body-class` | `string` | '' | 主体自定义类名 |
+| `footer-class` | `string` | '' | 底部自定义类名 |
+| `header-divider` | `boolean` | true | 是否显示头部分隔线 |
+| `footer-divider` | `boolean` | true | 是否显示底部分隔线 |
+| `shadow` | `CardShadow` | 'always' | 阴影显示方式 |
+| `loading` | `boolean` | false | 是否显示加载态 |
+| `loading-text` | `string` | '加载中' | 默认加载态文案 |
+| `empty` | `boolean` | false | 是否显示空态 |
+| `empty-title` | `string` | '暂无数据' | 默认空态标题 |
+| `empty-description` | `string` | '' | 默认空态描述 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 卡片主体 |
+| `header` | 完全自定义卡片头部，优先级高于 header/extra |
+| `extra` | 标准头部右侧操作区 |
+| `footer` | 卡片底部 |
+| `loading` | 自定义加载态内容 |
+| `empty` | 自定义空态内容 |
+
+---
+
+#### Check Card 选择卡片
+
+用卡片式信息块承接单选、多选和方案切换。
+
+标签：`xy-check-card` 导出：`XyCheckCard`, `XyCheckCardGroup`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `boolean` | false | 是否选中 |
+| `size` | `('sm' | 'md' | 'lg')` | 跟随全局配置 | 卡片尺寸 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `title` | `string` | '' | 标题文本 |
+| `description` | `string` | '' | 描述文本 |
+| `extra` | `string` | '' | 右上角轻操作文案 |
+| `avatar` | `CheckCardAvatar` | — | 头像配置 |
+| `tag` | `string | CheckCardTag` | — | 标题旁标签 |
+| `aria-label` | `string` | '' | 无障碍标签 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:modelValue` | `(checked: boolean) => void` | 选中状态变化时触发 |
+| `change` | `(checked: boolean) => void` | 选中状态变化时触发 |
+| `extra` | `() => void` | 点击右上角操作区时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `avatar` | 自定义头像区 |
+| `title` | 自定义标题区 |
+| `tag` | 自定义标签区 |
+| `description` | 自定义描述区 |
+| `extra` | 自定义右上角轻操作区 |
+
+---
+
+#### Carousel 走马灯
+
+自动播放、指示器和卡片模式的内容轮播组件。
+
+标签：`xy-carousel` 导出：`XyCarousel`, `XyCarouselItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `initial-index` | `number` | 0 | 初始激活项索引 |
+| `active-index` | `number` | — | 当前激活项索引（受控） |
+| `height` | `string` | '' | 走马灯高度 |
+| `trigger` | `CarouselTrigger` | 'hover' | 指示器触发方式 |
+| `autoplay` | `boolean` | true | 是否自动播放 |
+| `interval` | `number` | 3000 | 自动播放间隔 |
+| `indicator-position` | `CarouselIndicatorPosition` | '' | 指示器位置 |
+| `arrow` | `CarouselArrow` | 'hover' | 箭头显示时机 |
+| `type` | `CarouselType` | '' | 走马灯类型 |
+| `card-scale` | `number` | 0.83 | 卡片模式缩放比例 |
+| `loop` | `boolean` | true | 是否循环显示 |
+| `direction` | `CarouselDirection` | 'horizontal' | 展示方向 |
+| `pause-on-hover` | `boolean` | true | 鼠标移入时是否暂停 |
+| `draggable` | `boolean` | true | 是否支持拖拽切换 |
+| `effect` | `CarouselEffect` | 'slide' | 动画效果 |
+| `duration` | `number` | 400 | 动画时长 |
+| `easing` | `string` | cubic-bezier(0.22, 0.61, 0.36, 1) | 动画缓动函数 |
+| `slides-per-view` | `number` | 1 | 可视 slide 数量 |
+| `slides-per-group` | `number` | 1 | 每次翻页数量 |
+| `gap` | `number | string` | 0 | slide 间距 |
+| `centered` | `boolean` | false | 是否居中当前页 |
+| `indicator-type` | `CarouselIndicatorType` | line | 指示器样式 |
+| `thumbs` | `boolean` | false | 是否显示缩略图条 |
+| `thumbs-placement` | `CarouselThumbPlacement` | 'bottom' | 缩略图条位置 |
+| `thumbs-per-view` | `number` | 5 | 缩略图条每屏可见数量 |
+| `thumbs-gap` | `number | string` | 8 | 缩略图间距 |
+| `thumbs-indicator-type` | `CarouselThumbIndicatorType` | 'thumbnail' | 缩略图样式 |
+| `show-progress` | `boolean` | false | 是否显示自动播放进度 |
+| `progress-placement` | `CarouselProgressPlacement` | 'bottom' | 进度条位置 |
+| `progress-color` | `string` | '' | 进度条颜色 |
+| `align` | `CarouselAlignment` | 'start' | 内容流对齐方式 |
+| `contain-scroll` | `CarouselContainScroll` | 'trim' | 内容流边界策略 |
+| `peek` | `number | string` | 0 | 露出边缘尺寸 |
+| `lazy` | `boolean` | false | 是否启用邻近懒渲染 |
+| `lazy-range` | `number` | 1 | 邻近懒渲染范围 |
+| `virtual` | `boolean` | false | 是否启用窗口化渲染 |
+| `virtual-buffer` | `number` | 1 | 窗口化缓冲范围 |
+| `aria-label` | `string` | '' | 无障碍标签 |
+| `keyboard` | `boolean` | true | 是否启用键盘切换 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:activeIndex` | `CarouselActiveIndexChangeHandler` | 受控模式下当前页变更 |
+| `change` | `CarouselChangeHandler` | 当前激活项切换时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 轮播项列表，通常传入 xy-carousel-item |
+| `indicator` | 自定义指示器，接收 CarouselIndicatorSlotProps |
+| `arrow-prev` | 自定义上一页箭头，接收 CarouselArrowSlotProps |
+| `arrow-next` | 自定义下一页箭头，接收 CarouselArrowSlotProps |
+| `progress` | 自定义进度条，接收 CarouselProgressSlotProps |
+| `thumb` | 自定义缩略图项，接收 CarouselThumbSlotProps |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `activeIndex` | `CarouselInstance["activeIndex"]` | 当前激活项索引 |
+| `setActiveItem` | `CarouselInstance["setActiveItem"]` | 手动切换到指定项 |
+| `prev` | `CarouselInstance["prev"]` | 切换到上一项 |
+| `next` | `CarouselInstance["next"]` | 切换到下一项 |
+
+---
+
+#### Affix 固钉
+
+将内容固定在视口顶部或底部，并可限制在指定容器范围内。
+
+标签：`xy-affix` 导出：`XyAffix`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `offset` | `number` | 0 | 与顶部或底部的偏移距离，单位 px |
+| `position` | `AffixPosition` | 'top' | 固定位置 |
+| `target` | `string` | '' | 目标容器选择器 |
+| `z-index` | `AffixZIndex` | 100 | 固定节点层级 |
+| `teleported` | `boolean` | false | 固定态时是否通过 Teleport 挂载到外部容器 |
+| `append-to` | `string | HTMLElement` | 'body' | Teleport 的挂载目标 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `change` | `AffixChangeHandler` | 固定状态变化时触发 |
+| `scroll` | `AffixScrollHandler` | 监听到滚动后触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 固钉内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `update` | `AffixInstance["update"]` | 立即重新计算固钉状态 |
+| `updateRoot` | `AffixInstance["updateRoot"]` | 重新测量占位尺寸并刷新固钉状态 |
+
+---
+
+#### Anchor 锚点
+
+通过页内锚点快速定位长内容章节，支持滚动高亮、marker、局部滚动容器和 hash 同步。
+
+标签：`xy-anchor` 导出：`XyAnchor`, `XyAnchorLink`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `container` | `AnchorContainer` | null | 滚动容器，可传选择器、HTMLElement、window 或 null |
+| `offset` | `number` | 0 | 锚点滚动后的额外偏移距离 |
+| `bound` | `number` | 15 | 提前触发 active 切换的边界偏移 |
+| `duration` | `number` | 300 | 平滑滚动时长，单位毫秒 |
+| `marker` | `boolean` | true | 是否显示 marker 指示条 |
+| `direction` | `AnchorDirection` | 'vertical' | 导航方向 |
+| `sync-hash` | `boolean` | true | 是否在挂载、点击和滚动时同步 URL hash |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `change` | `AnchorChangeHandler` | 当前高亮锚点变化时触发 |
+| `click` | `AnchorClickHandler` | 点击锚点时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | xy-anchor-link 组件列表 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `scrollTo` | `AnchorInstance["scrollTo"]` | 手动滚动到指定锚点 |
+
+---
+
+#### Menu 菜单
+
+支持横向、纵向、折叠、受控状态和 items 数据驱动的声明式导航菜单。
+
+标签：`xy-menu` 导出：`XyMenu`, `XyMenuItem`, `XyMenuItemGroup`, `XySubMenu`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `mode` | `MenuMode` | 'vertical' | 菜单展示模式 |
+| `default-active` | `string` | '' | 初始激活项 index |
+| `default-openeds` | `string[]` | [] | 初始展开的子菜单索引集合 |
+| `active-index` | `string` | undefined | 受控激活项 index |
+| `opened-menus` | `string[]` | undefined | 受控展开的子菜单索引集合 |
+| `unique-opened` | `boolean` | false | 是否同一层只允许展开一个子菜单 |
+| `router` | `boolean` | false | 是否启用路由模式 |
+| `menu-trigger` | `MenuTrigger` | 'hover' | 横向模式下子菜单触发方式 |
+| `collapse` | `boolean` | false | 是否折叠，仅纵向模式生效 |
+| `items` | `MenuDataItem[]` | undefined | 数据驱动菜单树，和默认插槽二选一 |
+| `permission-checker` | `MenuPermissionChecker` | undefined | items 模式下的权限判定函数 |
+| `ellipsis` | `boolean` | true | 横向模式宽度不足时是否启用收纳 |
+| `popper-offset` | `number` | 6 | 所有弹出子菜单的偏移量 |
+| `ellipsis-icon` | `string | Component` | 'mdi:dots-horizontal' | 横向收纳入口图标 |
+| `popper-effect` | `MenuPopperEffect` | 'dark' | 弹出菜单主题 |
+| `popper-class` | `string` | '' | 弹出菜单自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 弹出菜单自定义样式 |
+| `show-timeout` | `number` | 300 | 弹出菜单显示延迟 |
+| `hide-timeout` | `number` | 300 | 弹出菜单隐藏延迟 |
+| `close-on-click-outside` | `boolean` | false | 点击外部时是否关闭已展开菜单 |
+| `collapse-transition` | `boolean` | true | 是否启用纵向折叠过渡 |
+| `persistent` | `boolean` | true | 关闭后是否保留弹出菜单 DOM |
+| `background-color` | `string` | '' | 菜单背景色兼容属性 |
+| `text-color` | `string` | '' | 菜单文字色兼容属性 |
+| `active-text-color` | `string` | '' | 激活项文字色兼容属性 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `select` | `MenuSelectEvent` | 菜单项被选中时触发 |
+| `open` | `MenuOpenEvent` | 子菜单展开时触发 |
+| `close` | `MenuCloseEvent` | 子菜单收起时触发 |
+| `update:activeIndex` | `MenuActiveIndexChangeHandler` | 受控模式下激活项变化时触发 |
+| `update:openedMenus` | `MenuOpenedMenusChangeHandler` | 受控模式下展开项集合变化时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 放置 xy-menu-item、xy-sub-menu、xy-menu-item-group；若同时传 items，默认插槽优先 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `open` | `MenuExposes["open"]` | 主动展开指定子菜单 |
+| `close` | `MenuExposes["close"]` | 主动收起指定子菜单 |
+| `handleResize` | `MenuExposes["handleResize"]` | 手动重新计算横向溢出状态 |
+| `updateActiveIndex` | `MenuExposes["updateActiveIndex"]` | 主动更新当前激活项 |
+
+---
+
+#### Row 栅格行
+
+24 栅格布局容器与列组件。
+
+标签：`xy-row` 导出：`XyRow`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `tag` | `string` | 'div' | 渲染的根标签 |
+| `gutter` | `number` | 0 | 栅格间距，单位为 px |
+| `justify` | `RowJustify` | 'start' | 主轴对齐方式 |
+| `align` | `RowAlign` | — | 交叉轴对齐方式 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 行内容，一般由多个 xy-col 组成 |
+
+---
+
+#### Col 栅格列
+
+配合 Row 使用的 24 栅格列组件。
+
+标签：`xy-col` 导出：`XyCol`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `tag` | `string` | 'div' | 渲染的根标签 |
+| `span` | `number` | 24 | 当前列占据的栅格数 |
+| `offset` | `number` | 0 | 左侧偏移的栅格数 |
+| `pull` | `number` | 0 | 向左位移的栅格数 |
+| `push` | `number` | 0 | 向右位移的栅格数 |
+| `xs` | `ColSize` | — | < 768px 的响应式列配置 |
+| `sm` | `ColSize` | — | >= 768px 的响应式列配置 |
+| `md` | `ColSize` | — | >= 992px 的响应式列配置 |
+| `lg` | `ColSize` | — | >= 1200px 的响应式列配置 |
+| `xl` | `ColSize` | — | >= 1920px 的响应式列配置 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 列内容，通常承载卡片、表单块或工具区域 |
+
+---
+
+#### Scrollbar 滚动条
+
+自定义滚动容器、滚动条样式与滚动控制组件。
+
+标签：`xy-scrollbar` 导出：`XyScrollbar`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `distance` | `number` | 0 | 触发 endReached 的距离阈值，单位 px |
+| `height` | `number | string` | '' | 固定高度 |
+| `max-height` | `number | string` | '' | 最大高度 |
+| `native` | `boolean` | false | 是否使用原生滚动条 |
+| `wrap-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 滚动容器样式 |
+| `wrap-class` | `string | string[]` | '' | 滚动容器类名 |
+| `view-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 视图容器样式 |
+| `view-class` | `string | string[]` | '' | 视图容器类名 |
+| `noresize` | `boolean` | false | 是否跳过尺寸监听 |
+| `tag` | `string` | 'div' | 视图容器标签 |
+| `always` | `boolean` | false | 是否始终显示自定义滚动条 |
+| `min-size` | `number` | 20 | 滚动条 thumb 最小尺寸 |
+| `tabindex` | `number | string` | — | 滚动容器 tabindex |
+| `id` | `string` | — | 视图容器 id |
+| `role` | `string` | — | 视图容器 role |
+| `aria-label` | `string` | — | 视图容器 aria-label |
+| `aria-orientation` | `ScrollbarProps["ariaOrientation"]` | — | 视图容器 aria-orientation |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `scroll` | `ScrollbarScrollPayload` | 滚动时触发 |
+| `endReached` | `ScrollbarDirection` | 滚动接近边界时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 滚动内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `wrapRef` | `ScrollbarInstance["wrapRef"]` | 滚动容器引用 |
+| `update` | `ScrollbarInstance["update"]` | 手动更新滚动条状态 |
+| `scrollTo` | `ScrollbarInstance["scrollTo"]` | 滚动到指定位置 |
+| `setScrollTop` | `ScrollbarInstance["setScrollTop"]` | 设置纵向滚动位置 |
+| `setScrollLeft` | `ScrollbarInstance["setScrollLeft"]` | 设置横向滚动位置 |
+| `handleScroll` | `ScrollbarInstance["handleScroll"]` | 手动触发滚动同步 |
+
+---
+
+#### Splitter 分隔面板
+
+用拖拽分隔条组织双栏或上下布局的基础分区组件。
+
+标签：`xy-splitter` 导出：`XySplitter`, `XySplitterPanel`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `layout` | `SplitterLayout` | 'horizontal' | 面板排列方向 |
+| `lazy` | `boolean` | false | 是否在拖拽结束后再提交最终尺寸 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `resize-start` | `SplitterResizeHandler` | 开始拖拽时触发 |
+| `resize` | `SplitterResizeHandler` | 拖拽过程中触发 |
+| `resize-end` | `SplitterResizeHandler` | 拖拽结束后触发 |
+| `collapse` | `SplitterCollapseHandler` | 折叠或恢复面板时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 放置若干 xy-splitter-panel |
+
+---
+
+#### Divider 分割线
+
+用于切分内容区块、弱化分组边界和串联横向操作。
+
+标签：`xy-divider` 导出：`XyDivider`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `direction` | `DividerDirection` | 'horizontal' | 分割线方向 |
+| `content-position` | `DividerContentPosition` | 'center' | 默认插槽内容的位置 |
+| `border-style` | `DividerBorderStyle` | 'solid' | 分割线样式，兼容 CSS border-style |
+| `size` | `DividerProps["size"]` | 全局 size / 'md' | 组件尺寸，未传时跟随全局配置 |
+| `status` | `DividerProps["status"]` | 'neutral' | 分割线语义色 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 分割线上的自定义内容，仅在横向模式下渲染 |
+
+---
+
+#### Icon 图标
+
+基于 Iconify 的图标渲染组件，适合搭配按钮、提示和状态说明使用。
+
+标签：`xy-icon` 导出：`XyIcon`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `icon` | `string` | — | Iconify 图标标识 |
+| `size` | `number | string` | 16 | 图标尺寸 |
+| `rotate` | `number` | 0 | 旋转角度 |
+| `spin` | `boolean` | false | 是否启用旋转动画 |
+
+---
+
+#### Tag 标签
+
+轻量状态、分类标记和辅助信息组件。
+
+标签：`xy-tag` 导出：`XyTag`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `status` | `TagProps["status"]` | 'neutral' | 状态色 |
+| `type` | `TagProps["type"]` | undefined | 兼容旧项目的状态别名，支持 default / primary / success / info / warning / danger |
+| `size` | `TagProps["size"]` | 跟随全局配置 | 标签尺寸 |
+| `round` | `boolean` | false | 是否为圆角样式 |
+| `closable` | `boolean` | false | 是否显示关闭按钮 |
+| `icon` | `string` | '' | 前置 Iconify 图标 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `close` | `TagCloseHandler` | 点击关闭按钮时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 标签主内容 |
+| `icon` | 自定义前置图标，优先级低于 icon prop |
+
+---
+
+#### Space 间距
+
+给一组元素建立统一间距的基础布局组件。
+
+标签：`xy-space` 导出：`XySpace`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `size` | `SpaceProps["size"]` | 'md' | 间距大小 |
+| `direction` | `SpaceProps["direction"]` | 'horizontal' | 排列方向 |
+| `wrap` | `boolean` | false | 是否允许换行 |
+| `align` | `SpaceProps["align"]` | 'center' | 交叉轴对齐方式 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 被统一排布的内容 |
+
+---
+
+#### Tabs 标签页
+
+页面分区、局部导航和视图切换的基础页签组件。
+
+标签：`xy-tabs` 导出：`XyTabs`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `TabsProps["modelValue"]` | 首个可用项 | 当前激活项 |
+| `default-value` | `TabsProps["defaultValue"]` | undefined | 非受控场景下的初始激活项 |
+| `items` | `TabItem[]` | [] | 页签项配置 |
+| `type` | `TabsType` | '' | 页签风格 |
+| `tab-position` | `TabsPosition` | 'top' | 页签位置 |
+| `closable` | `boolean` | false | 是否默认显示关闭按钮 |
+| `addable` | `boolean` | false | 是否显示新增按钮 |
+| `editable` | `boolean` | false | 是否同时开启新增和关闭能力 |
+| `stretch` | `boolean` | false | 是否拉伸平铺页签 |
+| `before-leave` | `TabsBeforeLeave` | undefined | 切换前守卫 |
+| `tabindex` | `string | number` | 0 | 激活页签的 tabindex |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `TabsModelValueChangeHandler` | 激活项变化 |
+| `change` | `TabsChangeHandler` | 切换页签时触发 |
+| `tab-click` | `TabsTabClickHandler` | 点击页签时触发 |
+| `edit` | `TabsEditHandler` | 新增或关闭页签时触发 |
+| `tab-remove` | `TabsTabRemoveHandler` | 关闭页签时触发 |
+| `tab-add` | `TabsTabAddHandler` | 点击新增页签时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 面板内容，插槽参数为 TabsDefaultSlotProps |
+| `add-icon` | 自定义新增按钮图标 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `currentName` | `TabsInstance["currentName"]` | 当前激活页签 key |
+| `scrollToActiveTab` | `TabsInstance["scrollToActiveTab"]` | 将激活页签滚动到可视区域 |
+
+---
+
+### 表单输入
+
+#### Config Provider 全局配置
+
+统一默认尺寸、命名空间、弹层层级和函数式能力默认项的根配置组件。
+
+标签：`xy-config-provider` 导出：`XyConfigProvider`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `namespace` | `string` | 'xy' | 全局命名空间前缀 |
+| `locale` | `ConfigProviderProps["locale"]` | {} | 全局文案对象，会透传到配置上下文 |
+| `z-index` | `number` | 2000 | 弹层类组件的基础层级 |
+| `size` | `ConfigProviderProps["size"]` | 'md' | 默认尺寸 |
+| `dialog` | `DialogGlobalConfig` | {} | Dialog 服务和组件的全局默认配置 |
+| `loading` | `LoadingGlobalConfig` | {} | Loading 的全局默认配置 |
+| `message` | `MessageGlobalConfig` | {} | Message 的全局默认配置 |
+| `notification` | `NotificationGlobalConfig` | {} | Notification 的全局默认配置 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 包裹的应用内容 |
+
+---
+
+#### Input 输入框
+
+单行文本录入组件，适合搜索、名称和短文本字段。
+
+标签：`xy-input` 导出：`XyInput`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `modelValue` | '' | 当前值 |
+| `model-modifiers` | `({ lazy?: true; number?: true; trim?: true })` | {} | v-model 修饰符 |
+| `id` | `string` | — | 原生 id |
+| `placeholder` | `string` | '' | 占位文本 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `readonly` | `boolean` | false | 是否只读 |
+| `clearable` | `boolean` | false | 是否显示清空按钮 |
+| `clear-icon` | `string` | 'mdi:close-circle' | 自定义清空图标 |
+| `show-password` | `boolean` | false | 是否显示密码切换按钮 |
+| `show-word-limit` | `boolean` | false | 是否显示字数统计 |
+| `word-limit-position` | `wordLimitPosition` | 'inside' | 字数统计位置 |
+| `type` | `('text' | 'textarea' | 'number' | 'password' | 'email' | 'search' | 'tel' | 'url')` | 'text' | 输入类型 |
+| `size` | `size` | 跟随全局配置 | 组件尺寸 |
+| `maxlength` | `string | number` | — | 最大长度 |
+| `minlength` | `string | number` | — | 最小长度 |
+| `rows` | `number` | 2 | textarea 行数 |
+| `resize` | `resize` | 'vertical' | textarea resize 方向 |
+| `autosize` | `({ minRows?: number; maxRows?: number } | boolean)` | false | textarea 自动高度 |
+| `prefix-icon` | `string` | '' | 前置图标 |
+| `suffix-icon` | `string` | '' | 后置图标 |
+| `formatter` | `formatter` | — | 显示格式化函数 |
+| `parser` | `parser` | — | 输入解析函数 |
+| `autocomplete` | `string` | 'off' | 原生 autocomplete |
+| `form` | `string` | — | 原生 form |
+| `tabindex` | `string | number` | — | 原生 tabindex |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+| `input-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 原生输入框样式 |
+| `autofocus` | `boolean` | false | 原生 autofocus |
+| `aria-label` | `string` | — | 原生 aria-label |
+| `inputmode` | `HTMLAttributes['inputmode']` | — | 原生 inputmode |
+| `name` | `string` | — | 原生 name |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `(value: string | number) => void` | 输入值变化时触发 |
+| `input` | `(value: string | number) => void` | 原生输入联动时触发 |
+| `change` | `(value: string | number) => void` | 原生 change 触发时返回当前值 |
+| `clear` | `—` | 点击清空按钮时触发 |
+| `focus` | `(event: FocusEvent) => void` | 获得焦点时触发 |
+| `blur` | `(event: FocusEvent) => void` | 失去焦点时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `prepend` | 输入框前置区域 |
+| `append` | 输入框后置区域 |
+| `prefix` | 输入框前缀内容 |
+| `suffix` | 输入框后缀内容 |
+| `password-icon` | 自定义密码切换图标，接收 InputPasswordIconSlotProps |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `ref` | `ref` | 当前原生输入元素引用 |
+| `input` | `input` | 单行输入框引用 |
+| `textarea` | `textarea` | 多行输入框引用 |
+| `focus` | `focus` | 聚焦输入框 |
+| `blur` | `blur` | 让输入框失焦 |
+| `select` | `select` | 选中当前文本 |
+| `clear` | `clear` | 清空当前值 |
+
+---
+
+#### AutoComplete 自动完成
+
+用于搜索建议、命中提示和远程联想输入的轻量组件。
+
+标签：`xy-auto-complete` 导出：`XyAutoComplete`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `AutoCompleteProps<T>["modelValue"]` | '' | 当前输入值 |
+| `options` | `AutoCompleteProps<T>["options"]` | [] | 建议项列表 |
+| `placeholder` | `AutoCompleteProps<T>["placeholder"]` | '请输入关键词' | 输入占位提示 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `clearable` | `boolean` | false | 是否允许清空 |
+| `remote` | `boolean` | false | 是否启用远程建议模式 |
+| `loading` | `boolean` | false | 是否展示加载态 |
+| `loading-text` | `string` | '加载中' | 加载态文案 |
+| `size` | `AutoCompleteProps<T>["size"]` | 跟随全局配置 | 组件尺寸 |
+| `prefix-icon` | `string` | '' | 输入框前缀图标 |
+| `suffix-icon` | `string` | '' | 输入框后缀图标 |
+| `teleported` | `boolean` | true | 是否把下拉面板传送到 body |
+| `append-to` | `string | HTMLElement` | 'body' | 下拉面板挂载目标 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'bottom-start' | 下拉面板弹出位置 |
+| `offset` | `number` | 8 | 下拉面板偏移量 |
+| `popper-class` | `string` | '' | 下拉面板自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 下拉面板自定义样式 |
+| `dropdown-min-width` | `string | number` | — | 下拉面板最小宽度 |
+| `dropdown-max-width` | `string | number` | — | 下拉面板最大宽度 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `AutoCompleteValueChangeHandler` | 输入值变化时触发 |
+| `change` | `AutoCompleteValueChangeHandler` | 选择建议项或点击清空后触发 |
+| `clear` | `—` | 点击清空按钮时触发 |
+| `visible-change` | `AutoCompleteVisibleChangeHandler` | 下拉打开或关闭时触发 |
+| `focus` | `—` | 打开下拉面板时触发 |
+| `blur` | `—` | 关闭下拉面板时触发 |
+| `search-change` | `AutoCompleteSearchChangeHandler` | 搜索关键词变化时触发 |
+| `select` | `AutoCompleteSelectHandler<T>` | 选择某个建议项时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `prefix` | 输入框前缀内容 |
+| `suffix` | 输入框后缀内容 |
+| `loading` | 自定义加载态内容 |
+| `empty` | 自定义空态内容 |
+| `option` | 自定义建议项内容，接收 AutoCompleteOptionSlotProps<T> |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `focus` | `AutoCompleteInstance["focus"]` | 聚焦输入框 |
+| `blur` | `AutoCompleteInstance["blur"]` | 关闭下拉并让输入框失焦 |
+| `open` | `AutoCompleteInstance["open"]` | 打开下拉面板 |
+| `close` | `AutoCompleteInstance["close"]` | 关闭下拉面板 |
+
+---
+
+#### Cascader 级联选择
+
+用于地区、目录和路径式分类选择的级联选择组件。
+
+标签：`xy-cascader` 导出：`XyCascader`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `CascaderProps["modelValue"]` | null | 当前选中路径值 |
+| `options` | `CascaderProps["options"]` | [] | 级联选项树 |
+| `props` | `CascaderFieldNames` | { label: 'label', value: 'value', children: 'children', disabled: 'disabled', leaf: 'leaf' } | 字段映射配置 |
+| `placeholder` | `CascaderProps["placeholder"]` | '请选择' | 未选择时的占位提示 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `clearable` | `boolean` | false | 是否允许清空 |
+| `filterable` | `boolean` | false | 是否启用搜索过滤 |
+| `lazy` | `boolean` | false | 是否启用懒加载 |
+| `load` | `CascaderLoadFunction` | undefined | 懒加载回调 |
+| `size` | `CascaderProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `search-placeholder` | `string` | '搜索选项' | 搜索框占位文案 |
+| `teleported` | `boolean` | true | 是否把下拉面板传送到 body |
+| `append-to` | `string | HTMLElement` | 'body' | 下拉面板挂载目标 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'bottom-start' | 下拉面板弹出位置 |
+| `offset` | `number` | 8 | 下拉面板偏移量 |
+| `popper-class` | `string` | '' | 下拉面板自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 下拉面板自定义样式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `CascaderValueChangeHandler` | 选中路径变化时触发 |
+| `change` | `CascaderValueChangeHandler` | 选中路径确认变化或点击清空后触发 |
+| `clear` | `—` | 点击清空按钮时触发 |
+| `visible-change` | `CascaderVisibleChangeHandler` | 面板打开或关闭时触发 |
+| `focus` | `—` | 打开面板时触发 |
+| `blur` | `—` | 关闭面板时触发 |
+| `search-change` | `CascaderSearchChangeHandler` | 搜索关键词变化时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `focus` | `CascaderInstance["focus"]` | 聚焦触发器 |
+| `blur` | `CascaderInstance["blur"]` | 关闭面板并让触发器失焦 |
+| `open` | `CascaderInstance["open"]` | 打开下拉面板 |
+| `close` | `CascaderInstance["close"]` | 关闭下拉面板 |
+
+---
+
+#### Radio 单选框
+
+在多个互斥选项中选择其一的基础表单组件。
+
+标签：`xy-radio` 导出：`XyRadio`, `XyRadioButton`, `XyRadioGroup`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `RadioValue` | — | 当前选中值，仅单独使用时生效 |
+| `value` | `RadioValue` | — | 单选项的值 |
+| `label` | `string` | — | 展示文案 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `size` | `RadioProps["size"]` | 全局尺寸 | 尺寸 |
+| `name` | `string` | — | 原生 name 属性 |
+| `border` | `boolean` | false | 是否显示边框样式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `RadioValueChangeHandler` | 选中值变化时触发 |
+| `change` | `RadioValueChangeHandler` | 用户切换选项时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 自定义标签内容 |
+
+---
+
+#### Checkbox 复选框
+
+用于多选场景、标记状态和批量配置选择的基础组件。
+
+标签：`xy-checkbox` 导出：`XyCheckbox`, `XyCheckboxButton`, `XyCheckboxGroup`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `CheckboxValue` | undefined | 当前值 |
+| `value` | `CheckboxValue` | undefined | 当前项值 |
+| `label` | `string | number | boolean` | undefined | 展示文案 |
+| `indeterminate` | `boolean` | false | 是否为中间态，仅控制样式 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `checked` | `boolean` | false | 非受控场景下是否默认选中 |
+| `name` | `string` | undefined | 原生 name |
+| `true-value` | `string | number` | true | 选中时的值 |
+| `false-value` | `string | number` | false | 未选中时的值 |
+| `id` | `string` | undefined | 原生 id |
+| `border` | `boolean` | false | 是否显示边框样式 |
+| `size` | `('sm' | 'md' | 'lg')` | 跟随全局配置 | 组件尺寸 |
+| `tabindex` | `string | number` | undefined | 原生 tabindex |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+| `aria-label` | `string` | undefined | 原生 aria-label |
+| `aria-controls` | `string` | undefined | 原生 aria-controls |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `CheckboxValueChangeHandler` | 选中值变化时触发 |
+| `change` | `CheckboxValueChangeHandler` | 用户切换时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 自定义标签内容 |
+
+---
+
+#### Switch 开关
+
+用于二值状态切换、功能启停和轻量模式切换的基础组件。
+
+标签：`xy-switch` 导出：`XySwitch`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `SwitchProps["modelValue"]` | false | 当前值 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `loading` | `boolean` | false | 是否显示加载态并阻止交互 |
+| `size` | `SwitchProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `width` | `string | number` | undefined | 自定义轨道宽度 |
+| `inline-prompt` | `boolean` | false | 是否把状态内容放到轨道内部 |
+| `inactive-action-icon` | `string` | '' | 未选中时拇指内图标 |
+| `active-action-icon` | `string` | '' | 选中时拇指内图标 |
+| `active-icon` | `string` | '' | 选中状态图标 |
+| `inactive-icon` | `string` | '' | 未选中状态图标 |
+| `active-text` | `string` | '' | 选中状态文案 |
+| `inactive-text` | `string` | '' | 未选中状态文案 |
+| `active-value` | `SwitchValue` | true | 选中状态值 |
+| `inactive-value` | `SwitchValue` | false | 未选中状态值 |
+| `name` | `string` | undefined | 原生 name |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+| `before-change` | `SwitchProps["beforeChange"]` | undefined | 切换前守卫 |
+| `id` | `string` | undefined | 原生 id |
+| `tabindex` | `string | number` | undefined | 原生 tabindex |
+| `aria-label` | `string` | undefined | 原生 aria-label |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `SwitchValueChangeHandler` | 状态变化时触发 |
+| `change` | `SwitchValueChangeHandler` | 用户确认切换后触发 |
+| `input` | `SwitchValueChangeHandler` | 状态变化时同步触发 |
+| `focus` | `SwitchFocusHandler` | 获得焦点时触发 |
+| `blur` | `SwitchFocusHandler` | 失去焦点时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `active` | 自定义选中状态内容 |
+| `inactive` | 自定义未选中状态内容 |
+| `active-action` | 自定义选中状态拇指内容 |
+| `inactive-action` | 自定义未选中状态拇指内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `focus` | `SwitchInstance["focus"]` | 聚焦开关 |
+| `checked` | `SwitchInstance["checked"]` | 当前是否处于选中态 |
+
+---
+
+#### InputTag 标签输入框
+
+适合多标签录入、规则编辑和轻量分类维护的标签输入组件。
+
+标签：`xy-input-tag` 导出：`XyInputTag`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `InputTagValue` | undefined | 当前标签列表 |
+| `max` | `number` | undefined | 最大标签数量 |
+| `trigger` | `InputTagTrigger` | 'Enter' | 提交标签的触发键 |
+| `draggable` | `boolean` | false | 是否启用拖拽排序 |
+| `delimiter` | `string | RegExp` | '' | 自动拆分标签的分隔符 |
+| `size` | `('sm' | 'md' | 'lg')` | 跟随全局配置 | 组件尺寸 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `readonly` | `boolean` | false | 是否只读 |
+| `clearable` | `boolean` | false | 是否显示清空按钮 |
+| `clear-icon` | `string` | 'mdi:close-circle' | 自定义清空图标 |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+| `autofocus` | `boolean` | false | 原生 autofocus |
+| `id` | `string` | undefined | 原生 id |
+| `tabindex` | `string | number` | 0 | 原生 tabindex |
+| `maxlength` | `string | number` | undefined | 原生 maxlength |
+| `minlength` | `string | number` | undefined | 原生 minlength |
+| `placeholder` | `string` | '' | 占位文本 |
+| `autocomplete` | `string` | 'off' | 原生 autocomplete |
+| `save-on-blur` | `boolean` | true | 失焦时是否保存当前输入 |
+| `aria-label` | `string` | undefined | 原生 aria-label |
+| `name` | `string` | undefined | 原生 name |
+| `tag-status` | `ComponentStatus` | 'neutral' | 标签状态色 |
+| `tag-round` | `boolean` | false | 标签是否使用圆角样式 |
+| `inputmode` | `HTMLAttributes['inputmode']` | undefined | 原生 inputmode |
+| `input-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 原生输入框样式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `InputTagValueChangeHandler` | 标签列表变化时触发 |
+| `change` | `InputTagValueChangeHandler` | 标签列表确认变化时触发 |
+| `input` | `InputTagInputHandler` | 输入框内容变化时触发 |
+| `add-tag` | `InputTagAddTagHandler` | 新增标签时触发 |
+| `remove-tag` | `InputTagRemoveTagHandler` | 删除标签时触发 |
+| `drag-tag` | `InputTagDragTagHandler` | 拖拽排序完成时触发 |
+| `focus` | `InputTagFocusHandler` | 获得焦点时触发 |
+| `blur` | `InputTagFocusHandler` | 失去焦点时触发 |
+| `clear` | `—` | 清空全部标签时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `prefix` | 输入框前缀内容 |
+| `suffix` | 输入框后缀内容 |
+| `tag` | 自定义标签内容，接收 InputTagSlotProps |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `input` | `InputTagInstance["input"]` | 原生输入框引用 |
+| `focus` | `InputTagInstance["focus"]` | 聚焦输入框 |
+| `blur` | `InputTagInstance["blur"]` | 让输入框失焦 |
+| `clear` | `InputTagInstance["clear"]` | 清空全部标签 |
+
+---
+
+#### Input Number 数字输入框
+
+带步进控制、精度约束和表单校验联动的数值输入组件。
+
+标签：`xy-input-number` 导出：`XyInputNumber`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `InputNumberProps["modelValue"]` | null | 当前值 |
+| `min` | `number` | Number.MIN_SAFE_INTEGER | 最小值 |
+| `max` | `number` | Number.MAX_SAFE_INTEGER | 最大值 |
+| `step` | `number` | 1 | 步进值 |
+| `step-strictly` | `boolean` | false | 是否只允许步长倍数 |
+| `precision` | `number` | undefined | 数值精度 |
+| `size` | `InputNumberProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `readonly` | `boolean` | false | 是否只读 |
+| `controls` | `boolean` | true | 是否显示步进按钮 |
+| `controls-position` | `InputNumberProps["controlsPosition"]` | '' | 控制按钮位置 |
+| `value-on-clear` | `InputNumberProps["valueOnClear"]` | null | 清空后的回写值 |
+| `placeholder` | `string` | '' | 占位文本 |
+| `name` | `string` | undefined | 原生 name |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+| `aria-label` | `string` | undefined | 原生 aria-label |
+| `inputmode` | `HTMLAttributes['inputmode']` | 自动推导 | 原生 inputmode |
+| `align` | `InputNumberProps["align"]` | 'center' | 数值对齐方式 |
+| `disabled-scientific` | `boolean` | false | 是否禁用 e / E 输入 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `InputNumberValueChangeHandler` | 当前值变化时触发 |
+| `input` | `InputNumberValueChangeHandler` | 输入中触发 |
+| `change` | `InputNumberChangeHandler` | 确认变更时触发 |
+| `focus` | `InputNumberFocusHandler` | 获得焦点时触发 |
+| `blur` | `InputNumberFocusHandler` | 失去焦点时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `increase-icon` | 自定义增加按钮图标 |
+| `decrease-icon` | 自定义减少按钮图标 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `input` | `InputNumberInstance["input"]` | 原生输入框引用 |
+| `focus` | `InputNumberInstance["focus"]` | 聚焦输入框 |
+| `blur` | `InputNumberInstance["blur"]` | 让输入框失焦 |
+| `increase` | `InputNumberInstance["increase"]` | 按当前步长增加 |
+| `decrease` | `InputNumberInstance["decrease"]` | 按当前步长减少 |
+
+---
+
+#### Rate 评分
+
+支持半星、清空、文本提示和表单联动的评分组件。
+
+标签：`xy-rate` 导出：`XyRate`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `number | null` | 0 | 当前评分 |
+| `id` | `string` | undefined | 根节点 id |
+| `low-threshold` | `number` | 2 | 低分阈值 |
+| `high-threshold` | `number` | 4 | 高分阈值 |
+| `max` | `number` | 5 | 最大评分项数量 |
+| `colors` | `RateColorMap` | ['#94a3b8', '#f59e0b', '#f97316'] | 激活颜色数组或阈值映射 |
+| `void-color` | `string` | '' | 未激活图标颜色 |
+| `disabled-void-color` | `string` | '' | 禁用态未激活图标颜色 |
+| `icons` | `RateIconMap` | ['mdi:star', 'mdi:star', 'mdi:star'] | 激活图标数组或阈值映射 |
+| `void-icon` | `string` | 'mdi:star-outline' | 未激活图标 |
+| `disabled-void-icon` | `string` | 'mdi:star-outline' | 禁用态未激活图标 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `allow-half` | `boolean` | false | 是否允许半星 |
+| `show-text` | `boolean` | false | 是否显示文本评价 |
+| `show-score` | `boolean` | false | 是否显示分数 |
+| `text-color` | `string` | '' | 评价文本颜色 |
+| `texts` | `string[]` | ['极差', '失望', '一般', '满意', '惊喜'] | 评价文本数组 |
+| `score-template` | `string` | '{value}' | 分数模板，支持 {value} 占位 |
+| `size` | `RateProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `clearable` | `boolean` | false | 是否允许再次点击清空 |
+| `aria-label` | `string` | '评分' | 原生 aria-label |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `RateValueChangeHandler` | 当前评分变化时触发 |
+| `change` | `RateValueChangeHandler` | 提交新评分时触发 |
+| `focus` | `RateFocusHandler` | 组件获得焦点时触发 |
+| `blur` | `RateFocusHandler` | 组件失去焦点时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `root` | `RateInstance["root"]` | 根节点引用 |
+| `focus` | `RateInstance["focus"]` | 聚焦评分组件 |
+| `blur` | `RateInstance["blur"]` | 让评分组件失焦 |
+| `setCurrentValue` | `RateInstance["setCurrentValue"]` | 手动设置当前预览评分 |
+| `resetCurrentValue` | `RateInstance["resetCurrentValue"]` | 恢复到 model-value |
+
+---
+
+#### Slider 滑块
+
+支持单值、范围、输入框联动和垂直模式的滑块组件。
+
+标签：`xy-slider` 导出：`XySlider`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `SliderValue` | 0 | 当前值 |
+| `id` | `string` | undefined | 根节点 id |
+| `min` | `number` | 0 | 最小值 |
+| `max` | `number` | 100 | 最大值 |
+| `step` | `number` | 1 | 步长 |
+| `show-input` | `boolean` | false | 是否显示输入框 |
+| `show-input-controls` | `boolean` | true | 输入框是否显示控制按钮 |
+| `size` | `SliderProps["size"]` | 跟随全局配置 | 滑块尺寸 |
+| `input-size` | `SliderProps["inputSize"]` | 跟随 size | 输入框尺寸 |
+| `show-stops` | `boolean` | false | 是否显示步长断点 |
+| `show-tooltip` | `boolean` | true | 是否显示 tooltip |
+| `format-tooltip` | `SliderProps["formatTooltip"]` | undefined | tooltip 格式化函数 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `range` | `boolean` | false | 是否为范围选择 |
+| `vertical` | `boolean` | false | 是否纵向展示 |
+| `height` | `string` | '180px' | 纵向模式下的轨道高度 |
+| `range-start-label` | `string` | '起始值' | 范围起点的无障碍说明 |
+| `range-end-label` | `string` | '结束值' | 范围终点的无障碍说明 |
+| `format-value-text` | `SliderProps["formatValueText"]` | undefined | aria-valuetext 格式化函数 |
+| `tooltip-class` | `string` | '' | tooltip 自定义类名 |
+| `placement` | `SliderPlacement` | 'top' | tooltip 位置 |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+| `persistent` | `boolean` | true | tooltip 隐藏时是否保留 DOM |
+| `aria-label` | `string` | undefined | 单值模式下的无障碍说明 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `SliderValueChangeHandler` | 当前值变化时触发 |
+| `input` | `SliderValueChangeHandler` | 拖拽或输入过程中触发 |
+| `change` | `SliderValueChangeHandler` | 提交变更后触发 |
+| `focus` | `SliderFocusHandler` | 拖拽点获得焦点时触发 |
+| `blur` | `SliderFocusHandler` | 拖拽点失去焦点时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `focus` | `SliderInstance["focus"]` | 聚焦第一个点 |
+| `blur` | `SliderInstance["blur"]` | 让拖拽点失焦 |
+
+---
+
+#### DatePicker 日期选择器
+
+中后台筛选栏和表单中的单日期选择组件。
+
+标签：`xy-date-picker` 导出：`XyDatePicker`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `DatePickerValue` | null | 当前值 |
+| `type` | `DatePickerType` | 'date' | 选择类型 |
+| `placeholder` | `string` | '请选择日期' | 占位文本 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `clearable` | `boolean` | false | 是否支持清空 |
+| `size` | `DatePickerProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `min` | `string` | undefined | 最小可选日期 |
+| `max` | `string` | undefined | 最大可选日期 |
+| `format` | `string` | 跟随 type 默认格式 | 展示格式 |
+| `value-format` | `string` | 跟随 type 默认格式 | 输出值格式 |
+| `shortcuts` | `DatePickerShortcut[]` | [] | 快捷项 |
+| `disabled-date` | `DatePickerProps["disabledDate"]` | undefined | 自定义禁用日期 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `DatePickerValueChangeHandler` | 更新日期值 |
+| `change` | `DatePickerValueChangeHandler` | 选中值变化 |
+| `clear` | `—` | 清空日期 |
+| `visible-change` | `DatePickerVisibleChangeHandler` | 面板开关状态 |
+| `focus` | `—` | 打开面板时触发 |
+| `blur` | `—` | 关闭面板时触发 |
+
+---
+
+#### TimePicker 时间选择器
+
+支持单值、范围和格式化显示的时间选择器。
+
+标签：`xy-time-picker` 导出：`XyTimePicker`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `TimePickerValue` | null | 当前值 |
+| `placeholder` | `string` | '请选择时间' | 单值占位文本 |
+| `start-placeholder` | `string` | '开始时间' | 范围开始占位文本 |
+| `end-placeholder` | `string` | '结束时间' | 范围结束占位文本 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `clearable` | `boolean` | false | 是否支持清空 |
+| `size` | `TimePickerProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `format` | `string` | 'HH:mm:ss' | 显示与输出格式 |
+| `is-range` | `boolean` | false | 是否开启范围选择 |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+| `disabled-hours` | `TimePickerProps["disabledHours"]` | undefined | 禁用小时 |
+| `disabled-minutes` | `TimePickerProps["disabledMinutes"]` | undefined | 禁用分钟 |
+| `disabled-seconds` | `TimePickerProps["disabledSeconds"]` | undefined | 禁用秒 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `TimePickerModelValueChangeHandler` | 更新时间值 |
+| `change` | `TimePickerChangeHandler` | 确认值变化 |
+| `clear` | `—` | 点击清空按钮时触发 |
+| `visible-change` | `TimePickerVisibleChangeHandler` | 面板开关状态 |
+| `focus` | `—` | 打开面板触发 |
+| `blur` | `—` | 关闭面板触发 |
+
+---
+
+#### TimeSelect 时间选择
+
+固定时间点下拉选择，适合预约、营业时间和开始/结束时间联动。
+
+标签：`xy-time-select` 导出：`XyTimeSelect`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `string | null` | null | 当前选中值 |
+| `placeholder` | `string` | '请选择时间' | 占位提示 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `clearable` | `boolean` | false | 是否允许清空 |
+| `size` | `('sm' | 'md' | 'lg')` | 跟随全局配置 | 组件尺寸 |
+| `start` | `string` | '09:00' | 开始时间 |
+| `end` | `string` | '18:00' | 结束时间 |
+| `step` | `string` | '00:30' | 步长 |
+| `min-time` | `string` | — | 最小可选时间 |
+| `max-time` | `string` | — | 最大可选时间 |
+| `include-end-time` | `boolean` | false | 是否把结束时间纳入选项 |
+| `format` | `string` | 'HH:mm' | 展示与回传格式 |
+| `validate-event` | `boolean` | true | 是否触发表单校验 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `TimeSelectValueChangeHandler` | 选中值变化时触发 |
+| `change` | `TimeSelectValueChangeHandler` | 选中时间项或点击清空后触发 |
+| `clear` | `—` | 点击清空按钮时触发 |
+| `visible-change` | `TimeSelectVisibleChangeHandler` | 面板显隐变化时触发 |
+| `focus` | `—` | 打开面板时触发 |
+| `blur` | `—` | 面板关闭时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `focus` | `TimeSelectInstance["focus"]` | 聚焦触发器 |
+| `blur` | `TimeSelectInstance["blur"]` | 关闭并让触发器失焦 |
+| `open` | `TimeSelectInstance["open"]` | 打开下拉面板 |
+| `close` | `TimeSelectInstance["close"]` | 关闭下拉面板 |
+
+---
+
+#### Select 选择器
+
+单选下拉、搜索过滤和中后台筛选栏的基础选择器。
+
+标签：`xy-select` 导出：`XySelect`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `SelectProps<T>["modelValue"]` | null | 当前选中值 |
+| `options` | `SelectProps<T>["options"]` | — | 选项列表 |
+| `placeholder` | `string` | '请选择' | 未选择时的占位提示 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `clearable` | `boolean` | false | 是否允许清空当前选中值 |
+| `searchable` | `boolean` | false | 是否启用搜索输入 |
+| `multiple` | `boolean` | false | 是否开启多选 |
+| `collapse-tags` | `boolean` | false | 多选时是否折叠标签 |
+| `max-tag-count` | `number` | undefined | 折叠前最多展示的标签数 |
+| `remote` | `boolean` | false | 是否启用远程搜索 |
+| `allow-create` | `boolean` | false | 是否允许按搜索词创建新项 |
+| `size` | `size` | 跟随全局配置 | 组件尺寸 |
+| `no-data-text` | `string` | '暂无选项' | 无选项时的文案 |
+| `no-match-text` | `string` | '没有匹配项' | 搜索无结果时的文案 |
+| `loading` | `boolean` | false | 是否处于加载态 |
+| `loading-text` | `string` | '加载中' | 加载态文案 |
+| `search-placeholder` | `string` | '搜索选项' | 搜索输入占位文案 |
+| `create-text` | `string` | '创建' | 创建项前缀文案 |
+| `prefix-icon` | `string` | '' | 触发器前置图标 |
+| `suffix-icon` | `string` | 'mdi:chevron-down' | 触发器后置图标 |
+| `clear-icon` | `string` | 'mdi:close-circle' | 清空图标 |
+| `teleported` | `boolean` | true | 是否把下拉面板传送到 body |
+| `append-to` | `string | HTMLElement` | 'body' | 下拉面板挂载目标 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'bottom-start' | 下拉面板弹出位置 |
+| `offset` | `number` | 12 | 下拉面板偏移量 |
+| `popper-class` | `string` | '' | 下拉面板自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 下拉面板自定义样式 |
+| `fit-trigger-width` | `boolean` | true | 兼容别名；当未显式传 fit-input-width 时，用它控制下拉面板是否跟随触发器宽度 |
+| `fit-input-width` | `boolean` | true | 是否让下拉面板跟随触发器宽度 |
+| `dropdown-min-width` | `string | number` | — | 下拉面板最小宽度 |
+| `dropdown-max-width` | `string | number` | — | 下拉面板最大宽度 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `SelectValueChangeHandler<T>` | 选中值变化时触发 |
+| `change` | `SelectValueChangeHandler<T>` | 选中值确认变化时触发 |
+| `clear` | `—` | 点击清空按钮时触发 |
+| `visible-change` | `(value: boolean) => void` | 下拉打开或关闭时触发 |
+| `focus` | `—` | 下拉打开时触发 |
+| `blur` | `—` | 下拉关闭时触发 |
+| `search-change` | `(value: string) => void` | 搜索关键字变化时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `prefix` | 触发器前缀内容 |
+| `suffix` | 自定义触发器后缀图标 |
+| `header` | 下拉面板头部内容 |
+| `footer` | 下拉面板底部内容 |
+| `loading` | 自定义加载态内容 |
+| `empty` | 自定义空态内容 |
+| `option` | 自定义选项内容，接收 SelectOptionSlotProps<T> |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `focus` | `focus` | 聚焦触发器 |
+| `blur` | `blur` | 关闭并让触发器失焦 |
+| `open` | `open` | 打开下拉面板 |
+| `close` | `close` | 关闭下拉面板 |
+
+---
+
+#### TreeSelect 树选择
+
+用于组织、目录和权限树单选的层级选择组件。
+
+标签：`xy-tree-select` 导出：`XyTreeSelect`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `TreeSelectProps["modelValue"]` | null | 当前选中节点 key |
+| `data` | `TreeData` | [] | 树节点数据 |
+| `node-key` | `string` | undefined | 节点唯一标识字段 |
+| `props` | `TreeOptionProps` | { children: 'children', label: 'label', disabled: 'disabled' } | 树节点字段映射 |
+| `placeholder` | `TreeSelectProps["placeholder"]` | '请选择节点' | 未选择时的占位提示 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `clearable` | `boolean` | false | 是否允许清空 |
+| `filterable` | `boolean` | false | 是否启用搜索过滤 |
+| `filter-node-method` | `FilterNodeMethodFunction` | undefined | 自定义节点过滤方法 |
+| `lazy` | `boolean` | false | 是否启用懒加载 |
+| `load` | `LoadFunction` | undefined | 懒加载回调 |
+| `size` | `TreeSelectProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `empty-text` | `string` | '暂无数据' | 空数据文案 |
+| `search-placeholder` | `string` | '搜索节点' | 搜索框占位文案 |
+| `teleported` | `boolean` | true | 是否把下拉面板传送到 body |
+| `append-to` | `string | HTMLElement` | 'body' | 下拉面板挂载目标 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'bottom-start' | 下拉面板弹出位置 |
+| `offset` | `number` | 8 | 下拉面板偏移量 |
+| `popper-class` | `string` | '' | 下拉面板自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | '' | 下拉面板自定义样式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `TreeSelectValueChangeHandler` | 选中节点 key 变化时触发 |
+| `change` | `TreeSelectValueChangeHandler` | 选中节点确认变化时触发 |
+| `clear` | `—` | 点击清空按钮时触发 |
+| `visible-change` | `TreeSelectVisibleChangeHandler` | 面板打开或关闭时触发 |
+| `focus` | `—` | 打开面板时触发 |
+| `blur` | `—` | 关闭面板时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `focus` | `TreeSelectInstance["focus"]` | 聚焦触发器 |
+| `blur` | `TreeSelectInstance["blur"]` | 关闭面板并让触发器失焦 |
+| `open` | `TreeSelectInstance["open"]` | 打开下拉面板 |
+| `close` | `TreeSelectInstance["close"]` | 关闭下拉面板 |
+| `filter` | `TreeSelectInstance["filter"]` | 主动设置过滤关键词并同步树过滤 |
+
+---
+
+#### Form 表单
+
+组织录入结构和字段级校验的基础表单组件。
+
+标签：`xy-form` 导出：`XyForm`, `XyFormItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model` | `model` | — | 表单数据对象 |
+| `rules` | `Record<string, RuleItem & { required?: boolean; trigger?: 'blur' | 'change' | ('blur' | 'change')[] }[]>` | {} | 校验规则集合 |
+| `label-width` | `string | number` | '112px' | 标签宽度 |
+| `label-position` | `labelPosition` | 'left' | 标签布局方式 |
+| `size` | `size` | 'md' | 表单默认尺寸 |
+| `inline` | `boolean` | false | 是否启用内联布局 |
+| `disabled` | `boolean` | false | 是否整表禁用 |
+| `scroll-to-error` | `boolean` | false | 校验失败时滚动到首个错误字段 |
+| `validate-on-rule-change` | `boolean` | true | 规则变化后是否自动重新校验 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 字段内容区 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `validate()` | `validate` | 校验整个表单 |
+| `validateField(props, trigger?)` | `validateField` | 校验指定字段 |
+| `resetFields(props?)` | `resetFields` | 重置指定字段或整表单 |
+| `clearValidate(props?)` | `clearValidate` | 清空指定字段或整表单的校验信息 |
+
+---
+
+#### Upload 上传
+
+附件上传、图片上传和补充材料提交组件。
+
+标签：`xy-upload` 导出：`XyUpload`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `file-list` | `UploadFileItem[]` | [] | 当前文件列表 |
+| `action` | `string` | '#' | 上传地址 |
+| `headers` | `UploadProps["headers"]` | {} | 请求头 |
+| `method` | `string` | 'post' | 上传方法 |
+| `data` | `UploadProps["data"]` | {} | 额外上传参数 |
+| `name` | `string` | 'file' | 文件字段名 |
+| `accept` | `string` | '' | 原生文件类型限制 |
+| `multiple` | `boolean` | false | 是否支持多选 |
+| `limit` | `number` | undefined | 最大文件数量 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `drag` | `boolean` | false | 是否启用拖拽上传 |
+| `directory` | `boolean` | false | 是否支持目录选择 |
+| `paste` | `boolean` | false | 是否支持粘贴上传 |
+| `tip` | `string` | '' | 上传提示文案 |
+| `size` | `UploadProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `auto-upload` | `boolean` | true | 是否自动上传 |
+| `show-file-list` | `boolean` | true | 是否显示文件列表 |
+| `with-credentials` | `boolean` | false | 是否携带 cookie |
+| `list-type` | `UploadListType` | 'text' | 文件列表展示类型 |
+| `before-upload` | `UploadProps["beforeUpload"]` | undefined | 上传前钩子 |
+| `before-remove` | `UploadProps["beforeRemove"]` | undefined | 删除前钩子 |
+| `on-change` | `UploadProps["onChange"]` | undefined | 文件选择或状态变化钩子 |
+| `on-remove` | `UploadProps["onRemove"]` | undefined | 删除文件钩子 |
+| `on-preview` | `UploadProps["onPreview"]` | undefined | 点击预览钩子 |
+| `preview-file` | `UploadProps["previewFile"]` | undefined | 自定义预览地址解析 |
+| `on-success` | `UploadProps["onSuccess"]` | undefined | 上传成功钩子 |
+| `on-progress` | `UploadProps["onProgress"]` | undefined | 上传进度钩子 |
+| `on-error` | `UploadProps["onError"]` | undefined | 上传失败钩子 |
+| `on-exceed` | `UploadProps["onExceed"]` | undefined | 超限钩子 |
+| `http-request` | `UploadRequestHandler` | undefined | 自定义上传请求实现 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:fileList` | `UploadFileItem[]` | 更新文件列表 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 默认上传区内容 |
+| `trigger` | 自定义上传触发器 |
+| `tip` | 自定义提示文案 |
+| `file` | 自定义文件项渲染 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `submit` | `UploadInstance["submit"]` | 手动上传待上传项 |
+| `abort` | `UploadInstance["abort"]` | 取消上传 |
+| `clearFiles` | `UploadInstance["clearFiles"]` | 清空当前文件列表 |
+| `handleStart` | `UploadInstance["handleStart"]` | 手动把原始文件加入队列 |
+| `handleRemove` | `UploadInstance["handleRemove"]` | 手动移除文件项 |
+
+---
+
+#### Editor 编辑器
+
+基于 Vditor 的 Markdown 编辑器封装。
+
+标签：`xy-editor` 导出：`XyEditor`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `EditorProps["modelValue"]` | '' | 当前 Markdown 内容 |
+| `options` | `EditorProps["options"]` | {} | 透传给 Vditor 的配置项 |
+| `placeholder` | `EditorProps["placeholder"]` | '' | 占位文案 |
+| `height` | `EditorProps["height"]` | 'auto' | 编辑器高度 |
+| `min-height` | `string | number` | 360 | 编辑器最小高度 |
+| `disabled` | `boolean` | false | 是否禁用编辑 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:modelValue` | `EditorModelValueChangeHandler` | 内容输入变化时触发 |
+| `init` | `EditorInstanceHandler` | 编辑器实例初始化后触发 |
+| `ready` | `EditorInstanceHandler` | 编辑器实例可用后触发 |
+| `focus` | `EditorFocusHandler` | 获取焦点时触发 |
+| `blur` | `EditorBlurHandler` | 失焦时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `editor` | `EditorInstance["editor"]` | 当前 Vditor 实例引用 |
+| `getValue` | `EditorInstance["getValue"]` | 获取当前 Markdown 内容 |
+| `setValue` | `EditorInstance["setValue"]` | 主动写入 Markdown 内容 |
+| `focus` | `EditorInstance["focus"]` | 让编辑器获取焦点 |
+
+---
+
+### 反馈与浮层
+
+#### Alert 提示
+
+用于页面内承接重要提示、风险提醒和状态说明的非浮层反馈组件。
+
+标签：`xy-alert` 导出：`XyAlert`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `AlertProps["modelValue"]` | undefined | 受控显示状态 |
+| `title` | `string` | '' | 提示标题 |
+| `description` | `string` | '' | 描述文案 |
+| `type` | `AlertType` | 'info' | 提示类型 |
+| `closable` | `boolean` | true | 是否可关闭 |
+| `close-text` | `string` | '' | 自定义关闭文案 |
+| `show-icon` | `boolean` | false | 是否显示图标 |
+| `center` | `boolean` | false | 是否居中显示内容 |
+| `effect` | `AlertEffect` | 'light' | 主题风格 |
+| `duration` | `number` | 0 | 自动关闭时长，单位毫秒，0 表示不自动关闭 |
+| `size` | `AlertProps["size"]` | 全局 size / 'md' | 组件尺寸，未传时跟随全局配置 |
+| `variant` | `AlertVariant` | 'default' | 布局变体 |
+| `before-close` | `AlertBeforeCloseFn` | undefined | 手动关闭前拦截函数 |
+| `pause-on-hover` | `boolean` | false | 自动关闭时悬停是否暂停计时 |
+| `pause-on-focus` | `boolean` | false | 自动关闭时聚焦内部元素是否暂停计时 |
+| `pause-on-page-hidden` | `boolean` | false | 页面隐藏时是否暂停自动关闭计时 |
+| `collapsible` | `boolean` | false | 是否允许折叠描述区 |
+| `default-expanded` | `boolean` | false | 折叠描述是否默认展开 |
+| `line-clamp` | `number` | 2 | 折叠描述时的裁切行数 |
+| `expand-text` | `string` | '展开详情' | 折叠态触发器文案 |
+| `collapse-text` | `string` | '收起详情' | 展开态触发器文案 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `close` | `AlertCloseHandler` | 手动关闭提示时触发 |
+| `update:modelValue` | `AlertModelValueChangeHandler` | 受控模式下同步显示状态 |
+| `auto-close` | `AlertAutoCloseHandler` | 自动关闭定时器触发时发出 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 描述区内容 |
+| `title` | 标题内容 |
+| `icon` | 图标内容 |
+| `actions` | 操作区内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `open` | `AlertService["open"]` | 打开顶部横幅服务提示 |
+| `getState` | `AlertService["getState"]` | 获取当前服务状态的只读快照 |
+| `closeAll` | `AlertService["closeAll"]` | 清空当前项和等待队列 |
+
+---
+
+#### Message 消息提示
+
+用于承接轻量操作结果、系统反馈和全局提醒的函数式消息提示。
+
+标签：`$message` 导出：`XyMessage`
+
+---
+
+#### Notification 通知
+
+用于承接可并行阅读的系统反馈、任务广播和全局操作结果提示。
+
+标签：`xy-notification` 导出：`XyNotification`, `XyNotificationService`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `boolean` | undefined | 受控显示状态 |
+| `title` | `string` | '' | 通知标题 |
+| `message` | `NotificationContent` | '' | 通知正文，支持字符串、VNode 或渲染函数 |
+| `type` | `NotificationProps["type"]` | '' | 通知类型 |
+| `duration` | `number` | 4500 | 自动关闭时长，单位毫秒，0 表示不自动关闭 |
+| `show-close` | `boolean` | true | 是否显示关闭按钮 |
+| `custom-class` | `string` | '' | 自定义 class |
+| `icon` | `string` | '' | 自定义图标名称；当 type 有值时会优先使用类型图标 |
+| `close-icon` | `string` | 'mdi:close' | 自定义关闭图标名称 |
+| `dangerously-use-html-string` | `boolean` | false | 是否把字符串正文按 HTML 渲染 |
+| `z-index` | `number` | 自动递增 | 自定义当前通知层级 |
+| `timer-key` | `number` | 0 | 手动刷新自动关闭计时器的版本标记 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:modelValue` | `NotificationModelValueChangeHandler` | 受控模式下同步显示状态 |
+| `close` | `NotificationCloseHandler` | 通知开始关闭时触发 |
+| `closed` | `NotificationCloseHandler` | 通知完成关闭后触发 |
+| `click` | `NotificationClickHandler` | 点击通知主体时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `title` | 标题区内容 |
+| `default` | 正文内容 |
+| `actions` | 操作区内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `close` | `NotificationInstance["close"]` | 主动关闭当前通知，可显式指定关闭原因 |
+| `visible` | `NotificationInstance["visible"]` | 当前通知是否处于可见状态 |
+
+---
+
+#### Backtop 回到顶部
+
+固定在视口角落的回到顶部按钮，支持整页和局部滚动容器。
+
+标签：`xy-backtop` 导出：`XyBacktop`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `target` | `string` | '' | 触发滚动监听的目标容器选择器 |
+| `visibility-height` | `number` | 200 | 滚动高度达到该值后才显示按钮 |
+| `right` | `number` | 40 | 距离视口右侧的偏移 |
+| `bottom` | `number` | 40 | 距离视口底部的偏移 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `click` | `BacktopClickHandler` | 点击按钮时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 自定义按钮内容 |
+
+---
+
+#### Collapse 折叠面板
+
+用于收起说明、筛选配置和 FAQ 内容。
+
+标签：`xy-collapse` 导出：`XyCollapse`, `XyCollapseItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `CollapseModelValue` | [] | 当前展开项，手风琴模式下可传单值，非手风琴模式下传数组 |
+| `accordion` | `boolean` | false | 是否启用手风琴模式 |
+| `expand-icon-position` | `CollapseExpandIconPosition` | 'right' | 展开图标位置 |
+| `before-collapse` | `CollapseBeforeCollapse` | undefined | 切换前守卫，返回 false 或 rejected Promise 时阻止切换 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `CollapseModelValue` | 展开项变化 |
+| `change` | `CollapseModelValue` | 展开项变化时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | xy-collapse-item 列表 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `activeNames` | `CollapseInstance["activeNames"]` | 当前内部维护的展开项列表 |
+| `setActiveNames` | `CollapseInstance["setActiveNames"]` | 主动写入展开项列表，并同步触发 update:model-value / change |
+
+---
+
+#### Empty 空状态
+
+用于承接空数据、空搜索结果和首次进入时暂无内容的页面状态。
+
+标签：`xy-empty` 导出：`XyEmpty`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `title` | `string` | undefined | 标题文案；未传时回退到 locale.emptyTitle 或 '暂无数据'，显式传 '' 时隐藏标题区 |
+| `description` | `string` | undefined | 描述文案；未传时回退到 locale.emptyDescription 或 '这里还没有可展示的内容'，显式传 '' 时隐藏描述区 |
+| `image` | `string` | '' | 自定义图片地址 |
+| `image-alt` | `string` | '' | 自定义图片的 alt 文案 |
+| `image-size` | `string | number` | '' | 图片区域宽度；优先级高于 --xy-empty-image-width |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `image` | 自定义图片或插画区域 |
+| `title` | 自定义标题内容 |
+| `description` | 自定义描述内容 |
+| `default` | 底部操作区或补充说明 |
+
+---
+
+#### Loading 加载
+
+用于容器内或全屏态的数据加载遮罩，支持 directive、service 和全量安装后的 $loading。
+
+标签：`loading` 导出：`XyLoading`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `xy-loading-text` | `string` | - | 加载文案 |
+| `xy-loading-spinner` | `string` | - | 自定义 spinner class |
+| `xy-loading-svg` | `string` | - | 自定义 SVG 片段 |
+| `xy-loading-svg-view-box` | `string` | - | 自定义 SVG 的 viewBox |
+| `xy-loading-background` | `string` | - | 遮罩背景色 |
+| `xy-loading-custom-class` | `string` | - | 遮罩自定义 class |
+
+---
+
+#### Skeleton 骨架屏
+
+用于承接列表、卡片和详情块在加载过程中的占位反馈。
+
+标签：`xy-skeleton` 导出：`XySkeleton`, `XySkeletonItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `animated` | `boolean` | false | 是否启用骨架动画 |
+| `count` | `number` | 1 | 重复渲染多少组骨架模板 |
+| `rows` | `number` | 3 | 默认模板下的段落行数 |
+| `loading` | `boolean` | true | 是否展示骨架，占位结束后渲染默认插槽 |
+| `throttle` | `SkeletonThrottle` | 0 | 骨架切换节流配置，支持数字或对象写法 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `template` | 自定义骨架模板；当你已经知道页面结构时，用它替换默认段落骨架 |
+| `default` | loading = false 时渲染真实内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `uiLoading` | `SkeletonInstance["uiLoading"]` | 节流后的最终加载态 |
+
+---
+
+#### Result 结果
+
+用于承接提交、校验、审批、同步等操作完成后的结果反馈。
+
+标签：`xy-result` 导出：`XyResult`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `title` | `string` | undefined | 结果标题 |
+| `description` | `string` | undefined | 主描述文案，优先级高于 sub-title / subTitle |
+| `sub-title` | `string` | '' | 兼容描述字段 |
+| `icon` | `ResultIconType` | undefined | 图标语义 |
+| `status` | `ResultStatus` | 'neutral' | 当前库风格状态语义，并兼容后台状态码场景 |
+| `size` | `ResultProps["size"]` | 全局 size / 'md' | 组件尺寸，未传时跟随全局配置 |
+| `variant` | `ResultVariant` | 'plain' | 视觉变体 |
+| `icon-size` | `string | number` | undefined | 自定义图标尺寸 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `icon` | 自定义图标区 |
+| `title` | 自定义标题区 |
+| `description` | 主描述区，优先级高于 sub-title |
+| `sub-title` | 兼容描述插槽 |
+| `default` | 描述区下方的补充内容 |
+| `extra` | 底部操作区 |
+
+---
+
+#### Tooltip 文字提示
+
+用于承载简短说明，不承载复杂交互内容。
+
+标签：`xy-tooltip` 导出：`XyTooltip`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `boolean` | false | 受控显示状态 |
+| `content` | `string` | '' | 纯文本提示内容 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'top' | 浮层方向 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `open-delay` | `number` | 80 | 打开延迟，单位毫秒 |
+| `close-delay` | `number` | 60 | 关闭延迟，单位毫秒 |
+| `show-after` | `number` | undefined | 打开延迟别名，优先级高于 open-delay |
+| `hide-after` | `number` | undefined | 关闭延迟别名，优先级高于 close-delay |
+| `enterable` | `boolean` | true | 浮层是否允许鼠标进入 |
+| `trigger` | `TooltipTrigger | TooltipTrigger[]` | 'hover' | 触发方式，支持单值或数组 |
+| `trigger-keys` | `string[]` | ['Enter', 'NumpadEnter', 'Space', ' '] | 触发器键盘切换按键 |
+| `offset` | `number` | 10 | 浮层偏移量 |
+| `show-arrow` | `boolean` | true | 是否显示箭头 |
+| `max-width` | `string | number` | 240 | 提示最大宽度 |
+| `teleported` | `boolean` | true | 是否通过 Teleport 挂载到外层容器 |
+| `append-to` | `string | HTMLElement` | 'body' | Teleport 的挂载目标 |
+| `persistent` | `boolean` | false | 关闭后是否保留 DOM |
+| `popper-class` | `string` | '' | 浮层容器自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 浮层容器自定义样式 |
+| `aria-label` | `string` | undefined | 自定义辅助说明文本 |
+| `effect` | `('dark' | 'light')` | 'dark' | 视觉主题 |
+| `raw-content` | `boolean` | false | 是否把 content 当作 HTML 字符串渲染 |
+| `transition` | `string` | 'xy-fade' | 过渡动画名称 |
+| `virtual-ref` | `ReferenceElement | null` | null | 虚拟触发引用 |
+| `virtual-triggering` | `boolean` | false | 是否启用虚拟触发 |
+| `popper-options` | `TooltipPopperOptions` | undefined | 高级定位参数 |
+| `close-on-esc` | `boolean` | true | 按下 Escape 是否关闭 |
+| `close-on-outside` | `boolean` | true | 点击外部是否关闭 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `TooltipModelValueChangeHandler` | 开关状态变化 |
+| `before-show` | `—` | 打开前触发 |
+| `open` | `—` | 打开时触发 |
+| `show` | `—` | 进入过渡结束后触发 |
+| `before-hide` | `—` | 关闭前触发 |
+| `close` | `—` | 关闭时触发 |
+| `hide` | `—` | 离场过渡结束后触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 触发区域。非虚拟触发时建议保持单一触发根节点 |
+| `content` | 自定义提示内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `triggerRef` | `TooltipExposed["triggerRef"]` | 当前触发节点引用 |
+| `contentRef` | `TooltipExposed["contentRef"]` | 当前内容节点引用 |
+| `show` | `TooltipExposed["show"]` | 立即打开 Tooltip |
+| `hide` | `TooltipExposed["hide"]` | 立即关闭 Tooltip |
+| `updatePopper` | `TooltipExposed["updatePopper"]` | 重新计算定位 |
+| `isFocusInsideContent` | `TooltipExposed["isFocusInsideContent"]` | 判断焦点是否位于内容区 |
+
+---
+
+#### Popover 气泡卡片
+
+用于承载轻量说明或交互内容，比 Tooltip 更重，比 Dialog 更轻。
+
+标签：`xy-popover` 导出：`XyPopover`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `boolean` | false | 是否打开 |
+| `title` | `string` | '' | 标题 |
+| `content` | `string` | '' | 纯文本内容 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'bottom' | 浮层位置 |
+| `width` | `string | number` | 320 | 面板宽度 |
+| `close-on-outside` | `boolean` | true | 点击外部是否关闭 |
+| `close-on-esc` | `boolean` | true | Escape 是否关闭 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `trigger` | `PopoverTrigger` | 'click' | 触发方式 |
+| `open-delay` | `number` | 80 | 打开延迟 |
+| `close-delay` | `number` | 60 | 关闭延迟 |
+| `show-after` | `number` | undefined | 打开延迟别名，优先级高于 open-delay |
+| `hide-after` | `number` | undefined | 关闭延迟别名，优先级高于 close-delay |
+| `enterable` | `boolean` | true | 浮层是否允许进入 |
+| `offset` | `number` | 10 | 浮层偏移量 |
+| `show-arrow` | `boolean` | true | 是否显示箭头 |
+| `teleported` | `boolean` | true | 是否通过 Teleport 挂载到外层容器 |
+| `append-to` | `string | HTMLElement` | 'body' | Teleport 的挂载目标 |
+| `persistent` | `boolean` | false | 关闭后是否保留 DOM |
+| `popper-class` | `string` | '' | 浮层容器自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 浮层容器自定义样式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `PopoverModelValueChangeHandler` | 开关状态变化 |
+| `open` | `—` | 打开时触发 |
+| `close` | `—` | 关闭时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `reference` | 推荐的触发区域插槽 |
+| `trigger` | 兼容的触发区域插槽 |
+| `header` | 自定义头部 |
+| `default` | 面板主体内容，插槽参数为 PopoverDefaultSlotProps |
+
+---
+
+#### Popconfirm 气泡确认框
+
+用于承接轻量确认动作，支持正文插槽、异步确认和虚拟触发。
+
+标签：`xy-popconfirm` 导出：`XyPopconfirm`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `boolean` | false | 受控显示状态 |
+| `title` | `string` | '' | 标题文案 |
+| `content` | `string` | '' | 纯文本正文；未提供默认插槽时作为正文区兜底 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'bottom' | 浮层位置 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `width` | `string | number` | 150 | 面板宽度，最小值为 150px |
+| `open-delay` | `number` | 80 | 打开延时白名单属性 |
+| `close-delay` | `number` | 60 | 关闭延时白名单属性 |
+| `show-after` | `number` | undefined | 打开延时别名，优先级高于 open-delay |
+| `hide-after` | `number` | 200 | 关闭延时别名，优先级高于 close-delay；确认/取消成功后也遵循该延时 |
+| `effect` | `PopconfirmEffect` | 'light' | 视觉风格 |
+| `teleported` | `boolean` | true | 是否通过 Teleport 挂载到外层容器 |
+| `append-to` | `string | HTMLElement` | 'body' | Teleport 的挂载目标 |
+| `persistent` | `boolean` | false | 关闭后是否保留 DOM |
+| `offset` | `number` | 10 | 浮层偏移量 |
+| `trigger-keys` | `string[]` | Tooltip 内置默认值 | 键盘打开键白名单 |
+| `show-arrow` | `boolean` | true | 是否显示箭头 |
+| `close-on-esc` | `boolean` | true | Escape 是否关闭 |
+| `close-on-outside` | `boolean` | true | 点击外部是否关闭 |
+| `popper-class` | `string` | '' | 浮层容器自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 浮层容器自定义样式 |
+| `transition` | `string` | 'xy-fade' | 过渡名称 |
+| `popper-options` | `TooltipPopperOptions` | undefined | 浮层定位兼容配置子集 |
+| `icon` | `string` | 'mdi:help-circle-outline' | 前置图标 |
+| `icon-color` | `string` | '#f90' | 图标颜色 |
+| `hide-icon` | `boolean` | false | 是否隐藏图标 |
+| `confirm-button-text` | `string` | undefined | 确认按钮文案；未传时回退到 locale.popconfirmConfirmButtonText 或 '确定' |
+| `cancel-button-text` | `string` | undefined | 取消按钮文案；未传时回退到 locale.popconfirmCancelButtonText 或 '取消' |
+| `confirm-button-type` | `PopconfirmButtonType` | 'primary' | 确认按钮类型 |
+| `cancel-button-type` | `PopconfirmButtonType` | 'text' | 取消按钮类型 |
+| `confirm-button-props` | `Partial<ButtonProps>` | undefined | 透传给确认按钮的补充配置；不会覆盖内部 loading/disabled 和 confirm-button-type |
+| `cancel-button-props` | `Partial<ButtonProps>` | undefined | 透传给取消按钮的补充配置；不会覆盖内部 loading/disabled 和 cancel-button-type |
+| `before-confirm` | `PopconfirmHook` | undefined | 确认前置 hook，支持返回 boolean 或 Promise |
+| `before-cancel` | `PopconfirmHook` | undefined | 取消前置 hook，支持返回 boolean 或 Promise |
+| `virtual-ref` | `ReferenceElement | null` | null | 虚拟定位引用 |
+| `virtual-triggering` | `boolean` | false | 是否启用虚拟触发模式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `PopconfirmModelValueChangeHandler` | 开关状态变化 |
+| `before-show` | `—` | 面板即将打开时触发 |
+| `show` | `—` | 面板完成进入后触发 |
+| `before-hide` | `—` | 面板即将关闭时触发 |
+| `hide` | `—` | 面板完成离开后触发 |
+| `open` | `—` | 浮层逻辑打开时触发 |
+| `close` | `—` | 浮层逻辑关闭时触发 |
+| `confirm` | `PopconfirmActionHandler` | 确认动作完成后触发 |
+| `cancel` | `PopconfirmActionHandler` | 取消动作完成后触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `reference` | 触发区域；常规模式下通过点击它打开确认框 |
+| `default` | 正文区；插槽参数为 PopconfirmSlotProps |
+| `actions` | 自定义操作区；插槽参数为 PopconfirmSlotProps |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `hide` | `PopconfirmInstance["hide"]` | 立即关闭确认框 |
+| `popperRef` | `PopconfirmInstance["popperRef"]` | 面板根节点引用 |
+
+---
+
+#### Dropdown 下拉菜单
+
+用于承载操作菜单，而不是承载值选择。
+
+标签：`xy-dropdown` 导出：`XyDropdown`, `XyDropdownMenu`, `XyDropdownItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `DropdownProps["modelValue"]` | false | 受控显示状态 |
+| `items` | `DropdownItem[]` | [] | 兼容模式下的菜单项列表 |
+| `placement` | `('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'right' | 'right-start' | 'right-end' | 'left' | 'left-start' | 'left-end')` | 'bottom-start' | 菜单位置 |
+| `disabled` | `boolean` | false | 是否禁用 |
+| `hide-on-click` | `boolean` | undefined | 选择后是否关闭 |
+| `close-on-select` | `boolean` | true | 兼容别名，若与 hide-on-click 同时存在以后者为准 |
+| `role` | `DropdownRole` | 'menu' | 菜单语义 |
+| `trigger` | `DropdownTrigger | DropdownTrigger[]` | 'hover' | 触发方式，支持单值或数组 |
+| `trigger-keys` | `string[]` | ['Enter','NumpadEnter',' ','ArrowDown'] | 触发区键盘打开键 |
+| `open-delay` | `number` | 80 | hover 打开延迟 |
+| `close-delay` | `number` | 120 | hover 关闭延迟 |
+| `show-after` | `number` | undefined | 打开延迟别名，优先级高于 open-delay |
+| `hide-after` | `number` | undefined | 关闭延迟别名，优先级高于 close-delay |
+| `max-height` | `string | number` | '' | 菜单最大高度 |
+| `teleported` | `boolean` | true | 是否通过 Teleport 挂载到外层容器 |
+| `append-to` | `string | HTMLElement` | 'body' | Teleport 的挂载目标 |
+| `persistent` | `boolean` | false | 关闭后是否保留 DOM |
+| `popper-class` | `string` | '' | 菜单容器自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 菜单容器自定义样式 |
+| `show-arrow` | `boolean` | true | 是否显示浮层箭头 |
+| `virtual-ref` | `ReferenceElement | null` | null | 虚拟触发引用或虚拟定位引用 |
+| `virtual-triggering` | `boolean` | false | 是否启用虚拟触发模式 |
+| `split-button` | `boolean` | false | 是否切换为分裂按钮 |
+| `button-props` | `Partial<ButtonProps>` | undefined | split-button 下透传给按钮的配置 |
+| `tabindex` | `string | number` | 0 | 触发区 tab 索引 |
+| `loop` | `boolean` | true | roving tabindex 是否循环 |
+| `popper-options` | `DropdownPopperOptions` | {} | 定位兼容配置子集 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `DropdownModelValueChangeHandler` | 开关状态变化 |
+| `select` | `DropdownSelectHandler` | 选择菜单项 |
+| `command` | `DropdownCommandHandler` | 触发命令派发 |
+| `visible-change` | `DropdownVisibleChangeHandler` | 菜单开关状态变化 |
+| `click` | `DropdownClickHandler` | split-button 主按钮点击 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 触发区域，或 split-button 下主按钮内容 |
+| `dropdown` | 菜单内容，主路径推荐承接 xy-dropdown-menu |
+
+---
+
+#### Transfer 穿梭框
+
+用于成员、权限和资源双栏分配的基础穿梭框组件。
+
+标签：`xy-transfer` 导出：`XyTransfer`
+
+---
+
+#### Dialog 对话框
+
+用于阻断当前流程的录入、确认和强提示场景。
+
+标签：`xy-dialog` 导出：`XyDialog`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `boolean` | false | 是否打开对话框 |
+| `title` | `string` | '' | 对话框标题 |
+| `append-to-body` | `boolean` | false | 是否 teleport 到 body |
+| `append-to` | `string | HTMLElement` | 'body' | teleport 挂载目标 |
+| `before-close` | `(done: (cancel?: boolean) => void, reason?: 'close' | 'backdrop' | 'escape' | 'programmatic') => void | Promise<void>` | undefined | 关闭前拦截函数，仅拦截内建关闭入口，并透出关闭原因 |
+| `destroy-on-close` | `boolean` | false | 关闭后是否销毁内容 |
+| `close-on-click-modal` | `boolean` | true | 点击遮罩是否关闭 |
+| `close-on-press-escape` | `boolean` | true | 按下 Escape 是否关闭 |
+| `lock-scroll` | `boolean` | true | 打开时是否锁定 body 滚动 |
+| `modal` | `boolean` | true | 是否显示遮罩层 |
+| `modal-class` | `string` | '' | 遮罩容器自定义类名 |
+| `panel-class` | `string` | '' | 面板容器自定义类名 |
+| `modal-penetrable` | `boolean` | false | 无遮罩时是否允许穿透点击背景 |
+| `open-delay` | `number` | 0 | 打开延迟，单位毫秒 |
+| `close-delay` | `number` | 0 | 关闭延迟，单位毫秒 |
+| `top` | `string` | '15vh' | 非垂直居中时的顶部偏移 |
+| `width` | `string | number` | '50%' | 对话框宽度 |
+| `z-index` | `number` | undefined | 自定义层级 |
+| `center` | `boolean` | false | 是否让头部和底部内容居中 |
+| `align-center` | `boolean` | false | 是否让对话框在视口中垂直居中 |
+| `close-icon` | `string | Component` | 'mdi:close' | 自定义关闭图标，增强计划里支持 string \| Component |
+| `draggable` | `boolean` | false | 是否允许通过头部拖拽对话框 |
+| `overflow` | `boolean` | false | 拖拽时是否允许超出视口 |
+| `fullscreen` | `boolean` | false | 是否全屏显示 |
+| `maximizable` | `boolean` | false | 是否显示最大化/还原按钮 |
+| `resizable` | `boolean` | false | 是否允许通过右下角手柄调整尺寸 |
+| `min-width` | `string | number` | undefined | 调整尺寸时的最小宽度 |
+| `max-width` | `string | number` | undefined | 调整尺寸时的最大宽度 |
+| `min-height` | `string | number` | undefined | 调整尺寸时的最小高度 |
+| `max-height` | `string | number` | undefined | 调整尺寸时的最大高度 |
+| `sticky-header` | `boolean` | false | 是否固定头部 |
+| `sticky-footer` | `boolean` | false | 是否固定底部 |
+| `body-max-height` | `string | number` | undefined | body 区域最大高度 |
+| `loading` | `boolean` | false | 是否显示 body 内部加载遮罩 |
+| `loading-text` | `string` | '' | 加载文案 |
+| `header-class` | `string` | '' | 头部区域自定义类名 |
+| `body-class` | `string` | '' | 主体区域自定义类名 |
+| `footer-class` | `string` | '' | 底部区域自定义类名 |
+| `show-close` | `boolean` | true | 是否显示右上角关闭按钮 |
+| `header-aria-level` | `string` | '2' | 默认标题的 aria-level |
+| `transition` | `string | TransitionProps` | 'xy-dialog-fade' | 自定义过渡配置，支持过渡名或 Vue Transition 对象 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `(value: boolean) => void` | 对话框开关状态变化时触发 |
+| `update:fullscreen` | `(value: boolean) => void` | 最大化/还原切换时触发 |
+| `open` | `—` | 打开时触发 |
+| `opened` | `—` | 进入完成后触发 |
+| `close` | `—` | 关闭时触发 |
+| `closed` | `—` | 离开完成后触发 |
+| `open-auto-focus` | `—` | 打开后完成自动聚焦时触发 |
+| `close-auto-focus` | `—` | 关闭后恢复焦点时触发 |
+| `maximize` | `—` | 切换到全屏/最大化时触发 |
+| `restore` | `—` | 从全屏/最大化恢复时触发 |
+| `resize-start` | `(event: MouseEvent, width: number, height: number) => void` | 开始调整尺寸时触发 |
+| `resize` | `(event: MouseEvent, width: number, height: number) => void` | 调整尺寸过程中触发 |
+| `resize-end` | `(event: MouseEvent, width: number, height: number) => void` | 结束调整尺寸时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 对话框主体内容 |
+| `header` | 自定义头部内容，透出 close、titleId、titleClass |
+| `footer` | 自定义底部操作区 |
+| `title` | 与 header 兼容的旧式标题插槽，建议仅在迁移期使用 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `visible` | `visible` | 当前可见状态 |
+| `dialogContentRef` | `dialogContentRef` | 内容层实例，可继续访问拖拽和尺寸控制方法 |
+| `resetPosition` | `resetPosition` | 重置拖拽位移 |
+| `handleClose` | `handleClose` | 触发内建关闭流程，可显式指定关闭原因 |
+
+---
+
+#### Drawer 抽屉
+
+用于保留上下文的侧边录入或信息面板。
+
+标签：`xy-drawer` 导出：`XyDrawer`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `DrawerProps["modelValue"]` | false | 是否打开抽屉 |
+| `title` | `string` | '' | 抽屉标题；当你完全自定义 header 时，仍建议传入用于可访问名称兜底 |
+| `size` | `DrawerProps["size"]` | 420 | 抽屉宽度或高度；左右方向作用于宽度，上下方向作用于高度 |
+| `placement` | `DrawerPlacement` | 'right' | 项目内保留的打开方向写法 |
+| `direction` | `DrawerDirection` | undefined | 方向别名，优先级高于 placement |
+| `append-to-body` | `boolean` | true | 默认是否 teleport 到 body |
+| `append-to` | `string | HTMLElement` | 'body' | teleport 挂载目标；传入后会覆盖 append-to-body |
+| `modal` | `boolean` | true | 是否显示遮罩层 |
+| `modal-class` | `string` | '' | 遮罩层自定义类名，仅在 modal=true 时生效 |
+| `modal-penetrable` | `boolean` | false | 无遮罩时是否允许背景继续点击 |
+| `close-on-overlay` | `boolean` | true | 点击遮罩是否关闭 |
+| `close-on-click-modal` | `boolean` | undefined | 点击遮罩是否关闭的别名配置，优先级高于 close-on-overlay |
+| `close-on-esc` | `boolean` | true | 按下 Escape 是否关闭 |
+| `close-on-press-escape` | `boolean` | undefined | Escape 关闭的别名配置，优先级高于 close-on-esc |
+| `open-delay` | `number` | 0 | 打开延迟，单位毫秒 |
+| `close-delay` | `number` | 0 | 关闭延迟，单位毫秒 |
+| `destroy-on-close` | `boolean` | false | 关闭后是否销毁内容 |
+| `show-close` | `boolean` | true | 是否显示右上角关闭按钮 |
+| `lock-scroll` | `boolean` | true | 打开时是否锁定 body 滚动 |
+| `with-header` | `boolean` | true | 是否渲染默认头部容器 |
+| `before-close` | `DrawerProps["beforeClose"]` | undefined | 关闭前拦截函数，第二个参数会给出触发来源：close、backdrop、escape、programmatic |
+| `resizable` | `boolean` | false | 是否允许拖动边缘调整尺寸 |
+| `custom-class` | `string` | '' | 面板自定义类名的兼容别名，建议改用组件原生 class |
+| `header-class` | `string` | '' | 头部容器自定义类名 |
+| `body-class` | `string` | '' | 主体容器自定义类名 |
+| `footer-class` | `string` | '' | 底部容器自定义类名 |
+| `z-index` | `number` | undefined | 指定抽屉层级 |
+| `header-aria-level` | `string | number` | 2 | 默认标题节点的 aria-level |
+| `modal-fade` | `boolean` | true | 是否保留遮罩层淡入淡出 |
+| `close-icon` | `string` | 'mdi:close' | 关闭按钮图标，使用图标字符串 |
+| `fullscreen` | `boolean` | false | 是否让抽屉占满整个视口 |
+| `transition` | `DrawerTransition` | 'xy-drawer-fade' | 自定义过渡配置，支持过渡名或 Vue Transition 对象 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `DrawerModelValueChangeHandler` | 开关状态变化 |
+| `open` | `—` | 打开时触发 |
+| `opened` | `—` | 进入完成后触发 |
+| `close` | `—` | 关闭时触发 |
+| `closed` | `—` | 离开完成后触发 |
+| `open-auto-focus` | `—` | 抽屉打开并完成初始聚焦后触发 |
+| `close-auto-focus` | `—` | 抽屉关闭并恢复焦点后触发 |
+| `resize-start` | `DrawerResizeHandler` | 开始拖拽尺寸时触发 |
+| `resize` | `DrawerResizeHandler` | 拖拽尺寸过程中触发 |
+| `resize-end` | `DrawerResizeHandler` | 结束拖拽尺寸时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `header` | 自定义头部，插槽参数为 DrawerHeaderSlotProps |
+| `default` | 主体内容 |
+| `footer` | 底部操作区 |
+| `title` | 与 header 类似的兼容插槽，仅用于对齐旧用法，建议优先使用 header；插槽参数为 DrawerTitleSlotProps |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `handleClose` | `DrawerInstance["handleClose"]` | 主动触发关闭流程，会经过 before-close 拦截 |
+| `afterEnter` | `DrawerInstance["afterEnter"]` | 进入完成回调的兼容 expose，建议优先使用 opened 事件 |
+| `afterLeave` | `DrawerInstance["afterLeave"]` | 离开完成回调的兼容 expose，建议优先使用 closed 事件 |
+
+---
+
+#### Collapse Transition 折叠过渡
+
+为可展开内容提供平滑的高度过渡效果。
+
+标签：`xy-collapse-transition` 导出：`XyCollapseTransition`
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 需要执行折叠过渡的内容 |
+
+---
+
+### 数据展示
+
+#### Statistic 统计数值
+
+标题、前后缀、精度和自定义格式化的指标展示组件。
+
+标签：`xy-statistic` 导出：`XyStatistic`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `value` | `number | string` | 0 | 统计值 |
+| `title` | `string` | '' | 标题文案 |
+| `prefix` | `string` | '' | 前缀文案 |
+| `suffix` | `string` | '' | 后缀文案 |
+| `precision` | `number` | 0 | 小数位数，按四舍五入处理 |
+| `decimal-separator` | `string` | '.' | 小数分隔符 |
+| `group-separator` | `string` | ',' | 千分位分隔符 |
+| `formatter` | `StatisticFormatter` | undefined | 自定义展示函数 |
+| `value-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 数值区域样式 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `title` | 自定义标题区域 |
+| `prefix` | 自定义前缀区域 |
+| `suffix` | 自定义后缀区域 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `displayValue` | `StatisticInstance["displayValue"]` | 当前实际展示文本 |
+
+---
+
+#### Countdown 倒计时
+
+复用 Statistic 外壳的目标时间倒计时组件。
+
+标签：`xy-countdown` 导出：`XyCountdown`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `value` | `number | Date | Dayjs` | 0 | 目标时间 |
+| `format` | `string` | 'HH:mm:ss' | 展示格式串 |
+| `title` | `string` | '' | 标题文案 |
+| `prefix` | `string` | '' | 前缀文案 |
+| `suffix` | `string` | '' | 后缀文案 |
+| `value-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 数值区域样式 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `change` | `CountdownChangeHandler` | 每次倒计时更新时触发 |
+| `finish` | `CountdownFinishHandler` | 倒计时结束时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `title` | 自定义标题区域 |
+| `prefix` | 自定义前缀区域 |
+| `suffix` | 自定义后缀区域 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `displayValue` | `CountdownInstance["displayValue"]` | 当前展示文本 |
+
+---
+
+#### Progress 进度条
+
+支持线形、环形和仪表盘三种形态的进度条组件。
+
+标签：`xy-progress` 导出：`XyProgress`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `type` | `ProgressType` | 'line' | 进度条类型 |
+| `percentage` | `number` | 0 | 当前百分比，会自动收敛到 0 - 100 |
+| `status` | `ProgressStatus` | '' | 当前状态 |
+| `indeterminate` | `boolean` | false | 是否展示不确定进度动画 |
+| `duration` | `number` | 3 | 不确定进度或条纹流动的动画时长 |
+| `stroke-width` | `number` | 6 | 线形轨道高度或圆环描边宽度 |
+| `stroke-linecap` | `ProgressStrokeLinecap` | 'round' | 圆环描边端点样式 |
+| `text-inside` | `boolean` | false | 是否把文本放进线形进度条内部 |
+| `width` | `number` | 126 | circle / dashboard 的画布宽高 |
+| `show-text` | `boolean` | true | 是否显示进度文案 |
+| `color` | `ProgressColor` | '' | 自定义颜色，支持字符串、分段数组或函数 |
+| `striped` | `boolean` | false | 是否开启条纹纹理 |
+| `striped-flow` | `boolean` | false | 是否开启条纹流动动画 |
+| `format` | `ProgressFormatter` | (percentage) => \${percentage}%\`` | 自定义文案格式化函数 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 自定义进度文案，线形外侧、线形内侧和圆形中心文案都走这个插槽（接收 ProgressDefaultSlotProps） |
+
+---
+
+#### Steps 步骤条
+
+承接审批流、引导流和分阶段任务状态的步骤条组件。
+
+标签：`xy-steps` 导出：`XySteps`, `XyStep`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `space` | `number | string` | '' | 每个步骤项的间距；支持数字和百分比字符串 |
+| `active` | `number` | 0 | 当前激活步骤，从 0 开始计数 |
+| `direction` | `StepsDirection` | 'horizontal' | 展示方向 |
+| `align-center` | `boolean` | false | 是否在横向模式下居中标题和描述 |
+| `simple` | `boolean` | false | 是否启用紧凑模式 |
+| `finish-status` | `StepsStatus` | 'finish' | 已完成步骤的状态映射 |
+| `process-status` | `StepsStatus` | 'process' | 当前步骤的状态映射 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `change` | `StepsChangeHandler` | active 变化时触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 步骤内容，通常传入多个 xy-step |
+
+---
+
+#### Timeline 时间线
+
+适合审计流、里程碑和侧栏动态记录的时间线基础组件，支持分组、流程态和紧凑密度。
+
+标签：`xy-timeline` 导出：`XyTimeline`, `XyTimelineGroup`, `XyTimelineItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `mode` | `TimelineMode` | 'start' | 布局模式；推荐按 start -> end -> alternate -> alternate-reverse 的顺序理解：start 为左侧单线，end 为右侧镜像，后两者为中轴双侧布局 |
+| `reverse` | `boolean` | false | 是否反转默认插槽内容顺序 |
+| `density` | `TimelineDensity` | 'default' | 信息密度；compact 适合抽屉、侧栏和详情区 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 时间线内容，通常传入 xy-timeline-group、xy-timeline-item，也允许混入普通节点 |
+
+---
+
+#### Scheduler 排期日历
+
+月、周、日排期视图与常见交互能力的高级日历组件。
+
+标签：`xy-scheduler` 导出：`XyScheduler`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `model-value` | `string` | undefined | 当前焦点日期 |
+| `view` | `SchedulerView` | 'month' | 当前视图 |
+| `views` | `SchedulerView[]` | ['month', 'week', 'day'] | 允许切换的视图列表 |
+| `events` | `SchedulerEvent[]` | [] | 事件列表 |
+| `locale` | `string` | 'zh-cn' | 日历语言 |
+| `editable` | `boolean` | false | 是否开启拖拽与 resize |
+| `droppable` | `boolean` | false | 是否允许外部事件拖入 |
+| `selectable` | `boolean` | false | 是否允许框选日期区间 |
+| `select-mirror` | `boolean` | true | 框选时是否显示镜像态 |
+| `week-start` | `0 | 1 | 2 | 3 | 4 | 5 | 6` | 1 | 一周起始日 |
+| `height` | `string | number` | 'auto' | 日历高度 |
+| `show-now-indicator` | `boolean` | true | 是否显示当前时间指示线 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:model-value` | `string` | 焦点日期变化 |
+| `update:view` | `SchedulerView` | 视图变化 |
+| `date-click` | `SchedulerDateClickPayload` | 点击日期单元格 |
+| `drop` | `SchedulerDropPayload` | 外部元素落入日历 |
+| `date-select` | `SchedulerDateSelectPayload` | 框选日期区间 |
+| `event-click` | `SchedulerEventClickPayload` | 点击事件块 |
+| `event-change` | `SchedulerEventChangePayload` | 拖拽或 resize 后触发 |
+| `event-receive` | `SchedulerEventReceivePayload` | 接收外部拖入事件 |
+| `view-change` | `SchedulerViewChangePayload` | 视图区间变化 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `event-content` | 自定义事件块内容 |
+| `day-cell-content` | 自定义日期单元格内容 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `getApi` | `SchedulerInstance["getApi"]` | 获取底层 FullCalendar 实例 API；可用于主动翻页、切换视图或读取当前日历状态 |
+
+---
+
+#### Descriptions 描述列表
+
+用于详情页、审核页和只读信息块的描述列表组件。
+
+标签：`xy-descriptions` 导出：`XyDescriptions`, `XyDescriptionsItem`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `column` | `number` | 3 | 列数 |
+| `border` | `boolean` | false | 是否展示边框 |
+| `size` | `DescriptionsProps["size"]` | 跟随全局配置 | 组件尺寸 |
+| `title` | `string` | '' | 标题文案 |
+| `extra` | `string` | '' | 额外说明 |
+| `label-width` | `string | number` | undefined | 标签宽度 |
+| `direction` | `DescriptionsProps["direction"]` | 'horizontal' | 布局方向 |
+| `collapse` | `boolean` | false | 是否默认收起并显示折叠切换 |
+| `items` | `DescriptionsDataItem[]` | [] | 数据驱动条目数组 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 条目内容 |
+| `title` | 自定义标题区 |
+| `extra` | 自定义额外区 |
+
+---
+
+#### Tree 树形控件
+
+数据驱动树形控件，覆盖勾选联动、过滤、懒加载、节点路径和拖拽编排。
+
+标签：`xy-tree` 导出：`XyTree`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `data` | `TreeData` | [] | 树节点数据 |
+| `empty-text` | `string` | '暂无数据' | 默认空态描述文案 |
+| `node-key` | `string` | undefined | 节点唯一 key 字段名；涉及 key 的回显和方法时必填 |
+| `props` | `TreeOptionProps` | { children: 'children', label: 'label', disabled: 'disabled' } | 节点字段映射 |
+| `render-after-expand` | `boolean` | true | 是否首次展开后再渲染子节点 |
+| `highlight-current` | `boolean` | false | 是否高亮当前节点 |
+| `default-expand-all` | `boolean` | false | 是否默认展开全部节点 |
+| `expand-on-click-node` | `boolean` | true | 点击节点内容时是否触发展开/收起 |
+| `show-checkbox` | `boolean` | false | 是否显示勾选框 |
+| `check-strictly` | `boolean` | false | 勾选时是否取消父子联动 |
+| `check-descendants` | `boolean` | false | 懒加载节点勾选时是否继续把勾选状态传播到后代 |
+| `check-on-click-node` | `boolean` | false | 点击节点时是否直接切换勾选状态 |
+| `check-on-click-leaf` | `boolean` | true | 点击叶子节点时是否直接切换勾选状态 |
+| `default-checked-keys` | `TreeKey[]` | undefined | 默认勾选节点 key 列表 |
+| `default-expanded-keys` | `TreeKey[]` | undefined | 默认展开节点 key 列表 |
+| `current-node-key` | `TreeKey | null` | undefined | 当前节点 key，受控回显 |
+| `filter-node-method` | `TreeProps["filterNodeMethod"]` | undefined | 节点过滤函数 |
+| `lazy` | `boolean` | false | 是否启用懒加载节点 |
+| `load` | `TreeProps["load"]` | undefined | 懒加载回调 |
+| `draggable` | `boolean` | false | 是否启用节点拖拽 |
+| `allow-drag` | `AllowDragFunction` | undefined | 控制节点是否允许被拖动 |
+| `allow-drop` | `AllowDropFunction` | undefined | 控制目标节点的 prev / inner / next 三种落点是否允许放置 |
+| `accordion` | `boolean` | false | 是否同级只保留一个展开节点 |
+| `indent` | `number` | 18 | 相邻层级缩进宽度 |
+| `icon` | `string | Component` | 'mdi:chevron-right' | 自定义展开图标 |
+| `render-content` | `TreeProps["renderContent"]` | undefined | 渲染函数形式的节点内容自定义 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `node-click` | `TreeNodeClickHandler` | 点击节点内容时触发 |
+| `node-contextmenu` | `TreeNodeContextmenuHandler` | 右键节点时触发 |
+| `current-change` | `TreeCurrentChangeHandler` | 当前节点变化时触发 |
+| `node-expand` | `TreeNodeExpandHandler` | 节点展开时触发 |
+| `node-collapse` | `TreeNodeCollapseHandler` | 节点收起时触发 |
+| `node-drag-start` | `TreeNodeDragStartHandler` | 节点开始拖拽时触发 |
+| `node-drag-enter` | `TreeNodeDragEnterHandler` | 拖拽节点进入目标节点时触发 |
+| `node-drag-leave` | `TreeNodeDragLeaveHandler` | 拖拽节点离开目标节点时触发 |
+| `node-drag-over` | `TreeNodeDragOverHandler` | 拖拽节点在目标节点上移动时触发 |
+| `node-drag-end` | `TreeNodeDragEndHandler` | 拖拽结束时触发，即使没有成功放置也会触发 |
+| `node-drop` | `TreeNodeDropHandler` | 节点成功放置后触发 |
+| `check-change` | `TreeCheckChangeHandler` | 单个节点勾选状态变化时触发 |
+| `check` | `TreeCheckHandler` | 点击勾选框后触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 自定义节点内容（接收 RenderContentContext） |
+| `empty` | 自定义空态内容（接收 —） |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `filter` | `TreeExposes["filter"]` | 过滤全部节点 |
+| `updateKeyChildren` | `TreeExposes["updateKeyChildren"]` | 替换某个节点的直接子节点，依赖 node-key |
+| `getNodePath` | `TreeExposes["getNodePath"]` | 获取某个节点从根到当前项的路径，依赖 node-key |
+| `getCheckedNodes` | `TreeExposes["getCheckedNodes"]` | 获取勾选节点数据 |
+| `setCheckedNodes` | `TreeExposes["setCheckedNodes"]` | 按节点数据设置勾选状态 |
+| `getCheckedKeys` | `TreeExposes["getCheckedKeys"]` | 获取勾选节点 key |
+| `setCheckedKeys` | `TreeExposes["setCheckedKeys"]` | 按 key 设置勾选状态，依赖 node-key |
+| `setChecked` | `TreeExposes["setChecked"]` | 设置单个节点勾选状态 |
+| `getHalfCheckedNodes` | `TreeExposes["getHalfCheckedNodes"]` | 获取半选节点数据 |
+| `getHalfCheckedKeys` | `TreeExposes["getHalfCheckedKeys"]` | 获取半选节点 key |
+| `getCurrentKey` | `TreeExposes["getCurrentKey"]` | 获取当前节点 key |
+| `getCurrentNode` | `TreeExposes["getCurrentNode"]` | 获取当前节点数据 |
+| `setCurrentKey` | `TreeExposes["setCurrentKey"]` | 按 key 设置当前节点 |
+| `setCurrentNode` | `TreeExposes["setCurrentNode"]` | 按节点数据或节点实例设置当前节点 |
+| `getNode` | `TreeExposes["getNode"]` | 根据 key 或节点数据获取节点实例 |
+| `remove` | `TreeExposes["remove"]` | 删除节点 |
+| `append` | `TreeExposes["append"]` | 追加子节点 |
+| `insertBefore` | `TreeExposes["insertBefore"]` | 在指定节点前插入新节点 |
+| `insertAfter` | `TreeExposes["insertAfter"]` | 在指定节点后插入新节点 |
+
+---
+
+#### Table 表格
+
+后台表格组件，支持列树、选择列、展开行、树形数据、固定列、汇总行和实例方法。
+
+标签：`xy-table` 导出：`XyTable`, `XyTableColumn`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `data` | `T[]` | [] | 数据源 |
+| `row-key` | `TableProps<T>["rowKey"]` | undefined | 行唯一标识字段或函数 |
+| `size` | `size` | 'md' | 表格尺寸 |
+| `width` | `string | number` | undefined | 表格根节点宽度 |
+| `height` | `string | number` | undefined | 固定高度，超过后表体滚动 |
+| `max-height` | `string | number` | undefined | 最大高度，超过后表体滚动 |
+| `fit` | `boolean` | true | 是否让列宽自适应容器宽度 |
+| `stripe` | `boolean` | false | 是否显示斑马纹 |
+| `border` | `boolean` | false | 是否显示完整边框和纵向分割线 |
+| `show-header` | `boolean` | true | 是否显示表头 |
+| `show-summary` | `boolean` | false | 是否显示汇总行 |
+| `sum-text` | `string` | '合计' | 汇总行第一列文案 |
+| `summary-method` | `TableProps<T>["summaryMethod"]` | undefined | 自定义汇总行计算 |
+| `empty-text` | `string` | '暂无数据' | 默认空态文案 |
+| `loading` | `boolean` | false | 是否显示加载态遮罩 |
+| `loading-text` | `string` | 'Loading...' | 默认加载文案 |
+| `highlight-current-row` | `boolean` | false | 是否高亮当前行 |
+| `current-row-key` | `TableProps<T>["currentRowKey"]` | undefined | 当前行 key，受控模式 |
+| `default-current-row-key` | `TableProps<T>["defaultCurrentRowKey"]` | null | 当前行 key 的非受控初始值 |
+| `default-sort` | `{ prop?: string; order?: 'ascending' | 'descending' | null }` | { prop: undefined, order: undefined } | 默认排序配置；只传 prop 时会默认按升序生效 |
+| `expand-row-keys` | `TableProps<T>["expandRowKeys"]` | undefined | 展开行 key 列表 |
+| `default-expand-all` | `boolean` | false | 是否默认展开全部可展开行/树节点 |
+| `row-expandable` | `TableProps<T>["rowExpandable"]` | undefined | 控制 type="expand" 行是否可展开 |
+| `span-method` | `TableProps<T>["spanMethod"]` | undefined | 单元格合并逻辑 |
+| `select-on-indeterminate` | `boolean` | true | 头部勾选在半选态下是否直接全选 |
+| `indent` | `number` | 16 | 树形缩进宽度 |
+| `tree-props` | `{ hasChildren?: string; children?: string; checkStrictly?: boolean }` | { children: 'children', hasChildren: 'hasChildren', checkStrictly: false } | 树形字段配置 |
+| `lazy` | `boolean` | false | 是否启用懒加载树节点 |
+| `load` | `TableProps<T>["load"]` | undefined | 懒加载回调 |
+| `table-layout` | `('fixed' | 'auto')` | 'fixed' | 表格布局算法 |
+| `show-overflow-tooltip` | `boolean | { effect?: 'dark' | 'light'; enterable?: boolean; hideAfter?: number; offset?: number; placement?: Placement; popperClass?: string; showAfter?: number; showArrow?: boolean }` | false | 是否为默认文本链路统一开启溢出 tooltip，可传 tooltip 配置对象 |
+| `tooltip-effect` | `tooltipEffect` | undefined | 全表默认溢出 tooltip 主题 |
+| `tooltip-options` | `{ effect?: 'dark' | 'light'; enterable?: boolean; hideAfter?: number; offset?: number; placement?: Placement; popperClass?: string; showAfter?: number; showArrow?: boolean }` | undefined | 全表默认溢出 tooltip 配置 |
+| `tooltip-formatter` | `TableProps<T>["tooltipFormatter"]` | undefined | 自定义溢出 tooltip 文案 |
+| `append-filter-panel-to` | `string` | '' | 指定筛选面板挂载节点选择器 |
+| `row-class-name` | `TableRowClassName<T>` | '' | 行 class 或 class 计算函数 |
+| `row-style` | `TableRowStyle<T>` | undefined | 行样式或样式计算函数 |
+| `cell-class-name` | `TableProps<T>["cellClassName"]` | '' | 单元格 class 或 class 计算函数 |
+| `cell-style` | `TableProps<T>["cellStyle"]` | undefined | 单元格样式或样式计算函数 |
+| `header-row-class-name` | `TableHeaderRowClassName` | '' | 表头行 class 或 class 计算函数 |
+| `header-row-style` | `TableHeaderRowStyle` | undefined | 表头行样式或样式计算函数 |
+| `header-cell-class-name` | `TableHeaderCellClassName<T>` | '' | 表头单元格 class 或 class 计算函数 |
+| `header-cell-style` | `TableHeaderCellStyle<T>` | undefined | 表头单元格样式或样式计算函数 |
+| `class-name` | `string` | '' | 表格根节点附加 class |
+| `style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 表格根节点附加样式 |
+| `clickable` | `boolean` | false | 是否把主表体行视为可点击项，并补齐键盘聚焦与回车触发 |
+| `scrollbar-always-on` | `boolean` | false | 是否为滚动容器保留稳定滚动条槽位 |
+| `scrollbar-tabindex` | `string | number` | undefined | 表体滚动容器的 tabindex |
+| `flexible` | `boolean` | false | 是否让表格所在的 flex 子项自动解除最小宽度限制 |
+| `native-scrollbar` | `boolean` | false | 是否使用原生滚动条而不是自定义滚动条 |
+| `allow-drag-last-column` | `boolean` | true | 是否允许拖拽当前渲染带中的最后一个叶子列 |
+| `preserve-expanded-content` | `boolean` | false | 折叠展开行后是否保留其 DOM |
+| `aria-label` | `string` | undefined | 表格容器的无障碍名称 |
+| `aria-labelledby` | `string` | undefined | 关联表格标题元素 id |
+| `aria-describedby` | `string` | undefined | 关联表格说明元素 id |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `row-click` | `TableRowClickHandler<T>` | 行点击或键盘触发时派发 |
+| `row-dblclick` | `TableRowMouseHandler<T>` | 行双击时派发 |
+| `row-contextmenu` | `TableRowMouseHandler<T>` | 行右键时派发 |
+| `cell-click` | `TableCellMouseHandler<T>` | 单元格点击时派发 |
+| `cell-dblclick` | `TableCellMouseHandler<T>` | 单元格双击时派发 |
+| `cell-contextmenu` | `TableCellMouseHandler<T>` | 单元格右键时派发 |
+| `cell-mouse-enter` | `TableCellMouseHandler<T>` | 鼠标进入单元格时派发 |
+| `cell-mouse-leave` | `TableCellMouseHandler<T>` | 鼠标离开单元格时派发 |
+| `header-click` | `TableHeaderMouseHandler<T>` | 表头点击时派发 |
+| `header-contextmenu` | `TableHeaderMouseHandler<T>` | 表头右键时派发 |
+| `header-dragend` | `TableHeaderDragendHandler<T>` | 列拖拽结束时派发 |
+| `selection-change` | `TableSelectionChangeHandler<T>` | 选择结果变化时派发 |
+| `select` | `TableSelectHandler<T>` | 单行选择变化时派发 |
+| `select-all` | `TableSelectionChangeHandler<T>` | 头部全选变化时派发 |
+| `current-change` | `TableCurrentChangeHandler<T>` | 当前高亮行变化时派发 |
+| `sort-change` | `TableSortChangePayload<T>` | 排序变化时派发 |
+| `filter-change` | `(value: Record<string, (string | number | boolean)[]>) => void` | 筛选变化时派发 |
+| `expand-change` | `TableExpandChangeHandler<T>` | 展开行或树节点变化时派发 |
+| `scroll` | `{ scrollLeft: number; scrollTop: number }` | 表体滚动、固定列联动滚动或实例方法滚动后派发 |
+| `update:currentRowKey` | `TableCurrentRowKeyChangeHandler` | 当前行 key 更新 |
+| `update:sortProp` | `TableSortPropChangeHandler` | 兼容排序列更新 |
+| `update:sortOrder` | `TableSortOrderChangeHandler` | 兼容排序方向更新 |
+| `update:filterValues` | `TableFilterValuesChangeHandler` | 兼容筛选状态更新 |
+| `update:expandRowKeys` | `TableExpandRowKeysChangeHandler` | 展开行 key 更新 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 列定义区，只接收 xy-table-column |
+| `loading` | 自定义加载态内容 |
+| `empty` | 自定义空态内容 |
+| `append` | 渲染在表体末尾、汇总行之前的附加区域 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `clearSelection` | `TableInstance<T>["clearSelection"]` | 清空当前选择 |
+| `getSelectionRows` | `TableInstance<T>["getSelectionRows"]` | 获取当前选择行 |
+| `toggleAllSelection` | `TableInstance<T>["toggleAllSelection"]` | 切换当前页全选 |
+| `toggleRowSelection` | `TableInstance<T>["toggleRowSelection"]` | 切换单行选择状态；第三参数可显式决定是否忽略 selectable |
+| `toggleRowExpansion` | `TableInstance<T>["toggleRowExpansion"]` | 切换展开行状态 |
+| `setCurrentRow` | `TableInstance<T>["setCurrentRow"]` | 设置当前高亮行 |
+| `clearSort` | `TableInstance<T>["clearSort"]` | 清空排序 |
+| `clearFilter` | `TableInstance<T>["clearFilter"]` | 清空筛选 |
+| `sort` | `TableInstance<T>["sort"]` | 主动设置排序 |
+| `doLayout` | `TableInstance<T>["doLayout"]` | 重新同步布局与滚动度量 |
+| `scrollTo` | `TableInstance<T>["scrollTo"]` | 滚动到指定位置 |
+| `setScrollTop` | `TableInstance<T>["setScrollTop"]` | 设置纵向滚动位置 |
+| `setScrollLeft` | `TableInstance<T>["setScrollLeft"]` | 设置横向滚动位置 |
+| `updateKeyChildren` | `TableInstance<T>["updateKeyChildren"]` | 在 lazy 模式下按 row-key 主动写回某个节点的子节点 |
+
+---
+
+#### Pagination 分页
+
+列表页底部的分页切换组件。
+
+标签：`xy-pagination` 导出：`XyPagination`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `current-page` | `number` | undefined | 当前页码 |
+| `default-current-page` | `number` | 1 | 非受控场景下的初始页码 |
+| `page-size` | `number` | undefined | 每页条数 |
+| `default-page-size` | `number` | 10 | 非受控场景下的初始每页条数 |
+| `total` | `number` | undefined | 总条数 |
+| `page-count` | `number` | undefined | 总页数，传入时优先级高于 total |
+| `pager-count` | `number` | 7 | 显示的页码按钮数量，超出后会折叠成省略号 |
+| `layout` | `string` | 'prev, pager, next, jumper, ->, total' | 分页布局，支持 prev, pager, next, jumper, total, sizes, slot, -> |
+| `page-sizes` | `number[]` | [10, 20, 30, 40, 50, 100] | 可选每页条数 |
+| `prev-text` | `string` | '' | 上一页按钮文案 |
+| `next-text` | `string` | '' | 下一页按钮文案 |
+| `size` | `('sm' | 'md' | 'lg')` | 跟随全局配置 | 分页尺寸 |
+| `small` | `boolean` | false | 是否启用紧凑尺寸，优先级高于 size |
+| `teleported` | `boolean` | true | 每页条数下拉是否挂到 body |
+| `append-size-to` | `string | HTMLElement` | 'body' | 每页条数下拉挂载目标 |
+| `popper-class` | `string` | '' | 每页条数下拉自定义类名 |
+| `popper-style` | `string | CSSProperties | Array<string | CSSProperties>` | undefined | 每页条数下拉自定义样式 |
+| `disabled` | `boolean` | false | 是否禁用分页操作 |
+| `background` | `boolean` | false | 是否启用带背景的按钮风格 |
+| `hide-on-single-page` | `boolean` | false | 仅一页时是否隐藏 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `update:current-page` | `PaginationPageHandler` | 当前页变化时触发 |
+| `update:page-size` | `PaginationPageHandler` | 每页条数变化时触发 |
+| `current-change` | `PaginationPageHandler` | 当前页变化时触发 |
+| `size-change` | `PaginationPageHandler` | 每页条数变化时触发 |
+| `prev-click` | `PaginationPageHandler` | 点击上一页时触发 |
+| `next-click` | `PaginationPageHandler` | 点击下一页时触发 |
+| `change` | `PaginationChangeHandler` | 页码或每页条数变化时统一触发 |
+
+**Slots**
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 当 layout 中包含 slot 时渲染自定义内容 |
+
+---
+
+#### Charts 图表
+
+基于 ECharts 的统一图表容器。
+
+标签：`xy-charts` 导出：`XyCharts`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `option` | `EChartsCoreOption` | — | ECharts 配置对象 |
+| `theme` | `string | object` | — | 图表主题名或主题对象 |
+| `width` | `string | number` | '100%' | 容器宽度 |
+| `height` | `string | number` | 360 | 容器高度 |
+| `init-options` | `ChartsInitOptions` | — | 初始化参数，会在创建实例时传给 echarts.init |
+| `loading` | `boolean` | false | 是否显示加载态 |
+| `loading-options` | `ChartsLoadingOptions` | — | 加载态配置 |
+| `autoresize` | `boolean` | true | 是否自动监听容器尺寸变化并调用 resize |
+| `set-option-options` | `ChartsSetOptionOptions` | — | 更新配置时传给 setOption 的第二个参数 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `init` | `ChartsInstanceHandler` | 图表实例创建完成后触发 |
+| `ready` | `ChartsInstanceHandler` | 图表实例可用后触发 |
+| `click` | `ChartsClickHandler` | 图表元素点击时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `chart` | `ChartsInstance["chart"]` | 当前图表实例引用 |
+| `resize` | `ChartsInstance["resize"]` | 手动触发图表重排 |
+| `setOption` | `ChartsInstance["setOption"]` | 手动更新图表配置 |
+| `showLoading` | `ChartsInstance["showLoading"]` | 手动显示加载态 |
+| `hideLoading` | `ChartsInstance["hideLoading"]` | 手动隐藏加载态 |
+
+---
+
+#### AudioPlayer 音频播放器
+
+基于 Howler 的音频播放封装。
+
+标签：`xy-audio-player` 导出：`XyAudioPlayer`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `src` | `AudioPlayerTrack["src"]` | — | 音频源地址 |
+| `track` | `AudioPlayerTrack` | — | 带元信息的音轨对象，优先级高于 src / title / artist |
+| `title` | `string` | '' | 音频标题 |
+| `artist` | `string` | '' | 作者或来源说明 |
+| `autoplay` | `boolean` | false | 是否自动播放 |
+| `loop` | `boolean` | false | 是否循环播放 |
+| `muted` | `boolean` | false | 是否静音 |
+| `volume` | `number` | 1 | 当前音量，范围 0 ~ 1 |
+| `playback-rates` | `number[]` | [0.75, 1, 1.25, 1.5, 2] | 倍速切换序列 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `init` | `AudioPlayerHowlHandler` | 音频实例初始化后触发 |
+| `ready` | `AudioPlayerHowlHandler` | 音频加载完成后触发 |
+| `play` | `AudioPlayerStateChangeHandler` | 开始播放时触发 |
+| `pause` | `AudioPlayerStateChangeHandler` | 暂停播放时触发 |
+| `end` | `AudioPlayerStateChangeHandler` | 播放结束时触发 |
+| `update:volume` | `AudioPlayerVolumeUpdateHandler` | 内部音量变化时触发 |
+| `time-update` | `AudioPlayerTimeUpdateHandler` | 播放进度更新时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `howl` | `AudioPlayerInstance["howl"]` | 当前 Howler 实例引用 |
+| `play` | `AudioPlayerInstance["play"]` | 开始播放 |
+| `pause` | `AudioPlayerInstance["pause"]` | 暂停播放 |
+| `stop` | `AudioPlayerInstance["stop"]` | 停止播放并回到起点 |
+| `seek` | `AudioPlayerInstance["seek"]` | 跳转到指定秒数 |
+| `setVolume` | `AudioPlayerInstance["setVolume"]` | 设置音量 |
+
+---
+
+#### VideoPlayer 视频播放器
+
+基于 video.js 的视频播放封装。
+
+标签：`xy-video-player` 导出：`XyVideoPlayer`
+
+**Props**
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `sources` | `VideoPlayerSource[]` | [] | 视频源列表 |
+| `poster` | `string` | '' | 封面图地址 |
+| `autoplay` | `boolean` | false | 是否自动播放 |
+| `controls` | `boolean` | true | 是否显示控制条 |
+| `loop` | `boolean` | false | 是否循环播放 |
+| `muted` | `boolean` | false | 是否静音 |
+| `preload` | `VideoPlayerProps["preload"]` | 'metadata' | 预加载策略 |
+| `width` | `string | number` | '100%' | 容器宽度 |
+| `height` | `string | number` | 360 | 容器高度 |
+| `options` | `VideoPlayerProps["options"]` | {} | 透传给 video.js 的配置项 |
+
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `init` | `VideoPlayerPlayerHandler` | 播放器实例初始化后触发 |
+| `ready` | `VideoPlayerPlayerHandler` | 播放器实例可用后触发 |
+| `play` | `VideoPlayerStateChangeHandler` | 开始播放时触发 |
+| `pause` | `VideoPlayerStateChangeHandler` | 暂停播放时触发 |
+| `ended` | `VideoPlayerStateChangeHandler` | 播放结束时触发 |
+
+**Exposes**
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| `player` | `VideoPlayerInstance["player"]` | 当前 video.js 实例引用 |
+| `play` | `VideoPlayerInstance["play"]` | 开始播放 |
+| `pause` | `VideoPlayerInstance["pause"]` | 暂停播放 |
+| `load` | `VideoPlayerInstance["load"]` | 加载指定片源列表 |
+
+---
+
+## 增强组件（@xiaoye/pro-components）
+
+### 表单输入
+
+#### SearchForm 搜索表单
+
+标签：`xy-search-form` 导出：`XySearchForm`
+
+---
+
+#### ProForm 增强表单
+
+标签：`xy-pro-form` 导出：`XyProForm`
+
+---
+
+#### OverlayForm 浮层表单
+
+标签：`xy-overlay-form` 导出：`XyOverlayForm`
+
+---
+
+#### DialogForm 弹窗表单
+
+标签：`xy-dialog-form` 导出：`XyDialogForm`
+
+---
+
+#### DrawerForm 抽屉表单
+
+标签：`xy-drawer-form` 导出：`XyDrawerForm`
+
+---
+
+#### StepsForm 分步表单
+
+标签：`xy-steps-form` 导出：`XyStepsForm`
+
+---
+
+#### FilterPanel 筛选面板
+
+标签：`xy-filter-panel` 导出：`XyFilterPanel`
+
+---
+
+#### RequestForm 请求表单
+
+标签：`xy-request-form` 导出：`XyRequestForm`
+
+---
+
+#### LoginForm 登录表单
+
+标签：`xy-login-form` 导出：`XyLoginForm`
+
+---
+
+### 数据展示
+
+#### ProTable 增强表格
+
+标签：`xy-pro-table` 导出：`XyProTable`
+
+---
+
+#### ColumnSettingPanel 列设置面板
+
+标签：`xy-column-setting-panel` 导出：`XyColumnSettingPanel`
+
+---
+
+#### SavedViewTabs 视图页签
+
+标签：`xy-saved-view-tabs` 导出：`XySavedViewTabs`
+
+---
+
+#### TableFilterDrawer 表格筛选抽屉
+
+标签：`xy-table-filter-drawer` 导出：`XyTableFilterDrawer`
+
+---
+
+#### ImportResultTable 导入结果表格
+
+标签：`xy-import-result-table` 导出：`XyImportResultTable`
+
+---
+
+### 详情
+
+#### AuditTimeline 审计时间线
+
+标签：`xy-audit-timeline` 导出：`XyAuditTimeline`
+
+---
+
+#### DetailPanel 详情承载面板
+
+标签：`xy-detail-panel` 导出：`XyDetailPanel`
+
+---
+
+#### DetailPage 详情页面容器
+
+标签：`xy-detail-page` 导出：`XyDetailPage`
+
+---
+
+### 页面容器
+
+#### PageToolbar 页面工具栏
+
+标签：`xy-page-toolbar` 导出：`XyPageToolbar`
+
+---
+
+#### PageHeader 页面头部
+
+标签：`xy-page-header` 导出：`XyPageHeader`
+
+---
+
+#### PageContainer 页面容器
+
+标签：`xy-page-container` 导出：`XyPageContainer`
+
+---
+
+#### AvatarMenu 头像菜单
+
+标签：`xy-avatar-menu` 导出：`XyAvatarMenu`
+
+---
+
+#### HeaderTabs 头部页签
+
+标签：`xy-header-tabs` 导出：`XyHeaderTabs`
+
+---
+
+#### NoticeCenter 站内消息中心
+
+标签：`xy-notice-center` 导出：`XyNoticeCenter`
+
+---
+
+#### StatCard 指标卡片
+
+标签：`xy-stat-card` 导出：`XyStatCard`
+
+---
+
+#### AsyncStateContainer 异步状态容器
+
+标签：`xy-async-state-container` 导出：`XyAsyncStateContainer`
+
+---
+
+#### ListPage 列表页面容器
+
+标签：`xy-list-page` 导出：`XyListPage`
+
+---
+
+#### CrudPage 增删改查页面
+
+标签：`xy-crud-page` 导出：`XyCrudPage`
+
+---
+
+#### SplitLayoutPage 分栏页面
+
+标签：`xy-split-layout-page` 导出：`XySplitLayoutPage`
+
+---
+
+### 工作流
+
+#### ApprovalFlowPanel 审批流面板
+
+标签：`xy-approval-flow-panel` 导出：`XyApprovalFlowPanel`
+
+---
+
+#### ImportWizard 导入向导
+
+标签：`xy-import-wizard` 导出：`XyImportWizard`
+
+---
+
+#### ExportTaskPanel 导出任务面板
+
+标签：`xy-export-task-panel` 导出：`XyExportTaskPanel`
+
+---

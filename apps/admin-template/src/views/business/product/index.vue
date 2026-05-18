@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { XyCard, XyTable, XyTag, XyButton, XyInput, XySelect, XyDialog, XyForm, XyFormItem, XyImage, XySpace, XySwitch, XyMessage, XyPopconfirm, XyInputNumber } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyTag, XyButton, XyInput, XySelect, XyDialog, XyForm, XyFormItem, XyImage, XySpace, XySwitch, XyMessage, XyPopconfirm, XyInputNumber } from 'xiaoye-components'
 
 const searchText = ref('')
 const category = ref('')
@@ -63,15 +63,6 @@ const categoryMap: Record<string, string> = {
   accessory: '配件周边'
 }
 
-const tableColumns = [
-  { title: '商品信息', key: 'info', slot: 'info', width: 280 },
-  { title: '分类', key: 'category', slot: 'category', width: 100 },
-  { title: '价格', key: 'price', slot: 'price', width: 140 },
-  { title: '库存', key: 'stock', slot: 'stock', width: 100 },
-  { title: '销量', key: 'sales', width: 80 },
-  { title: '状态', key: 'status', slot: 'status', width: 100 },
-  { title: '操作', key: 'action', slot: 'action', width: 180 }
-]
 
 function openAddModal() {
   isEdit.value = false
@@ -167,49 +158,27 @@ function toggleFeatured(product: any) {
     </XyCard>
     
     <XyCard>
-      <XyTable :columns="tableColumns" :data="filteredProducts" stripe>
-        <template #info="{ record }">
-          <div class="product-info">
-            <XyImage :src="record.image" width="60" height="60" fit="cover" style="border-radius: 8px;" />
-            <div class="product-detail">
-              <span class="product-name">
-                {{ record.name }}
-                <XyTag v-if="record.featured" type="warning" size="small">精选</XyTag>
-              </span>
-              <span class="product-time">创建于 {{ record.createTime }}</span>
+      <XyTable :data="filteredProducts" stripe>
+        <XyTableColumn prop="name" label="商品信息" width="280">
+          <template #default="{ row }">
+            <div class="product-info">
+              <XyImage :src="row.image" width="60" height="60" fit="cover" style="border-radius: 8px;" />
+              <div class="product-detail">
+                <span class="product-name">
+                  {{ row.name }}
+                  <XyTag v-if="row.featured" type="warning" size="small">精选</XyTag>
+                </span>
+                <span class="product-time">创建于 {{ row.createTime }}</span>
+              </div>
             </div>
-          </div>
-        </template>
-        <template #category="{ record }">
-          <XyTag type="primary">{{ categoryMap[record.category] }}</XyTag>
-        </template>
-        <template #price="{ record }">
-          <div class="price-info">
-            <span class="current-price">¥{{ record.price.toLocaleString() }}</span>
-            <span v-if="record.originalPrice > record.price" class="original-price">¥{{ record.originalPrice.toLocaleString() }}</span>
-          </div>
-        </template>
-        <template #stock="{ record }">
-          <span :class="record.stock < 20 ? 'stock-low' : ''">
-            {{ record.stock }}
-            <XyTag v-if="record.stock === 0" type="danger" size="small">缺货</XyTag>
-            <XyTag v-else-if="record.stock < 20" type="warning" size="small">库存紧张</XyTag>
-          </span>
-        </template>
-        <template #status="{ record }">
-          <XySwitch v-model="record.status" @change="toggleStatus(record)" />
-        </template>
-        <template #action="{ record }">
-          <XySpace>
-            <XyButton type="link" size="small" @click="openEditModal(record)">编辑</XyButton>
-            <XyButton type="link" size="small" @click="toggleFeatured(record)">
-              {{ record.featured ? '取消精选' : '设为精选' }}
-            </XyButton>
-            <XyPopconfirm title="确定删除该商品?" @confirm="handleDelete(record.id)">
-              <XyButton type="link" size="small" danger>删除</XyButton>
-            </XyPopconfirm>
-          </XySpace>
-        </template>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="category" label="分类" width="100" />
+        <XyTableColumn prop="price" label="价格" width="140" />
+        <XyTableColumn prop="stock" label="库存" width="100" />
+        <XyTableColumn prop="sales" label="销量" width="80" />
+        <XyTableColumn prop="status" label="状态" width="100" />
+        <XyTableColumn label="操作" width="180" />
       </XyTable>
     </XyCard>
     

@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { XyCard, XyTable, XyTag, XyButton, XyInput, XyDialog, XyForm, XyFormItem, XySelect, XyMessage, XyPopconfirm } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyTag, XyButton, XyInput, XyDialog, XyForm, XyFormItem, XySelect, XyMessage, XyPopconfirm } from 'xiaoye-components'
 import type { User } from '@/stores/user'
 
 const router = useRouter()
@@ -22,23 +22,12 @@ const formData = ref({
 const filteredUsers = computed(() => {
   if (!searchText.value) return userStore.users
   const keyword = searchText.value.toLowerCase()
-  return userStore.users.filter((u: User) => 
+  return userStore.users.filter((u: User) =>
     u.name.toLowerCase().includes(keyword) ||
     u.email.toLowerCase().includes(keyword) ||
     u.phone.includes(keyword)
   )
 })
-
-const tableColumns = [
-  { title: 'ID', key: 'id', width: 80 },
-  { title: '姓名', key: 'name' },
-  { title: '邮箱', key: 'email' },
-  { title: '手机号', key: 'phone' },
-  { title: '状态', key: 'status', slot: 'status' },
-  { title: '角色', key: 'role', slot: 'role' },
-  { title: '创建时间', key: 'createTime' },
-  { title: '操作', key: 'action', slot: 'action' }
-]
 
 function getStatusTag(status: string) {
   const statusMap: Record<string, { text: string; color: string }> = {
@@ -82,7 +71,7 @@ function handleSubmit() {
     XyMessage.error('请填写完整信息')
     return
   }
-  
+
   if (isEdit.value) {
     const user = userStore.users.find((u: User) => u.name === formData.value.name && u.email === formData.value.email)
     if (user) {
@@ -93,7 +82,7 @@ function handleSubmit() {
     userStore.addUser({ ...formData.value, createTime: new Date().toISOString().split('T')[0] })
     XyMessage.success('添加成功')
   }
-  
+
   showModal.value = false
 }
 
@@ -123,32 +112,48 @@ function viewDetail(user: User) {
             class="search-input"
           />
           <XyButton type="primary" @click="openAddModal">
+            <template #icon>
+              <span class="btn-icon">+</span>
+            </template>
             添加用户
           </XyButton>
         </div>
       </div>
     </XyCard>
-    
-    <XyCard>
-      <XyTable :columns="tableColumns" :data="filteredUsers">
-        <template #status="{ record }">
-          <XyTag :type="getStatusTag(record.status).color">
-            {{ getStatusTag(record.status).text }}
-          </XyTag>
-        </template>
-        <template #role="{ record }">
-          <XyTag type="primary">{{ getRoleName(record.role) }}</XyTag>
-        </template>
-        <template #action="{ record }">
-          <XyButton type="link" @click="viewDetail(record)">详情</XyButton>
-          <XyButton type="link" @click="openEditModal(record)">编辑</XyButton>
-          <XyPopconfirm title="确定删除该用户?" @confirm="handleDelete(record.id)">
-            <XyButton type="link" danger>删除</XyButton>
-          </XyPopconfirm>
-        </template>
+
+    <XyCard class="table-card">
+      <XyTable :data="filteredUsers" class="admin-table">
+        <XyTableColumn prop="id" label="ID" width="80" />
+        <XyTableColumn prop="name" label="姓名" />
+        <XyTableColumn prop="email" label="邮箱" />
+        <XyTableColumn prop="phone" label="手机号" />
+        <XyTableColumn prop="status" label="状态">
+          <template #default="{ row }">
+            <XyTag :type="getStatusTag(row.status).color">
+              {{ getStatusTag(row.status).text }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="role" label="角色">
+          <template #default="{ row }">
+            <XyTag type="primary">{{ getRoleName(row.role) }}</XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="createTime" label="创建时间" />
+        <XyTableColumn label="操作" width="200">
+          <template #default="{ row }">
+            <div class="action-buttons">
+              <XyButton type="link" @click="viewDetail(row)">详情</XyButton>
+              <XyButton type="link" @click="openEditModal(row)">编辑</XyButton>
+              <XyPopconfirm title="确定删除该用户?" @confirm="handleDelete(row.id)">
+                <XyButton type="link" danger>删除</XyButton>
+              </XyPopconfirm>
+            </div>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
-    
+
     <XyDialog
       v-model="showModal"
       :title="isEdit ? '编辑用户' : '添加用户'"
@@ -189,30 +194,65 @@ function viewDetail(user: User) {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      
+
       .header-left {
         .page-title {
+          font-family: 'Outfit', sans-serif;
           font-size: 20px;
           font-weight: 600;
-          color: #1e293b;
+          color: #f1f5f9;
           margin: 0 0 4px;
         }
-        
+
         .page-desc {
           font-size: 14px;
           color: #64748b;
           margin: 0;
         }
       }
-      
+
       .header-right {
         display: flex;
         align-items: center;
         gap: 12px;
-        
+
         .search-input {
           width: 280px;
         }
+
+        :deep(.xy-button--primary) {
+          .btn-icon {
+            font-size: 18px;
+            line-height: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .table-card {
+    :deep(.xy-table) {
+      --xy-table-header-background: rgba(15, 23, 42, 0.5);
+      --xy-table-header-color: #64748b;
+      --xy-table-row-hover-background: rgba(99, 102, 241, 0.06);
+      --xy-table-border-color: rgba(255, 255, 255, 0.04);
+
+      .xy-table__header-cell {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+      }
+
+      .xy-table__cell {
+        color: #cbd5e1;
+        font-size: 14px;
+      }
+
+      .action-buttons {
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
     }
   }

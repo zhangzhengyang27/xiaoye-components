@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { XyCard, XyStatistic, XyButton, XySelect, XyDatePicker, XyTable, XyTag } from 'xiaoye-components'
+import { XyCard, XyStatistic, XyButton, XySelect, XyDatePicker, XyTable, XyTableColumn, XyTag } from 'xiaoye-components'
 
 const stats = ref([
   { label: '今日访问', value: '2,845', change: '+12.5%' },
@@ -9,14 +9,6 @@ const stats = ref([
   { label: '平均时长', value: '4.5分钟', change: '+2.1%' }
 ])
 
-const tableColumns = [
-  { title: '排名', key: 'rank', width: 80 },
-  { title: '文章标题', key: 'title' },
-  { title: '阅读量', key: 'views' },
-  { title: '点赞', key: 'likes' },
-  { title: '评论', key: 'comments' },
-  { title: '状态', key: 'status', slot: 'status' }
-]
 
 const topArticles = ref([
   { rank: 1, title: 'Vue 3 入门指南', views: 12580, likes: 562, comments: 89, status: 'hot' },
@@ -76,12 +68,19 @@ onMounted(() => {
     </div>
     
     <XyCard title="热门文章排行">
-      <XyTable :columns="tableColumns" :data="topArticles" :pagination="false">
-        <template #status="{ record }">
-          <XyTag :type="getStatusTag(record.status).color">
-            {{ getStatusTag(record.status).text }}
-          </XyTag>
-        </template>
+      <XyTable :data="topArticles" :pagination="false">
+        <XyTableColumn prop="rank" label="排名" width="80" />
+        <XyTableColumn prop="title" label="文章标题" />
+        <XyTableColumn prop="views" label="阅读量" />
+        <XyTableColumn prop="likes" label="点赞" />
+        <XyTableColumn prop="comments" label="评论" />
+        <XyTableColumn prop="status" label="状态">
+          <template #default="{ row }">
+            <XyTag :type="getStatusTag(row.status).color">
+              {{ getStatusTag(row.status).text }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
   </div>

@@ -1,0 +1,229 @@
+# xiaoye-components
+
+> 一套面向中后台场景的 Vue 3 组件库，基于 TypeScript 开发，包含 68 个基础组件和 30 个增强业务组件。所有基础组件前缀为 `xy-`（如 `xy-button`），增强组件前缀为 `xy-`（如 `xy-pro-table`），TypeScript 标识符使用 PascalCase（如 `XyButton`、`XyProTable`）。
+
+## 安装
+
+```bash
+# 基础组件库
+npm install @xiaoye/components
+
+# 增强业务组件库
+npm install @xiaoye/pro-components
+
+# 聚合包（包含基础 + 增强）
+npm install xiaoye-components
+```
+
+## 全局注册
+
+```ts
+import { createApp } from 'vue'
+import XyComponents from '@xiaoye/components'
+import '@xiaoye/components/style.css'
+
+const app = createApp(App)
+app.use(XyComponents)
+```
+
+## 组件选择指南
+
+### 弹层与浮层：该用哪个？
+
+- **Dialog**：阻断式录入、二次确认、强提示。需要用户显式处理才能继续。
+- **Drawer**：侧边滑出，适合详情展示、筛选面板、辅助录入，不阻断主内容。
+- **Popover**：轻量气泡卡片，补充说明或简单操作，点击外部关闭。
+- **Tooltip**：纯文字提示，不承载交互。
+- **Popconfirm**：气泡确认框，适合轻量级删除/停用确认。
+- **Message**：全局轻提示，自动消失，不阻断操作。
+- **Notification**：全局通知，可手动关闭，适合系统级消息。
+
+### 表单：该用哪个？
+
+- **Form + FormItem**：基础表单，手动组织字段和校验。
+- **SearchForm**：搜索筛选栏，声明式字段配置，自动折叠/展开。
+- **ProForm**：增强表单，JSON Schema 驱动，支持联动和动态字段。
+- **DialogForm / DrawerForm**：弹窗/抽屉内的表单，自带打开/关闭和提交逻辑。
+- **StepsForm**：分步表单，向导式多步录入。
+- **OverlayForm**：浮层表单，适合行内编辑或轻量弹层录入。
+
+### 表格：该用哪个？
+
+- **Table + TableColumn**：基础表格，模板声明式列定义。
+- **ProTable**：增强表格，JSON 列配置 + 工具栏 + 分页 + 筛选 + 导出 + 可编辑 + 虚拟滚动。
+
+### 页面：该用哪个？
+
+- **ListPage**：标准列表页，搜索 + 表格 + 分页一体化。
+- **CrudPage**：增删改查页面，内置新增/编辑/删除流程。
+- **DetailPage**：详情页面容器。
+- **SplitLayoutPage**：左右分栏页面，适合主从结构。
+
+## 基础组件清单（@xiaoye/components）
+
+### 基础与展示
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| Button | `xy-button` | 按钮，支持 type/size/loading/plain/text/link/round/circle/block |
+| ButtonGroup | `xy-button-group` | 按钮组，透传 type/size/direction |
+| Link | `xy-link` | 文字链接 |
+| Icon | `xy-icon` | Iconify 图标组件 |
+| Text | `xy-text` | 文本，支持省略/截断 |
+| Tag | `xy-tag` | 标签 |
+| Badge | `xy-badge` | 徽章数字 |
+| Avatar | `xy-avatar` | 头像 |
+| AvatarGroup | `xy-avatar-group` | 头像组 |
+| Image | `xy-image` | 图片，支持预览 |
+| Watermark | `xy-watermark` | 水印 |
+| Card | `xy-card` | 卡片容器 |
+| CheckCard | `xy-check-card` | 选择卡片 |
+| Carousel | `xy-carousel` | 走马灯 |
+| Affix | `xy-affix` | 固钉 |
+| Anchor | `xy-anchor` | 锚点导航 |
+| Menu | `xy-menu` | 导航菜单 |
+| Breadcrumb | `xy-breadcrumb` | 面包屑 |
+| Row | `xy-row` | 栅格行 |
+| Col | `xy-col` | 栅格列 |
+| Space | `xy-space` | 间距 |
+| Divider | `xy-divider` | 分割线 |
+| Scrollbar | `xy-scrollbar` | 自定义滚动条 |
+| Splitter | `xy-splitter` | 分隔面板 |
+| Tabs | `xy-tabs` | 标签页 |
+
+### 表单输入
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| ConfigProvider | `xy-config-provider` | 全局配置（尺寸/语言/组件默认值） |
+| Input | `xy-input` | 输入框，支持 textarea/密码/清空/格式化 |
+| AutoComplete | `xy-auto-complete` | 自动完成 |
+| Select | `xy-select` | 选择器，支持搜索/多选/远程/创建 |
+| TreeSelect | `xy-tree-select` | 树选择 |
+| Cascader | `xy-cascader` | 级联选择 |
+| Radio | `xy-radio` | 单选框 |
+| Checkbox | `xy-checkbox` | 复选框 |
+| Switch | `xy-switch` | 开关 |
+| InputTag | `xy-input-tag` | 标签输入框 |
+| InputNumber | `xy-input-number` | 数字输入框 |
+| Rate | `xy-rate` | 评分 |
+| Slider | `xy-slider` | 滑块 |
+| DatePicker | `xy-date-picker` | 日期选择器 |
+| TimePicker | `xy-time-picker` | 时间选择器 |
+| TimeSelect | `xy-time-select` | 时间选择 |
+| Form | `xy-form` | 表单，支持校验/嵌套路径/滚动到错误 |
+| FormItem | `xy-form-item` | 表单项 |
+| Upload | `xy-upload` | 上传 |
+| Editor | `xy-editor` | 富文本编辑器 |
+
+### 反馈与浮层
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| Alert | `xy-alert` | 提示警告 |
+| Message | `$message` | 全局轻提示（命令式调用） |
+| Notification | `xy-notification` / `$notify` | 全局通知 |
+| Dialog | `xy-dialog` | 对话框，支持拖拽/调整尺寸/全屏/最大化/编程式调用 |
+| Drawer | `xy-drawer` | 抽屉 |
+| Tooltip | `xy-tooltip` | 文字提示 |
+| Popover | `xy-popover` | 气泡卡片 |
+| Popconfirm | `xy-popconfirm` | 气泡确认框 |
+| Dropdown | `xy-dropdown` | 下拉菜单 |
+| Loading | `v-loading` / `$loading` | 加载指令/服务 |
+| Skeleton | `xy-skeleton` | 骨架屏 |
+| Empty | `xy-empty` | 空状态 |
+| Result | `xy-result` | 结果页 |
+| Collapse | `xy-collapse` | 折叠面板 |
+| CollapseTransition | `xy-collapse-transition` | 折叠过渡 |
+| Backtop | `xy-backtop` | 回到顶部 |
+| Transfer | `xy-transfer` | 穿梭框 |
+
+### 数据展示
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| Table | `xy-table` | 表格，支持固定列/排序/筛选/树形/懒加载/虚拟滚动 |
+| TableColumn | `xy-table-column` | 表格列定义 |
+| Pagination | `xy-pagination` | 分页 |
+| Tree | `xy-tree` | 树形控件 |
+| Statistic | `xy-statistic` | 统计数值 |
+| Countdown | `xy-countdown` | 倒计时 |
+| Progress | `xy-progress` | 进度条 |
+| Steps | `xy-steps` | 步骤条 |
+| Timeline | `xy-timeline` | 时间线 |
+| Descriptions | `xy-descriptions` | 描述列表 |
+| Scheduler | `xy-scheduler` | 排期日历 |
+| Charts | `xy-charts` | 图表（ECharts） |
+| AudioPlayer | `xy-audio-player` | 音频播放器 |
+| VideoPlayer | `xy-video-player` | 视频播放器 |
+
+## 增强组件清单（@xiaoye/pro-components）
+
+### 表单增强
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| SearchForm | `xy-search-form` | 搜索表单，声明式字段配置 |
+| ProForm | `xy-pro-form` | 增强表单，JSON Schema 驱动 |
+| OverlayForm | `xy-overlay-form` | 浮层表单 |
+| DialogForm | `xy-dialog-form` | 弹窗表单 |
+| DrawerForm | `xy-drawer-form` | 抽屉表单 |
+| StepsForm | `xy-steps-form` | 分步表单 |
+| FilterPanel | `xy-filter-panel` | 筛选面板 |
+| RequestForm | `xy-request-form` | 请求表单 |
+| LoginForm | `xy-login-form` | 登录表单 |
+
+### 数据增强
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| ProTable | `xy-pro-table` | 增强表格，JSON 列配置 + 工具栏 + 分页 + 筛选 + 导出 + 可编辑 |
+| ColumnSettingPanel | `xy-column-setting-panel` | 列设置面板 |
+| SavedViewTabs | `xy-saved-view-tabs` | 视图页签 |
+| TableFilterDrawer | `xy-table-filter-drawer` | 表格筛选抽屉 |
+| ImportResultTable | `xy-import-result-table` | 导入结果表格 |
+
+### 页面容器
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| PageToolbar | `xy-page-toolbar` | 页面工具栏 |
+| PageHeader | `xy-page-header` | 页面头部 |
+| PageContainer | `xy-page-container` | 页面容器 |
+| AvatarMenu | `xy-avatar-menu` | 头像菜单 |
+| HeaderTabs | `xy-header-tabs` | 头部页签 |
+| NoticeCenter | `xy-notice-center` | 站内消息中心 |
+| StatCard | `xy-stat-card` | 指标卡片 |
+| AsyncStateContainer | `xy-async-state-container` | 异步状态容器 |
+| ListPage | `xy-list-page` | 列表页面容器 |
+| CrudPage | `xy-crud-page` | 增删改查页面 |
+| SplitLayoutPage | `xy-split-layout-page` | 分栏页面 |
+
+### 详情
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| AuditTimeline | `xy-audit-timeline` | 审计时间线 |
+| DetailPanel | `xy-detail-panel` | 详情承载面板 |
+| DetailPage | `xy-detail-page` | 详情页面容器 |
+
+### 工作流
+
+| 组件 | 标签 | 说明 |
+|------|------|------|
+| ApprovalFlowPanel | `xy-approval-flow-panel` | 审批流面板 |
+| ImportWizard | `xy-import-wizard` | 导入向导 |
+| ExportTaskPanel | `xy-export-task-panel` | 导出任务面板 |
+
+## 关键约定
+
+- 组件标签统一使用 kebab-case：`xy-button`、`xy-form-item`、`xy-pro-table`
+- TypeScript 标识符使用 PascalCase：`XyButton`、`XyFormItem`、`XyProTable`
+- v-model 约定：`v-model="value"` 对应 `modelValue` / `update:model-value`
+- 全局尺寸：`sm` / `md` / `lg`，通过 ConfigProvider 或组件 size 属性控制
+- 图标使用 Iconify 格式：`icon="mdi:loading"`、`icon="mdi:close"`
+- 编程式调用：Dialog 支持 `XyDialogService.open/confirm/alert/prompt`，Message 通过 `$message`，Notification 通过 `$notify`
+
+## 完整 API 参考
+
+详见 [llms-full.txt](./llms-full.txt)，包含每个组件的完整 Props / Events / Slots / Exposes 定义。

@@ -1,17 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { useAppStore } from '@/stores/app'
-
-const router = useRouter()
-const appStore = useAppStore()
-
-router.beforeEach((to, _, next) => {
-  if (to.meta.requiresAuth && !appStore.isLoggedIn) {
-    next('/login')
-  } else {
-    next()
-  }
-})
 </script>
 
 <template>

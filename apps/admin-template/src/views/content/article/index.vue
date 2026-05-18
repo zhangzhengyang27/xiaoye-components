@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { XyCard, XyTable, XyButton, XyInput, XyDialog, XyForm, XyFormItem, XySelect, XyTag, XyMessage, XyPopconfirm, XyEditor } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyButton, XyInput, XyDialog, XyForm, XyFormItem, XySelect, XyTag, XyMessage, XyPopconfirm, XyEditor } from 'xiaoye-components'
 
 const articles = ref([
   { id: 1, title: 'Vue 3 入门指南', category: '技术', status: 'published', author: '张三', createTime: '2024-01-15' },
@@ -18,15 +18,6 @@ const formData = ref({
   content: ''
 })
 
-const tableColumns = [
-  { title: 'ID', key: 'id', width: 80 },
-  { title: '标题', key: 'title' },
-  { title: '分类', key: 'category' },
-  { title: '状态', key: 'status', slot: 'status' },
-  { title: '作者', key: 'author' },
-  { title: '创建时间', key: 'createTime' },
-  { title: '操作', key: 'action', slot: 'action' }
-]
 
 function getStatusTag(status: string) {
   const statusMap: Record<string, { text: string; color: string }> = {
@@ -80,19 +71,28 @@ function handleDelete(id: number) {
     </XyCard>
     
     <XyCard>
-      <XyTable :columns="tableColumns" :data="articles">
-        <template #status="{ record }">
-          <XyTag :type="getStatusTag(record.status).color">
-            {{ getStatusTag(record.status).text }}
-          </XyTag>
-        </template>
-        <template #action="{ record }">
-          <XyButton type="link">预览</XyButton>
-          <XyButton type="link">编辑</XyButton>
-          <XyPopconfirm title="确定删除该文章?" @confirm="handleDelete(record.id)">
-            <XyButton type="link" danger>删除</XyButton>
-          </XyPopconfirm>
-        </template>
+      <XyTable :data="articles">
+        <XyTableColumn prop="id" label="ID" width="80" />
+        <XyTableColumn prop="title" label="标题" />
+        <XyTableColumn prop="category" label="分类" />
+        <XyTableColumn prop="status" label="状态">
+          <template #default="{ row }">
+            <XyTag :type="getStatusTag(row.status).color">
+              {{ getStatusTag(row.status).text }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="author" label="作者" />
+        <XyTableColumn prop="createTime" label="创建时间" />
+        <XyTableColumn label="操作">
+          <template #default="{ row }">
+            <XyButton type="link">预览</XyButton>
+            <XyButton type="link">编辑</XyButton>
+            <XyPopconfirm title="确定删除该文章?" @confirm="handleDelete(row.id)">
+              <XyButton type="link" danger>删除</XyButton>
+            </XyPopconfirm>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
     

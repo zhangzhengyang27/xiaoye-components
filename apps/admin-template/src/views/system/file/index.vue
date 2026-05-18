@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { XyCard, XyTable, XyButton, XyTag, XySwitch, XyMessage, XyIcon, XySpace, XyInput, XyDialog, XyForm, XyFormItem, XySelect } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyButton, XyTag, XySwitch, XyMessage, XyIcon, XySpace, XyInput, XyDialog, XyForm, XyFormItem, XySelect } from 'xiaoye-components'
 
 interface FileItem {
   id: number
@@ -14,17 +14,6 @@ interface FileItem {
 
 const searchKeyword = ref('')
 const showUploadDialog = ref(false)
-
-const tableColumns = [
-  { title: 'ID', key: 'id', width: 80 },
-  { title: '文件名', key: 'name' },
-  { title: '类型', key: 'type', slot: 'type', width: 100 },
-  { title: '大小', key: 'size', width: 120 },
-  { title: '上传者', key: 'uploader', width: 120 },
-  { title: '上传时间', key: 'uploadTime', width: 180 },
-  { title: '状态', key: 'status', slot: 'status', width: 100 },
-  { title: '操作', key: 'action', slot: 'action', width: 200 }
-]
 
 const files = ref<FileItem[]>([
   { id: 1, name: '产品介绍文档.pdf', type: 'pdf', size: '2.5MB', uploader: '张三', uploadTime: '2026-05-18 10:30:00', url: '#' },
@@ -106,34 +95,46 @@ function handleUploadSubmit() {
     </XyCard>
 
     <XyCard>
-      <XyTable :columns="tableColumns" :data="files">
-        <template #name="{ record }">
-          <div class="file-name-cell">
-            <XyIcon :icon="getTypeIcon(record.type)" :size="20" />
-            <span>{{ record.name }}</span>
-          </div>
-        </template>
-        <template #type="{ record }">
-          <XyTag :type="getTypeColor(record.type)" size="small">
-            {{ record.type.toUpperCase() }}
-          </XyTag>
-        </template>
-        <template #status="{ record }">
-          <XySwitch :model-value="record.id <= 4" />
-        </template>
-        <template #action="{ record }">
-          <XySpace>
-            <XyButton type="link" size="small" @click="handlePreview(record)">
-              预览
-            </XyButton>
-            <XyButton type="link" size="small" @click="handleDownload(record)">
-              下载
-            </XyButton>
-            <XyButton type="link" size="small" danger @click="handleDelete(record)">
-              删除
-            </XyButton>
-          </XySpace>
-        </template>
+      <XyTable :data="files">
+        <XyTableColumn prop="id" label="ID" width="80" />
+        <XyTableColumn prop="name" label="文件名">
+          <template #default="{ row }">
+            <div class="file-name-cell">
+              <XyIcon :icon="getTypeIcon(row.type)" :size="20" />
+              <span>{{ row.name }}</span>
+            </div>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="type" label="类型" width="100">
+          <template #default="{ row }">
+            <XyTag :type="getTypeColor(row.type)" size="small">
+              {{ row.type.toUpperCase() }}
+            </XyTag>
+          </template>
+        </XyTableColumn>
+        <XyTableColumn prop="size" label="大小" width="120" />
+        <XyTableColumn prop="uploader" label="上传者" width="120" />
+        <XyTableColumn prop="uploadTime" label="上传时间" width="180" />
+        <XyTableColumn prop="status" label="状态" width="100">
+          <template #default="{ row }">
+            <XySwitch :model-value="row.id <= 4" />
+          </template>
+        </XyTableColumn>
+        <XyTableColumn label="操作" width="200">
+          <template #default="{ row }">
+            <XySpace>
+              <XyButton type="link" size="small" @click="handlePreview(row)">
+                预览
+              </XyButton>
+              <XyButton type="link" size="small" @click="handleDownload(row)">
+                下载
+              </XyButton>
+              <XyButton type="link" size="small" danger @click="handleDelete(row)">
+                删除
+              </XyButton>
+            </XySpace>
+          </template>
+        </XyTableColumn>
       </XyTable>
     </XyCard>
 

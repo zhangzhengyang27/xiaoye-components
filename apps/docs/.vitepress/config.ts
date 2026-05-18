@@ -66,6 +66,7 @@ export default defineConfig({
       { text: "组件", link: "/components/overview" },
       { text: "增强", link: "/pro-components/overview" },
       { text: "示例", link: "/examples/admin" },
+      { text: "CodeGraph", link: "/guide/codegraph" },
       { text: "设计令牌", link: "/design-tokens" },
       { text: "更新日志", link: "/changelog" }
     ],
@@ -89,6 +90,13 @@ export default defineConfig({
           items: [
             { text: "可访问性约定", link: "/guide/accessibility" },
             { text: "常见问题", link: "/guide/faq" }
+          ]
+        },
+        {
+          text: "AI 集成",
+          items: [
+            { text: "LLM 集成", link: "/guide/llm-integration" },
+            { text: "CodeGraph 集成", link: "/guide/codegraph" }
           ]
         }
       ],

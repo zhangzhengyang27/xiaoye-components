@@ -1,4 +1,5 @@
 import type { App, Plugin } from "vue";
+import "./style.css";
 import * as ProComponentExports from "./exports";
 import { proInstallableComponentExportNames } from "./component-manifest";
 

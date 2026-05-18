@@ -1,0 +1,22 @@
+{
+  "name": "@xiaoye/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP Server for xiaoye-components - provides component API to AI tools",
+  "type": "module",
+  "bin": {
+    "xiaoye-mcp-server": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "^5.8.2"
+  }
+}
