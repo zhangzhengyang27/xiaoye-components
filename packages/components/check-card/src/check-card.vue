@@ -117,13 +117,13 @@ const cardClasses = computed(() => [
   ns.is("with-description", hasDescription.value)
 ]);
 
-const indicatorIconSizeMap = {
+const indicatorIconSizeMap = Object.freeze({
   sm: 14,
   md: 16,
   lg: 18
-} as const;
+}) as Readonly<Record<string, number>>;
 
-const indicatorIconSize = computed(() => indicatorIconSizeMap[mergedSize.value ?? "md"]);
+const indicatorIconSize = computed(() => indicatorIconSizeMap[mergedSize.value] ?? 16);
 
 function resolveTagText(tag: string | CheckCardTag | undefined) {
   if (!tag) {

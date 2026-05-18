@@ -11,6 +11,7 @@ import type {
   ImageSwitchHandler,
   ImageViewerAction,
   ImageViewerErrorSlotProps,
+  ImageViewerInstance,
   ImageViewerProgressSlotProps,
   ImageViewerToolbarSlotProps
 } from "./src/image";
@@ -27,6 +28,7 @@ export type {
   ImageSwitchHandler,
   ImageViewerAction,
   ImageViewerErrorSlotProps,
+  ImageViewerInstance,
   ImageViewerProgressSlotProps,
   ImageViewerToolbarSlotProps
 };

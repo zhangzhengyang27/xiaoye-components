@@ -517,7 +517,7 @@ useDismissibleLayer({
   refs: [triggerRef, mainButtonRef, caretButtonRef, menuRef],
   closeOnEscape: true,
   closeOnOutside: true,
-  isTopMost: () => isTopMost.value,
+  isTopMost: () => isTopMost(),
   onDismiss: () => {
     handleClose({
       immediate: true

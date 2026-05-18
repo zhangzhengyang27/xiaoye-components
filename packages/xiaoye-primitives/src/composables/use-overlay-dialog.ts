@@ -1,6 +1,6 @@
 import { computed, watch } from "vue";
 import { toValue } from "vue";
-import type { MaybeRefOrGetter } from "vue";
+import type { MaybeRefOrGetter, ComputedRef } from "vue";
 import { useFloatingVisibility } from "./use-floating-visibility";
 import { useOverlayStack } from "./use-overlay-stack";
 
@@ -17,6 +17,7 @@ export interface OverlayDialogOptions {
 }
 
 export interface OverlayDialogCallbacks {
+  destroyStrategy?: "content" | "wrapper";
   onOpen?: () => void;
   onClose?: () => void;
   onOpened?: () => void;
@@ -26,11 +27,11 @@ export interface OverlayDialogCallbacks {
 export interface OverlayDialogReturn {
   visible: ReturnType<typeof useFloatingVisibility>["visible"];
   rendered: ReturnType<typeof useFloatingVisibility>["rendered"];
-  showModal: ReturnType<typeof computed<boolean>>;
-  zIndex: ReturnType<typeof computed<number>>;
-  appendTo: ReturnType<typeof computed<string | HTMLElement>>;
-  teleportDisabled: ReturnType<typeof computed<boolean>>;
-  contentRendered: ReturnType<typeof computed<boolean>>;
+  showModal: ComputedRef<boolean>;
+  zIndex: ComputedRef<number>;
+  appendTo: ComputedRef<string | HTMLElement>;
+  teleportDisabled: ComputedRef<boolean>;
+  contentRendered: ComputedRef<boolean>;
   isTopMost: () => boolean;
   close: () => void;
   handleAfterEnter: () => void;
@@ -44,9 +45,9 @@ export function useOverlayDialog(
   const overlayStack = useOverlayStack();
 
   const { visible, rendered, close, handleAfterLeave } = useFloatingVisibility({
-    modelValue: () => options.modelValue,
-    openDelay: () => options.openDelay,
-    closeDelay: () => options.closeDelay,
+    modelValue: options.modelValue,
+    openDelay: options.openDelay,
+    closeDelay: options.closeDelay,
     beforeOpen: (source) => {
       if (source === "internal") {
         callbacks.onOpen?.();
@@ -82,7 +83,7 @@ export function useOverlayDialog(
   const contentRendered = computed(() => rendered.value);
 
   const showModal = computed(() => {
-    return toValue(options.modal) && visible.value;
+    return Boolean(toValue(options.modal) && visible.value);
   });
 
   const zIndex = computed(() => {

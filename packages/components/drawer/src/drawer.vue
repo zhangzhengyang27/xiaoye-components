@@ -366,7 +366,7 @@ const focusTrap = useFocusTrap(panelRef, {
     emit("close-auto-focus")
   },
   onReleaseRequested: (event) => {
-    if (!allowEscClose.value || !visible.value || !isTopMost.value) {
+    if (!allowEscClose.value || !visible.value || !isTopMost()) {
       return
     }
 
@@ -393,7 +393,7 @@ function handleOverlayClick(event: MouseEvent) {
   const canClose =
     showModal.value &&
     allowOverlayClose.value &&
-    isTopMost.value &&
+    isTopMost() &&
     downOnOverlay.value &&
     event.target === event.currentTarget
 
@@ -409,7 +409,7 @@ useDismissibleLayer({
   refs: [panelRef],
   closeOnEscape: () => allowEscClose.value,
   closeOnOutside: false,
-  isTopMost: () => isTopMost.value,
+  isTopMost: () => isTopMost(),
   onDismiss: () => {
     handleClose("escape")
   }

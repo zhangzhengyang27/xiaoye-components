@@ -74,7 +74,7 @@ useDismissibleLayer({
   refs: [() => props.referenceEl, panelRef],
   closeOnEscape: true,
   closeOnOutside: true,
-  isTopMost: () => isTopMost.value,
+  isTopMost: () => isTopMost(),
   onDismiss: () => {
     emit("close");
   }

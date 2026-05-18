@@ -3,7 +3,7 @@ import "./style.css";
 import * as XiaoyeComponentExports from "../components";
 import { installableComponentExportNames } from "../components/component-manifest";
 
-export type { ComponentSize, ComponentStatus, SelectOption } from "../utils";
+export type { ComponentSize, ComponentStatus, SelectOption } from "@xiaoye/primitives";
 export * from "../components";
 
 const INSTALL_KEY = Symbol.for("xiaoye-components:installed");

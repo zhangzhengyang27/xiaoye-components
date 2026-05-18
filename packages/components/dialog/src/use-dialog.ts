@@ -327,7 +327,7 @@ export function useDialog(
     refs: [dialogElement],
     closeOnEscape: resolvedCloseOnPressEscape,
     closeOnOutside: false,
-    isTopMost: () => overlay.isTopMost.value,
+    isTopMost: () => overlay.isTopMost(),
     onDismiss: () => {
       handleClose("escape");
     }
@@ -345,7 +345,7 @@ export function useDialog(
     const canClose =
       overlay.showModal.value &&
       resolvedCloseOnClickModal.value &&
-      overlay.isTopMost.value &&
+      overlay.isTopMost() &&
       downOnOverlay.value &&
       event.target === event.currentTarget;
 

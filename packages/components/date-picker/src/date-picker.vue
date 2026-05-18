@@ -444,7 +444,7 @@ useDismissibleLayer({
   refs: [triggerRef, panelRef],
   closeOnEscape: true,
   closeOnOutside: true,
-  isTopMost: () => isTopMost.value,
+  isTopMost: () => isTopMost(),
   onDismiss: async (reason) => {
     await closePanel(reason === "outside", reason === "escape");
   }

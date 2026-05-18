@@ -54,20 +54,20 @@ const resolvedStatus = computed<TagVisualStatus>(() => {
       return "neutral";
   }
 });
-const iconSizeMap = {
+const iconSizeMap = Object.freeze({
   sm: 12,
   md: 14,
   lg: 16
-} as const;
-const closeIconSizeMap = {
+}) as Readonly<Record<string, number>>;
+const closeIconSizeMap = Object.freeze({
   sm: 10,
   md: 12,
   lg: 12
-} as const;
+}) as Readonly<Record<string, number>>;
 
 const hasIcon = computed(() => Boolean(props.icon) || Boolean(slots.icon));
-const iconSize = computed(() => iconSizeMap[mergedSize.value]);
-const closeIconSize = computed(() => closeIconSizeMap[mergedSize.value]);
+const iconSize = computed(() => iconSizeMap[mergedSize.value] ?? 14);
+const closeIconSize = computed(() => closeIconSizeMap[mergedSize.value] ?? 12);
 </script>
 
 <template>

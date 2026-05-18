@@ -50,16 +50,16 @@ const {
   resolvedType
 } = useButton(props, attrs, (event, payload) => emit(event, payload))
 
-const iconSizeMap = {
+const iconSizeMap = Object.freeze({
   sm: 14,
   md: 16,
   lg: 18
-} as const
+}) as Readonly<Record<string, number>>
 
 const hasDefaultSlot = computed(() => Boolean(slots.default))
 const hasSuffixSlot = computed(() => Boolean(slots.suffix))
 const hasCustomLoadingSlot = computed(() => Boolean(slots.loading))
-const iconSize = computed(() => iconSizeMap[resolvedSize.value])
+const iconSize = computed(() => iconSizeMap[resolvedSize.value] ?? 16)
 const isIconOnly = computed(
   () => !hasDefaultSlot.value && !hasSuffixSlot.value && (!props.loading || !hasCustomLoadingSlot.value)
 )

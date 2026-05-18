@@ -5,7 +5,6 @@ export const imageLoadingTypes = ["eager", "lazy"] as const;
 
 export type ImageFit = (typeof imageFits)[number];
 export type ImageLoading = (typeof imageLoadingTypes)[number];
-export type ImageCrossorigin = "anonymous" | "use-credentials" | "";
 export type ImageViewerAction =
   | "zoomIn"
   | "zoomOut"
@@ -55,7 +54,12 @@ export interface ImageProps {
   minScale?: number;
   maxScale?: number;
   showProgress?: boolean;
-  crossorigin?: ImageCrossorigin;
+  crossorigin?: "anonymous" | "use-credentials" | "";
 }
 
 export type ImageInstance = InstanceType<typeof Image>;
+
+export type ImageViewerInstance = InstanceType<typeof import("./image-viewer.vue").default>;
+
+export type { ImageViewerProps } from "./image-viewer-types";
+export type { ImageCrossorigin } from "./image-viewer-types";

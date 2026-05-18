@@ -411,7 +411,7 @@ useDismissibleLayer({
   refs: [triggerRef, dropdownRef],
   closeOnEscape: true,
   closeOnOutside: true,
-  isTopMost: () => isTopMost.value,
+  isTopMost: () => isTopMost(),
   onDismiss: async (reason) => {
     await closeDropdown(reason === "outside", reason === "escape");
   }

@@ -34,7 +34,7 @@ const emit = defineEmits<{
   closed: [];
 }>();
 
-const slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 const overlayFormRef = ref<OverlayFormInstance | null>(null);
 
 defineExpose({

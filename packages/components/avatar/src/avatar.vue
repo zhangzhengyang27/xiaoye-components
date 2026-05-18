@@ -40,11 +40,11 @@ const iconSize = computed(() => {
     return Math.max(Math.round(numericSize.value * 0.45), 14);
   }
 
-  return {
+  return (Object.freeze({
     sm: 12,
     md: 18,
     lg: 24
-  }[mergedSize.value ?? "md"];
+  }) as Readonly<Record<string, number>>)[mergedSize.value ?? "md"] ?? 18;
 });
 
 const avatarClasses = computed(() => [

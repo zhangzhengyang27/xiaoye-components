@@ -155,7 +155,7 @@ useDismissibleLayer({
   refs: [triggerRef, panelRef],
   closeOnEscape: props.closeOnEsc,
   closeOnOutside: props.closeOnOutside && props.trigger === "click",
-  isTopMost: () => isTopMost.value,
+  isTopMost: () => isTopMost(),
   onDismiss: () => {
     closeFloating({
       immediate: true

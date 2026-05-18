@@ -1,6 +1,5 @@
-import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { toValue } from "vue";
-import type { MaybeRefOrGetter } from "vue";
+import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref } from "vue";
+import type { ComputedRef } from "vue";
 
 interface OverlayEntry {
   id: symbol;
@@ -11,7 +10,7 @@ interface OverlayEntry {
 }
 
 function createStack() {
-  const stack = ref<Set<symbol>>(new Set());
+  const stack = ref<Set<OverlayEntry>>(new Set());
   const zIndexCounter = ref(2000);
 
   function notifyStackChange() {
@@ -67,7 +66,7 @@ function createStack() {
 const globalStack = createStack();
 
 export interface OverlayStackEntry {
-  zIndex: ReturnType<typeof computed<number>>;
+  zIndex: ComputedRef<number>;
   isTopMost: () => boolean;
   openLayer: () => void;
   closeLayer: () => void;

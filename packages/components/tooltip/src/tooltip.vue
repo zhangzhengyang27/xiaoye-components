@@ -188,7 +188,7 @@ function handleRequestedToggle() {
 }
 
 function handleEscape(event: KeyboardEvent) {
-  if (!props.closeOnEsc || isManualTrigger.value || !visible.value || !isTopMost.value) {
+  if (!props.closeOnEsc || isManualTrigger.value || !visible.value || !isTopMost()) {
     return;
   }
 
@@ -261,7 +261,7 @@ useDismissibleLayer({
   refs: [triggerRef, contentRef],
   closeOnEscape: props.closeOnEsc,
   closeOnOutside: closeOnOutsideEnabled,
-  isTopMost: () => isTopMost.value,
+  isTopMost: () => isTopMost(),
   onDismiss: () => {
     hide();
   }

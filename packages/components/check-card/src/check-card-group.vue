@@ -23,7 +23,7 @@ const emit = defineEmits<{
   extra: [option: CheckCardGroupOption];
 }>();
 
-const slots = useSlots();
+const slots: ReturnType<typeof useSlots> = useSlots();
 const ns = useNamespace("check-card-group");
 
 function hasSlot(prefix: string, value: CheckCardValue) {

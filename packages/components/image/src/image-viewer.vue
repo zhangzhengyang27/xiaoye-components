@@ -8,23 +8,7 @@ import {
 } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import type { ImageViewerAction } from "./image";
-
-interface ImageViewerProps {
-  modelValue?: boolean;
-  urlList?: string[];
-  initialIndex?: number;
-  infinite?: boolean;
-  hideOnClickModal?: boolean;
-  teleported?: boolean;
-  closeOnPressEscape?: boolean;
-  zIndex?: number;
-  zoomRate?: number;
-  scale?: number;
-  minScale?: number;
-  maxScale?: number;
-  showProgress?: boolean;
-  crossorigin?: "anonymous" | "use-credentials" | "";
-}
+import type { ImageViewerProps } from "./image-viewer-types";
 
 const props = withDefaults(defineProps<ImageViewerProps>(), {
   modelValue: false,
@@ -538,7 +522,7 @@ function handleActions(action: ImageViewerAction) {
 }
 
 function handleKeydown(event: KeyboardEvent) {
-  if (!props.modelValue || !isTopMost.value) {
+  if (!props.modelValue || !isTopMost()) {
     return;
   }
 
@@ -575,7 +559,7 @@ function handleKeydown(event: KeyboardEvent) {
 }
 
 function handleWheel(event: WheelEvent) {
-  if (!props.modelValue || !isTopMost.value) {
+  if (!props.modelValue || !isTopMost()) {
     return;
   }
 
