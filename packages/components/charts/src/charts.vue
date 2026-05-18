@@ -18,7 +18,13 @@ const props = withDefaults(defineProps<ChartsProps>(), {
   loading: false,
   loadingOptions: undefined,
   autoresize: true,
-  setOptionOptions: undefined
+  setOptionOptions: undefined,
+  type: undefined,
+  data: () => [],
+  xKey: '',
+  yKeys: () => [],
+  nameKey: '',
+  valueKey: ''
 })
 
 const emit = defineEmits(["init", "ready", "click"])
@@ -34,6 +40,110 @@ const rootStyle = computed(() => ({
   height: typeof props.height === "number" ? `${props.height}px` : props.height
 }))
 
+const computedOption = computed(() => {
+  if (props.option) {
+    return props.option
+  }
+  
+  if (!props.type || !props.data.length) {
+    return undefined
+  }
+  
+  return generateOption(props.type, props.data, props.xKey, props.yKeys, props.nameKey, props.valueKey)
+})
+
+function generateOption(
+  type: string,
+  data: Record<string, unknown>[],
+  xKey: string,
+  yKeys: string[],
+  nameKey: string,
+  valueKey: string
+): EChartsCoreOption {
+  const option: EChartsCoreOption = {
+    tooltip: {
+      trigger: 'axis'
+    },
+    legend: {
+      data: yKeys.length ? yKeys : undefined
+    }
+  }
+  
+  switch (type) {
+    case 'line':
+      option.xAxis = {
+        type: 'category',
+        data: data.map(item => item[xKey])
+      }
+      option.yAxis = {
+        type: 'value'
+      }
+      option.series = yKeys.map(key => ({
+        name: key,
+        type: 'line',
+        data: data.map(item => item[key])
+      }))
+      break
+      
+    case 'bar':
+      option.xAxis = {
+        type: 'category',
+        data: data.map(item => item[xKey])
+      }
+      option.yAxis = {
+        type: 'value'
+      }
+      option.series = yKeys.map(key => ({
+        name: key,
+        type: 'bar',
+        data: data.map(item => item[key])
+      }))
+      break
+      
+    case 'pie':
+      option.series = [{
+        type: 'pie',
+        data: data.map(item => ({
+          name: item[nameKey],
+          value: item[valueKey]
+        }))
+      }]
+      break
+      
+    case 'area':
+      option.xAxis = {
+        type: 'category',
+        data: data.map(item => item[xKey])
+      }
+      option.yAxis = {
+        type: 'value'
+      }
+      option.series = yKeys.map(key => ({
+        name: key,
+        type: 'line',
+        areaStyle: {},
+        data: data.map(item => item[key])
+      }))
+      break
+      
+    case 'radar':
+      const indicators = yKeys.map(key => ({ name: key }))
+      option.radar = {
+        indicator: indicators
+      }
+      option.series = [{
+        type: 'radar',
+        data: data.map(item => ({
+          value: yKeys.map(key => item[key]),
+          name: item[nameKey]
+        }))
+      }]
+      break
+  }
+  
+  return option
+}
+
 function createChart() {
   if (!rootRef.value) {
     return
@@ -42,8 +152,8 @@ function createChart() {
   chartRef.value?.dispose()
   chartRef.value = init(rootRef.value, props.theme, props.initOptions)
 
-  if (props.option) {
-    chartRef.value.setOption(props.option, props.setOptionOptions)
+  if (computedOption.value) {
+    chartRef.value.setOption(computedOption.value, props.setOptionOptions)
   }
 
   if (props.loading) {
@@ -105,7 +215,7 @@ function syncResizeListener() {
 }
 
 watch(
-  () => props.option,
+  () => computedOption.value,
   (option) => {
     if (!chartRef.value || !option) {
       return

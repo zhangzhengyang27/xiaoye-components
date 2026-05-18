@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import type { ComponentPublicInstance } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, provide, ref, watch } from "vue";
+import type { ComponentPublicInstance, VNode } from "vue";
 import { useNamespace } from "@xiaoye/primitives";
 import XyIcon from "../../icon";
 import type { TabItem, TabsProps } from "./tabs";
@@ -15,7 +15,8 @@ const props = withDefaults(defineProps<TabsProps>(), {
   editable: false,
   stretch: false,
   beforeLeave: undefined,
-  tabindex: 0
+  tabindex: 0,
+  items: () => []
 });
 const emit = defineEmits<{
   "update:modelValue": [value: string];
@@ -24,6 +25,11 @@ const emit = defineEmits<{
   edit: [key: string | undefined, action: "remove" | "add"];
   tabRemove: [key: string];
   tabAdd: [];
+}>();
+
+const slots = defineSlots<{
+  default?: () => VNode[];
+  "add-icon"?: () => VNode;
 }>();
 
 const ns = useNamespace("tabs");
@@ -40,9 +46,35 @@ const scrollable = ref({
   next: false
 });
 
-const firstEnabledKey = computed(() => props.items.find((item) => !item.disabled)?.key ?? "");
-const activeItem = computed(() => props.items.find((item) => item.key === current.value));
-const activeIndex = computed(() => props.items.findIndex((item) => item.key === current.value));
+const childrenTabPanes = ref<TabItem[]>([])
+
+const tabsContext = {
+  currentValue: computed(() => current.value),
+  updateActive: (name: string) => {
+    void activate({ key: name, label: '' })
+  },
+  registerTab: (item: TabItem) => {
+    if (!childrenTabPanes.value.find(t => t.key === item.key)) {
+      childrenTabPanes.value.push(item)
+    }
+  },
+  unregisterTab: (key: string) => {
+    childrenTabPanes.value = childrenTabPanes.value.filter(t => t.key !== key)
+  }
+}
+
+provide('tabsContext', tabsContext)
+
+const allItems = computed(() => {
+  if (props.items.length > 0) {
+    return props.items
+  }
+  return childrenTabPanes.value
+})
+
+const firstEnabledKey = computed(() => allItems.value.find((item) => !item.disabled)?.key ?? "");
+const activeItem = computed(() => allItems.value.find((item) => item.key === current.value));
+const activeIndex = computed(() => allItems.value.findIndex((item) => item.key === current.value));
 const isVertical = computed(() => ["left", "right"].includes(props.tabPosition));
 const isReverse = computed(() => ["bottom", "right"].includes(props.tabPosition));
 const canAdd = computed(() => props.addable || props.editable);
@@ -56,7 +88,7 @@ function resolveFallbackValue() {
 
 function syncCurrent(value?: string) {
   const nextValue = value ?? resolveFallbackValue();
-  const matched = props.items.some((item) => item.key === nextValue && !item.disabled);
+  const matched = allItems.value.some((item) => item.key === nextValue && !item.disabled);
 
   current.value = matched ? nextValue : firstEnabledKey.value;
 }
@@ -72,7 +104,7 @@ watch(
 );
 
 watch(
-  () => props.items,
+  () => allItems.value,
   () => {
     syncCurrent(props.modelValue ?? current.value);
   },
@@ -329,7 +361,7 @@ function setTabRef(element: Element | ComponentPublicInstance | null, index: num
 }
 
 function findEnabledIndex(startIndex: number, step: 1 | -1) {
-  const total = props.items.length;
+  const total = allItems.value.length;
 
   if (!total) {
     return -1;
@@ -344,7 +376,7 @@ function findEnabledIndex(startIndex: number, step: 1 | -1) {
       index = 0;
     }
 
-    if (!props.items[index]?.disabled) {
+    if (!allItems.value[index]?.disabled) {
       return index;
     }
 
@@ -359,7 +391,7 @@ function focusTab(index: number) {
 }
 
 async function activateByIndex(index: number) {
-  const item = props.items[index];
+  const item = allItems.value[index];
 
   if (!item || item.disabled) {
     return;
@@ -389,7 +421,7 @@ async function handleKeydown(event: KeyboardEvent, index: number) {
       break;
     case "End":
       event.preventDefault();
-      targetIndex = findEnabledIndex(props.items.length - 1, -1);
+      targetIndex = findEnabledIndex(allItems.value.length - 1, -1);
       break;
     default:
       return;
@@ -431,7 +463,7 @@ function handleAddKeydown(event: KeyboardEvent) {
 }
 
 watch(
-  () => [current.value, props.tabPosition, props.type, props.stretch, props.items.length] as const,
+  () => [current.value, props.tabPosition, props.type, props.stretch, allItems.value.length] as const,
   () => {
     updateScrollable();
     void updateActiveBar();
@@ -503,7 +535,7 @@ defineExpose({
           >
             <span class="xy-tabs__active-bar" :style="activeBarStyle" />
             <button
-              v-for="(item, index) in props.items"
+              v-for="(item, index) in allItems"
               :id="`${tabsId}-tab-${item.key}`"
               :key="item.key"
               :ref="(element) => setTabRef(element, index)"
@@ -563,16 +595,8 @@ defineExpose({
         <XyIcon :icon="isVertical ? 'mdi:chevron-down' : 'mdi:chevron-right'" :size="14" />
       </button>
     </div>
-    <div
-      :id="`${tabsId}-panel-${activeItem?.key ?? 'empty'}`"
-      role="tabpanel"
-      class="xy-tabs__panel"
-      :aria-labelledby="activeItem ? `${tabsId}-tab-${activeItem.key}` : undefined"
-      tabindex="0"
-    >
-      <slot :active-key="current" :active-item="activeItem">
-        {{ activeItem?.label }}
-      </slot>
+    <div class="xy-tabs__content">
+      <slot />
     </div>
   </div>
 </template>

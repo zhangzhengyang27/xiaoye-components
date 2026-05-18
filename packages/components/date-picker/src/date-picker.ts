@@ -13,7 +13,7 @@ export interface DatePickerShortcut {
 export interface DatePickerProps {
   modelValue?: DatePickerValue;
   type?: DatePickerType;
-  placeholder?: string;
+  placeholder?: string | string[];
   disabled?: boolean;
   clearable?: boolean;
   size?: ComponentSize;
@@ -23,4 +23,15 @@ export interface DatePickerProps {
   valueFormat?: string;
   shortcuts?: DatePickerShortcut[];
   disabledDate?: (date: Date) => boolean;
+  separator?: string;
+  prefixIcon?: string;
+  suffixIcon?: string;
+  clearIcon?: string;
+  editable?: boolean;
+  teleported?: boolean;
+  popperClass?: string;
+  popperStyle?: Record<string, unknown>;
+  appendTo?: string | HTMLElement;
+  placement?: string;
+  modelModifiers?: { lazy?: boolean };
 }

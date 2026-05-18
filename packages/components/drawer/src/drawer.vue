@@ -30,6 +30,7 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   size: 420,
   placement: "right",
   closeOnOverlay: true,
+  closeOnClickModal: true,
   closeOnEsc: true,
   destroyOnClose: false,
   showClose: true,

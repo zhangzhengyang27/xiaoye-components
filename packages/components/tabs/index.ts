@@ -1,4 +1,5 @@
 import Tabs from "./src/tabs.vue";
+import TabPane from "./src/tab-pane.vue";
 import type {
   TabItem,
   TabsBeforeLeave,
@@ -35,4 +36,5 @@ export type {
 };
 
 export const XyTabs = withInstall(Tabs, "xy-tabs");
+export const XyTabPane = withInstall(TabPane, "xy-tab-pane");
 export default XyTabs;
