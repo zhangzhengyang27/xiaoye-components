@@ -10,8 +10,7 @@
     "dev:playground": "pnpm --filter @xiaoye/playground dev",
     "check:components": "node scripts/check-components.mjs",
     "check:pro-components": "node scripts/check-pro-components.mjs",
-    "check:ui-components": "node scripts/check-ui-components.mjs",
-    "lint": "pnpm check:components && pnpm check:pro-components && pnpm check:ui-components && eslint .",
+    "lint": "pnpm check:components && pnpm check:pro-components && eslint .",
     "typecheck": "pnpm run typecheck:packages && pnpm run typecheck:types",
     "typecheck:packages": "vue-tsc -p tsconfig/packages.json --noEmit && vue-tsc -p tsconfig/apps.json --noEmit",
     "typecheck:types": "vue-tsc -p tests/types/tsconfig.json --noEmit",
@@ -30,7 +29,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
-    "clean": "rimraf packages/xiaoye-primitives/dist packages/xiaoye-components/dist packages/xiaoye-pro-components/dist packages/xiaoye-ui/dist apps/docs/.vitepress/dist apps/playground/dist"
+    "clean": "rimraf packages/xiaoye-primitives/dist packages/xiaoye-components/dist packages/xiaoye-pro-components/dist apps/docs/.vitepress/dist apps/playground/dist"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4",

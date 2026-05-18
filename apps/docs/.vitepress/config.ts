@@ -4,7 +4,6 @@ import {
   proComponentDocsSidebarGroups,
   proComponentExampleSidebarGroups
 } from "../../../packages/pro-components/component-manifest";
-import { uiComponentDocsSidebarGroups } from "../../../packages/xiaoye-ui/component-manifest";
 import { workspaceAlias } from "../../../scripts/config/aliases";
 import { demoMdPlugin } from "./plugins/demo";
 import { demoSourcePlugin } from "./plugins/demo-source";
@@ -56,7 +55,13 @@ export default defineConfig({
         ...componentDocsSidebarGroups
       ],
       "/front/": [
-        ...uiComponentDocsSidebarGroups
+        {
+          text: "前台组件",
+          collapsed: false,
+          items: [
+            { text: "概览", link: "/front/overview" }
+          ]
+        }
       ],
       "/pro-components/": [
         {

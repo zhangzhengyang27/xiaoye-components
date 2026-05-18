@@ -117,18 +117,5 @@ export const workspaceAlias = [
   {
     find: "xiaoye-pro-components",
     replacement: resolveWorkspacePath("../../packages/xiaoye-pro-components/index.ts")
-  },
-  // xiaoye-ui
-  {
-    find: "xiaoye-ui/style.css",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-ui/style.css")
-  },
-  {
-    find: "xiaoye-ui",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-ui/index.ts")
-  },
-  {
-    find: "@xiaoye/ui",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-ui/index.ts")
   }
 ] as const;
