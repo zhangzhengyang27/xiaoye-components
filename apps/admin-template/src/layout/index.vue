@@ -99,8 +99,9 @@ function handleMenuClick(path: string) {
 .admin-layout {
   display: flex;
   min-height: 100vh;
-  background: #0a0e1a;
+  background: var(--admin-bg);
   position: relative;
+  transition: background 0.3s ease;
   
   &::before {
     content: '';
@@ -119,9 +120,9 @@ function handleMenuClick(path: string) {
 
 .admin-sidebar {
   width: var(--admin-sidebar-width);
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.96) 0%, rgba(3, 7, 18, 0.98) 100%);
+  background: var(--admin-sidebar-bg);
   backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid var(--admin-border);
   flex-shrink: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
@@ -137,9 +138,10 @@ function handleMenuClick(path: string) {
     transform: translateX(-50%);
     width: 200px;
     height: 300px;
-    background: radial-gradient(ellipse, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+    background: radial-gradient(ellipse, var(--admin-sidebar-glow) 0%, transparent 70%);
     pointer-events: none;
     filter: blur(40px);
+    transition: background 0.3s ease;
   }
   
   &.collapsed {
@@ -169,8 +171,9 @@ function handleMenuClick(path: string) {
     }
     
     &::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--scrollbar-thumb);
       border-radius: 2px;
+      transition: background 0.3s ease;
     }
   }
   
@@ -180,7 +183,7 @@ function handleMenuClick(path: string) {
     
     .xy-menu-item,
     .xy-submenu__title {
-      color: #64748b !important;
+      color: var(--admin-text-secondary) !important;
       margin: 3px 0;
       border-radius: 8px;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -188,8 +191,8 @@ function handleMenuClick(path: string) {
       line-height: 46px;
       
       &:hover {
-        background: rgba(255, 255, 255, 0.05) !important;
-        color: #94a3b8 !important;
+        background: rgba(99, 102, 241, 0.05) !important;
+        color: var(--admin-text) !important;
         
         .menu-icon {
           color: #818cf8;
@@ -249,12 +252,14 @@ function handleMenuClick(path: string) {
     font-size: 13.5px;
     transition: all 0.2s ease;
     white-space: nowrap;
+    color: inherit;
   }
   
   .sidebar-footer {
     padding: 20px 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--admin-border);
     position: relative;
+    transition: border-color 0.3s ease;
     
     .footer-glow {
       position: absolute;
@@ -272,10 +277,11 @@ function handleMenuClick(path: string) {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: #64748b;
+      color: var(--admin-text-secondary);
       font-size: 13px;
       position: relative;
       z-index: 1;
+      transition: color 0.3s ease;
       
       .version {
         font-family: 'JetBrains Mono', monospace;
@@ -303,9 +309,10 @@ function handleMenuClick(path: string) {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(10, 14, 26, 0.85) !important;
+  background: var(--admin-header-bg) !important;
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--admin-border);
+  transition: all 0.3s ease;
 }
 
 .admin-main {

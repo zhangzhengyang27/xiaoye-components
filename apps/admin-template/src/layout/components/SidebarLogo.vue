@@ -45,8 +45,9 @@ defineEmits<{
 <style lang="scss" scoped>
 .sidebar-logo {
   padding: 20px 20px 16px;
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--admin-border);
   position: relative;
+  transition: border-color 0.3s ease;
   
   .logo-container {
     display: flex;
@@ -56,13 +57,13 @@ defineEmits<{
     .logo-icon {
       width: 48px;
       height: 48px;
-      border-radius: var(--radius-md);
-      background: var(--gradient-primary);
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: var(--shadow-glow-primary);
-      transition: all var(--transition-base);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s ease;
       flex-shrink: 0;
       
       :deep(.xy-icon) {
@@ -74,25 +75,26 @@ defineEmits<{
       overflow: hidden;
       
       .logo-title {
-        font-family: var(--font-display);
+        font-family: 'Outfit', sans-serif;
         font-size: 20px;
         font-weight: 800;
         letter-spacing: 0.15em;
         margin: 0;
         line-height: 1.2;
-        background: var(--gradient-primary);
+        background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
       
       .logo-subtitle {
-        font-family: var(--font-mono);
+        font-family: 'JetBrains Mono', monospace;
         font-size: 11px;
         font-weight: 600;
         letter-spacing: 0.25em;
-        color: var(--color-text-muted);
+        color: var(--admin-text-muted);
         text-transform: uppercase;
+        transition: color 0.3s ease;
       }
     }
   }
@@ -104,20 +106,20 @@ defineEmits<{
     transform: translateY(-50%);
     width: 28px;
     height: 28px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border-subtle);
-    background: var(--color-bg-glass);
-    color: var(--color-text-muted);
+    border-radius: 6px;
+    border: 1px solid var(--admin-border);
+    background: transparent;
+    color: var(--admin-text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--transition-base);
+    transition: all 0.2s ease;
     
     &:hover {
-      background: var(--color-bg-glass-hover);
-      color: var(--color-text-secondary);
-      border-color: var(--color-border-default);
+      background: rgba(99, 102, 241, 0.1);
+      color: #818cf8;
+      border-color: rgba(99, 102, 241, 0.3);
     }
     
     &.collapsed-toggle {
@@ -141,7 +143,7 @@ defineEmits<{
 
 .logo-fade-enter-active,
 .logo-fade-leave-active {
-  transition: all var(--transition-base);
+  transition: all 0.3s ease;
 }
 
 .logo-fade-enter-from,

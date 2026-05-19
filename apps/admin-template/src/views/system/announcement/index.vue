@@ -16,6 +16,12 @@ interface Announcement {
 const searchKeyword = ref('')
 const showPublishDialog = ref(false)
 
+const typeOptions = [
+  { value: 'notice', label: '系统通知' },
+  { value: 'news', label: '新闻动态' },
+  { value: 'activity', label: '活动公告' }
+]
+
 const announcements = ref<Announcement[]>([
   { 
     id: 1, 
@@ -192,11 +198,7 @@ function handleSubmit() {
           <XyInput v-model="publishForm.title" placeholder="请输入公告标题" />
         </XyFormItem>
         <XyFormItem label="公告类型" required>
-          <XySelect v-model="publishForm.type">
-            <option value="notice">系统通知</option>
-            <option value="news">新闻动态</option>
-            <option value="activity">活动公告</option>
-          </XySelect>
+          <XySelect v-model="publishForm.type" :options="typeOptions" />
         </XyFormItem>
         <XyFormItem label="发布时间" required>
           <XyDatePicker

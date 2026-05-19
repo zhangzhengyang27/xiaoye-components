@@ -12,6 +12,17 @@ const formData = ref({
   timezone: 'Asia/Shanghai'
 })
 
+const defaultRoleOptions = [
+  { value: 'admin', label: '管理员' },
+  { value: 'editor', label: '编辑' },
+  { value: 'user', label: '普通用户' }
+]
+
+const timezoneOptions = [
+  { value: 'Asia/Shanghai', label: 'Asia/Shanghai' },
+  { value: 'UTC', label: 'UTC' }
+]
+
 function handleSave() {
   XyMessage.success('保存成功')
 }
@@ -51,11 +62,7 @@ function handleSave() {
           <XySwitch v-model="formData.enableRegistration" />
         </XyFormItem>
         <XyFormItem label="默认角色">
-          <XySelect v-model="formData.defaultRole">
-            <option value="admin">管理员</option>
-            <option value="editor">编辑</option>
-            <option value="user">普通用户</option>
-          </XySelect>
+          <XySelect v-model="formData.defaultRole" :options="defaultRoleOptions" />
         </XyFormItem>
       </XyForm>
     </XyCard>
@@ -63,10 +70,7 @@ function handleSave() {
     <XyCard title="系统设置">
       <XyForm :model="formData" label-width="120px">
         <XyFormItem label="时区设置">
-          <XySelect v-model="formData.timezone">
-            <option value="Asia/Shanghai">Asia/Shanghai</option>
-            <option value="UTC">UTC</option>
-          </XySelect>
+          <XySelect v-model="formData.timezone" :options="timezoneOptions" />
         </XyFormItem>
       </XyForm>
     </XyCard>

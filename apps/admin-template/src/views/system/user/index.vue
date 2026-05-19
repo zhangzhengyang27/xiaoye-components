@@ -19,6 +19,11 @@ const formData = ref({
   role: 'user' as string
 })
 
+const statusOptions = [
+  { value: 'active', label: '启用' },
+  { value: 'inactive', label: '禁用' }
+]
+
 const filteredUsers = computed(() => {
   if (!searchText.value) return userStore.users
   const keyword = searchText.value.toLowerCase()
@@ -170,17 +175,10 @@ function viewDetail(user: User) {
           <XyInput v-model="formData.phone" placeholder="请输入手机号" />
         </XyFormItem>
         <XyFormItem label="状态">
-          <XySelect v-model="formData.status">
-            <option value="active">启用</option>
-            <option value="inactive">禁用</option>
-          </XySelect>
+          <XySelect v-model="formData.status" :options="statusOptions" />
         </XyFormItem>
         <XyFormItem label="角色">
-          <XySelect v-model="formData.role">
-            <option v-for="role in userStore.roles" :key="role.id" :value="role.id">
-              {{ role.name }}
-            </option>
-          </XySelect>
+          <XySelect v-model="formData.role" :options="userStore.roles.map(r => ({ value: r.id, label: r.name }))" />
         </XyFormItem>
       </XyForm>
     </XyDialog>

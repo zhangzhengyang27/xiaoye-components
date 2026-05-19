@@ -8,6 +8,7 @@ const appStore = useAppStore()
 const router = useRouter()
 
 const showNotifications = ref(false)
+const isThemeTransitioning = ref(false)
 
 const userMenuOptions = [
   { key: 'profile', icon: 'mdi:account-circle', label: '个人中心' },
@@ -23,6 +24,15 @@ function handleUserCommand(command: string) {
   } else if (command === 'profile') {
     router.push('/profile')
   }
+}
+
+function toggleTheme() {
+  isThemeTransitioning.value = true
+  const newMode = appStore.themeMode === 'dark' ? 'light' : 'dark'
+  appStore.setThemeMode(newMode)
+  setTimeout(() => {
+    isThemeTransitioning.value = false
+  }, 600)
 }
 </script>
 
@@ -49,8 +59,11 @@ function handleUserCommand(command: string) {
           <XyIcon icon="mdi:magnify" :size="20" />
         </button>
         
-        <button class="action-btn theme-toggle">
-          <XyIcon icon="mdi:theme-light-dark" :size="20" />
+        <button class="action-btn theme-toggle" :class="{ 'is-active': isThemeTransitioning }" @click="toggleTheme">
+          <Transition name="theme-icon" mode="out-in">
+            <XyIcon v-if="appStore.themeMode === 'dark'" icon="mdi:weather-sunny" :size="20" />
+            <XyIcon v-else icon="mdi:weather-night" :size="20" />
+          </Transition>
         </button>
       </div>
       
@@ -150,20 +163,30 @@ function handleUserCommand(command: string) {
       border-radius: 8px;
       border: none;
       background: transparent;
-      color: #94a3b8;
+      color: #94a9b8;
       cursor: pointer;
       transition: all 0.2s ease;
-      
+
       &:hover {
         background: rgba(255, 255, 255, 0.05);
         color: #f1f5f9;
       }
-      
+
       &.theme-toggle:hover {
         background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
         color: #a5b4fc;
       }
-      
+
+      &.is-active::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 12px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+        animation: theme-pulse 0.6s ease-out forwards;
+        pointer-events: none;
+      }
+
       .notification-badge {
         position: absolute;
         top: 6px;
@@ -218,5 +241,33 @@ function handleUserCommand(command: string) {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+// 主题图标切换动画
+.theme-icon-enter-active,
+.theme-icon-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-icon-enter-from {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+.theme-icon-leave-to {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+// 主题脉冲光晕动画
+@keyframes theme-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
 </style>

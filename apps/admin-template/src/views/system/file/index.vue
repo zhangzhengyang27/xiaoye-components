@@ -15,6 +15,13 @@ interface FileItem {
 const searchKeyword = ref('')
 const showUploadDialog = ref(false)
 
+const categoryOptions = [
+  { value: 'doc', label: '文档资料' },
+  { value: 'image', label: '图片素材' },
+  { value: 'video', label: '视频资源' },
+  { value: 'other', label: '其他文件' }
+]
+
 const files = ref<FileItem[]>([
   { id: 1, name: '产品介绍文档.pdf', type: 'pdf', size: '2.5MB', uploader: '张三', uploadTime: '2026-05-18 10:30:00', url: '#' },
   { id: 2, name: '项目需求文档.docx', type: 'doc', size: '1.8MB', uploader: '李四', uploadTime: '2026-05-17 15:20:00', url: '#' },
@@ -151,12 +158,7 @@ function handleUploadSubmit() {
       </div>
       <XyForm label-width="80px" style="margin-top: 20px;">
         <XyFormItem label="文件分类">
-          <XySelect placeholder="请选择分类">
-            <option value="doc">文档资料</option>
-            <option value="image">图片素材</option>
-            <option value="video">视频资源</option>
-            <option value="other">其他文件</option>
-          </XySelect>
+          <XySelect placeholder="请选择分类" :options="categoryOptions" />
         </XyFormItem>
       </XyForm>
     </XyDialog>

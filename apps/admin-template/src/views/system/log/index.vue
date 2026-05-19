@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { XyCard, XyTable, XyTableColumn, XyTag, XyButton, XyInput, XySelect, XyDatePicker, XySpace, XyPopconfirm, XyMessage } from 'xiaoye-components'
+import { XyCard, XyTable, XyTableColumn, XyTag, XyButton, XyInput, XySelect, XyDatePicker, XySpace, XyPopconfirm, XyMessage, XyNotification } from 'xiaoye-components'
 
 type OperationLogType = 'info' | 'success' | 'warning' | 'danger'
 
@@ -18,8 +18,8 @@ interface OperationLog {
 
 const searchForm = ref({
   keyword: '',
-  type: '',
-  status: '',
+  type: '' as string,
+  status: '' as string,
   startTime: '',
   endTime: ''
 })
@@ -73,7 +73,8 @@ function handleSearch() {
 
 function handleReset() {
   searchForm.value = {
-    keyword: '', type: '', status: '', startTime: '', endTime: '' }
+    keyword: '', type: '', status: '', startTime: '', endTime: ''
+  }
   XyMessage.info('已重置')
 }
 
@@ -82,8 +83,9 @@ function handleExport() {
 }
 
 function handleClear() {
-  XyMessage.confirm('确定清空所有日志?').then(() => {
-    XyMessage.success('清空功能待实现')
+  XyNotification.warning({
+    title: '清空日志',
+    message: '清空功能待实现'
   })
 }
 
@@ -123,22 +125,16 @@ function viewDetail(_log: OperationLog) {
           />
           <XySelect
             v-model="searchForm.type"
+            :options="typeOptions"
             placeholder="操作类型"
             style="width: 150px"
-          >
-            <option v-for="opt in typeOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </XySelect>
+          />
           <XySelect
             v-model="searchForm.status"
+            :options="statusOptions"
             placeholder="执行状态"
             style="width: 150px"
-          >
-            <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </XySelect>
+          />
           <XyDatePicker
             v-model="searchForm.startTime"
             type="date"

@@ -177,13 +177,10 @@ function handleSubmit() {
           />
           <XySelect
             v-model="statusFilter"
+            :options="statusOptions"
             placeholder="任务状态"
             style="width: 150px"
-          >
-            <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </XySelect>
+          />
           <XyButton type="primary">
             搜索
           </XyButton>
@@ -239,11 +236,11 @@ function handleSubmit() {
           <XyInput v-model="taskForm.name" placeholder="请输入任务名称" />
         </XyFormItem>
         <XyFormItem label="任务分组" required>
-          <XySelect v-model="taskForm.group" placeholder="请选择任务分组">
-            <option v-for="opt in groupOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </XySelect>
+          <XySelect
+            v-model="taskForm.group"
+            :options="groupOptions"
+            placeholder="请选择任务分组"
+          />
         </XyFormItem>
         <XyFormItem label="CRON表达式" required>
           <XyInput v-model="taskForm.cron" placeholder="请输入CRON表达式, 如: 0 0 2 * * ?" />

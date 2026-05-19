@@ -9,6 +9,13 @@ const stats = ref([
   { label: '平均时长', value: '4.5分钟', change: '+2.1%' }
 ])
 
+const timeRangeOptions = [
+  { value: 'today', label: '今日' },
+  { value: 'week', label: '本周' },
+  { value: 'month', label: '本月' },
+  { value: 'year', label: '本年' }
+]
+
 
 const topArticles = ref([
   { rank: 1, title: 'Vue 3 入门指南', views: 12580, likes: 562, comments: 89, status: 'hot' },
@@ -40,12 +47,7 @@ onMounted(() => {
           <p class="page-desc">查看系统数据统计</p>
         </div>
         <div class="header-right">
-          <XySelect placeholder="选择时间范围" class="select-input">
-            <option value="today">今日</option>
-            <option value="week">本周</option>
-            <option value="month">本月</option>
-            <option value="year">本年</option>
-          </XySelect>
+          <XySelect placeholder="选择时间范围" :options="timeRangeOptions" class="select-input" />
           <XyDatePicker type="daterange" placeholder="选择日期" />
           <XyButton type="primary">导出报表</XyButton>
         </div>

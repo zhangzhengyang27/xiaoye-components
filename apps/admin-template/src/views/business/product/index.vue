@@ -9,13 +9,22 @@ const isEdit = ref(false)
 const currentProduct = ref<any>(null)
 
 const categoryOptions = [
-  { label: '全部分类', value: '' },
-  { label: '手机数码', value: 'phone' },
-  { label: '电脑办公', value: 'computer' },
-  { label: '平板设备', value: 'tablet' },
-  { label: '穿戴设备', value: 'wearable' },
-  { label: '音频设备', value: 'audio' },
-  { label: '配件周边', value: 'accessory' }
+  { value: '', label: '全部分类' },
+  { value: 'phone', label: '手机数码' },
+  { value: 'computer', label: '电脑办公' },
+  { value: 'tablet', label: '平板设备' },
+  { value: 'wearable', label: '穿戴设备' },
+  { value: 'audio', label: '音频设备' },
+  { value: 'accessory', label: '配件周边' }
+]
+
+const productCategoryOptions = [
+  { value: 'phone', label: '手机数码' },
+  { value: 'computer', label: '电脑办公' },
+  { value: 'tablet', label: '平板设备' },
+  { value: 'wearable', label: '穿戴设备' },
+  { value: 'audio', label: '音频设备' },
+  { value: 'accessory', label: '配件周边' }
 ]
 
 const productList = ref([
@@ -188,11 +197,7 @@ function toggleFeatured(product: any) {
           <XyInput v-model="formData.name" placeholder="请输入商品名称" />
         </XyFormItem>
         <XyFormItem label="商品分类" required>
-          <XySelect v-model="formData.category">
-            <option v-for="opt in categoryOptions.filter(o => o.value)" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </XySelect>
+          <XySelect v-model="formData.category" :options="productCategoryOptions" />
         </XyFormItem>
         <XyFormItem label="商品价格" required>
           <XyInputNumber v-model="formData.price" :min="0" :precision="2" placeholder="现价" />

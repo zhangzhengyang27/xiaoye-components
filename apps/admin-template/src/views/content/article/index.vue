@@ -18,6 +18,12 @@ const formData = ref({
   content: ''
 })
 
+const categoryOptions = [
+  { value: '技术', label: '技术' },
+  { value: '生活', label: '生活' },
+  { value: '娱乐', label: '娱乐' }
+]
+
 
 function getStatusTag(status: string) {
   const statusMap: Record<string, { text: string; color: string }> = {
@@ -107,11 +113,7 @@ function handleDelete(id: number) {
           <XyInput v-model="formData.title" placeholder="请输入文章标题" />
         </XyFormItem>
         <XyFormItem label="分类">
-          <XySelect v-model="formData.category">
-            <option value="技术">技术</option>
-            <option value="生活">生活</option>
-            <option value="娱乐">娱乐</option>
-          </XySelect>
+          <XySelect v-model="formData.category" :options="categoryOptions" />
         </XyFormItem>
         <XyFormItem label="内容">
           <XyEditor v-model="formData.content" :height="300" />

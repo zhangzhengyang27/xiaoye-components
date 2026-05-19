@@ -275,14 +275,16 @@ function handleExport() {
         .page-title {
           font-size: 20px;
           font-weight: 600;
-          color: #1e293b;
+          color: var(--admin-text);
           margin: 0 0 4px;
+          transition: color 0.3s ease;
         }
         
         .page-desc {
           font-size: 14px;
-          color: #64748b;
+          color: var(--admin-text-secondary);
           margin: 0;
+          transition: color 0.3s ease;
         }
       }
     }
@@ -291,17 +293,20 @@ function handleExport() {
       display: flex;
       gap: 24px;
       padding-top: 16px;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid var(--admin-border);
+      transition: border-color 0.3s ease;
       
       .stat-item {
         .stat-content {
           padding: 8px 16px;
-          background: #f8fafc;
+          background: var(--xy-table-row-striped-background);
           border-radius: 6px;
+          transition: background 0.3s ease;
           
           .stat-label {
             font-size: 14px;
-            color: #475569;
+            color: var(--admin-text-secondary);
+            transition: color 0.3s ease;
           }
         }
       }
@@ -315,12 +320,14 @@ function handleExport() {
     
     .customer-name {
       font-weight: 500;
-      color: #1e293b;
+      color: var(--admin-text);
+      transition: color 0.3s ease;
     }
     
     .customer-phone {
       font-size: 12px;
-      color: #94a3b8;
+      color: var(--admin-text-muted);
+      transition: color 0.3s ease;
     }
   }
   
@@ -330,12 +337,14 @@ function handleExport() {
     gap: 8px;
     
     .product-name {
-      color: #334155;
+      color: var(--admin-text);
+      transition: color 0.3s ease;
     }
     
     .product-quantity {
       font-size: 12px;
-      color: #94a3b8;
+      color: var(--admin-text-muted);
+      transition: color 0.3s ease;
     }
   }
   
@@ -345,19 +354,22 @@ function handleExport() {
   }
   
   .payment-text {
-    color: #64748b;
+    color: var(--admin-text-secondary);
+    transition: color 0.3s ease;
   }
   
   .order-timeline {
     margin-top: 24px;
     padding-top: 24px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--admin-border);
+    transition: border-color 0.3s ease;
     
     h4 {
       font-size: 16px;
       font-weight: 600;
-      color: #1e293b;
+      color: var(--admin-text);
       margin: 0 0 16px;
+      transition: color 0.3s ease;
     }
   }
 }
