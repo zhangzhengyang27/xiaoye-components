@@ -133,7 +133,7 @@ alert/service-dedupe
 ## 行为说明
 
 - 未传 `modelValue` 时，`xy-alert` 会维持当前自管理显隐模式，点击关闭后立即隐藏自身，并触发 `close` 事件。
-- 传入 `modelValue` 后会进入受控模式，显示状态以外部值为准，并通过 `update:modelValue` 回写。
+- 传入 `modelValue` 后会进入受控模式，显示状态以外部值为准，并通过 `update:model-value` 回写。
 - `duration > 0` 时会在组件可见后启动自动关闭定时器，触发时发出 `auto-close`。
 - `beforeClose` 只拦截手动关闭路径，不拦截自动关闭。
 - `pauseOnHover`、`pauseOnFocus` 和 `pauseOnPageHidden` 只在 `duration > 0` 时生效；页面隐藏暂停基于 `visibilitychange`。
@@ -178,7 +178,7 @@ alert/service-dedupe
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
 | `close` | 手动关闭提示时触发 | `AlertCloseHandler` |
-| `update:modelValue` | 受控模式下同步显示状态 | `AlertModelValueChangeHandler` |
+| `update:model-value` | 受控模式下同步显示状态 | `AlertModelValueChangeHandler` |
 | `auto-close` | 自动关闭定时器触发时发出 | `AlertAutoCloseHandler` |
 
 ### Alert Slots

@@ -8,6 +8,8 @@ outline: deep
 
 用于展示多种类型的数据。当前版本仍以 `xy-table + xy-table-column` 作为唯一列定义方式，提供完善的能力组织，补齐了 `selection / index / expand / fixed / summary / span-method / tree / lazy / methods` 这一组高频能力。
 
+如果你正在把后台项目里的列表页样式收口到组件库层，先看 [后台迁移指南](/guide/backend-migration)，再回来对照 `overview` 和 wrapper token 的使用方式。
+
 ## 基础用法
 
 :::demo 基础表格继续使用子组件列定义，支持当前行高亮、行点击和默认单元格插槽。
@@ -19,6 +21,34 @@ table/basic
 :::demo 使用 `row-class-name` 可以为不同行增加状态层，适合审批、告警和风控类列表。
 table/status-rows
 :::
+
+## 列表页表格壳层
+
+:::demo 当业务只是想让普通后台列表页的表头、边框和单元格节奏贴近页面主题时，优先在 wrapper 上设置 table token，而不是继续 deep 到 `.xy-table__cell`、`.xy-table__header-cell` 这类内部类名。
+table/list-shell
+:::
+
+## Dashboard 概览模式
+
+:::demo 当表格用于工作台首屏、指标看板或概览面板时，建议显式开启 `overview`。它会在不改变默认 `size="md"` 合同的前提下，统一收紧表头、正文、空态、loading、append 和展开区的节奏，减少业务页自行覆盖样式的需要。
+table/overview
+:::
+
+当页面仍需要做轻度场景化调整时，优先在表格实例根节点上覆写 table 自己的变量，而不是继续 deep 到 `.xy-table__cell / .xy-table__expanded-content / .xy-table__append-wrapper`。当前高频可调入口包括：
+
+- `--xy-table-background`：主表体背景
+- `--xy-table-surface-background`：固定列、筛选面板等浮起表面
+- `--xy-table-subtle-background`：展开区、次级容器背景
+- `--xy-table-radius`：表格外框圆角
+- `--xy-table-header-font-size / --xy-table-header-font-weight`：表头字体层级
+- `--xy-table-header-text-transform / --xy-table-header-letter-spacing`：表头文案风格
+- `--xy-table-header-cell-padding-y / --xy-table-header-cell-padding-x`：表头单元格节奏
+- `--xy-table-body-cell-padding-y / --xy-table-body-cell-padding-x`：正文单元格节奏
+- `--xy-table-footer-cell-padding-y / --xy-table-footer-cell-padding-x`：汇总/页脚单元格节奏
+- `--xy-table-overview-cell-padding-y / --xy-table-overview-cell-padding-x`：概览态单元格节奏
+- `--xy-table-overview-expanded-padding`：概览态展开区 padding
+- `--xy-table-overview-append-padding`：概览态 append 区 padding
+- `--xy-table-overview-empty-padding / --xy-table-overview-empty-content-padding`：概览态空态节奏
 
 ## 远程排序与分页
 
@@ -163,6 +193,69 @@ table/multi-state
 - `auto` 布局下列宽优先级为“手动拖拽 > 显式 `width` > 自动测宽”；内容频繁变化的列会重新收敛，因此不建议把所有列都完全交给自动测宽。
 - 当 `show-header=false` 时，`auto` 会退回按 body 内容测宽，关键列更建议保留 `min-width`，避免纯数据波动造成视觉抖动。
 
+### 优先调实例级 table token，而不是 deep 覆盖内部类名
+
+- 如果页面只是想微调概览表格的密度、append 区节奏、展开区背景或筛选面板表面色，优先在 `xy-table` 根节点或业务 wrapper 上设置 table 变量。
+- `overview` 适合 dashboard / 首屏摘要；列表页若仅需主题接轨，也优先设置 `--xy-table-background / --xy-table-surface-background / --xy-table-subtle-background`，不要直接把通用 `--xy-bg-color` 压进 `.xy-table` 作用域。
+- 只有当业务需要真正改写单元格内容结构时，才考虑 `cell-class-name / cell-style` 或页面层插槽；纯视觉节奏问题不建议继续 deep 到 `__cell`。
+
+后台项目迁移时，可优先按下面的映射关系删除旧覆盖：
+
+| 旧覆盖写法 | 优先替代方式 | 适用场景 |
+| --- | --- | --- |
+| `.xy-table__cell { padding: ... }` | `--xy-table-body-cell-padding-y/x` | 普通列表页正文节奏 |
+| `.xy-table__header-cell { padding: ... }` | `--xy-table-header-cell-padding-y/x` | 普通列表页表头节奏 |
+| `.xy-table__footer-cell { padding: ... }` | `--xy-table-footer-cell-padding-y/x` | 汇总行 / 页脚节奏 |
+| `.xy-table__header-cell { background: ...; color: ... }` | `--xy-table-header-background` + `--xy-table-header-color` | 表头主题接轨 |
+| `.xy-table th { font-size / font-weight / text-transform / letter-spacing }` | `--xy-table-header-font-size / --xy-table-header-font-weight / --xy-table-header-text-transform / --xy-table-header-letter-spacing` | 表头排版基线 |
+| `.xy-table { border-color: ... }` | `--xy-table-border-color` | 边框 / 固定列分隔线 |
+| `.xy-table { border-radius: ...; overflow: hidden }` | `--xy-table-radius` | 列表卡片内的表格外框 |
+| `.xy-table__row:hover > .xy-table__cell { background: ... }` | `--xy-table-row-hover-background` | hover 态主题化 |
+| `.xy-table__row.is-current > .xy-table__cell { background: ... }` | `--xy-table-row-current-background` | 当前行高亮 |
+| `.xy-table.is-striped ... { background: ... }` | `--xy-table-row-striped-background` | 斑马纹 |
+| `.xy-table__expanded-cell / __append-wrapper / __empty-block` 的 padding 覆盖 | `overview` 或对应 overview token | dashboard / 摘要表格 |
+| `[data-theme] .xy-table { --xy-bg-color / --xy-surface-raised: ... }` | `--xy-table-background / --xy-table-surface-background / --xy-table-subtle-background` | 表格自身表面色，不再污染通用背景 token |
+
+可迁移的普通列表页写法示例：
+
+```vue
+<template>
+  <div class="table-shell">
+    <xy-table :data="rows" row-key="id">
+      <!-- columns -->
+    </xy-table>
+  </div>
+</template>
+
+<style scoped>
+.table-shell {
+  --xy-table-background: var(--bg-raised);
+  --xy-table-surface-background: var(--bg-raised);
+  --xy-table-subtle-background: var(--bg-elevated);
+  --xy-table-radius: 10px;
+  --xy-table-header-background: var(--bg-elevated);
+  --xy-table-header-color: var(--text-secondary);
+  --xy-table-header-font-size: 12.5px;
+  --xy-table-header-text-transform: uppercase;
+  --xy-table-header-letter-spacing: 0.04em;
+  --xy-table-border-color: var(--border-default);
+  --xy-table-header-cell-padding-y: 12px;
+  --xy-table-header-cell-padding-x: 14px;
+  --xy-table-body-cell-padding-y: 13px;
+  --xy-table-body-cell-padding-x: 14px;
+}
+</style>
+```
+
+- 上面这类 wrapper 级变量，优先替代 `.xy-table__cell { padding: ... }`、`.xy-table__header-cell { background: ... }`、`.xy-table__header-cell { padding: ... }`、`.xy-table th { text-transform: ... }`、`.xy-table { border-radius: ... }` 这种结构覆盖。
+- 如果页面只是在列表和 dashboard 之间切换节奏，优先用 `overview + wrapper token` 组合，不要再为同一张表同时维护多套内部类名覆盖。
+
+当前后台项目里剩余的典型覆盖，可按下面思路迁移：
+
+- `dashboard/index.vue` 里的 `order-table :deep(.xy-table__cell)` 更适合直接改成 `overview`，或者只保留 wrapper 级 `--xy-table-body-cell-padding-y/x`。
+- `system/user/index.vue`、`system/role/index.vue` 里为了列表页节奏而写的 `:deep(.xy-table__cell)`，现在应迁到 `list-shell` 示例这套 wrapper token。
+- `src/style/index.scss` 里 `[data-theme] .xy-table` 下整块 `!important` 变量覆盖，优先改成根层 table token；只有业务局部结构样式，例如操作列按钮布局，才继续留在页面层。
+
 ### 在弹性容器中使用 `auto`
 
 - 表格位于 flex 子项中时，推荐同时开启 `flexible`，或确保外层容器显式设置 `min-width: 0`。
@@ -190,6 +283,7 @@ table/multi-state
 | `data`                      | 数据源                                                        | `T[]`                                                                                                                       | `[]`                                                                         |
 | `row-key`                   | 行唯一标识字段或函数                                          | `TableProps<T>["rowKey"]`                                                                                                  | `undefined`                                                                  |
 | `size`                      | 表格尺寸                                                      | `TableProps["size"]`                                                                                                        | `'md'`                                                                       |
+| `overview`                  | 是否启用概览态节奏，适合 dashboard / 首屏摘要类表格           | `boolean`                                                                                                                   | `false`                                                                      |
 | `width`                     | 表格根节点宽度                                                | `string \| number`                                                                                                          | `undefined`                                                                  |
 | `height`                    | 固定高度，超过后表体滚动                                      | `string \| number`                                                                                                          | `undefined`                                                                  |
 | `max-height`                | 最大高度，超过后表体滚动                                      | `string \| number`                                                                                                          | `undefined`                                                                  |

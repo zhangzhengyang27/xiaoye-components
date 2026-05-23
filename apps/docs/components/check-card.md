@@ -52,7 +52,7 @@ check-card/slots
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:modelValue` | 选中状态变化时触发 | `(checked: boolean) => void` |
+| `update:model-value` | 选中状态变化时触发 | `(checked: boolean) => void` |
 | `change` | 选中状态变化时触发 | `(checked: boolean) => void` |
 | `extra` | 点击右上角操作区时触发 | `() => void` |
 
@@ -94,7 +94,7 @@ check-card/slots
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:modelValue` | 当前值变化时触发 | `(value: CheckCardSingleValue \| CheckCardValue[]) => void` |
+| `update:model-value` | 当前值变化时触发 | `(value: CheckCardSingleValue \| CheckCardValue[]) => void` |
 | `change` | 当前值变化时触发 | `(value: CheckCardSingleValue \| CheckCardValue[]) => void` |
 | `extra` | 某一项操作区被点击时触发 | `(option: CheckCardGroupOption) => void` |
 

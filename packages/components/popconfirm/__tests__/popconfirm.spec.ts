@@ -115,6 +115,26 @@ describe("XyPopconfirm", () => {
     expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([false]);
   });
 
+  it("在未提供 reference 插槽且没有 content 时，会把 default 插槽作为触发器", async () => {
+    const wrapper = mount(XyPopconfirm, {
+      attachTo: document.body,
+      props: {
+        title: "确认删除",
+        teleported: false,
+        hideAfter: 0
+      },
+      slots: {
+        default: () => h("button", { class: "legacy-trigger" }, "删除")
+      }
+    });
+
+    await wrapper.get(".legacy-trigger").trigger("click");
+    await nextTick();
+
+    expect(wrapper.find(".xy-popconfirm__body").exists()).toBe(false);
+    expect(wrapper.find(".xy-popconfirm__title").text()).toBe("确认删除");
+  });
+
   it("beforeConfirm 成功后会派发 confirm，并按 hideAfter 延迟关闭", async () => {
     vi.useFakeTimers();
     const beforeConfirm = vi.fn(async () => true);
@@ -151,6 +171,48 @@ describe("XyPopconfirm", () => {
     await nextTick();
 
     expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([false]);
+  });
+
+  it("会把 effect 对应的样式类挂到确认浮层面板上", async () => {
+    const wrapper = mount(XyPopconfirm, {
+      attachTo: document.body,
+      props: {
+        title: "确认删除",
+        effect: "dark",
+        teleported: false,
+        hideAfter: 0
+      },
+      slots: {
+        reference: "<button class='reference-trigger'>删除</button>"
+      }
+    });
+
+    await wrapper.get(".reference-trigger").trigger("click");
+    await nextTick();
+
+    const panel = document.body.querySelector(".xy-popconfirm__panel") as HTMLElement | null;
+    expect(panel?.classList.contains("xy-popconfirm__panel--dark")).toBe(true);
+  });
+
+  it("默认亮色确认浮层会保留统一面板结构类", async () => {
+    const wrapper = mount(XyPopconfirm, {
+      attachTo: document.body,
+      props: {
+        title: "确认归档",
+        teleported: false,
+        hideAfter: 0
+      },
+      slots: {
+        reference: "<button class='reference-trigger'>归档</button>"
+      }
+    });
+
+    await wrapper.get(".reference-trigger").trigger("click");
+    await nextTick();
+
+    const panel = document.body.querySelector(".xy-popconfirm__panel") as HTMLElement | null;
+    expect(panel?.classList.contains("xy-popconfirm__panel")).toBe(true);
+    expect(panel?.classList.contains("xy-popconfirm__panel--dark")).toBe(false);
   });
 
   it("beforeConfirm 返回 false 时保持展开且不派发 confirm", async () => {

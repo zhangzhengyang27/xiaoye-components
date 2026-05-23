@@ -334,6 +334,7 @@ export interface TableProps<T = Record<string, unknown>> {
   data: T[];
   loading?: boolean;
   size?: "sm" | "md" | "lg";
+  overview?: boolean;
   width?: string | number;
   height?: string | number;
   maxHeight?: string | number;

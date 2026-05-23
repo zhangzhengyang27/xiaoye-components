@@ -12,6 +12,7 @@ export interface FloatingVisibilityOptions {
   emitModelValue?: (value: boolean) => void;
   onOpen?: (source: "internal" | "external") => void;
   onClose?: (source: "internal" | "external") => void;
+  immediateExternal?: MaybeRefOrGetter<boolean | undefined>;
 }
 
 export interface FloatingVisibilityChangeOptions {
@@ -20,8 +21,8 @@ export interface FloatingVisibilityChangeOptions {
 }
 
 export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
-  const visible = ref(toValue(options.modelValue) ?? false);
-  const rendered = ref(visible.value || Boolean(toValue(options.persistent)));
+  const visible = ref(false);
+  const rendered = ref(Boolean(toValue(options.modelValue)) || Boolean(toValue(options.persistent)));
   let openTimer: number | null = null;
   let closeTimer: number | null = null;
 
@@ -149,10 +150,23 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
         return;
       }
 
-      setVisible(Boolean(value), {
+      if (value) {
+        open({
+          emitModelValue: false,
+          source: "external",
+          immediate: Boolean(toValue(options.immediateExternal))
+        });
+        return;
+      }
+
+      close({
         emitModelValue: false,
-        source: "external"
+        source: "external",
+        immediate: Boolean(toValue(options.immediateExternal))
       });
+    },
+    {
+      immediate: true
     }
   );
 

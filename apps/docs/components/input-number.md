@@ -57,6 +57,7 @@ input-number/methods
 
 | 属性                  | 说明                  | 类型                               | 默认值                    |
 | --------------------- | --------------------- | ---------------------------------- | ------------------------- |
+| `id`                  | 原生 id              | `string`                           | `undefined`               |
 | `model-value`         | 当前值                | `InputNumberProps["modelValue"]`  | `null`                    |
 | `min`                 | 最小值                | `number`                           | `Number.MIN_SAFE_INTEGER` |
 | `max`                 | 最大值                | `number`                           | `Number.MAX_SAFE_INTEGER` |

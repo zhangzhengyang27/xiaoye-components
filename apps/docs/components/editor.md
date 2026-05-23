@@ -68,7 +68,7 @@ editor/overlay-form-publisher
 
 | 事件 | 说明 | 参数 |
 | --- | --- | --- |
-| `update:modelValue` | 内容输入变化时触发 | `EditorModelValueChangeHandler` |
+| `update:model-value` | 内容输入变化时触发 | `EditorModelValueChangeHandler` |
 | `init` | 编辑器实例初始化后触发 | `EditorInstanceHandler` |
 | `ready` | 编辑器实例可用后触发 | `EditorInstanceHandler` |
 | `focus` | 获取焦点时触发 | `EditorFocusHandler` |

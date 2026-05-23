@@ -97,6 +97,7 @@ input/form
 | `tabindex`            | 原生 tabindex        | `string \| number`                                                                        | —                    |
 | `validate-event`      | 是否触发表单校验     | `boolean`                                                                                 | `true`               |
 | `input-style`         | 原生输入框样式       | `StyleValue`                                                                              | `''`                 |
+| `container-role`      | 输入框容器角色       | `string`                                                                                  | —                    |
 | `autofocus`           | 原生 autofocus       | `boolean`                                                                                 | `false`              |
 | `aria-label`          | 原生 aria-label      | `string`                                                                                  | —                    |
 | `inputmode`           | 原生 inputmode       | `HTMLAttributes['inputmode']`                                                             | —                    |

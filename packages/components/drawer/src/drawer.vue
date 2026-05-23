@@ -185,7 +185,17 @@ const {
   teleportDisabled,
   visible,
   zIndex
-} = useOverlayDialog(props, {
+} = useOverlayDialog({
+  modelValue: () => props.modelValue,
+  destroyOnClose: () => props.destroyOnClose,
+  lockScroll: () => props.lockScroll,
+  openDelay: () => props.openDelay,
+  closeDelay: () => props.closeDelay,
+  appendToBody: () => props.appendToBody,
+  appendTo: () => props.appendTo,
+  modal: () => props.modal,
+  zIndex: () => props.zIndex
+}, {
   destroyStrategy: "content",
   onOpen: () => {
     closing.value = false

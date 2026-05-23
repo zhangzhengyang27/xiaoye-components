@@ -8,6 +8,15 @@ outline: deep
 
 `xy-select` 用于后台筛选栏和表单枚举值录入。当前版本已经统一为一套通用枚举选择器，支持单选、多选、远程搜索、创建项、清空和键盘导航。
 
+## 迁移提示
+
+- 后台项目如果只是想收口 Select 下拉面板的背景、边框、阴影、圆角或宽度，优先使用：
+  - `popper-class`
+  - `popper-style`
+  - `dropdown-min-width / dropdown-max-width`
+- 不建议继续在页面层 deep 到 `.xy-select__dropdown`、`.xy-select__option`、`.xy-select__group` 这类内部结构类名。
+- 如果你只是想做“dashboard 概览筛选条”风格收口，优先在实例级样式里调整面板气质，而不是在每个业务页单独重写 option、empty、loading 的细节样式。
+
 ## 基础用法
 
 :::demo 最基础的用法是传入 `options`，再用 `v-model` 接住当前选中值。
@@ -50,6 +59,12 @@ select/panel-slots
 select/loading
 :::
 
+## 实例级样式收口
+
+:::demo 当后台项目只想让筛选面板更贴近当前主题时，优先通过 `popper-class` 和实例级变量收口，而不是继续 deep 到内部类名。
+select/popper-class
+:::
+
 ## 远程搜索
 
 :::demo `remote` 模式下组件只派发 `search-change`，外部根据关键词更新 `options` 和 `loading` 即可。
@@ -79,14 +94,60 @@ select/methods
 - `remote` 打开后，组件不会再做本地过滤，只展示外部传入选项。
 - `allow-create` 适合轻量自定义枚举录入，仍然遵循当前选项值类型。
 
+## 命名映射
+
+Vue 模板中 props 和 events 使用 kebab-case，源码 / TS 类型层使用 camelCase，两者等价：
+
+### Props 映射
+
+| 模板写法（kebab-case） | 源码 / TS 写法（camelCase） |
+| ---------------------- | --------------------------- |
+| `model-value`          | `modelValue`                |
+| `loading-text`         | `loadingText`               |
+| `search-placeholder`   | `searchPlaceholder`         |
+| `create-text`          | `createText`                |
+| `no-data-text`         | `noDataText`                |
+| `no-match-text`        | `noMatchText`               |
+| `prefix-icon`          | `prefixIcon`                |
+| `suffix-icon`          | `suffixIcon`                |
+| `clear-icon`           | `clearIcon`                 |
+| `popper-class`         | `popperClass`               |
+| `popper-style`         | `popperStyle`               |
+| `fit-trigger-width`    | `fitTriggerWidth`           |
+| `fit-input-width`      | `fitInputWidth`             |
+| `collapse-tags`        | `collapseTags`              |
+| `max-tag-count`        | `maxTagCount`               |
+| `allow-create`         | `allowCreate`               |
+| `append-to`            | `appendTo`                  |
+| `dropdown-min-width`   | `dropdownMinWidth`          |
+| `dropdown-max-width`   | `dropdownMaxWidth`          |
+
+其余布尔型 / 短单词 props（`disabled`、`clearable`、`searchable`、`multiple`、`remote`、`loading`、`teleported`）以及单单词 props（`options`、`placeholder`、`size`、`offset`、`placement`）在模板与 TS 层写法一致，无需转换。
+
+### Events 映射
+
+| 模板写法（kebab-case） | 源码 emit 写法（camelCase） |
+| ---------------------- | --------------------------- |
+| `update:model-value`   | `update:modelValue`         |
+| `visible-change`       | `visibleChange`             |
+| `search-change`        | `searchChange`              |
+
+其余事件（`change`、`clear`、`focus`、`blur`）为单单词，模板与源码写法一致。
+
+### `fit-input-width` 与 `fit-trigger-width` 的关系
+
+- **推荐使用 `fit-input-width`**：控制下拉面板是否跟随触发器宽度。
+- `fit-trigger-width` 是兼容别名，仅当 `fit-input-width` 未显式传入时才生效（即 `fitInputWidth ?? fitTriggerWidth`）。
+- 两者功能相同，`fit-input-width` 优先级更高；新代码建议只写 `fit-input-width`，不需要同时传两个。
+
 ## API
 
 ### Select Attributes
 
 | 属性                 | 说明                         | 类型                                          | 默认值               |
 | -------------------- | ---------------------------- | --------------------------------------------- | -------------------- |
-| `model-value`        | 当前选中值                   | `SelectProps<T>["modelValue"]`                   | `null` |
-| `options`            | 选项列表                     | `SelectProps<T>["options"]`                   | —                    |
+| `model-value`        | 当前选中值                   | `SelectValue<T>`                                | `null` |
+| `options`            | 选项列表                     | `SelectOptionItem<T>[]`                        | —                    |
 | `placeholder`        | 未选择时的占位提示           | `string`                                      | `'请选择'`           |
 | `disabled`           | 是否禁用                     | `boolean`                                     | `false`              |
 | `clearable`          | 是否允许清空当前选中值       | `boolean`                                     | `false`              |
@@ -96,7 +157,7 @@ select/methods
 | `max-tag-count`      | 折叠前最多展示的标签数       | `number`                                      | `undefined`          |
 | `remote`             | 是否启用远程搜索             | `boolean`                                     | `false`              |
 | `allow-create`       | 是否允许按搜索词创建新项     | `boolean`                                     | `false`              |
-| `size`               | 组件尺寸                     | `SelectProps["size"]`                         | 跟随全局配置         |
+| `size`               | 组件尺寸                     | `ComponentSize`                               | 跟随全局配置         |
 | `no-data-text`       | 无选项时的文案               | `string`                                      | `'暂无选项'`         |
 | `no-match-text`      | 搜索无结果时的文案           | `string`                                      | `'没有匹配项'`       |
 | `loading`            | 是否处于加载态               | `boolean`                                     | `false`              |
@@ -112,8 +173,8 @@ select/methods
 | `offset`             | 下拉面板偏移量               | `number`                                      | `12`                 |
 | `popper-class`       | 下拉面板自定义类名           | `string`                                      | `''`                 |
 | `popper-style`       | 下拉面板自定义样式           | `StyleValue`                                  | `''`                 |
-| `fit-trigger-width`  | 兼容别名；当未显式传 `fit-input-width` 时，用它控制下拉面板是否跟随触发器宽度 | `boolean` | `true` |
-| `fit-input-width`    | 是否让下拉面板跟随触发器宽度 | `boolean`                                     | `true`               |
+| `fit-trigger-width`  | 兼容别名；当未显式传 `fit-input-width` 时，用它控制下拉面板是否跟随触发器宽度，不作为新的主推荐写法 | `boolean` | `true` |
+| `fit-input-width`    | 是否让下拉面板跟随触发器宽度 | `boolean`                                     | `undefined`（未传时回退 `fit-trigger-width`） |
 | `dropdown-min-width` | 下拉面板最小宽度             | `string \| number`                            | —                    |
 | `dropdown-max-width` | 下拉面板最大宽度             | `string \| number`                            | —                    |
 
@@ -128,6 +189,8 @@ select/methods
 | `focus`              | 下拉打开时触发       | —                          |
 | `blur`               | 下拉关闭时触发       | —                          |
 | `search-change`      | 搜索关键字变化时触发 | `SelectSearchChangeHandler`                   |
+
+> 模板层监听事件使用 `visible-change`、`search-change`；源码 emit 和 TS 类型层对应的是 `visibleChange`、`searchChange`。
 
 ### Select Option
 

@@ -95,7 +95,7 @@ export function useDialog(
     overlayRef: { value: HTMLElement | null };
   }
 ) {
-  const { dialog: globalDialogConfig } = useConfig();
+  const { dialog: globalDialogConfig } = useConfig<DialogGlobalConfig>();
   const titleId = `xy-dialog-title-${Math.random().toString(36).slice(2, 10)}`;
   const bodyId = `xy-dialog-body-${Math.random().toString(36).slice(2, 10)}`;
   const closing = ref(false);
@@ -179,6 +179,7 @@ export function useDialog(
       zIndex: () => props.zIndex
     },
     {
+      destroyStrategy: "wrapper",
       onOpen: () => {
         closing.value = false;
         options.emitOpen();
@@ -201,7 +202,6 @@ export function useDialog(
         options.emitOpened();
       },
       onClosed: () => {
-        closing.value = false;
         options.emitClosed();
         options.emitUpdateModelValue(false);
       }

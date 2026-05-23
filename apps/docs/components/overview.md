@@ -79,6 +79,7 @@ outline: deep
       <a href="/components/alert">Alert 提示</a>
       <a href="/components/message">Message 消息提示</a>
       <a href="/components/notification">Notification 通知</a>
+      <a href="/guide/backend-migration">后台迁移指南</a>
       <a href="/components/collapse">Collapse 折叠面板</a>
       <a href="/components/collapse-transition">Collapse Transition 折叠过渡</a>
       <a href="/components/empty">Empty 空状态</a>
@@ -124,6 +125,8 @@ outline: deep
 如果你正在搭列表页或结果反馈页，优先阅读 [Alert 提示](/components/alert)、[Table 表格](/components/table)、[Skeleton 骨架屏](/components/skeleton)、[Empty 空状态](/components/empty) 和 [Result 结果](/components/result)。<br />
 如果你已经明确要查某个组件的完整 API，直接进入对应的单组件页会更快。
 :::
+
+如果你正在做后台项目的样式收口，先看 [后台迁移指南](/guide/backend-migration)，再回来看组件总览和 Table 的 `overview` 用法。
 
 ## 当前最值得先看的页面
 

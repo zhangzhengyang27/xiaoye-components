@@ -32,6 +32,38 @@
 }
 
 .xy-drawer__panel {
+  --xy-drawer-panel-bg: var(
+    --xy-drawer-bg,
+    var(
+      --xy-dialog-bg,
+      var(
+        --xy-surface-raised,
+        color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle))
+      )
+    )
+  );
+  --xy-drawer-panel-border: color-mix(
+    in srgb,
+    var(--xy-border-color-subtle) 84%,
+    var(--xy-border-color)
+  );
+  --xy-drawer-section-bg: var(
+    --xy-drawer-section-background,
+    color-mix(in srgb, var(--xy-drawer-panel-bg) 98%, var(--xy-bg-color-subtle))
+  );
+  --xy-drawer-body-color: var(--xy-drawer-text-color, var(--xy-text-color-secondary));
+  --xy-drawer-header-padding-y: 10px;
+  --xy-drawer-header-padding-x: 16px;
+  --xy-drawer-body-padding-y: 10px;
+  --xy-drawer-body-padding-x: 16px;
+  --xy-drawer-footer-padding-y: 10px;
+  --xy-drawer-footer-padding-x: 16px;
+  --xy-drawer-panel-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 6%, transparent),
+    0 12px 32px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+  --xy-drawer-header-bg: var(--xy-drawer-section-bg);
+  --xy-drawer-body-bg: var(--xy-drawer-panel-bg);
+  --xy-drawer-footer-bg: var(--xy-drawer-section-bg);
   position: relative;
   z-index: 1;
   display: flex;
@@ -40,9 +72,9 @@
   pointer-events: auto;
   width: min(100%, 420px);
   height: 100%;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: var(--xy-bg-color-floating);
-  box-shadow: var(--xy-shadow-modal);
+  border: 1px solid var(--xy-drawer-panel-border);
+  background: var(--xy-drawer-panel-bg);
+  box-shadow: var(--xy-drawer-panel-shadow);
   outline: none;
   transition: transform var(--xy-transition-duration, 0.2s) ease;
   isolation: isolate;
@@ -70,7 +102,7 @@
   height: 100%;
   max-width: none;
   border: 0;
-  background: var(--xy-bg-color-floating);
+  background: var(--xy-drawer-panel-bg);
   box-shadow: none;
   border-radius: 0;
 }
@@ -80,20 +112,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
-  background: var(--xy-bg-color-floating);
+  gap: 12px;
+  background: var(--xy-drawer-header-bg);
+}
+
+.xy-drawer__header {
+  padding: var(--xy-drawer-header-padding-y) var(--xy-drawer-header-padding-x);
+  border-bottom: 1px solid var(--xy-drawer-panel-border);
 }
 
 .xy-drawer__body {
   flex: 1;
-  padding: 0 24px 24px;
+  padding: var(--xy-drawer-body-padding-y) var(--xy-drawer-body-padding-x);
   overflow: auto;
-  color: var(--xy-text-color);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 20%, var(--xy-bg-color-floating));
+  color: var(--xy-drawer-body-color);
+  background: var(--xy-drawer-body-bg);
 }
 
 .xy-drawer__footer {
-  border-top: 1px solid var(--xy-border-color-subtle);
+  padding: var(--xy-drawer-footer-padding-y) var(--xy-drawer-footer-padding-x);
+  background: var(--xy-drawer-footer-bg);
+  border-top: 1px solid var(--xy-drawer-panel-border);
 }
 
 .xy-drawer__body > * {
@@ -101,16 +140,16 @@
 }
 
 .xy-drawer__body.is-without-header {
-  padding-top: 24px;
+  padding-top: 16px;
 }
 
 .xy-drawer__title {
   margin: 0;
   flex: 1;
   line-height: 1.4;
-  font-size: var(--xy-font-size-xl);
+  font-size: calc(var(--xy-font-size-lg) + 1px);
   font-weight: 600;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-drawer-title-color, var(--xy-dialog-title-color, var(--xy-text-color-heading)));
 }
 
 .xy-drawer__close {
@@ -130,7 +169,7 @@
 }
 
 .xy-drawer__close:hover {
-  background: var(--xy-bg-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-drawer-panel-bg));
   color: var(--xy-text-color);
 }
 

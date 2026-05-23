@@ -13,6 +13,7 @@ import {
 import { useConfig, useNamespace } from "@xiaoye/primitives";
 import XyEmpty from "../../empty";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
+import type { LoadingGlobalConfig } from "../../loading/src/types";
 import XyScrollbar from "../../scrollbar";
 import TableBody from "./table-body/body.vue";
 import TableFooter from "./table-footer/footer.vue";
@@ -40,6 +41,7 @@ defineOptions({
 const props = withDefaults(defineProps<TableProps<T>>(), {
   loading: false,
   size: "md",
+  overview: false,
   width: undefined,
   height: undefined,
   maxHeight: undefined,
@@ -166,7 +168,7 @@ const emit = defineEmits<{
 const componentInstance = getCurrentInstance();
 const attrs = useAttrs();
 const ns = useNamespace("table");
-const { loading: globalLoading } = useConfig();
+const { loading: globalLoading } = useConfig<unknown, LoadingGlobalConfig>();
 const rootRef = ref<HTMLElement | null>(null);
 const lastScrollEventKey = ref("0:0");
 const resizeProxyVisible = ref(false);
@@ -184,6 +186,9 @@ const resolvedLoading = computed(() =>
     hasLoadingTextProp.value,
     props.loadingText
   )
+);
+const resolvedVirtualItemSize = computed(() =>
+  props.overview ? Math.max(40, Math.round(props.virtualItemSize * 0.875)) : props.virtualItemSize
 );
 
 provide(tableContextKey, {
@@ -578,6 +583,7 @@ const nativeAttrs = computed<Record<string, unknown>>(() => {
 const tableRootClasses = computed(() => [
   ns.base.value,
   `${ns.base.value}--${props.size}`,
+  ns.is("overview", props.overview),
   ns.is("striped", mergedStripe.value),
   ns.is("bordered", mergedBorder.value),
   ns.is("loading", props.loading),
@@ -1005,6 +1011,7 @@ defineExpose<TableInstance<T>>({
         <div
           v-if="props.loading"
           class="xy-table__loading"
+          :class="{ 'is-overview': props.overview }"
           :style="resolvedLoading.background ? { background: resolvedLoading.background } : undefined"
         >
           <slot name="loading">
@@ -1039,8 +1046,9 @@ defineExpose<TableInstance<T>>({
           :preserve-expanded-content="props.preserveExpandedContent"
           :table-layout="props.tableLayout"
           :show-header="props.showHeader"
+          :overview="props.overview"
           :virtual="props.virtual"
-          :virtual-item-size="props.virtualItemSize"
+          :virtual-item-size="resolvedVirtualItemSize"
           :virtual-overscan="props.virtualOverscan"
           :scroll-top="layout.scrollTop.value"
           :viewport-height="layout.bodyClientHeight.value"
@@ -1058,13 +1066,18 @@ defineExpose<TableInstance<T>>({
           @cell-mouse-leave="handleCellMouseLeave"
         />
 
-        <div v-else-if="!props.loading" class="xy-table__empty">
+        <div v-else-if="!props.loading" class="xy-table__empty" :class="{ 'is-overview': props.overview }">
           <slot name="empty">
             <xy-empty :description="props.emptyText" />
           </slot>
         </div>
 
-        <div v-if="$slots.append" class="xy-table__append-wrapper" :style="appendWrapperStyle">
+        <div
+          v-if="$slots.append"
+          class="xy-table__append-wrapper"
+          :class="{ 'is-overview': props.overview }"
+          :style="appendWrapperStyle"
+        >
           <slot name="append" />
         </div>
       </xy-scrollbar>
@@ -1095,7 +1108,7 @@ defineExpose<TableInstance<T>>({
             :table-layout="props.tableLayout"
             :show-header="props.showHeader"
             :virtual="props.virtual"
-            :virtual-item-size="props.virtualItemSize"
+            :virtual-item-size="resolvedVirtualItemSize"
             :virtual-overscan="props.virtualOverscan"
             :scroll-top="layout.scrollTop.value"
             :viewport-height="layout.bodyClientHeight.value"
@@ -1141,7 +1154,7 @@ defineExpose<TableInstance<T>>({
             :table-layout="props.tableLayout"
             :show-header="props.showHeader"
             :virtual="props.virtual"
-            :virtual-item-size="props.virtualItemSize"
+            :virtual-item-size="resolvedVirtualItemSize"
             :virtual-overscan="props.virtualOverscan"
             :scroll-top="layout.scrollTop.value"
             :viewport-height="layout.bodyClientHeight.value"

@@ -8,6 +8,16 @@ outline: deep
 
 `xy-tooltip` 用来承载一两句补充说明。它支持 `hover`、`click`、`focus`、`contextmenu` 和 `manual`，也支持触发方式数组、键盘切换、受控显示和虚拟触发，适合按钮解释、表头提示和轻量说明文案。
 
+## 迁移提示
+
+- 后台项目如果只是想收口 tooltip 的背景、边框、阴影或圆角，优先使用：
+  - `effect`
+  - `popper-class`
+  - `popper-style`
+  - 对应 `--xy-tooltip-*` 变量
+- 不建议继续在页面层 deep 到 `.xy-tooltip__content` 或箭头内部结构类名。
+- 如果内容已经超过一两句，或者开始出现按钮、表单和多段说明，优先改用 `xy-popover`，不要继续把复杂交互塞进 `tooltip`。
+
 ## 何时使用
 
 - 需要对按钮、图标等元素补充简短说明（如工具栏图标的含义）时。
@@ -47,6 +57,12 @@ tooltip/custom
 tooltip/trigger
 :::
 
+## 实例级样式收口
+
+:::demo 当业务只想让 tooltip 更贴近后台主题时，优先通过 `popper-class` 和组件变量收口，而不是继续 deep 到内部类名。
+tooltip/popper-class
+:::
+
 ## 受控与手动模式
 
 :::demo `trigger="manual"` 时不会自动响应 hover、click 或 focus，适合完全由外部状态驱动。
@@ -60,6 +76,39 @@ tooltip/advanced
 :::
 
 > `raw-content` 会直接渲染 HTML 字符串，只建议在内容可信时使用；有现成 Vue 节点时优先使用 `content` 插槽。
+
+## 命名映射
+
+Vue 模板会自动将 camelCase 属性名转换为 kebab-case，因此**模板里写 kebab-case，TS / 源码里写 camelCase**，两者完全等价：
+
+| 模板写法（推荐） | TS / 源码 props 写法 |
+| --- | --- |
+| `model-value` | `modelValue` |
+| `open-delay` | `openDelay` |
+| `close-delay` | `closeDelay` |
+| `show-after` | `showAfter` |
+| `hide-after` | `hideAfter` |
+| `trigger-keys` | `triggerKeys` |
+| `show-arrow` | `showArrow` |
+| `max-width` | `maxWidth` |
+| `append-to` | `appendTo` |
+| `popper-class` | `popperClass` |
+| `popper-style` | `popperStyle` |
+| `close-on-esc` | `closeOnEsc` |
+| `close-on-outside` | `closeOnOutside` |
+| `aria-label` | `ariaLabel` |
+| `raw-content` | `rawContent` |
+| `virtual-ref` | `virtualRef` |
+| `virtual-triggering` | `virtualTriggering` |
+| `popper-options` | `popperOptions` |
+
+> 其余属性（`content`、`placement`、`disabled`、`trigger`、`offset`、`teleported`、`persistent`、`effect`、`transition`、`enterable`）本身只有单个单词，模板和源码写法一致。
+
+### 事件映射
+
+模板中监听 `@update:model-value`，对应源码 emit `update:modelValue`，Vue 会自动完成转换，两者等价。在 TS 中使用 `defineEmits` 或类型推导时写 `update:modelValue`，在模板中写 `@update:model-value`。
+
+下方 API 表格统一按**模板层推荐写法**列出。
 
 ## API
 
@@ -115,6 +164,8 @@ type TooltipPopperOptions = TooltipProps["popperOptions"];
 | `before-hide`        | 关闭前触发   | —         |
 | `close`              | 关闭时触发   | —         |
 | `hide`               | 离场过渡结束后触发 | —      |
+
+> 模板层监听事件使用 `update:model-value`；源码 emit 和 TS 类型层对应的是 `update:modelValue`。
 
 ### Tooltip Slots
 

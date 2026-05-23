@@ -1,6 +1,6 @@
 {
   "name": "xiaoye-primitives",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "xiaoye 组件库基础设施：composables + utils + theme",
   "license": "MIT",
@@ -32,13 +32,11 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./style.css": {
-      "types": "./dist/style.css.d.ts",
-      "default": "./dist/style.css"
-    }
+    "./style.css": "./style.css"
   },
   "files": [
     "dist",
+    "style.css",
     "README.md",
     "LICENSE"
   ],

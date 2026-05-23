@@ -1,8 +1,8 @@
 import { computed } from "vue";
-import { configProviderKey, DEFAULT_NAMESPACE } from "./shared-context";
+import { useConfig } from "./use-config";
 
 export function useNamespace(block: string) {
-  const namespace = computed(() => DEFAULT_NAMESPACE);
+  const { namespace } = useConfig();
   const base = computed(() => `${namespace.value}-${block}`);
 
   const is = (state: string, active?: boolean) => (active ? `is-${state}` : "");

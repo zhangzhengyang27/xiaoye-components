@@ -237,6 +237,196 @@ describe("XyTable", () => {
     expect(wrapper.find(".xy-table__row").attributes("style")).toContain("color: rgb(255, 0, 0)");
   });
 
+  it("overview 模式会附加概览态类名，但不替换显式 size 合同", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id" size="sm" overview>
+          <xy-table-column prop="name" label="名称" />
+        </xy-table>
+      `,
+      () => ({
+        rows: [{ id: 1, name: "Billing Console", score: 96, status: "启用" as const }]
+      })
+    );
+
+    await nextTick();
+
+    const table = wrapper.find(".xy-table");
+    expect(table.classes()).toContain("xy-table--sm");
+    expect(table.classes()).toContain("is-overview");
+  });
+
+  it("overview 模式会收紧表头/单元格/空态/附加区的节奏", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id" overview>
+          <xy-table-column prop="name" label="名称" />
+          <template #append>
+            <div class="append-slot">概览附加区域</div>
+          </template>
+        </xy-table>
+      `,
+      () => ({
+        rows: [] as Array<{ id: number; name: string }>
+      })
+    );
+
+    await nextTick();
+
+    expect(wrapper.find(".xy-table").classes()).toContain("is-overview");
+    expect(wrapper.find(".xy-table__empty").classes()).toContain("is-overview");
+    expect(wrapper.find(".xy-table__append-wrapper").classes()).toContain("is-overview");
+  });
+
+  it("overview 模式会把展开区标记为概览态", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id" overview>
+          <xy-table-column type="expand">
+            <template #default="{ row }">
+              <div class="expanded-slot">{{ row.name }}</div>
+            </template>
+          </xy-table-column>
+          <xy-table-column prop="name" label="名称" />
+        </xy-table>
+      `,
+      () => ({
+        rows: [{ id: 1, name: "Billing Console", score: 96, status: "启用" as const }]
+      })
+    );
+
+    await nextTick();
+    await wrapper.find(".xy-table__expand-trigger").trigger("click");
+    await nextTick();
+
+    expect(wrapper.find(".xy-table__expanded-content").classes()).toContain("is-overview");
+  });
+
+  it("overview 模式会收紧虚拟行高，但不会影响非概览态", async () => {
+    const overviewWrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id" overview virtual>
+          <xy-table-column prop="name" label="名称" />
+        </xy-table>
+      `,
+      () => ({
+        rows: Array.from({ length: 10 }, (_, index) => ({
+          id: index + 1,
+          name: `概览行 ${index + 1}`,
+          score: 90 - index,
+          status: "启用" as const
+        }))
+      })
+    );
+
+    const normalWrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id" virtual>
+          <xy-table-column prop="name" label="名称" />
+        </xy-table>
+      `,
+      () => ({
+        rows: Array.from({ length: 10 }, (_, index) => ({
+          id: index + 1,
+          name: `普通行 ${index + 1}`,
+          score: 90 - index,
+          status: "启用" as const
+        }))
+      })
+    );
+
+    await nextTick();
+
+    expect(overviewWrapper.find(".xy-table__row").attributes("style")).toContain("height: 42px");
+    expect(normalWrapper.find(".xy-table__row").attributes("style")).toContain("height: 48px");
+  });
+
+  it("overview 模式不会改变显式 size 合同，也会保留筛选面板", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-table
+          :data="rows"
+          row-key="id"
+          size="sm"
+          overview
+        >
+          <xy-table-column
+            prop="status"
+            label="状态"
+            :filters="filters"
+          />
+        </xy-table>
+      `,
+      () => ({
+        rows: [
+          { id: 1, status: "启用" },
+          { id: 2, status: "停用" }
+        ],
+        filters: [
+          { text: "启用", value: "启用" },
+          { text: "停用", value: "停用" }
+        ]
+      })
+    );
+
+    await nextTick();
+
+    expect(wrapper.find(".xy-table").classes()).toContain("xy-table--sm");
+    expect(wrapper.find(".xy-table").classes()).toContain("is-overview");
+    expect(wrapper.find(".xy-table__filter-trigger").exists()).toBe(true);
+  });
+
+  it("overview 模式会标记 loading 容器并保持更轻的视觉节奏", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id" overview loading>
+          <xy-table-column prop="name" label="名称" />
+        </xy-table>
+      `,
+      () => ({
+        rows: [{ id: 1, name: "加载中", score: 88, status: "启用" as const }]
+      })
+    );
+
+    await nextTick();
+
+    expect(wrapper.find(".xy-table__loading").classes()).toContain("is-overview");
+    expect(wrapper.find(".xy-table").classes()).toContain("is-overview");
+  });
+
+  it("overview 模式下 append 和 filter-panel 仍保持可用且不突兀", async () => {
+    const wrapper = createTableWrapper(
+      `
+        <xy-table :data="rows" row-key="id" overview>
+          <xy-table-column
+            prop="status"
+            label="状态"
+            :filters="filters"
+            filter-placement="top-start"
+          />
+          <template #append>
+            <div class="append-slot">概览附加区域</div>
+          </template>
+        </xy-table>
+      `,
+      () => ({
+        rows: [
+          { id: 1, status: "启用" },
+          { id: 2, status: "停用" }
+        ],
+        filters: [
+          { text: "启用", value: "启用" },
+          { text: "停用", value: "停用" }
+        ]
+      })
+    );
+
+    await nextTick();
+
+    expect(wrapper.find(".xy-table__append-wrapper").classes()).toContain("is-overview");
+    expect(wrapper.find(".xy-table__filter-trigger").exists()).toBe(true);
+  });
+
   it("row-click / row-dblclick / row-contextmenu 会回传命中的列上下文", async () => {
     const wrapper = createTableWrapper(
       `

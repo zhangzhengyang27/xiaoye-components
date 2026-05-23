@@ -8,6 +8,15 @@ outline: deep
 
 `xy-popover` 用来承载比 Tooltip 更重一点的说明或轻交互内容。它不是纯提示，也不需要像 Dialog 那样阻断页面。
 
+## 迁移提示
+
+- 后台项目如果只是想收口 popover 的背景、边框、阴影、宽度或圆角，优先使用：
+  - `popper-class`
+  - `popper-style`
+  - `width`
+- 不建议继续在页面层 deep 到 `.xy-popover__panel`、`.xy-popover__header`、`.xy-popover__content` 这类内部结构类名。
+- 如果浮层内容已经开始接近确认弹层或小型表单，先判断是否应该升级到 `xy-dialog` 或 `xy-drawer`，不要在业务页继续堆叠局部补丁。
+
 ## 基础用法
 
 :::demo 最常见的场景是放一段说明文案和一个轻量按钮，让用户在原地完成理解或确认。
@@ -32,12 +41,52 @@ popover/trigger-close
 popover/nested-overlay
 :::
 
-## Tooltip 和 Popover 的边界
+## 实例级样式收口
 
-- `Tooltip`：短文案、解释性提示、不承载操作。
-- `Popover`：多段说明、轻量交互、外部点击和 `Escape` 可关闭。
+:::demo 当后台项目只想让轻交互卡片更贴近当前主题时，优先通过 `popper-class` 和实例级变量收口，而不是继续 deep 到内部类名。
+popover/popper-class
+:::
+
+## 浮层边界
+
+- `Tooltip`：短文案、解释性提示，不承载操作。
+- `Popover`：多段说明、轻量交互，不是确认弹层。
+- `Popconfirm`：确认类交互（删除确认、发布确认），不是一般说明浮层。
+- `Dropdown`：菜单/操作列表，不是提示或确认浮层。
 
 ## API
+
+### 命名对照
+
+Vue 模板中属性和事件使用 kebab-case，源码 props / emits 使用 camelCase，两者由 Vue 自动转换，无需手动处理。
+
+#### 属性映射
+
+| 模板写法（kebab-case） | 源码 props（camelCase） |
+| ---------------------- | ----------------------- |
+| `model-value`          | `modelValue`            |
+| `close-on-outside`     | `closeOnOutside`        |
+| `close-on-esc`         | `closeOnEsc`            |
+| `open-delay`           | `openDelay`             |
+| `close-delay`          | `closeDelay`            |
+| `show-after`           | `showAfter`             |
+| `hide-after`           | `hideAfter`             |
+| `show-arrow`           | `showArrow`             |
+| `append-to`            | `appendTo`              |
+| `popper-class`         | `popperClass`           |
+| `popper-style`         | `popperStyle`           |
+
+其余属性（`title`、`content`、`placement`、`width`、`disabled`、`trigger`、`enterable`、`offset`、`teleported`、`persistent`）为单词形式，模板与源码写法一致，无需转换。
+
+#### 事件映射
+
+| 模板写法                  | 源码 emit              | 说明 |
+| ------------------------- | ---------------------- | ---- |
+| `@update:model-value`     | `update:modelValue`    | Vue 将 `modelValue` 自动转为 `model-value`，模板监听时必须写 `@update:model-value` |
+| `@open`                   | `open`                 | 单词形式，写法一致 |
+| `@close`                  | `close`                | 单词形式，写法一致 |
+
+在 TS 对象、组件 props 类型、JSX / TSX 或手动声明回调函数的场景里传参或取类型，应以 camelCase 名称为准。
 
 ### Popover Attributes
 
@@ -73,11 +122,15 @@ popover/nested-overlay
 | `open`               | 打开时触发   | —         |
 | `close`              | 关闭时触发   | —         |
 
+> 事件名映射详见上方[事件映射](#事件映射)。
+
 ### Popover Slots
 
 | 插槽        | 说明         |
 | ----------- | ------------ |
-| `reference` | 推荐的触发区域插槽 |
-| `trigger`   | 兼容的触发区域插槽 |
+| `reference` | 推荐的触发区域插槽，新代码优先使用 |
+| `trigger`   | 兼容的触发区域插槽，仅当 `reference` 未提供时回退生效 |
 | `header`    | 自定义头部   |
 | `default`   | 面板主体内容，插槽参数为 `PopoverDefaultSlotProps` |
+
+> 源码回退顺序：`reference` → `trigger` → 默认按钮（"打开说明"）。

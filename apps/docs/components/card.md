@@ -8,6 +8,18 @@ outline: deep
 
 `xy-card` 提供更贴合中后台容器的布局和状态能力。适合列表摘要、筛选面板、统计区块、图文信息块和数据态承载。
 
+## Contract 提醒
+
+- `xy-card` 的标准头部 contract 是：
+  - `header`
+  - `extra`
+  - `header-class / body-class / footer-class`
+- 不是：
+  - `title`
+  - `#header-extra`
+- 如果页面仍然写 `<xy-card title="...">` 或 `<template #header-extra>`，问题通常不是“样式没挂上”，而是头部结构根本不会渲染。
+- 需要自定义头部布局时，优先使用 `#header`；只需要标准标题加右侧操作区时，优先用 `header + #extra`。
+
 ## 基础用法
 
 :::demo 头部、主体、底部是最常见的卡片结构，适合设置面板和信息摘要。

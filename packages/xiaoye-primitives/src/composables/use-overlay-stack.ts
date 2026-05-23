@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, ref } from "vue";
 import type { ComputedRef } from "vue";
 
 interface OverlayEntry {
@@ -33,27 +33,33 @@ function createStack() {
 
   function createOverlayEntry(): OverlayEntry {
     const id = Symbol("overlay");
-    let closed = false;
+    let opened = false;
+    let disposed = false;
 
     const entry: OverlayEntry = {
       id,
       zIndex: -1,
       isTopMost: () => {
-        if (closed) return false;
+        if (disposed || !opened) return false;
         const top = getTopEntry();
         return top?.id === id;
       },
       openLayer: () => {
-        if (closed) return;
+        if (disposed) return;
         entry.zIndex = ++zIndexCounter.value;
-        stack.value.add(entry);
+        if (!opened) {
+          stack.value.add(entry);
+          opened = true;
+        }
         notifyStackChange();
       },
       closeLayer: () => {
-        if (closed) return;
-        closed = true;
-        stack.value.delete(entry);
-        notifyStackChange();
+        if (disposed || !opened) return;
+        opened = false;
+        entry.zIndex = -1;
+        if (stack.value.delete(entry)) {
+          notifyStackChange();
+        }
       }
     };
 
@@ -73,30 +79,7 @@ export interface OverlayStackEntry {
 }
 
 export function useOverlayStack(): OverlayStackEntry {
-  const instance = getCurrentInstance();
-
-  const stackFactory =
-    typeof document !== "undefined" && instance
-      ? (() => {
-          const stacks = new WeakMap<object, ReturnType<typeof createStack>>();
-          return () => {
-            let s = stacks.get(instance!);
-            if (!s) {
-              s = createStack();
-              stacks.set(instance!, s);
-            }
-            return s;
-          };
-        })()
-      : null;
-
-  const { createOverlayEntry } = stackFactory?.() ?? globalStack;
-
-  const entry = createOverlayEntry();
-
-  onMounted(() => {
-    entry.openLayer();
-  });
+  const entry = globalStack.createOverlayEntry();
 
   onBeforeUnmount(() => {
     entry.closeLayer();

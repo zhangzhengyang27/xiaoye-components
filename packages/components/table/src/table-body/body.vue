@@ -68,6 +68,7 @@ const props = withDefaults(
     preserveExpandedContent?: boolean;
     tableLayout?: "fixed" | "auto";
     showHeader?: boolean;
+    overview?: boolean;
     virtual?: boolean;
     virtualItemSize?: number;
     virtualOverscan?: number;
@@ -95,6 +96,7 @@ const props = withDefaults(
     preserveExpandedContent: false,
     tableLayout: "fixed",
     showHeader: true,
+    overview: false,
     virtual: false,
     virtualItemSize: 48,
     virtualOverscan: 6,
@@ -739,7 +741,10 @@ defineExpose({
           <td class="xy-table__expanded-cell" :colspan="leafColumns.length">
             <div
               class="xy-table__expanded-content"
-              :class="{ 'is-placeholder': props.expandedRowMode === 'placeholder' }"
+              :class="{
+                'is-placeholder': props.expandedRowMode === 'placeholder',
+                'is-overview': props.overview
+              }"
               :style="resolveExpandedContentStyle()"
             >
               <table-render-slot

@@ -38,11 +38,82 @@ dropdown/trigger-command
 dropdown/split-button
 :::
 
+## 实例级样式收口
+
+:::demo 当后台项目只想统一操作菜单的面板气质时，优先通过 `popper-class` 和实例级变量收口，而不是继续 deep 到内部类名。
+dropdown/popper-class
+:::
+
 ## items 兼容模式
 
 :::demo 旧的 `items` 数组模式仍可用，适合渐进迁移；但新功能优先推荐复合组件写法。
 dropdown/compatibility
 :::
+
+## Dropdown 与其他浮层的边界
+
+- **Tooltip**：纯文案提示，不承载交互，不产出值。
+- **Popover**：轻量说明或轻交互卡片，可以承载按钮和简单表单。
+- **Popconfirm**：原地确认动作，自带 confirm/cancel 流程和异步 hook。
+- **Dropdown**：操作菜单，产出命令（command）而非值（value）；如果你需要筛选枚举，优先用 `xy-select` / `xy-tree-select` / `xy-cascader`。
+
+## 推荐入口与兼容入口
+
+- **主路径（推荐）**：复合组件 `Dropdown + DropdownMenu + DropdownItem`，适合需要 icon、divided、description、自定义插槽的菜单。
+- **兼容路径**：`items` 数组模式，适合简单菜单或渐进迁移旧页面；新功能不再以此为主入口。
+- 两条路径共用 `command` 派发机制，区别在于复合组件可以逐项定制插槽和样式，`items` 只支持扁平配置。
+
+## `hide-on-click` 与 `close-on-select` 的优先级
+
+- `hide-on-click`：控制"选择菜单项后是否关闭面板"，是当前推荐的主属性。
+- `close-on-select`：语义相同，是兼容别名。
+- **优先级规则**：如果同时传入 `hide-on-click` 和 `close-on-select`，以 `hide-on-click` 为准。只传 `close-on-select` 时仍然生效，但新代码建议只写 `hide-on-click`。
+- 默认行为：两个都不传时，选择后会自动关闭面板。
+
+## 命名映射
+
+Vue 模板中 props 和 events 使用 kebab-case，源码 / TS 类型层使用 camelCase，两者由 Vue 自动转换，等价：
+
+### Props 映射
+
+| 模板写法（kebab-case） | 源码 / TS 写法（camelCase） |
+| ---------------------- | --------------------------- |
+| `model-value`          | `modelValue`                |
+| `hide-on-click`        | `hideOnClick`               |
+| `close-on-select`      | `closeOnSelect`             |
+| `split-button`         | `splitButton`               |
+| `button-props`         | `buttonProps`               |
+| `trigger-keys`         | `triggerKeys`               |
+| `open-delay`           | `openDelay`                 |
+| `close-delay`          | `closeDelay`                |
+| `show-after`           | `showAfter`                 |
+| `hide-after`           | `hideAfter`                 |
+| `max-height`           | `maxHeight`                 |
+| `show-arrow`           | `showArrow`                 |
+| `append-to`            | `appendTo`                  |
+| `popper-class`         | `popperClass`               |
+| `popper-style`         | `popperStyle`               |
+| `virtual-ref`          | `virtualRef`                |
+| `virtual-triggering`   | `virtualTriggering`         |
+| `popper-options`       | `popperOptions`             |
+
+其余属性（`items`、`placement`、`disabled`、`trigger`、`role`、`teleported`、`persistent`、`tabindex`、`loop`）为单词形式，模板与源码写法一致，无需转换。
+
+### Events 映射
+
+| 模板写法（kebab-case） | 源码 emit 写法（camelCase） |
+| ---------------------- | --------------------------- |
+| `update:model-value`   | `update:modelValue`         |
+| `visible-change`       | `visibleChange`             |
+
+其余事件（`select`、`command`、`click`）为单单词，模板与源码写法一致。
+
+下方 API 表格统一按模板层推荐写法列出。
+
+## 实例级样式收口
+
+- 后台项目如果只是想收口操作菜单的背景、边框、阴影、宽度或层级，优先使用 `popper-class`、`popper-style` 和 `max-height`。
+- 不建议继续在页面层 deep 到 `.xy-dropdown__menu`、`.xy-dropdown__item`、`.xy-dropdown__group` 这类内部结构类名。
 
 ## role 与键盘路径
 

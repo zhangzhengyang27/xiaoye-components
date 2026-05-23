@@ -83,6 +83,13 @@ loading/target-body
 `xy-loading-svg` 和 `svg` 选项会把传入字符串作为 SVG 片段渲染。不要把用户提交的原始内容直接塞进这些字段，否则可能引入 XSS 风险。
 :::
 
+## 命名对照
+
+- `v-loading` 的附加属性统一使用 `xy-loading-*` 前缀，例如 `xy-loading-text`、`xy-loading-background`、`xy-loading-custom-class`。
+- `XyLoadingService()` / `$loading()` 的 options 和 `LoadingInstance.update()` 使用 `customClass`、`svgViewBox`、`groupKey` 这类 camelCase 字段。
+- `LoadingInstance` 暴露的状态字段同样是 camelCase，例如 `customClass`、`svgViewBox`、`zIndex`。
+- 如果你是在模板上写局部加载，不要把 `customClass` 直接写成模板属性；如果你是在 service 里调 loading，也不要反过来传 `xy-loading-custom-class`。
+
 ## 用法
 
 ### 指令

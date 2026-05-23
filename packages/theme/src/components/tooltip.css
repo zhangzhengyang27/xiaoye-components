@@ -7,46 +7,73 @@
 .xy-tooltip > :focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
 }
 
 .xy-tooltip__content {
-  --xy-tooltip-bg: var(--xy-bg-color-floating);
-  --xy-tooltip-text: var(--xy-text-color-subtle);
-  --xy-tooltip-border: var(--xy-border-color-subtle);
-  --xy-tooltip-shadow: var(--xy-shadow-popup);
+  --xy-tooltip-bg-resolved: var(
+    --xy-tooltip-bg,
+    var(
+      --xy-popper-bg,
+      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle)))
+    )
+  );
+  --xy-tooltip-text-resolved: var(
+    --xy-tooltip-text,
+    var(--xy-popper-text-color, var(--xy-text-color-secondary))
+  );
+  --xy-tooltip-border-resolved: var(
+    --xy-tooltip-border,
+    var(
+      --xy-popper-border-color,
+      color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color))
+    )
+  );
+  --xy-tooltip-shadow-resolved: var(
+    --xy-tooltip-shadow,
+    var(
+      --xy-popper-shadow,
+      0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 6%, transparent),
+      0 8px 20px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent)
+    )
+  );
   position: absolute;
   max-width: 240px;
-  padding: 10px 12px;
+  padding: 6px 10px;
   border-radius: var(--xy-radius-md);
-  border: 1px solid var(--xy-tooltip-border);
-  background: color-mix(in srgb, var(--xy-tooltip-bg) 96%, white);
-  color: var(--xy-tooltip-text);
+  border: 1px solid var(--xy-tooltip-border-resolved);
+  background: var(--xy-tooltip-bg-resolved);
+  color: var(--xy-tooltip-text-resolved);
   font-size: var(--xy-font-size-sm);
-  line-height: 1.5;
-  box-shadow: var(--xy-tooltip-shadow);
+  line-height: 1.45;
+  box-shadow: var(--xy-tooltip-shadow-resolved);
   pointer-events: auto;
   white-space: normal;
   word-break: break-word;
 }
 
 .xy-tooltip__content--dark {
-  --xy-tooltip-bg: color-mix(in srgb, var(--xy-text-color-heading) 88%, var(--xy-color-primary));
-  --xy-tooltip-text: color-mix(in srgb, var(--xy-bg-color-floating) 92%, white);
-  --xy-tooltip-border: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
-  --xy-tooltip-shadow: var(--xy-shadow-popup);
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-color-floating) 78%, var(--xy-text-color-heading));
+  --xy-tooltip-text: color-mix(in srgb, var(--xy-bg-color-floating) 82%, white);
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
+  --xy-tooltip-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color) 4%, transparent),
+    0 8px 18px color-mix(in srgb, var(--xy-text-color-heading) 10%, transparent);
 }
 
 .xy-tooltip__content--light {
-  --xy-tooltip-bg: var(--xy-bg-color-floating);
-  --xy-tooltip-text: var(--xy-text-color-subtle);
-  --xy-tooltip-border: var(--xy-border-color-subtle);
-  --xy-tooltip-shadow: var(--xy-shadow-popup);
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
+  --xy-tooltip-text: var(--xy-text-color-secondary);
+  --xy-tooltip-border: color-mix(
+    in srgb,
+    var(--xy-border-color-subtle) 84%,
+    var(--xy-border-color)
+  );
 }
 
 .xy-tooltip__content > .xy-popper__arrow::before {
-  background: var(--xy-tooltip-bg);
-  border-color: var(--xy-tooltip-border);
+  background: var(--xy-tooltip-bg-resolved);
+  border-color: var(--xy-tooltip-border-resolved);
 }
 
 .xy-tooltip__content--dark > .xy-popper__arrow::before {

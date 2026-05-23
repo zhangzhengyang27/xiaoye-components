@@ -1,7 +1,7 @@
-import type { InjectionKey } from "vue";
+import type { ComputedRef, InjectionKey } from "vue";
 
 export const configProviderKey: InjectionKey<SharedConfigContext> =
-  Symbol("xiaoye-config-provider");
+  Symbol.for("xiaoye-config-provider") as InjectionKey<SharedConfigContext>;
 
 export type ComponentSize = "" | "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -13,14 +13,14 @@ export interface Locale {
 }
 
 export interface SharedConfigContext {
-  namespace: string;
-  locale: Locale;
-  zIndex: number;
-  size: ComponentSize;
-  dialog?: unknown;
-  loading?: unknown;
-  message?: unknown;
-  notification?: unknown;
+  namespace: ComputedRef<string>;
+  locale: ComputedRef<Locale>;
+  zIndex: ComputedRef<number>;
+  size: ComputedRef<ComponentSize>;
+  dialog: ComputedRef<unknown>;
+  loading: ComputedRef<unknown>;
+  message: ComputedRef<unknown>;
+  notification: ComputedRef<unknown>;
 }
 
 export const DEFAULT_NAMESPACE = "xy";

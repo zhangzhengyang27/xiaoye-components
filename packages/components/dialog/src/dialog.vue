@@ -7,6 +7,7 @@ import { dialogProps } from "./dialog";
 import { useDialog } from "./use-dialog";
 import type { DialogProps } from "./dialog";
 import type { DialogContentInstance } from "./dialog-content";
+import type { LoadingGlobalConfig } from "../../loading/src/types";
 
 defineOptions({
   name: "XyDialog",
@@ -33,7 +34,7 @@ const emit = defineEmits<{
 
 const slots = useSlots();
 const ns = useNamespace("dialog");
-const { loading: globalLoading } = useConfig();
+const { loading: globalLoading } = useConfig<unknown, LoadingGlobalConfig>();
 const instance = getCurrentInstance();
 const overlayRef = ref<HTMLElement | null>(null);
 const dialogContentRef = ref<DialogContentInstance | null>(null);

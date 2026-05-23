@@ -14,6 +14,12 @@ outline: deep
 popconfirm/basic
 :::
 
+## 旧触发写法兼容
+
+:::demo 旧页面如果没有提供 `#reference`，且也没有传 `content`，当前版本会把默认插槽兼容成 trigger。但这只用于兼容历史页面；新写法仍然建议显式使用 `#reference`。
+popconfirm/legacy-trigger
+:::
+
 ## 位置
 
 :::demo `placement` 继承当前浮层体系的位置能力，适合在工具栏、表格行操作和卡片角标里做细调。
@@ -55,6 +61,10 @@ popconfirm/virtual-triggering
 - `title` 始终属于头部主语义，不会被默认插槽替代。
 - 默认插槽只承接正文区；未提供默认插槽时，组件才会回退渲染 `content`。
 - `actions` 插槽只承接底部动作区，不负责正文结构。
+- 如果没有 `reference`，且没有传 `content`，默认插槽会被兼容成 trigger；这属于历史写法兼容，不建议在新页面里继续依赖这种歧义结构。
+- 新页面推荐始终显式区分：
+  - `#reference` 负责触发器
+  - `content` 或默认插槽负责正文
 
 ## 异步 hook 约定
 
@@ -82,6 +92,56 @@ popconfirm/virtual-triggering
 - `popconfirmCancelButtonText`
 
 都没有时，分别回退到内置默认文案 `确定` 和 `取消`。
+
+## 命名映射
+
+Vue 模板中 props 和 events 使用 kebab-case，源码 / TS 类型层使用 camelCase，两者由 Vue 自动转换，等价：
+
+### Props 映射
+
+| 模板写法（kebab-case） | 源码 / TS 写法（camelCase） |
+| ---------------------- | --------------------------- |
+| `model-value`          | `modelValue`                |
+| `confirm-button-text`  | `confirmButtonText`         |
+| `cancel-button-text`   | `cancelButtonText`          |
+| `confirm-button-type`  | `confirmButtonType`         |
+| `cancel-button-type`   | `cancelButtonType`          |
+| `confirm-button-props` | `confirmButtonProps`        |
+| `cancel-button-props`  | `cancelButtonProps`         |
+| `icon-color`           | `iconColor`                 |
+| `hide-icon`            | `hideIcon`                  |
+| `show-arrow`           | `showArrow`                 |
+| `open-delay`           | `openDelay`                 |
+| `close-delay`          | `closeDelay`                |
+| `show-after`           | `showAfter`                 |
+| `hide-after`           | `hideAfter`                 |
+| `close-on-esc`         | `closeOnEsc`                |
+| `close-on-outside`     | `closeOnOutside`            |
+| `append-to`            | `appendTo`                  |
+| `popper-class`         | `popperClass`               |
+| `popper-style`         | `popperStyle`               |
+| `trigger-keys`         | `triggerKeys`               |
+| `popper-options`       | `popperOptions`             |
+| `virtual-ref`          | `virtualRef`                |
+| `virtual-triggering`   | `virtualTriggering`         |
+| `before-confirm`       | `beforeConfirm`             |
+| `before-cancel`        | `beforeCancel`              |
+
+其余属性（`title`、`content`、`placement`、`width`、`disabled`、`effect`、`teleported`、`persistent`、`offset`、`transition`）为单词形式，模板与源码写法一致。
+
+### Events 映射
+
+| 模板写法（kebab-case） | 源码 emit 写法（camelCase） |
+| ---------------------- | --------------------------- |
+| `update:model-value`   | `update:modelValue`         |
+| `before-show`          | `beforeShow`                |
+| `before-hide`          | `beforeHide`                |
+
+其余事件（`show`、`hide`、`open`、`close`、`confirm`、`cancel`）为单单词，模板与源码写法一致。
+
+> `before-show` 和 `before-hide` 在源码 defineEmits 中使用连字符形式声明，模板监听时写 `@before-show` / `@before-hide`，写法一致，无需转换。
+
+下方 API 表格统一按模板层推荐写法列出。
 
 ## API
 
@@ -113,7 +173,7 @@ popconfirm/virtual-triggering
 | `transition` | 过渡名称 | `string` | `'xy-fade'` |
 | `popper-options` | 浮层定位兼容配置子集 | `TooltipPopperOptions` | `undefined` |
 | `icon` | 前置图标 | `string` | `'mdi:help-circle-outline'` |
-| `icon-color` | 图标颜色 | `string` | `'#f90'` |
+| `icon-color` | 图标颜色 | `string` | `'var(--xy-color-warning)'` |
 | `hide-icon` | 是否隐藏图标 | `boolean` | `false` |
 | `confirm-button-text` | 确认按钮文案；未传时回退到 `locale.popconfirmConfirmButtonText` 或 `'确定'` | `string` | `undefined` |
 | `cancel-button-text` | 取消按钮文案；未传时回退到 `locale.popconfirmCancelButtonText` 或 `'取消'` | `string` | `undefined` |

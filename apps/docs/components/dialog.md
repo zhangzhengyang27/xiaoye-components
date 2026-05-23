@@ -8,6 +8,16 @@ outline: deep
 
 `xy-dialog` 是当前组件库里唯一的标准对话框入口。当前文档按增强计划整理，覆盖模板能力、工作台级体验增强，以及已经可用的编程式 `DialogService`。
 
+## 迁移提示
+
+- 后台项目里如果只是想统一 dialog 的背景、边框、阴影和分区节奏，优先使用：
+  - `panel-class`
+  - `header-class / body-class / footer-class`
+  - `modal-class`
+  - 对应 `--xy-dialog-*` 变量
+- 不建议继续在页面层 deep 到 `.xy-dialog__header / __body / __footer / __panel`。
+- 自定义 `header` 时，优先继续使用 `title` 作为可访问名称兜底，或者把 `titleId` 绑定到真实标题节点；不要为了视觉接管把结构语义一起丢掉。
+
 ## 基础用法
 
 :::demo 最常见的场景是表单录入或二次确认，并通过 `footer` 插槽放一组操作按钮。

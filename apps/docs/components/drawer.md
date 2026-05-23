@@ -8,6 +8,18 @@ outline: deep
 
 `xy-drawer` 更适合详情查看、大表单编辑和侧边说明这类“希望保留主页面上下文”的场景。当前实现延续了项目内的 `placement` 习惯，补齐了 `direction`、可拖拽尺寸、自定义头部 slot props、焦点事件和 `handleClose()` expose。
 
+## 迁移提示
+
+- 后台项目里如果只是想收口抽屉的背景、边框、阴影或头体尾节奏，优先使用：
+  - `header-class / body-class / footer-class`
+  - 组件原生 `class`
+  - 对应 `--xy-drawer-*` 变量
+- 不建议继续在页面层 deep 到 `.xy-drawer__panel / __header / __body / __footer`。
+- 新代码优先使用：
+  - `header` 插槽
+  - 组件原生 `class`
+- `title` 插槽和 `custom-class` 只保留兼容语义，不应再作为新的默认写法。
+
 ## 基础用法
 
 :::demo 右侧抽屉适合做详情查看和表单编辑，能保留列表页的上下文。

@@ -143,6 +143,12 @@ XyNotificationService.open(
 - `closeAll(filter?)` 和 `getState(filter?)` 支持按 `type`、`position`、`target`、`targetKey`、`groupKey` 过滤。
 - `appendTo` 支持 `HTMLElement` 或 CSS 选择器字符串，适合微前端宿主、局部工作台和自定义层级容器。
 
+## 命名对照
+
+- 模板里使用 `custom-class`、`show-close`、`close-icon` 这类 kebab-case 属性。
+- `XyNotificationService()` / `$notify()` 的 options 使用 `customClass`、`showClose`、`closeIcon` 这类 camelCase 字段。
+- 如果你是在排查“为什么模板里生效、service 里没生效”这类问题，先确认自己传的是当前调用入口对应的命名层级，而不是把模板属性名直接搬进 service options。
+
 ## API
 
 ### 基础签名
@@ -220,7 +226,7 @@ scopedNotify.success({
 
 | 事件                | 说明                   | 参数                                                                 |
 | ------------------- | ---------------------- | -------------------------------------------------------------------- |
-| `update:modelValue` | 受控模式下同步显示状态 | `NotificationModelValueChangeHandler`                                |
+| `update:model-value` | 受控模式下同步显示状态 | `NotificationModelValueChangeHandler`                                |
 | `close`             | 通知开始关闭时触发     | `NotificationCloseHandler`                                           |
 | `closed`            | 通知完成关闭后触发     | `NotificationCloseHandler`                                           |
 | `click`             | 点击通知主体时触发     | `NotificationClickHandler`                                           |

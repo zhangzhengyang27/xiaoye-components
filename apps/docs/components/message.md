@@ -109,6 +109,12 @@ message/raw-html
 - `XyMessage.withContext(appContext)` 适合在多 app、局部按需导入或 service 层桥接调用时显式指定配置来源。
 - `getState()` 返回的是当前消息实例快照，不包含回调和复杂渲染函数本体。
 
+## 命名对照
+
+- `Message` 当前没有模板组件入口，公开合同主要就是 `XyMessage()` / `$message()` 这一套函数式 API。
+- 因此这里看到的 `customClass`、`showClose`、`groupKey`、`closeOnPressEscape` 都是 service / options 层的 camelCase 字段，不存在对应的模板 kebab-case 属性表。
+- 如果你在迁移页面样式或封装通知层时，同时处理 `Notification` 和 `Message`，要注意两者虽然都能定制 class，但 `Message` 只存在函数式参数，`Notification` 则同时有模板属性和 service options 两套命名。
+
 ## API
 
 ### 基础签名
@@ -155,30 +161,30 @@ XyMessage.closeAll({
 | `type`                           | 消息类型                                   | `MessageType`                                                                        | `'info'`            |
 | `plain`                          | 是否使用更轻的外观                         | `boolean`                                                                           | `false`             |
 | `icon`                           | 自定义图标名                               | `string`                                                                            | `按 type 自动推导`  |
-| `show-icon`                      | 是否显示图标                               | `boolean`                                                                           | `true`              |
-| `dangerously-use-h-t-m-l-string` | 是否把字符串按 HTML 渲染                   | `boolean`                                                                           | `false`             |
-| `custom-class`                   | 自定义 class                               | `string`                                                                            | `''`                |
+| `showIcon`                       | 是否显示图标                               | `boolean`                                                                           | `true`              |
+| `dangerouslyUseHTMLString`       | 是否把字符串按 HTML 渲染                   | `boolean`                                                                           | `false`             |
+| `customClass`                    | 自定义 class                               | `string`                                                                            | `''`                |
 | `duration`                       | 自动关闭时长，单位毫秒，`0` 表示不自动关闭 | `number`                                                                            | `3000`              |
-| `show-close`                     | 是否显示关闭按钮                           | `boolean`                                                                           | `false`             |
+| `showClose`                      | 是否显示关闭按钮                           | `boolean`                                                                           | `false`             |
 | `offset`                         | 第一条消息距视口的偏移                     | `number`                                                                            | `16`                |
 | `placement`                      | 消息出现位置                               | `MessagePlacement`                                                                   | `'top'`             |
-| `append-to`                      | 自定义挂载容器                             | `string \| HTMLElement`                                                             | `document.body`     |
+| `appendTo`                       | 自定义挂载容器                             | `string \| HTMLElement`                                                             | `document.body`     |
 | `grouping`                       | 是否启用消息合并                           | `boolean`                                                                           | `false`             |
-| `group-key`                      | 显式指定合并键，适合 VNode / render 消息   | `string`                                                                            | `undefined`         |
-| `repeat-num`                     | 当前重复次数，通常由内部合并逻辑维护       | `number`                                                                            | `1`                 |
+| `groupKey`                       | 显式指定合并键，适合 VNode / render 消息   | `string`                                                                            | `undefined`         |
+| `repeatNum`                      | 当前重复次数，通常由内部合并逻辑维护       | `number`                                                                            | `1`                 |
 | `max`                            | 当前宿主下该 placement 的并发消息上限      | `number`                                                                            | `undefined`         |
-| `z-index`                        | 自定义层级                                 | `number`                                                                            | `自动递增`          |
-| `close-on-click`                 | 点击消息主体时是否关闭                     | `boolean`                                                                           | `false`             |
-| `close-on-press-escape`          | 按 `Esc` 时是否关闭                        | `boolean`                                                                           | `true`              |
-| `pause-on-hover`                 | 悬停时是否暂停自动关闭                     | `boolean`                                                                           | `true`              |
-| `pause-on-focus`                 | 聚焦消息内部元素时是否暂停自动关闭         | `boolean`                                                                           | `false`             |
-| `pause-on-page-hidden`           | 页面隐藏时是否暂停自动关闭                 | `boolean`                                                                           | `false`             |
-| `reset-on-repeat`                | 合并重复消息时是否重置自动关闭计时         | `boolean`                                                                           | `true`              |
+| `zIndex`                         | 自定义层级                                 | `number`                                                                            | `自动递增`          |
+| `closeOnClick`                   | 点击消息主体时是否关闭                     | `boolean`                                                                           | `false`             |
+| `closeOnPressEscape`             | 按 `Esc` 时是否关闭                        | `boolean`                                                                           | `true`              |
+| `pauseOnHover`                   | 悬停时是否暂停自动关闭                     | `boolean`                                                                           | `true`              |
+| `pauseOnFocus`                   | 聚焦消息内部元素时是否暂停自动关闭         | `boolean`                                                                           | `false`             |
+| `pauseOnPageHidden`              | 页面隐藏时是否暂停自动关闭                 | `boolean`                                                                           | `false`             |
+| `resetOnRepeat`                  | 合并重复消息时是否重置自动关闭计时         | `boolean`                                                                           | `true`              |
 | `transition`                     | 自定义过渡名称                             | `string`                                                                            | `'xy-message-fade'` |
-| `before-close`                   | 关闭前拦截                                 | `MessageBeforeCloseFn`                                                              | `undefined`         |
-| `on-click`                       | 点击消息时触发                             | `MessageClickHandler`                                                               | `undefined`         |
-| `on-close`                       | 消息开始关闭时触发，带关闭原因             | `MessageLifecycleHandler`                                                           | `undefined`         |
-| `on-closed`                      | 消息完全关闭后触发，带关闭原因             | `MessageLifecycleHandler`                                                           | `undefined`         |
+| `beforeClose`                    | 关闭前拦截                                 | `MessageBeforeCloseFn`                                                              | `undefined`         |
+| `onClick`                        | 点击消息时触发                             | `MessageClickHandler`                                                               | `undefined`         |
+| `onClose`                        | 消息开始关闭时触发，带关闭原因             | `MessageLifecycleHandler`                                                           | `undefined`         |
+| `onClosed`                       | 消息完全关闭后触发，带关闭原因             | `MessageLifecycleHandler`                                                           | `undefined`         |
 
 ### Message Close Reason
 

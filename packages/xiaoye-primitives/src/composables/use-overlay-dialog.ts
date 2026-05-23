@@ -44,32 +44,29 @@ export function useOverlayDialog(
 ): OverlayDialogReturn {
   const overlayStack = useOverlayStack();
 
-  const { visible, rendered, close, handleAfterLeave } = useFloatingVisibility({
+  const visibility = useFloatingVisibility({
     modelValue: options.modelValue,
     openDelay: options.openDelay,
     closeDelay: options.closeDelay,
-    beforeOpen: (source) => {
-      if (source === "internal") {
-        callbacks.onOpen?.();
-      }
+    beforeOpen: () => {
+      callbacks.onOpen?.();
     },
-    beforeClose: (source) => {
-      if (source === "internal") {
-        callbacks.onClose?.();
-      }
+    beforeClose: () => {
+      callbacks.onClose?.();
     },
     onOpen: () => {
       callbacks.onOpened?.();
     },
     onClose: () => {
       callbacks.onClosed?.();
+      if (toValue(options.destroyOnClose)) {
+        visibility.rendered.value = false;
+      }
     }
   });
+  const { visible, rendered, close } = visibility;
 
   const appendTo = computed(() => {
-    if (toValue(options.appendToBody)) {
-      return "body";
-    }
     return toValue(options.appendTo) ?? "body";
   });
 
@@ -77,10 +74,31 @@ export function useOverlayDialog(
     if (typeof document === "undefined") {
       return true;
     }
-    return false;
+
+    if (toValue(options.appendToBody)) {
+      return false;
+    }
+
+    const target = toValue(options.appendTo);
+    return target == null || target === "body";
   });
 
-  const contentRendered = computed(() => rendered.value);
+  const contentRendered = computed(() => {
+    if (callbacks.destroyStrategy === "content" && toValue(options.destroyOnClose)) {
+      return visible.value;
+    }
+
+    return rendered.value;
+  });
+
+  function handleAfterLeave() {
+    if (toValue(options.destroyOnClose)) {
+      visibility.rendered.value = false;
+      return;
+    }
+
+    visibility.handleAfterLeave();
+  }
 
   const showModal = computed(() => {
     return Boolean(toValue(options.modal) && visible.value);
@@ -95,8 +113,12 @@ export function useOverlayDialog(
   watch(
     visible,
     (value) => {
-      if (!value) return;
-      overlayStack.openLayer();
+      if (value) {
+        overlayStack.openLayer();
+        return;
+      }
+
+      overlayStack.closeLayer();
     },
     { immediate: true }
   );

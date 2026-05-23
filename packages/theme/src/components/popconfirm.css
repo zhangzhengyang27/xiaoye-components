@@ -10,31 +10,64 @@
 .xy-popconfirm__trigger:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
 }
 
 .xy-popconfirm__panel {
-  --xy-popconfirm-bg: var(--xy-bg-color-floating);
-  --xy-popconfirm-border: var(--xy-border-color-subtle);
-  --xy-popconfirm-title: var(--xy-text-color-heading);
-  --xy-popconfirm-text: var(--xy-text-color-subtle);
-  --xy-popconfirm-shadow: var(--xy-shadow-popup);
+  --xy-popconfirm-bg-resolved: var(
+    --xy-popconfirm-bg,
+    var(
+      --xy-popper-bg,
+      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle)))
+    )
+  );
+  --xy-popconfirm-border-resolved: var(
+    --xy-popconfirm-border,
+    var(
+      --xy-popper-border-color,
+      color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color))
+    )
+  );
+  --xy-popconfirm-title-resolved: var(
+    --xy-popconfirm-title,
+    var(--xy-popper-title-color, var(--xy-dialog-title-color, var(--xy-text-color-heading)))
+  );
+  --xy-popconfirm-text-resolved: var(
+    --xy-popconfirm-text,
+    var(--xy-popper-text-color, var(--xy-text-color-secondary))
+  );
+  --xy-popconfirm-shadow-resolved: var(
+    --xy-popconfirm-shadow,
+    var(
+      --xy-popper-shadow,
+      0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 6%, transparent),
+      0 8px 20px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent)
+    )
+  );
+  --xy-popconfirm-actions-border: color-mix(
+    in srgb,
+    var(--xy-popconfirm-border-resolved) 82%,
+    transparent
+  );
   position: absolute;
   min-width: 150px;
-  padding: 14px 16px 16px;
-  border: 1px solid var(--xy-popconfirm-border);
+  padding: 9px 12px 10px;
+  border: 1px solid var(--xy-popconfirm-border-resolved);
   border-radius: var(--xy-radius-lg);
-  background: color-mix(in srgb, var(--xy-popconfirm-bg) 96%, white);
-  box-shadow: var(--xy-popconfirm-shadow);
-  color: var(--xy-popconfirm-text);
+  background: var(--xy-popconfirm-bg-resolved);
+  box-shadow: var(--xy-popconfirm-shadow-resolved);
+  color: var(--xy-popconfirm-text-resolved);
   outline: none;
 }
 
 .xy-popconfirm__panel--dark {
-  --xy-popconfirm-bg: color-mix(in srgb, var(--xy-text-color-heading) 88%, var(--xy-color-primary));
-  --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
-  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-color-floating) 96%, white);
-  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-color-floating) 82%, white);
+  --xy-popconfirm-bg: color-mix(in srgb, var(--xy-bg-color-floating) 78%, var(--xy-text-color-heading));
+  --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
+  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-color-floating) 88%, white);
+  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-color-floating) 80%, white);
+  --xy-popconfirm-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color) 6%, transparent),
+    0 8px 18px color-mix(in srgb, var(--xy-text-color-heading) 10%, transparent);
 }
 
 .xy-popconfirm__arrow {
@@ -42,15 +75,15 @@
   width: 10px;
   height: 10px;
   rotate: 45deg;
-  border-top: 1px solid var(--xy-popconfirm-border);
-  border-left: 1px solid var(--xy-popconfirm-border);
-  background: var(--xy-popconfirm-bg);
+  border-top: 1px solid var(--xy-popconfirm-border-resolved);
+  border-left: 1px solid var(--xy-popconfirm-border-resolved);
+  background: var(--xy-popconfirm-bg-resolved);
 }
 
 .xy-popconfirm__header {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 7px;
 }
 
 .xy-popconfirm__icon {
@@ -60,23 +93,26 @@
 
 .xy-popconfirm__title {
   margin: 0;
-  color: var(--xy-popconfirm-title);
+  color: var(--xy-popconfirm-title-resolved);
   font-size: var(--xy-font-size-sm);
-  line-height: 1.6;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .xy-popconfirm__body {
-  margin-top: 10px;
-  color: var(--xy-popconfirm-text);
+  margin-top: 7px;
+  color: var(--xy-popconfirm-text-resolved);
   font-size: var(--xy-font-size-sm);
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .xy-popconfirm__actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 10px;
+  border-top: 1px solid var(--xy-popconfirm-actions-border);
+  padding-top: 8px;
 }
 
 .xy-popconfirm.is-confirming .xy-popconfirm__body,

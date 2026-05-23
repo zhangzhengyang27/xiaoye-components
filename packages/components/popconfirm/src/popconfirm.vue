@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<PopconfirmProps>(), {
   transition: "xy-fade",
   popperOptions: undefined,
   icon: "mdi:help-circle-outline",
-  iconColor: "#f90",
+  iconColor: "var(--xy-color-warning)",
   hideIcon: false,
   confirmButtonText: undefined,
   cancelButtonText: undefined,
@@ -92,7 +92,12 @@ const isClient = typeof document !== "undefined";
 let restoreFocusedElement: HTMLElement | null = null;
 let closeTimer: ReturnType<typeof globalThis.setTimeout> | null = null;
 
-const hasBodyContent = computed(() => Boolean(slots.default) || props.content !== "");
+const usesDefaultAsTrigger = computed(
+  () => !slots.reference && Boolean(slots.default) && props.content === ""
+);
+const hasBodyContent = computed(
+  () => (!usesDefaultAsTrigger.value && Boolean(slots.default)) || props.content !== ""
+);
 const isActionPending = computed(() => confirming.value || cancelling.value);
 const tooltipMaxWidth = computed(() =>
   typeof props.width === "number" ? `${Math.max(props.width, 150)}px` : props.width
@@ -127,6 +132,7 @@ const slotScope = computed(() => ({
   confirming: confirming.value,
   cancelling: cancelling.value
 }));
+const triggerSlotScope = computed<PopconfirmSlotProps>(() => slotScope.value);
 
 const confirmActionButtonProps = computed<Partial<ButtonProps>>(() =>
   resolveActionButtonProps(props.confirmButtonType, props.confirmButtonProps, confirming.value)
@@ -381,10 +387,17 @@ defineExpose({
     @close="handleClose"
   >
     <span
-      v-if="$slots.reference"
+      v-if="$slots.reference || usesDefaultAsTrigger"
       class="xy-popconfirm__trigger"
     >
-      <slot name="reference" />
+      <slot
+        v-if="$slots.reference"
+        name="reference"
+      />
+      <slot
+        v-else
+        v-bind="triggerSlotScope"
+      />
     </span>
 
     <template #content>
@@ -427,9 +440,13 @@ defineExpose({
           ref="bodyRef"
           class="xy-popconfirm__body"
         >
-          <slot v-bind="slotScope">
+          <slot
+            v-if="!usesDefaultAsTrigger"
+            v-bind="slotScope"
+          >
             {{ props.content }}
           </slot>
+          <template v-else>{{ props.content }}</template>
         </div>
 
         <div
