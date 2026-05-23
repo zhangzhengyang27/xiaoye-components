@@ -74,6 +74,7 @@ const tableProps: TableProps<Row> = {
   ],
   rowKey: "id",
   size: "md",
+  overview: true,
   width: 960,
   height: 320,
   fit: true,

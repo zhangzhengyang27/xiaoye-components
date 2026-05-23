@@ -58,13 +58,13 @@ const componentDirs = fs
   .readdirSync(path.join(repoRoot, "packages/components"), { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
-  .filter((name) => name !== "shared")
+  .filter((name) => !["dist", "shared", "src"].includes(name))
   .sort();
 
 const exportedComponentNames = collectByRegex(
-  readFile("packages/components/index.ts"),
+  readFile("packages/components/exports.ts"),
   /export \* from "\.\/([^"]+)";/g
-);
+).filter((name) => name !== "shared");
 
 const docComponentNames = listBasenames("apps/docs/components", ".md").filter(
   (name) => name !== "overview"

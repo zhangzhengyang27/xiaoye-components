@@ -1,10 +1,25 @@
 {
-  "name": "@xiaoye/mcp-server",
-  "version": "0.1.0",
+  "name": "xiaoye-mcp-server",
+  "version": "0.1.1",
   "description": "MCP Server for xiaoye-components - provides component API to AI tools",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "bin": {
     "xiaoye-mcp-server": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "mcp-config.example.json"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",
