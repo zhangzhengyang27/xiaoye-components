@@ -17,3 +17,4 @@ output-*.png
 test-results/
 .trae
 scripts/.llm-cache/
+ai-admin-dashboard-table-check.png
