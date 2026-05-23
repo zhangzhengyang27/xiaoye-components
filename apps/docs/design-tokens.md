@@ -87,6 +87,70 @@ outline: deep
 | `--xy-shadow-md` | 中阴影（下拉菜单、浮层） |
 | `--xy-shadow-lg` | 大阴影（弹窗、抽屉） |
 
+## 浮层收口建议
+
+当业务页面需要统一后台主题时，优先通过组件实例上的 token 收口，而不是继续 deep 到内部类名。
+
+### 推荐优先级
+
+1. `dialog / drawer / tooltip / popconfirm / popover / select / dropdown / date-picker / time-select / time-picker / cascader / tree-select / auto-complete`
+2. `message / notification`
+3. `table` 的 `overview` 与 wrapper token
+
+### 典型迁移方式
+
+| 旧覆盖写法 | 优先替代方式 | 适用场景 |
+| --- | --- | --- |
+| `.xy-dialog__header { padding: ... }` | `panel-class` / `body-class` / `footer-class` + `--xy-dialog-*` 变量 | 弹窗整体视觉收口 |
+| `.xy-drawer__body { padding: ... }` | `body-class` / `header-class` / `footer-class` + `--xy-drawer-*` 变量 | 抽屉整体视觉收口 |
+| `.xy-popover__panel / .xy-tooltip__content / .xy-popconfirm__panel` | `popper-class` + 对应 `--xy-*` 变量 | 通用浮层统一面板基线 |
+| `.xy-select__dropdown / .xy-dropdown__panel` | `popper-class` + 对应 `--xy-*` 变量 | 下拉类面板统一背景/边框/阴影 |
+| `.xy-message` / `.xy-notification` | 组件级 `type`、`plain`、`custom-class`（service 对应 `customClass`） | 通知层强度微调 |
+| `.xy-loading` | directive 层 `xy-loading-custom-class / xy-loading-background / xy-loading-text`；service / options 层 `customClass` | 遮罩视觉收口 |
+| `.xy-table__cell { padding: ... }` | `--xy-table-body-cell-padding-y/x` | 普通列表页正文节奏 |
+| `.xy-table__header-cell { padding: ... }` | `--xy-table-header-cell-padding-y/x` | 普通列表页表头节奏 |
+| `.xy-table__header-cell { background: ... }` | `--xy-table-header-background` | 表头主题接轨 |
+| `.xy-table__row:hover > .xy-table__cell { background: ... }` | `--xy-table-row-hover-background` | hover 态主题化 |
+| `.xy-table__expanded-cell / __append-wrapper / __empty-block` | `overview` 或 overview token | dashboard / 摘要表格 |
+
+### Dashboard 概览
+
+`overview` 适合 dashboard 首屏、经营看板和摘要卡片区。它不会改变 `size="md"` 的默认合同，但会统一收紧：
+
+- 表头与正文节奏
+- 空态与 loading 的留白
+- append 与展开区的 padding
+
+示例请查看 [Table 表格](./components/table) 页面中的“Dashboard 概览模式”和“列表页表格壳层”。
+
+### 后台迁移 checklist
+
+当你在后台项目里收口样式时，通常按下面顺序删页面级补丁：
+
+1. 先删 `dialog / drawer / tooltip / popconfirm / popover / select / dropdown / date-picker / time-select / time-picker / cascader / tree-select / auto-complete` 上对内部面板类名的 `background / border / shadow / padding` 覆盖，改成组件实例上的 `popper-class`、`panel-class`、`body-class`、`header-class`、`footer-class` 或对应 `--xy-*` 变量。
+2. 再看 `message / notification / loading`，只保留真正的业务强度差异，不要再把它们当作普通卡片或遮罩去写页面样式。
+3. 最后处理 `table`，普通列表页优先用 wrapper token；dashboard / 摘要表格优先用 `overview`，不要继续 deep 到 `.xy-table__cell`、`.xy-table__header-cell`、`.xy-table__append-wrapper`。
+
+如果你需要快速判断一段页面级样式是否应该删除，优先问自己两件事：
+
+- 它是在修“组件默认视觉”，还是在修“业务布局”？
+- 它能不能被组件实例级 token 或 `overview` 直接替代？
+
+前者优先回收到组件库，后者才留在页面层。
+
+### 先排除 contract 误用，再谈 token 是否生效
+
+有些后台页面看起来像“浮层没弹出来”或“卡片 header 样式没挂上”，但根因并不是 token，而是组件公开 contract 用错了。
+
+- `XyPopconfirm`
+  - 旧页面如果没有 `reference`，且也没有传 `content`，当前版本会把 `default` 插槽兼容成 trigger。
+  - 但只要页面既想把 `default` 当 trigger、又想把正文也塞进默认插槽，就仍然应显式改回 `#reference + content/default body`。
+- `XyCard`
+  - 当前公开 header contract 是 `header` 和 `#extra`，不是 `title` 和 `#header-extra`。
+  - 如果 header 根本没渲染出来，先修正公开入口，再判断 `header-class / body-class` 或对应 token 是否需要微调。
+
+这条判断顺序很重要：先确认结构真实存在，再看 token；不要把“节点没渲染”误判成“主题变量没生效”。
+
 ## 过渡动画
 
 | 变量名 | 默认值 | 说明 |

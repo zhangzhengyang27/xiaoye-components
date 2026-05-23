@@ -216,6 +216,23 @@ import { XyConfigProvider } from 'xiaoye-components'
 
 ## 实战案例
 
+如果你是在做后台项目的样式收口，建议先看 [后台迁移指南](/guide/backend-migration)，再决定是继续全局覆盖还是直接改组件实例 token。
+
+## 后台收口入口
+
+如果你的目标是把业务页面里的浮层、通知和表格覆盖收回到组件库层，优先从这里开始：
+
+- [后台迁移指南](/guide/backend-migration)
+- [Table 表格](/components/table)
+- [Popover 气泡卡片](/components/popover)
+- [Dropdown 下拉菜单](/components/dropdown)
+
+当前更推荐的后台主题策略是：
+
+- 全局层只保留品牌色、通用背景色和边框强度这类全局 token。
+- 页面层优先使用 wrapper 级变量，让 `table / select / date-picker / cascader / tree-select` 这类组件在当前页面主题里自然接轨。
+- 不要再把组件内部类名当成公开定制入口；纯视觉问题优先回到组件实例 token 和组件库默认基线。
+
 ### 案例 1：企业品牌色定制
 
 将组件库适配到企业视觉识别系统：

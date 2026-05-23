@@ -12,6 +12,12 @@ import AdminFlowDemo from "../.vitepress/theme/components/AdminFlowDemo.vue";
 
 这页用一个单页后台片段，把筛选、列表、覆盖层编辑、详情查看和历史记录放回同一条真实链路里。
 
+如果你还在收口后台项目的浮层、通知和表格样式，先看 [后台迁移指南](/guide/backend-migration)；如果这轮主要卡在弹窗、抽屉、提示和操作菜单，再顺着读 [浮层收口指南](/guide/overlay-surface-migration)；如果主要卡在筛选条和输入浮层，再读 [筛选面板收口指南](/guide/filter-surface-migration)，再对照这个页面理解增强层的职责边界。
+
+如果你主要在收口表格和浮层视觉，也可以直接看 [Table 表格](/components/table) 的 `overview` 概览态和 [组件总览](/components/overview) 里的后台入口。
+
+如果你这轮主要是在收反馈类组件的样式，也可以按 [组件总览](/components/overview) -> [后台迁移指南](/guide/backend-migration) 的顺序走一遍。
+
 <div class="xy-scene-strip">
   <div>
     <strong>筛选栏</strong>

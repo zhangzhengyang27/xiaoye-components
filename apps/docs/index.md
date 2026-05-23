@@ -17,6 +17,9 @@ hero:
       text: 增强组件
       link: /pro-components/overview
     - theme: alt
+      text: 后台迁移指南
+      link: /guide/backend-migration
+    - theme: alt
       text: 在线试用
       link: https://stackblitz.com/github/xiaoye/xiaoye-components
       target: _blank

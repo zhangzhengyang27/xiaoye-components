@@ -152,7 +152,8 @@ const locale = {
 
 1. 先看 [组件总览](/components/overview)，确认基础层覆盖了哪些通用能力。
 2. 再看 [增强组件总览](/pro-components/overview)，确认中后台闭环可以直接复用哪些增强件。
-3. 最后看 [管理后台闭环示例](/examples/admin)，把基础层和增强层放回真实页面里理解。
+3. 如果你要做后台主题收口，继续看 [后台迁移指南](/guide/backend-migration)。
+4. 最后看 [管理后台闭环示例](/examples/admin)，把基础层和增强层放回真实页面里理解。
 
 ## 接入建议
 

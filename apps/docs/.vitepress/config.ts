@@ -82,7 +82,11 @@ export default defineConfig({
         {
           text: "定制",
           items: [
-            { text: "主题定制", link: "/guide/theming" }
+            { text: "主题定制", link: "/guide/theming" },
+            { text: "后台迁移指南", link: "/guide/backend-migration" },
+            { text: "后台首批落地清单", link: "/guide/backend-rollout-checklist" },
+            { text: "浮层收口指南", link: "/guide/overlay-surface-migration" },
+            { text: "筛选面板收口指南", link: "/guide/filter-surface-migration" }
           ]
         },
         {
