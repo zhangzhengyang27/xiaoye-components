@@ -152,6 +152,51 @@ describe("XyTooltip", () => {
     vi.useRealTimers();
   });
 
+  it("light / dark effect 都会保留统一的浮层结构类", async () => {
+    document.body.innerHTML = "";
+
+    const lightWrapper = mount(XyTooltip, {
+      attachTo: document.body,
+      props: {
+        trigger: "click",
+        effect: "light",
+        content: "浅色提示"
+      },
+      slots: {
+        default: "<button class='trigger'>浅色</button>"
+      }
+    });
+
+    await lightWrapper.find(".xy-tooltip").trigger("click");
+    await nextTick();
+
+    const lightTooltip = getTooltip();
+    expect(lightTooltip?.classList.contains("xy-tooltip__content")).toBe(true);
+    expect(lightTooltip?.classList.contains("xy-tooltip__content--light")).toBe(true);
+
+    lightWrapper.unmount();
+    await nextTick();
+
+    const darkWrapper = mount(XyTooltip, {
+      attachTo: document.body,
+      props: {
+        trigger: "click",
+        effect: "dark",
+        content: "深色提示"
+      },
+      slots: {
+        default: "<button class='trigger'>深色</button>"
+      }
+    });
+
+    await darkWrapper.find(".xy-tooltip").trigger("click");
+    await nextTick();
+
+    const darkTooltip = getTooltip();
+    expect(darkTooltip?.classList.contains("xy-tooltip__content")).toBe(true);
+    expect(darkTooltip?.classList.contains("xy-tooltip__content--dark")).toBe(true);
+  });
+
   it("支持 trigger 数组组合行为", async () => {
     document.body.innerHTML = "";
     vi.useFakeTimers();
@@ -369,6 +414,28 @@ describe("XyTooltip", () => {
 
     expect(document.body.querySelector(".slot-content")?.textContent).toBe("插槽优先");
     expect(document.body.querySelector(".raw-content")).toBeNull();
+  });
+
+  it("会把 effect 对应的样式类挂到浮层内容上", async () => {
+    document.body.innerHTML = "";
+
+    const wrapper = mount(XyTooltip, {
+      attachTo: document.body,
+      props: {
+        trigger: "click",
+        content: "浅色提示",
+        effect: "light"
+      },
+      slots: {
+        default: "<button class='trigger'>打开</button>"
+      }
+    });
+
+    await wrapper.find(".xy-tooltip").trigger("click");
+    await nextTick();
+
+    const tooltip = getTooltip();
+    expect(tooltip?.classList.contains("xy-tooltip__content--light")).toBe(true);
   });
 
   it("支持 virtualTriggering + virtualRef，并同步 aria-describedby", async () => {

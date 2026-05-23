@@ -334,6 +334,29 @@ describe("XyMenu", () => {
     expect(menuCssText).toContain("min-height: calc(var(--xy-menu-horizontal-height) - 16px);");
   });
 
+  it("popup 默认风格保持克制但仍可正常展示", async () => {
+    vi.useFakeTimers();
+
+    const wrapper = mountMenu(`
+      <xy-menu mode="horizontal" close-on-click-outside>
+        <xy-sub-menu index="ops" ref="submenu">
+          <template #title>协作空间</template>
+          <xy-menu-item index="ops-logs">日志</xy-menu-item>
+        </xy-sub-menu>
+      </xy-menu>
+    `);
+
+    await wrapper.getComponent({ ref: "submenu" }).trigger("mouseenter");
+    vi.runAllTimers();
+    await nextTick();
+
+    const popup = document.body.querySelector(".xy-menu__popup") as HTMLElement | null;
+    expect(popup).not.toBeNull();
+    expect(popup?.textContent ?? "").toContain("日志");
+
+    vi.useRealTimers();
+  });
+
   it("支持 activeIndex/openedMenus 受控优先级与 update:* 同步", async () => {
     const wrapper = mountMenu(
       `
@@ -686,5 +709,26 @@ describe("XyMenu", () => {
     await Promise.resolve();
 
     expect(push).toHaveBeenCalledWith({ path: "/ops" });
+  });
+
+  it("默认面板风格保持克制但仍可正常渲染层级菜单", async () => {
+    vi.useFakeTimers();
+    const wrapper = mountMenu(`
+      <xy-menu mode="horizontal">
+        <xy-sub-menu index="2" ref="submenu">
+          <template #title>协作空间</template>
+          <xy-menu-item index="2-1">文件</xy-menu-item>
+        </xy-sub-menu>
+      </xy-menu>
+    `);
+
+    await wrapper.getComponent({ ref: "submenu" }).trigger("mouseenter");
+    vi.runAllTimers();
+    await nextTick();
+    await nextTick();
+
+    expect(document.body.querySelector(".xy-menu__popup")).not.toBeNull();
+    expect(document.body.querySelector(".xy-menu__popup")?.textContent).toContain("文件");
+    vi.useRealTimers();
   });
 });

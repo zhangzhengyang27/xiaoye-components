@@ -53,6 +53,17 @@ describe("XyTimePicker", () => {
     expect(wrapper.emitted("change")?.[0]).toEqual(["09:30:15"]);
   });
 
+  it("默认时间选择器风格保持克制且仍可正常打开", async () => {
+    const wrapper = mountTimePicker(XyTimePicker, {
+      attachTo: document.body
+    });
+
+    expect(wrapper.find(".xy-time-picker__trigger").exists()).toBe(true);
+
+    await wrapper.get(".xy-time-picker__trigger").trigger("click");
+    expect(document.body.querySelector(".xy-time-picker__panel")).not.toBeNull();
+  });
+
   it("支持清空选中值", async () => {
     const wrapper = mountTimePicker(XyTimePicker, {
       props: {
@@ -118,6 +129,49 @@ describe("XyTimePicker", () => {
     await nextTick();
 
     expect(wrapper.emitted("update:modelValue")?.[0]).toEqual([["09:15", "18:40"]]);
+  });
+
+  it("支持自定义 popup 容器、类名、样式和 placement", async () => {
+    const appendTarget = document.createElement("div");
+    appendTarget.className = "time-picker-target";
+    document.body.appendChild(appendTarget);
+
+    const wrapper = mountTimePicker(XyTimePicker, {
+      attachTo: document.body,
+      props: {
+        appendTo: ".time-picker-target",
+        placement: "top-start",
+        popperClass: "custom-time-picker-panel",
+        popperStyle: {
+          width: "320px"
+        }
+      }
+    });
+
+    await wrapper.get(".xy-time-picker__trigger").trigger("click");
+    await nextTick();
+
+    const panel = appendTarget.querySelector(".xy-time-picker__panel") as HTMLElement | null;
+    expect(panel).not.toBeNull();
+    expect(panel?.classList.contains("custom-time-picker-panel")).toBe(true);
+    expect(panel?.style.width).toBe("320px");
+    expect(panel?.getAttribute("data-placement")).toContain("top");
+  });
+
+  it("在 teleported=false 时将面板保留在当前容器内", async () => {
+    const wrapper = mountTimePicker(XyTimePicker, {
+      attachTo: document.body,
+      props: {
+        teleported: false,
+        popperClass: "inline-time-picker-panel"
+      }
+    });
+
+    await wrapper.get(".xy-time-picker__trigger").trigger("click");
+    await nextTick();
+
+    expect(wrapper.find(".inline-time-picker-panel").exists()).toBe(true);
+    expect(document.body.querySelector(".inline-time-picker-panel")).not.toBeNull();
   });
 
   it("空范围值时保持 placeholder 且不展示清空按钮", () => {

@@ -14,6 +14,17 @@ describe("XyBadge", () => {
     expect(wrapper.find(".xy-badge__content").text()).toBe("80");
   });
 
+  it("默认 badge 风格保持克制且仍可正常渲染", () => {
+    const wrapper = mount(XyBadge, {
+      props: {
+        value: 3
+      }
+    });
+
+    expect(wrapper.find(".xy-badge__content").classes()).toContain("xy-badge__content--danger");
+    expect(wrapper.find(".xy-badge__content").text()).toBe("3");
+  });
+
   it("有默认插槽时会固定定位", () => {
     const wrapper = mount(XyBadge, {
       props: {
@@ -110,5 +121,27 @@ describe("XyBadge", () => {
     });
 
     expect(wrapper.find(".custom-content").text()).toBe("值:99");
+  });
+
+  it("默认 badge 面板保持克制但仍可正常显示数字", () => {
+    const wrapper = mount(XyBadge, {
+      props: {
+        value: 8
+      }
+    });
+
+    expect(wrapper.find(".xy-badge__content").text()).toContain("8");
+    expect(wrapper.find(".xy-badge__content").classes()).toContain("xy-badge__content");
+  });
+
+  it("默认角标保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mount(XyBadge, {
+      props: {
+        value: 8
+      }
+    });
+
+    expect(wrapper.find(".xy-badge__content").classes()).toContain("xy-badge__content");
+    expect(wrapper.find(".xy-badge__content").text()).toContain("8");
   });
 });

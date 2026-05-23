@@ -119,4 +119,17 @@ describe("XyResult", () => {
 
     expect(wrapper.find(".xy-result")?.classes()).toContain("xy-result--sm");
   });
+
+  it("默认 result 面板保持克制但仍可正常显示内容", () => {
+    const wrapper = mount(XyResult, {
+      props: {
+        title: "加载失败",
+        description: "请稍后重试"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-result");
+    expect(wrapper.get(".xy-result__title").text()).toBe("加载失败");
+    expect(wrapper.get(".xy-result__description").text()).toContain("请稍后重试");
+  });
 });

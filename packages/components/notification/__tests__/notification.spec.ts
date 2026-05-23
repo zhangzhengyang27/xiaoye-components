@@ -200,6 +200,19 @@ describe("XyNotification", () => {
     expect(vnodeWrapper.find(".rendered-content").exists()).toBe(true);
   });
 
+  it("默认通知面板保持克制但仍可正常显示标题和内容", async () => {
+    const wrapper = mountNotification({
+      title: "通知标题",
+      message: "通知正文"
+    });
+
+    await nextTick();
+
+    expect(wrapper.classes()).toContain("xy-notification");
+    expect(wrapper.get(".xy-notification__title").text()).toBe("通知标题");
+    expect(wrapper.get(".xy-notification__content").text()).toContain("通知正文");
+  });
+
   it("dangerouslyUseHTMLString=true 时按 HTML 渲染字符串", async () => {
     const wrapper = mountNotification({
       message: "<strong class='html-content'>高亮</strong>",

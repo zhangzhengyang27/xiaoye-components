@@ -32,6 +32,30 @@ describe("XyButton", () => {
     expect(wrapper.classes()).toContain("is-block");
   });
 
+  it("默认中性按钮风格保持克制且仍可正常渲染", () => {
+    const wrapper = mount(XyButton, {
+      slots: {
+        default: "提交"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-button--default");
+    expect(wrapper.classes()).toContain("xy-button--md");
+    expect(wrapper.text()).toContain("提交");
+  });
+
+  it("默认按钮保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mount(XyButton, {
+      slots: {
+        default: "提交"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-button");
+    expect(wrapper.classes()).toContain("xy-button--default");
+    expect(wrapper.text()).toContain("提交");
+  });
+
   it("会归一化互斥的视觉 props，并只保留 link 语义", () => {
     const wrapper = mount(XyButton, {
       props: {

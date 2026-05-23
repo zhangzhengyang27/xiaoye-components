@@ -236,6 +236,42 @@ describe("XyDropdown", () => {
     expect(menu).not.toBeNull();
   });
 
+  it("默认面板风格保持克制但仍可正常显示菜单项", async () => {
+    const wrapper = mount(XyDropdown, {
+      attachTo: document.body,
+      props: {
+        trigger: "click",
+        items: [{ key: "docs", label: "文档" }]
+      }
+    });
+
+    await wrapper.find(".xy-dropdown__trigger").trigger("click");
+    await nextTick();
+
+    const panel = document.body.querySelector(".xy-dropdown__panel") as HTMLElement | null;
+    expect(panel).not.toBeNull();
+    expect(document.body.querySelector(".xy-dropdown__item")?.textContent ?? "").toContain("文档");
+  });
+
+  it("默认 trigger 的视觉基线保持克制且仍可打开菜单", async () => {
+    const wrapper = mount(XyDropdown, {
+      attachTo: document.body,
+      props: {
+        trigger: "click",
+        items: [{ key: "docs", label: "文档" }]
+      }
+    });
+
+    const trigger = wrapper.find(".xy-dropdown__default-trigger");
+    expect(trigger.exists()).toBe(true);
+
+    await trigger.trigger("click");
+    await nextTick();
+
+    expect(document.body.querySelector(".xy-dropdown__panel")).not.toBeNull();
+    expect(document.body.querySelector(".xy-dropdown__item")?.textContent ?? "").toContain("文档");
+  });
+
   it("支持 appendTo、persistent、popperClass、popperStyle", async () => {
     document.body.innerHTML = `<div id="dropdown-target"></div>`;
 

@@ -91,4 +91,17 @@ describe("XyStatistic", () => {
 
     expect((wrapper.vm as { displayValue: string | number }).displayValue).toBe("12,345.68");
   });
+
+  it("默认 statistic 内容区保持克制但仍可正常显示数值", () => {
+    const wrapper = mount(Statistic, {
+      props: {
+        title: "累计成交额",
+        value: 987654
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-statistic");
+    expect(wrapper.get(".xy-statistic__content").exists()).toBe(true);
+    expect(wrapper.get(".xy-statistic__value").text()).toContain("987,654");
+  });
 });

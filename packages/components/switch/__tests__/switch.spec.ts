@@ -23,6 +23,17 @@ describe("XySwitch", () => {
     expect(wrapper.classes()).toContain("is-checked");
   });
 
+  it("默认 switch 风格保持克制且仍可正常渲染", () => {
+    const wrapper = mount(XySwitch, {
+      props: {
+        modelValue: false
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-switch");
+    expect(wrapper.find(".xy-switch__core").exists()).toBe(true);
+  });
+
   it("支持 activeValue 和 inactiveValue", async () => {
     const value = ref<"open" | "close">("open");
 

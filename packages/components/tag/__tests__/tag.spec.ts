@@ -21,6 +21,17 @@ describe("XyTag", () => {
     expect(wrapper.classes()).toContain("is-round");
   });
 
+  it("默认标签风格保持克制且仍可正常渲染", () => {
+    const wrapper = mount(XyTag, {
+      slots: {
+        default: "默认标签"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-tag");
+    expect(wrapper.text()).toContain("默认标签");
+  });
+
   it("兼容 legacy type，并支持 info 语义色", () => {
     const wrapper = mount(XyTag, {
       props: {
@@ -109,5 +120,30 @@ describe("XyTag", () => {
     await wrapper.get(".xy-tag__close").trigger("click");
 
     expect(wrapper.emitted("close")).toHaveLength(1);
+  });
+
+  it("默认 tag 面板保持克制但仍可正常显示文本", () => {
+    const wrapper = mount(XyTag, {
+      props: {
+        type: "info"
+      },
+      slots: {
+        default: "状态标签"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-tag");
+    expect(wrapper.text()).toContain("状态标签");
+  });
+
+  it("默认标签保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mount(XyTag, {
+      slots: {
+        default: "默认标签"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-tag");
+    expect(wrapper.text()).toContain("默认标签");
   });
 });

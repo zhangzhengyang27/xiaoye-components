@@ -561,4 +561,18 @@ describe("XyMessage", () => {
     expect(message?.classList.contains("is-bottom")).toBe(true);
     expect(message?.querySelector(".xy-message__close")).not.toBeNull();
   });
+
+  it("默认消息面板保持克制但仍可正常显示内容", async () => {
+    XyMessage({
+      message: "默认消息",
+      duration: 0
+    });
+
+    await flushMessage();
+
+    const message = getMessages()[0];
+    expect(message).not.toBeUndefined();
+    expect(message?.classList.contains("xy-message")).toBe(true);
+    expect(message?.textContent).toContain("默认消息");
+  });
 });

@@ -45,6 +45,19 @@ describe("XyTimeSelect", () => {
     expect(wrapper.emitted("change")?.[0]).toEqual(["09:00"]);
   });
 
+  it("默认时间下拉风格保持克制且仍可正常打开", async () => {
+    const wrapper = mountTimeSelect(XyTimeSelect, {
+      attachTo: document.body
+    });
+
+    expect(wrapper.find(".xy-time-select__trigger").exists()).toBe(true);
+
+    await wrapper.find(".xy-time-select__trigger").trigger("click");
+    await nextTick();
+
+    expect(document.body.querySelector(".xy-time-select__dropdown")).not.toBeNull();
+  });
+
   it("支持 minTime/maxTime、includeEndTime 和 format", async () => {
     const wrapper = mountTimeSelect(XyTimeSelect, {
       attachTo: document.body,
@@ -75,6 +88,49 @@ describe("XyTimeSelect", () => {
     await nextTick();
 
     expect(wrapper.emitted("update:modelValue")?.[0]).toEqual(["09:00 AM"]);
+  });
+
+  it("支持自定义 popup 容器、类名、样式和 placement", async () => {
+    const appendTarget = document.createElement("div");
+    appendTarget.className = "time-select-target";
+    document.body.appendChild(appendTarget);
+
+    const wrapper = mountTimeSelect(XyTimeSelect, {
+      attachTo: document.body,
+      props: {
+        appendTo: ".time-select-target",
+        placement: "top-start",
+        popperClass: "custom-time-select-dropdown",
+        popperStyle: {
+          width: "280px"
+        }
+      }
+    });
+
+    await wrapper.find(".xy-time-select__trigger").trigger("click");
+    await nextTick();
+
+    const dropdown = appendTarget.querySelector(".custom-time-select-dropdown") as HTMLElement | null;
+    expect(dropdown).not.toBeNull();
+    expect(dropdown?.classList.contains("xy-time-select__dropdown")).toBe(true);
+    expect(dropdown?.style.width).toBe("280px");
+    expect(dropdown?.getAttribute("data-placement")).toContain("top");
+  });
+
+  it("在 teleported=false 时将下拉保留在当前容器内", async () => {
+    const wrapper = mountTimeSelect(XyTimeSelect, {
+      attachTo: document.body,
+      props: {
+        teleported: false,
+        popperClass: "inline-time-select-dropdown"
+      }
+    });
+
+    await wrapper.find(".xy-time-select__trigger").trigger("click");
+    await nextTick();
+
+    expect(wrapper.find(".inline-time-select-dropdown").exists()).toBe(true);
+    expect(document.body.querySelector(".inline-time-select-dropdown")).not.toBeNull();
   });
 
   it("支持清空当前值", async () => {

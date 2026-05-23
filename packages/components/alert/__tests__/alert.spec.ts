@@ -568,4 +568,18 @@ describe("XyAlert", () => {
     expect(wrapper.get(".xy-alert").classes()).toContain("is-dark");
     expect(wrapper.get(".xy-alert").classes()).toContain("xy-alert--banner");
   });
+
+  it("默认 alert 面板保持克制但仍可正常显示内容", () => {
+    const wrapper = mount(XyAlert, {
+      props: {
+        title: "系统提醒",
+        description: "请尽快完成同步"
+      }
+    });
+
+    const alert = wrapper.get(".xy-alert");
+    expect(alert.classes()).toContain("xy-alert");
+    expect(alert.get(".xy-alert__title").text()).toBe("系统提醒");
+    expect(alert.get(".xy-alert__description").text()).toContain("请尽快完成同步");
+  });
 });

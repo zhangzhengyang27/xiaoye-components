@@ -43,6 +43,32 @@ describe("XySelect", () => {
     expect(document.body.querySelector(".select-loading-path")).not.toBeNull();
   });
 
+  it("默认下拉触发器风格保持克制且仍可打开", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        options: [{ label: "管理员", value: "admin" }]
+      }
+    });
+
+    expect(wrapper.find(".xy-select__trigger").exists()).toBe(true);
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    expect(document.body.querySelector(".xy-select__dropdown")).not.toBeNull();
+  });
+
+  it("默认选择器保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        options: [{ label: "管理员", value: "admin" }]
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-select");
+    expect(wrapper.find(".xy-select__trigger").exists()).toBe(true);
+  });
+
   it("可以选择选项并发出 change 事件", async () => {
     const wrapper = mountSelect(XySelect, {
       attachTo: document.body,

@@ -43,6 +43,32 @@ describe("XyBreadcrumb", () => {
     expect(items[1]?.attributes("aria-current")).toBe("page");
   });
 
+  it("默认可点击面包屑风格保持克制且仍可正常导航", async () => {
+    const push = vi.fn();
+    const replace = vi.fn();
+
+    const wrapper = createWrapper(
+      () =>
+        h(XyBreadcrumb, null, () => [
+          h(XyBreadcrumbItem, { to: "/orders" }, () => "订单中心"),
+          h(XyBreadcrumbItem, null, () => "退款详情")
+        ]),
+      {
+        push,
+        replace
+      }
+    );
+
+    await nextTick();
+
+    const inner = wrapper.get(".xy-breadcrumb__inner");
+    expect(inner.classes()).toContain("is-link");
+
+    await inner.trigger("click");
+    await nextTick();
+    expect(push).toHaveBeenCalledWith("/orders");
+  });
+
   it("separatorIcon 会覆盖字符分隔符", async () => {
     const wrapper = createWrapper(() =>
       h(XyBreadcrumb, { separator: "?", separatorIcon: "mdi:chevron-right" }, () => [

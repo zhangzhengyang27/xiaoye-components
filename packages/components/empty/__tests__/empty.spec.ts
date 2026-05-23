@@ -15,6 +15,13 @@ describe("XyEmpty", () => {
     expect(wrapper.find(".xy-empty__description").text()).toBe("这里还没有可展示的内容");
   });
 
+  it("默认空态面板保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mount(XyEmpty);
+
+    expect(wrapper.classes()).toContain("xy-empty");
+    expect(wrapper.find(".xy-empty__illustration").exists()).toBe(true);
+  });
+
   it("未传 title 和 description 时支持从 ConfigProvider locale 回退", () => {
     const wrapper = mount(XyConfigProvider, {
       props: {

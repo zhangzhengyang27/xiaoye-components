@@ -103,6 +103,96 @@ describe("XyPopover", () => {
     expect(panel?.style.maxWidth).toBe("360px");
   });
 
+  it("支持 teleported=false 时在当前容器内渲染，并反映 placement", async () => {
+    document.body.innerHTML = "";
+
+    const wrapper = mount(XyPopover, {
+      attachTo: document.body,
+      props: {
+        content: "本地渲染",
+        teleported: false,
+        placement: "top-start",
+        popperClass: "inline-popover"
+      },
+      slots: {
+        reference: "<button class='reference-trigger'>reference</button>"
+      }
+    });
+
+    await wrapper.find(".reference-trigger").trigger("click");
+    await nextTick();
+    await nextTick();
+
+    const panel = wrapper.element.querySelector(".xy-popover__panel.inline-popover") as HTMLElement | null;
+    expect(panel).not.toBeNull();
+    expect(panel?.getAttribute("class")).toContain("inline-popover");
+    expect(panel?.getAttribute("style")).toContain("width: 320px");
+  });
+
+  it("showArrow=false 时不渲染箭头", async () => {
+    document.body.innerHTML = "";
+
+    const wrapper = mount(XyPopover, {
+      attachTo: document.body,
+      props: {
+        content: "无箭头",
+        showArrow: false
+      },
+      slots: {
+        reference: "<button class='reference-trigger'>reference</button>"
+      }
+    });
+
+    await wrapper.find(".reference-trigger").trigger("click");
+    await nextTick();
+
+    expect(document.body.querySelector(".xy-popover__arrow")).toBeNull();
+  });
+
+  it("默认面板风格保持克制但仍可正常显示内容", async () => {
+    document.body.innerHTML = "";
+
+    const wrapper = mount(XyPopover, {
+      attachTo: document.body,
+      props: {
+        title: "标题",
+        content: "正文内容"
+      },
+      slots: {
+        reference: "<button class='reference-trigger'>reference</button>"
+      }
+    });
+
+    await wrapper.find(".reference-trigger").trigger("click");
+    await nextTick();
+
+    const panel = document.body.querySelector(".xy-popover__panel") as HTMLElement | null;
+    expect(panel).not.toBeNull();
+    expect(panel?.textContent ?? "").toContain("正文内容");
+  });
+
+  it("默认 trigger 的视觉基线保持克制且仍可打开内容", async () => {
+    document.body.innerHTML = "";
+
+    const wrapper = mount(XyPopover, {
+      attachTo: document.body,
+      props: {
+        title: "标题",
+        content: "正文内容"
+      }
+    });
+
+    const trigger = wrapper.find(".xy-popover__default-trigger");
+    expect(trigger.exists()).toBe(true);
+
+    await trigger.trigger("click");
+    await nextTick();
+
+    const panel = document.body.querySelector(".xy-popover__panel") as HTMLElement | null;
+    expect(panel).not.toBeNull();
+    expect(panel?.textContent ?? "").toContain("正文内容");
+  });
+
   it("受控变更不会重复派发 update:modelValue，persistent=true 时关闭后保留 DOM", async () => {
     document.body.innerHTML = "";
 

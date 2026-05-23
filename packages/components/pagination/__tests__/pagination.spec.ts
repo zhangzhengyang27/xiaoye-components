@@ -138,6 +138,22 @@ describe("XyPagination", () => {
     expect(wrapper.emitted()).toEqual({});
   });
 
+  it("背景态默认风格保持克制但仍可正常切页", async () => {
+    const wrapper = mount(XyPagination, {
+      props: {
+        total: 100,
+        currentPage: 1,
+        pageSize: 10,
+        background: true
+      }
+    });
+
+    expect(wrapper.classes()).toContain("is-background");
+    expect(wrapper.find(".xy-pagination__pager-item.is-active").exists()).toBe(true);
+    expect(wrapper.find(".xy-pagination__button--next").exists()).toBe(true);
+    expect(wrapper.find(".xy-pagination__button--next").attributes("disabled")).toBeUndefined();
+  });
+
   it("支持默认值和 jumper", async () => {
     const Demo = defineComponent({
       components: { XyPagination },
@@ -166,5 +182,33 @@ describe("XyPagination", () => {
     await nextTick();
 
     expect(wrapper.findComponent(XyPagination).emitted("update:currentPage")?.[0]).toEqual([6]);
+  });
+
+  it("背景态默认风格保持克制但仍可正常显示页码", () => {
+    const wrapper = mount(XyPagination, {
+      props: {
+        total: 120,
+        currentPage: 2,
+        background: true
+      }
+    });
+
+    expect(wrapper.classes()).toContain("is-background");
+    expect(wrapper.find(".xy-pagination__pager-item.is-active").text()).toBe("2");
+    expect(wrapper.find(".xy-pagination__button--next").exists()).toBe(true);
+  });
+
+  it("默认分页结构保持克制但仍可正常显示背景态类名", () => {
+    const wrapper = mount(XyPagination, {
+      props: {
+        total: 120,
+        currentPage: 2,
+        background: true
+      }
+    });
+
+    expect(wrapper.classes()).toContain("is-background");
+    expect(wrapper.find(".xy-pagination__pager-item.is-active").exists()).toBe(true);
+    expect(wrapper.find(".xy-pagination__button--next").exists()).toBe(true);
   });
 });

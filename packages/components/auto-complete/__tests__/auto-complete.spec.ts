@@ -49,4 +49,49 @@ describe("XyAutoComplete", () => {
       "外部建议"
     );
   });
+
+  it("支持自定义 popup 容器、类名、样式和 placement", async () => {
+    const appendTarget = document.createElement("div");
+    appendTarget.className = "auto-complete-target";
+    document.body.appendChild(appendTarget);
+
+    const wrapper = mount(XyAutoComplete, {
+      props: {
+        modelValue: "",
+        options: [{ label: "控制台", value: 1 }],
+        appendTo: ".auto-complete-target",
+        placement: "top-start",
+        popperClass: "custom-auto-complete-dropdown",
+        popperStyle: {
+          width: "260px"
+        }
+      },
+      attachTo: document.body
+    });
+
+    await wrapper.find("input").trigger("focus");
+
+    const dropdown = appendTarget.querySelector(".custom-auto-complete-dropdown") as HTMLElement | null;
+    expect(dropdown).not.toBeNull();
+    expect(dropdown?.classList.contains("xy-auto-complete__dropdown")).toBe(true);
+    expect(dropdown?.style.width).toBe("260px");
+    expect(dropdown?.getAttribute("data-placement")).toContain("top");
+  });
+
+  it("在 teleported=false 时将 dropdown 保留在当前容器内", async () => {
+    const wrapper = mount(XyAutoComplete, {
+      props: {
+        modelValue: "",
+        options: [{ label: "控制台", value: 1 }],
+        teleported: false,
+        popperClass: "inline-auto-complete-dropdown"
+      },
+      attachTo: document.body
+    });
+
+    await wrapper.find("input").trigger("focus");
+
+    expect(wrapper.find(".inline-auto-complete-dropdown").exists()).toBe(true);
+    expect(document.body.querySelector(".inline-auto-complete-dropdown")).not.toBeNull();
+  });
 });

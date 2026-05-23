@@ -526,9 +526,11 @@ describe("XyImage", () => {
 
     await wrapper.get("img").trigger("click");
     await nextTick();
-    (
-      document.body.querySelector(".xy-image-viewer") as HTMLElement | null
-    )?.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    await nextTick();
+
+    const viewer = document.body.querySelector(".xy-image-viewer") as HTMLElement | null;
+    viewer?.focus();
+    viewer?.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
     await nextTick();
 
     expect(wrapper.emitted("close")).toHaveLength(2);

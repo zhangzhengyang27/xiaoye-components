@@ -106,6 +106,33 @@ describe("XyCard", () => {
     expect(wrapper.find(".xy-card__footer").classes()).not.toContain("is-no-divider");
   });
 
+  it("默认卡片风格保持克制但仍可正常渲染头部和内容", () => {
+    const wrapper = mount(XyCard, {
+      props: {
+        header: "卡片标题"
+      },
+      slots: {
+        default: "卡片正文"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-card--default");
+    expect(wrapper.find(".xy-card__header").exists()).toBe(true);
+    expect(wrapper.find(".xy-card__body").text()).toContain("卡片正文");
+  });
+
+  it("默认卡片结构保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mount(XyCard, {
+      slots: {
+        default: "卡片正文"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-card");
+    expect(wrapper.classes()).not.toContain("is-borderless");
+    expect(wrapper.find(".xy-card__body").text()).toContain("卡片正文");
+  });
+
   it("支持 size、variant、bordered、headerDivider 和 footerDivider", () => {
     const wrapper = mount(XyCard, {
       props: {
@@ -181,6 +208,21 @@ describe("XyCard", () => {
     expect(wrapper.find(".xy-card__footer").exists()).toBe(true);
     expect(wrapper.find(".xy-card__loading").text()).toContain("正在同步");
     expect(wrapper.find(".custom-empty").exists()).toBe(false);
+  });
+
+  it("默认卡片面板保持克制但仍可正常渲染结构", () => {
+    const wrapper = mount(XyCard, {
+      props: {
+        header: "概览卡片"
+      },
+      slots: {
+        default: "卡片正文"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-card");
+    expect(wrapper.find(".xy-card__header").exists()).toBe(true);
+    expect(wrapper.find(".xy-card__body").text()).toContain("卡片正文");
   });
 
   it("支持 loading 和 empty 插槽覆盖默认内容", async () => {

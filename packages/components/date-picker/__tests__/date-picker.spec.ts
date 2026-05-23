@@ -22,6 +22,19 @@ describe("XyDatePicker", () => {
     expect(wrapper.emitted("change")?.[0]?.[0]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
+  it("默认日期选择器风格保持克制且仍可正常打开", async () => {
+    const wrapper = mount(XyDatePicker, {
+      attachTo: document.body
+    });
+
+    expect(wrapper.find(".xy-date-picker__trigger").exists()).toBe(true);
+
+    await wrapper.find(".xy-date-picker__trigger").trigger("click");
+    await nextTick();
+
+    expect(document.body.querySelector(".xy-date-picker__panel")).not.toBeNull();
+  });
+
   it("支持清空选中值", async () => {
     const wrapper = mount(XyDatePicker, {
       props: {
@@ -62,5 +75,46 @@ describe("XyDatePicker", () => {
 
     expect(wrapper.find(".xy-date-picker__selection").classes()).toContain("is-value");
     expect(wrapper.find(".xy-date-picker__clear").exists()).toBe(true);
+  });
+
+  it("支持 appendTo、popperClass、popperStyle 和 placement", async () => {
+    document.body.innerHTML = `<div id="date-picker-target"></div>`;
+
+    const wrapper = mount(XyDatePicker, {
+      attachTo: document.body,
+      props: {
+        appendTo: "#date-picker-target",
+        popperClass: "custom-date-panel",
+        popperStyle: {
+          width: "360px"
+        },
+        placement: "top-start"
+      }
+    });
+
+    await wrapper.find(".xy-date-picker__trigger").trigger("click");
+    await nextTick();
+    await nextTick();
+
+    const panel = document.querySelector("#date-picker-target .xy-date-picker__panel") as HTMLElement | null;
+    expect(panel).not.toBeNull();
+    expect(panel?.classList.contains("custom-date-panel")).toBe(true);
+    expect(panel?.style.width).toBe("360px");
+    expect(panel?.getAttribute("data-placement")).toContain("top");
+  });
+
+  it("关闭 teleport 后会在本地容器内渲染面板", async () => {
+    const wrapper = mount(XyDatePicker, {
+      attachTo: document.body,
+      props: {
+        teleported: false
+      }
+    });
+
+    await wrapper.find(".xy-date-picker__trigger").trigger("click");
+    await nextTick();
+
+    expect(wrapper.find(".xy-date-picker__panel").exists()).toBe(true);
+    expect(wrapper.element.querySelector(".xy-date-picker__panel")).not.toBeNull();
   });
 });

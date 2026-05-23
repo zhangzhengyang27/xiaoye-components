@@ -38,6 +38,29 @@ describe("XyInput", () => {
     expect(wrapper.find('[data-icon="mdi:information-outline"]').exists()).toBe(true);
   });
 
+  it("默认输入框风格保持克制且仍可正常渲染", () => {
+    const wrapper = mount(XyInput, {
+      props: {
+        modelValue: "hello"
+      }
+    });
+
+    expect(wrapper.find(".xy-input__wrapper").exists()).toBe(true);
+    expect(wrapper.find("input").element).toBeInstanceOf(HTMLInputElement);
+    expect(wrapper.classes()).toContain("xy-input");
+  });
+
+  it("默认输入框保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mount(XyInput, {
+      props: {
+        modelValue: "hello"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-input");
+    expect(wrapper.find(".xy-input__wrapper").exists()).toBe(true);
+  });
+
   it("支持 clearable 和 clear 事件", async () => {
     const wrapper = mount(XyInput, {
       props: {

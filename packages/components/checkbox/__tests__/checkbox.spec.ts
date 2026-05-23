@@ -24,6 +24,19 @@ describe("XyCheckbox", () => {
     expect(wrapper.classes()).toContain("is-checked");
   });
 
+  it("默认 checkbox 风格保持克制且仍可正常渲染", () => {
+    const wrapper = mount(XyCheckbox, {
+      props: {
+        modelValue: false,
+        label: "启用"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-checkbox");
+    expect(wrapper.find(".xy-checkbox__inner").exists()).toBe(true);
+    expect(wrapper.text()).toContain("启用");
+  });
+
   it("支持 trueValue 和 falseValue", async () => {
     const value = ref<"open" | "close">("close");
 

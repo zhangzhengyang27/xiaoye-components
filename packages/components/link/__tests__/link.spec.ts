@@ -18,6 +18,17 @@ describe("XyLink", () => {
     expect(wrapper.text()).toContain("查看详情");
   });
 
+  it("默认链接保持克制但仍可正常渲染基础类名", () => {
+    const wrapper = mount(XyLink, {
+      slots: {
+        default: "查看详情"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-link");
+    expect(wrapper.classes()).toContain("xy-link--default");
+  });
+
   it("未禁用时会派发 click，并透传 href 与 target", async () => {
     const wrapper = mount(XyLink, {
       props: {

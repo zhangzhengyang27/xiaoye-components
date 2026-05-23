@@ -25,6 +25,20 @@ describe("XyRadio", () => {
     expect(wrapper.classes()).toContain("is-checked");
   });
 
+  it("默认 radio 风格保持克制且仍可正常渲染", () => {
+    const wrapper = mount(XyRadio, {
+      props: {
+        modelValue: "manual",
+        value: "api",
+        label: "API"
+      }
+    });
+
+    expect(wrapper.classes()).toContain("xy-radio");
+    expect(wrapper.find(".xy-radio__inner").exists()).toBe(true);
+    expect(wrapper.text()).toContain("API");
+  });
+
   it("支持 disabled 和 border 状态", async () => {
     const wrapper = mount(XyRadio, {
       props: {
