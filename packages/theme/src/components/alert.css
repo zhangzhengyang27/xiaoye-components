@@ -25,9 +25,11 @@
   --xy-alert-description-color: var(--xy-text-color-subtle);
   --xy-alert-close-color: var(--xy-text-color-muted);
   --xy-alert-toggle-color: var(--xy-alert-accent-color);
-  --xy-alert-card-border-color: var(--xy-border-color-subtle);
-  --xy-alert-card-background: var(--xy-surface-raised);
-  --xy-alert-card-shadow: var(--xy-shadow-sm);
+  --xy-alert-card-border-color: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
+  --xy-alert-card-background: color-mix(in srgb, var(--xy-bg-color-floating) 99%, var(--xy-bg-color-subtle));
+  --xy-alert-card-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
   --xy-alert-banner-background: color-mix(in srgb, var(--xy-alert-bg-color) 86%, white);
   --xy-alert-service-top: 16px;
   --xy-alert-service-max-width: 960px;
@@ -45,7 +47,9 @@
   background: var(--xy-alert-bg-color);
   color: var(--xy-alert-text-color);
   overflow: hidden;
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
 }
 
 .xy-alert__icon {
@@ -212,7 +216,7 @@
   --xy-alert-content-gap: 6px;
   --xy-alert-actions-gap: 14px;
   --xy-alert-title-font-size: var(--xy-font-size-lg);
-  --xy-alert-title-with-description-font-size: 18px;
+  --xy-alert-title-with-description-font-size: 17px;
   --xy-alert-description-font-size: 14px;
   --xy-alert-icon-size: 18px;
   --xy-alert-icon-large-size: 32px;
@@ -245,7 +249,9 @@
 }
 
 .xy-alert.is-light {
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
 }
 
 .xy-alert.is-dark {
@@ -261,8 +267,8 @@
 
 .xy-alert.is-paused {
   box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, currentColor 18%, white),
-    0 0 0 3px color-mix(in srgb, currentColor 10%, transparent);
+    inset 0 0 0 1px color-mix(in srgb, currentColor 14%, white),
+    0 0 0 3px color-mix(in srgb, currentColor 8%, transparent);
 }
 
 .xy-alert--default {

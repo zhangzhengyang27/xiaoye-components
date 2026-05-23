@@ -5,10 +5,10 @@
   width: 100%;
   min-width: 0;
   padding: 18px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 16%, transparent);
   cursor: pointer;
   transition:
     border-color 0.18s ease,
@@ -19,16 +19,18 @@
 
 .xy-check-card:focus-visible {
   outline: none;
-  border-color: color-mix(in srgb, var(--xy-color-primary) 42%, white);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 36%, white);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 18%, transparent),
-    var(--xy-shadow-sm);
+    0 4px 10px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
 }
 
 .xy-check-card:hover:not(.is-disabled),
 .xy-check-card:focus-visible:not(.is-disabled) {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 20%, var(--xy-border-color));
-  box-shadow: var(--xy-shadow-sm);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent),
+    0 4px 10px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
   transform: translateY(-1px);
 }
 
@@ -48,11 +50,11 @@
 }
 
 .xy-check-card.is-checked {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 60%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 50%, var(--xy-surface-raised));
+  border-color: color-mix(in srgb, var(--xy-color-primary) 52%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 32%, var(--xy-bg-color-floating));
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 14%, transparent),
-    var(--xy-shadow-sm);
+    0 4px 10px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
 }
 
 .xy-check-card.is-disabled {
@@ -70,10 +72,10 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 1px solid var(--xy-border-color-strong);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
   border-radius: 999px;
   color: transparent;
-  background: var(--xy-bg-color);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 99%, var(--xy-bg-color-subtle));
   transition:
     border-color 0.18s ease,
     background-color 0.18s ease,

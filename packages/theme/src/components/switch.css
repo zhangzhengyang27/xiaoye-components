@@ -6,7 +6,7 @@
   --xy-switch-on-color: var(--xy-color-primary);
   --xy-switch-off-color: color-mix(
     in srgb,
-    var(--xy-border-color-strong) 46%,
+    var(--xy-border-color-strong) 36%,
     var(--xy-bg-color-subtle)
   );
   position: relative;
@@ -29,9 +29,9 @@
 }
 
 .xy-switch__input:focus-visible ~ .xy-switch__core {
-  outline: 2px solid color-mix(in srgb, var(--xy-switch-on-color) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-switch-on-color) 42%, var(--xy-bg-color));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-switch__label {
@@ -56,7 +56,7 @@
   height: var(--xy-switch-height);
   border: 1px solid var(--xy-switch-off-color);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-switch-off-color) 88%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-switch-off-color) 86%, var(--xy-bg-color-floating));
   box-sizing: border-box;
   transition:
     border-color 0.18s ease,
@@ -93,9 +93,11 @@
   width: var(--xy-switch-action-size);
   height: var(--xy-switch-action-size);
   border-radius: 50%;
-  background: var(--xy-surface-raised);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 97%, var(--xy-bg-color-subtle));
   color: var(--xy-switch-off-color);
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
   transition:
     transform 0.18s ease,
     color 0.18s ease,
@@ -104,19 +106,19 @@
 
 .xy-switch:hover:not(.is-disabled):not(.is-checked) .xy-switch__core {
   border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-switch-off-color));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 32%, var(--xy-switch-off-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 20%, var(--xy-switch-off-color));
 }
 
 .xy-switch.is-checked .xy-switch__core {
   border-color: var(--xy-switch-on-color);
-  background: color-mix(in srgb, var(--xy-switch-on-color) 82%, var(--xy-surface-raised));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-switch-on-color) 12%, transparent);
+  background: color-mix(in srgb, var(--xy-switch-on-color) 72%, var(--xy-bg-color-floating));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-switch-on-color) 10%, transparent);
 }
 
 .xy-switch.is-checked .xy-switch__action {
   transform: translateX(calc(var(--xy-switch-width) - var(--xy-switch-action-size) - 2px));
   color: var(--xy-switch-on-color);
-  background: color-mix(in srgb, var(--xy-surface-raised) 88%, var(--xy-bg-color));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 97%, var(--xy-bg-color-subtle));
 }
 
 .xy-switch.is-checked .xy-switch__inner {

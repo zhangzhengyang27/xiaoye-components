@@ -34,7 +34,7 @@
   padding: 20px;
   border: 1px dashed var(--xy-border-color-strong);
   border-radius: var(--xy-radius-lg);
-  background: color-mix(in srgb, var(--xy-surface-raised) 72%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
   text-align: center;
   cursor: pointer;
   transition:
@@ -46,15 +46,17 @@
 
 .xy-upload__trigger:focus-visible,
 .xy-upload__content:focus-visible .xy-upload__trigger {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-upload__content:hover .xy-upload__trigger {
   border-color: color-mix(in srgb, var(--xy-color-primary) 30%, var(--xy-border-color-strong));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 44%, var(--xy-surface-raised));
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 26%, var(--xy-bg-color-floating));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
 }
 
 .xy-upload__content.is-drag .xy-upload__trigger {
@@ -63,8 +65,8 @@
 
 .xy-upload__content.is-drag-over .xy-upload__trigger {
   border-color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 72%, var(--xy-surface-raised));
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent) inset;
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 52%, var(--xy-bg-color-floating));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 10%, transparent) inset;
 }
 
 .xy-upload__content--picture-card .xy-upload__trigger {
@@ -74,12 +76,12 @@
   padding: 0;
   border-style: dashed;
   gap: 2px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 92%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
 }
 
 .xy-upload__content--picture-card:hover .xy-upload__trigger {
   border-color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 28%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 22%, var(--xy-bg-color-floating));
 }
 
 .xy-upload__picture-card-trigger {
@@ -125,7 +127,7 @@
   padding: 10px 12px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-surface-raised);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   transition:
     border-color 0.18s ease,
     background-color 0.18s ease,
@@ -134,12 +136,12 @@
 
 .xy-upload-list__item.is-uploading {
   border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 46%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 28%, var(--xy-bg-color-floating));
 }
 
 .xy-upload-list__item.is-fail {
   border-color: color-mix(in srgb, var(--xy-color-danger) 20%, var(--xy-border-color-subtle));
-  background: color-mix(in srgb, var(--xy-color-danger-soft) 44%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-color-danger-soft) 28%, var(--xy-bg-color-floating));
 }
 
 .xy-upload-list__item.is-picture {
@@ -154,7 +156,7 @@
   overflow: hidden;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-surface-raised) 76%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
 }
 
 .xy-upload-list__thumb {
@@ -247,8 +249,8 @@
   height: 112px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
   transition:
     transform 0.18s ease,
     border-color 0.18s ease,
@@ -259,7 +261,9 @@
 .xy-upload-list__card:focus-within {
   transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--xy-color-primary) 20%, var(--xy-border-color));
-  box-shadow: var(--xy-shadow-card);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 10%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
 }
 
 .xy-upload-list__card .xy-upload-list__preview {
@@ -348,10 +352,12 @@
   max-width: min(80vw, 960px);
   max-height: min(80vh, 720px);
   padding: 20px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color-floating);
-  box-shadow: var(--xy-shadow-modal);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 28%, transparent),
+    0 8px 18px color-mix(in srgb, var(--xy-text-color-heading) 8%, transparent);
   outline: none;
 }
 

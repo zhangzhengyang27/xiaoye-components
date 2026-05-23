@@ -8,10 +8,12 @@
   height: 44px;
   padding: 0 14px;
   border-radius: 999px;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 94%, var(--xy-bg-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color);
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   cursor: pointer;
   transition:
     border-color 0.18s ease,
@@ -22,17 +24,19 @@
 }
 
 .xy-backtop:hover {
-  background: var(--xy-color-primary-soft);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 52%, var(--xy-bg-color-floating));
   color: var(--xy-color-primary);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
-  box-shadow: var(--xy-shadow-card);
+  border-color: color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 10%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   transform: translateY(-1px);
 }
 
 .xy-backtop:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-backtop__icon {

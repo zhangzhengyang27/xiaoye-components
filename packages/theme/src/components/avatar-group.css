@@ -30,7 +30,7 @@
 .xy-avatar-group .xy-avatar {
   box-shadow:
     0 0 0 2px var(--xy-bg-color-floating),
-    var(--xy-shadow-xs);
+    0 2px 6px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
 }
 
 .xy-avatar-group__collapse-avatars {
@@ -40,7 +40,9 @@
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-pill);
   background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 6px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
 }
 
 .xy-avatar-group__collapse-avatars > *:not(:first-child) {

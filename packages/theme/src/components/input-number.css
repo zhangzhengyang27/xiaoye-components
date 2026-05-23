@@ -51,7 +51,7 @@
   justify-content: center;
   width: var(--xy-input-number-control-size);
   border: 0;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 68%, var(--xy-bg-color-floating));
   color: var(--xy-text-color-secondary);
   cursor: pointer;
   transition:
@@ -63,7 +63,7 @@
 .xy-input-number__increase:hover,
 .xy-input-number__decrease:hover {
   color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 58%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 34%, var(--xy-bg-color-floating));
 }
 
 .xy-input-number__decrease {
@@ -119,5 +119,5 @@
 
 .xy-input-number.is-disabled .xy-input-number__increase,
 .xy-input-number.is-disabled .xy-input-number__decrease {
-  background: color-mix(in srgb, var(--xy-surface-sunken) 92%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-surface-sunken) 88%, var(--xy-bg-color-subtle));
 }

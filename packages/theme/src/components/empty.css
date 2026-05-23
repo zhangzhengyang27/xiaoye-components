@@ -7,13 +7,13 @@
   --xy-empty-footer-margin-top: var(--xy-space-3);
   --xy-empty-illustration-background: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 78%,
-    var(--xy-surface-raised)
+    var(--xy-bg-color-subtle) 72%,
+    var(--xy-bg-color)
   );
   --xy-empty-illustration-border-color: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 78%,
-    transparent
+    var(--xy-border-color-subtle) 88%,
+    var(--xy-border-color)
   );
 
   display: flex;
@@ -38,7 +38,7 @@
   border: 1px solid var(--xy-empty-illustration-border-color);
   border-radius: calc(var(--xy-radius-lg) + 2px);
   background: var(--xy-empty-illustration-background);
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
 }
 
 .xy-empty__default-art {

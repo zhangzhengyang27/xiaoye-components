@@ -99,9 +99,9 @@
   position: relative;
   width: 100%;
   height: 100%;
-  border: 1.5px solid var(--xy-border-color);
+  border: 1.5px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-surface-raised) 82%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
   box-sizing: border-box;
   transition:
     border-color 0.18s ease,
@@ -143,18 +143,18 @@
 
 .xy-checkbox:hover .xy-checkbox__inner,
 .xy-checkbox__input.is-focus .xy-checkbox__inner {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 30%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 46%, var(--xy-surface-raised));
+  border-color: color-mix(in srgb, var(--xy-color-primary) 24%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 28%, var(--xy-bg-color-floating));
 }
 
 .xy-checkbox__original:focus-visible + .xy-checkbox__inner {
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-checkbox__input.is-checked .xy-checkbox__inner {
   border-color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary) 88%, var(--xy-surface-raised));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
+  background: color-mix(in srgb, var(--xy-color-primary) 76%, var(--xy-bg-color-floating));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-checkbox__input.is-checked .xy-checkbox__inner::after {
@@ -163,7 +163,7 @@
 
 .xy-checkbox__input.is-indeterminate .xy-checkbox__inner {
   border-color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 72%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 50%, var(--xy-bg-color-floating));
 }
 
 .xy-checkbox__input.is-indeterminate .xy-checkbox__inner::before {
@@ -185,17 +185,17 @@
 }
 
 .xy-checkbox.is-disabled .xy-checkbox__inner {
-  background: color-mix(in srgb, var(--xy-surface-sunken) 88%, var(--xy-bg-color-subtle));
-  border-color: var(--xy-border-color);
+  background: color-mix(in srgb, var(--xy-surface-sunken) 90%, var(--xy-bg-color-subtle));
+  border-color: color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
   box-shadow: none;
 }
 
 .xy-checkbox.is-bordered {
   min-height: 40px;
   padding: 0 14px 0 12px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-surface-raised) 90%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 97%, var(--xy-bg-color-subtle));
   transition:
     border-color 0.18s ease,
     background-color 0.18s ease,
@@ -204,7 +204,7 @@
 
 .xy-checkbox.is-bordered:hover:not(.is-disabled) {
   border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 28%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 22%, var(--xy-bg-color-floating));
 }
 
 .xy-checkbox--sm.is-bordered {
@@ -219,8 +219,8 @@
 
 .xy-checkbox.is-bordered.is-checked {
   border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 62%, var(--xy-surface-raised));
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 46%, var(--xy-bg-color-floating));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 8%, transparent);
 }
 
 .xy-checkbox-button {
@@ -244,8 +244,8 @@
   justify-content: center;
   min-height: 40px;
   padding: 0 16px;
-  border: 1px solid var(--xy-border-color);
-  background: color-mix(in srgb, var(--xy-surface-raised) 92%, var(--xy-bg-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 97%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color-secondary);
   font-size: var(--xy-font-size-md);
   line-height: 1;
@@ -290,8 +290,8 @@
     var(--xy-checkbox-button-fill) 18%,
     var(--xy-border-color-subtle)
   );
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 64%, var(--xy-surface-raised));
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 58%, var(--xy-surface-raised));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-checkbox-button-fill) 8%, transparent);
 }
 
 .xy-checkbox-button.is-disabled .xy-checkbox-button__inner {
@@ -312,5 +312,5 @@
 }
 
 .xy-checkbox-button__original:focus-visible + .xy-checkbox-button__inner {
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }

@@ -5,7 +5,7 @@
   gap: var(--xy-space-2);
   border: 1px solid transparent;
   border-radius: var(--xy-radius-md);
-  background: var(--xy-surface-raised);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color);
   cursor: pointer;
   transition:
@@ -59,13 +59,13 @@
 }
 
 .xy-button--default {
-  border-color: var(--xy-border-color-subtle);
+  border-color: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
 }
 
 .xy-button--default:hover:not(:disabled):not(.is-disabled) {
-  background: var(--xy-bg-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-bg-color-floating));
   border-color: var(--xy-border-color-strong);
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
 }
 
 .xy-button--default:active:not(:disabled):not(.is-disabled) {
@@ -164,12 +164,12 @@
 }
 
 .xy-button.is-plain.xy-button--default {
-  background: var(--xy-bg-color-subtle);
-  border-color: var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 78%, var(--xy-bg-color-floating));
+  border-color: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
 }
 
 .xy-button.is-plain:hover:not(:disabled):not(.is-disabled) {
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
 }
 
 .xy-button.is-plain.xy-button--primary {
@@ -278,15 +278,15 @@
 }
 
 .xy-button.is-text.is-has-bg {
-  background: var(--xy-bg-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, var(--xy-bg-color-floating));
 }
 
 .xy-button.is-text:hover:not(:disabled):not(.is-disabled) {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-bg-color-muted));
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 78%, var(--xy-bg-color-muted));
 }
 
 .xy-button.is-text:active:not(:disabled):not(.is-disabled) {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, var(--xy-bg-color));
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, var(--xy-bg-color));
 }
 
 .xy-button.is-link {

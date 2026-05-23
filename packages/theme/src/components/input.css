@@ -19,9 +19,9 @@
   align-items: center;
   gap: 8px;
   min-width: 0;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
   border-radius: var(--xy-radius-md);
-  background: var(--xy-surface-raised);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
@@ -30,7 +30,7 @@
 
 .xy-input.is-focus .xy-input__wrapper {
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
 }
 
 .xy-input--sm .xy-input__wrapper {
@@ -104,8 +104,8 @@
   justify-content: center;
   flex-shrink: 0;
   padding: 0 12px;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: var(--xy-bg-color-subtle);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-bg-color-floating));
   color: var(--xy-text-color-subtle);
 }
 
@@ -149,7 +149,7 @@
 .xy-input.is-disabled .xy-input__wrapper,
 .xy-input.is-disabled .xy-input__prepend,
 .xy-input.is-disabled .xy-input__append {
-  background: var(--xy-surface-sunken);
+  background: color-mix(in srgb, var(--xy-surface-sunken) 92%, var(--xy-bg-color-subtle));
   cursor: not-allowed;
 }
 
@@ -187,9 +187,9 @@
   width: 100%;
   min-height: 96px;
   padding: 10px 12px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
   border-radius: var(--xy-radius-md);
-  background: var(--xy-surface-raised);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color);
   font: inherit;
   line-height: 1.6;
@@ -202,7 +202,7 @@
 
 .xy-textarea.is-focus .xy-textarea__inner {
   border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
 }
 
 .xy-textarea__clear {
@@ -215,7 +215,7 @@
   position: absolute;
   right: 12px;
   bottom: 12px;
-  background: var(--xy-bg-color-floating);
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
 }
 
 .xy-textarea__count.is-outside {

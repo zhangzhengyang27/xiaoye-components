@@ -9,7 +9,7 @@
 .xy-loading-mask {
   --xy-loading-text-font-size: 14px;
   --xy-loading-text-color: var(--xy-text-color-subtle);
-  --xy-loading-mask-background: color-mix(in srgb, var(--xy-overlay-color) 22%, transparent);
+  --xy-loading-mask-background: color-mix(in srgb, var(--xy-overlay-color) 14%, transparent);
 
   position: absolute;
   inset: 0;
@@ -63,16 +63,18 @@
 
 .xy-loading__indicator.is-surface {
   min-width: 112px;
-  padding: 18px 22px;
+  padding: 16px 20px;
   border-radius: calc(var(--xy-radius-lg) + 2px);
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-surface-raised));
-  box-shadow: var(--xy-shadow-sm);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
 }
 
 .xy-loading-mask.is-fullscreen .xy-loading__indicator.is-surface {
   min-width: 132px;
-  padding: 22px 28px;
+  padding: 20px 24px;
 }
 
 .xy-loading__indicator-icon,

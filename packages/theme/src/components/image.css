@@ -1,10 +1,10 @@
 .xy-image {
   --xy-image-placeholder-bg: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 78%,
+    var(--xy-bg-color-subtle) 74%,
     var(--xy-surface-raised)
   );
-  --xy-image-error-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-surface-raised));
+  --xy-image-error-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 68%, var(--xy-surface-raised));
   --xy-image-error-color: var(--xy-text-color-secondary);
   --xy-image-viewer-mask: color-mix(in srgb, var(--xy-overlay-color) 92%, transparent);
   --xy-image-viewer-btn-bg: color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent);
@@ -110,7 +110,9 @@
 .xy-image-viewer__image {
   display: block;
   object-fit: contain;
-  box-shadow: var(--xy-shadow-modal);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   transform-origin: center center;
   transition:
     transform 0.18s ease,
@@ -145,7 +147,9 @@
   background: color-mix(in srgb, var(--xy-bg-color-floating) 14%, transparent);
   color: var(--xy-bg-color);
   text-align: center;
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
 }
 
 .xy-image-viewer__retry {
@@ -161,16 +165,16 @@
 }
 
 .xy-image-viewer__retry:hover {
-  background: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
 }
 
 .xy-image-viewer__retry:focus-visible,
 .xy-image-viewer__close:focus-visible,
 .xy-image-viewer__arrow:focus-visible,
 .xy-image-viewer__action:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 88%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 72%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-image-viewer__close,
@@ -188,7 +192,9 @@
   background: var(--xy-image-viewer-btn-bg);
   color: var(--xy-image-viewer-btn-color);
   cursor: pointer;
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   opacity: 0.84;
   transition:
     transform 0.18s ease,
@@ -200,7 +206,7 @@
 
 .xy-image-viewer__close:hover {
   transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
+  border-color: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
   color: var(--xy-bg-color);
   opacity: 1;
 }
@@ -221,7 +227,7 @@
 
 .xy-image-viewer__arrow:hover:not(:disabled) {
   transform: translateY(calc(-50% - 1px));
-  border-color: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
+  border-color: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
   color: var(--xy-bg-color);
   opacity: 1;
 }
@@ -250,7 +256,9 @@
   border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent);
   color: var(--xy-bg-color);
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   font-size: var(--xy-font-size-sm);
   letter-spacing: 0.01em;
   opacity: 0.9;
@@ -303,7 +311,9 @@
   border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-bg-color-floating) 16%, transparent);
   transform: translateX(-50%);
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   opacity: 0.92;
   transition:
     opacity 0.18s ease,

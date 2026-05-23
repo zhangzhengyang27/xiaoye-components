@@ -112,15 +112,15 @@
 .xy-text__action:hover,
 .xy-text__toggle:hover {
   color: var(--xy-color-primary);
-  background: var(--xy-color-primary-soft);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 82%, var(--xy-bg-color-floating));
+  border-color: color-mix(in srgb, var(--xy-color-primary) 12%, var(--xy-border-color-subtle));
 }
 
 .xy-text__action:focus-visible,
 .xy-text__toggle:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-text > .xy-icon {

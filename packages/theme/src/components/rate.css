@@ -51,14 +51,14 @@
 .xy-rate__item:hover,
 .xy-rate__item.is-hover {
   transform: translateY(-1px) scale(1.04);
-  background: color-mix(in srgb, var(--xy-color-warning-soft) 40%, transparent);
+  background: color-mix(in srgb, var(--xy-color-warning-soft) 28%, transparent);
 }
 
 .xy-rate.is-focused .xy-rate__item.is-current {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
   outline-offset: 3px;
   border-radius: var(--xy-radius-sm);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
 }
 
 .xy-rate__icon-layer {

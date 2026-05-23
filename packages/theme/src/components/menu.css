@@ -9,28 +9,30 @@
 }
 
 .xy-menu {
-  --xy-menu-bg-color: var(--xy-surface-raised);
+  --xy-menu-bg-color: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   --xy-menu-text-color: var(--xy-text-color-secondary);
   --xy-menu-active-color: var(--xy-color-primary);
   --xy-menu-border: none;
-  --xy-menu-shadow: var(--xy-shadow-xs);
+  --xy-menu-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color)),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   --xy-menu-radius: var(--xy-radius-lg);
   --xy-menu-padding: 8px;
   --xy-menu-gap: 6px;
   --xy-menu-horizontal-height: 56px;
   --xy-menu-horizontal-item-min-height: calc(var(--xy-menu-horizontal-height) - 16px);
   --xy-menu-horizontal-item-padding-inline: var(--xy-menu-item-padding-inline);
-  --xy-menu-hover-bg: var(--xy-bg-color-subtle);
+  --xy-menu-hover-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, var(--xy-bg-color-floating));
   --xy-menu-hover-color: var(--xy-text-color-heading);
   --xy-menu-hover-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+    color-mix(in srgb, var(--xy-color-primary) 6%, var(--xy-border-color-subtle));
   --xy-menu-active-bg: var(--xy-color-primary-soft);
   --xy-menu-active-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
-  --xy-menu-popup-bg: var(--xy-bg-color-floating);
+    color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+  --xy-menu-popup-bg: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   --xy-menu-popup-text: var(--xy-text-color);
-  --xy-menu-popup-shadow: var(--xy-shadow-popup);
-  --xy-menu-popup-border-color: var(--xy-border-color-subtle);
+  --xy-menu-popup-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color)),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+  --xy-menu-popup-border-color: color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color));
   --xy-menu-popup-min-width: 216px;
   --xy-menu-popup-padding: 10px;
   --xy-menu-popup-radius: var(--xy-radius-lg);
@@ -57,7 +59,7 @@
   --xy-menu-sub-list-padding: 8px 0 8px 14px;
   --xy-menu-sub-list-border-color: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 92%,
+    var(--xy-border-color-subtle) 94%,
     transparent
   );
   --xy-menu-item-row-gap: 10px;
@@ -195,6 +197,10 @@
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
 
+.xy-menu--vertical .xy-menu__item-surface {
+  border-radius: var(--xy-radius-md);
+}
+
 .xy-menu-item.is-disabled,
 .xy-sub-menu.is-disabled > .xy-menu__item-surface {
   opacity: 0.5;
@@ -300,7 +306,7 @@
 }
 
 .xy-menu__popup--dark {
-  --xy-menu-popup-bg: color-mix(in srgb, var(--xy-text-color-heading) 92%, black);
+  --xy-menu-popup-bg: color-mix(in srgb, var(--xy-text-color-heading) 94%, black);
   --xy-menu-popup-text: color-mix(in srgb, var(--xy-bg-color-floating) 92%, white);
   --xy-menu-hover-bg: color-mix(in srgb, var(--xy-bg-color) 12%, transparent);
   --xy-menu-active-bg: color-mix(in srgb, var(--xy-color-primary) 18%, transparent);
@@ -322,9 +328,11 @@
 
 .xy-menu__collapsed-tooltip--light {
   --xy-tooltip-bg: var(--xy-bg-color-floating);
-  --xy-tooltip-text: var(--xy-text-color-subtle);
-  --xy-tooltip-border: var(--xy-border-color-subtle);
-  --xy-tooltip-shadow: var(--xy-shadow-popup);
+  --xy-tooltip-text: var(--xy-text-color-secondary);
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
+  --xy-tooltip-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
 }
 
 .xy-menu__popup .xy-menu__item-surface {

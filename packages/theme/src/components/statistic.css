@@ -16,7 +16,7 @@
   --xy-statistic-content-padding: 14px 16px;
   --xy-statistic-content-background: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 58%,
+    var(--xy-bg-color-subtle) 66%,
     var(--xy-surface-raised)
   );
 
@@ -45,7 +45,7 @@
   gap: var(--xy-statistic-affix-gap);
   min-width: 0;
   flex-wrap: wrap;
-  /* padding: var(--xy-statistic-content-padding); */
+  padding: var(--xy-statistic-content-padding);
   border-radius: var(--xy-radius-lg);
   background: var(--xy-statistic-content-background);
 }

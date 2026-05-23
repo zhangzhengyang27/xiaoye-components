@@ -54,13 +54,15 @@
   min-width: 0;
   padding: 12px 14px;
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, var(--xy-bg-color-floating));
 }
 
 .xy-descriptions-item.is-bordered {
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
   background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 14%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
 }
 
 .xy-descriptions-item.is-vertical {
