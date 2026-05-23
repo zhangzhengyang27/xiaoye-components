@@ -40,7 +40,12 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
   format: undefined,
   valueFormat: undefined,
   shortcuts: () => [],
-  disabledDate: undefined
+  disabledDate: undefined,
+  teleported: true,
+  popperClass: "",
+  popperStyle: undefined,
+  appendTo: "body",
+  placement: "bottom-start"
 });
 
 const emit = defineEmits<{
@@ -78,7 +83,7 @@ const {
   stopAutoUpdate
 } = useFloatingPanel(triggerRef, panelRef, {
   arrowRef: panelArrowRef,
-  placement: "bottom-start",
+  placement: () => props.placement,
   offset: 8,
   zIndex
 });
@@ -498,14 +503,14 @@ useDismissibleLayer({
       </span>
     </div>
 
-    <teleport to="body">
+    <teleport :to="props.appendTo" :disabled="!props.teleported">
       <transition name="xy-fade">
         <div
           v-if="open"
           :id="panelId"
           ref="panelRef"
-          class="xy-date-picker__panel"
-          :style="floatingStyle"
+          :class="['xy-date-picker__panel', props.popperClass]"
+          :style="[floatingStyle, props.popperStyle]"
           :data-placement="actualPlacement"
           role="dialog"
           tabindex="-1"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, ref, watch } from "vue";
+import type { StyleValue } from "vue";
 import type { ComponentSize } from "@xiaoye/primitives";
 import {
   useConfig,
@@ -32,6 +33,11 @@ const props = withDefaults(defineProps<TimePickerProps>(), {
   format: "HH:mm:ss",
   isRange: false,
   validateEvent: true,
+  teleported: true,
+  appendTo: "body",
+  placement: "bottom-start",
+  popperClass: "",
+  popperStyle: undefined,
   disabledHours: undefined,
   disabledMinutes: undefined,
   disabledSeconds: undefined
@@ -64,11 +70,12 @@ const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpd
   panelRef,
   {
     arrowRef: panelArrowRef,
-    placement: "bottom-start",
+    placement: computed(() => props.placement),
     offset: 8,
     zIndex
   }
 );
+const panelStyle = computed<StyleValue>(() => [floatingStyle.value, props.popperStyle]);
 
 const showSeconds = computed(() => props.format.includes("ss"));
 const mergedColumnsStyle = computed(() => ({
@@ -586,15 +593,15 @@ useDismissibleLayer({
       </span>
     </div>
 
-    <teleport to="body">
+    <teleport :to="props.appendTo" :disabled="!props.teleported">
       <transition name="xy-fade">
         <div
           v-if="open"
           :id="panelId"
           ref="panelRef"
           class="xy-time-picker__panel"
-          :class="props.isRange ? 'is-range' : ''"
-          :style="floatingStyle"
+          :class="[props.isRange ? 'is-range' : '', props.popperClass]"
+          :style="panelStyle"
           :data-placement="actualPlacement"
           role="dialog"
           tabindex="-1"

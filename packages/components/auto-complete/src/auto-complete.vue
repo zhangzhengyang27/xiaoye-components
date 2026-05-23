@@ -12,6 +12,7 @@ import {
 import XyInput from "../../input";
 import { formItemKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
+import type { LoadingGlobalConfig } from "../../loading/src/types";
 import type {
   AutoCompleteOption,
   AutoCompleteOptionSlotProps,
@@ -66,7 +67,7 @@ defineSlots<{
 const instance = getCurrentInstance();
 const formItem = inject(formItemKey, null);
 const ns = useNamespace("auto-complete");
-const { size: globalSize, loading: globalLoading } = useConfig();
+const { size: globalSize, loading: globalLoading } = useConfig<unknown, LoadingGlobalConfig>();
 const mergedSize = computed(() => props.size ?? globalSize.value);
 const mergedDisabled = computed(() => props.disabled || Boolean(formItem?.disabled.value));
 const triggerRef = ref<HTMLElement | null>(null);

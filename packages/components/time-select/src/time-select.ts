@@ -1,5 +1,7 @@
 import type TimeSelect from "./time-select.vue";
+import type { Placement } from "@floating-ui/dom";
 import type { ComponentSize } from "@xiaoye/primitives";
+import type { StyleValue } from "vue";
 
 export type TimeSelectValueChangeHandler = (value: string | null) => void;
 export type TimeSelectVisibleChangeHandler = (value: boolean) => void;
@@ -18,6 +20,11 @@ export interface TimeSelectProps {
   includeEndTime?: boolean;
   format?: string;
   validateEvent?: boolean;
+  teleported?: boolean;
+  appendTo?: string | HTMLElement;
+  placement?: Placement;
+  popperClass?: string;
+  popperStyle?: StyleValue;
 }
 
 export interface TimeSelectOption {

@@ -1,10 +1,18 @@
 import { computed, shallowRef } from "vue";
-import type { ComputedRef, InjectionKey, MaybeRef } from "vue";
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { ComputedRef, MaybeRef } from "vue";
+import {
+  configProviderKey,
+  DEFAULT_NAMESPACE,
+  DEFAULT_SIZE,
+  DEFAULT_Z_INDEX,
+  type ComponentSize
+} from "@xiaoye/primitives";
 import type { DialogGlobalConfig } from "../../dialog/src/dialog";
 import type { LoadingGlobalConfig } from "../../loading/src/types";
 import type { MessageGlobalConfig } from "../../message/src/message";
 import type { NotificationGlobalConfig } from "../../notification/src/notification";
+
+export { configProviderKey, DEFAULT_NAMESPACE, DEFAULT_SIZE, DEFAULT_Z_INDEX };
 
 export interface ConfigProviderContext {
   namespace: ComputedRef<string>;
@@ -27,13 +35,6 @@ export interface ConfigProviderProps {
   message?: MessageGlobalConfig;
   notification?: NotificationGlobalConfig;
 }
-
-export const configProviderKey: InjectionKey<ConfigProviderContext> =
-  Symbol("xiaoye-config-provider");
-
-export const DEFAULT_NAMESPACE = "xy";
-export const DEFAULT_Z_INDEX = 2000;
-export const DEFAULT_SIZE: ComponentSize = "md";
 
 export function resolveMaybeRef<T>(value: MaybeRef<T>) {
   return value;

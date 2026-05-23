@@ -90,6 +90,7 @@ const { visible, rendered, open, close, toggle, clearTimers, handleAfterLeave } 
     persistent: () => props.persistent,
     openDelay: () => props.showAfter ?? props.openDelay,
     closeDelay: () => props.hideAfter ?? props.closeDelay,
+    immediateExternal: true,
     beforeOpen: () => {
       emit("before-show");
     },

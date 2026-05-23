@@ -1,3 +1,5 @@
+import type { Placement } from "@floating-ui/dom";
+import type { StyleValue } from "vue";
 import type { ComponentSize } from "@xiaoye/primitives";
 
 export type DatePickerType = "date" | "daterange" | "month" | "year" | "week";
@@ -30,8 +32,8 @@ export interface DatePickerProps {
   editable?: boolean;
   teleported?: boolean;
   popperClass?: string;
-  popperStyle?: Record<string, unknown>;
+  popperStyle?: StyleValue;
   appendTo?: string | HTMLElement;
-  placement?: string;
+  placement?: Placement;
   modelModifiers?: { lazy?: boolean };
 }

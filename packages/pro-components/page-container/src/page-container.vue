@@ -2,6 +2,7 @@
 import { computed, useSlots } from "vue";
 import { useConfig, useNamespace } from "@xiaoye/primitives";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../../components/loading/src/shared";
+import type { LoadingGlobalConfig } from "../../../components/loading/src/types";
 import { XyPageHeader } from "../../page-header";
 import type { PageContainerProps } from "./page-container";
 
@@ -23,7 +24,7 @@ const props = withDefaults(defineProps<PageContainerProps>(), {
 
 const ns = useNamespace("page-container");
 const slots = useSlots();
-const { loading: globalLoading } = useConfig();
+const { loading: globalLoading } = useConfig<unknown, LoadingGlobalConfig>();
 const rootClasses = computed(() => [
   ns.base.value,
   props.bordered ? "is-bordered" : "",

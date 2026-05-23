@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, ref, watch } from "vue";
+import type { StyleValue } from "vue";
 import {
   useConfig,
   useDismissibleLayer,
@@ -36,7 +37,12 @@ const props = withDefaults(defineProps<TimeSelectProps>(), {
   maxTime: undefined,
   includeEndTime: false,
   format: DEFAULT_FORMAT,
-  validateEvent: true
+  validateEvent: true,
+  teleported: true,
+  appendTo: "body",
+  placement: "bottom-start",
+  popperClass: "",
+  popperStyle: undefined
 });
 
 const emit = defineEmits<{
@@ -66,12 +72,13 @@ const { actualPlacement, arrowStyle, floatingStyle, updatePosition, startAutoUpd
   dropdownRef,
   {
     arrowRef: dropdownArrowRef,
-    placement: "bottom-start",
+    placement: computed(() => props.placement),
     offset: 8,
     matchTriggerWidth: true,
     zIndex
   }
 );
+const dropdownStyle = computed<StyleValue>(() => [floatingStyle.value, props.popperStyle]);
 
 function parseTime(value?: string | null) {
   if (!value) {
@@ -473,14 +480,15 @@ defineExpose({
       </span>
     </div>
 
-    <teleport to="body">
+    <teleport :to="props.appendTo" :disabled="!props.teleported">
       <transition name="xy-fade">
         <div
           v-if="open"
           :id="listboxId"
           ref="dropdownRef"
           class="xy-time-select__dropdown"
-          :style="floatingStyle"
+          :class="props.popperClass"
+          :style="dropdownStyle"
           :data-placement="actualPlacement"
           role="listbox"
         >

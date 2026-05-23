@@ -580,7 +580,9 @@ watch(
       return;
     }
 
-    closeLayer();
+    if (!value) {
+      closeLayer();
+    }
     unlockBodyScroll();
   },
   {

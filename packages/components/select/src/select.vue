@@ -12,6 +12,7 @@ import {
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
+import type { LoadingGlobalConfig } from "../../loading/src/types";
 import { DEFAULT_CLEAR_ICON, DEFAULT_SUFFIX_ICON } from "./select";
 import type {
   FlatSelectOption,
@@ -83,7 +84,7 @@ defineSlots<{
 const instance = getCurrentInstance();
 const formItem = inject(formItemKey, null);
 const ns = useNamespace("select");
-const { size: globalSize, loading: globalLoading } = useConfig();
+const { size: globalSize, loading: globalLoading } = useConfig<unknown, LoadingGlobalConfig>();
 const mergedSize = computed(() => props.size ?? globalSize.value);
 const triggerRef = ref<HTMLElement | null>(null);
 const dropdownRef = ref<HTMLElement | null>(null);
