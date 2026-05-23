@@ -323,7 +323,7 @@
 
 .xy-table__header-cell:focus-visible,
 .xy-table.is-clickable .xy-table__row:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 52%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 52%, var(--xy-mix-light));
   outline-offset: -2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -399,7 +399,7 @@
 }
 
 .xy-table__row > .xy-table__cell {
-  transition: background-color 0.18s ease;
+  transition: background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-table__virtual-spacer-row > .xy-table__virtual-spacer {
@@ -474,8 +474,8 @@
 
 .xy-table__sort-icon {
   transition:
-    color 0.18s ease,
-    transform 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-table__sort-icon.is-active {
@@ -492,7 +492,7 @@
   background: transparent;
   color: var(--xy-text-color-muted);
   cursor: pointer;
-  transition: color 0.18s ease;
+  transition: color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-table__filter-trigger:hover,
@@ -519,7 +519,7 @@
   height: 50%;
   border-radius: 999px;
   background: transparent;
-  transition: background-color 0.18s ease;
+  transition: background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-table__header-cell:hover .xy-table__resize-handle::after {
@@ -570,8 +570,8 @@
   text-align: left;
   cursor: pointer;
   transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-table__filter-option:hover,
@@ -599,9 +599,9 @@
   color: var(--xy-text-color-secondary);
   cursor: pointer;
   transition:
-    border-color 0.18s ease,
-    color 0.18s ease,
-    background-color 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-table__filter-panel-action:hover {
@@ -650,7 +650,7 @@
   background: transparent;
   color: var(--xy-text-color-muted);
   cursor: pointer;
-  transition: color 0.18s ease;
+  transition: color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-table__tree-toggle:hover,

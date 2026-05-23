@@ -6,8 +6,8 @@
   border: 1px solid var(--xy-border-color);
   border-radius: var(--xy-radius-lg);
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color) 94%, white), var(--xy-bg-color)),
-    radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 48%);
+    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color) 94%, var(--xy-mix-light)), var(--xy-bg-color)),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 8%, transparent), transparent 48%);
   box-shadow: var(--xy-shadow-sm);
 }
 
@@ -39,7 +39,7 @@
   width: 40px;
   height: 40px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  background: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-mix-light));
   color: var(--xy-color-primary);
 }
 

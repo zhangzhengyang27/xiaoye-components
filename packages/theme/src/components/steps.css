@@ -90,11 +90,11 @@
   background: color-mix(in srgb, var(--xy-surface-raised) 88%, var(--xy-bg-color-subtle));
   color: currentColor;
   transition:
-    color 0.18s ease,
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-steps__icon.is-text {
@@ -147,9 +147,9 @@
   background: currentColor;
   border-radius: inherit;
   transition:
-    width 0.22s ease,
-    height 0.22s ease,
-    background-color 0.18s ease;
+    width var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    height var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
   box-sizing: border-box;
 }
 
@@ -339,7 +339,7 @@
 }
 
 .xy-steps__item.is-wait .xy-steps__description {
-  color: color-mix(in srgb, var(--xy-text-color-muted) 88%, white);
+  color: color-mix(in srgb, var(--xy-text-color-muted) 88%, var(--xy-mix-light));
 }
 
 .xy-steps__item.is-simple .xy-steps__description {

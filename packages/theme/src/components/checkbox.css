@@ -104,9 +104,9 @@
   background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
   box-sizing: border-box;
   transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-checkbox__inner::after {
@@ -119,7 +119,7 @@
   border: solid var(--xy-bg-color);
   border-width: 0 2px 2px 0;
   transform: translate(-50%, -58%) rotate(45deg) scale(0);
-  transition: transform 0.18s ease;
+  transition: transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-checkbox__inner::before {
@@ -131,7 +131,7 @@
   height: 2px;
   background: var(--xy-bg-color);
   transform: translate(-50%, -50%) scaleX(0);
-  transition: transform 0.18s ease;
+  transition: transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-checkbox__label {
@@ -197,9 +197,9 @@
   border-radius: var(--xy-radius-md);
   background: color-mix(in srgb, var(--xy-bg-color-floating) 97%, var(--xy-bg-color-subtle));
   transition:
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-checkbox.is-bordered:hover:not(.is-disabled) {
@@ -252,10 +252,10 @@
   cursor: pointer;
   user-select: none;
   transition:
-    color 0.18s ease,
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
   text-align: center;
 }
 

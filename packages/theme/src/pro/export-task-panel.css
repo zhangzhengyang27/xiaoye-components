@@ -9,7 +9,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 14px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, var(--xy-mix-light));
 }
 
 .xy-export-task-panel__item:last-child {

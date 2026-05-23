@@ -3,10 +3,10 @@
   flex-direction: column;
   gap: 16px;
   padding: 20px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, var(--xy-mix-light));
   border-radius: var(--xy-radius-lg);
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color-muted) 60%, white), transparent 84px),
+    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color-muted) 60%, var(--xy-mix-light)), transparent 84px),
     var(--xy-bg-color);
 }
 
@@ -34,7 +34,7 @@
   justify-content: space-between;
   gap: 12px;
   padding-top: 4px;
-  border-top: 1px dashed color-mix(in srgb, var(--xy-border-color) 70%, white);
+  border-top: 1px dashed color-mix(in srgb, var(--xy-border-color) 70%, var(--xy-mix-light));
 }
 
 .xy-search-form__meta {

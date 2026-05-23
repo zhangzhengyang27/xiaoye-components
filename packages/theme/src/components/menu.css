@@ -140,10 +140,10 @@
   letter-spacing: var(--xy-menu-item-letter-spacing);
   line-height: var(--xy-menu-item-line-height);
   transition:
-    background-color 0.18s ease,
-    color 0.18s ease,
-    box-shadow 0.18s ease,
-    border-color 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-menu__item-content {
@@ -192,7 +192,7 @@
 }
 
 .xy-menu__item-surface:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -243,7 +243,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.18s ease;
+  transition: transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-sub-menu.is-opened > .xy-menu__item-surface .xy-menu__expand-icon {
@@ -307,7 +307,7 @@
 
 .xy-menu__popup--dark {
   --xy-menu-popup-bg: color-mix(in srgb, var(--xy-text-color-heading) 94%, black);
-  --xy-menu-popup-text: color-mix(in srgb, var(--xy-bg-color-floating) 92%, white);
+  --xy-menu-popup-text: color-mix(in srgb, var(--xy-bg-color-floating) 92%, var(--xy-mix-light));
   --xy-menu-hover-bg: color-mix(in srgb, var(--xy-bg-color) 12%, transparent);
   --xy-menu-active-bg: color-mix(in srgb, var(--xy-color-primary) 18%, transparent);
   --xy-menu-active-shadow: inset 0 0 0 1px
@@ -432,8 +432,8 @@
 .xy-menu-collapse-enter-active,
 .xy-menu-collapse-leave-active {
   transition:
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
   transform-origin: top;
 }
 

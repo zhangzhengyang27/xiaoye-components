@@ -12,8 +12,8 @@
   padding: 24px;
   overflow: auto;
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 12%, white), transparent 220px),
-    var(--xy-bg-color-page, #f7f8fa);
+    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 12%, var(--xy-mix-light)), transparent 220px),
+    var(--xy-bg-color-page);
 }
 
 .xy-pro-table__toolbar,
@@ -22,7 +22,7 @@
 .xy-pro-table__selection-bar,
 .xy-pro-table__edit-footer,
 .xy-pro-table__error {
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, var(--xy-mix-light));
   border-radius: var(--xy-radius-lg);
   background: var(--xy-bg-color);
   box-shadow: 0 16px 32px color-mix(in srgb, var(--xy-color-primary) 6%, transparent);
@@ -35,7 +35,7 @@
   gap: 16px;
   padding: 20px;
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 10%, white), transparent 180px),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-mix-light)), transparent 180px),
     var(--xy-bg-color);
 }
 
@@ -107,7 +107,7 @@
   gap: 10px;
   padding: 10px 12px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-fill-color-light, #f5f7fa) 88%, white);
+  background: color-mix(in srgb, var(--xy-fill-color-light) 88%, var(--xy-mix-light));
 }
 
 .xy-pro-table__settings-checkbox {
@@ -188,7 +188,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 8px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, var(--xy-mix-light));
   border-radius: var(--xy-radius-md);
   background: var(--xy-bg-color);
   box-shadow: var(--xy-shadow-popup);
@@ -206,7 +206,7 @@
 }
 
 .xy-pro-table__contextmenu-item:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--xy-color-primary) 8%, white);
+  background: color-mix(in srgb, var(--xy-color-primary) 8%, var(--xy-mix-light));
 }
 
 .xy-pro-table__contextmenu-item.is-danger {

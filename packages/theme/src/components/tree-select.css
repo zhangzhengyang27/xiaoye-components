@@ -14,9 +14,9 @@
   cursor: pointer;
   outline: none;
   transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tree-select:not(.is-open):not(.is-disabled) .xy-tree-select__trigger:hover {
@@ -84,8 +84,8 @@
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 0.18s ease,
-    color 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tree-select__icon-button:hover {
@@ -97,9 +97,9 @@
   inset: 0;
   opacity: 1;
   transition:
-    transform 0.18s ease,
-    opacity 0.18s ease,
-    color 0.18s ease;
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tree-select.is-open .xy-tree-select__icon {

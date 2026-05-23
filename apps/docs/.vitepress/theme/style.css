@@ -17,7 +17,7 @@
   --xy-doc-card-shadow-hover: var(--xy-shadow-card);
   --xy-z-dropdown: 90;
   --xy-doc-card-bg: var(--xy-surface-raised);
-  --xy-doc-code-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  --xy-doc-code-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, var(--xy-mix-light));
 }
 
 .xy-home-grid {
@@ -42,7 +42,7 @@
 .VPNavBar {
   border-bottom: 1px solid var(--xy-border-color-subtle) !important;
   height: 55px !important;
-  background-color: color-mix(in srgb, var(--xy-bg-color) 97%, white) !important;
+  background-color: color-mix(in srgb, var(--xy-bg-color) 97%, var(--xy-mix-light)) !important;
   position: relative;
   z-index: 2001 !important;
 }
@@ -56,7 +56,7 @@
     top: 55px !important;
     padding: 32px 24px 48px 24px !important;
     width: var(--vp-sidebar-width) !important;
-    background: color-mix(in srgb, var(--xy-bg-color) 96%, white) !important;
+    background: color-mix(in srgb, var(--xy-bg-color) 96%, var(--xy-mix-light)) !important;
   }
 
   .VPSidebar .group {
@@ -110,7 +110,7 @@
   .VPSidebarItem.level-2.is-active > .item,
   .VPSidebarItem.level-1.has-active > .item,
   .VPSidebarItem.level-2.has-active > .item {
-    background: color-mix(in srgb, var(--xy-color-primary-soft) 82%, white) !important;
+    background: color-mix(in srgb, var(--xy-color-primary-soft) 82%, var(--xy-mix-light)) !important;
   }
 
   .VPSidebarItem.level-1.is-active > .item .text,
@@ -394,7 +394,7 @@
   padding: 12px 14px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, var(--xy-mix-light));
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -406,7 +406,7 @@
 .xy-scene-strip > div:hover {
   transform: translateY(-1px);
   border-color: var(--xy-doc-card-border-hover);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 58%, white);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 58%, var(--xy-mix-light));
   box-shadow: var(--xy-shadow-xs);
 }
 
@@ -515,7 +515,7 @@
   padding: 14px 16px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 80%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 80%, var(--xy-mix-light));
 }
 
 .xy-table-doc-chip span,
@@ -562,7 +562,7 @@
   height: 32px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 72%, white);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 72%, var(--xy-mix-light));
   color: var(--xy-color-primary);
   font-size: 13px;
   font-weight: 700;
@@ -649,7 +649,7 @@ tr.doc-row-active > td:first-child {
   padding: 18px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: var(--xy-radius-xl);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-mix-light));
   box-shadow: var(--xy-shadow-card);
 }
 
@@ -678,7 +678,7 @@ tr.doc-row-active > td:first-child {
   justify-content: center;
   padding: 7px 12px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-color-info) 10%, white);
+  background: color-mix(in srgb, var(--xy-color-info) 10%, var(--xy-mix-light));
   color: var(--xy-color-info);
   font-size: 11px;
   font-weight: 700;
@@ -700,7 +700,7 @@ tr.doc-row-active > td:first-child {
   padding: 14px 16px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: 18px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, var(--xy-mix-light));
 }
 
 .xy-doc-image-note__title {
@@ -742,7 +742,7 @@ tr.doc-row-active > td:first-child {
   padding: 14px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: 20px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, var(--xy-mix-light));
 }
 
 .xy-doc-image-fit-card strong {
@@ -763,7 +763,7 @@ tr.doc-row-active > td:first-child {
   height: 100%;
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, var(--xy-mix-light));
   color: var(--xy-text-color-secondary);
 }
 
@@ -774,7 +774,7 @@ tr.doc-row-active > td:first-child {
   padding: 9px 14px;
   border: 1px solid color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 62%, white);
+  background: color-mix(in srgb, var(--xy-color-primary-soft) 62%, var(--xy-mix-light));
   color: var(--xy-text-color-heading);
   box-shadow: var(--xy-shadow-xs);
 }
@@ -794,7 +794,7 @@ tr.doc-row-active > td:first-child {
   padding: 8px;
   border: 1px solid var(--xy-border-color-subtle);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, var(--xy-mix-light));
   box-shadow: var(--xy-shadow-sm);
 }
 
@@ -975,7 +975,7 @@ tr.doc-row-active > td:first-child {
 }
 
 .vp-doc .xy-vp-table > table th {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, var(--xy-mix-light));
   color: var(--xy-text-color-secondary);
   font-weight: 600;
 }

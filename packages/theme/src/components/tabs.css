@@ -63,7 +63,7 @@
   padding: 0;
   border-radius: 0;
   background: transparent;
-  transition: transform 0.2s ease;
+  transition: transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tabs__nav.is-vertical {
@@ -95,9 +95,9 @@
   cursor: pointer;
   font-weight: 560;
   transition:
-    color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tabs__tab-label {
@@ -113,8 +113,8 @@
   border-radius: 50%;
   color: currentColor;
   transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tabs__tab-close:hover {
@@ -136,9 +136,9 @@
   background: var(--xy-color-primary);
   pointer-events: none;
   transition:
-    width 0.18s ease,
-    height 0.18s ease,
-    transform 0.18s ease;
+    width var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    height var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tabs__nav.is-vertical .xy-tabs__active-bar {
@@ -161,10 +161,10 @@
   color: var(--xy-text-color-secondary);
   cursor: pointer;
   transition:
-    border-color 0.18s ease,
-    color 0.18s ease,
-    background-color 0.18s ease,
-    opacity 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tabs__nav-prev.is-vertical,
@@ -219,9 +219,9 @@
   color: var(--xy-text-color-secondary);
   cursor: pointer;
   transition:
-    border-color 0.18s ease,
-    color 0.18s ease,
-    background-color 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tabs__nav-prev:hover,

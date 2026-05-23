@@ -128,9 +128,9 @@
     0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
     0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
   transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease;
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-slider__thumb-wrapper:hover .xy-slider__thumb,

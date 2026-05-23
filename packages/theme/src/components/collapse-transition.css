@@ -1,9 +1,9 @@
 .xy-collapse-transition-enter-active,
 .xy-collapse-transition-leave-active {
   transition:
-    max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.22s ease,
-    transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    max-height var(--xy-transition-duration-normal) cubic-bezier(0.22, 1, 0.36, 1),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-normal) cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .xy-collapse-transition-enter-from,

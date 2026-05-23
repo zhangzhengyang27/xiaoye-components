@@ -29,7 +29,7 @@
   justify-content: center;
   min-height: 180px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 64%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 64%, var(--xy-mix-light));
 }
 
 .xy-page-container__footer {

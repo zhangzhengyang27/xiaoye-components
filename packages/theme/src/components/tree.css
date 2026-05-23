@@ -72,10 +72,10 @@
   border: 1px solid transparent;
   border-radius: var(--xy-radius-md);
   transition:
-    color 0.18s ease,
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
   cursor: pointer;
 }
 
@@ -98,9 +98,9 @@
   color: var(--xy-text-color-muted);
   cursor: pointer;
   transition:
-    transform 0.18s ease,
-    color 0.18s ease,
-    background-color 0.18s ease;
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-tree__expand-icon:hover {

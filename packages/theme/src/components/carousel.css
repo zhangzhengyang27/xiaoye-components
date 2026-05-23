@@ -56,7 +56,7 @@
   height: 300px;
   overflow: hidden;
   border-radius: var(--xy-carousel-radius);
-  transition: height 0.28s ease;
+  transition: height var(--xy-transition-duration-normal) var(--xy-transition-timing);
 }
 
 .xy-carousel__arrow {
@@ -76,11 +76,11 @@
   cursor: pointer;
   box-shadow: var(--xy-shadow-sm);
   transition:
-    opacity 0.18s ease,
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    color 0.18s ease,
-    transform 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-carousel__arrow:hover {
@@ -89,7 +89,7 @@
 }
 
 .xy-carousel__arrow:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 88%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 88%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -195,9 +195,9 @@
   opacity: 0.48;
   cursor: pointer;
   transition:
-    opacity 0.18s ease,
-    transform 0.18s ease,
-    background-color 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-carousel__button--custom {
@@ -305,7 +305,7 @@
     var(--xy-carousel-progress-color, var(--xy-color-primary)) 88%,
     var(--xy-surface-raised)
   );
-  transition: width 0.08s linear;
+  transition: width var(--xy-transition-duration-fast) linear;
 }
 
 .xy-carousel__progress--indicator {
@@ -417,7 +417,7 @@
 }
 
 .xy-carousel__thumb:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -426,7 +426,7 @@
   width: 32px;
   height: 4px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, white);
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, var(--xy-mix-light));
   opacity: 0.32;
 }
 
@@ -440,7 +440,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, white);
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, var(--xy-mix-light));
   opacity: 0.36;
 }
 
@@ -460,8 +460,8 @@
   background: var(--xy-bg-color-subtle);
   white-space: nowrap;
   transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-carousel__thumb.is-active .xy-carousel__thumb--thumbnail,
@@ -492,7 +492,7 @@
 }
 
 .xy-carousel__item.is-animating {
-  transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform var(--xy-transition-duration-slow) cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .xy-carousel__item--fade {
@@ -501,7 +501,7 @@
 
 .xy-carousel__item--card {
   width: 50%;
-  transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform var(--xy-transition-duration-slow) cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .xy-carousel__item--card-vertical {
@@ -523,7 +523,7 @@
   inset: 0;
   background: white;
   opacity: 0.24;
-  transition: opacity 0.24s ease;
+  transition: opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-carousel__item--card.is-in-stage:hover .xy-carousel__mask {
@@ -535,8 +535,8 @@
 .xy-carousel-arrow-right-enter-active,
 .xy-carousel-arrow-right-leave-active {
   transition:
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-carousel-arrow-left-enter-from,

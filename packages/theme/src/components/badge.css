@@ -87,8 +87,8 @@
 .xy-zoom-in-center-enter-active,
 .xy-zoom-in-center-leave-active {
   transition:
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-zoom-in-center-enter-from,

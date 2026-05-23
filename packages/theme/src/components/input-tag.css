@@ -13,9 +13,9 @@
   border-radius: var(--xy-radius-md);
   background: var(--xy-surface-raised);
   transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
   cursor: text;
 }
 
@@ -124,7 +124,7 @@
 }
 
 .xy-input-tag__icon-button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   border-radius: var(--xy-radius-xs);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);

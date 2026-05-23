@@ -31,11 +31,14 @@
   --xy-border-color: #e7ebf2;
   --xy-border-color-strong: #d6dce8;
   --xy-border-color-subtle: #f2f4f8;
+  --xy-color-on-fill: #ffffff;
+  --xy-fill-color-light: #f5f7fa;
   --xy-bg-color: #ffffff;
   --xy-bg-color-muted: #f8f9fc;
   --xy-bg-color-subtle: #fbfcfe;
   --xy-bg-color-elevated: #fdfdff;
   --xy-bg-color-floating: #ffffff;
+  --xy-bg-color-page: #f7f8fa;
   --xy-surface-raised: #fdfdff;
   --xy-surface-sunken: #f8f9fc;
   --xy-overlay-color: rgba(28, 28, 30, 0.42);
@@ -67,7 +70,95 @@
   --xy-font-size-xl: 20px;
   --xy-font-size-2xl: 28px;
   --xy-line-height: 1.5;
+  /* Transition */
+  --xy-transition-duration-fast: 0.2s;
+  --xy-transition-duration-normal: 0.3s;
+  --xy-transition-duration-slow: 0.5s;
+  --xy-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --xy-transition-timing-in: cubic-bezier(0.4, 0, 1, 1);
+  --xy-transition-timing-out: cubic-bezier(0, 0, 0.2, 1);
+
+  --xy-mix-light: white;
+
   --xy-z-dropdown: 2000;
   --xy-z-tooltip: 1100;
   --xy-z-modal: 1200;
+}
+
+[data-theme="dark"] {
+  /* 品牌 */
+  --xy-color-primary: #8098ff;
+  --xy-color-primary-hover: #5b76fe;
+  --xy-color-primary-active: #4b65ea;
+  --xy-color-primary-soft: rgba(91, 118, 254, 0.15);
+  --xy-color-primary-soft-hover: rgba(91, 118, 254, 0.22);
+
+  /* 信息 */
+  --xy-color-info: #aab4c5;
+  --xy-color-info-hover: #77839a;
+
+  /* 成功 */
+  --xy-color-success: #39c788;
+  --xy-color-success-hover: #00b473;
+  --xy-color-success-active: #029660;
+  --xy-color-success-soft: rgba(0, 180, 115, 0.15);
+  --xy-color-success-soft-hover: rgba(0, 180, 115, 0.22);
+
+  /* 警告 */
+  --xy-color-warning: #f3a63d;
+  --xy-color-warning-hover: #d98a1f;
+  --xy-color-warning-active: #ba7413;
+  --xy-color-warning-soft: rgba(217, 138, 31, 0.15);
+  --xy-color-warning-soft-hover: rgba(217, 138, 31, 0.22);
+
+  /* 危险 */
+  --xy-color-danger: #f26363;
+  --xy-color-danger-hover: #e5484d;
+  --xy-color-danger-active: #c9363b;
+  --xy-color-danger-soft: rgba(229, 72, 77, 0.15);
+  --xy-color-danger-soft-hover: rgba(229, 72, 77, 0.22);
+
+  /* 文字 */
+  --xy-color-on-fill: #ffffff;
+  --xy-text-color: #f2f4f8;
+  --xy-text-color-heading: #ffffff;
+  --xy-text-color-secondary: #aab4c5;
+  --xy-text-color-subtle: #77839a;
+  --xy-text-color-muted: #77839a;
+  --xy-text-color-muted-2: #566277;
+
+  /* 边框 */
+  --xy-border-color: #394457;
+  --xy-border-color-strong: #566277;
+  --xy-border-color-subtle: #252d3a;
+
+  /* 背景 */
+  --xy-bg-color: #1c1c1e;
+  --xy-bg-color-muted: #252d3a;
+  --xy-bg-color-subtle: #1e2433;
+  --xy-bg-color-elevated: #2a3347;
+  --xy-bg-color-floating: #252d3a;
+  --xy-bg-color-page: #151922;
+  --xy-fill-color-light: #252d3a;
+
+  /* 表面 */
+  --xy-surface-raised: #2a3347;
+  --xy-surface-sunken: #151922;
+
+  /* overlay & focus */
+  --xy-overlay-color: rgba(0, 0, 0, 0.6);
+  --xy-focus-ring-color: rgba(91, 118, 254, 0.32);
+
+  /* 阴影 */
+  --xy-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --xy-shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.32);
+  --xy-shadow-md: 0 12px 30px rgba(0, 0, 0, 0.4);
+  --xy-shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.48);
+  --xy-shadow-card: 0 6px 18px rgba(0, 0, 0, 0.32);
+  --xy-shadow-popup: 0 12px 30px rgba(0, 0, 0, 0.4);
+  --xy-shadow-modal: 0 20px 48px rgba(0, 0, 0, 0.48);
+
+  --xy-mix-light: var(--xy-bg-color);
+
+  /* 圆角、间距、字号、行高、z-index — 暗色下不变，继承 :root */
 }

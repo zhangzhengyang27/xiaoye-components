@@ -18,7 +18,7 @@
   justify-content: center;
   background: var(--xy-loading-mask-background);
   opacity: 1;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-loading-mask.is-fullscreen {

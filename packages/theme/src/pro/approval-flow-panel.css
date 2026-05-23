@@ -11,7 +11,7 @@
   gap: 6px;
   align-items: flex-start;
   padding: 12px 14px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, var(--xy-mix-light));
   border-radius: var(--xy-radius-md);
   background: var(--xy-bg-color);
 }

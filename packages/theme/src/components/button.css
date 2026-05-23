@@ -9,10 +9,10 @@
   color: var(--xy-text-color);
   cursor: pointer;
   transition:
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
   white-space: nowrap;
   position: relative;
   font-weight: 560;
@@ -29,7 +29,7 @@
 }
 
 .xy-button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -76,7 +76,7 @@
 .xy-button--success,
 .xy-button--warning,
 .xy-button--danger {
-  color: #fff;
+  color: var(--xy-color-on-fill);
 }
 
 .xy-button--primary {
@@ -203,7 +203,7 @@
 
 .xy-button.is-plain.xy-button--primary:active:not(:disabled):not(.is-disabled) {
   color: var(--xy-color-primary-active);
-  background: color-mix(in srgb, var(--xy-color-primary-soft-hover) 72%, white);
+  background: color-mix(in srgb, var(--xy-color-primary-soft-hover) 72%, var(--xy-mix-light));
   border-color: color-mix(in srgb, var(--xy-color-primary) 28%, var(--xy-border-color));
 }
 
@@ -214,7 +214,7 @@
 
 .xy-button.is-plain.xy-button--success:active:not(:disabled):not(.is-disabled) {
   color: var(--xy-color-success-active);
-  background: color-mix(in srgb, var(--xy-color-success-soft-hover) 72%, white);
+  background: color-mix(in srgb, var(--xy-color-success-soft-hover) 72%, var(--xy-mix-light));
   border-color: color-mix(in srgb, var(--xy-color-success) 28%, var(--xy-border-color));
 }
 
@@ -225,7 +225,7 @@
 
 .xy-button.is-plain.xy-button--warning:active:not(:disabled):not(.is-disabled) {
   color: var(--xy-color-warning-active);
-  background: color-mix(in srgb, var(--xy-color-warning-soft-hover) 72%, white);
+  background: color-mix(in srgb, var(--xy-color-warning-soft-hover) 72%, var(--xy-mix-light));
   border-color: color-mix(in srgb, var(--xy-color-warning) 30%, var(--xy-border-color));
 }
 
@@ -236,7 +236,7 @@
 
 .xy-button.is-plain.xy-button--danger:active:not(:disabled):not(.is-disabled) {
   color: var(--xy-color-danger-active);
-  background: color-mix(in srgb, var(--xy-color-danger-soft-hover) 72%, white);
+  background: color-mix(in srgb, var(--xy-color-danger-soft-hover) 72%, var(--xy-mix-light));
   border-color: color-mix(in srgb, var(--xy-color-danger) 28%, var(--xy-border-color));
 }
 

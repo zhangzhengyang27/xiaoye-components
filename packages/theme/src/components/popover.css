@@ -15,7 +15,7 @@
 }
 
 .xy-popover__default-trigger:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
 }

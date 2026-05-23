@@ -32,11 +32,11 @@
   background: var(--xy-anchor-brand-color);
   opacity: 0;
   transition:
-    top 0.22s ease,
-    left 0.22s ease,
-    width 0.22s ease,
-    opacity 0.18s ease,
-    box-shadow 0.18s ease;
+    top var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    left var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    width var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--xy-anchor-brand-color) 12%, transparent);
   pointer-events: none;
 }
@@ -97,11 +97,11 @@
   line-height: 1.5;
   cursor: pointer;
   transition:
-    color 0.18s ease,
-    opacity 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease,
-    border-color 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
   border: 1px solid transparent;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .xy-anchor__link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }

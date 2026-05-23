@@ -54,9 +54,9 @@
   background: color-mix(in srgb, var(--xy-border-color-subtle) 82%, transparent);
   opacity: 0.32;
   transition:
-    background-color 0.18s ease,
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-splitter-bar--horizontal {
@@ -113,11 +113,11 @@
   border-radius: 999px;
   transform: translate(-50%, -50%);
   transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease,
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-splitter-bar__dragger::before {
@@ -161,23 +161,23 @@
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.72);
   transition:
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-splitter-bar__grip::before {
   width: 2px;
   height: 2px;
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 54%, white);
+  background: color-mix(in srgb, var(--xy-text-color-secondary) 54%, var(--xy-mix-light));
   box-shadow:
-    0 -5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, white),
-    0 5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, white);
+    0 -5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, var(--xy-mix-light)),
+    0 5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger--vertical .xy-splitter-bar__grip::before {
   box-shadow:
-    -5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 82%, white),
-    5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 82%, white);
+    -5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 82%, var(--xy-mix-light)),
+    5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 82%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger:hover::before,
@@ -192,10 +192,10 @@
 .xy-splitter-bar__dragger:hover .xy-splitter-bar__grip::before,
 .xy-splitter-bar__dragger:focus-visible .xy-splitter-bar__grip::before,
 .xy-splitter-bar__dragger.is-active .xy-splitter-bar__grip::before {
-  background: color-mix(in srgb, var(--xy-color-primary) 70%, white);
+  background: color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light));
   box-shadow:
-    0 -5px 0 color-mix(in srgb, var(--xy-color-primary) 70%, white),
-    0 5px 0 color-mix(in srgb, var(--xy-color-primary) 70%, white);
+    0 -5px 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light)),
+    0 5px 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger:hover .xy-splitter-bar__grip,
@@ -209,8 +209,8 @@
 .xy-splitter-bar__dragger--vertical:focus-visible .xy-splitter-bar__grip::before,
 .xy-splitter-bar__dragger--vertical.is-active .xy-splitter-bar__grip::before {
   box-shadow:
-    -5px 0 0 color-mix(in srgb, var(--xy-color-primary) 70%, white),
-    5px 0 0 color-mix(in srgb, var(--xy-color-primary) 70%, white);
+    -5px 0 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light)),
+    5px 0 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar.is-lazy .xy-splitter-bar__dragger.is-active::after {
@@ -223,16 +223,16 @@
 
 .xy-splitter-bar__dragger.is-disabled::before,
 .xy-splitter-bar__dragger.is-disabled::after {
-  background: color-mix(in srgb, var(--xy-border-color) 88%, white);
-  border-color: color-mix(in srgb, var(--xy-border-color) 88%, white);
+  background: color-mix(in srgb, var(--xy-border-color) 88%, var(--xy-mix-light));
+  border-color: color-mix(in srgb, var(--xy-border-color) 88%, var(--xy-mix-light));
   box-shadow: none;
 }
 
 .xy-splitter-bar__dragger.is-disabled .xy-splitter-bar__grip::before {
-  background: color-mix(in srgb, var(--xy-text-color-muted) 42%, white);
+  background: color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light));
   box-shadow:
-    0 -5px 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, white),
-    0 5px 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, white);
+    0 -5px 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light)),
+    0 5px 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger.is-disabled .xy-splitter-bar__grip {
@@ -242,8 +242,8 @@
 
 .xy-splitter-bar__dragger--vertical.is-disabled .xy-splitter-bar__grip::before {
   box-shadow:
-    -5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, white),
-    5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, white);
+    -5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light)),
+    5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger:focus-visible::before {
@@ -269,10 +269,10 @@
   cursor: pointer;
   opacity: 0;
   transition:
-    opacity 0.18s ease,
-    color 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.18s ease;
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-splitter-bar:hover .xy-splitter-bar__collapse,

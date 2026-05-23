@@ -5,9 +5,9 @@
   --xy-breadcrumb-link-color: var(--xy-text-color-subtle);
   --xy-breadcrumb-link-hover-color: var(--xy-text-color-heading);
   --xy-breadcrumb-current-color: var(--xy-text-color-heading);
-  --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-color-secondary) 76%, white);
+  --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-color-secondary) 76%, var(--xy-mix-light));
   --xy-breadcrumb-separator-gap: 10px;
-  --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-color-secondary) 68%, white);
+  --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-color-secondary) 68%, var(--xy-mix-light));
 
   display: inline-flex;
   max-width: 100%;
@@ -50,10 +50,10 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
   color: var(--xy-breadcrumb-color);
   text-decoration: none;
   transition:
-    color var(--xy-transition-duration) ease,
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease;
+    color var(--xy-transition-duration) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-breadcrumb__inner.is-link {

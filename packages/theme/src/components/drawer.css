@@ -76,7 +76,7 @@
   background: var(--xy-drawer-panel-bg);
   box-shadow: var(--xy-drawer-panel-shadow);
   outline: none;
-  transition: transform var(--xy-transition-duration, 0.2s) ease;
+  transition: transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
   isolation: isolate;
 }
 
@@ -164,8 +164,8 @@
   cursor: pointer;
   color: var(--xy-text-color-secondary);
   transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-drawer__close:hover {
@@ -175,7 +175,7 @@
 
 .xy-drawer__panel:focus-visible,
 .xy-drawer__close:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -191,8 +191,8 @@
   position: absolute;
   background: transparent;
   transition:
-    background-color 0.2s ease,
-    opacity 0.2s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
   opacity: 0.72;
 }
 
@@ -284,7 +284,7 @@
 
 .xy-drawer-fade-enter-active .xy-drawer__overlay,
 .xy-drawer-fade-leave-active .xy-drawer__overlay {
-  transition: opacity var(--xy-transition-duration, 0.2s) ease;
+  transition: opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-drawer.is-no-modal-fade .xy-drawer__overlay,

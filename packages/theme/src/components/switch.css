@@ -40,7 +40,7 @@
   min-width: 0;
   color: var(--xy-text-color-subtle);
   font-weight: 500;
-  transition: color 0.18s ease;
+  transition: color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-switch__label.is-active {
@@ -59,16 +59,16 @@
   background: color-mix(in srgb, var(--xy-switch-off-color) 86%, var(--xy-bg-color-floating));
   box-sizing: border-box;
   transition:
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-switch__inner {
   width: 100%;
   padding: 0 calc(var(--xy-switch-action-size) + 2px) 0 var(--xy-switch-padding);
   overflow: hidden;
-  transition: padding 0.18s ease;
+  transition: padding var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-switch__inner-wrapper {
@@ -99,9 +99,9 @@
     0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent),
     0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
   transition:
-    transform 0.18s ease,
-    color 0.18s ease,
-    box-shadow 0.18s ease;
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-switch:hover:not(.is-disabled):not(.is-checked) .xy-switch__core {

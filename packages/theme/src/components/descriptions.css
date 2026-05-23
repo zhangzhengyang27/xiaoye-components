@@ -31,7 +31,7 @@
 }
 
 .xy-descriptions__toggle-icon {
-  transition: transform 0.2s ease;
+  transition: transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-descriptions__toggle-icon.is-collapsed {

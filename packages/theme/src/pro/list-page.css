@@ -10,7 +10,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 20px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, var(--xy-mix-light));
   border-radius: var(--xy-radius-lg);
   background: var(--xy-bg-color);
 }
@@ -74,7 +74,7 @@
 
 .xy-list-page__batch-danger {
   padding-left: 12px;
-  border-left: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-left: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, var(--xy-mix-light));
 }
 
 @media (max-width: 960px) {

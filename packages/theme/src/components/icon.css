@@ -7,9 +7,9 @@
   line-height: 1;
   vertical-align: -0.125em;
   transition:
-    color 0.18s ease,
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-icon > * {

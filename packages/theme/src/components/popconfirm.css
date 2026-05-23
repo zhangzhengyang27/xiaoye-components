@@ -8,7 +8,7 @@
 }
 
 .xy-popconfirm__trigger:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
 }
@@ -63,8 +63,8 @@
 .xy-popconfirm__panel--dark {
   --xy-popconfirm-bg: color-mix(in srgb, var(--xy-bg-color-floating) 78%, var(--xy-text-color-heading));
   --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
-  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-color-floating) 88%, white);
-  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-color-floating) 80%, white);
+  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-color-floating) 88%, var(--xy-mix-light));
+  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-color-floating) 80%, var(--xy-mix-light));
   --xy-popconfirm-shadow:
     0 0 0 1px color-mix(in srgb, var(--xy-bg-color) 6%, transparent),
     0 8px 18px color-mix(in srgb, var(--xy-text-color-heading) 10%, transparent);

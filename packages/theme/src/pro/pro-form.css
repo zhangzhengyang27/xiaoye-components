@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 18px;
   padding: 20px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, var(--xy-mix-light));
   border-radius: var(--xy-radius-lg);
   background: var(--xy-bg-color);
 }
@@ -55,7 +55,7 @@
   gap: 8px;
   padding: 16px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 76%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-muted) 76%, var(--xy-mix-light));
 }
 
 .xy-pro-form__footer {

@@ -44,8 +44,8 @@
   cursor: pointer;
   border-radius: var(--xy-radius-sm);
   transition:
-    transform 0.18s ease,
-    background-color 0.18s ease;
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-rate__item:hover,

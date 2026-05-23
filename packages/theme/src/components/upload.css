@@ -38,10 +38,10 @@
   text-align: center;
   cursor: pointer;
   transition:
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-upload__trigger:focus-visible,
@@ -129,9 +129,9 @@
   border-radius: var(--xy-radius-md);
   background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   transition:
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-upload-list__item.is-uploading {
@@ -252,9 +252,9 @@
   background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
   transition:
-    transform 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease;
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-upload-list__card:hover,
@@ -285,7 +285,7 @@
   color: var(--xy-bg-color);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.18s ease;
+  transition: opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-upload-list__card:hover .xy-upload-list__card-mask,
@@ -320,15 +320,15 @@
   font: inherit;
   cursor: pointer;
   transition:
-    background-color 0.18s ease,
-    transform 0.18s ease;
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-upload-list__card-action:hover,
 .xy-upload-list__card-action:focus-visible {
   background: color-mix(in srgb, var(--xy-bg-color) 22%, transparent);
   transform: scale(1.04);
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
 }
 
@@ -376,7 +376,7 @@
 
 .xy-upload__preview-close:hover,
 .xy-upload__preview-close:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }

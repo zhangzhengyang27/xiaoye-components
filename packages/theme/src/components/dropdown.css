@@ -160,7 +160,7 @@
 .xy-dropdown__item:focus-visible,
 .xy-dropdown__default-trigger:focus-visible,
 .xy-dropdown__caret-button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -169,7 +169,7 @@
 .xy-dropdown__item-icon svg {
   display: inline-flex;
   align-items: center;
-  color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, white);
+  color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, var(--xy-mix-light));
 }
 
 .xy-dropdown__item.is-danger {

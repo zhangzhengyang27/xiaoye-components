@@ -17,17 +17,17 @@
   text-decoration-color: color-mix(in srgb, currentColor 18%, transparent);
   cursor: pointer;
   transition:
-    color 0.18s ease,
-    opacity 0.18s ease,
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    text-decoration-color 0.18s ease,
-    box-shadow 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    text-decoration-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
   text-decoration-line: none;
 }
 
 .xy-link.xy-link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 65%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
   border-radius: var(--xy-radius-sm);

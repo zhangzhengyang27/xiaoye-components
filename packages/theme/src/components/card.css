@@ -11,9 +11,9 @@
     0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
   color: var(--xy-text-color);
   transition:
-    box-shadow 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.18s ease;
+    box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-card--sm {

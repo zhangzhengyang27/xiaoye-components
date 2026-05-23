@@ -39,10 +39,10 @@
   font-weight: 400;
   line-height: 32px;
   transition:
-    color 0.18s ease,
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    opacity 0.18s ease;
+    color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
   box-sizing: border-box;
   text-align: center;
   font-family: inherit;
@@ -68,7 +68,7 @@
 .xy-pagination__button:focus-visible,
 .xy-pagination__pager-item:focus-visible,
 .xy-pagination__jumper input:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
 }
@@ -134,7 +134,7 @@
 
 .xy-pagination.is-background .xy-pagination__button:disabled,
 .xy-pagination.is-background .xy-pagination__pager-item:disabled {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white);
+  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, var(--xy-mix-light));
   color: var(--xy-text-color-muted);
   opacity: 1;
 }

@@ -1,5 +1,7 @@
+import { watch } from "vue";
 import DefaultTheme from "vitepress/theme";
 import type { Theme } from "vitepress";
+import { useData, inBrowser } from "vitepress";
 import XiaoyeComponents, {
   configProviderKey,
   createConfigProviderContext
@@ -14,6 +16,23 @@ import "xiaoye-pro-components/style.css";
 import "./style.css";
 
 const DOCS_OVERLAY_Z_INDEX = 2100;
+
+function syncDataTheme() {
+  if (!inBrowser) return;
+  const { isDark } = useData();
+  const html = document.documentElement;
+
+  const apply = (dark: boolean) => {
+    if (dark) {
+      html.setAttribute("data-theme", "dark");
+    } else {
+      html.removeAttribute("data-theme");
+    }
+  };
+
+  apply(isDark.value);
+  watch(isDark, apply);
+}
 
 const theme: Theme = {
   ...DefaultTheme,
@@ -30,6 +49,9 @@ const theme: Theme = {
     app.component("HomeProductLineDemo", HomeProductLineDemo);
     app.component("ProjectIconGallery", ProjectIconGallery);
     app.component("SchedulerPlaygroundFrame", SchedulerPlaygroundFrame);
+  },
+  setup() {
+    syncDataTheme();
   }
 };
 
