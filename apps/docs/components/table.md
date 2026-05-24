@@ -476,7 +476,7 @@ table/multi-state
 | `selectable`            | `selection` 列的可选行判断                                | `TableColumnProps<T>["selectable"]`                                                                                                | `undefined`                         |
 | `reserve-selection`     | `selection` 列是否按 `row-key` 保留选择状态               | `TableColumnProps<T>["reserveSelection"]`                                                                                   | `false`                             |
 | `index`                 | `index` 列起始值或自定义序号函数                          | `TableColumnProps<T>["index"]`                                                                                               | `undefined`                         |
-| `resizable`             | 当前叶子列是否允许拖拽列宽                                | `TableColumnProps<T>["resizable"]`                                                                                          | `true`                              |
+| `resizable`             | 当前叶子列是否允许拖拽列宽                                | `TableColumnProps<T>["resizable"]`                                                                                          | `false`                             |
 
 ### TableColumn Slots
 

@@ -191,6 +191,25 @@
   box-shadow: var(--xy-menu-active-shadow);
 }
 
+/* Active 状态左侧强调线（仅纵向模式） */
+.xy-menu--vertical .xy-menu-item.is-active::before,
+.xy-menu--vertical .xy-sub-menu.is-active > .xy-menu__item-surface::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  background: var(--xy-color-primary);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Active 状态文字加粗（仅纵向模式） */
+.xy-menu--vertical .xy-menu-item.is-active .xy-menu__item-label,
+.xy-menu--vertical .xy-sub-menu.is-active > .xy-menu__item-surface .xy-menu__item-label {
+  font-weight: 600;
+}
+
 .xy-menu__item-surface:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
   outline-offset: 2px;
@@ -220,6 +239,22 @@
   letter-spacing: var(--xy-menu-group-title-letter-spacing);
   line-height: var(--xy-menu-group-title-line-height);
   text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.xy-menu__group-title::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--xy-menu-group-title-color),
+    transparent
+  );
+  opacity: 0.4;
 }
 
 .xy-menu__group-list {
@@ -243,7 +278,14 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform var(--xy-transition-duration-fast) var(--xy-transition-timing);
+  transition:
+    transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
+    opacity var(--xy-transition-duration-fast) var(--xy-transition-timing);
+  opacity: 0.7;
+}
+
+.xy-menu__item-surface:hover .xy-menu__expand-icon {
+  opacity: 1;
 }
 
 .xy-sub-menu.is-opened > .xy-menu__item-surface .xy-menu__expand-icon {
@@ -294,15 +336,38 @@
 }
 
 .xy-menu__popup {
+  position: relative;
   min-width: var(--xy-menu-popup-min-width);
   margin: 0;
   padding: var(--xy-menu-popup-padding);
   list-style: none;
-  border: 1px solid var(--xy-menu-popup-border-color);
+  border: none;
   border-radius: var(--xy-menu-popup-radius);
   background: var(--xy-menu-popup-bg);
   color: var(--xy-menu-popup-text);
-  box-shadow: var(--xy-menu-popup-shadow);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 60%, transparent),
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 10px 20px -5px rgba(0, 0, 0, 0.08),
+    0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* 弹出菜单顶部高光效果 */
+.xy-menu__popup::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8px;
+  right: 8px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, white 40%, transparent),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .xy-menu__popup--dark {
@@ -340,6 +405,7 @@
   padding-inline: var(--xy-menu-item-padding-inline);
   border-radius: var(--xy-menu-item-radius);
   color: inherit;
+  position: relative;
 }
 
 .xy-menu__popup .xy-menu__item-surface:hover {
@@ -353,6 +419,20 @@
   color: var(--xy-menu-active-color);
   background: var(--xy-menu-active-bg);
   box-shadow: var(--xy-menu-active-shadow);
+  font-weight: 600;
+}
+
+/* 弹出菜单 Active 左侧强调线 */
+.xy-menu__popup .xy-menu__item-surface.is-active::before,
+.xy-menu__popup .xy-sub-menu.is-active > .xy-menu__item-surface::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 20%;
+  bottom: 20%;
+  width: 3px;
+  background: var(--xy-color-primary);
+  border-radius: 0 2px 2px 0;
 }
 
 .xy-menu__item-row {

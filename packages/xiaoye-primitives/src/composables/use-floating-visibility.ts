@@ -23,6 +23,7 @@ export interface FloatingVisibilityChangeOptions {
 export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
   const visible = ref(false);
   const rendered = ref(Boolean(toValue(options.modelValue)) || Boolean(toValue(options.persistent)));
+  const isAnimating = ref(false);
   let openTimer: number | null = null;
   let closeTimer: number | null = null;
 
@@ -50,9 +51,11 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
 
     if (nextVisible) {
       rendered.value = true;
+      isAnimating.value = true;
     }
 
     if (visible.value === nextVisible) {
+      isAnimating.value = false;
       return;
     }
 
@@ -138,6 +141,7 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
   }
 
   function handleAfterLeave() {
+    isAnimating.value = false;
     if (!toValue(options.persistent) && !visible.value) {
       rendered.value = false;
     }
@@ -198,6 +202,7 @@ export function useFloatingVisibility(options: FloatingVisibilityOptions = {}) {
   return {
     visible,
     rendered,
+    isAnimating,
     clearTimers,
     setVisible,
     open,

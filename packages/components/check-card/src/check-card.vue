@@ -184,52 +184,73 @@ function handleExtraClick() {
       <XyIcon icon="mdi:check" :size="indicatorIconSize" />
     </div>
 
-    <div v-if="hasAvatar" class="xy-check-card__avatar">
-      <slot name="avatar" v-bind="scope">
-        <XyAvatar
-          v-bind="{
-            size: props.avatar?.size ?? mergedSize,
-            shape: props.avatar?.shape,
-            icon: props.avatar?.icon,
-            src: props.avatar?.src,
-            alt: props.avatar?.alt,
-            srcSet: props.avatar?.srcSet,
-            fit: props.avatar?.fit
-          }"
-        >
-          {{ props.avatar?.text }}
-        </XyAvatar>
-      </slot>
-    </div>
-
-    <div class="xy-check-card__content">
+    <div class="xy-check-card__content" :class="{ 'is-row': !hasHeader && hasAvatar }">
       <div v-if="hasHeader" class="xy-check-card__header">
         <div class="xy-check-card__header-main">
-          <div v-if="hasTitle" class="xy-check-card__title">
-            <slot name="title" v-bind="scope">{{ props.title }}</slot>
-          </div>
-
-          <div v-if="hasTag" class="xy-check-card__tag">
-            <slot name="tag" v-bind="scope">
-              <XyTag size="sm" v-bind="resolveTagProps(props.tag)">{{ resolveTagText(props.tag) }}</XyTag>
+          <div v-if="hasAvatar" class="xy-check-card__avatar">
+            <slot name="avatar" v-bind="scope">
+              <XyAvatar
+                v-bind="{
+                  size: props.avatar?.size ?? mergedSize,
+                  shape: props.avatar?.shape,
+                  icon: props.avatar?.icon,
+                  src: props.avatar?.src,
+                  alt: props.avatar?.alt,
+                  srcSet: props.avatar?.srcSet,
+                  fit: props.avatar?.fit
+                }"
+              >
+                {{ props.avatar?.text }}
+              </XyAvatar>
             </slot>
           </div>
-        </div>
 
-        <button
-          v-if="hasExtra"
-          class="xy-check-card__extra"
-          type="button"
-          :disabled="props.disabled"
-          @click.stop="handleExtraClick"
-        >
-          <slot name="extra" v-bind="scope">{{ props.extra }}</slot>
-        </button>
+          <div class="xy-check-card__header-text">
+            <div v-if="hasTitle" class="xy-check-card__title">
+              <slot name="title" v-bind="scope">{{ props.title }}</slot>
+            </div>
+
+            <div v-if="hasTag" class="xy-check-card__tag">
+              <slot name="tag" v-bind="scope">
+                <XyTag size="sm" v-bind="resolveTagProps(props.tag)">{{ resolveTagText(props.tag) }}</XyTag>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 无 header 时 avatar 在 content 外 -->
+      <div v-if="!hasHeader && hasAvatar" class="xy-check-card__avatar">
+        <slot name="avatar" v-bind="scope">
+          <XyAvatar
+            v-bind="{
+              size: props.avatar?.size ?? mergedSize,
+              shape: props.avatar?.shape,
+              icon: props.avatar?.icon,
+              src: props.avatar?.src,
+              alt: props.avatar?.alt,
+              srcSet: props.avatar?.srcSet,
+              fit: props.avatar?.fit
+            }"
+          >
+            {{ props.avatar?.text }}
+          </XyAvatar>
+        </slot>
       </div>
 
       <div v-if="hasDescription" class="xy-check-card__description">
         <slot name="description" v-bind="scope">{{ props.description }}</slot>
       </div>
     </div>
+
+    <button
+      v-if="hasExtra"
+      class="xy-check-card__extra"
+      type="button"
+      :disabled="props.disabled"
+      @click.stop="handleExtraClick"
+    >
+      <slot name="extra" v-bind="scope">{{ props.extra }}</slot>
+    </button>
   </div>
 </template>

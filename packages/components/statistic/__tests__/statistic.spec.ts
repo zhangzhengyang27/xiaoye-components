@@ -101,7 +101,8 @@ describe("XyStatistic", () => {
     });
 
     expect(wrapper.classes()).toContain("xy-statistic");
-    expect(wrapper.get(".xy-statistic__content").exists()).toBe(true);
+    const content = wrapper.find(".xy-statistic__content");
+    expect(content.exists()).toBe(true);
     expect(wrapper.get(".xy-statistic__value").text()).toContain("987,654");
   });
 });

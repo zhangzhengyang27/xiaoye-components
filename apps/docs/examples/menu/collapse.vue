@@ -1,209 +1,168 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const collapsed = ref(true);
+const collapsed = ref(false);
 </script>
 
 <template>
+  <!-- 菜单折叠：展示可折叠的纵向菜单 -->
   <div class="demo-menu-collapse">
-    <section class="demo-menu-collapse__shell">
-      <header class="demo-menu-collapse__header">
-        <div class="demo-menu-collapse__title">
-          <strong class="demo-menu-collapse__title-text">侧栏折叠工作区</strong>
-          <p class="demo-menu-collapse__description">
-            折叠后只保留图标主列，展开时恢复完整层级。hover、active 和弹出层更接近真实后台侧栏。
-          </p>
+    <xy-card shadow="never">
+      <template #header>
+        <div class="demo-menu-collapse__header">
+          <strong>菜单折叠</strong>
+          <xy-tag status="neutral" round>Collapse</xy-tag>
         </div>
+        <p class="demo-menu-collapse__description">
+          设置 collapse 属性可以折叠菜单为图标模式，适合空间有限的场景。
+        </p>
+      </template>
 
-        <xy-radio-group
-          v-model="collapsed"
-          type="button"
-          fill="var(--xy-color-primary-soft)"
-          text-color="var(--xy-color-primary)"
-          :options="[
-            { label: '展开', value: false },
-            { label: '折叠', value: true }
-          ]"
-        />
-      </header>
-
-      <div class="demo-menu-collapse__workspace">
-        <div :class="['demo-menu-collapse__sidebar', { 'is-collapsed': collapsed }]">
-          <xy-menu
-            class="demo-menu-collapse__menu"
-            default-active="alerts"
-            :collapse="collapsed"
-            :default-openeds="['ops']"
-          >
-            <xy-sub-menu index="ops">
-              <template #title>
-                <xy-icon icon="mdi:server-outline" />
-                <span>运维中心</span>
-              </template>
-              <xy-menu-item index="alerts">告警</xy-menu-item>
-              <xy-menu-item index="logs">日志</xy-menu-item>
-            </xy-sub-menu>
-
-            <xy-menu-item index="release">
-              <xy-icon icon="mdi:rocket-launch-outline" />
-              <template #title>发布中心</template>
-            </xy-menu-item>
-
-            <xy-menu-item index="assets" disabled>
-              <xy-icon icon="mdi:archive-outline" />
-              <template #title>资产管理</template>
-            </xy-menu-item>
-          </xy-menu>
-        </div>
-
-        <xy-card class="demo-menu-collapse__panel" shadow="hover">
-          <span class="demo-menu-collapse__kicker">Preview Panel</span>
-          <h4 class="demo-menu-collapse__panel-title">侧栏状态预览</h4>
-          <p class="demo-menu-collapse__panel-description">
-            {{
-              collapsed
-                ? "当前为折叠模式，一级导航以图标列形式承接。"
-                : "当前为展开模式，可直接浏览完整菜单层级。"
-            }}
-          </p>
-          <xy-space wrap>
-            <xy-tag :status="collapsed ? 'warning' : 'success'" round>
-              {{ collapsed ? "Collapsed" : "Expanded" }}
-            </xy-tag>
-            <xy-tag round>active = alerts</xy-tag>
-          </xy-space>
-        </xy-card>
+      <div class="demo-menu-collapse__controls">
+        <xy-switch v-model="collapsed" />
+        <xy-tag :status="collapsed ? 'warning' : 'success'" round>
+          {{ collapsed ? "已折叠" : "已展开" }}
+        </xy-tag>
       </div>
-    </section>
+
+      <div class="demo-menu-collapse__content">
+        <xy-menu
+          default-active="alerts"
+          :collapse="collapsed"
+          default-openeds='["ops"]'
+          popper-class="demo-menu-collapse__popup"
+        >
+          <xy-sub-menu index="ops">
+            <template #title>
+              <xy-icon icon="mdi:server-outline" />
+              <span>运维中心</span>
+            </template>
+            <xy-menu-item index="alerts">告警</xy-menu-item>
+            <xy-menu-item index="logs">日志</xy-menu-item>
+          </xy-sub-menu>
+
+          <xy-menu-item index="release">
+            <xy-icon icon="mdi:rocket-launch-outline" />
+            <span>发布中心</span>
+          </xy-menu-item>
+
+          <xy-menu-item index="assets" disabled>
+            <xy-icon icon="mdi:archive-outline" />
+            <span>资产管理</span>
+          </xy-menu-item>
+        </xy-menu>
+      </div>
+    </xy-card>
   </div>
 </template>
 
 <style scoped>
 .demo-menu-collapse {
-  width: 100%;
-}
-
-.demo-menu-collapse__shell {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 18px;
-  border: 1px solid var(--xy-border-color-subtle);
-  border-radius: var(--xy-radius-xl);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
-    var(--xy-surface-raised)
-  );
-  box-shadow: var(--xy-shadow-xs);
+  max-width: 400px;
 }
 
 .demo-menu-collapse__header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.demo-menu-collapse__title {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.demo-menu-collapse__title-text {
-  color: var(--xy-text-color);
-  font-size: 18px;
+  align-items: center;
+  gap: 10px;
 }
 
 .demo-menu-collapse__description {
-  margin: 0;
+  margin: 6px 0 0;
   color: var(--xy-text-color-secondary);
-  line-height: 1.7;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
-.demo-menu-collapse__workspace {
-  display: grid;
-  grid-template-columns: auto minmax(260px, 1fr);
-  gap: 18px;
-  align-items: stretch;
-}
-
-.demo-menu-collapse__sidebar {
+.demo-menu-collapse__controls {
   display: flex;
-  align-items: stretch;
-  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: 12px;
+  background: var(--xy-bg-color-subtle);
+}
+
+.demo-menu-collapse__content {
   padding: 12px;
   border: 1px solid var(--xy-border-color-subtle);
-  border-radius: var(--xy-radius-lg);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
-    var(--xy-surface-raised)
-  );
-  box-shadow: var(--xy-shadow-card);
+  border-radius: 12px;
+  background: var(--xy-bg-color-subtle);
+}
+
+/* 纵向菜单样式 */
+.demo-menu-collapse__content :deep(.xy-menu) {
   --xy-menu-padding: 6px;
   --xy-menu-gap: 4px;
-  --xy-menu-radius: 18px;
-  --xy-menu-item-min-height: 34px;
-  --xy-menu-item-padding-block: 5px;
-  --xy-menu-item-padding-inline: 10px;
-  --xy-menu-item-radius: 11px;
-  --xy-menu-item-line-height: 1.2;
-  --xy-menu-content-gap: 7px;
-  --xy-menu-icon-size: 1em;
-  --xy-menu-sub-list-padding: 4px 0 4px 10px;
-}
-
-.demo-menu-collapse__menu {
-  width: 100%;
-}
-
-.demo-menu-collapse__sidebar.is-collapsed {
-  --xy-menu-padding: 8px 6px;
-  --xy-menu-gap: 8px;
-  --xy-menu-radius: 22px;
-  --xy-menu-bg-color: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
-  --xy-menu-collapse-width: 78px;
-  --xy-menu-collapsed-item-min-height: 42px;
-  --xy-menu-collapsed-item-padding-inline: 8px;
-  --xy-menu-collapsed-item-radius: 14px;
+  --xy-menu-item-min-height: 40px;
+  --xy-menu-item-padding-inline: 12px;
+  --xy-menu-item-radius: 10px;
+  --xy-menu-item-gap: 10px;
+  --xy-menu-item-font-weight: 500;
   --xy-menu-icon-size: 18px;
-  --xy-menu-hover-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
+  --xy-menu-icon-color: var(--xy-text-color-secondary);
+  --xy-menu-hover-bg: var(--xy-bg-color-overlay);
+  --xy-menu-hover-color: var(--xy-color-primary);
   --xy-menu-active-bg: var(--xy-color-primary-soft);
-  --xy-menu-active-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+  --xy-menu-active-color: var(--xy-color-primary);
+  border: none;
 }
 
-.demo-menu-collapse__panel {
-  min-height: 220px;
+.demo-menu-collapse__content :deep(.xy-menu__item-surface) {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--xy-text-color);
+  transition: all 0.15s ease;
 }
 
-.demo-menu-collapse__kicker {
-  display: inline-flex;
-  margin-bottom: 10px;
-  color: var(--xy-text-color-secondary);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* 折叠模式样式 */
+.demo-menu-collapse__content :deep(.xy-menu--collapse) {
+  --xy-menu-collapse-width: 72px;
+}
+</style>
+
+<style>
+/* 全局下拉弹出层样式 */
+.demo-menu-collapse__popup {
+  --xy-menu-popup-min-width: 180px;
+  --xy-menu-popup-padding: 8px;
+  --xy-menu-popup-radius: 14px;
+  --xy-menu-popup-bg: var(--xy-bg-color-floating) !important;
+  --xy-menu-popup-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --xy-menu-item-min-height: 40px;
+  --xy-menu-item-padding-inline: 14px;
+  --xy-menu-item-radius: 10px;
+  --xy-menu-item-gap: 10px;
+  --xy-menu-item-font-weight: 500;
+  --xy-menu-text-color: var(--xy-text-color);
+  --xy-menu-hover-bg: var(--xy-bg-color-overlay) !important;
+  --xy-menu-hover-color: var(--xy-color-primary) !important;
+  --xy-menu-active-bg: var(--xy-color-primary-soft) !important;
+  --xy-menu-active-color: var(--xy-color-primary) !important;
+  --xy-menu-active-shadow: none !important;
 }
 
-.demo-menu-collapse__panel-title {
-  margin: 0 0 10px;
+.demo-menu-collapse__popup .xy-menu__item-surface {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--xy-text-color) !important;
+  transition: all 0.15s ease;
 }
 
-.demo-menu-collapse__panel-description {
-  margin: 0 0 14px;
-  color: var(--xy-text-color-secondary);
-  line-height: 1.7;
+.demo-menu-collapse__popup .xy-menu__item-content {
+  color: inherit !important;
 }
 
-@media (max-width: 860px) {
-  .demo-menu-collapse__header,
-  .demo-menu-collapse__workspace {
-    grid-template-columns: 1fr;
-  }
+.demo-menu-collapse__popup .xy-menu__item:hover .xy-menu__item-surface,
+.demo-menu-collapse__popup .xy-menu__item:hover .xy-menu__item-content {
+  color: var(--xy-color-primary) !important;
+}
+
+.demo-menu-collapse__popup .xy-menu__item.is-active .xy-menu__item-surface,
+.demo-menu-collapse__popup .xy-menu__item.is-active .xy-menu__item-content {
+  color: var(--xy-color-primary) !important;
+  font-weight: 600;
 }
 </style>

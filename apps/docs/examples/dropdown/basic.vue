@@ -9,8 +9,19 @@ function handleCommand(command: string | number | Record<string, unknown> | unde
 </script>
 
 <template>
-  <div class="xy-doc-stack">
-    <xy-space wrap>
+  <!-- 下拉菜单基础用法：展示点击触发的操作菜单 -->
+  <div class="demo-dropdown-basic">
+    <xy-card shadow="never">
+      <template #header>
+        <div class="demo-dropdown-basic__header">
+          <strong>基础用法</strong>
+          <xy-tag status="neutral" round>操作菜单</xy-tag>
+        </div>
+        <p class="demo-dropdown-basic__description">
+          下拉菜单用于收纳操作选项，支持禁用、分隔线和危险操作。
+        </p>
+      </template>
+
       <xy-dropdown trigger="click" @command="handleCommand">
         <xy-button plain>更多操作</xy-button>
 
@@ -26,7 +37,28 @@ function handleCommand(command: string | number | Record<string, unknown> | unde
         </template>
       </xy-dropdown>
 
-      <xy-tag status="primary">{{ feedback }}</xy-tag>
-    </xy-space>
+      <template #footer>
+        <xy-tag status="primary">{{ feedback }}</xy-tag>
+      </template>
+    </xy-card>
   </div>
 </template>
+
+<style scoped>
+.demo-dropdown-basic {
+  max-width: 480px;
+}
+
+.demo-dropdown-basic__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.demo-dropdown-basic__description {
+  margin: 6px 0 0;
+  color: var(--xy-text-color-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+</style>

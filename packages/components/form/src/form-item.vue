@@ -158,6 +158,15 @@ provide(formItemKey, {
   message: displayMessage,
   validateState,
   disabled: computed(() => Boolean(form?.props.disabled)),
+  required: computed(() => {
+    if (props.required) {
+      return true;
+    }
+    if (props.rules?.some((rule) => rule.required)) {
+      return true;
+    }
+    return false;
+  }),
   validate,
   clearValidate
 });

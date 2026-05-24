@@ -7,7 +7,19 @@ body:
     id: question
     attributes:
       label: 问题
-      description: 请描述你的问题和上下文
+      description: 请描述你的问题，越详细越好
+      placeholder: |
+        我在使用 XXX 组件时遇到了问题：
+        ...
     validations:
       required: true
-
+  - type: textarea
+    id: context
+    attributes:
+      label: 上下文信息
+      description: 提供相关的代码、配置或上下文
+  - type: textarea
+    id: attempt
+    attributes:
+      label: 已尝试的方案（可选）
+      description: 你已经尝试过哪些方法，为什么没有成功

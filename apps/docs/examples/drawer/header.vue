@@ -5,13 +5,26 @@ const open = ref(false);
 </script>
 
 <template>
-  <div class="xy-doc-stack">
-    <xy-button type="primary" @click="open = true">自定义头部</xy-button>
+  <!-- 抽屉自定义头部：展示完全自定义的抽屉头部区域 -->
+  <div class="demo-drawer-header">
+    <xy-card shadow="never">
+      <template #header>
+        <div class="demo-drawer-header__header">
+          <strong>自定义头部</strong>
+          <xy-tag status="neutral" round>Header Slot</xy-tag>
+        </div>
+        <p class="demo-drawer-header__description">
+          通过 header slot 可以完全自定义抽屉头部区域。
+        </p>
+      </template>
+
+      <xy-button type="primary" @click="open = true">自定义头部</xy-button>
+    </xy-card>
 
     <xy-drawer
       v-model="open"
       title="审阅工作台"
-      header-class="demo-drawer-header"
+      header-class="demo-drawer-header-drawer"
       body-class="demo-drawer-body"
       footer-class="demo-drawer-footer"
     >
@@ -28,7 +41,7 @@ const open = ref(false);
         </div>
       </template>
 
-      <div class="xy-doc-stack">
+      <div class="demo-drawer-header__form">
         <p>头部区域可以完全自定义，默认关闭按钮仍然保留。</p>
         <xy-input placeholder="审批备注" />
         <xy-select
@@ -52,6 +65,23 @@ const open = ref(false);
 </template>
 
 <style scoped>
+.demo-drawer-header {
+  max-width: 640px;
+}
+
+.demo-drawer-header__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.demo-drawer-header__description {
+  margin: 6px 0 0;
+  color: var(--xy-text-color-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .demo-drawer-header__content {
   display: flex;
   align-items: center;
@@ -67,5 +97,17 @@ const open = ref(false);
 
 .demo-drawer-header__caption {
   color: var(--xy-text-color-secondary);
+}
+
+.demo-drawer-header__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.demo-drawer-header__form p {
+  margin: 0;
+  color: var(--xy-text-color-secondary);
+  line-height: 1.6;
 }
 </style>

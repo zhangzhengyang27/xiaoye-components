@@ -651,6 +651,7 @@ defineExpose({
       "
       :aria-describedby="formItem?.message.value ? formItem.messageId : undefined"
       :aria-invalid="formItem?.validateState.value === 'error'"
+      :aria-required="formItem?.required.value"
       @click="toggleDropdown"
       @keydown="handleKeydown"
     >
@@ -725,6 +726,7 @@ defineExpose({
           :style="dropdownStyle"
           :data-placement="actualPlacement"
           role="listbox"
+          :aria-multiselectable="props.multiple ? 'true' : undefined"
         >
           <span ref="dropdownArrowRef" class="xy-popper__arrow" :style="arrowStyle" />
           <div v-if="$slots.header" class="xy-select__header" @click.stop>

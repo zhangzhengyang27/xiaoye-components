@@ -7,14 +7,22 @@ body:
     id: description
     attributes:
       label: 问题描述
-      description: 请描述预期行为与实际行为
+      description: 请简洁清晰地描述问题，包括预期行为和实际行为
+      placeholder: |
+        预期：点击按钮后应该显示对话框
+        实际：点击后没有任何反应
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
-      label: 复现方式
-      description: 请尽量提供最小复现
+      label: 复现步骤
+      description: 请提供详细的复现步骤
+      placeholder: |
+        1. 引入 XyButton 组件
+        2. 设置 type="primary"
+        3. 点击按钮
+        4. ...
     validations:
       required: true
   - type: input
@@ -22,4 +30,41 @@ body:
     attributes:
       label: 版本信息
       placeholder: 例如 xiaoye-components 0.1.0
-
+  - type: dropdown
+    id: component
+    attributes:
+      label: 涉及的组件
+      options:
+        - Button
+        - Input
+        - Select
+        - Table
+        - Dialog
+        - Form
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: 复现代码（可选但强烈推荐）
+      description: 请提供可复现的最小代码片段
+      placeholder: |
+        ```vue
+        <template>
+          <xy-button @click="handleClick">点击</xy-button>
+        </template>
+        <script setup>
+          const handleClick = () => { ... }
+        </script>
+        ```
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息（可选）
+      description: 操作系统、Node 版本、浏览器版本等
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图/录屏（可选）
+      description: 如果有截图或录屏，请在此描述或附加文件

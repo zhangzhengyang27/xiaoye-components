@@ -13,3 +13,7 @@ export function setDemoSource(path: string, sources: DemoSourceItem[]) {
 export function getDemoSource(path: string) {
   return demoSourceRegistry.get(path);
 }
+
+export function getDemoSourceRegistry() {
+  return demoSourceRegistry;
+}

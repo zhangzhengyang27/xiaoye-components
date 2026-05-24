@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<TableColumnProps<T>>(), {
   selectable: undefined,
   reserveSelection: false,
   index: undefined,
-  resizable: true
+  resizable: false
 });
 
 const slots = defineSlots<{

@@ -3,259 +3,142 @@ import { ref } from "vue";
 
 const feedback = ref("当前激活：dashboard");
 
-function handleSelect(index: string, indexPath: string[]) {
-  feedback.value = `当前激活：${index} / ${indexPath.join(" > ")}`;
+function handleSelect(index: string) {
+  feedback.value = `当前激活：${index}`;
 }
 </script>
 
 <template>
+  <!-- 菜单基础用法：展示横向菜单的基本使用 -->
   <div class="demo-menu-basic">
-    <section class="demo-menu-basic__hero">
-      <header class="demo-menu-basic__header">
-        <div class="demo-menu-basic__title">
-          <strong class="demo-menu-basic__title-text">运营工作台导航</strong>
-          <p class="demo-menu-basic__description">
-            把横向菜单放进一个真实产品头部语境里，强调品牌区、导航区和右侧操作区的节奏，而不只是平铺一个导航条。
-          </p>
+    <xy-card shadow="never">
+      <template #header>
+        <div class="demo-menu-basic__header">
+          <strong>基础用法</strong>
+          <xy-tag status="neutral" round>横向菜单</xy-tag>
         </div>
+        <p class="demo-menu-basic__description">
+          横向菜单适合放在页面顶部，作为主导航使用，支持下拉子菜单。
+        </p>
+      </template>
 
-        <xy-space wrap>
-          <xy-tag status="primary" round>{{ feedback }}</xy-tag>
-          <xy-tag round>hover 打开协作空间</xy-tag>
-        </xy-space>
-      </header>
+      <div class="demo-menu-basic__frame">
+        <xy-menu
+          default-active="dashboard"
+          mode="horizontal"
+          popper-class="demo-menu-basic__popup"
+          @select="handleSelect"
+        >
+          <xy-menu-item index="dashboard">工作台</xy-menu-item>
 
-      <div class="demo-menu-basic__nav-shell">
-        <div class="demo-menu-basic__meta">
-          <span class="demo-menu-basic__env">Workspace Live</span>
-          <span class="demo-menu-basic__meta-note">最后同步于 09:42</span>
-        </div>
+          <xy-sub-menu index="workspace">
+            <template #title>协作空间</template>
+            <xy-menu-item index="workspace-files">文件</xy-menu-item>
+            <xy-menu-item index="workspace-members">成员</xy-menu-item>
+          </xy-sub-menu>
 
-        <div class="demo-menu-basic__mainbar">
-          <div class="demo-menu-basic__brand">
-            <span class="demo-menu-basic__brand-mark">XO</span>
-            <div>
-              <strong class="demo-menu-basic__brand-title">Xiaoye Ops</strong>
-              <small class="demo-menu-basic__brand-caption">导航主骨架示意</small>
-            </div>
-          </div>
-
-          <xy-menu
-            class="demo-menu-basic__menu"
-            mode="horizontal"
-            default-active="dashboard"
-            popper-class="demo-menu-basic__popup"
-            @select="handleSelect"
-          >
-            <xy-menu-item index="dashboard">工作台</xy-menu-item>
-
-            <xy-sub-menu index="workspace">
-              <template #title>协作空间</template>
-              <xy-menu-item index="workspace-files">文件</xy-menu-item>
-              <xy-menu-item index="workspace-members">成员</xy-menu-item>
-              <xy-sub-menu index="workspace-audit">
-                <template #title>审计中心</template>
-                <xy-menu-item index="workspace-audit-log">日志</xy-menu-item>
-                <xy-menu-item index="workspace-audit-policy">策略</xy-menu-item>
-              </xy-sub-menu>
-            </xy-sub-menu>
-
-            <xy-menu-item index="orders">订单</xy-menu-item>
-            <xy-menu-item index="disabled" disabled>停用入口</xy-menu-item>
-            <xy-menu-item index="settings">设置</xy-menu-item>
-          </xy-menu>
-
-          <div class="demo-menu-basic__actions">
-            <xy-button circle plain icon="mdi:bell-outline" aria-label="通知中心" />
-            <xy-button plain>搜索</xy-button>
-            <xy-button type="primary">新建任务</xy-button>
-          </div>
-        </div>
+          <xy-menu-item index="orders">订单</xy-menu-item>
+          <xy-menu-item index="disabled" disabled>停用入口</xy-menu-item>
+          <xy-menu-item index="settings">设置</xy-menu-item>
+        </xy-menu>
       </div>
-    </section>
+
+      <template #footer>
+        <xy-tag status="primary" round>{{ feedback }}</xy-tag>
+      </template>
+    </xy-card>
   </div>
 </template>
 
 <style scoped>
 .demo-menu-basic {
-  width: 100%;
-}
-
-.demo-menu-basic__hero {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 18px;
-  border: 1px solid var(--xy-border-color-subtle);
-  border-radius: var(--xy-radius-xl);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
-    var(--xy-surface-raised)
-  );
-  box-shadow: var(--xy-shadow-xs);
+  max-width: 720px;
 }
 
 .demo-menu-basic__header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.demo-menu-basic__title {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.demo-menu-basic__title-text {
-  color: var(--xy-text-color);
-  font-size: 18px;
-}
-
-.demo-menu-basic__description {
-  margin: 0;
-  color: var(--xy-text-color-secondary);
-  line-height: 1.7;
-}
-
-.demo-menu-basic__nav-shell {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 14px;
-  border: 1px solid var(--xy-border-color-subtle);
-  border-radius: var(--xy-radius-lg);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--xy-color-primary-soft) 30%, white),
-    var(--xy-surface-raised)
-  );
-  box-shadow: var(--xy-shadow-card);
-}
-
-.demo-menu-basic__meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  color: var(--xy-text-color-secondary);
-  font-size: 12px;
-}
-
-.demo-menu-basic__env {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.demo-menu-basic__mainbar {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 18px;
-  align-items: center;
-  padding: 12px 14px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
-  border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color) 96%, white);
-  box-shadow: var(--xy-shadow-xs);
-}
-
-.demo-menu-basic__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-width: max-content;
-}
-
-.demo-menu-basic__brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.demo-menu-basic__brand-title {
-  display: block;
-  color: var(--xy-text-color-heading);
-}
-
-.demo-menu-basic__brand-caption {
-  color: var(--xy-text-color-secondary);
-}
-
-.demo-menu-basic__actions {
-  display: inline-flex;
   align-items: center;
   gap: 10px;
 }
 
-.demo-menu-basic__menu {
-  --xy-menu-horizontal-height: 48px;
-  --xy-menu-padding: 6px;
-  --xy-menu-border: none;
-  --xy-menu-radius: 16px;
-  --xy-menu-bg-color: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
-  --xy-menu-shadow: none;
-  --xy-menu-horizontal-item-min-height: 42px;
-  --xy-menu-horizontal-item-padding-inline: 14px;
-  --xy-menu-item-radius: 12px;
-  --xy-menu-item-font-weight: 600;
-  --xy-menu-item-letter-spacing: 0.01em;
-  --xy-menu-hover-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
-  --xy-menu-active-bg: var(--xy-color-primary-soft);
-  --xy-menu-active-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+.demo-menu-basic__description {
+  margin: 6px 0 0;
+  color: var(--xy-text-color-secondary);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
+.demo-menu-basic__frame {
+  padding: 8px 12px;
+  border: 1px solid var(--xy-border-color-subtle);
+  border-radius: 12px;
+  background: var(--xy-bg-color-subtle);
+}
+
+/* 横向菜单基础样式 */
+.demo-menu-basic__frame :deep(.xy-menu) {
+  --xy-menu-horizontal-height: 44px;
+  --xy-menu-item-min-height: 36px;
+  --xy-menu-horizontal-item-padding-inline: 14px;
+  --xy-menu-item-radius: 8px;
+  --xy-menu-item-font-weight: 500;
+  --xy-menu-text-color: var(--xy-text-color-secondary);
+  --xy-menu-hover-bg: var(--xy-bg-color-overlay);
+  --xy-menu-hover-color: var(--xy-text-color-heading);
+  --xy-menu-active-bg: var(--xy-color-primary-soft);
+  --xy-menu-active-color: var(--xy-color-primary);
+  border: none;
+  background: transparent;
+}
+
+.demo-menu-basic__frame :deep(.xy-menu__item-surface) {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--xy-text-color-secondary);
+  transition: all 0.15s ease;
+}
+</style>
+
+<style>
+/* 全局下拉弹出层样式 */
 .demo-menu-basic__popup {
-  --xy-menu-popup-min-width: 224px;
-  --xy-menu-popup-padding: 10px;
-  --xy-menu-popup-border-color: var(--xy-border-color-subtle);
-  --xy-menu-popup-radius: 20px;
-  --xy-menu-popup-bg: var(--xy-bg-color-floating);
-  --xy-menu-popup-shadow: var(--xy-shadow-popup);
+  --xy-menu-popup-min-width: 180px;
+  --xy-menu-popup-padding: 8px;
+  --xy-menu-popup-radius: 14px;
+  --xy-menu-popup-bg: var(--xy-bg-color-floating) !important;
+  --xy-menu-popup-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
   --xy-menu-item-min-height: 40px;
   --xy-menu-item-padding-inline: 14px;
-  --xy-menu-item-radius: 13px;
-  --xy-menu-item-font-weight: 600;
-  --xy-menu-group-title-padding: 8px 14px 10px;
-  --xy-menu-group-title-color: var(--xy-text-color-muted);
-  --xy-menu-group-title-letter-spacing: 0.08em;
-  --xy-menu-hover-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
-  --xy-menu-active-bg: var(--xy-color-primary-soft);
-  --xy-menu-active-shadow: none;
+  --xy-menu-item-radius: 10px;
+  --xy-menu-item-gap: 10px;
+  --xy-menu-item-font-weight: 500;
+  --xy-menu-text-color: var(--xy-text-color);
+  --xy-menu-hover-bg: var(--xy-bg-color-overlay) !important;
+  --xy-menu-hover-color: var(--xy-color-primary) !important;
+  --xy-menu-active-bg: var(--xy-color-primary-soft) !important;
+  --xy-menu-active-color: var(--xy-color-primary) !important;
+  --xy-menu-active-shadow: none !important;
 }
 
-@media (max-width: 860px) {
-  .demo-menu-basic__header,
-  .demo-menu-basic__mainbar {
-    grid-template-columns: 1fr;
-    flex-direction: column;
-    align-items: stretch;
-  }
+.demo-menu-basic__popup .xy-menu__item-surface {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--xy-text-color) !important;
+  transition: all 0.15s ease;
+}
 
-  .demo-menu-basic__actions {
-    justify-content: flex-end;
-  }
+.demo-menu-basic__popup .xy-menu__item-content {
+  color: inherit !important;
+}
 
-  .demo-menu-basic__meta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.demo-menu-basic__popup .xy-menu__item:hover .xy-menu__item-surface,
+.demo-menu-basic__popup .xy-menu__item:hover .xy-menu__item-content {
+  color: var(--xy-color-primary) !important;
+}
+
+.demo-menu-basic__popup .xy-menu__item.is-active .xy-menu__item-surface,
+.demo-menu-basic__popup .xy-menu__item.is-active .xy-menu__item-content {
+  color: var(--xy-color-primary) !important;
+  font-weight: 600;
 }
 </style>

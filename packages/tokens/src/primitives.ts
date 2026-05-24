@@ -2,6 +2,10 @@ export const primitiveTokens = {
   color: {
     ink: {
       "0": "#ffffff",
+      "1": "#fdfdff",
+      "2": "#fbfcfe",
+      "25": "#f5f7fa",
+      "40": "#f7f8fa",
       "50": "#f8f9fc",
       "100": "#f2f4f8",
       "200": "#e7ebf2",
@@ -11,9 +15,17 @@ export const primitiveTokens = {
       "600": "#566277",
       "700": "#394457",
       "800": "#252d3a",
-      "900": "#1c1c1e"
+      "825": "#2a3347",
+      "850": "#1e2433",
+      "900": "#1c1c1e",
+      "950": "#151922"
     },
     slate: {
+      "0": "#ffffff",
+      "1": "#fdfdff",
+      "2": "#fbfcfe",
+      "25": "#f5f7fa",
+      "40": "#f7f8fa",
       "50": "#f8f9fc",
       "100": "#f2f4f8",
       "200": "#e7ebf2",
@@ -23,7 +35,10 @@ export const primitiveTokens = {
       "600": "#566277",
       "700": "#394457",
       "800": "#252d3a",
-      "900": "#1c1c1e"
+      "825": "#2a3347",
+      "850": "#1e2433",
+      "900": "#1c1c1e",
+      "950": "#151922"
     },
     blue: {
       "50": "#eef2ff",
@@ -83,9 +98,13 @@ export const primitiveTokens = {
       "400": "#aa84ff",
       "500": "#8f63ff"
     },
+    white: "#ffffff",
+    black: "#1c1c1e",
     success: "#00b473",
     warning: "#d98a1f",
-    danger: "#e5484d"
+    danger: "#e5484d",
+    overlay: "rgba(28, 28, 30, 0.42)",
+    focusRing: "rgba(91, 118, 254, 0.14)"
   },
   radius: {
     xs: "2px",

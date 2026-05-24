@@ -2507,8 +2507,8 @@ describe("XyTable", () => {
     const wrapper = createTableWrapper(
       `
         <xy-table ref="tableRef" :data="rows" table-layout="auto">
-          <xy-table-column prop="name" label="名称" />
-          <xy-table-column prop="status" label="状态" />
+          <xy-table-column prop="name" label="名称" resizable />
+          <xy-table-column prop="status" label="状态" resizable />
         </xy-table>
       `,
       () => ({
@@ -3086,7 +3086,7 @@ describe("XyTable", () => {
           selectable: undefined,
           reserveSelection: false,
           index: undefined,
-          resizable: true,
+          resizable: false,
           children: [],
           level: 0,
           parentUid: undefined,
@@ -3129,7 +3129,7 @@ describe("XyTable", () => {
           selectable: undefined,
           reserveSelection: false,
           index: undefined,
-          resizable: true,
+          resizable: false,
           children: [],
           level: 0,
           parentUid: undefined,
@@ -3175,7 +3175,7 @@ describe("XyTable", () => {
           selectable: undefined,
           reserveSelection: false,
           index: undefined,
-          resizable: true,
+          resizable: false,
           children: [],
           level: 0,
           parentUid: undefined,
@@ -3253,7 +3253,7 @@ describe("XyTable", () => {
       selectable: undefined,
       reserveSelection: false,
       index: undefined,
-      resizable: true,
+      resizable: false,
       children: [],
       level: 0,
       parentUid: undefined,
@@ -3342,9 +3342,9 @@ describe("XyTable", () => {
           border
           :allow-drag-last-column="false"
         >
-          <xy-table-column type="selection" :selectable="selectable" />
-          <xy-table-column prop="name" label="名称" />
-          <xy-table-column prop="status" label="状态" />
+          <xy-table-column type="selection" :selectable="selectable" resizable />
+          <xy-table-column prop="name" label="名称" resizable />
+          <xy-table-column prop="status" label="状态" resizable />
         </xy-table>
       `,
       () => ({

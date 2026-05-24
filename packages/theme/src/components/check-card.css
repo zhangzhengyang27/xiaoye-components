@@ -101,6 +101,11 @@
   min-width: 0;
 }
 
+.xy-check-card__content.is-row {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
 .xy-check-card__header {
   display: flex;
   gap: 12px;
@@ -111,10 +116,21 @@
 
 .xy-check-card__header-main {
   display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  min-width: 0;
+  flex: 1;
+  /* 右侧预留 extra + gap，不要撑满导致挤压 extra 到 indicator 区域 */
+  max-width: 65%;
+}
+
+.xy-check-card__header-text {
+  display: flex;
   flex-wrap: wrap;
   gap: 8px 10px;
   align-items: center;
   min-width: 0;
+  flex: 1;
 }
 
 .xy-check-card__title {
@@ -137,16 +153,17 @@
 }
 
 .xy-check-card__extra {
+  position: absolute;
+  top: 14px;
+  right: 46px;
   display: inline-flex;
   gap: 6px;
   align-items: center;
-  flex: none;
-  min-height: 24px;
   padding: 0;
   border: none;
   color: var(--xy-color-primary);
   font: inherit;
-  line-height: 1.4;
+  line-height: 1;
   background: transparent;
   cursor: pointer;
 }

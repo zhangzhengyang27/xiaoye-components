@@ -15,10 +15,44 @@ const imageUrl = `data:image/svg+xml;utf8,${encodeURIComponent(`
 </script>
 
 <template>
-  <xy-space wrap align="center">
-    <xy-avatar>叶</xy-avatar>
-    <xy-avatar icon="mdi:account-outline" />
-    <xy-avatar :src="imageUrl" alt="avatar image" />
-    <xy-avatar shape="square">AB</xy-avatar>
-  </xy-space>
+  <!-- 头像基础用法：支持文字、图片、图标和多种形状 -->
+  <div class="demo-avatar-basic">
+    <xy-card shadow="never">
+      <template #header>
+        <div class="demo-avatar-basic__header">
+          <strong>基础用法</strong>
+          <xy-tag status="neutral" round>多种形态</xy-tag>
+        </div>
+        <p class="demo-avatar-basic__description">
+          支持文字头像、图片头像、图标头像，以及圆形和方形两种形状。
+        </p>
+      </template>
+
+      <xy-space wrap align="center">
+        <xy-avatar>叶</xy-avatar>
+        <xy-avatar icon="mdi:account-outline" />
+        <xy-avatar :src="imageUrl" alt="avatar image" />
+        <xy-avatar shape="square">AB</xy-avatar>
+      </xy-space>
+    </xy-card>
+  </div>
 </template>
+
+<style scoped>
+.demo-avatar-basic {
+  max-width: 560px;
+}
+
+.demo-avatar-basic__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.demo-avatar-basic__description {
+  margin: 6px 0 0;
+  color: var(--xy-text-color-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+</style>

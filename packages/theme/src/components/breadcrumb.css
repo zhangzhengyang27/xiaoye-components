@@ -15,6 +15,8 @@
   font-size: var(--xy-breadcrumb-font-size);
   line-height: var(--xy-breadcrumb-line-height);
   color: var(--xy-breadcrumb-color);
+  outline: none;
+  outline-width: 0px;
 }
 
 ol.xy-breadcrumb__list {
@@ -25,6 +27,8 @@ ol.xy-breadcrumb__list {
   margin: 0;
   padding: 0;
   list-style: none;
+  outline: none;
+  outline-width: 0px;
 }
 
 li.xy-breadcrumb__item {
@@ -34,6 +38,8 @@ li.xy-breadcrumb__item {
   margin: 0;
   padding: 0;
   list-style: none;
+  outline: none;
+  outline-width: 0px;
 }
 
 li.xy-breadcrumb__item + li.xy-breadcrumb__item {
@@ -49,6 +55,8 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
   border-radius: var(--xy-radius-md);
   color: var(--xy-breadcrumb-color);
   text-decoration: none;
+  outline: none;
+  outline-width: 0px;
   transition:
     color var(--xy-transition-duration) var(--xy-transition-timing),
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -64,7 +72,7 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
 .xy-breadcrumb__inner.is-link:hover {
   color: var(--xy-breadcrumb-link-hover-color);
   background: color-mix(in srgb, var(--xy-bg-color-subtle) 68%, var(--xy-bg-color-floating));
-  border-color: color-mix(in srgb, var(--xy-color-primary) 6%, var(--xy-border-color-subtle));
+  /* border-color: color-mix(in srgb, var(--xy-color-primary) 6%, var(--xy-border-color-subtle)); */
 }
 
 .xy-breadcrumb__inner.is-link:focus-visible {
@@ -97,7 +105,9 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
 .xy-breadcrumb__item.is-current .xy-breadcrumb__inner:hover {
   color: var(--xy-breadcrumb-current-color);
   background: color-mix(in srgb, var(--xy-bg-color-subtle) 58%, var(--xy-bg-color-floating));
-  border-color: color-mix(in srgb, var(--xy-border-color-subtle) 72%, var(--xy-border-color));
+  border-color: transparent;
+  outline: none;
+  outline-width: 0px;
   font-weight: 560;
   cursor: default;
 }

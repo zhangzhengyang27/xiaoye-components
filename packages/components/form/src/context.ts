@@ -55,6 +55,7 @@ export interface FormItemContext {
   message: Ref<string>;
   validateState: Ref<ValidateState>;
   disabled: Ref<boolean>;
+  required: Ref<boolean>;
   validate: (trigger?: FormTrigger) => Promise<boolean>;
   clearValidate: () => void;
 }

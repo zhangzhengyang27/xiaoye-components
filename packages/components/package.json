@@ -1,6 +1,6 @@
 {
   "name": "xiaoye-components",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "通用 Vue 3 基础组件库",
   "license": "MIT",
