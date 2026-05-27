@@ -9,6 +9,7 @@ import { demoMdPlugin } from "./plugins/demo";
 import { demoSourcePlugin } from "./plugins/demo-source";
 import { markdownTransform } from "./plugins/markdown-transform";
 import { tableWrapperMdPlugin } from "./plugins/table-wrapper";
+import { columnSidebar } from "./column-sidebar";
 
 export default defineConfig({
   title: "xiaoye-components",
@@ -68,7 +69,8 @@ export default defineConfig({
       { text: "示例", link: "/examples/admin" },
       { text: "CodeGraph", link: "/guide/codegraph" },
       { text: "设计令牌", link: "/design-tokens" },
-      { text: "更新日志", link: "/changelog" }
+      { text: "更新日志", link: "/changelog" },
+      { text: "专栏", link: "/column/guide/01-architecture-overview" }
     ],
     sidebar: {
       "/guide/": [
@@ -139,7 +141,8 @@ export default defineConfig({
             items: group.items
           }))
           .filter((group) => group.items.length > 0)
-      ]
+      ],
+      "/column/": columnSidebar
     },
     socialLinks: [{ icon: "github", link: "https://github.com/xiaoye/xiaoye-components" }]
   },

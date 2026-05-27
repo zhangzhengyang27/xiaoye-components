@@ -1,0 +1,118 @@
+---
+title: Tabs 标签页
+description: 页面分区、局部导航和视图切换的基础页签组件。
+outline: deep
+---
+
+# Tabs 标签页
+
+`xy-tabs` 适合做页面分区、局部导航和视图切换。当前版本强调键盘可达性、禁用项跳过和插槽化面板内容。
+
+## 何时使用
+
+- 需要在同一页面内切换不同内容区域（如基本信息 / 操作日志 / 关联数据）时。
+- 需要顶部或侧边局部导航时，配合 `tab-position` 调整方向。
+- 需要可增删的页签（如浏览器标签式多页签工作台）时，使用 `editable`。
+- 需要切换前拦截（如未保存提醒、权限校验）时，使用 `before-leave`。
+- 需要页签过多时自动滚动导航时，组件内置滚动按钮支持。
+
+## 何时不使用
+
+- 需要步骤引导式流程（上一步 / 下一步）时，优先使用 `xy-steps`。
+- 需要折叠展开内容区块时，优先使用 `xy-collapse`。
+- 需要页面级路由切换时，应使用路由方案而非 Tabs。
+- 内容区域之间有强依赖关系（必须按顺序填写）时，不适合用自由切换的 Tabs。
+
+## 基础用法
+
+:::demo 最常见的用法是传一组 `items`，再通过默认插槽渲染当前激活面板内容。
+tabs/basic
+:::
+
+## 禁用页签
+
+:::demo 禁用页签会被键盘导航自动跳过，适合放“暂未开放”或当前不可切换的面板。
+tabs/disabled
+:::
+
+## 风格与位置
+
+:::demo `type` 和 `tab-position` 用于区分视觉语义和布局方向，`stretch` 则适合更强的分区感。
+tabs/position
+:::
+
+## 滚动导航
+
+:::demo 当页签数量过多超出容器宽度时，会自动显示前后滚动按钮，并把激活项滚动到可见区域。
+tabs/scrollable
+:::
+
+## 切换前守卫
+
+:::demo `before-leave` 适合未保存变更提醒、权限校验或异步确认。
+tabs/before-leave
+:::
+
+## 新增与关闭页签
+
+:::demo `editable` 适合后台控制台、详情抽屉和工作台式视图切换，父层通过事件维护 `items` 即可。
+tabs/editable
+:::
+
+## 方法与外部控制
+
+:::demo 通过 expose 出来的 `currentName`，可以把 Tabs 接进更复杂的页面流程或工具栏操作。
+tabs/methods
+:::
+
+## API
+
+### Tabs Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `model-value` | 当前激活项 | `TabsProps["modelValue"]` | 首个可用项 |
+| `default-value` | 非受控场景下的初始激活项 | `TabsProps["defaultValue"]` | `undefined` |
+| `items` | 页签项配置 | `TabItem[]` | `[]` |
+| `type` | 页签风格 | `TabsType` | `''` |
+| `tab-position` | 页签位置 | `TabsPosition` | `'top'` |
+| `closable` | 是否默认显示关闭按钮 | `boolean` | `false` |
+| `addable` | 是否显示新增按钮 | `boolean` | `false` |
+| `editable` | 是否同时开启新增和关闭能力 | `boolean` | `false` |
+| `stretch` | 是否拉伸平铺页签 | `boolean` | `false` |
+| `before-leave` | 切换前守卫 | `TabsBeforeLeave` | `undefined` |
+| `tabindex` | 激活页签的 tabindex | `string \| number` | `0` |
+
+### TabItem
+
+| 字段       | 说明       | 类型      | 默认值  |
+| ---------- | ---------- | --------- | ------- |
+| `key`      | 唯一标识   | `string`  | —       |
+| `label`    | 展示文案   | `string`  | —       |
+| `disabled` | 是否禁用   | `boolean` | `false` |
+| `closable` | 是否显示关闭按钮 | `boolean` | 跟随 Tabs |
+
+### Tabs Events
+
+| 事件                 | 说明           | 参数       |
+| -------------------- | -------------- | ---------- |
+| `update:model-value` | 激活项变化     | `TabsModelValueChangeHandler`   |
+| `change`             | 切换页签时触发 | `TabsChangeHandler`   |
+| `tab-click`          | 点击页签时触发 | `TabsTabClickHandler` |
+| `edit`               | 新增或关闭页签时触发 | `TabsEditHandler` |
+| `tab-remove`         | 关闭页签时触发 | `TabsTabRemoveHandler` |
+| `tab-add`            | 点击新增页签时触发 | `TabsTabAddHandler` |
+
+### Tabs Slots
+
+| 插槽      | 说明                                          |
+| --------- | --------------------------------------------- |
+| `default` | 面板内容，插槽参数为 `TabsDefaultSlotProps`    |
+| `add-icon` | 自定义新增按钮图标                           |
+
+### Tabs Exposes
+
+| 暴露项 | 说明 | 类型 |
+| --- | --- | --- |
+| `currentName` | 当前激活页签 key | `TabsInstance["currentName"]` |
+| `scrollToActiveTab` | 将激活页签滚动到可视区域 | `TabsInstance["scrollToActiveTab"]` |
