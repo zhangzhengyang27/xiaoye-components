@@ -1,3 +1,8 @@
+---
+title: 102 AvatarMenu 头像菜单
+outline: deep
+---
+
 # 102 AvatarMenu 头像菜单
 
 > 导读：AvatarMenu 将「用户头像 + 下拉菜单」的组合封装为即插即用的导航组件，是中后台布局头部用户身份区的事实标准。

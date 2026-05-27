@@ -1,3 +1,8 @@
+---
+title: 96 AuditTimeline 审计时间线
+outline: deep
+---
+
 # 96 AuditTimeline 审计时间线
 
 > 导读：AuditTimeline 是面向后台操作记录、审批流和变更历史的增强时间线组件，每条记录自动渲染操作人、状态标签、备注和附件，让历史追溯不再手拼模板。

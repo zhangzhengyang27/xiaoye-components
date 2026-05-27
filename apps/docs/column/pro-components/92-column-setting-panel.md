@@ -1,3 +1,8 @@
+---
+title: 92 ColumnSettingPanel 列设置面板
+outline: deep
+---
+
 # 92 ColumnSettingPanel 列设置面板
 
 > 导读：ColumnSettingPanel 是表格列显隐控制的轻量承载体，通过 CheckboxGroup 实现全选、重置、单列勾选，让用户按需裁剪表格列。

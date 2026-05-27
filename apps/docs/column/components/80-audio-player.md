@@ -1,3 +1,8 @@
+---
+title: 80 AudioPlayer 音频播放
+outline: deep
+---
+
 # 80 AudioPlayer 音频播放
 
 > 导读：基于 Howler.js 封装的企业级音频播放组件，通过声明式 API 代理 Howl 实例的完整生命周期，提供播放/暂停/跳转/倍速/音量等控制能力，业务无需直接操作 Howler.js

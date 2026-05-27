@@ -1,3 +1,8 @@
+---
+title: 51 Editor 编辑器
+outline: deep
+---
+
 # 51 Editor 编辑器
 
 > 导读：Editor 是基于 Vditor 封装的企业级 Markdown 编辑器组件，通过声明式 v-model、自动实例回收与深度事件代理，让 Vue 3 项目以零配置获得所见即所得编辑能力。

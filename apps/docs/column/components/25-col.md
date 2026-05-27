@@ -1,3 +1,8 @@
+---
+title: 25 Col 栅格-列
+outline: deep
+---
+
 # 25 Col 栅格-列
 
 > 导读：Col 是栅格系统的列组件，通过 flex 布局和 24 分栏规则，实现精确的响应式页面布局。它与 Row 配合，通过 provide/inject 共享 gutter 间距信息，是 xiaoye-components 布局体系的基础。

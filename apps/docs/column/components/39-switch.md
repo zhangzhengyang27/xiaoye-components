@@ -1,3 +1,8 @@
+---
+title: 39 Switch 开关
+outline: deep
+---
+
 # 39 Switch 开关
 
 > 导读：Switch 是即时生效的布尔状态切换器，与 Checkbox 的"提交时生效"语义不同，Switch 的操作是即时生效的——切换即触发动作，适用于启用/禁用功能、开启/关闭配置等场景。

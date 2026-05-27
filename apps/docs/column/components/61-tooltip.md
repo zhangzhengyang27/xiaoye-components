@@ -1,3 +1,8 @@
+---
+title: 61 Tooltip 文字提示
+outline: deep
+---
+
 # 61 Tooltip 文字提示
 
 > 导读：基于 Floating UI 的轻量级浮层原语，为交互元素提供即时的上下文信息，是所有弹出类组件的定位基石。

@@ -1,3 +1,8 @@
+---
+title: 101 PageContainer 页面容器
+outline: deep
+---
+
 # 101 PageContainer 页面容器
 
 > 导读：PageContainer 是中后台页面的标准壳层，将「头部 + 正文 + 底部」三层结构收敛为统一容器，自动生成 PageHeader 并提供全局 loading 状态管理。

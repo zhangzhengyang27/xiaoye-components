@@ -1,3 +1,8 @@
+---
+title: 93 SavedViewTabs 视图页签
+outline: deep
+---
+
 # 93 SavedViewTabs 视图页签
 
 > 导读：SavedViewTabs 为列表页提供稳定的视图切换层，将"全部、待处理、异常单"这类业务视图收成页签结构，让用户一键切换查询口径。

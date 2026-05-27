@@ -1,3 +1,8 @@
+---
+title: 10 Button 按钮
+outline: deep
+---
+
 # 10 Button 按钮
 
 > 导读：Button 是页面操作的入口组件，承载主操作、次操作和轻量动作三种语义。通过 useButton composable 实现尺寸/类型的 provide-inject 三级合并、视觉模式归一化（plain/text/link 互斥）和动态标签的无障碍适配。

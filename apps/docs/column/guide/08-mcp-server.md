@@ -1,3 +1,8 @@
+---
+title: 08 MCP Server：让 AI 理解组件库
+outline: deep
+---
+
 # 08 MCP Server：让 AI 理解组件库
 
 > 导读：xiaoye-mcp-server 是一个 MCP（Model Context Protocol）工具服务器，它让 AI IDE（Cursor、Windsurf、Claude Code 等）可以直接查询组件库的 API——从 95 个组件中找到正确的那个，获取它的 Props / Events / Slots 完整定义。本文拆解 MCP Server 的架构、三个 tool 的实现细节，以及 api-schema.json 的数据生成管道。

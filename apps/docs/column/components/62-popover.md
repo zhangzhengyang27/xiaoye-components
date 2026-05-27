@@ -1,3 +1,8 @@
+---
+title: 62 Popover 弹出框
+outline: deep
+---
+
 # 62 Popover 弹出框
 
 > 导读：在 Tooltip 的基础上扩展富内容渲染能力，支持嵌套交互，是 Popconfirm、Dropdown 等复合组件的宿主容器。

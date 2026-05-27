@@ -1,3 +1,8 @@
+---
+title: 44 DatePicker 日期选择
+outline: deep
+---
+
 # 44 DatePicker 日期选择
 
 > 导读：DatePicker 日期选择组件封装 dayjs 时间引擎与浮层面板交互，支持日期 / 日期范围 / 月份 / 年份 / 周五种模式，是企业级表单日期录入的标准方案。

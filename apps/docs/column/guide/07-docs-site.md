@@ -1,3 +1,8 @@
+---
+title: 07 文档站架构
+outline: deep
+---
+
 # 07 文档站架构
 
 > 导读：xiaoye-components 的文档站基于 VitePress，通过四个自定义 Markdown 插件和两个 Vite 插件扩展了 demo 渲染、源码查看、表格响应式和 Markdown 预处理能力。侧边栏完全由 Manifest 自动生成。本文拆解每层插件的工作机制和数据流。

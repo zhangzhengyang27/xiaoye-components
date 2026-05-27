@@ -1,3 +1,8 @@
+---
+title: 48 TreeSelect 树选择
+outline: deep
+---
+
 # 48 TreeSelect 树选择
 
 > 导读：TreeSelect 树选择组件提供层级结构的单选交互，复用 xy-tree 的展开/折叠和过滤能力，是组织架构、权限树、菜单配置等"层级选择但只需要节点 key"场景的标准控件。

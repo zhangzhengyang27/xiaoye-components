@@ -1,3 +1,8 @@
+---
+title: 105 StatCard 指标卡片
+outline: deep
+---
+
 # 105 StatCard 指标卡片
 
 > 导读：StatCard 将「数值 + 标签 + 变化趋势 + 图标」收敛为标准化的指标展示卡片，是中后台仪表盘页面的事实原子单元。

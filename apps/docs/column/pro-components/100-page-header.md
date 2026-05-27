@@ -1,3 +1,8 @@
+---
+title: 100 PageHeader 页面头部
+outline: deep
+---
+
 # 100 PageHeader 页面头部
 
 > 导读：PageHeader 将中后台页面顶部「标题 + 描述 + 元信息 + 操作按钮」四段信息收敛为一个语义化的 header 容器，是 PageContainer 的默认头部实现。

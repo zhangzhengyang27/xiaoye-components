@@ -1,3 +1,8 @@
+---
+title: 68 CollapseTransition 折叠过渡
+outline: deep
+---
+
 # 68 CollapseTransition 折叠过渡
 
 > 导读：CollapseTransition 提供基于 maxHeight 的展开/收起动画，让隐藏与显示之间的状态切换平滑自然

@@ -1,3 +1,8 @@
+---
+title: 99 PageToolbar 页面工具栏
+outline: deep
+---
+
 # 99 PageToolbar 页面工具栏
 
 > 导读：PageToolbar 是中后台页面操作区的标准化容器，将「筛选 + 操作按钮 + 批量操作」三段式布局收敛为声明式配置，消除每个页面重复手写 flex 布局的样板代码。

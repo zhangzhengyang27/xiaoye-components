@@ -1,3 +1,8 @@
+---
+title: 63 Popconfirm 确认弹出
+outline: deep
+---
+
 # 63 Popconfirm 确认弹出
 
 > 导读：在 Tooltip 浮层引擎上构建的确认语义组件，内置确认/取消按钮、异步 hook 和 loading 托管，专治"删除前确认"类场景。

@@ -1,3 +1,8 @@
+---
+title: 56 Collapse 折叠面板
+outline: deep
+---
+
 # 56 Collapse 折叠面板
 
 > 导读：Collapse 是内容收展组件，通过标题触发展开/折叠，支持手风琴模式与异步拦截，常用于 FAQ、筛选配置和说明文档

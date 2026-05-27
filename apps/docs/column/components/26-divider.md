@@ -1,3 +1,8 @@
+---
+title: 26 Divider 分割线
+outline: deep
+---
+
 # 26 Divider 分割线
 
 Divider 以视觉分割线划分内容区域，支持水平/垂直方向、文字嵌入、多尺寸与语义状态色，并通过 CSS 自定义属性与 `color-mix()` 实现精细化配色。

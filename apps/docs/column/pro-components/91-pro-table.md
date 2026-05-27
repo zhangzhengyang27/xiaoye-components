@@ -1,3 +1,8 @@
+---
+title: 91 ProTable 增强表格
+outline: deep
+---
+
 # 91 ProTable 增强表格
 
 > 导读：ProTable 是面向中后台列表页场景的增强表格组件，通过 schema 配置驱动列渲染、搜索与操作，内置分页请求与视图管理，让一行配置替代一页样板代码。

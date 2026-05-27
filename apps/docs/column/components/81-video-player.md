@@ -1,3 +1,8 @@
+---
+title: 81 VideoPlayer 视频播放
+outline: deep
+---
+
 # 81 VideoPlayer 视频播放
 
 > 导读：基于 Video.js 封装的企业级视频播放组件，通过声明式 API 代理 Video.js Player 实例的完整生命周期，提供播放/暂停/加载/销毁等控制能力，业务无需直接操作 Video.js

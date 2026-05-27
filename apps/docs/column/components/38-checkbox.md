@@ -1,3 +1,8 @@
+---
+title: 38 Checkbox 复选
+outline: deep
+---
+
 # 38 Checkbox 复选
 
 > 导读：Checkbox 用于多选场景，核心是"独立切换 + 组内聚合"——单个 Checkbox 是布尔开关，CheckboxGroup 是多值聚合器，两者通过 provide/inject 自动关联，实现从"全不选"到"全选"的完整交互闭环。

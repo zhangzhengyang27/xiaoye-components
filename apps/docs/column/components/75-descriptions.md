@@ -1,3 +1,8 @@
+---
+title: 75 Descriptions 描述列表
+outline: deep
+---
+
 # 75 Descriptions 描述列表
 
 > 导读：基于栅格布局的键值对描述组件，通过 Descriptions + DescriptionsItem 的组合模式实现列表信息的结构化展示，支持自适应列数与响应式布局

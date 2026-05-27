@@ -1,3 +1,8 @@
+---
+title: 65 Transfer 穿梭框
+outline: deep
+---
+
 # 65 Transfer 穿梭框
 
 > 导读：双栏列表式数据迁移组件，通过 Checkbox 选中 + 按钮迁移完成成员、权限等双栏分配场景，是表单领域最经典的选择形态之一。

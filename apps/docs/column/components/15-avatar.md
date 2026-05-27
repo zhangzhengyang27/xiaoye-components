@@ -1,3 +1,8 @@
+---
+title: 15 Avatar 头像
+outline: deep
+---
+
 # 15 Avatar 头像
 
 > 导读：Avatar 用图标、图片或文字三种形态统一表达用户/实体的视觉标识，AvatarGroup 则在空间受限时以堆叠 + 计数的方式优雅收束多人头像。

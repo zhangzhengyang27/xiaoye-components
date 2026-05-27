@@ -1,3 +1,8 @@
+---
+title: 73 Timeline 时间线
+outline: deep
+---
+
 # 73 Timeline 时间线
 
 > 导读：Timeline 是一个面向审计流、里程碑和活动记录的时间线组件，核心价值在于通过"扁平化 VNode + cloneVNode 注入元信息"的模式，将 itemIndex / isLast 等布局信息从业务层剥离

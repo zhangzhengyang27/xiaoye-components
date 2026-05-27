@@ -1,3 +1,8 @@
+---
+title: 70 Countdown 倒计时
+outline: deep
+---
+
 # 70 Countdown 倒计时
 
 > 导读：Countdown 复用 Statistic 外壳，叠加 requestAnimationFrame 驱动的高精度倒计时引擎，核心价值在于将"目标时间戳 -> 每帧刷新的格式化展示"这一链路封装为开箱即用的组件

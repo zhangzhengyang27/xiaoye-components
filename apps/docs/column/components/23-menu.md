@@ -1,3 +1,8 @@
+---
+title: 23 Menu 菜单
+outline: deep
+---
+
 # 23 Menu 菜单
 
 > 导读：Menu 是导航体系的核心骨架，通过递归的 SubMenu 嵌套、折叠/展开状态机、provide/inject 逐层注入，为任意深度的导航结构提供统一的状态管理和交互范式。

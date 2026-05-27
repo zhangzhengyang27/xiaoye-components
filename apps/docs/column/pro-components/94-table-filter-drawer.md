@@ -1,3 +1,8 @@
+---
+title: 94 TableFilterDrawer 表格筛选抽屉
+outline: deep
+---
+
 # 94 TableFilterDrawer 表格筛选抽屉
 
 > 导读：TableFilterDrawer 用抽屉收纳列表页的高级筛选条件，让主搜索栏保持简洁，次级筛选条件收进侧边抽屉，通过 ProForm 承接字段渲染。

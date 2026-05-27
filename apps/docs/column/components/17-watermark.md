@@ -1,3 +1,8 @@
+---
+title: 17 Watermark 水印
+outline: deep
+---
+
 # 17 Watermark 水印
 
 > 导读：Watermark 通过 Canvas 绘制水印纹理、转为 base64 背景图铺满容器，并用 MutationObserver 实时守护水印层不被篡改或删除——在保护数据安全的同时保持零侵入的 DOM 结构。

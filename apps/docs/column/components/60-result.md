@@ -1,3 +1,8 @@
+---
+title: 60 Result 结果
+outline: deep
+---
+
 # 60 Result 结果
 
 > 导读：Result 为操作结果提供标准化的反馈视图，将状态码、图标、文案和操作按钮整合为统一的终端页

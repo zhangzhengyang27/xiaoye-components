@@ -1,3 +1,8 @@
+---
+title: 103 HeaderTabs 头部页签
+outline: deep
+---
+
 # 103 HeaderTabs 头部页签
 
 > 导读：HeaderTabs 将「多页签切换 + 批量关闭菜单」封装为工作台壳子的标准头部组件，是中后台多页签布局的关键交互单元。

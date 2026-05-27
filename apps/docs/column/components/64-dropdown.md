@@ -1,3 +1,8 @@
+---
+title: 64 Dropdown 下拉菜单
+outline: deep
+---
+
 # 64 Dropdown 下拉菜单
 
 > 导读：基于 Floating UI 的操作菜单组件，内置键盘导航（Roving Tabindex）、命令派发和 Split Button 模式，是"操作菜单"而非"值选择器"。

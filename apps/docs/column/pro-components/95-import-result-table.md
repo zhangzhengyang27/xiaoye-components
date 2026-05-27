@@ -1,3 +1,8 @@
+---
+title: 95 ImportResultTable 导入结果表格
+outline: deep
+---
+
 # 95 ImportResultTable 导入结果表格
 
 > 导读：ImportResultTable 是批量导入场景的结果承载体，在 ProTable 之上叠加统计摘要和结果语义，让导入完成后的反馈一站式呈现。

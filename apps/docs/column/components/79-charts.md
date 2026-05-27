@@ -1,3 +1,8 @@
+---
+title: 79 Charts 图表
+outline: deep
+---
+
 # 79 Charts 图表
 
 > 导读：Charts 是一个基于 ECharts 的统一图表容器组件，核心价值在于通过"实例生命周期管理 + 自适应 resize + 主题集成"的模式，将 ECharts 的命令式初始化/销毁/更新 API 封装为声明式 Vue 组件，同时提供简洁模式和原生 ECharts 模式的双路径接入

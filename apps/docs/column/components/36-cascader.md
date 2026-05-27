@@ -1,3 +1,8 @@
+---
+title: 36 Cascader 级联选择
+outline: deep
+---
+
 # 36 Cascader 级联选择
 
 > 导读：Cascader 用于地区选择、目录导航和路径式分类选择，核心是"逐级展开 + 路径回显"，输出值为从根到叶的完整路径数组，与 Select（扁平枚举）和 TreeSelect（单节点值）形成场景互补。

@@ -1,3 +1,8 @@
+---
+title: 86 DrawerForm 抽屉表单
+outline: deep
+---
+
 # 86 DrawerForm 抽屉表单
 
 > 导读：OverlayForm 的抽屉容器 facade——固定 `container="drawer"`，一行 `open()` 即可在右侧抽屉中完成新建/编辑/查看表单交互，同时保留页面上下文。

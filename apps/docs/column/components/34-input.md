@@ -1,3 +1,8 @@
+---
+title: 34 Input 输入框
+outline: deep
+---
+
 # 34 Input 输入框
 
 > 导读：Input 是表单体系的数据输入基石，承担了文本采集、状态反馈、前后缀组合、密码切换等核心交互，同时作为 AutoComplete、InputTag、InputNumber 等复合组件的底层基础。

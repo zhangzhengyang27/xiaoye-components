@@ -1,3 +1,8 @@
+---
+title: 24 Row 栅格-行
+outline: deep
+---
+
 # 24 Row 栅格-行
 
 基于 24 等分列与 Flexbox 的经典栅格布局方案，Row 负责容器级对齐与间距，Col 负责列宽、偏移与响应式断点，二者通过 provide/inject 通信，实现 gutter 的自动传递。

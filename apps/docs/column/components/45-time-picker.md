@@ -1,3 +1,8 @@
+---
+title: 45 TimePicker 时间选择
+outline: deep
+---
+
 # 45 TimePicker 时间选择
 
 > 导读：TimePicker 时间选择组件提供时/分/秒滚轮式选择交互，支持单值与范围模式，是企业级表单时间录入的精确方案。

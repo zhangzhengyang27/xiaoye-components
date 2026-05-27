@@ -1,3 +1,8 @@
+---
+title: 16 Image 图片
+outline: deep
+---
+
 # 16 Image 图片
 
 > 导读：本文从源码层面拆解 `xy-image` 的实现架构——双组件协作（Image + ImageViewer）、IntersectionObserver 懒加载策略、预览层的变换矩阵与交互手势系统、overlay 栈式 z-index 管理以及完整的无障碍语义。理解这些机制，是定制图片加载链路、扩展预览交互或排查预览层遮挡问题的前提。

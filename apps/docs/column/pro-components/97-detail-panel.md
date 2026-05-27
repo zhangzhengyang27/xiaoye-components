@@ -1,3 +1,8 @@
+---
+title: 97 DetailPanel 详情承载面板
+outline: deep
+---
+
 # 97 DetailPanel 详情承载面板
 
 > 导读：DetailPanel 是统一表达"在覆盖层中查看详情"的能力，通过 `container` prop 收口侧边抽屉和弹窗两种查看容器，schema 驱动字段渲染，时间线区与操作区分离。

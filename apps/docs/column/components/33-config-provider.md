@@ -1,3 +1,8 @@
+---
+title: 33 ConfigProvider 全局配置
+outline: deep
+---
+
 # 33 ConfigProvider 全局配置
 
 > 导读：ConfigProvider 是 xiaoye-components 的全局上下文入口，负责在应用根部统一注入默认尺寸、命名空间、z-index 起始值和函数式组件的默认配置，让整套组件体系在无需逐个传参的情况下获得一致的基线行为。

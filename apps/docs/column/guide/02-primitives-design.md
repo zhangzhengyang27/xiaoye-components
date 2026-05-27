@@ -1,3 +1,8 @@
+---
+title: 02 Primitives 原子层设计
+outline: deep
+---
+
 # 02 Primitives 原子层设计
 
 > 导读：xiaoye-primitives 是整个组件库的地基——它定义了跨包共享的 InjectionKey、12 个 composable、5 组 DOM 工具、兼容层以及共享主题样式。本文逐个拆解这些模块的设计动机与实现细节，重点讲清楚：为什么这些代码必须从 Components 包中剥离出来，以及它们如何在 Pro-Components 层被复用。

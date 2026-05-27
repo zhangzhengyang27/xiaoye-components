@@ -1,3 +1,8 @@
+---
+title: 58 Loading 加载
+outline: deep
+---
+
 # 58 Loading 加载
 
 > 导读：Loading 是数据加载遮罩组件，支持指令式（v-loading）、服务式（LoadingService）和组件式三种调用方式，覆盖局部和全屏场景，内置 delay 防闪烁和 minDuration 保底机制。

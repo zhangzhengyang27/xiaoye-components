@@ -1,3 +1,8 @@
+---
+title: 03 主题与设计令牌系统
+outline: deep
+---
+
 # 03 主题与设计令牌系统
 
 > 导读：xiaoye-components 的主题系统由三层构成——Tokens 包定义 Primitive + Semantic 双层令牌，Primitives 包的 `tokens.css` 将令牌展开为 CSS 自定义属性并区分 Light / Dark 两套值，ConfigProvider 通过 namespace 实现运行时样式隔离。本文拆解这三层如何协作，以及如何通过覆盖 CSS 变量实现定制主题。

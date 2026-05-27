@@ -1,3 +1,8 @@
+---
+title: 05 构建与发布工程
+outline: deep
+---
+
 # 05 构建与发布工程
 
 > 导读：xiaoye-components 的构建体系围绕一个核心目标——将 Monorepo 中的三个包（primitives / components / pro-components）独立打包为 ES Module 产物，同时保证类型声明、CSS 和 source map 的正确输出。本文拆解三包独立构建的 Vite 配置策略、workspace alias 的路径解析、CSS 抽离与 tree-shaking 设计，以及 Changesets 驱动的版本管理。

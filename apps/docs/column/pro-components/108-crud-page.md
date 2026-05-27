@@ -1,3 +1,8 @@
+---
+title: 108 CrudPage 增删改查页面
+outline: deep
+---
+
 # 108 CrudPage 增删改查页面
 
 > 导读：CrudPage 在 ListPage 之上叠加「新增/编辑表单 + 详情面板」的 CRUD 操作层，一个组件覆盖中后台最经典的增删改查全流程。

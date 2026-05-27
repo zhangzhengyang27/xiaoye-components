@@ -1,3 +1,8 @@
+---
+title: 88 FilterPanel 筛选面板
+outline: deep
+---
+
 # 88 FilterPanel 筛选面板
 
 > 导读：将筛选区域的头部、折叠行为和动作区收成统一卡片容器——与 SearchForm 互补，SearchForm 主管筛选字段编排，FilterPanel 主管筛选区域容器编排。

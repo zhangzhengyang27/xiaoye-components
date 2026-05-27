@@ -1,3 +1,8 @@
+---
+title: 04 组件注册与安装体系
+outline: deep
+---
+
 # 04 组件注册与安装体系
 
 > 导读：xiaoye-components 的 64 个基础组件和 31 个 Pro 组件如何注册到 Vue 应用中？答案不是手动维护——而是由 `component-manifest.json` 驱动的自动化管道：JSON 声明安装信息 → TypeScript 转换为强类型 Manifest → index.ts 自动生成 install() 函数和全量导出 → VitePress 侧边栏自动生成。本文拆解这个管道的每一步，以及按需导入 vs 全量注册的实现机制。

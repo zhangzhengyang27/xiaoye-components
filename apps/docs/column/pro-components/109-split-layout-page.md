@@ -1,3 +1,8 @@
+---
+title: 109 SplitLayoutPage 分栏页面
+outline: deep
+---
+
 # 109 SplitLayoutPage 分栏页面
 
 > 导读：将"主从布局"和"侧栏布局"两种双栏工作区收敛为统一的分栏页面模型，通过 layout prop 一键切换布局语义，底层由 XySplitter 驱动实现可拖拽的分栏比例

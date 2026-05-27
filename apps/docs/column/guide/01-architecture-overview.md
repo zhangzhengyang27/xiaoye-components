@@ -1,3 +1,8 @@
+---
+title: 01 项目总览与架构全景
+outline: deep
+---
+
 # 01 项目总览与架构全景
 
 > 导读：本文从全局视角拆解 xiaoye-components 的 Monorepo 分层架构——Primitives 原子层提供跨包共享的注入机制与 composable，Tokens 层定义 Primitive → Semantic 双层令牌体系，Components 层承载 64 个基础组件，Pro-Components 层通过 field-schema 配置化驱动组合出 31 个业务增强组件，MCP Server 则让 AI IDE 自动感知组件 API。理解这个分层模型，是阅读后续所有架构篇与组件篇的前提。

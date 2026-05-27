@@ -1,3 +1,8 @@
+---
+title: 49 Form 表单
+outline: deep
+---
+
 # 49 Form 表单
 
 > 导读：Form 是企业级表单场景的基础编排层，通过 provide/inject 上下文将 Form 与 FormItem 解耦，以 async-validator 驱动声明式校验，支持动态规则切换、嵌套路径取值和滚动定位错误项三大核心能力。

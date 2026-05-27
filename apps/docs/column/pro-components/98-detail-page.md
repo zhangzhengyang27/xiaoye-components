@@ -1,3 +1,8 @@
+---
+title: 98 DetailPage 详情页面
+outline: deep
+---
+
 # 98 DetailPage 详情页面
 
 > 导读：DetailPage 是详情页的一站式承载体，提供面包屑导航、标题栏、操作按钮、分组信息区、附件区、变更对比区与操作日志区，让详情页配置即生成。

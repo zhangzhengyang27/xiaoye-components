@@ -1,3 +1,8 @@
+---
+title: 78 Pagination 分页
+outline: deep
+---
+
 # 78 Pagination 分页
 
 > 导读：Pagination 为大量数据提供标准化的分页导航，将页码跳转、页尺寸切换、总数展示整合为可组合的布局系统

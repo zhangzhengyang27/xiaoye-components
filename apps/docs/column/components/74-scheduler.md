@@ -1,3 +1,8 @@
+---
+title: 74 Scheduler 日程
+outline: deep
+---
+
 # 74 Scheduler 日程
 
 > 导读：Scheduler 是一个面向排期、会议和活动管理的日历组件，核心价值在于以 FullCalendar 为底层引擎，通过"双层封装 + 事件归一化"的模式，将 FullCalendar 的命令式 API 收敛为声明式 Vue 组件，同时内置 RRule 重复事件引擎

@@ -1,3 +1,8 @@
+---
+title: 85 DialogForm 弹窗表单
+outline: deep
+---
+
 # 85 DialogForm 弹窗表单
 
 > 导读：OverlayForm 的弹窗容器 facade——固定 `container="modal"`，一行 `open()` 即可完成弹窗内的新建/编辑/查看表单交互。

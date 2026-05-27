@@ -1,3 +1,8 @@
+---
+title: 66 Dialog 对话框
+outline: deep
+---
+
 # 66 Dialog 对话框
 
 > 导读：模态层浮层组件，支持声明式和命令式双路径调用，内置 Overlay Stack 层级管理、Focus Trap 焦点锁定和异步关闭钩子。

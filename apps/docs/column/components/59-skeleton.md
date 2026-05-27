@@ -1,3 +1,8 @@
+---
+title: 59 Skeleton 骨架屏
+outline: deep
+---
+
 # 59 Skeleton 骨架屏
 
 > 导读：Skeleton 是加载占位组件，用灰色块模拟目标内容的布局轮廓，降低用户对加载延迟的感知焦虑

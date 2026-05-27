@@ -1,3 +1,8 @@
+---
+title: 107 ListPage 列表页面
+outline: deep
+---
+
 # 107 ListPage 列表页面
 
 > 导读：ListPage 将「搜索表单 + 工具栏 + 数据表格 + 分页」四段组合收敛为声明式配置的列表页容器，一条 `request` 函数驱动整页数据流。

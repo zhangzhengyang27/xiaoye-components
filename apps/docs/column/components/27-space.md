@@ -1,3 +1,8 @@
+---
+title: 27 Space 间距
+outline: deep
+---
+
 # 27 Space 间距
 
 Space 是一个纯布局组件，以统一间距排列子节点，支持水平/垂直方向、间距尺寸、对齐方式、换行与分隔符插入，基于 Fragment 渲染避免多余 DOM 层级。

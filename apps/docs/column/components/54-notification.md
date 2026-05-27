@@ -1,3 +1,8 @@
+---
+title: 54 Notification 通知
+outline: deep
+---
+
 # 54 Notification 通知
 
 > 导读：Notification 是远离操作区域的全局通知组件，用于系统级消息推送，支持自定义 HTML、四方位定位、分组归并和命令式调用

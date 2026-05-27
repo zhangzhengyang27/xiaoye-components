@@ -1,3 +1,8 @@
+---
+title: 46 TimeSelect 时间选择器
+outline: deep
+---
+
 # 46 TimeSelect 时间选择器
 
 > 导读：TimeSelect 时间选择器提供固定步长的离散时间点下拉选择，适合预约时段、营业窗口等"整点或半点"场景，是企业级表单时间录入的便捷方案。

@@ -1,3 +1,8 @@
+---
+title: 106 AsyncStateContainer 异步状态容器
+outline: deep
+---
+
 # 106 AsyncStateContainer 异步状态容器
 
 > 导读：AsyncStateContainer 将「loading / error / empty / content」四种异步状态收敛为统一的条件渲染容器，消除中后台页面中反复手写 `v-if/v-else-if/v-else` 状态判断的样板代码。

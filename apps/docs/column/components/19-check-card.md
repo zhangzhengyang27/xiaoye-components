@@ -1,3 +1,8 @@
+---
+title: 19 CheckCard 选择卡片
+outline: deep
+---
+
 # 19 CheckCard 选择卡片
 
 > 导读：CheckCard 将"选择"语义注入卡片容器，让卡片从纯展示升级为可选中、可分组的交互单元，适用于配置面板、权限选择等多选场景。

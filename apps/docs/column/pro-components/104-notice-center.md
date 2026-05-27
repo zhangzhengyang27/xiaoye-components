@@ -1,3 +1,8 @@
+---
+title: 104 NoticeCenter 站内消息中心
+outline: deep
+---
+
 # 104 NoticeCenter 站内消息中心
 
 > 导读：NoticeCenter 将「消息铃铛 + 未读计数 + 消息列表 + 已读操作」封装为即插即用的站内通知组件，是中后台布局头部的标准通知入口。
