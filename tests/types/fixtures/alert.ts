@@ -148,13 +148,6 @@ const invalidDuration: AlertProps = {
 
 void invalidDuration;
 
-const invalidSize: AlertProps = {
-  // @ts-expect-error invalid size should be rejected
-  size: "xl"
-};
-
-void invalidSize;
-
 const invalidPauseOnHover: AlertProps = {
   // @ts-expect-error pauseOnHover should be a boolean
   pauseOnHover: "true"

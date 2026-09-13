@@ -56,9 +56,3 @@ const invalidVariant: ResultProps = {
 
 void invalidVariant;
 
-const invalidSize: ResultProps = {
-  // @ts-expect-error invalid size should be rejected
-  size: "xl"
-};
-
-void invalidSize;

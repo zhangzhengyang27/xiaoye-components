@@ -1,7 +1,7 @@
 import Table from "./src/table.vue";
 import TableColumn from "./src/table-column.vue";
-import type { SFCWithInstall } from "@xiaoye/primitives";
-import { withInstall } from "@xiaoye/primitives";
+import type { SFCWithInstall } from "xiaoye-primitives";
+import { withInstall } from "xiaoye-primitives";
 import type {
   TableAlign,
   TableCellClassName,
@@ -27,9 +27,11 @@ import type {
   TableHeaderSlotProps,
   TableHeaderCell,
   TableHeaderCellClassName,
+  TableHeaderCellContext,
   TableHeaderCellStyle,
   TableHeaderMouseHandler,
   TableHeaderRowClassName,
+  TableHeaderRowContext,
   TableHeaderRowStyle,
   TableInstance,
   TableLayout,
@@ -39,6 +41,7 @@ import type {
   TableResolvedColumn,
   TableRowClickHandler,
   TableRowClassName,
+  TableRowClassNameContext,
   TableRowKey,
   TableRowMouseHandler,
   TableRowStyle,
@@ -86,9 +89,11 @@ export type {
   TableHeaderSlotProps,
   TableHeaderCell,
   TableHeaderCellClassName,
+  TableHeaderCellContext,
   TableHeaderCellStyle,
   TableHeaderMouseHandler,
   TableHeaderRowClassName,
+  TableHeaderRowContext,
   TableHeaderRowStyle,
   TableInstance,
   TableLayout,
@@ -98,6 +103,7 @@ export type {
   TableResolvedColumn,
   TableRowClickHandler,
   TableRowClassName,
+  TableRowClassNameContext,
   TableRowKey,
   TableRowMouseHandler,
   TableRowStyle,

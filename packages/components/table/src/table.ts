@@ -161,10 +161,10 @@ type TablePathKey<T> = Extract<keyof T, string>;
 type TablePath<T> = T extends object
   ? {
       [K in TablePathKey<T>]:
-        T[K] extends readonly unknown[]
+        NonNullable<T[K]> extends readonly unknown[]
           ? K
-          : T[K] extends object
-            ? K | `${K}.${TablePath<T[K]>}`
+          : NonNullable<T[K]> extends object
+            ? K | `${K}.${TablePath<NonNullable<T[K]>>}`
             : K;
     }[TablePathKey<T>]
   : never;

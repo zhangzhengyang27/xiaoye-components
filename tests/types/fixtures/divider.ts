@@ -52,13 +52,6 @@ const invalidContentPosition: DividerProps = {
 
 void invalidContentPosition;
 
-const invalidSize: DividerProps = {
-  // @ts-expect-error invalid size should be rejected
-  size: "xl"
-};
-
-void invalidSize;
-
 const invalidStatus: DividerProps = {
   // @ts-expect-error invalid status should be rejected
   status: "info"

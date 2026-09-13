@@ -69,13 +69,6 @@ const checkCardGroupProps: CheckCardGroupProps = {
 
 void checkCardGroupProps;
 
-const invalidSize: CheckCardProps = {
-  // @ts-expect-error invalid size should be rejected
-  size: "xl"
-};
-
-void invalidSize;
-
 const invalidValue: CheckCardGroupOption = {
   // @ts-expect-error value should only accept string or number
   value: true

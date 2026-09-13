@@ -4,7 +4,10 @@ import {
   XyTableColumn,
   type TableColumnProps,
   type TableFilterValues,
+  type TableHeaderCellContext,
+  type TableHeaderRowContext,
   type TableInstance,
+  type TableRowClassNameContext,
   type TableOverflowTooltipOptions,
   type TableProps,
   type TableSortOrder
@@ -84,21 +87,21 @@ const tableProps: TableProps<Row> = {
   showSummary: true,
   sumText: "总览",
   summaryMethod: ({ columns, data }) => columns.map((column, index) => (index === 0 ? "总览" : data.length)),
-  rowClassName: ({ row }) => row.owner,
-  rowStyle: ({ row }) => ({
+  rowClassName: ({ row }: TableRowClassNameContext<Row>) => row.owner,
+  rowStyle: ({ row }: TableRowClassNameContext<Row>) => ({
     color: row.status === "启用" ? "var(--xy-color-success)" : "var(--xy-text-color)"
   }),
   cellClassName: ({ column }) => column.key,
   cellStyle: ({ column }) => ({
     textAlign: column.align
   }),
-  headerRowClassName: ({ rowIndex }) => `header-row-${rowIndex}`,
-  headerRowStyle: ({ row }) => ({
+  headerRowClassName: ({ rowIndex }: TableHeaderRowContext) => `header-row-${rowIndex}`,
+  headerRowStyle: ({ row }: TableHeaderRowContext) => ({
     minWidth: `${row.length * 10}px`,
     background: "var(--xy-bg-color-muted)"
   }),
-  headerCellClassName: ({ column }) => column.uid,
-  headerCellStyle: ({ column }) => ({
+  headerCellClassName: ({ column }: TableHeaderCellContext<Row>) => column.uid,
+  headerCellStyle: ({ column }: TableHeaderCellContext<Row>) => ({
     textAlign: column.headerAlign
   }),
   defaultSort: {

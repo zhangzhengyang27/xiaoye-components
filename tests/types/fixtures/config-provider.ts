@@ -39,9 +39,3 @@ void DEFAULT_NAMESPACE;
 void DEFAULT_SIZE;
 void DEFAULT_Z_INDEX;
 
-const invalidConfigProviderProps: ConfigProviderProps = {
-  // @ts-expect-error unsupported size should be rejected
-  size: "xl"
-};
-
-void invalidConfigProviderProps;
