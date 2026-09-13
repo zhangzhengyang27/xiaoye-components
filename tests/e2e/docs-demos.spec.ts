@@ -1,4 +1,5 @@
 import { expect, type Locator, test } from "@playwright/test";
+import { clickInViewCenter } from "./helpers";
 
 function demoByHeading(heading: Locator) {
   return heading.locator(
@@ -16,11 +17,11 @@ test("Menu 文档页的横向溢出示例可以打开更多菜单", async ({ pag
   const moreButton = demo.getByRole("button", { name: "更多菜单" });
 
   await expect(moreButton).toBeVisible();
-  await moreButton.click();
+  await clickInViewCenter(moreButton);
 
   const popup = page.locator(".demo-menu-overflow__popup").last();
   await expect(popup).toBeVisible();
-  await expect(page.getByRole("menuitem", { name: "团队协作" })).toBeVisible();
+  await expect(popup.getByRole("menuitem", { name: "系统设置" }).first()).toBeVisible();
 });
 
 test("Table 文档页的 auto fixed summary 组合示例可以稳定渲染并保留汇总", async ({ page }) => {
@@ -56,7 +57,7 @@ test("Watermark 文档页的全屏与目标容器示例同时覆盖 target 和 f
 
   await expect(targetHost.locator(".xy-watermark__layer")).toBeVisible();
 
-  await demo.getByText("开启全屏水印").click();
+  await clickInViewCenter(demo.getByText("开启全屏水印"));
 
   await page.waitForFunction(() => {
     const layers = Array.from(document.body.querySelectorAll<HTMLElement>(".xy-watermark__layer"));
