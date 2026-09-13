@@ -30,7 +30,8 @@
     "release": "changeset publish",
     "clean": "rimraf packages/xiaoye-primitives/dist packages/xiaoye-components/dist packages/xiaoye-pro-components/dist apps/docs/.vitepress/dist apps/playground/dist",
     "generate:llm": "node scripts/generate-llm-files.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "audit:visual": "node scripts/visual-audit.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.4",
