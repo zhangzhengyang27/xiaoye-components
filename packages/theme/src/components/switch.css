@@ -55,7 +55,7 @@
   min-width: var(--xy-switch-width);
   height: var(--xy-switch-height);
   border: 1px solid var(--xy-switch-off-color);
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-switch-off-color) 86%, var(--xy-bg-color-floating));
   box-sizing: border-box;
   transition:
@@ -77,7 +77,7 @@
   justify-content: center;
   width: 100%;
   min-width: 0;
-  font-size: 12px;
+  font-size: var(--xy-font-size-sm);
   color: var(--xy-bg-color);
   white-space: nowrap;
   overflow: hidden;

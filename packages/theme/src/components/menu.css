@@ -52,7 +52,7 @@
   --xy-menu-group-margin: 8px 0;
   --xy-menu-group-title-padding: 6px 14px 8px;
   --xy-menu-group-title-color: var(--xy-text-color-subtle);
-  --xy-menu-group-title-font-size: 12px;
+  --xy-menu-group-title-font-size: var(--xy-font-size-sm);
   --xy-menu-group-title-font-weight: 600;
   --xy-menu-group-title-letter-spacing: 0.04em;
   --xy-menu-group-title-line-height: normal;
@@ -73,7 +73,7 @@
   --xy-menu-badge-color: var(--xy-menu-active-color);
   --xy-menu-badge-font-size: var(--xy-font-size-xs);
   --xy-menu-extra-color: var(--xy-text-color-subtle);
-  --xy-menu-extra-font-size: 12px;
+  --xy-menu-extra-font-size: var(--xy-font-size-sm);
   --xy-menu-extra-font-weight: 400;
   --xy-menu-extra-line-height: 1.2;
   --xy-menu-extra-white-space: normal;
@@ -201,7 +201,7 @@
   bottom: 18%;
   width: 3px;
   background: var(--xy-color-primary);
-  border-radius: 0 2px 2px 0;
+  border-radius: 0 var(--xy-radius-sm) var(--xy-radius-sm) 0;
 }
 
 /* Active 状态文字加粗（仅纵向模式） */
@@ -432,7 +432,7 @@
   bottom: 20%;
   width: 3px;
   background: var(--xy-color-primary);
-  border-radius: 0 2px 2px 0;
+  border-radius: 0 var(--xy-radius-sm) var(--xy-radius-sm) 0;
 }
 
 .xy-menu__item-row {

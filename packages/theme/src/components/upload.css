@@ -295,7 +295,7 @@
 }
 
 .xy-upload-list__card-status {
-  font-size: 12px;
+  font-size: var(--xy-font-size-sm);
 }
 
 .xy-upload-list__card-actions {
@@ -314,7 +314,7 @@
   height: 34px;
   padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
   color: inherit;
   font: inherit;
@@ -368,7 +368,7 @@
   width: 36px;
   height: 36px;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: var(--xy-bg-color-subtle);
   color: var(--xy-text-color);
   cursor: pointer;

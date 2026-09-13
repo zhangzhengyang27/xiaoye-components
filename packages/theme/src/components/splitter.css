@@ -50,7 +50,7 @@
 .xy-splitter-bar::before {
   content: "";
   position: absolute;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-border-color-subtle) 82%, transparent);
   opacity: 0.32;
   transition:
@@ -98,7 +98,7 @@
   padding: 0;
   border: 0;
   outline: none;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: transparent;
   touch-action: none;
 }
@@ -110,7 +110,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   transform: translate(-50%, -50%);
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -262,7 +262,7 @@
   height: 24px;
   padding: 0;
   border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 78%, var(--xy-border-color));
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color-secondary);
   box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);

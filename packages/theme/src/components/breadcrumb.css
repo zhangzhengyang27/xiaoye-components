@@ -1,5 +1,5 @@
 .xy-breadcrumb {
-  --xy-breadcrumb-font-size: 14px;
+  --xy-breadcrumb-font-size: var(--xy-font-size-md);
   --xy-breadcrumb-line-height: 1.5;
   --xy-breadcrumb-color: var(--xy-text-color-secondary);
   --xy-breadcrumb-link-color: var(--xy-text-color-subtle);

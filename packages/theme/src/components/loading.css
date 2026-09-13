@@ -7,7 +7,7 @@
 }
 
 .xy-loading-mask {
-  --xy-loading-text-font-size: 14px;
+  --xy-loading-text-font-size: var(--xy-font-size-md);
   --xy-loading-text-color: var(--xy-text-color-subtle);
   --xy-loading-mask-background: color-mix(in srgb, var(--xy-overlay-color) 14%, transparent);
 
@@ -64,7 +64,7 @@
 .xy-loading__indicator.is-surface {
   min-width: 112px;
   padding: 16px 20px;
-  border-radius: calc(var(--xy-radius-lg) + 2px);
+  border-radius: calc(var(--xy-radius-lg) + var(--xy-radius-sm));
   border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
   background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
   box-shadow:

@@ -517,7 +517,7 @@
   right: 3px;
   width: 2px;
   height: 50%;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: transparent;
   transition: background-color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
@@ -591,7 +591,7 @@
   min-height: 28px;
   padding: 0 10px;
   border: 1px solid var(--xy-table-border-color);
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: var(
     --xy-table-filter-panel-action-background,
     var(--xy-table-subtle-background-resolved)
@@ -697,7 +697,7 @@
 }
 
 .xy-table__loading .xy-loading__indicator.is-surface {
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
 }
 

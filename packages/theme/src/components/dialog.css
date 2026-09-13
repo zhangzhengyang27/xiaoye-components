@@ -185,7 +185,7 @@
   height: 32px;
   margin-left: auto;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: transparent;
   color: var(--xy-text-color-secondary);
   cursor: pointer;
@@ -234,7 +234,7 @@
 }
 
 .xy-dialog__loading .xy-loading__indicator.is-surface {
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
 }
 

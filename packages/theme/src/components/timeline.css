@@ -190,7 +190,7 @@
   width: var(--xy-timeline-node-size);
   height: var(--xy-timeline-node-size);
   border: 2px solid color-mix(in srgb, var(--xy-timeline-node-color) 22%, var(--xy-border-color));
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-timeline-node-color) 10%, var(--xy-surface-raised));
   color: var(--xy-timeline-node-color);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-surface-raised) 92%, transparent);
@@ -213,7 +213,7 @@
   min-width: var(--xy-timeline-node-size);
   min-height: var(--xy-timeline-node-size);
   background: color-mix(in srgb, var(--xy-surface-raised) 92%, var(--xy-bg-color-subtle));
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-surface-raised) 92%, transparent);
 }
 

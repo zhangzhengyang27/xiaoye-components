@@ -99,7 +99,7 @@
 
 .xy-steps__icon.is-text {
   border: 2px solid currentColor;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   font-size: var(--xy-font-size-md);
   font-weight: 700;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--xy-surface-raised) 94%, transparent);
@@ -136,7 +136,7 @@
   left: 0;
   height: var(--xy-steps-line-size);
   background: var(--xy-steps-track-color);
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   overflow: hidden;
 }
 
@@ -281,7 +281,7 @@
   width: 1px;
   height: 12px;
   background: color-mix(in srgb, currentColor 38%, var(--xy-bg-color-subtle));
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
 }
 
 .xy-steps__arrow::before {

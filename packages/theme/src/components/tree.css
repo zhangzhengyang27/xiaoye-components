@@ -129,7 +129,7 @@
 .xy-tree__status-tip {
   margin-left: auto;
   color: var(--xy-color-danger);
-  font-size: 12px;
+  font-size: var(--xy-font-size-sm);
   line-height: 1.4;
   white-space: nowrap;
   padding-inline: 6px;

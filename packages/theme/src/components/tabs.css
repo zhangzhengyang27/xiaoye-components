@@ -132,7 +132,7 @@
   bottom: -7px;
   width: 0;
   height: 3px;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: var(--xy-color-primary);
   pointer-events: none;
   transition:
@@ -156,7 +156,7 @@
   flex-shrink: 0;
   margin-bottom: 6px;
   border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-bg-color-floating) 99%, var(--xy-bg-color-subtle));
   color: var(--xy-text-color-secondary);
   cursor: pointer;
@@ -249,7 +249,7 @@
   flex: 1;
   padding: 18px 20px;
   border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
-  border-radius: calc(var(--xy-radius-lg) + 2px);
+  border-radius: calc(var(--xy-radius-lg) + var(--xy-radius-sm));
   background: color-mix(in srgb, var(--xy-bg-color-floating) 100%, var(--xy-bg-color-subtle));
 }
 
@@ -334,7 +334,7 @@
   top: 0;
   width: 2px;
   height: 14px;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-color-primary) 68%, var(--xy-text-color));
 }
 

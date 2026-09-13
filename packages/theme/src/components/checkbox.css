@@ -40,7 +40,7 @@
 
 .xy-checkbox-group__option-description {
   color: var(--xy-text-color-muted);
-  font-size: 12px;
+  font-size: var(--xy-font-size-sm);
   line-height: 1.4;
 }
 

@@ -38,7 +38,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-mix-light));
   color: var(--xy-color-primary);
 }

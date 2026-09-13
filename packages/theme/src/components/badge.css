@@ -16,7 +16,7 @@
   height: 20px;
   padding: 0 6px;
   border: 1px solid var(--xy-badge-border);
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: var(--xy-badge-bg);
   color: var(--xy-badge-color);
   font-size: var(--xy-font-size-xs);

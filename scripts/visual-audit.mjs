@@ -7,12 +7,20 @@
  * 巡检暗色模式下组件样式的正确性（缺少暗色变量、硬编码色值等问题会
  * 直接反映在截图对比中）。
  *
- * 用法：node scripts/visual-audit.mjs [--layer=all|base|pro] [--port=4175]
+ * 用法：
+ *   node scripts/visual-audit.mjs [--layer=all|base|pro] [--port=4175]
+ *     常规巡检；若存在基线 output/visual-baseline/ 则自动做像素 diff。
+ *   node scripts/visual-audit.mjs --save-baseline
+ *     本次截图写入基线（无 diff）。
+ *   node scripts/visual-audit.mjs --render-only
+ *     仅用 output/visual-audit/shots 已有截图重新渲染画廊。
  */
 import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { chromium } from "@playwright/test";
+import pixelmatch from "pixelmatch";
+import { PNG } from "pngjs";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
 const args = process.argv.slice(2);
@@ -25,6 +33,8 @@ const port = Number(getArg("port", "4175"));
 const baseURL = `http://127.0.0.1:${port}`;
 
 const outDir = path.join(repoRoot, "output", "visual-audit");
+const baselineDir = path.join(repoRoot, "output", "visual-baseline");
+const saveBaseline = args.includes("--save-baseline");
 const renderOnly = args.includes("--render-only");
 if (!renderOnly) {
   fs.rmSync(outDir, { recursive: true, force: true });
@@ -139,12 +149,38 @@ function renderReport() {
               }
             }
           }
+          const marks = [];
+          for (let i = 0; i < r.demoCount; i += 1) {
+            const idx = String(i + 1).padStart(2, "0");
+            for (const theme of ["light", "dark"]) {
+              const f = `shots/${r.layer}-${r.name}-${theme}-${idx}.png`;
+              const status = r.diffStatus?.[f];
+              if (status && status !== "match") {
+                const ratio = r.diffRatio?.[f];
+                marks.push(
+                  `<li class="mark ${status}">${theme} demo ${idx}：${
+                    status === "regressed"
+                      ? `差异 ${(ratio * 100).toFixed(2)}% <a href="${f.replace("shots/", "diffs/")}" target="_blank">diff 图</a>`
+                      : status === "new"
+                        ? "基线中不存在（新增）"
+                        : "尺寸与基线不一致"
+                  }</li>`
+                );
+              }
+            }
+          }
+          const diffBlock =
+            marks.length > 0
+              ? `<details class="diff"><summary>⚠ ${marks.length} 处与基线不同</summary><ul>${marks.join("")}</ul></details>`
+              : r.diffStatus
+                ? `<div class="ok">✓ 与基线一致</div>`
+                : "";
           const errors = r.consoleErrors.length
             ? `<div class="err"><strong>${r.consoleErrors.length} 条 console 错误</strong><ul>${r.consoleErrors
                 .map((e) => `<li>${escape(e)}</li>`)
                 .join("")}</ul></div>`
             : "";
-          return `<section><h3>${escape(r.docsText)} <code>${r.name}</code>（${r.demoCount} 个 demo）</h3><div class="grid">${imgs.join("")}</div>${errors}</section>`;
+          return `<section><h3>${escape(r.docsText)} <code>${r.name}</code>（${r.demoCount} 个 demo）</h3><div class="grid">${imgs.join("")}</div>${diffBlock}${errors}</section>`;
         })
         .join("\n");
       return `<h2>${layerName === "base" ? "基础组件" : "增强组件"}（${list.length}）</h2>${cards}`;
@@ -164,6 +200,11 @@ img{width:100%;border:1px solid #e3e3e3;border-radius:8px}
 figcaption{font-size:12px;color:#666;margin-top:4px}
 .err{margin-top:8px;font-size:13px;color:#b3001b;background:#fff2f2;border-radius:8px;padding:8px}
 .err ul{margin:4px 0 0 18px;padding:0}
+.diff{margin-top:8px;font-size:13px}
+.diff summary{color:#b45309}
+.diff .mark.regressed{color:#b3001b}
+.diff .mark.new,.diff .mark.size{color:#555}
+.ok{margin-top:8px;font-size:12px;color:#0a7a3d}
 summary{cursor:pointer;font-size:14px;color:#555}
 </style></head><body>
 <h1>双主题视觉巡检报告</h1>
@@ -195,6 +236,65 @@ if (renderOnly) {
   process.exit(0);
 }
 
+/** 与基线做像素对比，结果写入 result.diffStatus / result.diffRatio */
+function compareWithBaseline() {
+  if (saveBaseline || !fs.existsSync(baselineDir)) return;
+  let pixelmatchFn;
+  try {
+    const mod = pixelmatch.default ?? pixelmatch;
+    pixelmatchFn = mod;
+  } catch {
+    return;
+  }
+  const diffDir = path.join(outDir, "diffs");
+  fs.mkdirSync(diffDir, { recursive: true });
+
+  for (const r of results) {
+    for (let i = 0; i < r.demoCount; i += 1) {
+      const idx = String(i + 1).padStart(2, "0");
+      for (const theme of ["light", "dark"]) {
+        const f = `shots/${r.layer}-${r.name}-${theme}-${idx}.png`;
+        const currentPath = path.join(outDir, f);
+        const baselinePath = path.join(baselineDir, f);
+        if (!fs.existsSync(baselinePath)) {
+          r.diffStatus ??= {};
+          r.diffStatus[f] = "new";
+          continue;
+        }
+        try {
+          const a = PNG.sync.read(fs.readFileSync(baselinePath));
+          const b = PNG.sync.read(fs.readFileSync(currentPath));
+          if (a.width !== b.width || a.height !== b.height) {
+            r.diffStatus ??= {};
+            r.diffStatus[f] = "size";
+            continue;
+          }
+          const diffPng = new PNG({ width: a.width, height: a.height });
+          const diffPixels = pixelmatchFn(a.data, b.data, diffPng.data, a.width, a.height, { threshold: 0.1 });
+          const ratio = diffPixels / (a.width * a.height);
+          r.diffStatus ??= {};
+          r.diffStatus[f] = ratio > 0.005 ? "regressed" : "match";
+          if (r.diffStatus[f] === "regressed") {
+            fs.writeFileSync(path.join(diffDir, f.split("/")[1]), PNG.sync.write(diffPng));
+          }
+          r.diffRatio ??= {};
+          r.diffRatio[f] = ratio;
+        } catch (err) {
+          console.error(`对比失败 ${f}: ${err}`);
+        }
+      }
+    }
+  }
+}
+
+/** 巡检结束后维护基线目录 */
+function syncBaseline() {
+  if (!saveBaseline) return;
+  fs.rmSync(baselineDir, { recursive: true, force: true });
+  fs.cpSync(path.join(outDir, "shots"), path.join(baselineDir, "shots"), { recursive: true });
+  console.log(`基线已更新：${baselineDir}`);
+}
+
 const server = spawn("pnpm", ["--filter", "@xiaoye/docs", "exec", "vitepress", "dev", ".", "--host", "127.0.0.1", "--port", String(port)], {
   cwd: repoRoot,
   stdio: "ignore",
@@ -210,9 +310,21 @@ try {
     await auditPage(browser, pageEntry);
   }
   await browser.close();
+  compareWithBaseline();
   renderReport();
+  syncBaseline();
   const errorPages = results.filter((r) => r.consoleErrors.length > 0);
+  const statusCount = { match: 0, regressed: 0, new: 0, size: 0 };
+  for (const r of results) {
+    for (const s of Object.values(r.diffStatus ?? {})) statusCount[s] += 1;
+  }
   console.log(`\n完成：${results.length} 个组件页，${results.reduce((n, r) => n + r.demoCount, 0)} 组 demo 截图`);
+  if (saveBaseline) {
+    console.log("模式：保存基线（未做对比）");
+  } else if (Object.keys(statusCount).some((k) => statusCount[k] > 0)) {
+    console.log(`像素对比：一致 ${statusCount.match} · 差异 ${statusCount.regressed} · 新增 ${statusCount.new} · 尺寸变化 ${statusCount.size}`);
+    if (statusCount.regressed > 0) process.exitCode = 1;
+  }
   console.log(`console 报错页面：${errorPages.length === 0 ? "无" : errorPages.map((r) => `${r.layer}/${r.name}`).join(", ")}`);
   console.log(`报告：${path.join(outDir, "index.html")}`);
 } finally {

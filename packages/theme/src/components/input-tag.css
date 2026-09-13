@@ -82,7 +82,7 @@
   top: 0;
   left: -9999px;
   width: 2px;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: var(--xy-color-primary);
   pointer-events: none;
 }

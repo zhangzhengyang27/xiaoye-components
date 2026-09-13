@@ -140,7 +140,7 @@
   width: auto;
   height: auto;
   padding: 2px 14px;
-  font-size: 12px;
+  font-size: var(--xy-font-size-sm);
   line-height: 1.4;
   white-space: nowrap;
   color: var(--xy-text-color);
@@ -190,7 +190,7 @@
   height: 4px;
   padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-bg-color) 84%, transparent);
   opacity: 0.48;
   cursor: pointer;
@@ -425,7 +425,7 @@
 .xy-carousel__thumb--line {
   width: 32px;
   height: 4px;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, var(--xy-mix-light));
   opacity: 0.32;
 }

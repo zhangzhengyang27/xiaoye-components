@@ -188,7 +188,7 @@
   height: 44px;
   padding: 0;
   border: 1px solid var(--xy-image-viewer-btn-border);
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: var(--xy-image-viewer-btn-bg);
   color: var(--xy-image-viewer-btn-color);
   cursor: pointer;
@@ -293,7 +293,7 @@
 }
 
 .xy-image-viewer__progress-value {
-  font-size: 14px;
+  font-size: var(--xy-font-size-md);
   font-weight: 600;
   color: var(--xy-bg-color);
 }
@@ -343,7 +343,7 @@
   height: 36px;
   padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   background: transparent;
   color: color-mix(in srgb, var(--xy-bg-color) 94%, var(--xy-text-color-heading));
   cursor: pointer;

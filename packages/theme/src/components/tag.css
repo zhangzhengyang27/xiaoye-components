@@ -94,7 +94,7 @@
   color: inherit;
   padding: 0;
   margin-left: 6px;
-  border-radius: 999px;
+  border-radius: var(--xy-radius-pill);
   flex-shrink: 0;
   transition:
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
