@@ -22,6 +22,8 @@
       "@xiaoye/pro-components": ["packages/pro-components/index.ts"],
       "@xiaoye/pro-components/*": ["packages/pro-components/*"],
       "@xiaoye/primitives": ["packages/xiaoye-primitives/index.ts"],
+      "xiaoye-primitives": ["packages/xiaoye-primitives/index.ts"],
+      "xiaoye-primitives/*": ["packages/xiaoye-primitives/*"],
       "@xiaoye/utils": ["packages/xiaoye-primitives/src/utils/index.ts"],
       "@xiaoye/theme": ["packages/theme/index.css"],
       "@xiaoye/tokens": ["packages/tokens/src/index.ts"],

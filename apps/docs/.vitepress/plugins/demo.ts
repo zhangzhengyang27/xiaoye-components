@@ -92,7 +92,7 @@ function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
         }
 
         // 解析示例文件路径
-        let sourcePath = path.resolve(examplesRoot, `${sourceFile}.vue`);
+        const sourcePath = path.resolve(examplesRoot, `${sourceFile}.vue`);
 
         if (!sourceFile || !fs.existsSync(sourcePath)) {
           throw new Error(`Incorrect source file: ${sourceFile}`);
