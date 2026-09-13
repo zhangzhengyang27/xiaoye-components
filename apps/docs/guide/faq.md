@@ -14,13 +14,13 @@ outline: deep
 
 ```bash
 # pnpm（推荐）
-pnpm add @xiaoye/components
+pnpm add xiaoye-components
 
 # npm
-npm install @xiaoye/components
+npm install xiaoye-components
 
 # yarn
-yarn add @xiaoye/components
+yarn add xiaoye-components
 ```
 
 ### 如何按需引入组件？
@@ -28,7 +28,7 @@ yarn add @xiaoye/components
 支持 ESM Tree Shaking，直接导入即可：
 
 ```ts
-import { XyButton, XyInput } from '@xiaoye/components'
+import { XyButton, XyInput } from 'xiaoye-components'
 ```
 
 Vite / Rollup 会自动进行 Tree Shaking，未使用的组件不会被打包。
@@ -38,7 +38,7 @@ Vite / Rollup 会自动进行 Tree Shaking，未使用的组件不会被打包�
 支持。在入口文件统一注册所有组件：
 
 ```ts
-import XyComponents from '@xiaoye/components'
+import XyComponents from 'xiaoye-components'
 
 const app = createApp(App)
 app.use(XyComponents)
@@ -93,7 +93,7 @@ Form 支持 `prop` 点路径和路径数组，适合嵌套对象结构：
 <xy-form-item prop="user.contacts[0].phone" label="电话" />
 ```
 
-动态增减字段建议配合 `v-for` 和响应式数组自行管理，或使用 `@xiaoye/pro-components` 中的 `ProForm`。
+动态增减字段建议配合 `v-for` 和响应式数组自行管理，或使用 `xiaoye-pro-components` 中的 `ProForm`。
 
 ## 组件交互
 
@@ -142,7 +142,7 @@ Form 支持 `prop` 点路径和路径数组，适合嵌套对象结构：
 是的，Pro 组件在独立包中：
 
 ```bash
-pnpm add @xiaoye/pro-components
+pnpm add xiaoye-pro-components
 ```
 
 ## 样式与构建

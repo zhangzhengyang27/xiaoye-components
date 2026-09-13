@@ -1,26 +1,23 @@
 # xiaoye-components
 
-> 一套面向中后台场景的 Vue 3 组件库，基于 TypeScript 开发，包含 68 个基础组件和 30 个增强业务组件。所有基础组件前缀为 `xy-`（如 `xy-button`），增强组件前缀为 `xy-`（如 `xy-pro-table`），TypeScript 标识符使用 PascalCase（如 `XyButton`、`XyProTable`）。
+> 一套面向中后台场景的 Vue 3 组件库，基于 TypeScript 开发，包含 72 个基础组件和 31 个增强业务组件。所有基础组件前缀为 `xy-`（如 `xy-button`），增强组件前缀为 `xy-`（如 `xy-pro-table`），TypeScript 标识符使用 PascalCase（如 `XyButton`、`XyProTable`）。
 
 ## 安装
 
 ```bash
 # 基础组件库
-npm install @xiaoye/components
+npm install xiaoye-components
 
 # 增强业务组件库
-npm install @xiaoye/pro-components
-
-# 聚合包（包含基础 + 增强）
-npm install xiaoye-components
+npm install xiaoye-pro-components
 ```
 
 ## 全局注册
 
 ```ts
 import { createApp } from 'vue'
-import XyComponents from '@xiaoye/components'
-import '@xiaoye/components/style.css'
+import XyComponents from 'xiaoye-components'
+import 'xiaoye-components/style.css'
 
 const app = createApp(App)
 app.use(XyComponents)
@@ -59,7 +56,7 @@ app.use(XyComponents)
 - **DetailPage**：详情页面容器。
 - **SplitLayoutPage**：左右分栏页面，适合主从结构。
 
-## 基础组件清单（@xiaoye/components）
+## 基础组件清单（xiaoye-components）
 
 ### 基础与展示
 
@@ -157,7 +154,7 @@ app.use(XyComponents)
 | AudioPlayer | `xy-audio-player` | 音频播放器 |
 | VideoPlayer | `xy-video-player` | 视频播放器 |
 
-## 增强组件清单（@xiaoye/pro-components）
+## 增强组件清单（xiaoye-pro-components）
 
 ### 表单增强
 
@@ -220,7 +217,7 @@ app.use(XyComponents)
 - 组件标签统一使用 kebab-case：`xy-button`、`xy-form-item`、`xy-pro-table`
 - TypeScript 标识符使用 PascalCase：`XyButton`、`XyFormItem`、`XyProTable`
 - v-model 约定：`v-model="value"` 对应 `modelValue` / `update:model-value`
-- 全局尺寸：`sm` / `md` / `lg`，通过 ConfigProvider 或组件 size 属性控制
+- 全局尺寸：`xs` / `sm` / `md` / `lg` / `xl`（默认 `md`），通过 ConfigProvider 或组件 size 属性控制
 - 图标使用 Iconify 格式：`icon="mdi:loading"`、`icon="mdi:close"`
 - 编程式调用：Dialog 支持 `XyDialogService.open/confirm/alert/prompt`，Message 通过 `$message`，Notification 通过 `$notify`
 

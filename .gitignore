@@ -1,6 +1,7 @@
 node_modules
 dist
-/docs
+/docs/*
+!/docs/archive/
 .DS_Store
 .idea
 .vscode

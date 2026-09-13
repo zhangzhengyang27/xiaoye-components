@@ -25,7 +25,7 @@ alwaysApply: true
   - `packages/components/index.ts`
   - `packages/theme/index.css`
 - 组件清单、文档侧边栏、聚合安装断言和一致性校验以 `packages/components/component-manifest.ts` 为主源，避免多处手工同步。
-- 修改组件相关逻辑后，优先补齐或更新对应单测；如果组件有类型导出或安装入口变化，也要检查 `tests/types/fixtures` 和 `packages/xiaoye-components/__tests__`。
+- 修改组件相关逻辑后，优先补齐或更新对应单测；如果组件有类型导出或安装入口变化，也要检查 `tests/types/fixtures` 中对应夹具。
 
 ## 增强层导出规则
 
@@ -54,45 +54,20 @@ alwaysApply: true
   - `pnpm typecheck:types`
   - 视影响范围再补 `pnpm typecheck:packages`、`pnpm build:docs`、`pnpm build:lib`
 
-## 前台层（xiaoye-ui）导出规则
-
-- `xiaoye-ui` 由两部分组成：前台专属组件（`src/front-components/`）和 Headless 风格组合 API（`src/headless/`）。
-- 前台专属组件前缀为 `xyu-`（Vue 组件名如 `XyuButton`、模板标签如 `xyu-button`），与 `@xiaoye/components` 的 `Xy-` 前缀完全区隔，避免同项目同时安装两包时的命名冲突。
-- 前台专属组件目录结构：`src/front-components/<name>/index.ts` + `src/front-components/<name>/<name>.vue` + `src/front-components/<name>/<name>.css` + `src/front-components/<name>/<name>.ts`（类型定义）。
-- Headless 组合 API：`src/headless/<name>/index.ts` + 各子组件 `.vue`。
-- `packages/xiaoye-ui/src/front-components/index.ts` 统一导出前台专属组件。
-- `packages/xiaoye-ui/src/index.ts` 统一导出 Headless 组合 API。
-- `packages/xiaoye-ui/index.ts` 是包根入口，聚合 `src/headless` 和 `src/front-components`。
-- `packages/xiaoye-ui/style.css` 是样式入口，导入 `xiaoye-primitives` 基础样式和前台主题覆盖，以及各组件 CSS。
-- `packages/xiaoye-ui/component-manifest.json` 维护所有前台组件清单（含 installExports）。
-- 新增前台专属组件时，同步更新：
-  - `packages/xiaoye-ui/src/front-components/index.ts`
-  - `packages/xiaoye-ui/style.css`
-  - `packages/xiaoye-ui/component-manifest.json`
-- 新增 Headless 组合 API 时，同步更新：
-  - `packages/xiaoye-ui/src/index.ts`
-
-### 前台专属组件清单
-
-| 前缀 | 组件 |
-|------|------|
-| `xyu-` | `button`、`input`、`textarea`（合并到 input）、`text`、`link`、`tag`、`badge` |
-| `xyu-` | `select`、`checkbox`、`radio`、`switch`、`input-number`、`slider` |
-| `xyu-` | `avatar`、`image`、`empty`、`skeleton`、`tabs`、`tab-pane`、`dropdown`、`tooltip` |
-| `xyu-` | `dialog`、`drawer`、`message`、`notification` |
-| `xyu-`（Phase 2） | `space`、`progress`、`steps`、`step`、`alert`、`rate`、`input-tag` |
-| `Xyu*` | `ProductCard`、`MarketingModal`、`ImageGallery`、`SkuSelector`、`AddressPicker` |
-
 ## 当前组件范围
 
-- 当前 `packages/components/index.ts` 已导出 62 个组件：
-  - 配置入口：`config-provider`
-  - 基础与展示：`icon`、`button`、`link`、`breadcrumb`、`text`、`badge`、`avatar`、`image`、`watermark`、`card`、`carousel`、`affix`、`anchor`、`menu`、`row`、`col`、`scrollbar`、`splitter`、`divider`、`tag`、`space`、`tabs`
-  - 表单输入：`input`、`radio`、`checkbox`、`switch`、`input-tag`、`input-number`、`rate`、`slider`、`select`、`form`、`upload`
-  - 时间相关：`date-picker`、`time-picker`、`time-select`、`scheduler`
-  - 反馈与浮层：`alert`、`message`、`notification`、`backtop`、`collapse`、`collapse-transition`、`empty`、`loading`、`skeleton`、`result`、`tooltip`、`popover`、`popconfirm`、`dropdown`、`dialog`、`drawer`
-  - 数据展示：`progress`、`steps`、`statistic`、`countdown`、`timeline`、`tree`、`table`、`pagination`
-- 更新 `AGENTS.md`、文档导航或任务说明时，组件清单应以上述导出入口为准，不要沿用旧列表。
+- 当前 `packages/components/component-manifest.json`（同步驱动 `packages/components/index.ts` 导出）共 72 个组件：
+  - 基础（basic，23 个）：`icon`、`button`、`link`、`breadcrumb`、`text`、`badge`、`avatar`、`image`、`watermark`、`card`、`check-card`、`carousel`、`affix`、`anchor`、`menu`、`row`、`col`、`scrollbar`、`splitter`、`divider`、`tag`、`space`、`tabs`
+  - 表单（form，19 个）：`config-provider`、`input`、`auto-complete`、`cascader`、`radio`、`checkbox`、`switch`、`input-tag`、`input-number`、`rate`、`slider`、`date-picker`、`time-picker`、`time-select`、`select`、`tree-select`、`form`、`upload`、`editor`
+  - 反馈与浮层（feedback，17 个）：`alert`、`message`、`notification`、`backtop`、`collapse`、`collapse-transition`、`empty`、`loading`、`skeleton`、`result`、`tooltip`、`popover`、`popconfirm`、`dropdown`、`transfer`、`dialog`、`drawer`
+  - 数据展示（data，13 个）：`statistic`、`countdown`、`progress`、`steps`、`timeline`、`scheduler`、`descriptions`、`tree`、`table`、`pagination`、`charts`、`audio-player`、`video-player`
+- 更新 `AGENTS.md`、文档导航或任务说明时，组件清单应以 `component-manifest.json` 为准，不要沿用旧列表。
+
+## 发布流程
+
+- 版本与变更日志统一走 Changesets：完成一批需要发版的改动后，用 `pnpm changeset` 写一条变更记录（选对 bump 级别：破坏性 major、新增能力 minor、修复 patch）。
+- push 到 main 后 `.github/workflows/release.yml` 中的 changesets action 会自动创建/更新 "Version Packages" PR；该 PR 合并后自动构建 `build:lib` 并执行 `changeset publish` 发布到 npm。
+- 不要手工改 `packages/*/package.json` 的版本号，也不要手工编辑 changesets 生成的 `packages/*/CHANGELOG.md`。
 
 ## 文档与测试约定
 
@@ -104,8 +79,8 @@ alwaysApply: true
   - `apps/docs/.vitepress/plugins`
   - `apps/docs/.vitepress/utils`
 - 组件单元测试通常放在 `packages/components/<name>/__tests__/*.spec.ts`。
-- 类型测试夹具位于 `tests/types/fixtures/*.ts`；新增组件或调整导出类型时，优先补齐对应夹具。
-- 文档示例和测试中的组件使用方式，应该与聚合包 `packages/xiaoye-components/index.ts` 的对外导出保持一致。
+- 类型测试夹具位于 `tests/types/fixtures/*.ts`；新增组件或调整导出类型时，优先补齐对应夹具。全部夹具通过 `pnpm typecheck:types` 参与检查，不要把新夹具排除在 tsconfig 之外。
+- 文档示例和测试中的组件使用方式，应该与 `packages/components/index.ts` 的对外导出保持一致。
 
 ## 仓库命令
 
@@ -135,18 +110,12 @@ alwaysApply: true
 
 - `apps/docs`：VitePress 文档站，组件文档、示例和首页内容都在这里。
 - `apps/playground`：本地联调 playground。
-- `packages/components`：组件源码、安装入口和单测。
-- `packages/xiaoye-primitives/src/composables`：跨组件复用的组合式逻辑。
-- `packages/theme`：组件样式入口与 CSS 实现。
-- `packages/tokens`：设计令牌相关源码。
-- `packages/xiaoye-primitives/src/utils`：类型、DOM、Vue 工具函数。
-- `packages/xiaoye-components`：聚合导出、安装入口和发布产物。
-- `packages/xiaoye-ui`：
-  - 前台专属组件：`src/front-components/`
-    - 业务组件：`product-card/`、`marketing-modal/`、`image-gallery/`、`sku-selector/`、`address-picker/`
-    - 基础组件 Phase 1：`button/`、`input/`、`text/`、`link/`、`tag/`、`badge/`、`select/`、`checkbox/`、`radio/`、`switch/`、`input-number/`、`slider/`、`avatar/`、`image/`、`empty/`、`skeleton/`、`tabs/`、`dropdown/`、`tooltip/`、`dialog/`、`drawer/`、`message/`、`notification/`
-    - 基础组件 Phase 2：`space/`、`progress/`、`steps/`、`step/`、`alert/`、`rate/`、`input-tag/`
-  - Headless 组合 API：`src/headless/transition/`、`src/headless/dialog/`、`src/headless/menu/`、`src/headless/listbox/`、`src/headless/combobox/`、`src/headless/switch/`、`src/headless/disclosure/`、`src/headless/radio-group/`、`src/headless/tabs/`、`src/headless/popover/`
+- `packages/components`：基础组件源码（包名 `xiaoye-components`）、安装入口和单测。
+- `packages/pro-components`：增强组件源码（包名 `xiaoye-pro-components`）。
+- `packages/xiaoye-primitives`：基础设施包（包名 `xiaoye-primitives`），`src/composables` 是跨组件复用的组合式逻辑，`src/utils` 是类型、DOM、Vue 工具函数。
+- `packages/theme`：组件样式入口与 CSS 实现（private）。
+- `packages/tokens`：设计令牌相关源码（private）。
+- `packages/mcp-server`：面向 AI 工具的 MCP Server（包名 `xiaoye-mcp-server`）。
 - `tests/types`：类型测试夹具与独立 tsconfig。
 - `scripts`：仓库脚本。
 - `.changeset`：版本变更记录。
@@ -159,8 +128,8 @@ alwaysApply: true
   - `apps/docs/.vitepress/dist`
   - `apps/docs/.vitepress/.temp`
   - `apps/playground/dist`
-  - `packages/xiaoye-components/dist`
-  - `packages/xiaoye-ui/dist`
+  - `packages/components/dist`
+  - `packages/pro-components/dist`
   - `packages/xiaoye-primitives/dist`
   - `coverage`
   - `output/`
