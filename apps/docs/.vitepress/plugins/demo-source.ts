@@ -10,7 +10,7 @@ let registryRef: Map<string, unknown> | null = null;
 export function demoSourcePlugin(): Plugin {
   return {
     name: "xiaoye-docs-demo-source",
-    configureServer(_server) {
+    async configureServer(_server) {
       // 获取 registry 引用
       const { getDemoSourceRegistry } = (await import("../utils/demo-source")) as {
         getDemoSourceRegistry: () => Map<string, unknown>;
