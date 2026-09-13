@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { ComponentSize } from "xiaoye-primitives";
 import type { CheckCardProps } from "./check-card";
 
 export type CheckCardValue = string | number;

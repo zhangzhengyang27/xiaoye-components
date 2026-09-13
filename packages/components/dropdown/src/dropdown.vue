@@ -8,13 +8,14 @@ import { computed, nextTick, onBeforeUnmount, provide, ref, useAttrs, watch } fr
 import type { Ref, StyleValue } from "vue";
 import type { ReferenceElement } from "@floating-ui/dom";
 import {
+  readFloatingAnimationDuration,
   useDismissibleLayer,
   useFloatingPanel,
   useFloatingVisibility,
   useListNavigation,
   useOverlayStack,
   useNamespace
-} from "@xiaoye/primitives";
+} from "xiaoye-primitives";
 import XyButton from "../../button";
 import { XyButtonGroup } from "../../button";
 import XyIcon from "../../icon";
@@ -167,6 +168,7 @@ const { visible, rendered, open: openFloating, close: closeFloating, toggle, cle
     persistent: () => props.persistent,
     openDelay: () => props.showAfter ?? props.openDelay,
     closeDelay: () => props.hideAfter ?? props.closeDelay,
+    isLeaveAnimating: () => readFloatingAnimationDuration(menuRef.value) > 0,
     emitModelValue: (value) => {
       emit("update:modelValue", value);
     },

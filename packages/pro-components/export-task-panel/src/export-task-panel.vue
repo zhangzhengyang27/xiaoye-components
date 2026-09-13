@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XyButton, XyCard, XyProgress, XyTag } from "@xiaoye/components";
+import { XyButton, XyCard, XyProgress, XyTag } from "xiaoye-components";
 import type { ExportTaskItem, ExportTaskPanelProps } from "./export-task-panel";
 
 defineOptions({

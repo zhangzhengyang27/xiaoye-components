@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XyTabs } from "@xiaoye/components";
+import { XyTabs } from "xiaoye-components";
 import type { SavedViewTabItem, SavedViewTabsProps } from "./saved-view-tabs";
 
 defineOptions({

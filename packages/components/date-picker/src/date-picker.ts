@@ -1,6 +1,6 @@
 import type { Placement } from "@floating-ui/dom";
 import type { StyleValue } from "vue";
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { ComponentSize } from "xiaoye-primitives";
 
 export type DatePickerType = "date" | "daterange" | "month" | "year" | "week";
 export type DatePickerValue = string | [string, string] | null;

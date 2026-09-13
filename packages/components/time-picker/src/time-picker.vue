@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, ref, watch } from "vue";
 import type { StyleValue } from "vue";
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { ComponentSize } from "xiaoye-primitives";
 import {
   useConfig,
   useDismissibleLayer,
   useFloatingPanel,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/primitives";
+} from "xiaoye-primitives";
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import type { TimePickerProps, TimePickerValue } from "./time-picker";

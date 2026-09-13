@@ -127,8 +127,14 @@ export interface TreeExposes {
   insertAfter: (data: TreeNodeData, refNode: TreeKey | TreeNodeData | Node) => void;
 }
 
+/**
+ * 树内部按动态事件名转发已声明事件的发射器类型。
+ * 事件名与载荷始终由 treeEmits 声明的合法组合产生。
+ */
+export type TreeEventEmitter = (event: string, ...args: unknown[]) => void;
+
 export interface RootTreeType {
-  emit: any;
+  emit: TreeEventEmitter;
   slots: Slots;
   props: TreeProps;
   store: Ref<TreeStore>;

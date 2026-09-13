@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed, ref, toRaw, useSlots, watch } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
-import { XyButton, XyDialog, XyDrawer, XyForm } from "@xiaoye/components";
+import { useNamespace } from "xiaoye-primitives";
+import { XyButton, XyDialog, XyDrawer, XyForm } from "xiaoye-components";
 import type {
   DialogCloseReason,
   DialogInstance,
   DrawerCloseReason,
   DrawerInstance,
   FormProp
-} from "@xiaoye/components";
+} from "xiaoye-components";
 import { XyProForm } from "../../pro-form";
 import type { OverlayFormProps, OverlayFormSubmitPayload } from "./overlay-form";
 

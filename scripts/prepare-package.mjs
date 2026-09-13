@@ -79,6 +79,11 @@ function normalizeRelativeSpecifier(filePath, specifier) {
     return `${bareSpecifier}/index.js`;
   }
 
+  // dts 插件跟随 symlink 生成的 primitives 相对引用可能断链，统一回落到 npm 包名
+  if (bareSpecifier.includes("xiaoye-primitives")) {
+    return "xiaoye-primitives";
+  }
+
   if (!path.extname(bareSpecifier)) {
     return `${bareSpecifier}.js`;
   }
@@ -672,7 +677,7 @@ function rewriteModuleIndexDeclaration(sourceIndexPath, distIndexPath) {
     ].filter(Boolean);
 
     if (utilityTypes.length > 0) {
-      outputLines.push(`import type { ${utilityTypes.join(", ")} } from "../../utils/index.js";`);
+      outputLines.push(`import type { ${utilityTypes.join(", ")} } from "xiaoye-primitives";`);
       outputLines.push("");
     }
 

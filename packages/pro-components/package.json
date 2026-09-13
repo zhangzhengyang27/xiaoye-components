@@ -43,7 +43,8 @@
   ],
   "peerDependencies": {
     "vue": "^3.5.0",
-    "vue-router": "^4.6.0"
+    "vue-router": "^4.6.0",
+    "xiaoye-components": "workspace:^"
   },
   "peerDependenciesMeta": {
     "vue-router": {
@@ -51,20 +52,20 @@
     }
   },
   "dependencies": {
-    "@iconify/vue": "^5.0.0",
     "@floating-ui/dom": "^1.6.13",
     "@fullcalendar/core": "^6.1.20",
     "@fullcalendar/daygrid": "^6.1.20",
     "@fullcalendar/interaction": "^6.1.20",
     "@fullcalendar/timegrid": "^6.1.20",
     "@fullcalendar/vue3": "^6.1.20",
+    "@iconify/vue": "^5.0.0",
     "async-validator": "^4.2.5",
     "dayjs": "^1.11.20",
     "echarts": "^6.0.0",
     "howler": "^2.2.4",
-    "rrule": "^2.8.1",
     "sortablejs": "^1.15.7",
     "vditor": "^3.11.2",
-    "video.js": "^8.23.7"
+    "video.js": "^8.23.7",
+    "xiaoye-primitives": "workspace:^"
   }
 }

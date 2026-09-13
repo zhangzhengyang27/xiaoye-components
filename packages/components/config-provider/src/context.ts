@@ -6,7 +6,7 @@ import {
   DEFAULT_SIZE,
   DEFAULT_Z_INDEX,
   type ComponentSize
-} from "@xiaoye/primitives";
+} from "xiaoye-primitives";
 import type { DialogGlobalConfig } from "../../dialog/src/dialog";
 import type { LoadingGlobalConfig } from "../../loading/src/types";
 import type { MessageGlobalConfig } from "../../message/src/message";

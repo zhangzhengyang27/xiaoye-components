@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
-import { XyIcon, XySkeleton } from "@xiaoye/components";
+import { useNamespace } from "xiaoye-primitives";
+import { XyIcon, XySkeleton } from "xiaoye-components";
 import type { StatCardProps, StatTrend } from "./stat-card";
 
 defineOptions({

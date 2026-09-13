@@ -56,7 +56,7 @@ function fail(message, values) {
 
 const componentDirs = fs
   .readdirSync(path.join(repoRoot, "packages/components"), { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
+  .filter((entry) => entry.isDirectory() && entry.name !== "node_modules")
   .map((entry) => entry.name)
   .filter((name) => !["dist", "shared", "src"].includes(name))
   .sort();

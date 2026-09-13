@@ -19,7 +19,7 @@ import type {
   DialogServiceUpdateOptions
 } from "./src/dialog-service";
 import { XyDialogService } from "./src/service";
-import { withInstall } from "@xiaoye/primitives";
+import { withInstall } from "xiaoye-primitives";
 
 export type {
   DialogAlertOptions,

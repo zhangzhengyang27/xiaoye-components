@@ -10,7 +10,7 @@ import {
   useAttrs,
   watch
 } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "xiaoye-primitives";
 import XyEmpty from "../../empty";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
 import type { LoadingGlobalConfig } from "../../loading/src/types";
@@ -19,6 +19,7 @@ import TableBody from "./table-body/body.vue";
 import TableFooter from "./table-footer/footer.vue";
 import TableHeader from "./table-header/header.vue";
 import { tableContextKey } from "./tokens";
+import type { TableContext } from "./tokens";
 import type {
   TableFilterValues,
   TableInstance,
@@ -192,8 +193,8 @@ const resolvedVirtualItemSize = computed(() =>
 );
 
 provide(tableContextKey, {
-  registerColumn: registerColumn as never,
-  unregisterColumn: unregisterColumn as never
+  registerColumn: registerColumn as TableContext<Record<string, unknown>>["registerColumn"],
+  unregisterColumn
 });
 
 const layout = useTableLayout();

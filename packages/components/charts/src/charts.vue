@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue"
 import type { EChartsCoreOption } from "./echarts"
 import { init } from "./echarts"
-import { useNamespace } from "@xiaoye/primitives"
+import { useNamespace } from "xiaoye-primitives"
 import type { ChartsLoadingOptions, ChartsProps, ChartsSetOptionOptions } from "./charts"
 
 defineOptions({
@@ -126,7 +126,7 @@ function generateOption(
       }))
       break
       
-    case 'radar':
+    case 'radar': {
       const indicators = yKeys.map(key => ({ name: key }))
       option.radar = {
         indicator: indicators
@@ -139,6 +139,7 @@ function generateOption(
         }))
       }]
       break
+    }
   }
   
   return option

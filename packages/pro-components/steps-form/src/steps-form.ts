@@ -1,6 +1,6 @@
 import type { ProFieldSchema } from "../../core";
-import type { DrawerProps } from "@xiaoye/components";
-import type { DescriptionsProps } from "@xiaoye/components";
+import type { DrawerProps } from "xiaoye-components";
+import type { DescriptionsProps } from "xiaoye-components";
 
 export interface StepsFormStep {
   key: string;

@@ -11,7 +11,7 @@ import {
   XyDescriptions,
   XyLink,
   XyTag
-} from "@xiaoye/components";
+} from "xiaoye-components";
 import type { DetailPageProps } from "./detail-page";
 import type { DetailSectionItem } from "./detail-page";
 

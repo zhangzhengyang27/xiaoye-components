@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
-import { XyIcon } from "@xiaoye/components";
+import { useNamespace } from "xiaoye-primitives";
+import { XyIcon } from "xiaoye-components";
 import type { PageHeaderProps } from "./page-header";
 
 defineOptions({

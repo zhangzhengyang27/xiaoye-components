@@ -1,4 +1,4 @@
-import type { DrawerProps } from "@xiaoye/components";
+import type { DrawerProps } from "xiaoye-components";
 import type { ProFieldSchema } from "../../core";
 
 export interface TableFilterDrawerProps {

@@ -34,7 +34,7 @@ function createStack() {
   function createOverlayEntry(): OverlayEntry {
     const id = Symbol("overlay");
     let opened = false;
-    let disposed = false;
+    const disposed = false;
 
     const entry: OverlayEntry = {
       id,

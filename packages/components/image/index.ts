@@ -15,7 +15,7 @@ import type {
   ImageViewerProgressSlotProps,
   ImageViewerToolbarSlotProps
 } from "./src/image";
-import { withInstall } from "@xiaoye/primitives";
+import { withInstall } from "xiaoye-primitives";
 
 export type {
   ImageCrossorigin,

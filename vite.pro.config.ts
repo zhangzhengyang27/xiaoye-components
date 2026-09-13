@@ -7,11 +7,12 @@ export default createLibraryConfig({
   entry: resolvePath("./packages/pro-components/index.ts"),
   name: "XiaoyeProComponents",
   outDir: resolvePath("./packages/pro-components/dist"),
+  extraExternal: [/^xiaoye-components(?:\/.+)?$/],
   dtsInclude: [
     "packages/components/**/*.ts",
     "packages/components/**/*.vue",
     "packages/pro-components/**/*.ts",
     "packages/pro-components/**/*.vue",
-    "packages/xiaoye-primitives/src/utils/**/*.ts"
+    "packages/xiaoye-primitives/src/utils/**/*.ts",
   ]
 });

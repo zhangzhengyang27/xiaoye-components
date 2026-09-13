@@ -11,10 +11,10 @@ import type {
   TableProps,
   TableResolvedColumn,
   TableSortOrder
-} from "@xiaoye/components";
-import type { SelectOption } from "@xiaoye/primitives";
-import type { SelectOptionGroup } from "@xiaoye/components";
-import type { ComponentStatus } from "@xiaoye/primitives";
+} from "xiaoye-components";
+import type { SelectOption } from "xiaoye-primitives";
+import type { SelectOptionGroup } from "xiaoye-components";
+import type { ComponentStatus } from "xiaoye-primitives";
 import type { SearchFormField } from "../../search-form";
 import type { ProFieldSchema, ProFieldSchemaBuiltinComponent, ProRequestContext, ProRequestResult } from "../../core";
 

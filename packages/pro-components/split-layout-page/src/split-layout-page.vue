@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { XySplitter, XySplitterPanel } from "@xiaoye/components";
+import { XySplitter, XySplitterPanel } from "xiaoye-components";
 import type { SplitLayoutPageProps } from "./split-layout-page";
 
 defineOptions({

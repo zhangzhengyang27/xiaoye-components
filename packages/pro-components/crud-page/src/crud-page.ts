@@ -1,4 +1,4 @@
-import type { DescriptionsProps, FormRules } from "@xiaoye/components";
+import type { DescriptionsProps, FormRules } from "xiaoye-components";
 import type { SearchFormField } from "../../search-form";
 import type { ListPageBatchAction } from "../../list-page";
 import type { ProFieldSchema, ProPageAction } from "../../core";

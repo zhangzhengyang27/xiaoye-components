@@ -4,7 +4,7 @@ import type {
   DrawerFormProps,
   DrawerFormSubmitPayload
 } from "./src/drawer-form";
-import { withInstall } from "@xiaoye/primitives";
+import { withInstall } from "xiaoye-primitives";
 
 export type {
   DrawerFormInstance,

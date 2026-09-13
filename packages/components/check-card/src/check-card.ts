@@ -1,4 +1,4 @@
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { ComponentSize } from "xiaoye-primitives";
 import type { AvatarFit, AvatarShape } from "../../avatar";
 import type { TagProps } from "../../tag";
 

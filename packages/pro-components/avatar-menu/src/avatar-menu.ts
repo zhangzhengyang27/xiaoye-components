@@ -1,4 +1,4 @@
-import type { AvatarProps, DropdownCommand, DropdownItem, DropdownProps } from "@xiaoye/components";
+import type { AvatarProps, DropdownCommand, DropdownItem, DropdownProps } from "xiaoye-components";
 
 export type AvatarMenuItem = DropdownItem;
 

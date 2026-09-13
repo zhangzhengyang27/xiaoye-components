@@ -4,7 +4,7 @@ import type {
   DialogFormProps,
   DialogFormSubmitPayload
 } from "./src/dialog-form";
-import { withInstall } from "@xiaoye/primitives";
+import { withInstall } from "xiaoye-primitives";
 
 export type {
   DialogFormInstance,

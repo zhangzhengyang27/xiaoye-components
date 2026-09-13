@@ -1,1 +1,1 @@
-export * from "@xiaoye/primitives";
+export * from "xiaoye-primitives";

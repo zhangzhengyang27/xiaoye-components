@@ -1,5 +1,5 @@
-import type { ComponentSize } from "@xiaoye/primitives";
-import type { DescriptionsProps, FormProp, FormRules } from "@xiaoye/components";
+import type { ComponentSize } from "xiaoye-primitives";
+import type { DescriptionsProps, FormProp, FormRules } from "xiaoye-components";
 import type { ProFieldSchema } from "../../core";
 
 export interface ProFormProps {

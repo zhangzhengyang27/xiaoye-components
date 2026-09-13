@@ -7,7 +7,9 @@ export default createLibraryConfig({
   entry: resolvePath("./packages/xiaoye-primitives/index.ts"),
   name: "XiaoyePrimitives",
   outDir: resolvePath("./packages/xiaoye-primitives/dist"),
+  entryRoot: resolvePath("./packages/xiaoye-primitives"),
   dtsInclude: [
+    "packages/xiaoye-primitives/index.ts",
     "packages/xiaoye-primitives/src/**/*.ts",
     "packages/tokens/**/*.ts"
   ]

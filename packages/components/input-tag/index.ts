@@ -13,7 +13,7 @@ import type {
   InputTagValue,
   InputTagValueChangeHandler
 } from "./src/input-tag";
-import { withInstall } from "@xiaoye/primitives";
+import { withInstall } from "xiaoye-primitives";
 
 export type {
   InputTagAddTagHandler,

@@ -1,7 +1,7 @@
 import Breadcrumb from "./src/breadcrumb.vue";
 import BreadcrumbItem from "./src/breadcrumb-item.vue";
-import type { SFCWithInstall } from "@xiaoye/primitives";
-import { withInstall } from "@xiaoye/primitives";
+import type { SFCWithInstall } from "xiaoye-primitives";
+import { withInstall } from "xiaoye-primitives";
 import type { BreadcrumbItemData, BreadcrumbProps } from "./src/breadcrumb";
 import type { BreadcrumbItemProps, BreadcrumbRouteTarget } from "./src/breadcrumb-item";
 

@@ -1,4 +1,4 @@
-import type { DescriptionsProps, DialogProps, DrawerProps } from "@xiaoye/components";
+import type { DescriptionsProps, DialogProps, DrawerProps } from "xiaoye-components";
 import type { ProFieldSchema } from "../../core";
 
 export type DetailPanelContainer = "drawer" | "dialog";

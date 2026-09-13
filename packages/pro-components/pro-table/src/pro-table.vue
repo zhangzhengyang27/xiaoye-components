@@ -15,7 +15,7 @@ import {
   type PropType
 } from "vue";
 import Sortable from "sortablejs";
-import { useNamespace } from "@xiaoye/primitives";
+import { useNamespace } from "xiaoye-primitives";
 import {
   XyAlert,
   XyButton,
@@ -28,7 +28,7 @@ import {
   type TableInstance,
   type TableResolvedColumn,
   type TableSortOrder
-} from "@xiaoye/components";
+} from "xiaoye-components";
 import { resolveProFieldComponent, resolveProFieldProps, cloneProValue, updateProModelValue } from "../../field-schema";
 import { renderDisplayValue } from "../../../components/shared/display-renderer";
 import { XySearchForm } from "../../search-form";

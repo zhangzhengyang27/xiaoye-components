@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
-import { XyAvatar, XyButton, XyEmpty, XyIcon, XyTag, XyTabs } from "@xiaoye/components";
+import { useNamespace } from "xiaoye-primitives";
+import { XyAvatar, XyButton, XyEmpty, XyIcon, XyTag, XyTabs } from "xiaoye-components";
 import type { NoticeCenterAction, NoticeCenterProps } from "./notice-center";
 
 defineOptions({

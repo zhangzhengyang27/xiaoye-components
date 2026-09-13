@@ -1,6 +1,6 @@
 import { Fragment, h, type VNodeChild } from "vue";
 import type { SelectOptionGroup } from "../select";
-import type { SelectOption } from "@xiaoye/primitives";
+import type { SelectOption } from "xiaoye-primitives";
 import { displayComponentMap } from "./display-component-map";
 import {
   flattenDisplayOptions,

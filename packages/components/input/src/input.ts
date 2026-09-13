@@ -1,6 +1,6 @@
 import type Input from "./input.vue";
 import type { HTMLAttributes, StyleValue } from "vue";
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { ComponentSize } from "xiaoye-primitives";
 
 export type InputModelModifiers = {
   lazy?: true;

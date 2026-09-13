@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, defineComponent, provide, ref, useSlots, type PropType } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "xiaoye-primitives";
 import { renderDisplayValue } from "../../shared/display-renderer";
 import XyCollapseTransition from "../../collapse-transition";
 import XyIcon from "../../icon";

@@ -1,7 +1,7 @@
 import type { VNodeChild } from "vue";
 import type { SelectOptionGroup } from "../../select";
-import type { ComponentSize, ComponentStatus } from "@xiaoye/primitives";
-import type { SelectOption } from "@xiaoye/primitives";
+import type { ComponentSize, ComponentStatus } from "xiaoye-primitives";
+import type { SelectOption } from "xiaoye-primitives";
 import type { LinkProps } from "../../link";
 import type { TagProps } from "../../tag";
 

@@ -1,5 +1,5 @@
-import type { FormRules } from "@xiaoye/components";
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { FormRules } from "xiaoye-components";
+import type { ComponentSize } from "xiaoye-primitives";
 import type { ProActionRef, ProFieldSchema, ProRequestContext } from "../../core";
 
 export interface RequestFormSubmitContext extends ProRequestContext {

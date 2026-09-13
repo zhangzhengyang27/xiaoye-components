@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
+import { useNamespace } from "xiaoye-primitives";
 import XyCheckCard from "./check-card.vue";
 import type { CheckCardGroupOption, CheckCardGroupProps, CheckCardValue } from "./check-card-group";
 

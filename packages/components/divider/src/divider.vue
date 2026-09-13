@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { CSSProperties } from "vue";
-import type { ComponentSize } from "@xiaoye/primitives";
-import { useConfig, useNamespace } from "@xiaoye/primitives";
+import type { ComponentSize } from "xiaoye-primitives";
+import { useConfig, useNamespace } from "xiaoye-primitives";
 import type { DividerProps } from "./divider";
 
 defineOptions({

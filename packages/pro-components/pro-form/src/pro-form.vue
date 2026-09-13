@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, useSlots } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
-import { XyButton, XyDescriptions, XyForm, XyFormItem } from "@xiaoye/components";
-import type { FormProp } from "@xiaoye/components";
+import { useNamespace } from "xiaoye-primitives";
+import { XyButton, XyDescriptions, XyForm, XyFormItem } from "xiaoye-components";
+import type { FormProp } from "xiaoye-components";
 import {
   cloneProValue,
   resolveProDescriptionsItems,

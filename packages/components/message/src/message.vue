@@ -9,7 +9,7 @@ import {
   ref,
   watch
 } from "vue";
-import { useNamespace, useZIndex } from "@xiaoye/primitives";
+import { useNamespace, useZIndex } from "xiaoye-primitives";
 import XyIcon from "../../icon";
 import {
   invokeMessageBeforeClose,

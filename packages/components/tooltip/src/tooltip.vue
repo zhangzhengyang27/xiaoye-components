@@ -5,7 +5,13 @@ defineOptions({
 
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import type { ReferenceElement, Strategy } from "@floating-ui/dom";
-import { useDismissibleLayer, useFloatingPanel, useFloatingVisibility, useOverlayStack } from "@xiaoye/primitives";
+import {
+  readFloatingAnimationDuration,
+  useDismissibleLayer,
+  useFloatingPanel,
+  useFloatingVisibility,
+  useOverlayStack
+} from "xiaoye-primitives";
 import XyTooltipContent from "./content.vue";
 import XyTooltipTrigger from "./trigger.vue";
 import {
@@ -91,6 +97,7 @@ const { visible, rendered, open, close, toggle, clearTimers, handleAfterLeave } 
     openDelay: () => props.showAfter ?? props.openDelay,
     closeDelay: () => props.hideAfter ?? props.closeDelay,
     immediateExternal: true,
+    isLeaveAnimating: () => readFloatingAnimationDuration(contentRef.value) > 0,
     beforeOpen: () => {
       emit("before-show");
     },

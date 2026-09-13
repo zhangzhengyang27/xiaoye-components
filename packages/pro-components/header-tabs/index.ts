@@ -4,7 +4,7 @@ import type {
   HeaderTabsMenuAction,
   HeaderTabsProps
 } from "./src/header-tabs";
-import { withInstall } from "@xiaoye/primitives";
+import { withInstall } from "xiaoye-primitives";
 
 export type { HeaderTabItem, HeaderTabsMenuAction, HeaderTabsProps };
 

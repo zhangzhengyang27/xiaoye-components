@@ -48,6 +48,34 @@ describe("XyCascader", () => {
     expect(wrapper.emitted("update:modelValue")?.[0]?.[0]).toEqual([1, 11]);
   });
 
+  it("未传 modelValue 时按空值兜底且可正常选择", async () => {
+    const wrapper = mount(XyCascader, {
+      props: {
+        options
+      },
+      attachTo: document.body
+    });
+
+    const label = wrapper.get(".xy-cascader__label");
+    expect(label.classes()).toContain("is-placeholder");
+    expect(label.text()).toBe("请选择");
+    expect(wrapper.find(".xy-cascader__clear").exists()).toBe(false);
+
+    await wrapper.get(".xy-cascader__trigger").trigger("click");
+    const firstColumnButtons = Array.from(
+      document.body.querySelectorAll(".xy-cascader__column:first-child .xy-cascader__option")
+    );
+    await (firstColumnButtons[0] as HTMLButtonElement).click();
+    await nextTick();
+
+    const secondColumnButtons = Array.from(
+      document.body.querySelectorAll(".xy-cascader__column:nth-child(2) .xy-cascader__option")
+    );
+    await (secondColumnButtons[0] as HTMLButtonElement).click();
+
+    expect(wrapper.emitted("update:modelValue")?.[0]?.[0]).toEqual([1, 11]);
+  });
+
   it("支持搜索结果选择与清空", async () => {
     const wrapper = mount(XyCascader, {
       props: {

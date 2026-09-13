@@ -437,6 +437,49 @@ describe("XySelect", () => {
     expect(dropdown?.style.borderColor).toBe("rgb(29, 78, 216)");
   });
 
+  it("多选未传或传 undefined 的 modelValue 时按空数组兜底且可正常选择", async () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        modelValue: undefined,
+        multiple: true,
+        options: [
+          { label: "管理员", value: "admin" },
+          { label: "成员", value: "member" }
+        ]
+      }
+    });
+
+    const tags = wrapper.find(".xy-select__tags");
+    expect(tags.classes()).toContain("is-placeholder");
+    expect(tags.text()).toBe("请选择");
+    expect(wrapper.find(".xy-select__clear").exists()).toBe(false);
+
+    await wrapper.find(".xy-select__trigger").trigger("click");
+    const firstOption = document.body.querySelectorAll(
+      ".xy-select__option"
+    )[0] as HTMLButtonElement | undefined;
+    firstOption?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await nextTick();
+
+    expect(wrapper.emitted("update:modelValue")?.[0]).toEqual([["admin"]]);
+    expect(wrapper.find(".xy-select__tags").classes()).toContain("is-selected");
+  });
+
+  it("多选显式传 null 的 modelValue 时按空数组兜底", () => {
+    const wrapper = mountSelect(XySelect, {
+      attachTo: document.body,
+      props: {
+        modelValue: null,
+        multiple: true,
+        options: [{ label: "管理员", value: "admin" }]
+      }
+    });
+
+    expect(wrapper.find(".xy-select__tags").classes()).toContain("is-placeholder");
+    expect(wrapper.find(".xy-select__tag").exists()).toBe(false);
+  });
+
   it("在可搜索模式下支持键盘关闭下拉", async () => {
     const wrapper = mountSelect(XySelect, {
       attachTo: document.body,

@@ -177,7 +177,7 @@ function extractComponentApi(docContent, _componentName) {
     (m) => m[1].trim()
   );
 
-  const propsHeading = h3Headings.find((h) => /Attributes$/i.test(h));
+  const propsHeading = h3Headings.find((h) => /Attributes$|Options$/i.test(h));
   const eventsHeading = h3Headings.find((h) => /Events$/i.test(h));
   const slotsHeading = h3Headings.find((h) => /Slots$/i.test(h));
   const exposesHeading = h3Headings.find(
@@ -189,7 +189,7 @@ function extractComponentApi(docContent, _componentName) {
     if (rows && rows.length > 0) {
       api.props = rows
         .map((row) => ({
-          name: cleanMarkdown(row["属性"] || row["名称"] || ""),
+          name: cleanMarkdown(row["属性"] || row["字段"] || row["名称"] || ""),
           description: cleanMarkdown(row["说明"] || ""),
           type: expandType(cleanMarkdown(row["类型"] || "")),
           default: cleanMarkdown(row["默认值"] || ""),
@@ -203,7 +203,7 @@ function extractComponentApi(docContent, _componentName) {
     if (rows && rows.length > 0) {
       api.events = rows
         .map((row) => ({
-          name: cleanMarkdown(row["事件"] || ""),
+          name: cleanMarkdown(row["事件"] || row["事件名"] || ""),
           description: cleanMarkdown(row["说明"] || ""),
           params: expandType(cleanMarkdown(row["参数"] || "")),
         }))
@@ -218,7 +218,7 @@ function extractComponentApi(docContent, _componentName) {
         .map((row) => ({
           name: cleanMarkdown(row["插槽"] || ""),
           description: cleanMarkdown(row["说明"] || ""),
-          props: cleanMarkdown(row["参数"] || ""),
+          props: cleanMarkdown(row["参数"] || row["接收参数"] || ""),
         }))
         .filter((s) => s.name);
     }
@@ -308,7 +308,7 @@ const baseComponents = processComponents(
 );
 const proComponents = processComponents(
   proManifest,
-  "apps/docs/components",
+  "apps/docs/pro-components",
   "pro"
 );
 

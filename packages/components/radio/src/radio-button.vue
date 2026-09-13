@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, ref, useSlots } from "vue";
-import { useConfig, useNamespace } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "xiaoye-primitives";
 import { formItemKey } from "../../form/src/context";
 import { radioGroupContextKey } from "./context";
 import type { RadioButtonProps } from "./radio-button";

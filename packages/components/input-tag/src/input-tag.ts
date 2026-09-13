@@ -1,6 +1,6 @@
 import type InputTag from "./input-tag.vue";
 import type { HTMLAttributes, StyleValue } from "vue";
-import type { ComponentSize, ComponentStatus } from "@xiaoye/primitives";
+import type { ComponentSize, ComponentStatus } from "xiaoye-primitives";
 
 export type InputTagTrigger = "Enter" | "Space";
 export type InputTagDropType = "before" | "after";

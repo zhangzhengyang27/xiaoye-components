@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { ComponentSize, ComponentStatus } from "@xiaoye/primitives";
-import { useConfig, useNamespace } from "@xiaoye/primitives";
+import type { ComponentSize, ComponentStatus } from "xiaoye-primitives";
+import { useConfig, useNamespace } from "xiaoye-primitives";
 import { computed, useSlots } from "vue";
 import XyIcon from "../../icon";
 

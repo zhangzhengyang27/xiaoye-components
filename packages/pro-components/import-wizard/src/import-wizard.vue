@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { XyButton, XyCard, XySteps } from "@xiaoye/components";
+import { XyButton, XyCard, XySteps } from "xiaoye-components";
 import type { ImportWizardProps } from "./import-wizard";
 
 defineOptions({

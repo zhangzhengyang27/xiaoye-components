@@ -1,7 +1,7 @@
 import type { AuditTimelineEntry } from "../../audit-timeline";
 import type { ProPageAction } from "../../core";
 import type { ProFieldSchema } from "../../core";
-import type { DescriptionsDataItem, DescriptionsProps } from "@xiaoye/components";
+import type { DescriptionsDataItem, DescriptionsProps } from "xiaoye-components";
 
 export interface DetailPageBreadcrumbItem {
   label: string;

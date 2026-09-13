@@ -3,7 +3,7 @@ defineOptions({
   name: "XySkeletonItem"
 });
 
-import { useNamespace } from "@xiaoye/primitives";
+import { useNamespace } from "xiaoye-primitives";
 import XyIcon from "../../icon";
 import type { SkeletonItemProps } from "./skeleton-item";
 

@@ -1,5 +1,5 @@
 import type { SelectOptionGroup } from "../select";
-import type { ComponentStatus, SelectOption } from "@xiaoye/primitives";
+import type { ComponentStatus, SelectOption } from "xiaoye-primitives";
 
 export type DisplayOptionLike = SelectOption & {
   status?: ComponentStatus | "info";

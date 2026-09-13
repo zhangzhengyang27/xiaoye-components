@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import { computed, getCurrentInstance, nextTick, provide, ref, useSlots, watch, watchEffect } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
+import { useNamespace } from "xiaoye-primitives";
 import { XyEmpty } from "../../empty";
 import Node from "./model/node";
 import TreeStore from "./model/tree-store";
@@ -54,7 +54,7 @@ import { useDragNodeHandler } from "./model/use-drag-node";
 import { collectFocusableNodes, collectVisibleNodes, handleCurrentChange } from "./model/util";
 import { treeEmits, treeProps } from "./tree";
 import { ROOT_TREE_INJECTION_KEY } from "./tokens";
-import type { RootTreeType, TreeExposes, TreeKey, TreeNodeData } from "./tree.type";
+import type { TreeEventEmitter, TreeExposes, TreeKey, TreeNodeData } from "./tree.type";
 
 defineOptions({
   name: "XyTree"
@@ -66,8 +66,10 @@ const KEYBOARD_SPACE_KEYS = new Set([" ", "Spacebar"]);
 const props = defineProps(treeProps);
 const emit = defineEmits(treeEmits);
 const slots = useSlots();
-const emitTreeEvent: RootTreeType["emit"] = (event: string, ...args: any[]) => {
-  (emit as (...payload: any[]) => void)(event, ...args);
+const emitTreeEvent: TreeEventEmitter = (event, ...args) => {
+  // defineEmits 返回按事件名重载的类型化 emit，无法直接以动态事件名调用；
+  // 这里的事件名与载荷均由 treeEmits 声明的合法组合产生，故做一次受控断言统一转发
+  (emit as TreeEventEmitter)(event, ...args);
 };
 
 if (!props.nodeKey) {

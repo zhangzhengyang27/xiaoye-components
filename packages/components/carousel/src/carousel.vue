@@ -21,7 +21,7 @@ import {
   type CarouselType
 } from "./carousel";
 import { carouselContextKey } from "./context";
-import { useNamespace } from "@xiaoye/primitives";
+import { useNamespace } from "xiaoye-primitives";
 
 const props = defineProps({
   initialIndex: {

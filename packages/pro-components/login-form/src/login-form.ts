@@ -1,4 +1,4 @@
-import type { FormRules } from "@xiaoye/components";
+import type { FormRules } from "xiaoye-components";
 
 export interface LoginFormModel {
   username: string;

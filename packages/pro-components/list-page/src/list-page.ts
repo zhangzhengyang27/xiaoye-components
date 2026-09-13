@@ -1,5 +1,5 @@
 import type { SearchFormField } from "../../search-form";
-import type { ButtonType } from "@xiaoye/components";
+import type { ButtonType } from "xiaoye-components";
 import type {
   ProTableColumn,
   ProTableEditableConfig,

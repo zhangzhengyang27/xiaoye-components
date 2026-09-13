@@ -1,7 +1,7 @@
 import Anchor from "./src/anchor.vue";
 import AnchorLink from "./src/anchor-link.vue";
-import type { SFCWithInstall } from "@xiaoye/primitives";
-import { withInstall } from "@xiaoye/primitives";
+import type { SFCWithInstall } from "xiaoye-primitives";
+import { withInstall } from "xiaoye-primitives";
 import type {
   AnchorChangeHandler,
   AnchorClickHandler,

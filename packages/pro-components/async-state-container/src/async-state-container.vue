@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XyButton, XyEmpty, XyText } from "@xiaoye/components";
+import { XyButton, XyEmpty, XyText } from "xiaoye-components";
 import type { AsyncStateContainerProps } from "./async-state-container";
 
 defineOptions({

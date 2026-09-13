@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, ref, useSlots } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
-import { XyDescriptions, XyDialog, XyDrawer } from "@xiaoye/components";
+import { useNamespace } from "xiaoye-primitives";
+import { XyDescriptions, XyDialog, XyDrawer } from "xiaoye-components";
 import type {
   DialogCloseReason,
   DialogInstance,
   DrawerCloseReason,
   DrawerInstance
-} from "@xiaoye/components";
+} from "xiaoye-components";
 import { resolveProDescriptionsItems } from "../../field-schema";
 import type { DetailPanelProps } from "./detail-panel";
 

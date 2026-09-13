@@ -1,4 +1,4 @@
-import type { TabItem, TabsBeforeLeave, TabsPosition, TabsType } from "@xiaoye/components";
+import type { TabItem, TabsBeforeLeave, TabsPosition, TabsType } from "xiaoye-components";
 
 export type HeaderTabsMenuAction =
   | "close-current"

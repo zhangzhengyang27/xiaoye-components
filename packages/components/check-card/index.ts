@@ -1,7 +1,7 @@
 import CheckCard from "./src/check-card.vue";
 import CheckCardGroup from "./src/check-card-group.vue";
-import type { SFCWithInstall } from "@xiaoye/primitives";
-import { withInstall } from "@xiaoye/primitives";
+import type { SFCWithInstall } from "xiaoye-primitives";
+import { withInstall } from "xiaoye-primitives";
 import type {
   CheckCardAvatar,
   CheckCardChangeHandler,

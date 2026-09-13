@@ -1,6 +1,6 @@
 import type TimeSelect from "./time-select.vue";
 import type { Placement } from "@floating-ui/dom";
-import type { ComponentSize } from "@xiaoye/primitives";
+import type { ComponentSize } from "xiaoye-primitives";
 import type { StyleValue } from "vue";
 
 export type TimeSelectValueChangeHandler = (value: string | null) => void;

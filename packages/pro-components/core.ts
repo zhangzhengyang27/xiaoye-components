@@ -1,6 +1,6 @@
 import type { VNodeChild } from "vue";
-import type { ButtonType, SelectOptionGroup } from "@xiaoye/components";
-import type { ComponentStatus, SelectOption } from "@xiaoye/primitives";
+import type { ButtonType, SelectOptionGroup } from "xiaoye-components";
+import type { ComponentStatus, SelectOption } from "xiaoye-primitives";
 
 export interface ProRequestData<T = Record<string, unknown>> {
   data: T[];

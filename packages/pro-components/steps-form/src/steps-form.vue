@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { XyButton, XyDrawer, XySteps } from "@xiaoye/components";
+import { XyButton, XyDrawer, XySteps } from "xiaoye-components";
 import { XyProForm } from "../../pro-form";
 import type { ProFormInstance } from "../../pro-form/src/pro-form";
 import { cloneProValue } from "../../field-schema";

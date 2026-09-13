@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { TagProps } from "../../tag";
-import { useConfig, useNamespace } from "@xiaoye/primitives";
+import { useConfig, useNamespace } from "xiaoye-primitives";
 import XyAvatar from "../../avatar";
 import XyIcon from "../../icon";
 import XyTag from "../../tag";

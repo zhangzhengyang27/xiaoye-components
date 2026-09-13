@@ -1,6 +1,6 @@
 import type { Component } from "vue";
-import type { ComponentSize, SelectOption } from "@xiaoye/primitives";
-import type { FormRules, SelectOptionGroup, XyFormRule } from "@xiaoye/components";
+import type { ComponentSize, SelectOption } from "xiaoye-primitives";
+import type { FormRules, SelectOptionGroup, XyFormRule } from "xiaoye-components";
 
 export type SearchFormFieldBuiltinComponent =
   | "input"

@@ -15,9 +15,13 @@ const dtsExclude = [
 
 export const libraryExternal = [
   "vue",
+  "vue-router",
+  "xiaoye-primitives",
   "@iconify/vue",
   "@floating-ui/dom",
   "async-validator",
+  "dayjs",
+  "rrule",
   /^echarts(?:\/.+)?$/,
   "@fullcalendar/core",
   "@fullcalendar/core/locales/zh-cn",
@@ -36,13 +40,15 @@ export function createLibraryConfig(options: {
   name: string;
   outDir: string;
   dtsInclude: string[];
+  entryRoot?: string;
+  extraExternal?: (string | RegExp)[];
 }) {
   return defineConfig({
     plugins: [
       vue(),
       dts({
         root: path.resolve("."),
-        entryRoot: path.resolve("packages"),
+        entryRoot: path.resolve(options.entryRoot ?? "packages"),
         tsconfigPath: path.resolve("tsconfig.build.json"),
         include: options.dtsInclude,
         exclude: dtsExclude,
@@ -67,7 +73,7 @@ export function createLibraryConfig(options: {
       outDir: options.outDir,
       emptyOutDir: true,
       rollupOptions: {
-        external: libraryExternal,
+        external: [...libraryExternal, ...(options.extraExternal ?? [])],
         output: {
           globals: {
             vue: "Vue"

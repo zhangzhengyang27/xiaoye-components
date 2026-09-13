@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, defineComponent, h, ref, useSlots, type VNodeChild } from "vue";
-import { XyButton } from "@xiaoye/components";
+import { XyButton } from "xiaoye-components";
 import { XyDetailPanel } from "../../detail-panel";
 import { XyListPage } from "../../list-page";
 import { XyOverlayForm } from "../../overlay-form";

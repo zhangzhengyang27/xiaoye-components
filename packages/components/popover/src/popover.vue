@@ -2,14 +2,15 @@
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import type { StyleValue } from "vue";
 import type { Placement } from "@floating-ui/dom";
-import { focusFirstDescendant } from "@xiaoye/primitives";
+import { focusFirstDescendant } from "xiaoye-primitives";
 import {
+  readFloatingAnimationDuration,
   useDismissibleLayer,
   useFloatingPanel,
   useFloatingVisibility,
   useOverlayStack,
   useNamespace
-} from "@xiaoye/primitives";
+} from "xiaoye-primitives";
 
 export interface PopoverProps {
   modelValue?: boolean;
@@ -86,6 +87,7 @@ const { visible, rendered, open: openFloating, close: closeFloating, toggle, cle
     persistent: () => props.persistent,
     openDelay: () => props.showAfter ?? props.openDelay,
     closeDelay: () => props.hideAfter ?? props.closeDelay,
+    isLeaveAnimating: () => readFloatingAnimationDuration(panelRef.value) > 0,
     emitModelValue: (value) => {
       emit("update:modelValue", value);
     },

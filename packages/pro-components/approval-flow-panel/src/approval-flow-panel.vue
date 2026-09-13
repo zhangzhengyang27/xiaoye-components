@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XyButton, XyCard, XySteps, XyText } from "@xiaoye/components";
+import { XyButton, XyCard, XySteps, XyText } from "xiaoye-components";
 import type { ApprovalFlowAction, ApprovalFlowPanelProps } from "./approval-flow-panel";
 
 defineOptions({

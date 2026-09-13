@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XyButton, XyDrawer } from "@xiaoye/components";
+import { XyButton, XyDrawer } from "xiaoye-components";
 import { XyProForm } from "../../pro-form";
 import type { TableFilterDrawerProps } from "./table-filter-drawer";
 

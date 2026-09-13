@@ -8,7 +8,7 @@ import {
   useListNavigation,
   useNamespace,
   useOverlayStack
-} from "@xiaoye/primitives";
+} from "xiaoye-primitives";
 import XyIcon from "../../icon";
 import { formItemKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";

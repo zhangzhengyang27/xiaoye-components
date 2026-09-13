@@ -1,5 +1,5 @@
 import { toRaw, type Component } from "vue";
-import type { DescriptionsDataItem } from "@xiaoye/components";
+import type { DescriptionsDataItem } from "xiaoye-components";
 import {
   XyAutoComplete,
   XyAvatar,
@@ -21,7 +21,7 @@ import {
   XyTransfer,
   XyTree,
   XySteps
-} from "@xiaoye/components";
+} from "xiaoye-components";
 import type {
   ProDisplayRenderContext,
   ProDisplayValueType,
@@ -222,7 +222,7 @@ export function normalizeProFieldDisplayValue(
 export function resolveProDescriptionsItems(
   schema: ProFieldSchema[],
   model: Record<string, unknown>,
-  rowIndex = 0
+  _rowIndex = 0
 ): DescriptionsDataItem[] {
   return schema
     .filter((field) => !resolveProFieldHidden(field, model))

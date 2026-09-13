@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { XyButton, XyCard, XyCheckboxGroup } from "@xiaoye/components";
+import { XyButton, XyCard, XyCheckboxGroup } from "xiaoye-components";
 import type { ColumnSettingPanelProps } from "./column-setting-panel";
 
 defineOptions({

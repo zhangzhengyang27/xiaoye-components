@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, toRaw, watch, useSlots, type Component } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
+import { useNamespace } from "xiaoye-primitives";
 import {
   XyAvatar,
   XyButton,
@@ -24,7 +24,7 @@ import {
   XyTransfer,
   XyTree,
   XySteps
-} from "@xiaoye/components";
+} from "xiaoye-components";
 import type { SearchFormField, SearchFormProps } from "./search-form";
 
 defineOptions({

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, provide, ref, watch } from "vue";
 import type { ComponentPublicInstance, VNode } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
+import { useNamespace } from "xiaoye-primitives";
 import XyIcon from "../../icon";
 import type { TabItem, TabsProps } from "./tabs";
 
@@ -27,7 +27,7 @@ const emit = defineEmits<{
   tabAdd: [];
 }>();
 
-const slots = defineSlots<{
+const _slots = defineSlots<{
   default?: () => VNode[];
   "add-icon"?: () => VNode;
 }>();
@@ -73,7 +73,7 @@ const allItems = computed(() => {
 })
 
 const firstEnabledKey = computed(() => allItems.value.find((item) => !item.disabled)?.key ?? "");
-const activeItem = computed(() => allItems.value.find((item) => item.key === current.value));
+const _activeItem = computed(() => allItems.value.find((item) => item.key === current.value));
 const activeIndex = computed(() => allItems.value.findIndex((item) => item.key === current.value));
 const isVertical = computed(() => ["left", "right"].includes(props.tabPosition));
 const isReverse = computed(() => ["bottom", "right"].includes(props.tabPosition));

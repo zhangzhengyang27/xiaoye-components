@@ -1,7 +1,7 @@
 import Descriptions from "./src/descriptions.vue";
 import DescriptionsItem from "./src/descriptions-item.vue";
-import type { SFCWithInstall } from "@xiaoye/primitives";
-import { withInstall } from "@xiaoye/primitives";
+import type { SFCWithInstall } from "xiaoye-primitives";
+import { withInstall } from "xiaoye-primitives";
 import type {
   DescriptionsDataItem,
   DescriptionsDataTag,

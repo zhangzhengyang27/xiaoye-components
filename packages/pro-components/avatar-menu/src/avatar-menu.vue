@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useNamespace } from "@xiaoye/primitives";
-import { XyAvatar, XyDropdown } from "@xiaoye/components";
-import type { DropdownSelectItem } from "@xiaoye/components";
+import { useNamespace } from "xiaoye-primitives";
+import { XyAvatar, XyDropdown } from "xiaoye-components";
+import type { DropdownSelectItem } from "xiaoye-components";
 import type { AvatarMenuCommand, AvatarMenuProps } from "./avatar-menu";
 
 defineOptions({

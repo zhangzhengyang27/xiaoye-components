@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineComponent, h, useSlots } from "vue";
-import { XyTag } from "@xiaoye/components";
+import { XyTag } from "xiaoye-components";
 import { XyProTable } from "../../pro-table";
 import type { ImportResultTableProps } from "./import-result-table";
 
