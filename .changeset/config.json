@@ -1,6 +1,11 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.3/schema.json",
-  "changelog": ["@changesets/cli/changelog", { "repo": "xiaoye/xiaoye-components" }],
+  "changelog": [
+    "@changesets/cli/changelog",
+    {
+      "repo": "zhangzhengyang27/xiaoye-components"
+    }
+  ],
   "commit": false,
   "fixed": [],
   "linked": [],
@@ -9,4 +14,3 @@
   "updateInternalDependencies": "patch",
   "ignore": []
 }
-
