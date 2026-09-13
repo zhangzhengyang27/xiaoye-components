@@ -29,3 +29,28 @@ pro/detail-page/basic
 
 - 对外主类型名统一使用 `DetailPageBreadcrumbItem`、`DetailPageAction`、`DetailPageAttachmentFile`、`DetailPageProps`。
 - 旧的 `PageHeaderBreadcrumbItem`、`PageHeaderAction`、`AttachmentPanelFile` 仅作为源码兼容别名保留，不再作为正式文档类型入口。
+
+## DetailPage API
+
+### DetailPage Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 页面标题 | `string` | `''` |
+| `description` | 页面描述 | `string` | `''` |
+| `breadcrumbs` | 面包屑配置 | `DetailPageBreadcrumbItem[]` | `[]` |
+| `actions` | 头部操作按钮组 | `DetailPageAction[]` | `[]` |
+| `loading` | 是否加载中 | `boolean` | `false` |
+| `error` | 错误信息，非空时进入错误态 | `string \| null` | `null` |
+| `sections` | 详情分组配置 | `DetailSectionItem[]` | `[]` |
+| `attachments` | 附件列表 | `DetailPageAttachmentFile[]` | `[]` |
+| `changes` | 变更对比数据，`status` 为 `'same'` 的项不展示 | `ChangeDiffItem[]` | `[]` |
+| `logs` | 操作日志数据 | `AuditTimelineEntry[]` | `[]` |
+
+### DetailPage Slots
+
+| 插槽 | 说明 | 接收参数 |
+| --- | --- | --- |
+| `meta` | 头部标题旁的元信息区 | — |
+| `actions` | 头部操作区，默认渲染 `actions` 按钮 | — |
+| `[section.key]` | 各详情分组的内容，默认按 `items` / `schema + model` 渲染描述列表 | `{ section: DetailSectionItem }` |

@@ -23,3 +23,26 @@ pro/approval-flow-panel/basic
 
 - 当前不处理流程图布局、分支节点和评论流。
 - 更复杂的工作流编排仍建议在页面层处理。
+
+## ApprovalFlowPanel API
+
+### ApprovalFlowPanel Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 面板标题 | `string` | `'审批流程'` |
+| `nodes` | 审批节点配置 | `ApprovalFlowNode[]` | — |
+| `actions` | 底部动作按钮组 | `ApprovalFlowAction[]` | `[]` |
+
+### ApprovalFlowPanel Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `action` | 点击动作按钮时派发 | `(action: ApprovalFlowAction) => void` |
+| `node-click` | 点击节点卡片时派发 | `(node: { key: string }) => void` |
+
+### ApprovalFlowPanel Slots
+
+| 插槽 | 说明 | 接收参数 |
+| --- | --- | --- |
+| `actions` | 自定义动作区内容，覆盖默认动作按钮 | — |

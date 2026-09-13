@@ -23,3 +23,29 @@ pro/import-wizard/basic
 
 - 当前不包含文件上传、解析进度和失败修复工作流。
 - 真实导入逻辑仍需页面层或专门上传组件承接。
+
+## ImportWizard API
+
+### ImportWizard Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 向导标题 | `string` | `'导入向导'` |
+| `steps` | 步骤配置 | `ImportWizardStep[]` | — |
+| `active` | 当前步骤索引，受控模式 | `number` | `undefined` |
+| `default-active` | 默认步骤索引，仅在非受控模式生效 | `number` | `0` |
+
+### ImportWizard Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `update:active` | 当前步骤变化时派发，支持 `v-model:active` | `(value: number) => void` |
+| `prev` | 点击「上一步」时派发 | `(value: number) => void` |
+| `next` | 点击「下一步」时派发 | `(value: number) => void` |
+| `finish` | 在最后一步点击「完成」时派发 | `() => void` |
+
+### ImportWizard Slots
+
+| 插槽 | 说明 | 接收参数 |
+| --- | --- | --- |
+| `default` | 当前阶段的内容区 | `{ step: ImportWizardStep \| undefined, active: number }` |

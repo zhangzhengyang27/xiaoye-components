@@ -23,3 +23,22 @@ pro/column-setting-panel/basic
 
 - 当前不处理列顺序拖拽、持久化和复杂权限裁剪。
 - 真正的列定义和表格重绘仍由外层表格组件负责。
+
+## ColumnSettingPanel API
+
+### ColumnSettingPanel Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 面板标题 | `string` | `'列设置'` |
+| `description` | 标题下方的补充说明，为空时不渲染 | `string` | `''` |
+| `columns` | 列配置项，每项含 `key / label`，可选 `description` 和 `disabled` | `ColumnSettingPanelColumn[]` | `[]` |
+| `model-value` | 当前勾选的列 key 集合，支持 `v-model` | `string[]` | `[]` |
+
+### ColumnSettingPanel Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `update:modelValue` | 勾选集合变化时派发（勾选或全选） | `(value: string[]) => void` |
+| `change` | 勾选集合变化时派发 | `(value: string[]) => void` |
+| `reset` | 点击「重置」时派发，重置结果为未被 `disabled` 的全部列 | `(value: string[]) => void` |

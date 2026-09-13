@@ -23,3 +23,16 @@ pro/import-result-table/basic
 
 - 当前不处理文件上传、导入过程状态和失败修复工作流。
 - 更复杂的导入编排仍建议由 ImportWizard 或页面层承接。
+
+## ImportResultTable API
+
+### ImportResultTable Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `data` | 导入结果数据行 | `T[]` | `[]` |
+| `columns` | 表格列 schema，直接复用 `ProTableColumn<T>` | `ProTableColumn<T>[]` | `[]` |
+| `summary` | 导入结果摘要，展示总数、成功、失败三个标签；字段为 `total / success / failed` | `ImportResultSummary` | `undefined` |
+| `loading` | 是否加载中 | `boolean` | `false` |
+
+本组件不定义自有事件与插槽；传入的插槽会原样透传给内部的 `XyProTable`，可在 `columns` 中通过 `slot / headerSlot` 引用。

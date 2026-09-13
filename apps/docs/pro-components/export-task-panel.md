@@ -23,3 +23,20 @@ pro/export-task-panel/basic
 
 - 当前不处理轮询、通知订阅和历史分页。
 - 任务调度与下载鉴权仍由业务层处理。
+
+## ExportTaskPanel API
+
+### ExportTaskPanel Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 面板标题 | `string` | `'导出任务'` |
+| `tasks` | 导出任务列表 | `ExportTaskItem[]` | — |
+
+### ExportTaskPanel Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `download` | 点击成功任务的「下载」按钮时派发 | `(task: ExportTaskItem) => void` |
+| `retry` | 点击失败任务的「重试」按钮时派发 | `(task: ExportTaskItem) => void` |
+| `remove` | 点击任务的「移除」按钮时派发 | `(task: ExportTaskItem) => void` |

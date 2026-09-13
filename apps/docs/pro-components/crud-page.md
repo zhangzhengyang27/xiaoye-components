@@ -79,3 +79,48 @@ pro/crud-page/basic
 - 承接标准 CRUD 页面骨架。
 - 表单和详情内容继续通过插槽承接，不做低代码页面设计器。
 - 当详情字段已经有稳定 schema 时，也可以直接使用 `detailSchema` 驱动详情面板，不必继续重复写模板卡片。
+
+## CrudPage API
+
+### CrudPage Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 工具栏标题 | `string` | `''` |
+| `description` | 工具栏说明 | `string` | `''` |
+| `search-model` | 搜索表单数据 | `Record<string, unknown>` | `{}` |
+| `search-fields` | 搜索表单字段配置 | `SearchFormField[]` | `[]` |
+| `data` | 表格数据 | `T[]` | `[]` |
+| `columns` | 列 schema 数组 | `ProTableColumn<T>[]` | — |
+| `toolbar-actions` | 自定义工具栏按钮组，组件会额外内置一个「新建」按钮 | `ProPageAction[]` | `[]` |
+| `batch-actions` | 批量动作按钮组 | `ListPageBatchAction[]` | `[]` |
+| `form-model` | 编辑表单数据模型，需传入响应式对象 | `Record<string, unknown>` | — |
+| `form-schema` | 编辑表单字段 schema | `ProFieldSchema[]` | `[]` |
+| `form-rules` | 编辑表单校验规则 | `FormRules` | `{}` |
+| `form-type` | 编辑表单容器类型 | `'drawer' / 'modal'` | `'drawer'` |
+| `detail-schema` | 详情字段 schema | `ProFieldSchema[]` | `[]` |
+| `detail-descriptions-props` | 详情描述列表额外 props | `Omit<DescriptionsProps, 'items' \| 'title' \| 'extra'>` | `{}` |
+| `detail-type` | 详情面板容器类型，为 `'none'` 时关闭详情面板 | `'drawer' / 'dialog' / 'none'` | `'drawer'` |
+
+### CrudPage Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `submit` | 编辑表单提交时派发 | `(payload: Record<string, unknown>) => void` |
+| `open-create` | 点击「新建」打开编辑表单时派发 | `() => void` |
+| `open-edit` | 点击「编辑」打开编辑表单时派发 | `(row: Record<string, unknown>) => void` |
+| `open-detail` | 点击「查看」打开详情面板时派发 | `(row: Record<string, unknown>) => void` |
+| `toolbar-action` | 点击自定义工具栏按钮时派发，`create` 由组件内部处理 | `(action: ProPageAction) => void` |
+| `batch-action` | 点击批量动作时派发 | `(action: ListPageBatchAction, selection: Record<string, unknown>[]) => void` |
+| `selection-change` | 表格选中行变化时派发 | `(selection: Record<string, unknown>[]) => void` |
+| `request-success` | 远程请求成功时派发 | `(payload: Record<string, unknown>[]) => void` |
+| `request-error` | 远程请求失败时派发 | `(error: unknown) => void` |
+
+### CrudPage Slots
+
+| 插槽 | 说明 | 接收参数 |
+| --- | --- | --- |
+| `form` | 编辑表单内容区，覆盖默认 schema 渲染 | `{ row: Record<string, unknown> \| null, model: Record<string, unknown> }` |
+| `detail` | 详情面板内容区，覆盖默认 schema 渲染 | `{ row: Record<string, unknown> \| null }` |
+| `actions` | 行操作区自定义按钮，追加在内置「查看 / 编辑」按钮之后 | `{ row: Record<string, unknown> }` |
+| 其他具名插槽 | 透传给内部 `ListPage` 的同名插槽 | 对应插槽参数 |

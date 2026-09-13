@@ -82,3 +82,57 @@ pro/list-page/basic
 
 - 对外主类型名统一使用 `ListPageBatchAction`、`ListPageProps`、`ListPageActionRef`。
 - 旧的 `BatchActionBarAction` 仅作为源码兼容别名保留，不再作为正式文档类型入口。
+
+## ListPage API
+
+### ListPage Attributes
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 工具栏标题 | `string` | `''` |
+| `description` | 工具栏说明 | `string` | `''` |
+| `search-model` | 搜索表单数据 | `Record<string, unknown>` | `{}` |
+| `search-fields` | 搜索表单字段配置 | `SearchFormField[]` | `[]` |
+| `data` | 表格数据 | `T[]` | `[]` |
+| `columns` | 列 schema 数组 | `ProTableColumn<T>[]` | — |
+| `request` | 远程请求函数，传入后启用分页区 | `(params: Record<string, unknown>, ctx: ProRequestContext) => Promise<ProRequestResult<T>>` | `undefined` |
+| `toolbar-actions` | 工具栏按钮组 | `ProPageAction[]` | `[]` |
+| `batch-actions` | 批量动作按钮组 | `ListPageBatchAction[]` | `[]` |
+| `immediate` | 挂载后是否立即发起远程请求 | `boolean` | `true` |
+| `page-size` | 默认每页条数 | `number` | `10` |
+| `workbench` | 工作台配置，透传给内部 `xy-pro-table` | `ProTableWorkbenchConfig` | `{}` |
+| `editable` | 编辑模式配置 | `ProTableEditableConfig<T>` | `undefined` |
+| `virtual` | 虚拟列表配置 | `ProTableVirtualConfig` | `undefined` |
+
+### ListPage Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `toolbar-action` | 点击工具栏按钮时派发 | `(action: ProPageAction) => void` |
+| `batch-action` | 点击批量动作时派发 | `(action: ListPageBatchAction, selection: Record<string, unknown>[]) => void` |
+| `selection-change` | 表格选中行变化时派发 | `(selection: Record<string, unknown>[]) => void` |
+| `request-success` | 远程请求成功时派发 | `(payload: Record<string, unknown>[]) => void` |
+| `request-error` | 远程请求失败时派发 | `(error: unknown) => void` |
+
+### ListPage Slots
+
+| 插槽 | 说明 | 接收参数 |
+| --- | --- | --- |
+| `toolbar-main` | 自定义标题区 | — |
+| `toolbar-left` | 工具栏右侧操作区前置内容 | — |
+| `toolbar-meta` | 工具栏右侧操作区补充内容 | — |
+| `toolbar-right` | 工具栏右侧操作区尾部内容 | — |
+| `search` | 自定义搜索区 | — |
+| `footer-meta` | 分页左侧补充信息 | — |
+| `loading` | 自定义加载态 | 透传 `ProTable` 对应插槽参数 |
+| `empty` | 自定义空态 | 透传 `ProTable` 对应插槽参数 |
+| 其他具名插槽 | 透传给内部 `xy-pro-table` 的同名插槽（如单元格自定义插槽） | 对应插槽参数 |
+
+### ListPage Exposes
+
+| 名称 | 类型 | 说明 |
+| --- | --- | --- |
+| `reload` | `() => Promise<void>` | 以当前参数重新发起远程请求 |
+| `refresh` | `() => Promise<void>` | 刷新当前页数据 |
+| `reset` | `() => Promise<void>` | 重置搜索、筛选、分页和选中行后重新加载 |
+| `clearSelection` | `() => void` | 清空表格选中行 |
