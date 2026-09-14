@@ -278,6 +278,9 @@ function compareWithBaseline() {
         }
       }
     }
+    // 注：countdown/charts 等 JS 驱动 demo 理论上是 diff 噪音源，但实测两次独立
+    // 运行 1064 张截图全一致（文档 demo 未启自动播放/动画），暂不引入跳过名单；
+    // 若未来文档 demo 增加自动播放内容，把对应组件加入本函数开头做排除即可。
   }
 }
 

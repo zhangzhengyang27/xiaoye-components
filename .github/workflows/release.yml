@@ -26,6 +26,10 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # 发布前门禁兜底：常规质量由 ci.yml 在 main 推送时保障，此处兜底防跳过 CI 的直推
+      - run: pnpm check:components && pnpm check:pro-components
+      - run: pnpm typecheck
+      - run: pnpm test
       # 构建产物供 publish 使用（files 仅含 dist）
       - run: pnpm build:lib
       - uses: changesets/action@v1

@@ -100,6 +100,7 @@ alwaysApply: true
   - `pnpm build:docs`
   - `pnpm build:playground`
 - 文档预览：`pnpm preview:docs`
+- 双主题视觉巡检：`pnpm audit:visual`（--save-baseline 保存基线；存在基线时自动做像素 diff，差异超 0.5% 退出码 1）
 - Changesets 相关：
   - `pnpm changeset`
   - `pnpm version-packages`
