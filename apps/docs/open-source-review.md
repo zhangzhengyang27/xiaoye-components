@@ -224,7 +224,7 @@
 | 维度 | 评分 | 备注 |
 |------|------|------|
 | 构建配置 | ⭐⭐⭐⭐ | Vite 多入口，Tree-shaking 支持 |
-| 代码规范 | ⭐⭐⭐⭐ | ESLint + Prettier + commitlint |
+| 代码规范 | ⭐⭐⭐⭐ | ESLint + Prettier，提交信息遵循 Conventional Commits 约定 |
 | 版本管理 | ⭐⭐⭐⭐ | Changesets 规范发布 |
 | CI/CD | ⭐⭐⭐ | 基础 CI 配置完善 |
 
