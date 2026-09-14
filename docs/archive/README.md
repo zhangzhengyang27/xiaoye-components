@@ -13,3 +13,4 @@
 - `3-Iconify 方案.md`、`4-button 优化.md`：早期专项方案（已落地）。
 - `example-code-improvement-summary.md`：早期示例代码改进总结。
 - `plans/`：pro-components 收口方案 V2 与质量迁移清单（已执行完毕）。
+- `审计报告-2026-05-23.md`：首轮全量审计快照（主题 token、硬编码、逻辑 Bug）。其中 P0/P1/P2 已全部闭环，各项复核结论直接标注在文内；后续以重新审计为准，不要按此报告的「待修」状态执行任务。
