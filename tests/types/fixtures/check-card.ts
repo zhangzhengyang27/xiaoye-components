@@ -75,3 +75,10 @@ const invalidValue: CheckCardGroupOption = {
 };
 
 void invalidValue;
+
+const invalidSize: CheckCardProps = {
+  // @ts-expect-error invalid size should be rejected
+  size: "xxl"
+};
+
+void invalidSize;

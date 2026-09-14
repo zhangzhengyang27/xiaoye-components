@@ -39,3 +39,10 @@ void DEFAULT_NAMESPACE;
 void DEFAULT_SIZE;
 void DEFAULT_Z_INDEX;
 
+
+const invalidSize: ConfigProviderProps = {
+  // @ts-expect-error invalid size should be rejected
+  size: "xxl"
+};
+
+void invalidSize;

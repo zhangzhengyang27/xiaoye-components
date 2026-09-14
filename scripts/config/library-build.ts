@@ -21,7 +21,6 @@ export const libraryExternal = [
   "@floating-ui/dom",
   "async-validator",
   "dayjs",
-  "rrule",
   /^echarts(?:\/.+)?$/,
   "@fullcalendar/core",
   "@fullcalendar/core/locales/zh-cn",

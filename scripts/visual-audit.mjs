@@ -239,13 +239,7 @@ if (renderOnly) {
 /** 与基线做像素对比，结果写入 result.diffStatus / result.diffRatio */
 function compareWithBaseline() {
   if (saveBaseline || !fs.existsSync(baselineDir)) return;
-  let pixelmatchFn;
-  try {
-    const mod = pixelmatch.default ?? pixelmatch;
-    pixelmatchFn = mod;
-  } catch {
-    return;
-  }
+  const pixelmatchFn = pixelmatch.default ?? pixelmatch;
   const diffDir = path.join(outDir, "diffs");
   fs.mkdirSync(diffDir, { recursive: true });
 
@@ -290,6 +284,14 @@ function compareWithBaseline() {
 /** 巡检结束后维护基线目录 */
 function syncBaseline() {
   if (!saveBaseline) return;
+  const failedShots = results.reduce(
+    (n, r) => n + (r.consoleErrors.filter((e) => e.includes("截图失败")).length ? 1 : 0),
+    0
+  );
+  if (failedShots > 0) {
+    console.log(`有 ${failedShots} 个页面存在截图失败，本次不更新基线（避免基线出现空洞）`);
+    return;
+  }
   fs.rmSync(baselineDir, { recursive: true, force: true });
   fs.cpSync(path.join(outDir, "shots"), path.join(baselineDir, "shots"), { recursive: true });
   console.log(`基线已更新：${baselineDir}`);
@@ -323,7 +325,7 @@ try {
     console.log("模式：保存基线（未做对比）");
   } else if (Object.keys(statusCount).some((k) => statusCount[k] > 0)) {
     console.log(`像素对比：一致 ${statusCount.match} · 差异 ${statusCount.regressed} · 新增 ${statusCount.new} · 尺寸变化 ${statusCount.size}`);
-    if (statusCount.regressed > 0) process.exitCode = 1;
+    if (statusCount.regressed > 0 || statusCount.size > 0) process.exitCode = 1;
   }
   console.log(`console 报错页面：${errorPages.length === 0 ? "无" : errorPages.map((r) => `${r.layer}/${r.name}`).join(", ")}`);
   console.log(`报告：${path.join(outDir, "index.html")}`);

@@ -1,6 +1,6 @@
 import { nextTick, onBeforeUnmount, onMounted, toValue, watch } from "vue";
 import type { MaybeRefOrGetter } from "vue";
-import { focusFirstDescendant, trapFocus } from "@xiaoye/primitives";
+import { focusFirstDescendant, trapFocus } from "../utils";
 
 export type FocusTrapFocusReason = "pointer" | "keyboard" | null;
 

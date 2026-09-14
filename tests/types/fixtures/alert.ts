@@ -231,3 +231,10 @@ const invalidOnClosed: AlertServiceOptions = {
 };
 
 void invalidOnClosed;
+
+const invalidSize: AlertProps = {
+  // @ts-expect-error invalid size should be rejected
+  size: "xxl"
+};
+
+void invalidSize;

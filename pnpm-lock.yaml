@@ -104,9 +104,6 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.1.3
-      rrule:
-        specifier: ^2.8.1
-        version: 2.8.1
       sortablejs:
         specifier: ^1.15.7
         version: 1.15.7
@@ -227,48 +224,12 @@ importers:
 
   packages/pro-components:
     dependencies:
-      '@floating-ui/dom':
-        specifier: ^1.6.13
-        version: 1.7.6
-      '@fullcalendar/core':
-        specifier: ^6.1.20
-        version: 6.1.20
-      '@fullcalendar/daygrid':
-        specifier: ^6.1.20
-        version: 6.1.20(@fullcalendar/core@6.1.20)
-      '@fullcalendar/interaction':
-        specifier: ^6.1.20
-        version: 6.1.20(@fullcalendar/core@6.1.20)
-      '@fullcalendar/timegrid':
-        specifier: ^6.1.20
-        version: 6.1.20(@fullcalendar/core@6.1.20)
-      '@fullcalendar/vue3':
-        specifier: ^6.1.20
-        version: 6.1.20(@fullcalendar/core@6.1.20)(vue@3.5.30(typescript@5.9.3))
       '@iconify/vue':
         specifier: ^5.0.0
         version: 5.0.0(vue@3.5.30(typescript@5.9.3))
-      async-validator:
-        specifier: ^4.2.5
-        version: 4.2.5
-      dayjs:
-        specifier: ^1.11.20
-        version: 1.11.20
-      echarts:
-        specifier: ^6.0.0
-        version: 6.0.0
-      howler:
-        specifier: ^2.2.4
-        version: 2.2.4
       sortablejs:
         specifier: ^1.15.7
         version: 1.15.7
-      vditor:
-        specifier: ^3.11.2
-        version: 3.11.2
-      video.js:
-        specifier: ^8.23.7
-        version: 8.23.7
       vue:
         specifier: ^3.5.0
         version: 3.5.30(typescript@5.9.3)
@@ -278,9 +239,6 @@ importers:
       xiaoye-components:
         specifier: workspace:^
         version: link:../components
-      xiaoye-primitives:
-        specifier: workspace:^
-        version: link:../xiaoye-primitives
 
   packages/theme: {}
 
@@ -288,6 +246,9 @@ importers:
 
   packages/xiaoye-primitives:
     dependencies:
+      '@floating-ui/dom':
+        specifier: ^1.7.4
+        version: 1.7.6
       vue:
         specifier: ^3.5.0
         version: 3.5.30(typescript@5.9.3)
@@ -3156,9 +3117,6 @@ packages:
   router@2.2.0:
     resolution: {integrity: sha512-nLTrUKm2UyiL7rlhapu/Zl45FwNgkZGaCpZbIHajDYgwlJCOzLSk+cIPAnsEqV955GjILJnKbdQC1nVPz+gAYQ==}
     engines: {node: '>= 18'}
-
-  rrule@2.8.1:
-    resolution: {integrity: sha512-hM3dHSBMeaJ0Ktp7W38BJZ7O1zOgaFEsn41PDk+yHoEtfLV+PoJt9E9xAlZiWgf/iqEqionN0ebHFZIDAp+iGw==}
 
   rrweb-cssom@0.8.0:
     resolution: {integrity: sha512-guoltQEx+9aMf2gDZ0s62EcV8lsXR+0w8915TC3ITdn2YueuNjdAYh/levpU9nFaoChh9RUS5ZdQMrKfVEN9tw==}
@@ -6729,10 +6687,6 @@ snapshots:
       path-to-regexp: 8.4.2
     transitivePeerDependencies:
       - supports-color
-
-  rrule@2.8.1:
-    dependencies:
-      tslib: 2.8.1
 
   rrweb-cssom@0.8.0: {}
 

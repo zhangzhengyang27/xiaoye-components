@@ -65,3 +65,10 @@ const invalidBorderStyle: DividerProps = {
 };
 
 void invalidBorderStyle;
+
+const invalidSize: DividerProps = {
+  // @ts-expect-error invalid size should be rejected
+  size: "xxl"
+};
+
+void invalidSize;

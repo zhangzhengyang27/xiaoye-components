@@ -42,3 +42,10 @@ const invalidVariant: CardProps = {
 
 void invalidVariant;
 
+
+const invalidSize: CardProps = {
+  // @ts-expect-error invalid size should be rejected
+  size: "xxl"
+};
+
+void invalidSize;

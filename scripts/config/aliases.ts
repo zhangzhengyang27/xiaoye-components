@@ -100,11 +100,6 @@ export const workspaceAlias = [
     find: "@xiaoye/tokens",
     replacement: resolveWorkspacePath("../../packages/tokens/src/index.ts")
   },
-  // rrule compat
-  {
-    find: "rrule",
-    replacement: resolveWorkspacePath("../../packages/xiaoye-primitives/src/utils/compat/rrule.js")
-  },
   // xiaoye-components (bare import)
   {
     find: "xiaoye-components",
