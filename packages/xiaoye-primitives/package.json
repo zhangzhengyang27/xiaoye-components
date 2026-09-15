@@ -1,6 +1,6 @@
 {
   "name": "xiaoye-primitives",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "xiaoye 组件库基础设施：composables + utils + theme",
   "license": "MIT",
