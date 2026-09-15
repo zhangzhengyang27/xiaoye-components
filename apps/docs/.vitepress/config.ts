@@ -9,7 +9,6 @@ import { demoMdPlugin } from "./plugins/demo";
 import { demoSourcePlugin } from "./plugins/demo-source";
 import { markdownTransform } from "./plugins/markdown-transform";
 import { tableWrapperMdPlugin } from "./plugins/table-wrapper";
-import { columnSidebar } from "./column-sidebar";
 
 export default defineConfig({
   title: "xiaoye-components",
@@ -98,10 +97,7 @@ export default defineConfig({
         },
         {
           text: "AI 集成",
-          items: [
-            { text: "LLM 集成", link: "/guide/llm-integration" },
-            { text: "CodeGraph 集成", link: "/guide/codegraph" }
-          ]
+          items: [{ text: "LLM 集成", link: "/guide/llm-integration" }]
         }
       ],
       "/components/": [
@@ -139,8 +135,7 @@ export default defineConfig({
             items: group.items
           }))
           .filter((group) => group.items.length > 0)
-      ],
-      "/column/": columnSidebar
+      ]
     },
     socialLinks: [{ icon: "github", link: "https://github.com/xiaoye/xiaoye-components" }]
   },
