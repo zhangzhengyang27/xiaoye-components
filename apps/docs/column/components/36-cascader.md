@@ -283,7 +283,7 @@ const searchResults = computed(() => {
 
 ```css
 .xy-cascader__dropdown {
-  --xy-cascader-dropdown-bg: var(--xy-bg-color);
+  --xy-cascader-dropdown-bg: var(--xy-bg-container);
 }
 ```
 

@@ -19,14 +19,14 @@
   justify-content: center;
   min-height: 60px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 72%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-muted) 72%, white);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   text-align: center;
 }
 
 .demo-responsive--strong {
-  background: color-mix(in srgb, var(--xy-color-success) 14%, white);
-  color: var(--xy-color-success);
+  background: color-mix(in srgb, var(--xy-success) 14%, white);
+  color: var(--xy-success);
 }
 </style>

@@ -176,8 +176,8 @@ const dividerStyle = computed<CSSProperties>(
   --xy-divider-border-style: solid;
   --xy-divider-thickness: 1px;
   --xy-divider-spacing: 24px;
-  --xy-divider-color: color-mix(in srgb, var(--xy-border-color-subtle) 78%, transparent);
-  --xy-divider-text-color: var(--xy-text-color-subtle);
+  --xy-divider-color: color-mix(in srgb, var(--xy-border-subtle) 78%, transparent);
+  --xy-divider-text-color: var(--xy-text-muted);
   --xy-divider-font-size: var(--xy-font-size-md);
   --xy-divider-text-padding: 18px;
   --xy-divider-content-offset: 24px;
@@ -230,8 +230,8 @@ const dividerStyle = computed<CSSProperties>(
   border: 1px solid transparent;
   border-radius: var(--xy-radius-pill);
   background: color-mix(in srgb,
-    var(--xy-bg-color-subtle) 50%,
-    var(--xy-bg-color-floating)
+    var(--xy-bg-subtle) 50%,
+    var(--xy-bg-floating)
   ); /* 半透明背景，让文字"浮"在线上 */
 }
 
@@ -263,24 +263,24 @@ const dividerStyle = computed<CSSProperties>(
 
 ```css
 .xy-divider.is-neutral {
-  --xy-divider-color: color-mix(in srgb, var(--xy-border-color-subtle) 78%, transparent);
-  --xy-divider-text-color: var(--xy-text-color-subtle);
+  --xy-divider-color: color-mix(in srgb, var(--xy-border-subtle) 78%, transparent);
+  --xy-divider-text-color: var(--xy-text-muted);
 }
 .xy-divider.is-primary {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-primary) 12%, var(--xy-border-color-subtle));
-  --xy-divider-text-color: var(--xy-color-primary);
+  --xy-divider-color: color-mix(in srgb, var(--xy-brand) 12%, var(--xy-border-subtle));
+  --xy-divider-text-color: var(--xy-brand);
 }
 .xy-divider.is-success {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-success) 12%, var(--xy-border-color-subtle));
-  --xy-divider-text-color: var(--xy-color-success);
+  --xy-divider-color: color-mix(in srgb, var(--xy-success) 12%, var(--xy-border-subtle));
+  --xy-divider-text-color: var(--xy-success);
 }
 .xy-divider.is-warning {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-warning) 14%, var(--xy-border-color-subtle));
-  --xy-divider-text-color: var(--xy-color-warning);
+  --xy-divider-color: color-mix(in srgb, var(--xy-warning) 14%, var(--xy-border-subtle));
+  --xy-divider-text-color: var(--xy-warning);
 }
 .xy-divider.is-danger {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-danger) 12%, var(--xy-border-color-subtle));
-  --xy-divider-text-color: var(--xy-color-danger);
+  --xy-divider-color: color-mix(in srgb, var(--xy-danger) 12%, var(--xy-border-subtle));
+  --xy-divider-text-color: var(--xy-danger);
 }
 ```
 
@@ -342,7 +342,7 @@ xyu 前缀的变量用于另一个主题体系（`xyu` 前缀），与组件级 
 
 ```css
 .xy-divider.is-primary {
-  --xy-divider-color: color-mix(in srgb, var(--xy-color-primary) 20%, var(--xy-border-color-subtle));
+  --xy-divider-color: color-mix(in srgb, var(--xy-brand) 20%, var(--xy-border-subtle));
 }
 ```
 

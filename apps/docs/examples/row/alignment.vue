@@ -21,10 +21,10 @@
   border-radius: 14px;
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--xy-color-primary) 12%, white),
-    color-mix(in srgb, var(--xy-bg-color-muted) 86%, white)
+    color-mix(in srgb, var(--xy-brand) 12%, white),
+    color-mix(in srgb, var(--xy-bg-muted) 86%, white)
   );
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-weight: 600;
 }
 

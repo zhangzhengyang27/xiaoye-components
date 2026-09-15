@@ -69,12 +69,12 @@ const filterGroups = [
   flex-direction: column;
   gap: 10px;
   padding: 16px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white),
-    var(--xy-surface-raised)
+    color-mix(in srgb, var(--xy-bg-subtle) 90%, white),
+    var(--xy-bg-raised)
   );
 }
 

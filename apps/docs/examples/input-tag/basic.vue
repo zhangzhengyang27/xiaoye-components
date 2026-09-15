@@ -42,7 +42,7 @@ const tags = ref(["Vue", "组件库"]);
 
 .demo-input-tag-basic__description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.5;
 }

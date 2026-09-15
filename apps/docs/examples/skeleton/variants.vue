@@ -78,7 +78,7 @@ const groups = [
 .demo-skeleton-variants__group-description,
 .demo-skeleton-variants__meta-note {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -104,15 +104,15 @@ const groups = [
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 78%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 78%, white);
   border-radius: 14px;
   background:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--xy-bg-color-muted) 72%, white),
+      color-mix(in srgb, var(--xy-bg-muted) 72%, white),
       transparent 100%
     ),
-    color-mix(in srgb, var(--xy-bg-color-overlay) 90%, white);
+    color-mix(in srgb, var(--xy-bg-container-overlay) 90%, white);
 }
 
 .demo-skeleton-variants__meta {

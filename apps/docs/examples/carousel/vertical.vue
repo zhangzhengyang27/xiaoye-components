@@ -20,11 +20,11 @@
   gap: 8px;
   padding: 24px;
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 76%, white);
+  background: color-mix(in srgb, var(--xy-bg-muted) 76%, white);
 }
 
 .demo-carousel-vertical__eyebrow {
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -32,6 +32,6 @@
 
 .demo-carousel-vertical__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

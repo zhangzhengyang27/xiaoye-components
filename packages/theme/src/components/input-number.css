@@ -51,8 +51,8 @@
   justify-content: center;
   width: var(--xy-input-number-control-size);
   border: 0;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 68%, var(--xy-bg-color-floating));
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 68%, var(--xy-bg-floating));
+  color: var(--xy-text-secondary);
   cursor: pointer;
   transition:
     color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -62,20 +62,20 @@
 
 .xy-input-number__increase:hover,
 .xy-input-number__decrease:hover {
-  color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 34%, var(--xy-bg-color-floating));
+  color: var(--xy-brand);
+  background: color-mix(in srgb, var(--xy-brand-soft) 34%, var(--xy-bg-floating));
 }
 
 .xy-input-number__decrease {
   left: 1px;
-  border-right: 1px solid var(--xy-border-color-subtle);
+  border-right: 1px solid var(--xy-border-subtle);
   border-top-left-radius: var(--xy-radius-md);
   border-bottom-left-radius: var(--xy-radius-md);
 }
 
 .xy-input-number__increase {
   right: 1px;
-  border-left: 1px solid var(--xy-border-color-subtle);
+  border-left: 1px solid var(--xy-border-subtle);
   border-top-right-radius: var(--xy-radius-md);
   border-bottom-right-radius: var(--xy-radius-md);
 }
@@ -91,8 +91,8 @@
   top: 1px;
   bottom: auto;
   right: 1px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
-  border-left: 1px solid var(--xy-border-color-subtle);
+  border-bottom: 1px solid var(--xy-border-subtle);
+  border-left: 1px solid var(--xy-border-subtle);
   border-top-right-radius: var(--xy-radius-md);
   border-bottom-right-radius: 0;
 }
@@ -101,7 +101,7 @@
   top: auto;
   right: 1px;
   bottom: 1px;
-  border-left: 1px solid var(--xy-border-color-subtle);
+  border-left: 1px solid var(--xy-border-subtle);
   border-right: 0;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -113,11 +113,11 @@
 .xy-input-number__decrease.is-disabled,
 .xy-input-number.is-disabled .xy-input-number__increase,
 .xy-input-number.is-disabled .xy-input-number__decrease {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   cursor: not-allowed;
 }
 
 .xy-input-number.is-disabled .xy-input-number__increase,
 .xy-input-number.is-disabled .xy-input-number__decrease {
-  background: color-mix(in srgb, var(--xy-surface-sunken) 88%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-sunken) 88%, var(--xy-bg-subtle));
 }

@@ -395,13 +395,13 @@ onMounted(() => {
   display: grid;
   gap: 4px;
   padding: 12px 14px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 84%, white);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color) 96%, white);
+  background: color-mix(in srgb, var(--xy-bg-container) 96%, white);
 }
 
 .demo-tree-permission-summary__value {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 15px;
   line-height: 1.5;
 }
@@ -411,13 +411,13 @@ onMounted(() => {
   gap: 8px;
   min-height: 100%;
   padding: 16px 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 84%, white);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-container) 94%, white);
 }
 
 .demo-tree-permission-panel__title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 15px;
   line-height: 1.6;
 }

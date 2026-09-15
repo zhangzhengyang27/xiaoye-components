@@ -76,18 +76,18 @@ function handleClick(_event: MouseEvent, href?: string) {
   gap: 8px 12px;
   align-items: center;
   padding: 12px 14px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-muted);
 }
 
 .demo-anchor-change__panel-label {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 13px;
 }
 
 .demo-anchor-change__panel-value {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
@@ -102,14 +102,14 @@ function handleClick(_event: MouseEvent, href?: string) {
   height: 280px;
   overflow: auto;
   padding: 8px 16px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border);
   border-radius: var(--xy-radius-md);
 }
 
 .demo-anchor-change__section {
   min-height: 180px;
   padding: 20px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border) 82%, white);
 }
 
 .demo-anchor-change__section.is-last {
@@ -118,12 +118,12 @@ function handleClick(_event: MouseEvent, href?: string) {
 
 .demo-anchor-change__section-title {
   margin: 0 0 10px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-anchor-change__section-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 

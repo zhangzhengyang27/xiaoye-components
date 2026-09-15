@@ -34,15 +34,15 @@
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border));
   background:
     linear-gradient(
       150deg,
-      color-mix(in srgb, var(--xy-color-primary) 14%, white),
+      color-mix(in srgb, var(--xy-brand) 14%, white),
       transparent 44%
     ),
-    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white);
+  color: var(--xy-text-primary);
   font-size: 24px;
   font-weight: 700;
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
@@ -55,26 +55,26 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, white);
+  background: color-mix(in srgb, var(--xy-text-secondary) 88%, white);
   color: white;
   font-size: 11px;
 }
 
 .demo-carousel-indicator.is-active {
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
 }
 
 .demo-carousel-progress-bar {
   width: 120px;
   height: 3px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-border-color) 72%, white);
+  background: color-mix(in srgb, var(--xy-border) 72%, white);
   overflow: hidden;
 }
 
 .demo-carousel-progress-bar__value {
   display: block;
   height: 100%;
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
 }
 </style>

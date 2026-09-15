@@ -33,13 +33,13 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
   min-height: 40px;
   font-weight: 520;
 }
 
 .xy-form-item__required {
-  color: var(--xy-color-danger);
+  color: var(--xy-danger);
   margin-right: 4px;
 }
 
@@ -51,16 +51,16 @@
 .xy-form-item__message {
   margin: 8px 0 0;
   font-size: var(--xy-font-size-sm);
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
   line-height: 1.5;
 }
 
 .xy-form-item.is-error .xy-form-item__message {
-  color: var(--xy-color-danger);
+  color: var(--xy-danger);
 }
 
 .xy-form-item.is-success .xy-form-item__message {
-  color: var(--xy-color-success);
+  color: var(--xy-success);
 }
 
 .xy-form-item.is-disabled {

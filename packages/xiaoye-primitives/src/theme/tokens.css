@@ -1,54 +1,231 @@
+/**
+ * Xy Design Tokens — 系统化设计令牌（Stripe 设计语言）
+ *
+ * 蓝本：design.hagicode.com 收录的 Stripe DESIGN.md（含官方亮/暗双目录）。
+ * 三层架构，命名规则唯一：
+ *   1. 基元层  --xy-{色板}-{阶}        灰 / 紫 / 绿 / 琥珀 / 红 / 蓝 六族色板，主题间共享
+ *   2. 语义层  --xy-{角色}[-{状态}]    文字、背景、边框、品牌、状态、海拔、层级、遮罩
+ *   3. 刻度层  --xy-{刻度}-{档}        字号、字重、行高、间距、圆角、动效时长
+ *
+ * 主题切换协议：[data-theme="dark"] 只覆写语义层的值；基元层与刻度层全局共享。
+ * 文件末尾保留一层 @deprecated 旧命名兼容别名，供存量使用方平滑过渡，新代码禁止引用。
+ */
+
 :root,
 [data-theme="light"] {
-  --xy-color-primary: #5b76fe;
-  --xy-color-primary-hover: #4b65ea;
-  --xy-color-primary-active: #3d53c9;
-  --xy-color-primary-soft: #eef2ff;
-  --xy-color-primary-soft-hover: #dfe7ff;
-  --xy-color-info: #566277;
-  --xy-color-info-hover: #394457;
-  --xy-color-success: #00b473;
-  --xy-color-success-hover: #029660;
-  --xy-color-success-active: #04784f;
-  --xy-color-success-soft: #e9fbf2;
-  --xy-color-success-soft-hover: #d3f7e5;
-  --xy-color-warning: #d98a1f;
-  --xy-color-warning-hover: #ba7413;
-  --xy-color-warning-active: #9a5f0d;
-  --xy-color-warning-soft: #fff6e8;
-  --xy-color-warning-soft-hover: #ffedcc;
-  --xy-color-danger: #e5484d;
-  --xy-color-danger-hover: #c9363b;
-  --xy-color-danger-active: #a82a2f;
-  --xy-color-danger-soft: #fff0f0;
-  --xy-color-danger-soft-hover: #ffdcdc;
-  --xy-text-color: #1c1c1e;
-  --xy-text-color-heading: #1c1c1e;
-  --xy-text-color-secondary: #566277;
-  --xy-text-color-subtle: #77839a;
-  --xy-text-color-muted: #77839a;
-  --xy-text-color-muted-2: #aab4c5;
-  --xy-border-color: #e7ebf2;
-  --xy-border-color-strong: #d6dce8;
-  --xy-border-color-subtle: #f2f4f8;
-  --xy-color-on-fill: #ffffff;
-  --xy-fill-color-light: #f5f7fa;
-  --xy-bg-color: #ffffff;
-  --xy-bg-color-muted: #f8f9fc;
-  --xy-bg-color-subtle: #fbfcfe;
-  --xy-bg-color-elevated: #fdfdff;
-  --xy-bg-color-floating: #ffffff;
-  --xy-bg-color-page: #f7f8fa;
-  --xy-surface-raised: #fdfdff;
-  --xy-surface-sunken: #f8f9fc;
-  --xy-overlay-color: rgba(28, 28, 30, 0.42);
-  --xy-focus-ring-color: rgba(91, 118, 254, 0.14);
+  /* ==================================================================
+   * 1. 基元层 — 色板
+   * ================================================================== */
+
+  /* 中性灰：全族冷调带海军蓝底色，锚点取自 Stripe 官方值
+     (边框 #e5edf5 / 正文 #64748d / 标签 #273951 / 深海军 #0d253d / 标题 #061b31) */
+  --xy-gray-25: #fbfdfe;
+  --xy-gray-50: #f6f9fc;
+  --xy-gray-100: #eef4f9;
+  --xy-gray-200: #e5edf5;
+  --xy-gray-300: #d4dee9;
+  --xy-gray-400: #a3b1c2;
+  --xy-gray-500: #64748d;
+  --xy-gray-600: #45586e;
+  --xy-gray-700: #273951;
+  --xy-gray-800: #1d3248;
+  --xy-gray-900: #0d253d;
+  --xy-gray-950: #061b31;
+
+  /* 品牌紫：Stripe purple scale */
+  --xy-purple-50: #f5f3ff;
+  --xy-purple-100: #ece8ff;
+  --xy-purple-200: #d6d9fc; /* 官方 border-soft */
+  --xy-purple-300: #b9b9f9; /* 官方 purple-light */
+  --xy-purple-400: #918cff;
+  --xy-purple-500: #665efd; /* 官方 purple-mid，暗色主色 */
+  --xy-purple-600: #533afd; /* 官方 stripe purple */
+  --xy-purple-700: #4434d4; /* 官方 hover */
+  --xy-purple-800: #362baa; /* 官方 dashed-border */
+  --xy-purple-900: #2e2b8c; /* 官方 purple-deep */
+  --xy-purple-950: #1c1e54; /* 官方 brand-dark */
+
+  /* 成功绿：Stripe green（#15be53 实色 / #108c3d 文字） */
+  --xy-green-50: #ecfaf1;
+  --xy-green-100: #d3f5e0;
+  --xy-green-200: #a9e9c3;
+  --xy-green-300: #74da9f;
+  --xy-green-400: #3fca77;
+  --xy-green-500: #15be53;
+  --xy-green-600: #108c3d;
+  --xy-green-700: #0c6b2f;
+  --xy-green-800: #094f23;
+
+  /* 警告琥珀：Stripe lemon（#9b6829 官方 lemon-500 / #d4a04a 官方暗色值） */
+  --xy-amber-50: #fdf6e9;
+  --xy-amber-100: #f9e9c9;
+  --xy-amber-200: #f2d49d;
+  --xy-amber-300: #e8bb6c;
+  --xy-amber-400: #d4a04a;
+  --xy-amber-500: #b8862f;
+  --xy-amber-600: #9b6829;
+  --xy-amber-700: #7a5320;
+  --xy-amber-800: #5b3e18;
+
+  /* 危险红：Stripe ruby（#ea2261，官方语义为图标与警示） */
+  --xy-red-50: #fdecf2;
+  --xy-red-100: #fbd3e0;
+  --xy-red-200: #f6a7c5;
+  --xy-red-300: #f176a4;
+  --xy-red-400: #f24b83;
+  --xy-red-500: #ea2261;
+  --xy-red-600: #c81a50;
+  --xy-red-700: #a31340;
+  --xy-red-800: #7d0e31;
+
+  /* 信息蓝：源自官方 Transparent Info 按钮（文字 #2874ad / 基色 #2b91df / 暗色文字 #5ba8d9） */
+  --xy-blue-100: #e3f1fb;
+  --xy-blue-200: #c2e2f7;
+  --xy-blue-300: #94cbf0;
+  --xy-blue-400: #5ba8d9;
+  --xy-blue-500: #2b91df;
+  --xy-blue-600: #2874ad;
+  --xy-blue-700: #1f5a88;
+  --xy-blue-800: #164266;
+
+  /* ==================================================================
+   * 2. 语义层 — 文字（五级亮度 + 反色 + 实色反衬）
+   * ================================================================== */
+  --xy-text-heading: var(--xy-gray-950); /* 标题 */
+  --xy-text-primary: var(--xy-gray-950); /* 默认正文 / 控件值 */
+  --xy-text-secondary: var(--xy-gray-700); /* 表单标签、次级强调 */
+  --xy-text-muted: var(--xy-gray-500); /* 描述、说明、占位 */
+  --xy-text-faint: var(--xy-gray-400); /* 最弱元数据 */
+  --xy-text-disabled: var(--xy-gray-300); /* 禁用态 */
+  --xy-text-on-fill: #ffffff; /* 实色块上的文字（双主题恒白） */
+
+  /* ---- 背景：亮度阶梯 page < subtle < muted < sunken < container ---- */
+  --xy-bg-page: #f3f7fb; /* 页面画布 */
+  --xy-bg-subtle: var(--xy-gray-25); /* 最浅染色面板 */
+  --xy-bg-muted: var(--xy-gray-50); /* 次级面板 */
+  --xy-bg-sunken: var(--xy-gray-100); /* 凹陷区：表头、代码块、井 */
+  --xy-bg-container: #ffffff; /* 卡片、输入框、面板 */
+  --xy-bg-raised: #ffffff; /* 抬升层（亮色靠阴影区分） */
+  --xy-bg-elevated: #ffffff; /* 弹窗、抽屉 */
+  --xy-bg-floating: #ffffff; /* 浮层 popper */
+
+  /* ---- 边框 ---- */
+  --xy-border: var(--xy-gray-200);
+  --xy-border-strong: var(--xy-gray-300);
+  --xy-border-subtle: var(--xy-gray-100);
+
+  /* ---- 填充 ---- */
+  --xy-fill-light: var(--xy-gray-50); /* 控件浅填充 */
+
+  /* ---- 品牌色 ---- */
+  --xy-brand: var(--xy-purple-600);
+  --xy-brand-hover: var(--xy-purple-700);
+  --xy-brand-active: var(--xy-purple-900);
+  --xy-brand-soft: rgba(83, 58, 253, 0.07);
+  --xy-brand-soft-hover: rgba(83, 58, 253, 0.12);
+  --xy-brand-border: var(--xy-purple-300);
+  --xy-brand-contrast: #ffffff;
+
+  /* ---- 状态色：{base, hover, active, soft, soft-hover, text} 六件套 ---- */
+  --xy-success: var(--xy-green-500);
+  --xy-success-hover: var(--xy-green-600);
+  --xy-success-active: var(--xy-green-700);
+  --xy-success-soft: rgba(21, 190, 83, 0.12);
+  --xy-success-soft-hover: rgba(21, 190, 83, 0.2);
+  --xy-success-text: var(--xy-green-600);
+
+  --xy-warning: var(--xy-amber-500);
+  --xy-warning-hover: var(--xy-amber-600);
+  --xy-warning-active: var(--xy-amber-700);
+  --xy-warning-soft: rgba(155, 104, 41, 0.12);
+  --xy-warning-soft-hover: rgba(155, 104, 41, 0.2);
+  --xy-warning-text: var(--xy-amber-700);
+
+  --xy-danger: var(--xy-red-500);
+  --xy-danger-hover: var(--xy-red-600);
+  --xy-danger-active: var(--xy-red-700);
+  --xy-danger-soft: rgba(234, 34, 97, 0.12);
+  --xy-danger-soft-hover: rgba(234, 34, 97, 0.2);
+  --xy-danger-text: var(--xy-red-600);
+
+  --xy-info: var(--xy-blue-500);
+  --xy-info-hover: var(--xy-blue-600);
+  --xy-info-active: var(--xy-blue-700);
+  --xy-info-soft: rgba(43, 145, 223, 0.12);
+  --xy-info-soft-hover: rgba(43, 145, 223, 0.2);
+  --xy-info-text: var(--xy-blue-600);
+
+  /* ---- 焦点与遮罩 ---- */
+  --xy-focus-ring-color: rgba(83, 58, 253, 0.14);
+  --xy-focus-border: var(--xy-brand);
+  --xy-overlay-color: rgba(6, 27, 49, 0.5);
+
+  /* ---- 海拔：Stripe 五级，0 最弱、4 最强 ----
+     L0 发丝级 · L1 氛围（卡片静置）· L2 标准（面板/悬浮）
+     L3 蓝调双层（下拉、弹出）· L4 深层（模态） */
+  --xy-shadow-0: 0 1px 2px rgba(6, 27, 49, 0.06);
+  --xy-shadow-1: 0 3px 6px rgba(23, 23, 23, 0.06);
+  --xy-shadow-2: 0 15px 35px rgba(23, 23, 23, 0.08);
+  --xy-shadow-3:
+    0 30px 45px -30px rgba(50, 50, 93, 0.25),
+    0 18px 36px -18px rgba(0, 0, 0, 0.1);
+  --xy-shadow-4:
+    0 14px 21px -14px rgba(3, 3, 39, 0.25),
+    0 8px 17px -8px rgba(0, 0, 0, 0.1);
+
+  /* ---- 层级：单调递增，运行时浮层从 2000 起配 ---- */
+  --xy-z-normal: 1;
+  --xy-z-raised: 10;
+  --xy-z-sticky: 100;
+  --xy-z-dropdown: 1000;
+  --xy-z-modal: 1100;
+  --xy-z-toast: 1200;
+  --xy-z-tooltip: 1300;
+  --xy-z-max: 1400;
+
+  /* ==================================================================
+   * 3. 刻度层
+   * ================================================================== */
+
+  /* 字体族 */
+  --xy-font-family-base:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Text",
+    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Source Han Sans SC", Arial, sans-serif;
+  --xy-font-family-code:
+    "SF Mono", "Source Code Pro", SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  /* 字号：九档无坍缩（Stripe UI 刻度） */
+  --xy-font-size-2xs: 11px;
+  --xy-font-size-xs: 12px;
+  --xy-font-size-sm: 13px;
+  --xy-font-size-md: 14px;
+  --xy-font-size-lg: 16px;
+  --xy-font-size-xl: 20px;
+  --xy-font-size-2xl: 26px;
+  --xy-font-size-3xl: 32px;
+  --xy-font-size-4xl: 48px;
+
+  /* 字重：Stripe 双轨制 —— 展示 300 / 控件 400 */
+  --xy-font-weight-light: 300;
+  --xy-font-weight-regular: 400;
+  --xy-font-weight-medium: 500;
+  --xy-font-weight-semibold: 600;
+
+  /* 行高 */
+  --xy-line-height-tight: 1.2;
+  --xy-line-height: 1.5;
+
+  /* 圆角：Stripe 刻度 2 / 3 / 4(标准主力) / 6(大交互) / 8(重点) */
   --xy-radius-xs: 2px;
-  --xy-radius-sm: 2px;
-  --xy-radius-md: 2px;
-  --xy-radius-lg: 4px;
-  --xy-radius-xl: 6px;
+  --xy-radius-sm: 3px;
+  --xy-radius-md: 4px;
+  --xy-radius-lg: 6px;
+  --xy-radius-xl: 8px;
   --xy-radius-pill: 999px;
+
+  /* 间距：8px 基准网格 */
   --xy-space-1: 4px;
   --xy-space-2: 8px;
   --xy-space-3: 12px;
@@ -56,109 +233,169 @@
   --xy-space-5: 20px;
   --xy-space-6: 24px;
   --xy-space-7: 32px;
-  --xy-shadow-xs: 0 1px 2px rgba(28, 28, 30, 0.04);
-  --xy-shadow-sm: 0 6px 18px rgba(28, 28, 30, 0.08);
-  --xy-shadow-md: 0 12px 30px rgba(28, 28, 30, 0.1);
-  --xy-shadow-lg: 0 20px 48px rgba(28, 28, 30, 0.14);
-  --xy-shadow-card: 0 6px 18px rgba(28, 28, 30, 0.08);
-  --xy-shadow-popup: 0 12px 30px rgba(28, 28, 30, 0.1);
-  --xy-shadow-modal: 0 20px 48px rgba(28, 28, 30, 0.14);
-  --xy-font-size-xs: 12px;
-  --xy-font-size-sm: 12px;
-  --xy-font-size-md: 14px;
-  --xy-font-size-lg: 16px;
-  --xy-font-size-xl: 20px;
-  --xy-font-size-2xl: 28px;
-  --xy-line-height: 1.5;
-  /* Transition */
-  --xy-transition-duration-fast: 0.2s;
-  --xy-transition-duration-normal: 0.3s;
-  --xy-transition-duration-slow: 0.5s;
+
+  /* 动效 */
+  --xy-transition-duration-fast: 0.15s;
+  --xy-transition-duration-normal: 0.25s;
+  --xy-transition-duration-slow: 0.4s;
   --xy-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
   --xy-transition-timing-in: cubic-bezier(0.4, 0, 1, 1);
   --xy-transition-timing-out: cubic-bezier(0, 0, 0.2, 1);
 
-  --xy-mix-light: white;
-
-  --xy-z-dropdown: 2000;
-  --xy-z-tooltip: 1100;
-  --xy-z-modal: 1200;
+  /* color-mix 提亮基色（暗色下切到暗底实现"减淡"） */
+  --xy-mix-light: #ffffff;
 }
 
+/* ====================================================================
+ * 暗色主题 — 语义层整体覆写（暗面锚点取自 Stripe 官方暗色目录：
+ * 页面底 #0e0f2e / 主色提亮 #665efd / 标题 #e8ecf0 / 正文 #8a95a8 /
+ * 边框 rgba(255,255,255,0.1) / 成功文字 #4cdf80 / 柠檬 #d4a04a）
+ * ==================================================================== */
 [data-theme="dark"] {
-  /* 品牌 */
-  --xy-color-primary: #8098ff;
-  --xy-color-primary-hover: #5b76fe;
-  --xy-color-primary-active: #4b65ea;
-  --xy-color-primary-soft: rgba(91, 118, 254, 0.15);
-  --xy-color-primary-soft-hover: rgba(91, 118, 254, 0.22);
-
-  /* 信息 */
-  --xy-color-info: #aab4c5;
-  --xy-color-info-hover: #77839a;
-
-  /* 成功 */
-  --xy-color-success: #39c788;
-  --xy-color-success-hover: #00b473;
-  --xy-color-success-active: #029660;
-  --xy-color-success-soft: rgba(0, 180, 115, 0.15);
-  --xy-color-success-soft-hover: rgba(0, 180, 115, 0.22);
-
-  /* 警告 */
-  --xy-color-warning: #f3a63d;
-  --xy-color-warning-hover: #d98a1f;
-  --xy-color-warning-active: #ba7413;
-  --xy-color-warning-soft: rgba(217, 138, 31, 0.15);
-  --xy-color-warning-soft-hover: rgba(217, 138, 31, 0.22);
-
-  /* 危险 */
-  --xy-color-danger: #f26363;
-  --xy-color-danger-hover: #e5484d;
-  --xy-color-danger-active: #c9363b;
-  --xy-color-danger-soft: rgba(229, 72, 77, 0.15);
-  --xy-color-danger-soft-hover: rgba(229, 72, 77, 0.22);
-
   /* 文字 */
-  --xy-color-on-fill: #ffffff;
-  --xy-text-color: #f2f4f8;
-  --xy-text-color-heading: #ffffff;
-  --xy-text-color-secondary: #aab4c5;
-  --xy-text-color-subtle: #77839a;
-  --xy-text-color-muted: #77839a;
-  --xy-text-color-muted-2: #566277;
+  --xy-text-heading: #f2f5fa;
+  --xy-text-primary: #e8ecf0;
+  --xy-text-secondary: #b6c0cf;
+  --xy-text-muted: #8a95a8;
+  --xy-text-faint: #66718c;
+  --xy-text-disabled: rgba(232, 236, 240, 0.3);
+  --xy-text-on-fill: #ffffff;
 
-  /* 边框 */
-  --xy-border-color: #394457;
-  --xy-border-color-strong: #566277;
-  --xy-border-color-subtle: #252d3a;
+  /* 背景：靛黑亮度阶梯 */
+  --xy-bg-page: #0e0f2e;
+  --xy-bg-subtle: #131435;
+  --xy-bg-muted: #171939;
+  --xy-bg-sunken: #0a0b24;
+  --xy-bg-container: #161839;
+  --xy-bg-raised: #1e2049;
+  --xy-bg-elevated: #1e2049;
+  --xy-bg-floating: #1a1c40;
 
-  /* 背景 */
-  --xy-bg-color: #1c1c1e;
-  --xy-bg-color-muted: #252d3a;
-  --xy-bg-color-subtle: #1e2433;
-  --xy-bg-color-elevated: #2a3347;
-  --xy-bg-color-floating: #252d3a;
-  --xy-bg-color-page: #151922;
-  --xy-fill-color-light: #252d3a;
+  /* 边框：白色透明度阶梯 */
+  --xy-border: rgba(255, 255, 255, 0.1);
+  --xy-border-strong: rgba(255, 255, 255, 0.18);
+  --xy-border-subtle: rgba(255, 255, 255, 0.06);
 
-  /* 表面 */
-  --xy-surface-raised: #2a3347;
-  --xy-surface-sunken: #151922;
+  /* 填充 */
+  --xy-fill-light: rgba(255, 255, 255, 0.06);
 
-  /* overlay & focus */
-  --xy-overlay-color: rgba(0, 0, 0, 0.6);
-  --xy-focus-ring-color: rgba(91, 118, 254, 0.32);
+  /* 品牌：官方暗色值 */
+  --xy-brand: var(--xy-purple-500);
+  --xy-brand-hover: #7a73ff;
+  --xy-brand-active: var(--xy-purple-600);
+  --xy-brand-soft: rgba(102, 94, 253, 0.15);
+  --xy-brand-soft-hover: rgba(102, 94, 253, 0.22);
+  --xy-brand-border: rgba(185, 185, 249, 0.3);
+  --xy-brand-contrast: #ffffff;
 
-  /* 阴影 */
-  --xy-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --xy-shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.32);
-  --xy-shadow-md: 0 12px 30px rgba(0, 0, 0, 0.4);
-  --xy-shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.48);
-  --xy-shadow-card: 0 6px 18px rgba(0, 0, 0, 0.32);
-  --xy-shadow-popup: 0 12px 30px rgba(0, 0, 0, 0.4);
-  --xy-shadow-modal: 0 20px 48px rgba(0, 0, 0, 0.48);
+  /* 状态：基色取亮阶，soft 用品牌色 alpha（官方暗色模式） */
+  --xy-success: #2fd772;
+  --xy-success-hover: #4cdf80;
+  --xy-success-active: var(--xy-green-500);
+  --xy-success-soft: rgba(21, 190, 83, 0.16);
+  --xy-success-soft-hover: rgba(21, 190, 83, 0.24);
+  --xy-success-text: #4cdf80;
 
-  --xy-mix-light: var(--xy-bg-color);
+  --xy-warning: var(--xy-amber-400);
+  --xy-warning-hover: #e0b264;
+  --xy-warning-active: var(--xy-amber-500);
+  --xy-warning-soft: rgba(212, 160, 74, 0.16);
+  --xy-warning-soft-hover: rgba(212, 160, 74, 0.24);
+  --xy-warning-text: #e8bc72;
 
-  /* 圆角、间距、字号、行高、z-index — 暗色下不变，继承 :root */
+  --xy-danger: var(--xy-red-400);
+  --xy-danger-hover: #f6769f;
+  --xy-danger-active: var(--xy-red-500);
+  --xy-danger-soft: rgba(234, 34, 97, 0.16);
+  --xy-danger-soft-hover: rgba(234, 34, 97, 0.24);
+  --xy-danger-text: #f78bb0;
+
+  --xy-info: var(--xy-blue-400);
+  --xy-info-hover: #7fbde5;
+  --xy-info-active: var(--xy-blue-500);
+  --xy-info-soft: rgba(91, 168, 217, 0.16);
+  --xy-info-soft-hover: rgba(91, 168, 217, 0.24);
+  --xy-info-text: #8cc4ea;
+
+  /* 焦点与遮罩 */
+  --xy-focus-ring-color: rgba(102, 94, 253, 0.4);
+  --xy-focus-border: var(--xy-brand);
+  --xy-overlay-color: rgba(2, 3, 15, 0.65);
+
+  /* 海拔：暗色下阴影转黑色主导（官方暗色 shadow 值） */
+  --xy-shadow-0: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --xy-shadow-1: 0 3px 6px rgba(0, 0, 0, 0.3);
+  --xy-shadow-2: 0 15px 35px rgba(0, 0, 0, 0.35);
+  --xy-shadow-3:
+    0 30px 45px -30px rgba(0, 0, 0, 0.5),
+    0 18px 36px -18px rgba(0, 0, 0, 0.4);
+  --xy-shadow-4:
+    0 14px 21px -14px rgba(0, 0, 0, 0.55),
+    0 8px 17px -8px rgba(0, 0, 0, 0.45);
+
+  --xy-mix-light: var(--xy-bg-container);
+
+  /* 圆角、间距、字号、行高、字重、z-index —— 与主题无关，继承 :root */
+}
+
+/* ====================================================================
+ * @deprecated 旧命名兼容层
+ * 供存量使用方（自定义主题、文档示例）平滑迁移，映射到新语义层。
+ * 计划在下个 major 版本移除；新代码一律使用上方规范命名。
+ * ==================================================================== */
+:root,
+[data-theme="light"] {
+  /* 品牌 / 状态 */
+  --xy-color-primary: var(--xy-brand);
+  --xy-color-primary-hover: var(--xy-brand-hover);
+  --xy-color-primary-active: var(--xy-brand-active);
+  --xy-color-primary-soft: var(--xy-brand-soft);
+  --xy-color-primary-soft-hover: var(--xy-brand-soft-hover);
+  --xy-color-info: var(--xy-info);
+  --xy-color-info-hover: var(--xy-info-hover);
+  --xy-color-success: var(--xy-success);
+  --xy-color-success-hover: var(--xy-success-hover);
+  --xy-color-success-active: var(--xy-success-active);
+  --xy-color-success-soft: var(--xy-success-soft);
+  --xy-color-success-soft-hover: var(--xy-success-soft-hover);
+  --xy-color-warning: var(--xy-warning);
+  --xy-color-warning-hover: var(--xy-warning-hover);
+  --xy-color-warning-active: var(--xy-warning-active);
+  --xy-color-warning-soft: var(--xy-warning-soft);
+  --xy-color-warning-soft-hover: var(--xy-warning-soft-hover);
+  --xy-color-danger: var(--xy-danger);
+  --xy-color-danger-hover: var(--xy-danger-hover);
+  --xy-color-danger-active: var(--xy-danger-active);
+  --xy-color-danger-soft: var(--xy-danger-soft);
+  --xy-color-danger-soft-hover: var(--xy-danger-soft-hover);
+
+  /* 文字 / 边框 / 背景 / 表面 */
+  --xy-text-color: var(--xy-text-primary);
+  --xy-text-color-heading: var(--xy-text-heading);
+  --xy-text-color-secondary: var(--xy-text-secondary);
+  --xy-text-color-subtle: var(--xy-text-muted);
+  --xy-text-color-muted: var(--xy-text-muted);
+  --xy-text-color-muted-2: var(--xy-text-faint);
+  --xy-border-color: var(--xy-border);
+  --xy-border-color-strong: var(--xy-border-strong);
+  --xy-border-color-subtle: var(--xy-border-subtle);
+  --xy-color-on-fill: var(--xy-text-on-fill);
+  --xy-fill-color-light: var(--xy-fill-light);
+  --xy-bg-color: var(--xy-bg-container);
+  --xy-bg-color-page: var(--xy-bg-page);
+  --xy-bg-color-muted: var(--xy-bg-muted);
+  --xy-bg-color-subtle: var(--xy-bg-subtle);
+  --xy-bg-color-elevated: var(--xy-bg-elevated);
+  --xy-bg-color-floating: var(--xy-bg-floating);
+  --xy-surface-raised: var(--xy-bg-raised);
+  --xy-surface-sunken: var(--xy-bg-sunken);
+
+  /* 海拔别名（旧七档 → 新五级） */
+  --xy-shadow-xs: var(--xy-shadow-0);
+  --xy-shadow-sm: var(--xy-shadow-1);
+  --xy-shadow-md: var(--xy-shadow-2);
+  --xy-shadow-lg: var(--xy-shadow-3);
+  --xy-shadow-card: var(--xy-shadow-1);
+  --xy-shadow-popup: var(--xy-shadow-2);
+  --xy-shadow-modal: var(--xy-shadow-3);
 }

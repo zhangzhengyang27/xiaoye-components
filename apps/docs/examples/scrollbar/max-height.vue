@@ -25,16 +25,16 @@
   gap: 6px;
   padding: 14px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-color-primary) 8%, white);
+  background: color-mix(in srgb, var(--xy-brand) 8%, white);
 }
 
 .demo-scroll-note__title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-weight: 600;
 }
 
 .demo-scroll-note__caption {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 </style>

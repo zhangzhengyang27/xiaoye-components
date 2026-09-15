@@ -63,8 +63,8 @@ async function toggleCardWidth() {
   min-height: 42px;
   padding: 0 14px;
   border-radius: 999px;
-  border: 1px dashed color-mix(in srgb, var(--xy-color-primary) 28%, white);
-  color: var(--xy-text-color-secondary);
+  border: 1px dashed color-mix(in srgb, var(--xy-brand) 28%, white);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
@@ -84,7 +84,7 @@ async function toggleCardWidth() {
 
 .demo-affix-teleported__card-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 
@@ -97,7 +97,7 @@ async function toggleCardWidth() {
 .demo-affix-teleported__row {
   padding: 14px 16px;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 74%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-muted) 74%, white);
+  color: var(--xy-text-secondary);
 }
 </style>

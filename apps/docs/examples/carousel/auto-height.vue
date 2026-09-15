@@ -18,11 +18,11 @@
   gap: 8px;
   padding: 20px;
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
+  background: color-mix(in srgb, var(--xy-bg-muted) 82%, white);
 }
 
 .demo-carousel-auto__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

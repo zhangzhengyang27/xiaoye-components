@@ -34,19 +34,19 @@ function handleCommand(command: string | number | Record<string, unknown> | unde
 
 <style scoped>
 :global(.dropdown-admin-surface) {
-  --xy-dropdown-bg: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
+  --xy-dropdown-bg: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle));
   --xy-dropdown-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 80%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 80%,
+    var(--xy-border)
   );
   --xy-dropdown-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 12px 28px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 12px 28px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
   --xy-dropdown-item-hover-bg: color-mix(
     in srgb,
-    var(--xy-color-primary) 7%,
-    var(--xy-bg-color-floating)
+    var(--xy-brand) 7%,
+    var(--xy-bg-floating)
   );
 }
 </style>

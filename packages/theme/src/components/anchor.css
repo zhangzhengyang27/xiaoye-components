@@ -1,11 +1,11 @@
 .xy-anchor {
   --xy-anchor-marker-size: 14px;
   --xy-anchor-marker-thickness: 2px;
-  --xy-anchor-brand-color: var(--xy-color-primary);
-  --xy-anchor-brand-color-hover: var(--xy-color-primary-hover);
-  --xy-anchor-text-muted: var(--xy-text-color-subtle);
-  --xy-anchor-text-strong: var(--xy-text-color-heading);
-  --xy-anchor-divider-color: var(--xy-border-color-subtle);
+  --xy-anchor-brand-color: var(--xy-brand);
+  --xy-anchor-brand-color-hover: var(--xy-brand-hover);
+  --xy-anchor-text-muted: var(--xy-text-muted);
+  --xy-anchor-text-strong: var(--xy-text-heading);
+  --xy-anchor-divider-color: var(--xy-border-subtle);
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -110,21 +110,21 @@
 }
 
 .xy-anchor__link:hover {
-  background: var(--xy-bg-color-subtle);
+  background: var(--xy-bg-subtle);
   color: var(--xy-anchor-text-strong) !important;
-  border-color: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+  border-color: color-mix(in srgb, var(--xy-brand) 10%, var(--xy-border-subtle));
 }
 
 .xy-anchor__link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-anchor__link.is-active {
   color: var(--xy-anchor-brand-color) !important;
-  background: var(--xy-color-primary-soft);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+  background: var(--xy-brand-soft);
+  border-color: color-mix(in srgb, var(--xy-brand) 16%, var(--xy-border-subtle));
   font-weight: 560;
 }
 

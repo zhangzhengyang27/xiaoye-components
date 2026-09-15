@@ -12,7 +12,7 @@ function toggleLoading() {
   <xy-config-provider
     :loading="{
       text: '使用全局 Loading 默认项',
-      background: 'color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white)',
+      background: 'color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white)',
       delay: 120
     }"
   >

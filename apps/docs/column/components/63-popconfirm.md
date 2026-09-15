@@ -289,7 +289,7 @@ const isActionPending = computed(() => confirming.value || cancelling.value)
 | disabled | `boolean` | `false` | 是否禁用 |
 | effect | `'dark' \| 'light'` | `'light'` | 主题风格 |
 | icon | `string` | `'mdi:help-circle-outline'` | 前置图标 |
-| icon-color | `string` | `'var(--xy-color-warning)'` | 图标颜色 |
+| icon-color | `string` | `'var(--xy-warning)'` | 图标颜色 |
 | hide-icon | `boolean` | `false` | 是否隐藏图标 |
 | confirm-button-text | `string` | — | 确认按钮文案（回退到 locale） |
 | cancel-button-text | `string` | — | 取消按钮文案（回退到 locale） |
@@ -372,10 +372,10 @@ const isActionPending = computed(() => confirming.value || cancelling.value)
 
 /* Dark 主题覆盖 */
 .xy-popconfirm__panel--dark {
-  --xy-popconfirm-bg: color-mix(in srgb, var(--xy-bg-color-floating) 78%, var(--xy-text-color-heading));
-  --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
-  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-color-floating) 88%, var(--xy-mix-light));
-  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-color-floating) 80%, var(--xy-mix-light));
+  --xy-popconfirm-bg: color-mix(in srgb, var(--xy-bg-floating) 78%, var(--xy-text-heading));
+  --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-floating) 12%, transparent);
+  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-floating) 88%, var(--xy-mix-light));
+  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-floating) 80%, var(--xy-mix-light));
 }
 
 /* Pending 状态 */
@@ -396,7 +396,7 @@ const isActionPending = computed(() => confirming.value || cancelling.value)
 /* 实例级覆盖 — 通过 popperClass */
 .my-confirm.xy-popconfirm__panel {
   --xy-popconfirm-bg: #fef3f2;
-  --xy-popconfirm-actions-border: var(--xy-color-danger-light-5);
+  --xy-popconfirm-actions-border: var(--xy-danger-light-5);
 }
 ```
 

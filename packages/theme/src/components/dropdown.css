@@ -11,9 +11,9 @@
 .xy-dropdown__default-trigger {
   min-height: 36px;
   padding: 0 14px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 92%, var(--xy-border));
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
 }
 
 .xy-dropdown__panel {
@@ -21,22 +21,22 @@
     --xy-dropdown-panel-bg,
     var(
       --xy-popper-bg,
-      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle)))
+      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle)))
     )
   );
   --xy-dropdown-panel-border-resolved: var(
     --xy-dropdown-panel-border,
     var(
       --xy-popper-border-color,
-      color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color))
+      color-mix(in srgb, var(--xy-border-subtle) 92%, var(--xy-border))
     )
   );
   --xy-dropdown-panel-shadow-resolved: var(
     --xy-dropdown-panel-shadow,
     var(
       --xy-popper-shadow,
-      0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-      0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent)
+      0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+      0 2px 8px color-mix(in srgb, var(--xy-text-heading) 7%, transparent)
     )
   );
   position: absolute;
@@ -128,7 +128,7 @@
   border: 0;
   border-radius: var(--xy-radius-md);
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   cursor: pointer;
   text-align: left;
 }
@@ -148,32 +148,32 @@
 
 .xy-dropdown__item-description,
 .xy-dropdown__item small {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.5;
 }
 
 .xy-dropdown__item.is-active,
 .xy-dropdown__item:hover {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-dropdown-panel-bg-resolved));
+  background: color-mix(in srgb, var(--xy-bg-subtle) 82%, var(--xy-dropdown-panel-bg-resolved));
 }
 
 .xy-dropdown__item:focus-visible,
 .xy-dropdown__default-trigger:focus-visible,
 .xy-dropdown__caret-button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-dropdown__item-icon,
 .xy-dropdown__item-icon svg {
   display: inline-flex;
   align-items: center;
-  color: color-mix(in srgb, var(--xy-text-color-secondary) 92%, var(--xy-mix-light));
+  color: color-mix(in srgb, var(--xy-text-secondary) 92%, var(--xy-mix-light));
 }
 
 .xy-dropdown__item.is-danger {
-  color: var(--xy-color-danger);
+  color: var(--xy-danger);
 }
 
 .xy-dropdown__item.is-disabled {

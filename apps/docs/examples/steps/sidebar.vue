@@ -98,13 +98,13 @@ const activities = [
 }
 
 .demo-steps-sidebar__description-title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 13px;
 }
 
 .demo-steps-sidebar__description-text {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.7;
 }

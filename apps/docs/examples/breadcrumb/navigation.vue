@@ -43,7 +43,7 @@
 
 .breadcrumb-navigation-grid__description {
   margin: 14px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }

@@ -375,11 +375,11 @@ function replaceHash(href: string) {
 | --- | --- | --- |
 | `--xy-anchor-marker-size` | Marker 高度（纵向）/宽度未限定 | `14px` |
 | `--xy-anchor-marker-thickness` | Marker 粗细 | `2px` |
-| `--xy-anchor-brand-color` | 品牌色/激活色 | `var(--xy-color-primary)` |
-| `--xy-anchor-brand-color-hover` | 品牌色 hover 态 | `var(--xy-color-primary-hover)` |
-| `--xy-anchor-text-muted` | 默认文字色 | `var(--xy-text-color-subtle)` |
-| `--xy-anchor-text-strong` | hover 文字色 | `var(--xy-text-color-heading)` |
-| `--xy-anchor-divider-color` | 分割线颜色 | `var(--xy-border-color-subtle)` |
+| `--xy-anchor-brand-color` | 品牌色/激活色 | `var(--xy-brand)` |
+| `--xy-anchor-brand-color-hover` | 品牌色 hover 态 | `var(--xy-brand-hover)` |
+| `--xy-anchor-text-muted` | 默认文字色 | `var(--xy-text-muted)` |
+| `--xy-anchor-text-strong` | hover 文字色 | `var(--xy-text-heading)` |
+| `--xy-anchor-divider-color` | 分割线颜色 | `var(--xy-border-subtle)` |
 
 ### 主题定制方式
 

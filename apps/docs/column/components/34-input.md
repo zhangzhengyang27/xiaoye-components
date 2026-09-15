@@ -308,7 +308,7 @@ flowchart LR
 
 ```css
 :root {
-  --xy-input-focus-border-color: var(--xy-color-primary);
+  --xy-input-focus-border-color: var(--xy-brand);
   --xy-input-height: 36px;
 }
 ```

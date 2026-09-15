@@ -18,21 +18,21 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 22px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border));
   border-radius: 16px;
   background:
     linear-gradient(
       150deg,
-      color-mix(in srgb, var(--xy-color-primary) 14%, white),
+      color-mix(in srgb, var(--xy-brand) 14%, white),
       transparent 46%
     ),
-    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white);
+  color: var(--xy-text-primary);
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 
 .demo-carousel-drag__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

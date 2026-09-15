@@ -12,7 +12,7 @@
 
 .xy-column-setting-panel__description {
   margin: 8px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-column-setting-panel__actions {

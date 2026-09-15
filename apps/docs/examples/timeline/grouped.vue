@@ -110,9 +110,9 @@ const groups = [
 
 .demo-timeline-grouped__toolbar {
   padding: 12px 14px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-muted);
 }
 
 .demo-timeline-grouped__extra {
@@ -120,21 +120,21 @@ const groups = [
   align-items: center;
   padding: 4px 8px;
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand) 10%, white);
+  color: var(--xy-brand);
   font-size: 12px;
 }
 
 .demo-timeline-grouped__tip {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
 
 .demo-timeline-grouped__tip-value {
   margin-inline: 4px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 @media (max-width: 768px) {

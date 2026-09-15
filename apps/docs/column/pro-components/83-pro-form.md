@@ -262,11 +262,11 @@ graph TD
 
 | 变量 | 用途 |
 | --- | --- |
-| `--xy-border-color` | 边框色 |
-| `--xy-bg-color` | 背景色 |
+| `--xy-border` | 边框色 |
+| `--xy-bg-container` | 背景色 |
 | `--xy-mix-light` | 混色调节 |
 | `--xy-radius-lg` | 大圆角 |
-| `--xy-text-color-secondary` | 次要文字色 |
+| `--xy-text-secondary` | 次要文字色 |
 
 ## 小结
 

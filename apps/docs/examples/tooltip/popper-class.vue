@@ -11,15 +11,15 @@
 
 <style scoped>
 :global(.tooltip-admin-surface) {
-  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-color-floating) 94%, var(--xy-bg-color-subtle));
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-floating) 94%, var(--xy-bg-subtle));
   --xy-tooltip-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 82%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 82%,
+    var(--xy-border)
   );
-  --xy-tooltip-text: var(--xy-text-color-secondary);
+  --xy-tooltip-text: var(--xy-text-secondary);
   --xy-tooltip-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-    0 10px 24px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+    0 10px 24px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
 }
 </style>

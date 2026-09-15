@@ -263,8 +263,8 @@ const stopList = computed(() => {
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `--xy-slider-runway-bg` | `var(--xy-fill-color-light)` | 轨道背景色 |
-| `--xy-slider-main-bg-color` | `var(--xy-color-primary)` | 已选区间颜色 |
+| `--xy-slider-runway-bg` | `var(--xy-fill-light)` | 轨道背景色 |
+| `--xy-slider-main-bg-color` | `var(--xy-brand)` | 已选区间颜色 |
 | `--xy-slider-height` | `6px` | 轨道高度 |
 | `--xy-slider-button-size` | `20px` | 滑块按钮直径 |
 | `--xy-slider-button-wrapper-size` | `36px` | 滑块外层容器尺寸 |

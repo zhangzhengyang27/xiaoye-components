@@ -441,9 +441,9 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .xy-project-icon-gallery {
-  --xy-gallery-panel-border: var(--xy-border-color-subtle);
-  --xy-gallery-panel-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, white);
-  --xy-gallery-panel-bg-hover: color-mix(in srgb, var(--xy-color-primary-soft) 52%, white);
+  --xy-gallery-panel-border: var(--xy-border-subtle);
+  --xy-gallery-panel-bg: color-mix(in srgb, var(--xy-bg-subtle) 84%, white);
+  --xy-gallery-panel-bg-hover: color-mix(in srgb, var(--xy-brand-soft) 52%, white);
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -452,10 +452,10 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__tip {
   padding: 18px 20px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 16%, var(--xy-border-subtle));
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 42%, white);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-brand-soft) 42%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .xy-project-icon-gallery__tip strong {
@@ -466,7 +466,7 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__tip p {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.75;
 }
 
@@ -489,7 +489,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 20px;
   background: var(--xy-gallery-panel-bg);
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .xy-project-icon-gallery__filters-head {
@@ -509,12 +509,12 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__filters-head strong {
   font-size: 18px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .xy-project-icon-gallery__filters-head p {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -526,21 +526,21 @@ onBeforeUnmount(() => {
   padding: 10px 14px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 94%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 94%, white);
+  color: var(--xy-text-secondary);
 }
 
 .xy-project-icon-gallery__active-category strong {
   font-size: 14px;
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
 }
 
 .xy-project-icon-gallery__clear-btn {
   padding: 10px 14px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: var(--xy-surface-raised);
-  color: var(--xy-text-color-secondary);
+  background: var(--xy-bg-raised);
+  color: var(--xy-text-secondary);
   font: inherit;
   cursor: pointer;
   transition:
@@ -550,9 +550,9 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__clear-btn:hover {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color));
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  border-color: color-mix(in srgb, var(--xy-brand) 16%, var(--xy-border));
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
 }
 
 .xy-project-icon-gallery__search {
@@ -564,7 +564,7 @@ onBeforeUnmount(() => {
   padding: 0 14px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 16px;
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
 }
 
 .xy-project-icon-gallery__search input {
@@ -573,7 +573,7 @@ onBeforeUnmount(() => {
   border: 0;
   outline: none;
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font: inherit;
 }
 
@@ -581,7 +581,7 @@ onBeforeUnmount(() => {
   display: inline-flex;
   gap: 10px;
   align-items: center;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-project-icon-gallery__pager select {
@@ -589,8 +589,8 @@ onBeforeUnmount(() => {
   padding: 10px 12px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 12px;
-  background: var(--xy-surface-raised);
-  color: var(--xy-text-color);
+  background: var(--xy-bg-raised);
+  color: var(--xy-text-primary);
   font: inherit;
 }
 
@@ -638,7 +638,7 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__chip-hint {
   margin: 10px 0 0;
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   font-size: 12px;
 }
 
@@ -649,8 +649,8 @@ onBeforeUnmount(() => {
   padding: 8px 12px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: var(--xy-surface-raised);
-  color: var(--xy-text-color-secondary);
+  background: var(--xy-bg-raised);
+  color: var(--xy-text-secondary);
   font: inherit;
   cursor: pointer;
   transition:
@@ -669,9 +669,9 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__chip.is-active {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  border-color: color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border));
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
 }
 
 .xy-project-icon-gallery__switch {
@@ -679,14 +679,14 @@ onBeforeUnmount(() => {
   padding: 4px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 94%, white);
 }
 
 .xy-project-icon-gallery__switch-btn {
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font: inherit;
   white-space: nowrap;
   cursor: pointer;
@@ -697,14 +697,14 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__switch-btn.is-active {
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
 }
 
 .xy-project-icon-gallery__meta,
 .xy-project-icon-gallery__empty {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 14px;
 }
 
@@ -727,8 +727,8 @@ onBeforeUnmount(() => {
   padding: 10px 14px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 12px;
-  background: var(--xy-surface-raised);
-  color: var(--xy-text-color);
+  background: var(--xy-bg-raised);
+  color: var(--xy-text-primary);
   font: inherit;
   cursor: pointer;
 }
@@ -743,8 +743,8 @@ onBeforeUnmount(() => {
   padding: 14px 16px;
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 90%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 90%, white);
+  color: var(--xy-text-secondary);
 }
 
 .xy-project-icon-gallery__state {
@@ -756,9 +756,9 @@ onBeforeUnmount(() => {
 
 .xy-project-icon-gallery__state--error,
 .xy-project-icon-gallery__hint--error {
-  border-color: color-mix(in srgb, var(--xy-color-danger) 18%, var(--xy-border-color-subtle));
-  background: color-mix(in srgb, var(--xy-color-danger-soft) 82%, white);
-  color: var(--xy-color-danger);
+  border-color: color-mix(in srgb, var(--xy-danger) 18%, var(--xy-border-subtle));
+  background: color-mix(in srgb, var(--xy-danger-soft) 82%, white);
+  color: var(--xy-danger);
 }
 
 .xy-project-icon-gallery__grid {
@@ -767,7 +767,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--xy-gallery-panel-border);
   border-radius: 20px;
   overflow: hidden;
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
 }
 
 .xy-project-icon-gallery__item {
@@ -794,23 +794,23 @@ onBeforeUnmount(() => {
 }
 
 .xy-project-icon-gallery__item strong {
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 15px;
   text-align: center;
 }
 
 .xy-project-icon-gallery__item code {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
 .xy-project-icon-gallery__item small {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   font-size: 12px;
 }
 
 .xy-project-icon-gallery__item span {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   font-size: 12px;
 }
 

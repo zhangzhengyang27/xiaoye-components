@@ -280,13 +280,13 @@ function handleKeydown(event: KeyboardEvent) {
 .xy-breadcrumb {
   --xy-breadcrumb-font-size: 14px;
   --xy-breadcrumb-line-height: 1.5;
-  --xy-breadcrumb-color: var(--xy-text-color-secondary);
-  --xy-breadcrumb-link-color: var(--xy-text-color-subtle);
-  --xy-breadcrumb-link-hover-color: var(--xy-text-color-heading);
-  --xy-breadcrumb-current-color: var(--xy-text-color-heading);
-  --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-color-secondary) 76%, var(--xy-mix-light));
+  --xy-breadcrumb-color: var(--xy-text-secondary);
+  --xy-breadcrumb-link-color: var(--xy-text-muted);
+  --xy-breadcrumb-link-hover-color: var(--xy-text-heading);
+  --xy-breadcrumb-current-color: var(--xy-text-heading);
+  --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-secondary) 76%, var(--xy-mix-light));
   --xy-breadcrumb-separator-gap: 10px;
-  --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-color-secondary) 68%, var(--xy-mix-light));
+  --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-secondary) 68%, var(--xy-mix-light));
 }
 ```
 
@@ -296,7 +296,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 `inner` 层统一挂了 `color` / `background-color` / `border-color` / `box-shadow` 四组过渡，引用全局 `--xy-transition-duration` 和 `--xy-transition-timing`，确保与组件库其他交互反馈节奏一致。
 
-`focus-visible` 态使用 `outline` + `box-shadow` 双层高亮，并混入 `--xy-color-primary` 保证焦点环在亮/暗模式下都可见。
+`focus-visible` 态使用 `outline` + `box-shadow` 双层高亮，并混入 `--xy-brand` 保证焦点环在亮/暗模式下都可见。
 
 ### 状态样式优先级
 
@@ -370,7 +370,7 @@ const breadcrumbItems = computed(() =>
 .my-page .xy-breadcrumb {
   --xy-breadcrumb-font-size: 13px;
   --xy-breadcrumb-separator-gap: 6px;
-  --xy-breadcrumb-link-color: var(--xy-color-primary);
+  --xy-breadcrumb-link-color: var(--xy-brand);
 }
 ```
 

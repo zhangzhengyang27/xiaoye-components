@@ -13,23 +13,23 @@
   --xy-alert-close-customed-font-size: 13px;
   --xy-alert-toggle-font-size: var(--xy-font-size-sm);
   --xy-alert-line-clamp: 2;
-  --xy-alert-text-color: var(--xy-text-color);
-  --xy-alert-title-color: var(--xy-text-color-heading);
-  --xy-alert-accent-color: var(--xy-color-info);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-info) 10%, var(--xy-bg-color-floating));
+  --xy-alert-text-color: var(--xy-text-primary);
+  --xy-alert-title-color: var(--xy-text-heading);
+  --xy-alert-accent-color: var(--xy-info);
+  --xy-alert-bg-color: color-mix(in srgb, var(--xy-info) 10%, var(--xy-bg-floating));
   --xy-alert-border-color: color-mix(
     in srgb,
-    var(--xy-color-info) 14%,
-    var(--xy-border-color-subtle)
+    var(--xy-info) 14%,
+    var(--xy-border-subtle)
   );
-  --xy-alert-description-color: var(--xy-text-color-subtle);
-  --xy-alert-close-color: var(--xy-text-color-muted);
+  --xy-alert-description-color: var(--xy-text-muted);
+  --xy-alert-close-color: var(--xy-text-muted);
   --xy-alert-toggle-color: var(--xy-alert-accent-color);
-  --xy-alert-card-border-color: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
-  --xy-alert-card-background: color-mix(in srgb, var(--xy-bg-color-floating) 99%, var(--xy-bg-color-subtle));
+  --xy-alert-card-border-color: color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border));
+  --xy-alert-card-background: color-mix(in srgb, var(--xy-bg-floating) 99%, var(--xy-bg-subtle));
   --xy-alert-card-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-heading) 4%, transparent);
   --xy-alert-banner-background: color-mix(in srgb, var(--xy-alert-bg-color) 86%, var(--xy-mix-light));
   --xy-alert-service-top: 16px;
   --xy-alert-service-max-width: 960px;
@@ -48,8 +48,8 @@
   color: var(--xy-alert-text-color);
   overflow: hidden;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-heading) 4%, transparent);
 }
 
 .xy-alert__icon {
@@ -129,7 +129,7 @@
 .xy-alert__toggle:focus-visible {
   outline: 2px solid color-mix(in srgb, currentColor 30%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-alert__actions {
@@ -185,14 +185,14 @@
 }
 
 .xy-alert__close-btn:hover {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   background: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 .xy-alert__close-btn:focus-visible {
   outline: 2px solid color-mix(in srgb, currentColor 30%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-alert--sm {
@@ -250,19 +250,19 @@
 
 .xy-alert.is-light {
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-heading) 4%, transparent);
 }
 
 .xy-alert.is-dark {
-  --xy-alert-title-color: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-mix-light));
-  --xy-alert-description-color: color-mix(in srgb, var(--xy-bg-color-floating) 84%, var(--xy-mix-light));
-  --xy-alert-close-color: color-mix(in srgb, var(--xy-bg-color-floating) 82%, var(--xy-mix-light));
-  --xy-alert-toggle-color: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-mix-light));
+  --xy-alert-title-color: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-mix-light));
+  --xy-alert-description-color: color-mix(in srgb, var(--xy-bg-floating) 84%, var(--xy-mix-light));
+  --xy-alert-close-color: color-mix(in srgb, var(--xy-bg-floating) 82%, var(--xy-mix-light));
+  --xy-alert-toggle-color: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-mix-light));
 
   border-color: transparent;
-  background: color-mix(in srgb, var(--xy-text-color-heading) 84%, var(--xy-alert-accent-color));
-  color: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-text-heading) 84%, var(--xy-alert-accent-color));
+  color: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-mix-light));
 }
 
 .xy-alert.is-paused {
@@ -297,52 +297,52 @@
 }
 
 .xy-alert--primary {
-  --xy-alert-accent-color: var(--xy-color-primary);
-  --xy-alert-bg-color: var(--xy-color-primary-soft);
+  --xy-alert-accent-color: var(--xy-brand);
+  --xy-alert-bg-color: var(--xy-brand-soft);
   --xy-alert-border-color: color-mix(
     in srgb,
-    var(--xy-color-primary) 14%,
-    var(--xy-border-color-subtle)
+    var(--xy-brand) 14%,
+    var(--xy-border-subtle)
   );
 }
 
 .xy-alert--success {
-  --xy-alert-accent-color: var(--xy-color-success);
-  --xy-alert-bg-color: var(--xy-color-success-soft);
+  --xy-alert-accent-color: var(--xy-success);
+  --xy-alert-bg-color: var(--xy-success-soft);
   --xy-alert-border-color: color-mix(
     in srgb,
-    var(--xy-color-success) 14%,
-    var(--xy-border-color-subtle)
+    var(--xy-success) 14%,
+    var(--xy-border-subtle)
   );
 }
 
 .xy-alert--info {
-  --xy-alert-accent-color: var(--xy-color-info);
-  --xy-alert-bg-color: color-mix(in srgb, var(--xy-color-info) 10%, var(--xy-bg-color-floating));
+  --xy-alert-accent-color: var(--xy-info);
+  --xy-alert-bg-color: color-mix(in srgb, var(--xy-info) 10%, var(--xy-bg-floating));
   --xy-alert-border-color: color-mix(
     in srgb,
-    var(--xy-color-info) 14%,
-    var(--xy-border-color-subtle)
+    var(--xy-info) 14%,
+    var(--xy-border-subtle)
   );
 }
 
 .xy-alert--warning {
-  --xy-alert-accent-color: var(--xy-color-warning);
-  --xy-alert-bg-color: var(--xy-color-warning-soft);
+  --xy-alert-accent-color: var(--xy-warning);
+  --xy-alert-bg-color: var(--xy-warning-soft);
   --xy-alert-border-color: color-mix(
     in srgb,
-    var(--xy-color-warning) 16%,
-    var(--xy-border-color-subtle)
+    var(--xy-warning) 16%,
+    var(--xy-border-subtle)
   );
 }
 
 .xy-alert--error {
-  --xy-alert-accent-color: var(--xy-color-danger);
-  --xy-alert-bg-color: var(--xy-color-danger-soft);
+  --xy-alert-accent-color: var(--xy-danger);
+  --xy-alert-bg-color: var(--xy-danger-soft);
   --xy-alert-border-color: color-mix(
     in srgb,
-    var(--xy-color-danger) 14%,
-    var(--xy-border-color-subtle)
+    var(--xy-danger) 14%,
+    var(--xy-border-subtle)
   );
 }
 

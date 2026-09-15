@@ -104,8 +104,8 @@ outline: deep
 
 <style scoped>
 .filter-shell {
-  --xy-bg-color-elevated: var(--bg-elevated);
-  --xy-border-color-strong: var(--border-strong);
+  --xy-bg-elevated: var(--bg-elevated);
+  --xy-border-strong: var(--border-strong);
 }
 </style>
 ```

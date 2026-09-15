@@ -5,9 +5,9 @@
 
 .xy-tooltip:focus-visible,
 .xy-tooltip > :focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 12%, transparent);
 }
 
 .xy-tooltip__content {
@@ -15,26 +15,26 @@
     --xy-tooltip-bg,
     var(
       --xy-popper-bg,
-      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle)))
+      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle)))
     )
   );
   --xy-tooltip-text-resolved: var(
     --xy-tooltip-text,
-    var(--xy-popper-text-color, var(--xy-text-color-secondary))
+    var(--xy-popper-text-color, var(--xy-text-secondary))
   );
   --xy-tooltip-border-resolved: var(
     --xy-tooltip-border,
     var(
       --xy-popper-border-color,
-      color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color))
+      color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border))
     )
   );
   --xy-tooltip-shadow-resolved: var(
     --xy-tooltip-shadow,
     var(
       --xy-popper-shadow,
-      0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 6%, transparent),
-      0 8px 20px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent)
+      0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 6%, transparent),
+      0 8px 20px color-mix(in srgb, var(--xy-text-heading) 7%, transparent)
     )
   );
   position: absolute;
@@ -53,21 +53,21 @@
 }
 
 .xy-tooltip__content--dark {
-  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-color-floating) 78%, var(--xy-text-color-heading));
-  --xy-tooltip-text: color-mix(in srgb, var(--xy-bg-color-floating) 82%, var(--xy-mix-light));
-  --xy-tooltip-border: color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-floating) 78%, var(--xy-text-heading));
+  --xy-tooltip-text: color-mix(in srgb, var(--xy-bg-floating) 82%, var(--xy-mix-light));
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-bg-floating) 12%, transparent);
   --xy-tooltip-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color) 4%, transparent),
-    0 8px 18px color-mix(in srgb, var(--xy-text-color-heading) 10%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-container) 4%, transparent),
+    0 8px 18px color-mix(in srgb, var(--xy-text-heading) 10%, transparent);
 }
 
 .xy-tooltip__content--light {
-  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
-  --xy-tooltip-text: var(--xy-text-color-secondary);
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle));
+  --xy-tooltip-text: var(--xy-text-secondary);
   --xy-tooltip-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 84%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 84%,
+    var(--xy-border)
   );
 }
 

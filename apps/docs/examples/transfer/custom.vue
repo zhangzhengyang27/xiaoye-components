@@ -13,7 +13,7 @@ const data = [
     <template #option="{ option }">
       <div>
         <strong>{{ option.label }}</strong>
-        <small style="display: block; color: var(--xy-text-color-secondary)">{{ option.description }}</small>
+        <small style="display: block; color: var(--xy-text-secondary)">{{ option.description }}</small>
       </div>
     </template>
   </xy-transfer>

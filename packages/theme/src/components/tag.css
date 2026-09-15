@@ -6,8 +6,8 @@
   border-radius: var(--xy-radius-xs);
   min-height: 28px;
   font-size: var(--xy-font-size-sm);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, var(--xy-bg-color-floating));
-  color: var(--xy-text-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 84%, var(--xy-bg-floating));
+  color: var(--xy-text-muted);
   line-height: 1;
   white-space: nowrap;
 }
@@ -40,28 +40,28 @@
 }
 
 .xy-tag--primary {
-  color: var(--xy-color-primary);
-  background: var(--xy-color-primary-soft);
+  color: var(--xy-brand);
+  background: var(--xy-brand-soft);
 }
 
 .xy-tag--success {
-  color: var(--xy-color-success);
-  background: var(--xy-color-success-soft);
+  color: var(--xy-success);
+  background: var(--xy-success-soft);
 }
 
 .xy-tag--info {
-  color: var(--xy-color-info);
-  background: color-mix(in srgb, var(--xy-color-info) 5%, var(--xy-bg-color-floating));
+  color: var(--xy-info);
+  background: color-mix(in srgb, var(--xy-info) 5%, var(--xy-bg-floating));
 }
 
 .xy-tag--warning {
-  color: var(--xy-color-warning);
-  background: var(--xy-color-warning-soft);
+  color: var(--xy-warning);
+  background: var(--xy-warning-soft);
 }
 
 .xy-tag--danger {
-  color: var(--xy-color-danger);
-  background: var(--xy-color-danger-soft);
+  color: var(--xy-danger);
+  background: var(--xy-danger-soft);
 }
 
 .xy-tag__content {
@@ -117,7 +117,7 @@
 .xy-tag__close:focus-visible {
   outline: 2px solid color-mix(in srgb, currentColor 24%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-tag.is-closable {

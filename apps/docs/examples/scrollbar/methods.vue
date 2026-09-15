@@ -71,7 +71,7 @@ function handleEndReached(direction: string) {
 .demo-scroll-methods__row {
   padding: 14px 16px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 74%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-muted) 74%, white);
+  color: var(--xy-text-secondary);
 }
 </style>

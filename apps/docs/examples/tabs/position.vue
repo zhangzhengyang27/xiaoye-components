@@ -34,9 +34,9 @@ const items = [
   min-height: 260px;
   padding: 30px 32px;
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-surface-raised);
-  border: 1px solid var(--xy-border-color-subtle);
-  box-shadow: var(--xy-shadow-xs);
+  background: var(--xy-bg-raised);
+  border: 1px solid var(--xy-border-subtle);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .demo-side-panel__eyebrow {
@@ -45,8 +45,8 @@ const items = [
   min-height: 24px;
   padding: 0 10px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 56%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 56%, white);
+  color: var(--xy-brand);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -55,14 +55,14 @@ const items = [
 
 .demo-side-panel__title {
   margin: 16px 0 8px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 24px;
   line-height: 1.2;
 }
 
 .demo-side-panel__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

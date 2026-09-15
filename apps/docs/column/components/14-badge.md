@@ -237,9 +237,9 @@ export function useNamespace(block: string) {
 ```css
 .xy-badge__content {
   /* 默认 danger 类型的变量值 */
-  --xy-badge-bg: var(--xy-color-danger-soft);
-  --xy-badge-color: var(--xy-color-danger);
-  --xy-badge-border: color-mix(in srgb, var(--xy-color-danger) 10%, var(--xy-border-color-subtle));
+  --xy-badge-bg: var(--xy-danger-soft);
+  --xy-badge-color: var(--xy-danger);
+  --xy-badge-border: color-mix(in srgb, var(--xy-danger) 10%, var(--xy-border-subtle));
 
   background: var(--xy-badge-bg);
   color: var(--xy-badge-color);
@@ -251,9 +251,9 @@ export function useNamespace(block: string) {
 
 ```css
 .xy-badge__content--primary {
-  --xy-badge-bg: var(--xy-color-primary-soft);
-  --xy-badge-color: var(--xy-color-primary);
-  --xy-badge-border: color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+  --xy-badge-bg: var(--xy-brand-soft);
+  --xy-badge-color: var(--xy-brand);
+  --xy-badge-border: color-mix(in srgb, var(--xy-brand) 10%, var(--xy-border-subtle));
 }
 ```
 
@@ -269,7 +269,7 @@ export function useNamespace(block: string) {
   padding: 0;
   border-radius: 50%;
   background: var(--xy-badge-color);   /* 点状模式直接使用语义色填充 */
-  border-color: color-mix(in srgb, var(--xy-surface-raised) 96%, transparent);
+  border-color: color-mix(in srgb, var(--xy-bg-raised) 96%, transparent);
   box-shadow: none;
 }
 ```
@@ -376,15 +376,15 @@ Menu 组件内部实现了自己的徽标渲染逻辑（`packages/components/men
 ```css
 /* 全局降低 danger 徽章的视觉强度 */
 .xy-badge__content--danger {
-  --xy-badge-bg: var(--xy-color-danger-soft);
-  --xy-badge-color: color-mix(in srgb, var(--xy-color-danger) 70%, var(--xy-color-text));
+  --xy-badge-bg: var(--xy-danger-soft);
+  --xy-badge-color: color-mix(in srgb, var(--xy-danger) 70%, var(--xy-color-text));
 }
 
 /* 自定义第五种类型 */
 .xy-badge__content--purple {
-  --xy-badge-bg: color-mix(in srgb, #722ed1 10%, var(--xy-surface-raised));
+  --xy-badge-bg: color-mix(in srgb, #722ed1 10%, var(--xy-bg-raised));
   --xy-badge-color: #722ed1;
-  --xy-badge-border: color-mix(in srgb, #722ed1 10%, var(--xy-border-color-subtle));
+  --xy-badge-border: color-mix(in srgb, #722ed1 10%, var(--xy-border-subtle));
 }
 ```
 

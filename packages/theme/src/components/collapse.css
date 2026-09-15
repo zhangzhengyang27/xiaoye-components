@@ -1,7 +1,7 @@
 .xy-collapse {
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
   overflow: hidden;
 }
 
@@ -19,9 +19,9 @@
   width: 100%;
   min-height: 48px;
   padding: 0 16px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
-  background: var(--xy-surface-raised);
-  color: var(--xy-text-color);
+  border-bottom: 1px solid var(--xy-border-subtle);
+  background: var(--xy-bg-raised);
+  color: var(--xy-text-primary);
   cursor: pointer;
   outline: none;
   font-size: var(--xy-font-size-md);
@@ -36,27 +36,27 @@
 
 .xy-collapse__header.is-active {
   border-bottom-color: transparent;
-  color: var(--xy-text-color-heading);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 52%, var(--xy-surface-raised));
+  color: var(--xy-text-heading);
+  background: color-mix(in srgb, var(--xy-brand-soft) 52%, var(--xy-bg-raised));
 }
 
 .xy-collapse__header.is-disabled {
   cursor: not-allowed;
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
 }
 
 .xy-collapse__header:hover:not(.is-disabled) {
-  color: var(--xy-text-color-heading);
-  background: var(--xy-bg-color-subtle);
+  color: var(--xy-text-heading);
+  background: var(--xy-bg-subtle);
   box-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
+    color-mix(in srgb, var(--xy-brand) 10%, var(--xy-border-subtle));
 }
 
 .xy-collapse__header:focus-visible {
-  color: var(--xy-color-primary);
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  color: var(--xy-brand);
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-collapse__title {
@@ -68,7 +68,7 @@
 
 .xy-collapse__icon {
   flex: none;
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   transition:
     transform var(--xy-transition-duration-normal) cubic-bezier(0.22, 1, 0.36, 1),
     color var(--xy-transition-duration-fast) cubic-bezier(0.22, 1, 0.36, 1);
@@ -94,19 +94,19 @@
 
 .xy-collapse__header:hover:not(.is-disabled) .xy-collapse__icon,
 .xy-collapse__header:focus-visible .xy-collapse__icon {
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
 }
 
 .xy-collapse__wrap {
   overflow: hidden;
   border-bottom: 1px solid transparent;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 36%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-bg-subtle) 36%, var(--xy-bg-raised));
   transition: border-bottom-color var(--xy-transition-duration-fast) cubic-bezier(0.22, 1, 0.36, 1);
   will-change: max-height;
 }
 
 .xy-collapse__item.is-active .xy-collapse__wrap {
-  border-bottom-color: var(--xy-border-color-subtle);
+  border-bottom-color: var(--xy-border-subtle);
 }
 
 .xy-collapse__content {
@@ -114,7 +114,7 @@
   overflow: hidden;
   padding: 0 16px 18px;
   font-size: 13px;
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
   line-height: 1.72;
   opacity: 0;
   transform: translateY(-6px);

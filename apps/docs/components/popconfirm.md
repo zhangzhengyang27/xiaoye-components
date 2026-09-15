@@ -173,7 +173,7 @@ Vue 模板中 props 和 events 使用 kebab-case，源码 / TS 类型层使用 c
 | `transition` | 过渡名称 | `string` | `'xy-fade'` |
 | `popper-options` | 浮层定位兼容配置子集 | `TooltipPopperOptions` | `undefined` |
 | `icon` | 前置图标 | `string` | `'mdi:help-circle-outline'` |
-| `icon-color` | 图标颜色 | `string` | `'var(--xy-color-warning)'` |
+| `icon-color` | 图标颜色 | `string` | `'var(--xy-warning)'` |
 | `hide-icon` | 是否隐藏图标 | `boolean` | `false` |
 | `confirm-button-text` | 确认按钮文案；未传时回退到 `locale.popconfirmConfirmButtonText` 或 `'确定'` | `string` | `undefined` |
 | `cancel-button-text` | 取消按钮文案；未传时回退到 `locale.popconfirmCancelButtonText` 或 `'取消'` | `string` | `undefined` |

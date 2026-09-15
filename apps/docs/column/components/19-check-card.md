@@ -269,18 +269,18 @@ const computedDisabled = computed(() => {
 --xy-check-card-border-radius: var(--xy-border-radius-base);
 
 /* 颜色 */
---xy-check-card-border-color: var(--xy-border-color);
---xy-check-card-bg-color: var(--xy-bg-color);
---xy-check-card-text-color: var(--xy-text-color-primary);
+--xy-check-card-border-color: var(--xy-border);
+--xy-check-card-bg-color: var(--xy-bg-container);
+--xy-check-card-text-color: var(--xy-text-primary-primary);
 
 /* 选中态 */
---xy-check-card-checked-border-color: var(--xy-color-primary);
---xy-check-card-checked-bg-color: var(--xy-color-primary-light-9);
---xy-check-card-checked-shadow: 0 0 0 1px var(--xy-color-primary);
+--xy-check-card-checked-border-color: var(--xy-brand);
+--xy-check-card-checked-bg-color: var(--xy-brand-light-9);
+--xy-check-card-checked-shadow: 0 0 0 1px var(--xy-brand);
 
 /* 禁用态 */
---xy-check-card-disabled-border-color: var(--xy-border-color-light);
---xy-check-card-disabled-bg-color: var(--xy-bg-color);
+--xy-check-card-disabled-border-color: var(--xy-border-light);
+--xy-check-card-disabled-bg-color: var(--xy-bg-container);
 ```
 
 ### 主题定制方式

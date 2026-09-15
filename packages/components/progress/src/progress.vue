@@ -17,10 +17,10 @@ import type {
 } from "./progress";
 
 const STATUS_COLOR_MAP: Record<Exclude<ProgressStatus, ""> | "default", string> = {
-  success: "var(--xy-color-success)",
-  exception: "var(--xy-color-danger)",
-  warning: "var(--xy-color-warning)",
-  default: "var(--xy-color-primary)"
+  success: "var(--xy-success)",
+  exception: "var(--xy-danger)",
+  warning: "var(--xy-warning)",
+  default: "var(--xy-brand)"
 };
 
 const props = withDefaults(defineProps<ProgressProps>(), {

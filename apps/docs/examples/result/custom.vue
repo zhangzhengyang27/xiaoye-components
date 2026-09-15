@@ -33,14 +33,14 @@
   width: 92px;
   height: 92px;
   border-radius: 999px;
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-color-primary-soft) 72%, white),
-    color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white)
+    color-mix(in srgb, var(--xy-brand-soft) 72%, white),
+    color-mix(in srgb, var(--xy-bg-subtle) 88%, white)
   );
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color-subtle));
-  box-shadow: var(--xy-shadow-xs);
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 16%, var(--xy-border-subtle));
+  box-shadow: var(--xy-shadow-0);
 }
 
 .custom-result-content {
@@ -50,12 +50,12 @@
 .custom-result-content__intro {
   margin: 0 0 10px;
   font-weight: 600;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .custom-result-content__list {
   margin: 0;
   padding-left: 20px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

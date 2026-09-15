@@ -29,8 +29,8 @@ const items = [
   border-radius: var(--xy-radius-xl);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
-    var(--xy-surface-raised)
+    color-mix(in srgb, var(--xy-bg-subtle) 92%, white),
+    var(--xy-bg-raised)
   );
 }
 
@@ -39,10 +39,10 @@ const items = [
   border-radius: var(--xy-radius-lg);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 94%, white),
-    var(--xy-surface-raised)
+    color-mix(in srgb, var(--xy-bg-subtle) 94%, white),
+    var(--xy-bg-raised)
   );
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
 }
 
 .demo-tabs-kicker {
@@ -51,8 +51,8 @@ const items = [
   min-height: 24px;
   padding: 0 10px;
   border-radius: 999px;
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -61,14 +61,14 @@ const items = [
 
 .demo-tabs-panel__title {
   margin: 16px 0 8px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 24px;
   line-height: 1.2;
 }
 
 .demo-tabs-panel__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

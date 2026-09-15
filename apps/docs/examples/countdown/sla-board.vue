@@ -142,13 +142,13 @@ function handleFinish(index: number) {
 .countdown-sla-grid__header-description,
 .countdown-sla-grid__summary {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
 
 .countdown-sla-grid__suffix {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 600;
 }

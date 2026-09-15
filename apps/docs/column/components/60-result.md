@@ -249,10 +249,10 @@ CSS 中 `--sm` / `--lg` 通过覆盖 CSS 变量实现尺寸缩放，而非逐属
 | `--xy-result-icon-shell-size` | `112px` | 图标壳尺寸 |
 | `--xy-result-title-font-size` | `24px` | 标题字号 |
 | `--xy-result-description-font-size` | `14px` | 描述字号 |
-| `--xy-result-title-color` | `var(--xy-text-color-heading)` | 标题颜色 |
-| `--xy-result-description-color` | `var(--xy-text-color-subtle)` | 描述颜色 |
+| `--xy-result-title-color` | `var(--xy-text-heading)` | 标题颜色 |
+| `--xy-result-description-color` | `var(--xy-text-muted)` | 描述颜色 |
 | `--xy-result-content-max-width` | `560px` | 最大宽度 |
-| `--xy-result-accent-color` | `var(--xy-color-info)` | 强调色（随状态联动） |
+| `--xy-result-accent-color` | `var(--xy-info)` | 强调色（随状态联动） |
 | `--xy-result-accent-surface` | `color-mix(...)` | 强调色背景 |
 | `--xy-result-accent-border` | `color-mix(...)` | 强调色边框 |
 

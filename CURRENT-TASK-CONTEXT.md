@@ -28,7 +28,7 @@
 **已完成：**
 - 没有 `reference` 插槽且没有 `content` 时，将 `default` 插槽视为 trigger
 - 避免把默认插槽误当成 body
-- 默认 `iconColor` 从硬编码改成 `var(--xy-color-warning)`
+- 默认 `iconColor` 从硬编码改成 `var(--xy-warning)`
 
 ### 2.2 Popconfirm 回归测试 ✅
 
@@ -73,7 +73,7 @@
 - `packages/theme/src/components/popconfirm.css` — 已用 token，无硬编码 hex 色值
 
 **浮层视觉基线统一确认：**
-- 背景色：所有浮层统一走 `--xy-dialog-bg → --xy-surface-raised → color-mix(floating 96%, subtle)` 三级 fallback
+- 背景色：所有浮层统一走 `--xy-dialog-bg → --xy-bg-raised → color-mix(floating 96%, subtle)` 三级 fallback
 - 边框色：dialog/drawer 统一 `color-mix(subtle 84%, border)`；tooltip/popconfirm 统一走 `--xy-popper-border-color`
 - 阴影：dialog/drawer 用 12px 32px 7%（大型浮层）；tooltip/popconfirm 用 8px 20px 7%（小浮层）
 - padding：dialog/drawer 各区域 10px 16px（更克制）；tooltip 6px 10px；popconfirm 9px 12px 10px——层级递减

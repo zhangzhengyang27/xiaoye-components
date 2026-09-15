@@ -10,13 +10,13 @@
 
 <style scoped>
 .demo-carousel-fade {
-  --demo-carousel-accent: var(--xy-color-primary);
+  --demo-carousel-accent: var(--xy-brand);
   width: 100%;
   height: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 18%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 18%, var(--xy-border));
   border-radius: 18px;
   background:
     linear-gradient(
@@ -24,22 +24,22 @@
       color-mix(in srgb, var(--demo-carousel-accent) 14%, white),
       transparent 44%
     ),
-    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white);
+  color: var(--xy-text-primary);
   font-size: 28px;
   font-weight: 800;
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 
 .demo-carousel-fade.is-1 {
-  --demo-carousel-accent: var(--xy-color-primary);
+  --demo-carousel-accent: var(--xy-brand);
 }
 
 .demo-carousel-fade.is-2 {
-  --demo-carousel-accent: var(--xy-color-success);
+  --demo-carousel-accent: var(--xy-success);
 }
 
 .demo-carousel-fade.is-3 {
-  --demo-carousel-accent: var(--xy-color-warning);
+  --demo-carousel-accent: var(--xy-warning);
 }
 </style>

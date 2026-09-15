@@ -91,7 +91,7 @@ const records = [
 
 .demo-timeline-compact__tip {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -113,7 +113,7 @@ const records = [
 }
 
 .demo-timeline-compact__header-description {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
@@ -121,8 +121,8 @@ const records = [
   border: 0;
   border-radius: 999px;
   padding: 4px 10px;
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand) 10%, white);
+  color: var(--xy-brand);
   font-size: 12px;
   cursor: pointer;
 }

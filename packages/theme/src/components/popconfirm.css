@@ -8,9 +8,9 @@
 }
 
 .xy-popconfirm__trigger:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 12%, transparent);
 }
 
 .xy-popconfirm__panel {
@@ -18,30 +18,30 @@
     --xy-popconfirm-bg,
     var(
       --xy-popper-bg,
-      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle)))
+      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle)))
     )
   );
   --xy-popconfirm-border-resolved: var(
     --xy-popconfirm-border,
     var(
       --xy-popper-border-color,
-      color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color))
+      color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border))
     )
   );
   --xy-popconfirm-title-resolved: var(
     --xy-popconfirm-title,
-    var(--xy-popper-title-color, var(--xy-dialog-title-color, var(--xy-text-color-heading)))
+    var(--xy-popper-title-color, var(--xy-dialog-title-color, var(--xy-text-heading)))
   );
   --xy-popconfirm-text-resolved: var(
     --xy-popconfirm-text,
-    var(--xy-popper-text-color, var(--xy-text-color-secondary))
+    var(--xy-popper-text-color, var(--xy-text-secondary))
   );
   --xy-popconfirm-shadow-resolved: var(
     --xy-popconfirm-shadow,
     var(
       --xy-popper-shadow,
-      0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 6%, transparent),
-      0 8px 20px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent)
+      0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 6%, transparent),
+      0 8px 20px color-mix(in srgb, var(--xy-text-heading) 7%, transparent)
     )
   );
   --xy-popconfirm-actions-border: color-mix(
@@ -61,13 +61,13 @@
 }
 
 .xy-popconfirm__panel--dark {
-  --xy-popconfirm-bg: color-mix(in srgb, var(--xy-bg-color-floating) 78%, var(--xy-text-color-heading));
-  --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
-  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-color-floating) 88%, var(--xy-mix-light));
-  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-color-floating) 80%, var(--xy-mix-light));
+  --xy-popconfirm-bg: color-mix(in srgb, var(--xy-bg-floating) 78%, var(--xy-text-heading));
+  --xy-popconfirm-border: color-mix(in srgb, var(--xy-bg-floating) 12%, transparent);
+  --xy-popconfirm-title: color-mix(in srgb, var(--xy-bg-floating) 88%, var(--xy-mix-light));
+  --xy-popconfirm-text: color-mix(in srgb, var(--xy-bg-floating) 80%, var(--xy-mix-light));
   --xy-popconfirm-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color) 6%, transparent),
-    0 8px 18px color-mix(in srgb, var(--xy-text-color-heading) 10%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-container) 6%, transparent),
+    0 8px 18px color-mix(in srgb, var(--xy-text-heading) 10%, transparent);
 }
 
 .xy-popconfirm__arrow {

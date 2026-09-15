@@ -45,11 +45,11 @@
 
 .demo-card-content__value {
   font-size: 18px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-card-content__label {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 </style>

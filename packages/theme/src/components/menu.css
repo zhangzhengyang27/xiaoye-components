@@ -9,30 +9,30 @@
 }
 
 .xy-menu {
-  --xy-menu-bg-color: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
-  --xy-menu-text-color: var(--xy-text-color-secondary);
-  --xy-menu-active-color: var(--xy-color-primary);
+  --xy-menu-bg-color: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
+  --xy-menu-text-color: var(--xy-text-secondary);
+  --xy-menu-active-color: var(--xy-brand);
   --xy-menu-border: none;
-  --xy-menu-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color)),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+  --xy-menu-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-subtle) 92%, var(--xy-border)),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
   --xy-menu-radius: var(--xy-radius-lg);
   --xy-menu-padding: 8px;
   --xy-menu-gap: 6px;
   --xy-menu-horizontal-height: 56px;
   --xy-menu-horizontal-item-min-height: calc(var(--xy-menu-horizontal-height) - 16px);
   --xy-menu-horizontal-item-padding-inline: var(--xy-menu-item-padding-inline);
-  --xy-menu-hover-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, var(--xy-bg-color-floating));
-  --xy-menu-hover-color: var(--xy-text-color-heading);
+  --xy-menu-hover-bg: color-mix(in srgb, var(--xy-bg-subtle) 84%, var(--xy-bg-floating));
+  --xy-menu-hover-color: var(--xy-text-heading);
   --xy-menu-hover-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 6%, var(--xy-border-color-subtle));
-  --xy-menu-active-bg: var(--xy-color-primary-soft);
+    color-mix(in srgb, var(--xy-brand) 6%, var(--xy-border-subtle));
+  --xy-menu-active-bg: var(--xy-brand-soft);
   --xy-menu-active-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
-  --xy-menu-popup-bg: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
-  --xy-menu-popup-text: var(--xy-text-color);
-  --xy-menu-popup-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color)),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
-  --xy-menu-popup-border-color: color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color));
+    color-mix(in srgb, var(--xy-brand) 10%, var(--xy-border-subtle));
+  --xy-menu-popup-bg: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
+  --xy-menu-popup-text: var(--xy-text-primary);
+  --xy-menu-popup-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-border-subtle) 92%, var(--xy-border)),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
+  --xy-menu-popup-border-color: color-mix(in srgb, var(--xy-border-subtle) 92%, var(--xy-border));
   --xy-menu-popup-min-width: 216px;
   --xy-menu-popup-padding: 10px;
   --xy-menu-popup-radius: var(--xy-radius-lg);
@@ -51,7 +51,7 @@
   --xy-menu-icon-color: inherit;
   --xy-menu-group-margin: 8px 0;
   --xy-menu-group-title-padding: 6px 14px 8px;
-  --xy-menu-group-title-color: var(--xy-text-color-subtle);
+  --xy-menu-group-title-color: var(--xy-text-muted);
   --xy-menu-group-title-font-size: var(--xy-font-size-sm);
   --xy-menu-group-title-font-weight: 600;
   --xy-menu-group-title-letter-spacing: 0.04em;
@@ -59,7 +59,7 @@
   --xy-menu-sub-list-padding: 8px 0 8px 14px;
   --xy-menu-sub-list-border-color: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 94%,
+    var(--xy-border-subtle) 94%,
     transparent
   );
   --xy-menu-item-row-gap: 10px;
@@ -69,10 +69,10 @@
   --xy-menu-badge-height: 20px;
   --xy-menu-badge-padding: 0 6px;
   --xy-menu-badge-radius: 999px;
-  --xy-menu-badge-bg: var(--xy-color-primary-soft);
+  --xy-menu-badge-bg: var(--xy-brand-soft);
   --xy-menu-badge-color: var(--xy-menu-active-color);
   --xy-menu-badge-font-size: var(--xy-font-size-xs);
-  --xy-menu-extra-color: var(--xy-text-color-subtle);
+  --xy-menu-extra-color: var(--xy-text-muted);
   --xy-menu-extra-font-size: var(--xy-font-size-sm);
   --xy-menu-extra-font-weight: 400;
   --xy-menu-extra-line-height: 1.2;
@@ -200,7 +200,7 @@
   top: 18%;
   bottom: 18%;
   width: 3px;
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
   border-radius: 0 var(--xy-radius-sm) var(--xy-radius-sm) 0;
 }
 
@@ -211,9 +211,9 @@
 }
 
 .xy-menu__item-surface:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-menu--vertical .xy-menu__item-surface {
@@ -346,7 +346,7 @@
   background: var(--xy-menu-popup-bg);
   color: var(--xy-menu-popup-text);
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 60%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--xy-border-subtle) 60%, transparent),
     0 4px 6px -1px rgba(0, 0, 0, 0.05),
     0 10px 20px -5px rgba(0, 0, 0, 0.08),
     0 25px 50px -12px rgba(0, 0, 0, 0.15);
@@ -371,12 +371,12 @@
 }
 
 .xy-menu__popup--dark {
-  --xy-menu-popup-bg: color-mix(in srgb, var(--xy-text-color-heading) 94%, black);
-  --xy-menu-popup-text: color-mix(in srgb, var(--xy-bg-color-floating) 92%, var(--xy-mix-light));
-  --xy-menu-hover-bg: color-mix(in srgb, var(--xy-bg-color) 12%, transparent);
-  --xy-menu-active-bg: color-mix(in srgb, var(--xy-color-primary) 18%, transparent);
+  --xy-menu-popup-bg: color-mix(in srgb, var(--xy-text-heading) 94%, black);
+  --xy-menu-popup-text: color-mix(in srgb, var(--xy-bg-floating) 92%, var(--xy-mix-light));
+  --xy-menu-hover-bg: color-mix(in srgb, var(--xy-bg-container) 12%, transparent);
+  --xy-menu-active-bg: color-mix(in srgb, var(--xy-brand) 18%, transparent);
   --xy-menu-active-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--xy-color-primary) 24%, transparent);
+    color-mix(in srgb, var(--xy-brand) 24%, transparent);
 }
 
 .xy-menu__popup--dark .xy-menu__item-surface,
@@ -392,12 +392,12 @@
 }
 
 .xy-menu__collapsed-tooltip--light {
-  --xy-tooltip-bg: var(--xy-bg-color-floating);
-  --xy-tooltip-text: var(--xy-text-color-secondary);
-  --xy-tooltip-border: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
+  --xy-tooltip-bg: var(--xy-bg-floating);
+  --xy-tooltip-text: var(--xy-text-secondary);
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border));
   --xy-tooltip-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
 }
 
 .xy-menu__popup .xy-menu__item-surface {
@@ -431,7 +431,7 @@
   top: 20%;
   bottom: 20%;
   width: 3px;
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
   border-radius: 0 var(--xy-radius-sm) var(--xy-radius-sm) 0;
 }
 

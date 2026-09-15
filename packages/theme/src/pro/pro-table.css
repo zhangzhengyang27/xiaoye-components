@@ -12,8 +12,8 @@
   padding: 24px;
   overflow: auto;
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 12%, var(--xy-mix-light)), transparent 220px),
-    var(--xy-bg-color-page);
+    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-brand) 12%, var(--xy-mix-light)), transparent 220px),
+    var(--xy-bg-page);
 }
 
 .xy-pro-table__toolbar,
@@ -22,10 +22,10 @@
 .xy-pro-table__selection-bar,
 .xy-pro-table__edit-footer,
 .xy-pro-table__error {
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, var(--xy-mix-light));
+  border: 1px solid color-mix(in srgb, var(--xy-border) 90%, var(--xy-mix-light));
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color);
-  box-shadow: 0 16px 32px color-mix(in srgb, var(--xy-color-primary) 6%, transparent);
+  background: var(--xy-bg-container);
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--xy-brand) 6%, transparent);
 }
 
 .xy-pro-table__toolbar {
@@ -35,8 +35,8 @@
   gap: 16px;
   padding: 20px;
   background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-mix-light)), transparent 180px),
-    var(--xy-bg-color);
+    radial-gradient(circle at top right, color-mix(in srgb, var(--xy-brand) 10%, var(--xy-mix-light)), transparent 180px),
+    var(--xy-bg-container);
 }
 
 .xy-pro-table__toolbar-main {
@@ -51,12 +51,12 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 1.4;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-pro-table__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 
@@ -107,7 +107,7 @@
   gap: 10px;
   padding: 10px 12px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-fill-color-light) 88%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-fill-light) 88%, var(--xy-mix-light));
 }
 
 .xy-pro-table__settings-checkbox {
@@ -132,7 +132,7 @@
 .xy-pro-table__settings-tip,
 .xy-pro-table__footer-meta,
 .xy-pro-table__selection-summary span {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: var(--xy-font-size-sm);
   line-height: 1.6;
 }
@@ -188,10 +188,10 @@
   flex-direction: column;
   gap: 4px;
   padding: 8px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, var(--xy-mix-light));
+  border: 1px solid color-mix(in srgb, var(--xy-border) 90%, var(--xy-mix-light));
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color);
-  box-shadow: var(--xy-shadow-popup);
+  background: var(--xy-bg-container);
+  box-shadow: var(--xy-shadow-2);
 }
 
 .xy-pro-table__contextmenu-item {
@@ -200,17 +200,17 @@
   border: 0;
   border-radius: var(--xy-radius-sm);
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   text-align: left;
   cursor: pointer;
 }
 
 .xy-pro-table__contextmenu-item:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--xy-color-primary) 8%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-brand) 8%, var(--xy-mix-light));
 }
 
 .xy-pro-table__contextmenu-item.is-danger {
-  color: var(--xy-color-danger);
+  color: var(--xy-danger);
 }
 
 .xy-pro-table__contextmenu-item:disabled {

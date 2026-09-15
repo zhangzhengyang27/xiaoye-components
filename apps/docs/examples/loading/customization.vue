@@ -23,7 +23,7 @@ const customSvg = `
       xy-loading-text="正在同步审批流..."
       :xy-loading-svg="customSvg"
       xy-loading-svg-view-box="0 0 50 50"
-      xy-loading-background="color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white)"
+      xy-loading-background="color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white)"
       xy-loading-custom-class="demo-loading-customization__mask-soft"
       class="loading-demo-card"
     >

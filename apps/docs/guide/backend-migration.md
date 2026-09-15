@@ -860,8 +860,8 @@ outline: deep
 
 <style scoped>
 .filter-shell {
-  --xy-bg-color-elevated: var(--bg-elevated);
-  --xy-border-color-strong: var(--border-strong);
+  --xy-bg-elevated: var(--bg-elevated);
+  --xy-border-strong: var(--border-strong);
 }
 </style>
 ```
@@ -916,10 +916,10 @@ outline: deep
 
 ```scss
 .filter-shell--toolbar {
-  --xy-bg-color-elevated: var(--bg-elevated);
-  --xy-border-color-strong: var(--border-strong);
-  --xy-fill-color-light: color-mix(in srgb, var(--bg-elevated) 92%, var(--brand-500) 8%);
-  --xy-text-color-secondary: var(--text-secondary);
+  --xy-bg-elevated: var(--bg-elevated);
+  --xy-border-strong: var(--border-strong);
+  --xy-fill-light: color-mix(in srgb, var(--bg-elevated) 92%, var(--brand-500) 8%);
+  --xy-text-secondary: var(--text-secondary);
 }
 ```
 
@@ -979,10 +979,10 @@ outline: deep
 
 ```scss
 .filter-shell--range {
-  --xy-bg-color-elevated: var(--bg-elevated);
-  --xy-border-color-strong: var(--border-strong);
-  --xy-fill-color-light: color-mix(in srgb, var(--bg-elevated) 90%, var(--brand-500) 10%);
-  --xy-text-color-secondary: var(--text-secondary);
+  --xy-bg-elevated: var(--bg-elevated);
+  --xy-border-strong: var(--border-strong);
+  --xy-fill-light: color-mix(in srgb, var(--bg-elevated) 90%, var(--brand-500) 10%);
+  --xy-text-secondary: var(--text-secondary);
 }
 ```
 

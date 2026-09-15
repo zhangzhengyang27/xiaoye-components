@@ -17,11 +17,11 @@
   flex-wrap: wrap;
   gap: 0;
   line-height: 1.6;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .divider-demo-vertical__link {
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
   text-decoration: none;
 }
 </style>

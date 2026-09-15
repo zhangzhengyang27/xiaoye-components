@@ -503,13 +503,13 @@ const indexPath = computed(() => {
 | --- | --- | --- |
 | `--xy-menu-item-height` | 菜单项高度 | `56px` |
 | `--xy-menu-collapse-width` | 折叠态宽度 | `64px` |
-| `--xy-menu-active-color` | 激活态文字颜色 | `var(--xy-color-primary)` |
-| `--xy-menu-active-bg` | 激活态背景色 | `var(--xy-color-primary-light-9)` |
-| `--xy-menu-hover-bg` | hover 态背景色 | `var(--xy-fill-color-light)` |
+| `--xy-menu-active-color` | 激活态文字颜色 | `var(--xy-brand)` |
+| `--xy-menu-active-bg` | 激活态背景色 | `var(--xy-brand-light-9)` |
+| `--xy-menu-hover-bg` | hover 态背景色 | `var(--xy-fill-light)` |
 | `--xy-menu-bg-color` | 菜单背景色 | `var(--xy-fill-color-blank)` |
-| `--xy-menu-text-color` | 默认文字颜色 | `var(--xy-text-color-primary)` |
+| `--xy-menu-text-color` | 默认文字颜色 | `var(--xy-text-primary-primary)` |
 | `--xy-menu-sub-item-height` | 子菜单项高度 | `50px` |
-| `--xy-menu-item-group-title-color` | 分组标题文字颜色 | `var(--xy-text-color-secondary)` |
+| `--xy-menu-item-group-title-color` | 分组标题文字颜色 | `var(--xy-text-secondary)` |
 
 ### 主题定制方式
 

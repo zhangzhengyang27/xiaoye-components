@@ -39,7 +39,7 @@
   right: 0;
   bottom: 0;
   height: 1px;
-  background: color-mix(in srgb, var(--xy-border-color-subtle) 92%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-border-subtle) 92%, var(--xy-border));
 }
 
 .xy-tabs__nav-wrap.is-vertical::after {
@@ -89,7 +89,7 @@
   align-items: center;
   gap: 6px;
   background: transparent;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   padding: 11px 14px;
   border-radius: var(--xy-radius-sm);
   cursor: pointer;
@@ -133,7 +133,7 @@
   width: 0;
   height: 3px;
   border-radius: var(--xy-radius-pill);
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
   pointer-events: none;
   transition:
     width var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -155,10 +155,10 @@
   height: 28px;
   flex-shrink: 0;
   margin-bottom: 6px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 90%, var(--xy-border));
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 99%, var(--xy-bg-color-subtle));
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-floating) 99%, var(--xy-bg-subtle));
+  color: var(--xy-text-secondary);
   cursor: pointer;
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -174,9 +174,9 @@
 
 .xy-tabs__nav-prev:hover:not(.is-disabled),
 .xy-tabs__nav-next:hover:not(.is-disabled) {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
-  color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 18%, var(--xy-bg-color-floating));
+  border-color: color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border));
+  color: var(--xy-brand);
+  background: color-mix(in srgb, var(--xy-brand-soft) 18%, var(--xy-bg-floating));
 }
 
 .xy-tabs__nav-prev.is-disabled,
@@ -187,19 +187,19 @@
 
 .xy-tabs__tab:focus-visible,
 .xy-tabs__panel:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 42%, var(--xy-bg-container));
   outline-offset: 2px;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-tabs__tab.is-active {
-  color: var(--xy-text-color-heading);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 40%, var(--xy-bg-color-floating));
+  color: var(--xy-text-heading);
+  background: color-mix(in srgb, var(--xy-brand-soft) 40%, var(--xy-bg-floating));
 }
 
 .xy-tabs__tab:hover:not(.is-disabled):not(.is-active) {
-  color: var(--xy-text-color-heading);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 76%, var(--xy-bg-color-floating));
+  color: var(--xy-text-heading);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 76%, var(--xy-bg-floating));
 }
 
 .xy-tabs__tab.is-disabled {
@@ -213,10 +213,10 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 90%, var(--xy-border));
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 99%, var(--xy-bg-color-subtle));
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-floating) 99%, var(--xy-bg-subtle));
+  color: var(--xy-text-secondary);
   cursor: pointer;
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -227,8 +227,8 @@
 .xy-tabs__nav-prev:hover,
 .xy-tabs__nav-next:hover,
 .xy-tabs__add:hover {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color));
-  color: var(--xy-color-primary);
+  border-color: color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border));
+  color: var(--xy-brand);
 }
 
 .xy-tabs__nav-prev.is-disabled,
@@ -240,17 +240,17 @@
 .xy-tabs__nav-prev:focus-visible,
 .xy-tabs__nav-next:focus-visible,
 .xy-tabs__add:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 42%, var(--xy-bg-container));
   outline-offset: 2px;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-tabs__panel {
   flex: 1;
   padding: 18px 20px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 90%, var(--xy-border));
   border-radius: calc(var(--xy-radius-lg) + var(--xy-radius-sm));
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 100%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-floating) 100%, var(--xy-bg-subtle));
 }
 
 .xy-tabs:not(.xy-tabs--card):not(.xy-tabs--border-card) .xy-tabs__header {
@@ -298,7 +298,7 @@
 
 .xy-tabs--left .xy-tabs__nav-wrap::after,
 .xy-tabs--right .xy-tabs__nav-wrap::after {
-  background: color-mix(in srgb, var(--xy-border-color-subtle) 82%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-border-subtle) 82%, var(--xy-border));
 }
 
 .xy-tabs--left .xy-tabs__nav,
@@ -324,7 +324,7 @@
 
 .xy-tabs--left .xy-tabs__tab.is-active,
 .xy-tabs--right .xy-tabs__tab.is-active {
-  color: color-mix(in srgb, var(--xy-color-primary) 68%, var(--xy-text-color));
+  color: color-mix(in srgb, var(--xy-brand) 68%, var(--xy-text-primary));
   background: transparent;
   box-shadow: none;
 }
@@ -335,7 +335,7 @@
   width: 2px;
   height: 14px;
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-color-primary) 68%, var(--xy-text-color));
+  background: color-mix(in srgb, var(--xy-brand) 68%, var(--xy-text-primary));
 }
 
 .xy-tabs--left .xy-tabs__active-bar {
@@ -367,7 +367,7 @@
 .xy-tabs--left .xy-tabs__tab:hover:not(.is-disabled):not(.is-active),
 .xy-tabs--right .xy-tabs__tab:hover:not(.is-disabled):not(.is-active) {
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-tabs--left .xy-tabs__tab-label,
@@ -384,7 +384,7 @@
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background: transparent;
-  box-shadow: inset 0 -1px 0 0 var(--xy-border-color-subtle);
+  box-shadow: inset 0 -1px 0 0 var(--xy-border-subtle);
 }
 
 .xy-tabs--card .xy-tabs__tab {
@@ -395,8 +395,8 @@
 }
 
 .xy-tabs--card .xy-tabs__tab.is-active {
-  border-color: var(--xy-border-color-subtle);
-  background: var(--xy-surface-raised);
+  border-color: var(--xy-border-subtle);
+  background: var(--xy-bg-raised);
   box-shadow: none;
 }
 
@@ -405,16 +405,16 @@
 }
 
 .xy-tabs--border-card {
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-lg);
   overflow: hidden;
-  background: var(--xy-bg-color-subtle);
+  background: var(--xy-bg-subtle);
 }
 
 .xy-tabs--border-card .xy-tabs__header {
   padding: 4px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 94%, var(--xy-bg-color));
+  border-bottom: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 94%, var(--xy-bg-container));
 }
 
 .xy-tabs--border-card .xy-tabs__panel {

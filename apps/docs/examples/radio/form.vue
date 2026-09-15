@@ -97,11 +97,11 @@ const sceneMeta = computed<{
   flex-direction: column;
   gap: 18px;
   padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 88%, white);
   border-radius: 22px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-color-muted) 70%, white), transparent 24%),
-    var(--xy-bg-color);
+    linear-gradient(180deg, color-mix(in srgb, var(--xy-bg-muted) 70%, white), transparent 24%),
+    var(--xy-bg-container);
 }
 
 .demo-radio-form__header {
@@ -129,27 +129,27 @@ const sceneMeta = computed<{
   flex-direction: column;
   gap: 10px;
   padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 88%, white);
   border-radius: 18px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 74%, white);
+  background: color-mix(in srgb, var(--xy-bg-muted) 74%, white);
 }
 
 .demo-radio-form__aside-kicker {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .demo-radio-form__aside-title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 18px;
   line-height: 1.2;
 }
 
 .demo-radio-form__aside-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }

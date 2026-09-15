@@ -247,9 +247,9 @@ function selectValue(value: number) {
 | `--xy-rate-font-size` | `18px` | 图标字号 |
 | `--xy-rate-icon-size` | `var(--xy-rate-font-size)` | 图标尺寸 |
 | `--xy-rate-gap` | `6px` | 星级间距 |
-| `--xy-rate-color` | `var(--xy-color-primary)` | 选中颜色 |
-| `--xy-rate-void-color` | `var(--xy-color-info-light-5)` | 未选中颜色 |
-| `--xy-rate-disabled-color` | `var(--xy-color-info-light-5)` | 禁用选中颜色 |
+| `--xy-rate-color` | `var(--xy-brand)` | 选中颜色 |
+| `--xy-rate-void-color` | `var(--xy-info-light-5)` | 未选中颜色 |
+| `--xy-rate-disabled-color` | `var(--xy-info-light-5)` | 禁用选中颜色 |
 | `--xy-rate-text-color` | `var(--xy-color-text-primary)` | 辅助文字颜色 |
 
 ### 主题定制方式

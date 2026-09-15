@@ -72,22 +72,22 @@ function removeLayer() {
 .xy-doc-watermark-control__surface {
   min-height: 240px;
   padding: 28px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-xl);
   background: linear-gradient(
     155deg,
-    var(--xy-surface-raised),
-    color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white)
+    var(--xy-bg-raised),
+    color-mix(in srgb, var(--xy-bg-subtle) 86%, white)
   );
-  box-shadow: var(--xy-shadow-card);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .xy-doc-watermark-control__badge {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -95,21 +95,21 @@ function removeLayer() {
 
 .xy-doc-watermark-control__title {
   margin: 18px 0 12px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 28px;
 }
 
 .xy-doc-watermark-control__description {
   max-width: 560px;
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 
 .xy-doc-watermark-control__panel {
   padding: 20px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-lg);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 92%, white);
 }
 </style>

@@ -47,6 +47,6 @@ const imageUrl = `data:image/svg+xml;utf8,${encodeURIComponent(`
 
 .demo-card-copy__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

@@ -67,24 +67,24 @@ const steps = [
 
 .demo-timeline-modes__toolbar {
   padding: 12px 14px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 86%, white);
 }
 
 .demo-timeline-modes__card {
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
 }
 
 .demo-timeline-modes__card-title {
   display: block;
   margin-bottom: 6px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .demo-timeline-modes__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 

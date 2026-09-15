@@ -86,7 +86,7 @@ function formatExceptionText(percentage: number) {
 .progress-batch-board__header-description,
 .progress-batch-board__meta-description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -102,7 +102,7 @@ function formatExceptionText(percentage: number) {
   gap: 10px;
   padding: 14px 16px;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-bg-color) 82%, var(--xy-bg-color-muted));
+  background: color-mix(in srgb, var(--xy-bg-container) 82%, var(--xy-bg-muted));
 }
 
 @media (max-width: 640px) {

@@ -4,7 +4,7 @@ import { reactive } from "vue";
 const config = reactive({
   content: "Xiaoye Components",
   font: {
-    color: "color-mix(in srgb, var(--xy-text-color) 12%, transparent)",
+    color: "color-mix(in srgb, var(--xy-text-primary) 12%, transparent)",
     fontSize: 16
   },
   zIndex: 9,
@@ -42,7 +42,7 @@ const config = reactive({
       <xy-form-item label="Color">
         <xy-input
           v-model="config.font.color"
-          placeholder="例如 color-mix(in srgb, var(--xy-text-color) 12%, transparent)"
+          placeholder="例如 color-mix(in srgb, var(--xy-text-primary) 12%, transparent)"
         />
       </xy-form-item>
 
@@ -89,20 +89,20 @@ const config = reactive({
 .xy-doc-watermark-playground__surface {
   min-height: 320px;
   padding: 28px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-xl);
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--xy-color-info) 8%, white), transparent 46%),
-    color-mix(in srgb, var(--xy-surface-raised) 94%, white);
-  box-shadow: var(--xy-shadow-card);
+    linear-gradient(145deg, color-mix(in srgb, var(--xy-info) 8%, white), transparent 46%),
+    color-mix(in srgb, var(--xy-bg-raised) 94%, white);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .xy-doc-watermark-playground__status {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: var(--xy-color-info-soft, var(--xy-bg-color-subtle));
-  color: var(--xy-color-info);
+  background: var(--xy-info-soft, var(--xy-bg-subtle));
+  color: var(--xy-info);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -110,22 +110,22 @@ const config = reactive({
 
 .xy-doc-watermark-playground__title {
   margin: 18px 0 12px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 28px;
 }
 
 .xy-doc-watermark-playground__description {
   max-width: 520px;
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 
 .xy-doc-watermark-playground__form {
   padding: 20px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-xl);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 92%, white);
 }
 
 @media (max-width: 960px) {

@@ -22,7 +22,7 @@ const dimensions = ref<Array<string | number | boolean>>(["day"]);
         <xy-checkbox-group
           v-model="dimensions"
           type="button"
-          fill="var(--xy-color-primary)"
+          fill="var(--xy-brand)"
           text-color="var(--xy-color-white)"
           :options="[
             { label: '按天', value: 'day' },
@@ -54,15 +54,15 @@ const dimensions = ref<Array<string | number | boolean>>(["day"]);
 
 .demo-checkbox-button__description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.5;
 }
 
 .demo-checkbox-button__content {
   padding: 16px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 12px;
-  background: var(--xy-bg-color-subtle);
+  background: var(--xy-bg-subtle);
 }
 </style>

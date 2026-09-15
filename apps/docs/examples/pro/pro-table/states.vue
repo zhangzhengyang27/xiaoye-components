@@ -66,6 +66,6 @@ const columns: ProTableColumn<Row>[] = [
   justify-content: center;
   width: 100%;
   padding: 24px 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

@@ -44,16 +44,16 @@ const data = [
 :global(.tree-select-admin-surface) {
   --xy-tree-select-dropdown-bg: color-mix(
     in srgb,
-    var(--xy-bg-color-floating) 96%,
-    var(--xy-bg-color-subtle)
+    var(--xy-bg-floating) 96%,
+    var(--xy-bg-subtle)
   );
   --xy-tree-select-dropdown-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 82%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 82%,
+    var(--xy-border)
   );
   --xy-tree-select-dropdown-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-    0 14px 30px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+    0 14px 30px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
 }
 </style>

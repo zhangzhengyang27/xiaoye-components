@@ -326,9 +326,9 @@ flowchart LR
 |------|------|--------|
 | `--xy-tree-node-content-height` | 节点内容区高度 | `26px` |
 | `--xy-tree-indent` | 层级缩进宽度 | `18px` |
-| `--xy-tree-text-color` | 节点文本颜色 | `var(--xy-text-color)` |
-| `--xy-tree-node-hover-background` | 节点 hover 背景 | `var(--xy-fill-color-light)` |
-| `--xy-tree-node-current-background` | 当前节点背景 | `var(--xy-color-primary-light-9)` |
+| `--xy-tree-text-color` | 节点文本颜色 | `var(--xy-text-primary)` |
+| `--xy-tree-node-hover-background` | 节点 hover 背景 | `var(--xy-fill-light)` |
+| `--xy-tree-node-current-background` | 当前节点背景 | `var(--xy-brand-light-9)` |
 
 ## 小结
 

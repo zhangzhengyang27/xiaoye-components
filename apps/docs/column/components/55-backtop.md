@@ -248,13 +248,13 @@ Backtop 的视觉样式通过根元素 CSS 直接定制。按钮使用圆形设�
   border-radius: 999px;
 
   /* 颜色使用 token */
-  border-color: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  border-color: color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border));
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
 }
 
 .xy-backtop:hover {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 52%, var(--xy-bg-color-floating));
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 52%, var(--xy-bg-floating));
+  color: var(--xy-brand);
   transform: translateY(-1px);
 }
 ```

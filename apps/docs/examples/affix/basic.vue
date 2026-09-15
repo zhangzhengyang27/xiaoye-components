@@ -34,21 +34,21 @@
   justify-content: space-between;
   gap: 16px;
   padding: 16px 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 14%, var(--xy-border-subtle));
   border-radius: 18px;
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .demo-affix-basic__toolbar-title {
   display: block;
   margin-bottom: 6px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .demo-affix-basic__toolbar-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -64,7 +64,7 @@
 
 .demo-affix-basic__card-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

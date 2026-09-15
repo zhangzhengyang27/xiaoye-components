@@ -84,7 +84,7 @@ const isLast = computed(() => active.value === panels.length - 1);
 
 .demo-steps-wizard__header-description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.7;
 }
@@ -94,7 +94,7 @@ const isLast = computed(() => active.value === panels.length - 1);
   gap: 10px;
   margin: 0;
   padding-left: 20px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-steps-wizard__item {

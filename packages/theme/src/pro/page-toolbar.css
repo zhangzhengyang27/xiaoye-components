@@ -7,15 +7,15 @@
 }
 
 .xy-page-toolbar.is-bordered {
-  border: 1px solid var(--xy-border-color);
-  background: var(--xy-bg-color);
-  box-shadow: var(--xy-shadow-sm);
+  border: 1px solid var(--xy-border);
+  background: var(--xy-bg-container);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .xy-page-toolbar.is-sticky {
   position: sticky;
   z-index: 30;
-  background: color-mix(in srgb, var(--xy-bg-color) 88%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-container) 88%, transparent);
   backdrop-filter: blur(12px);
 }
 
@@ -32,14 +32,14 @@
 
 .xy-page-toolbar__title {
   margin: 0;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 24px;
   line-height: 1.2;
 }
 
 .xy-page-toolbar__description {
   margin: var(--xy-space-2) 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-page-toolbar__actions {
@@ -51,7 +51,7 @@
 
 .xy-page-toolbar__content.is-divider {
   padding-top: var(--xy-space-4);
-  border-top: 1px solid var(--xy-border-color);
+  border-top: 1px solid var(--xy-border);
 }
 
 @media (max-width: 720px) {

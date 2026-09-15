@@ -8,7 +8,7 @@
 
 .xy-loading-mask {
   --xy-loading-text-font-size: var(--xy-font-size-md);
-  --xy-loading-text-color: var(--xy-text-color-subtle);
+  --xy-loading-text-color: var(--xy-text-muted);
   --xy-loading-mask-background: color-mix(in srgb, var(--xy-overlay-color) 14%, transparent);
 
   position: absolute;
@@ -65,11 +65,11 @@
   min-width: 112px;
   padding: 16px 20px;
   border-radius: calc(var(--xy-radius-lg) + var(--xy-radius-sm));
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 90%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 90%, var(--xy-border));
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-heading) 4%, transparent);
 }
 
 .xy-loading-mask.is-fullscreen .xy-loading__indicator.is-surface {
@@ -93,7 +93,7 @@
 }
 
 .xy-loading__path {
-  stroke: var(--xy-color-primary);
+  stroke: var(--xy-brand);
   stroke-width: 2.75;
   stroke-linecap: round;
   animation: xy-loading-dash 1.5s ease-in-out infinite;

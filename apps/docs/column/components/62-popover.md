@@ -300,11 +300,11 @@ defineExpose({
 
 /* Light 主题（Popover 默认使用 light 主题） */
 .xy-popover__content--light {
-  --xy-popover-bg: var(--xy-bg-color-floating);
-  --xy-popover-text: var(--xy-text-color-secondary);
-  --xy-popover-border: var(--xy-border-color-subtle);
+  --xy-popover-bg: var(--xy-bg-floating);
+  --xy-popover-text: var(--xy-text-secondary);
+  --xy-popover-border: var(--xy-border-subtle);
   --xy-popover-shadow: var(--xy-shadow-floating);
-  --xy-popover-header-bg: var(--xy-bg-color-subtle);
+  --xy-popover-header-bg: var(--xy-bg-subtle);
 }
 
 /* 标题区 */

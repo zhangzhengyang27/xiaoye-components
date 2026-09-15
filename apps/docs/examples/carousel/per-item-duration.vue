@@ -15,28 +15,28 @@
 
 <style scoped>
 .demo-carousel-duration {
-  --demo-carousel-accent: var(--xy-color-primary);
+  --demo-carousel-accent: var(--xy-brand);
   width: 100%;
   height: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 24%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 24%, var(--xy-border));
   background:
     linear-gradient(
       150deg,
       color-mix(in srgb, var(--demo-carousel-accent) 22%, white),
       transparent 42%
     ),
-    color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-muted) 84%, white);
+  color: var(--xy-text-primary);
   font-size: 22px;
   font-weight: 700;
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
 
 .demo-carousel-duration--disabled {
-  --demo-carousel-accent: var(--xy-text-color-secondary);
+  --demo-carousel-accent: var(--xy-text-secondary);
 }
 </style>

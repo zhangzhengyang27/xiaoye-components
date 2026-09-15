@@ -377,13 +377,13 @@ function handleError(event: Event) {
 
 ```css
 .xy-image {
-  --xy-image-placeholder-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 74%, var(--xy-surface-raised));
-  --xy-image-error-bg: color-mix(in srgb, var(--xy-bg-color-subtle) 68%, var(--xy-surface-raised));
-  --xy-image-error-color: var(--xy-text-color-secondary);
+  --xy-image-placeholder-bg: color-mix(in srgb, var(--xy-bg-subtle) 74%, var(--xy-bg-raised));
+  --xy-image-error-bg: color-mix(in srgb, var(--xy-bg-subtle) 68%, var(--xy-bg-raised));
+  --xy-image-error-color: var(--xy-text-secondary);
   --xy-image-viewer-mask: color-mix(in srgb, var(--xy-overlay-color) 92%, transparent);
-  --xy-image-viewer-btn-bg: color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent);
-  --xy-image-viewer-btn-border: color-mix(in srgb, var(--xy-bg-color) 14%, transparent);
-  --xy-image-viewer-btn-color: color-mix(in srgb, var(--xy-bg-color) 92%, var(--xy-text-color-heading));
+  --xy-image-viewer-btn-bg: color-mix(in srgb, var(--xy-bg-floating) 18%, transparent);
+  --xy-image-viewer-btn-border: color-mix(in srgb, var(--xy-bg-container) 14%, transparent);
+  --xy-image-viewer-btn-color: color-mix(in srgb, var(--xy-bg-container) 92%, var(--xy-text-heading));
 }
 ```
 
@@ -391,16 +391,16 @@ function handleError(event: Event) {
 
 | 全局令牌 | 用途 |
 |---------|------|
-| `--xy-bg-color-subtle` | 占位符 / 错误态背景混合 |
-| `--xy-surface-raised` | 占位符 / 错误态背景混合 |
-| `--xy-text-color-secondary` | 错误态文字颜色 |
+| `--xy-bg-subtle` | 占位符 / 错误态背景混合 |
+| `--xy-bg-raised` | 占位符 / 错误态背景混合 |
+| `--xy-text-secondary` | 错误态文字颜色 |
 | `--xy-overlay-color` | 预览遮罩背景 |
-| `--xy-bg-color-floating` | 预览按钮 / 工具栏背景 |
-| `--xy-bg-color` | 预览按钮文字 / 边框混合 |
-| `--xy-text-color-heading` | 预览按钮文字混合 |
-| `--xy-border-color-subtle` | 占位符 / 错误态内阴影 |
-| `--xy-color-primary` | 焦点可见轮廓 |
-| `--xy-color-primary-soft` | 重置按钮强调色 |
+| `--xy-bg-floating` | 预览按钮 / 工具栏背景 |
+| `--xy-bg-container` | 预览按钮文字 / 边框混合 |
+| `--xy-text-heading` | 预览按钮文字混合 |
+| `--xy-border-subtle` | 占位符 / 错误态内阴影 |
+| `--xy-brand` | 焦点可见轮廓 |
+| `--xy-brand-soft` | 重置按钮强调色 |
 | `--xy-radius-lg` | 错误态圆角 |
 | `--xy-radius-pill` | 胶囊圆角（重试 / 进度 / 工具栏） |
 | `--xy-font-size-sm` | 小号字体 |

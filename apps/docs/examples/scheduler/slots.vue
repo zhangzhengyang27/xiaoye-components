@@ -55,6 +55,6 @@ const events = [
 }
 
 .doc-scheduler-day.is-today {
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
 }
 </style>

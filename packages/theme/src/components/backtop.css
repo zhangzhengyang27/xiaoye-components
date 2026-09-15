@@ -8,12 +8,12 @@
   height: 44px;
   padding: 0 14px;
   border-radius: var(--xy-radius-pill);
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
-  color: var(--xy-text-color);
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border));
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
+  color: var(--xy-text-primary);
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
   cursor: pointer;
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -24,19 +24,19 @@
 }
 
 .xy-backtop:hover {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 52%, var(--xy-bg-color-floating));
-  color: var(--xy-color-primary);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-brand-soft) 52%, var(--xy-bg-floating));
+  color: var(--xy-brand);
+  border-color: color-mix(in srgb, var(--xy-brand) 14%, var(--xy-border-subtle));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 10%, transparent),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-brand) 10%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
   transform: translateY(-1px);
 }
 
 .xy-backtop:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 42%, var(--xy-bg-container));
   outline-offset: 2px;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-backtop__icon {

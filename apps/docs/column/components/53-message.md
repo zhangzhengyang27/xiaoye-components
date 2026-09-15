@@ -297,8 +297,8 @@ sequenceDiagram
 
 ```css
 .xy-message--success {
-  --xy-message-bg-color: var(--xy-color-success-light-9);
-  --xy-message-title-color: var(--xy-color-success);
+  --xy-message-bg-color: var(--xy-success-light-9);
+  --xy-message-title-color: var(--xy-success);
 }
 ```
 

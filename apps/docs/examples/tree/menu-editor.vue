@@ -438,14 +438,14 @@ function allowDrop(
   gap: 8px;
   min-height: 100%;
   padding: 16px 18px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 84%, white);
 }
 
 .demo-tree-menu-editor__preview {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   line-height: 1.6;
   white-space: pre-wrap;
@@ -457,10 +457,10 @@ function allowDrop(
   display: grid;
   min-width: 208px;
   padding: 10px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-md);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-2);
   gap: 6px;
 }
 
@@ -468,11 +468,11 @@ function allowDrop(
   display: grid;
   gap: 2px;
   padding: 4px 6px 8px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
+  border-bottom: 1px solid var(--xy-border-subtle);
 }
 
 .demo-tree-menu-editor__header-title {
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
@@ -487,7 +487,7 @@ function allowDrop(
   border: 0;
   border-radius: 10px;
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 14px;
   text-align: left;
   cursor: pointer;
@@ -497,13 +497,13 @@ function allowDrop(
 }
 
 .demo-tree-menu-editor__item:hover {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 70%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 70%, white);
+  color: var(--xy-brand);
 }
 
 .demo-tree-menu-editor__item.is-danger:hover {
-  background: color-mix(in srgb, var(--xy-color-danger-soft) 70%, white);
-  color: var(--xy-color-danger);
+  background: color-mix(in srgb, var(--xy-danger-soft) 70%, white);
+  color: var(--xy-danger);
 }
 
 @media (max-width: 720px) {

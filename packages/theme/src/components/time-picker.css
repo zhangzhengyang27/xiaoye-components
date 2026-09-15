@@ -7,10 +7,10 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 88%, var(--xy-border));
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 97%, var(--xy-bg-color-subtle));
-  color: var(--xy-text-color);
+  background: color-mix(in srgb, var(--xy-bg-floating) 97%, var(--xy-bg-subtle));
+  color: var(--xy-text-primary);
   cursor: pointer;
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -37,22 +37,22 @@
 .xy-time-picker.is-open .xy-time-picker__trigger,
 .xy-time-picker__trigger:focus-visible {
   outline: 0;
-  border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  border-color: var(--xy-brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-time-picker__trigger:hover:not(:disabled),
 .xy-time-picker:not(.is-disabled):not(.is-open) .xy-time-picker__trigger:hover {
-  border-color: var(--xy-border-color-strong);
-  background: color-mix(in srgb, var(--xy-bg-color-elevated) 76%, var(--xy-bg-color-floating));
+  border-color: var(--xy-border-strong);
+  background: color-mix(in srgb, var(--xy-bg-elevated) 76%, var(--xy-bg-floating));
 }
 
 .xy-time-picker__trigger .is-placeholder {
-  color: var(--xy-text-color-muted-2);
+  color: var(--xy-text-faint);
 }
 
 .xy-time-picker__separator {
-  color: var(--xy-text-color-muted-2);
+  color: var(--xy-text-faint);
 }
 
 .xy-time-picker__selection {
@@ -93,7 +93,7 @@
   height: 100%;
   border: 0;
   background: transparent;
-  color: var(--xy-text-color-muted-2);
+  color: var(--xy-text-faint);
   cursor: pointer;
   opacity: 0;
   padding: 0;
@@ -118,7 +118,7 @@
   inset: 0;
   width: 16px;
   height: 100%;
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   line-height: 1;
   opacity: 1;
   transition:
@@ -128,12 +128,12 @@
 }
 
 .xy-time-picker__clear:hover {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-time-picker__trigger:hover .xy-time-picker__caret,
 .xy-time-picker.is-open .xy-time-picker__caret {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-time-picker.is-open .xy-time-picker__caret {
@@ -157,28 +157,28 @@
     --xy-time-picker-panel-bg,
     var(
       --xy-popper-bg,
-      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle)))
+      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle)))
     )
   );
   --xy-time-picker-panel-border-resolved: var(
     --xy-time-picker-panel-border,
     var(
       --xy-popper-border-color,
-      color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color))
+      color-mix(in srgb, var(--xy-border-subtle) 88%, var(--xy-border))
     )
   );
   --xy-time-picker-panel-shadow-resolved: var(
     --xy-time-picker-panel-shadow,
     var(
       --xy-popper-shadow,
-      0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-      0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent)
+      0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+      0 2px 8px color-mix(in srgb, var(--xy-text-heading) 7%, transparent)
     )
   );
   --xy-time-picker-panel-section-background: color-mix(
     in srgb,
     var(--xy-time-picker-panel-bg-resolved) 96%,
-    var(--xy-bg-color-subtle)
+    var(--xy-bg-subtle)
   );
   position: absolute;
   width: 320px;
@@ -215,7 +215,7 @@
 
 .xy-time-picker__section-title {
   margin-bottom: 10px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: var(--xy-font-size-sm);
   font-weight: 600;
 }
@@ -232,7 +232,7 @@
 .xy-time-picker__column-label {
   display: block;
   margin-bottom: 8px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: var(--xy-font-size-sm);
   text-align: center;
 }
@@ -244,7 +244,7 @@
   overflow: auto;
   padding: 4px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 88%, var(--xy-time-picker-panel-section-background));
+  background: color-mix(in srgb, var(--xy-bg-floating) 88%, var(--xy-time-picker-panel-section-background));
 }
 
 .xy-time-picker__option {
@@ -252,7 +252,7 @@
   min-height: 32px;
   border-radius: var(--xy-radius-md);
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -262,27 +262,27 @@
 
 .xy-time-picker__option:hover:not(:disabled),
 .xy-time-picker__option.is-active {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 76%, var(--xy-time-picker-panel-bg-resolved));
+  background: color-mix(in srgb, var(--xy-bg-subtle) 76%, var(--xy-time-picker-panel-bg-resolved));
   border-color: color-mix(
     in srgb,
-    var(--xy-color-primary) 14%,
+    var(--xy-brand) 14%,
     var(--xy-time-picker-panel-border-resolved)
   );
 }
 
 .xy-time-picker__option.is-selected {
-  color: var(--xy-color-primary);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 84%, var(--xy-time-picker-panel-bg-resolved));
+  color: var(--xy-brand);
+  background: color-mix(in srgb, var(--xy-brand-soft) 84%, var(--xy-time-picker-panel-bg-resolved));
   border-color: color-mix(
     in srgb,
-    var(--xy-color-primary) 18%,
+    var(--xy-brand) 18%,
     var(--xy-time-picker-panel-border-resolved)
   );
   font-weight: 600;
 }
 
 .xy-time-picker__option:disabled {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   opacity: 0.48;
   cursor: not-allowed;
 }
@@ -302,7 +302,7 @@
   background: var(--xy-time-picker-panel-section-background);
   min-height: 32px;
   padding: 0 12px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -311,24 +311,24 @@
 }
 
 .xy-time-picker__action:hover {
-  border-color: var(--xy-border-color-strong);
-  background: color-mix(in srgb, var(--xy-bg-color-elevated) 72%, var(--xy-time-picker-panel-bg-resolved));
+  border-color: var(--xy-border-strong);
+  background: color-mix(in srgb, var(--xy-bg-elevated) 72%, var(--xy-time-picker-panel-bg-resolved));
 }
 
 .xy-time-picker__action--primary {
-  border-color: color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-time-picker-panel-border-resolved));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 84%, var(--xy-time-picker-panel-bg-resolved));
-  color: var(--xy-color-primary);
+  border-color: color-mix(in srgb, var(--xy-brand) 16%, var(--xy-time-picker-panel-border-resolved));
+  background: color-mix(in srgb, var(--xy-brand-soft) 84%, var(--xy-time-picker-panel-bg-resolved));
+  color: var(--xy-brand);
   font-weight: 600;
 }
 
 .xy-time-picker.is-error .xy-time-picker__trigger {
-  border-color: var(--xy-color-danger);
+  border-color: var(--xy-danger);
 }
 
 .xy-time-picker.is-disabled .xy-time-picker__trigger {
-  background: color-mix(in srgb, var(--xy-surface-sunken) 92%, var(--xy-bg-color-subtle));
-  color: var(--xy-text-color-muted);
+  background: color-mix(in srgb, var(--xy-bg-sunken) 92%, var(--xy-bg-subtle));
+  color: var(--xy-text-muted);
   opacity: 0.76;
   cursor: not-allowed;
 }
@@ -336,9 +336,9 @@
 .xy-time-picker__option:focus-visible,
 .xy-time-picker__action:focus-visible,
 .xy-time-picker__clear:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-time-picker.is-disabled .xy-time-picker__clear,

@@ -5,17 +5,17 @@ const slides = [
   {
     title: "边界无缝 1",
     desc: "自动播放到最后一张后，会直接回到第一张，并保持首尾视觉位置连续。",
-    accent: "var(--xy-color-primary)"
+    accent: "var(--xy-brand)"
   },
   {
     title: "边界无缝 2",
     desc: "边界切换不再额外走收尾轨道，而是按真实索引回绕到下一张。",
-    accent: "var(--xy-color-success)"
+    accent: "var(--xy-success)"
   },
   {
     title: "边界无缝 3",
     desc: "进度条会在切到新一项后重新开始计时，节奏和普通切换保持一致。",
-    accent: "var(--xy-color-warning)"
+    accent: "var(--xy-warning)"
   }
 ] as const;
 
@@ -72,15 +72,15 @@ const activeLabel = computed(
   justify-content: flex-end;
   gap: 10px;
   padding: 28px;
-  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 18%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 18%, var(--xy-border));
   background:
     linear-gradient(
       155deg,
       color-mix(in srgb, var(--demo-carousel-accent) 12%, white),
       transparent 48%
     ),
-    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white);
+  color: var(--xy-text-primary);
   overflow: hidden;
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
@@ -92,7 +92,7 @@ const activeLabel = computed(
   padding: 4px 10px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--demo-carousel-accent) 12%, white);
-  color: color-mix(in srgb, var(--demo-carousel-accent) 78%, var(--xy-text-color));
+  color: color-mix(in srgb, var(--demo-carousel-accent) 78%, var(--xy-text-primary));
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -102,6 +102,6 @@ const activeLabel = computed(
 .demo-carousel-seamless__description {
   margin: 0;
   max-width: 380px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

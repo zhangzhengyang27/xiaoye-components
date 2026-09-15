@@ -29,10 +29,10 @@
 .demo-card-item {
   margin: 0;
   padding: 10px 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .demo-card-item.is-separated {
-  border-top: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-top: 1px solid color-mix(in srgb, var(--xy-border) 82%, white);
 }
 </style>

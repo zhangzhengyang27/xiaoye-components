@@ -107,7 +107,7 @@ const actions: Array<{ label: string; value: DemoState; status: "primary" | "suc
 
 .demo-skeleton-stateflow__content-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 

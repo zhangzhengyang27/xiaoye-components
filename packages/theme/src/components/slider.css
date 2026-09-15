@@ -2,16 +2,16 @@
   --xy-slider-size: 32px;
   --xy-slider-track-size: 6px;
   --xy-slider-thumb-size: 18px;
-  --xy-slider-fill-color: var(--xy-color-primary);
+  --xy-slider-fill-color: var(--xy-brand);
   --xy-slider-runway-color: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 54%,
-    var(--xy-bg-color-subtle)
+    var(--xy-border-subtle) 54%,
+    var(--xy-bg-subtle)
   );
-  --xy-slider-stop-color: var(--xy-bg-color);
-  --xy-slider-tooltip-bg: var(--xy-bg-color-floating);
-  --xy-slider-tooltip-color: var(--xy-text-color-subtle);
-  --xy-slider-tooltip-border: var(--xy-border-color-subtle);
+  --xy-slider-stop-color: var(--xy-bg-container);
+  --xy-slider-tooltip-bg: var(--xy-bg-floating);
+  --xy-slider-tooltip-color: var(--xy-text-muted);
+  --xy-slider-tooltip-border: var(--xy-border-subtle);
   position: relative;
   display: inline-flex;
   flex: 1 1 auto;
@@ -57,7 +57,7 @@
   height: var(--xy-slider-track-size);
   border-radius: var(--xy-radius-pill);
   background: var(--xy-slider-runway-color);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-color-subtle) 72%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-border-subtle) 72%, transparent);
   cursor: pointer;
 }
 
@@ -79,7 +79,7 @@
   left: 0;
   height: 100%;
   border-radius: inherit;
-  background: color-mix(in srgb, var(--xy-slider-fill-color) 82%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-slider-fill-color) 82%, var(--xy-bg-raised));
 }
 
 .xy-slider.is-vertical .xy-slider__bar {
@@ -87,7 +87,7 @@
   bottom: 0;
   width: 100%;
   height: auto;
-  background: color-mix(in srgb, var(--xy-slider-fill-color) 82%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-slider-fill-color) 82%, var(--xy-bg-raised));
 }
 
 .xy-slider__thumb-wrapper {
@@ -115,7 +115,7 @@
 }
 
 .xy-slider__thumb-wrapper.is-focused .xy-slider__thumb {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-slider__thumb {
@@ -123,10 +123,10 @@
   height: var(--xy-slider-thumb-size);
   border: 2px solid var(--xy-slider-fill-color);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, var(--xy-bg-color));
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, var(--xy-bg-container));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
   transition:
     transform var(--xy-transition-duration-fast) var(--xy-transition-timing),
     box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -137,7 +137,7 @@
 .xy-slider__thumb-wrapper.is-hover .xy-slider__thumb,
 .xy-slider__thumb-wrapper.is-dragging .xy-slider__thumb {
   transform: scale(1.08);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 20%, var(--xy-surface-raised));
+  background: color-mix(in srgb, var(--xy-brand-soft) 20%, var(--xy-bg-raised));
 }
 
 .xy-slider.is-disabled .xy-slider__thumb-wrapper {
@@ -154,7 +154,7 @@
   z-index: 3;
   padding: 6px 10px;
   border-radius: var(--xy-radius-sm);
-  background: color-mix(in srgb, var(--xy-slider-tooltip-bg) 94%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-slider-tooltip-bg) 94%, var(--xy-bg-subtle));
   border: 1px solid var(--xy-slider-tooltip-border);
   color: var(--xy-slider-tooltip-color);
   font-size: var(--xy-font-size-sm);
@@ -162,8 +162,8 @@
   white-space: nowrap;
   pointer-events: none;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 18%, transparent),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 18%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
 }
 
 .xy-slider__tooltip--top {
@@ -205,9 +205,9 @@
 .xy-slider__stop {
   width: 10px;
   height: 10px;
-  border: 2px solid color-mix(in srgb, var(--xy-slider-fill-color) 28%, var(--xy-border-color));
+  border: 2px solid color-mix(in srgb, var(--xy-slider-fill-color) 28%, var(--xy-border));
   border-radius: 50%;
-  background: color-mix(in srgb, var(--xy-surface-raised) 88%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-raised) 88%, var(--xy-bg-subtle));
 }
 
 .xy-slider__input {

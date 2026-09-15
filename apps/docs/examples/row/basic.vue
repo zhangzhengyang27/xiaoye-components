@@ -19,13 +19,13 @@
   justify-content: center;
   min-height: 52px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 78%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-muted) 78%, white);
+  color: var(--xy-text-secondary);
   font-weight: 600;
 }
 
 .demo-cell--strong {
-  background: color-mix(in srgb, var(--xy-color-primary) 14%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand) 14%, white);
+  color: var(--xy-brand);
 }
 </style>

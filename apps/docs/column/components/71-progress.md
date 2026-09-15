@@ -84,7 +84,7 @@ export interface ProgressProps {
 const currentColor = computed(() => {
   if (props.color) return resolveColor(props.color);
   if (props.status) return statusColorMap[props.status];
-  return "var(--xy-color-primary)";
+  return "var(--xy-brand)";
 });
 ```
 
@@ -179,11 +179,11 @@ const gradientId = useId();
 
 | 变量 | 说明 | 默认值 |
 |------|------|--------|
-| `--xy-progress-color` | 进度条默认颜色 | `var(--xy-color-primary)` |
-| `--xy-progress-success-color` | 成功状态色 | `var(--xy-color-success)` |
-| `--xy-progress-warning-color` | 警告状态色 | `var(--xy-color-warning)` |
-| `--xy-progress-error-color` | 错误状态色 | `var(--xy-color-danger)` |
-| `--xy-progress-bg` | 轨道背景色 | `var(--xy-fill-color-light)` |
+| `--xy-progress-color` | 进度条默认颜色 | `var(--xy-brand)` |
+| `--xy-progress-success-color` | 成功状态色 | `var(--xy-success)` |
+| `--xy-progress-warning-color` | 警告状态色 | `var(--xy-warning)` |
+| `--xy-progress-error-color` | 错误状态色 | `var(--xy-danger)` |
+| `--xy-progress-bg` | 轨道背景色 | `var(--xy-fill-light)` |
 | `--xy-progress-bar-height` | 线性条高度 | `8px` |
 | `--xy-progress-text-font-size` | 百分比文字字号 | `14px` |
 

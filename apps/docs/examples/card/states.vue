@@ -55,7 +55,7 @@ const empty = ref(false);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .demo-card-state-copy {
@@ -66,6 +66,6 @@ const empty = ref(false);
 
 .demo-card-state-copy__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

@@ -10,9 +10,9 @@
   justify-content: space-between;
   gap: 16px;
   padding: 24px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 90%, var(--xy-mix-light));
+  border: 1px solid color-mix(in srgb, var(--xy-border) 90%, var(--xy-mix-light));
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color);
+  background: var(--xy-bg-container);
 }
 
 .xy-split-layout-page__header-main {
@@ -29,7 +29,7 @@
 
 .xy-split-layout-page__header-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-split-layout-page__panel {

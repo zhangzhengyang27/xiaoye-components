@@ -6,7 +6,7 @@ const content = ["小叶组件库", "Xiaoye Components"];
   <xy-watermark
     :content="content"
     :font="{
-      color: 'color-mix(in srgb, var(--xy-text-color) 12%, transparent)',
+      color: 'color-mix(in srgb, var(--xy-text-primary) 12%, transparent)',
       fontSize: 15,
       fontGap: 6
     }"
@@ -24,12 +24,12 @@ const content = ["小叶组件库", "Xiaoye Components"];
 .xy-doc-watermark-panel {
   min-height: 220px;
   padding: 28px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-xl);
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-color-primary) 7%, white), transparent 52%),
-    color-mix(in srgb, var(--xy-surface-sunken) 84%, white);
-  color: var(--xy-text-color);
+    linear-gradient(180deg, color-mix(in srgb, var(--xy-brand) 7%, white), transparent 52%),
+    color-mix(in srgb, var(--xy-bg-sunken) 84%, white);
+  color: var(--xy-text-primary);
 }
 
 .xy-doc-watermark-panel__title {
@@ -40,7 +40,7 @@ const content = ["小叶组件库", "Xiaoye Components"];
 .xy-doc-watermark-panel__description {
   max-width: 520px;
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

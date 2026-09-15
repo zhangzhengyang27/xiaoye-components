@@ -27,24 +27,24 @@ const shortcuts = [
 }
 
 :global(.date-picker-admin-surface) {
-  --xy-date-picker-panel-bg: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
+  --xy-date-picker-panel-bg: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle));
   --xy-date-picker-panel-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 82%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 82%,
+    var(--xy-border)
   );
   --xy-date-picker-panel-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-    0 16px 32px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+    0 16px 32px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
   --xy-date-picker-cell-hover-bg: color-mix(
     in srgb,
-    var(--xy-color-primary) 8%,
-    var(--xy-bg-color-floating)
+    var(--xy-brand) 8%,
+    var(--xy-bg-floating)
   );
   --xy-date-picker-cell-selected-bg: color-mix(
     in srgb,
-    var(--xy-color-primary) 14%,
-    var(--xy-bg-color-floating)
+    var(--xy-brand) 14%,
+    var(--xy-bg-floating)
   );
 }
 </style>

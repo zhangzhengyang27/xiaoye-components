@@ -59,15 +59,15 @@ const sections = [
   height: 300px;
   overflow: auto;
   padding: 8px 16px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color-muted);
+  background: var(--xy-bg-muted);
 }
 
 .demo-anchor-basic__section {
   min-height: 180px;
   padding: 20px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 78%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border) 78%, white);
 }
 
 .demo-anchor-basic__section.is-last {
@@ -76,13 +76,13 @@ const sections = [
 
 .demo-anchor-basic__section-title {
   margin: 0 0 10px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 20px;
 }
 
 .demo-anchor-basic__section-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 

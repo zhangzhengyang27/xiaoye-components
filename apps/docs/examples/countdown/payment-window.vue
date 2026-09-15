@@ -125,7 +125,7 @@ function markExpired(orderId: string) {
 .countdown-payment-board__header-description,
 .countdown-payment-board__meta-description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -137,10 +137,10 @@ function markExpired(orderId: string) {
 
 .countdown-payment-board__item {
   padding: 16px 18px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .countdown-payment-board__main {

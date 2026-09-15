@@ -1,10 +1,10 @@
 .xy-editor {
   position: relative;
   width: 100%;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
   overflow: hidden;
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
 }
 
 .xy-editor .vditor {
@@ -13,10 +13,10 @@
 }
 
 .xy-editor .vditor-toolbar {
-  border-color: var(--xy-border-color-subtle);
-  background: var(--xy-bg-color-subtle);
+  border-color: var(--xy-border-subtle);
+  background: var(--xy-bg-subtle);
 }
 
 .xy-editor .vditor-content {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }

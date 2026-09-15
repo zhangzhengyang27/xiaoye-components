@@ -275,21 +275,21 @@ Text 组件的样式完全基于 `--xy-*` 设计令牌，零硬编码色值：
 .xy-text--lg      { font-size: var(--xy-font-size-lg); }   /* 16px */
 
 /* 语义色 */
-.xy-text--default { color: var(--xy-text-color); }          /* #1c1c1e */
-.xy-text--primary { color: var(--xy-color-primary); }       /* #5b76fe */
-.xy-text--success { color: var(--xy-color-success); }       /* #00b473 */
-.xy-text--info    { color: var(--xy-color-info); }          /* #566277 */
-.xy-text--warning { color: var(--xy-color-warning); }       /* #d98a1f */
-.xy-text--danger  { color: var(--xy-color-danger); }        /* #e5484d */
+.xy-text--default { color: var(--xy-text-primary); }          /* #1c1c1e */
+.xy-text--primary { color: var(--xy-brand); }       /* #5b76fe */
+.xy-text--success { color: var(--xy-success); }       /* #00b473 */
+.xy-text--info    { color: var(--xy-info); }          /* #566277 */
+.xy-text--warning { color: var(--xy-warning); }       /* #d98a1f */
+.xy-text--danger  { color: var(--xy-danger); }        /* #e5484d */
 
 /* 操作按钮 */
 .xy-text__action,
-.xy-text__toggle  { color: var(--xy-text-color-subtle);
+.xy-text__toggle  { color: var(--xy-text-muted);
                      border-radius: var(--xy-radius-md);
                      transition: color var(--xy-transition-duration-fast) var(--xy-transition-timing), ...; }
 ```
 
-暗黑模式无需任何组件级覆盖——`tokens.css` 中 `[data-theme="dark"]` 重新定义了所有 `--xy-color-*` 和 `--xy-text-color-*` 变量，Text 组件自动跟随。
+暗黑模式无需任何组件级覆盖——`tokens.css` 中 `[data-theme="dark"]` 重新定义了所有 `--xy-color-*` 和 `--xy-text-primary-*` 变量，Text 组件自动跟随。
 
 ### 截断样式实现
 
@@ -383,7 +383,7 @@ Text 通过 `useConfig()` 读取 `ConfigProvider` 注入的 `size`，与 Button�
 ```css
 :root {
   --xy-font-size-md: 15px;       /* 调整默认字号 */
-  --xy-color-primary: #6366f1;   /* 替换主色 */
+  --xy-brand: #6366f1;   /* 替换主色 */
   --xy-radius-md: 4px;           /* 增大操作按钮圆角 */
 }
 ```

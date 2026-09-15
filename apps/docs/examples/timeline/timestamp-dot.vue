@@ -32,20 +32,20 @@
 <style scoped>
 .demo-timeline-panel {
   padding: 12px 14px;
-  border-left: 3px solid color-mix(in srgb, var(--xy-color-primary) 18%, transparent);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 76%, white);
+  border-left: 3px solid color-mix(in srgb, var(--xy-brand) 18%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-muted) 76%, white);
   border-radius: 0 var(--xy-radius-md) var(--xy-radius-md) 0;
 }
 
 .demo-timeline-panel__title {
   display: block;
   margin-bottom: 6px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-timeline-panel__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 
@@ -56,15 +56,15 @@
   width: 28px;
   height: 28px;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 20%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 20%, var(--xy-border));
   background:
     linear-gradient(
       155deg,
-      color-mix(in srgb, var(--xy-color-primary) 14%, white),
+      color-mix(in srgb, var(--xy-brand) 14%, white),
       transparent 46%
     ),
-    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
-  color: var(--xy-color-primary);
+    color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white);
+  color: var(--xy-brand);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;

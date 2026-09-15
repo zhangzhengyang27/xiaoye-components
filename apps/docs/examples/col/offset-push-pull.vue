@@ -24,14 +24,14 @@
 .col-demo-block {
   padding: 14px 16px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
-  color: color-mix(in srgb, var(--xy-color-primary) 78%, var(--xy-text-color));
+  background: color-mix(in srgb, var(--xy-brand) 12%, white);
+  color: color-mix(in srgb, var(--xy-brand) 78%, var(--xy-text-primary));
   text-align: center;
   font-weight: 600;
 }
 
 .col-demo-block--accent {
-  background: color-mix(in srgb, var(--xy-color-info) 12%, white);
-  color: color-mix(in srgb, var(--xy-color-info) 78%, var(--xy-text-color));
+  background: color-mix(in srgb, var(--xy-info) 12%, white);
+  color: color-mix(in srgb, var(--xy-info) 78%, var(--xy-text-primary));
 }
 </style>

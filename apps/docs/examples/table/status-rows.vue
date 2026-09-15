@@ -39,21 +39,21 @@ const rows: StatusRow[] = [
 function resolvePalette(status: StatusRow["status"]): StatusPalette {
   if (status === "风险") {
     return {
-      base: "color-mix(in srgb, var(--xy-color-danger) 10%, white)",
-      hover: "color-mix(in srgb, var(--xy-color-danger) 14%, #f5f7fa)"
+      base: "color-mix(in srgb, var(--xy-danger) 10%, white)",
+      hover: "color-mix(in srgb, var(--xy-danger) 14%, #f5f7fa)"
     };
   }
 
   if (status === "关注") {
     return {
-      base: "color-mix(in srgb, var(--xy-color-warning) 10%, white)",
-      hover: "color-mix(in srgb, var(--xy-color-warning) 14%, #f5f7fa)"
+      base: "color-mix(in srgb, var(--xy-warning) 10%, white)",
+      hover: "color-mix(in srgb, var(--xy-warning) 14%, #f5f7fa)"
     };
   }
 
   return {
-    base: "color-mix(in srgb, var(--xy-color-success) 8%, white)",
-    hover: "color-mix(in srgb, var(--xy-color-success) 12%, #f5f7fa)"
+    base: "color-mix(in srgb, var(--xy-success) 8%, white)",
+    hover: "color-mix(in srgb, var(--xy-success) 12%, #f5f7fa)"
   };
 }
 

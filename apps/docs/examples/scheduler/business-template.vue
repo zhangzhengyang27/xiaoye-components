@@ -308,15 +308,15 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
 .scheduler-template__panel,
 .scheduler-template__calendar {
   padding: 16px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .scheduler-template__panel-description {
   margin: 8px 0 12px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .scheduler-template__panel-preview {
@@ -324,9 +324,9 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
   margin: 12px 0 0;
   padding: 12px;
   border-radius: 14px;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
-  color: var(--xy-text-color);
+  border: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 92%, white);
+  color: var(--xy-text-primary);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -346,16 +346,16 @@ function handleEventChange(payload: SchedulerEventChangePayload) {
 
 .scheduler-template__field span,
 .scheduler-template__switch-title {
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-weight: 600;
 }
 
 .scheduler-template__field-input {
   min-height: 40px;
   padding: 0 12px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 12px;
-  background: var(--xy-surface-raised);
-  color: var(--xy-text-color);
+  background: var(--xy-bg-raised);
+  color: var(--xy-text-primary);
 }
 </style>

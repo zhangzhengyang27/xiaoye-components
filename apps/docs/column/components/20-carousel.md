@@ -410,7 +410,7 @@ const snapPoints = computed(() => {
 
 /* 进度条 */
 --xy-carousel-progress-percent: 0%;
---xy-carousel-progress-color: var(--xy-color-primary);
+--xy-carousel-progress-color: var(--xy-brand);
 
 /* 缩略图 */
 --xy-carousel-thumbs-gap: 8px;

@@ -287,13 +287,13 @@ console.log(snapshot.queueLength, snapshot.total);
 | `--xy-alert-close-font-size` | 关闭图标字号 | `14px` |
 | `--xy-alert-close-customed-font-size` | 自定义关闭文案字号 | `13px` |
 | `--xy-alert-toggle-font-size` | 展开/收起触发器字号 | `12px` |
-| `--xy-alert-text-color` | 当前提示主色 | `var(--xy-color-info)` |
-| `--xy-alert-bg-color` | 当前提示背景色 | `color-mix(in srgb, var(--xy-color-info) 12%, white)` |
+| `--xy-alert-text-color` | 当前提示主色 | `var(--xy-info)` |
+| `--xy-alert-bg-color` | 当前提示背景色 | `color-mix(in srgb, var(--xy-info) 12%, white)` |
 | `--xy-alert-description-color` | 描述文字颜色 | `var(--xy-alert-text-color)` |
-| `--xy-alert-close-color` | 关闭按钮颜色 | `var(--xy-text-color-muted)` |
+| `--xy-alert-close-color` | 关闭按钮颜色 | `var(--xy-text-muted)` |
 | `--xy-alert-toggle-color` | 展开/收起触发器颜色 | `color-mix(in srgb, var(--xy-alert-text-color) 88%, white)` |
-| `--xy-alert-card-border-color` | 卡片变体边框色 | `color-mix(in srgb, var(--xy-border-color) 92%, white)` |
-| `--xy-alert-card-background` | 卡片变体背景色 | `color-mix(in srgb, var(--xy-bg-color) 95%, var(--xy-bg-color-muted))` |
+| `--xy-alert-card-border-color` | 卡片变体边框色 | `color-mix(in srgb, var(--xy-border) 92%, white)` |
+| `--xy-alert-card-background` | 卡片变体背景色 | `color-mix(in srgb, var(--xy-bg-container) 95%, var(--xy-bg-muted))` |
 | `--xy-alert-card-shadow` | 卡片变体阴影 | `0 14px 36px rgba(15, 23, 42, 0.06)` |
 | `--xy-alert-banner-background` | 横幅变体背景 | `linear-gradient(...)` |
 | `--xy-alert-service-top` | 全局服务距离顶部的偏移 | `16px` |

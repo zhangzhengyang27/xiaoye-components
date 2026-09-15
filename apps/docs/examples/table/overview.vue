@@ -91,15 +91,15 @@ const rows: OverviewRow[] = [
 
 <style scoped>
 .overview-table {
-  --xy-table-background: color-mix(in srgb, var(--xy-bg-color) 94%, var(--xy-bg-color-floating));
+  --xy-table-background: color-mix(in srgb, var(--xy-bg-container) 94%, var(--xy-bg-floating));
   --xy-table-surface-background: color-mix(
     in srgb,
-    var(--xy-bg-color-floating) 92%,
-    var(--xy-bg-color-subtle)
+    var(--xy-bg-floating) 92%,
+    var(--xy-bg-subtle)
   );
   --xy-table-subtle-background: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 72%,
+    var(--xy-bg-subtle) 72%,
     var(--xy-table-surface-background)
   );
   --xy-table-overview-cell-padding-y: 7px;
@@ -113,13 +113,13 @@ const rows: OverviewRow[] = [
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: var(--xy-font-size-sm);
 }
 
 .table-overview-append__label {
   font-weight: 600;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .table-overview-append__value {

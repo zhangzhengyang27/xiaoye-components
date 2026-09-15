@@ -147,7 +147,7 @@ function handleFinish() {
 .countdown-freeze-panel__aside-description,
 .countdown-freeze-panel__aside-item {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -162,7 +162,7 @@ function handleFinish() {
 
 .countdown-freeze-panel__prefix,
 .countdown-freeze-panel__suffix {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 600;
 }

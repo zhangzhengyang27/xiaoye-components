@@ -620,7 +620,7 @@ async function handleSave() {
 }
 
 :deep(.playground-row-active td) {
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
+  background: color-mix(in srgb, var(--xy-brand) 10%, white);
 }
 
 @media (max-width: 900px) {

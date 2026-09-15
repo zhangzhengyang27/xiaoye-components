@@ -69,7 +69,7 @@ const metrics: Metric[] = [
 
 .statistic-board__note {
   margin: 12px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }

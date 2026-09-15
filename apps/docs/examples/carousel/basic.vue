@@ -3,17 +3,17 @@ const slides = [
   {
     title: "运营焦点位",
     desc: "适合首页 Banner、活动主视觉和公告入口。",
-    accent: "var(--xy-color-primary)"
+    accent: "var(--xy-brand)"
   },
   {
     title: "版本发布",
     desc: "把新功能和更新日志集中放进一个轮播序列里。",
-    accent: "var(--xy-color-success)"
+    accent: "var(--xy-success)"
   },
   {
     title: "内容推荐",
     desc: "用于推荐专题、精选文章和关键任务入口。",
-    accent: "var(--xy-color-warning)"
+    accent: "var(--xy-warning)"
   }
 ] as const;
 </script>
@@ -39,7 +39,7 @@ const slides = [
   justify-content: flex-end;
   gap: 10px;
   padding: 28px;
-  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 24%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 24%, var(--xy-border));
   border-radius: 18px;
   background:
     linear-gradient(
@@ -47,8 +47,8 @@ const slides = [
       color-mix(in srgb, var(--demo-carousel-accent) 22%, white),
       transparent 46%
     ),
-    color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-muted) 84%, white);
+  color: var(--xy-text-primary);
   overflow: hidden;
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
 }
@@ -60,7 +60,7 @@ const slides = [
   padding: 4px 10px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--demo-carousel-accent) 18%, white);
-  color: color-mix(in srgb, var(--demo-carousel-accent) 78%, var(--xy-text-color));
+  color: color-mix(in srgb, var(--demo-carousel-accent) 78%, var(--xy-text-primary));
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -70,6 +70,6 @@ const slides = [
 .demo-carousel-slide__description {
   margin: 0;
   max-width: 340px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

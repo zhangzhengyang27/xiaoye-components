@@ -30,7 +30,7 @@
 }
 
 .breadcrumb-scene-card__kicker {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -39,7 +39,7 @@
 
 .breadcrumb-scene-card__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

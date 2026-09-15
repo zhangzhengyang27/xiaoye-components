@@ -107,18 +107,18 @@ gap: 24px;               /* 宽松 */
 
 ```css
 /* 使用 color-mix 实现层次感 */
-background: var(--xy-bg-color);                          /* 最底层 */
-background: var(--xy-surface-raised);                     /* 卡片/面板 */
-background: color-mix(in srgb, var(--xy-bg-color-subtle) 80%, white);  /* 高亮区域 */
-background: var(--xy-color-primary-soft);                 /* 主色调强调 */
+background: var(--xy-bg-container);                          /* 最底层 */
+background: var(--xy-bg-raised);                     /* 卡片/面板 */
+background: color-mix(in srgb, var(--xy-bg-subtle) 80%, white);  /* 高亮区域 */
+background: var(--xy-brand-soft);                 /* 主色调强调 */
 ```
 
 ### 边框使用
 
 ```css
 /* 边框样式 */
-border: 1px solid var(--xy-border-color-subtle);          /* 默认边框 */
-border: 1px solid color-mix(in srgb, var(--xy-border-color) 70%, white); /* 浅色边框 */
+border: 1px solid var(--xy-border-subtle);          /* 默认边框 */
+border: 1px solid color-mix(in srgb, var(--xy-border) 70%, white); /* 浅色边框 */
 ```
 
 ---

@@ -19,9 +19,9 @@
   align-items: center;
   gap: 8px;
   min-width: 0;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 88%, var(--xy-border));
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
   transition:
     border-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
     box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -29,8 +29,8 @@
 }
 
 .xy-input.is-focus .xy-input__wrapper {
-  border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
+  border-color: var(--xy-brand);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 12%, transparent);
 }
 
 .xy-input--sm .xy-input__wrapper {
@@ -56,14 +56,14 @@
   border: 0;
   outline: 0;
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font: inherit;
   line-height: inherit;
 }
 
 .xy-input__inner::placeholder,
 .xy-textarea__inner::placeholder {
-  color: var(--xy-text-color-muted-2);
+  color: var(--xy-text-faint);
 }
 
 .xy-input__prefix,
@@ -72,7 +72,7 @@
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-input__icon,
@@ -87,14 +87,14 @@
 .xy-textarea__icon-button {
   border: 0;
   background: transparent;
-  color: var(--xy-text-color-muted-2);
+  color: var(--xy-text-faint);
   cursor: pointer;
   padding: 0;
 }
 
 .xy-input__icon-button:hover,
 .xy-textarea__icon-button:hover {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-input__prepend,
@@ -104,9 +104,9 @@
   justify-content: center;
   flex-shrink: 0;
   padding: 0 12px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-bg-color-floating));
-  color: var(--xy-text-color-subtle);
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 88%, var(--xy-border));
+  background: color-mix(in srgb, var(--xy-bg-subtle) 72%, var(--xy-bg-floating));
+  color: var(--xy-text-muted);
 }
 
 .xy-input__prepend {
@@ -134,7 +134,7 @@
 .xy-input__count {
   display: inline-flex;
   align-items: center;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: var(--xy-font-size-xs);
   line-height: 1;
   white-space: nowrap;
@@ -149,7 +149,7 @@
 .xy-input.is-disabled .xy-input__wrapper,
 .xy-input.is-disabled .xy-input__prepend,
 .xy-input.is-disabled .xy-input__append {
-  background: color-mix(in srgb, var(--xy-surface-sunken) 92%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-sunken) 92%, var(--xy-bg-subtle));
   cursor: not-allowed;
 }
 
@@ -159,17 +159,17 @@
 
 .xy-input.is-error .xy-input__wrapper,
 .xy-textarea.is-error .xy-textarea__wrapper {
-  border-color: var(--xy-color-danger);
+  border-color: var(--xy-danger);
 }
 
 .xy-input.is-success .xy-input__wrapper,
 .xy-textarea.is-success .xy-textarea__wrapper {
-  border-color: var(--xy-color-success);
+  border-color: var(--xy-success);
 }
 
 .xy-input.is-exceed .xy-input__count,
 .xy-textarea.is-exceed .xy-input__count {
-  color: var(--xy-color-danger);
+  color: var(--xy-danger);
 }
 
 .xy-textarea {
@@ -187,10 +187,10 @@
   width: 100%;
   min-height: 96px;
   padding: 10px 12px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 88%, var(--xy-border));
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
-  color: var(--xy-text-color);
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
+  color: var(--xy-text-primary);
   font: inherit;
   line-height: 1.6;
   resize: vertical;
@@ -201,8 +201,8 @@
 }
 
 .xy-textarea.is-focus .xy-textarea__inner {
-  border-color: var(--xy-color-primary);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 12%, transparent);
+  border-color: var(--xy-brand);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 12%, transparent);
 }
 
 .xy-textarea__clear {
@@ -215,7 +215,7 @@
   position: absolute;
   right: 12px;
   bottom: 12px;
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
 }
 
 .xy-textarea__count.is-outside {
@@ -226,6 +226,6 @@
 }
 
 .xy-textarea.is-disabled .xy-textarea__inner {
-  background: var(--xy-surface-sunken);
+  background: var(--xy-bg-sunken);
   cursor: not-allowed;
 }

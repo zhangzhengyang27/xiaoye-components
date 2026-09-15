@@ -47,28 +47,28 @@ const items = [
   gap: 16px;
   padding: 8px;
   border-radius: var(--xy-radius-xl);
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, white);
+  border: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 84%, white);
 }
 
 .demo-tabs-panel {
   padding: 26px 28px;
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-surface-raised);
-  border: 1px solid var(--xy-border-color-subtle);
-  box-shadow: var(--xy-shadow-xs);
+  background: var(--xy-bg-raised);
+  border: 1px solid var(--xy-border-subtle);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .demo-tabs-panel__title {
   margin: 0 0 8px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 24px;
   line-height: 1.2;
 }
 
 .demo-tabs-panel__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

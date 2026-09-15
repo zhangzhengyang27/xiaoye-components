@@ -419,8 +419,8 @@ dialog-content.vue 提供了头部 + 主体 + 底部的三段式布局，各段�
 ```css
 /* Dialog 面板令牌 */
 .xy-dialog__panel {
-  --xy-dialog-bg: var(--xy-bg-color-floating);
-  --xy-dialog-border-color: var(--xy-border-color-subtle);
+  --xy-dialog-bg: var(--xy-bg-floating);
+  --xy-dialog-border-color: var(--xy-border-subtle);
   --xy-dialog-border-radius: var(--xy-radius-xl);
   --xy-dialog-shadow: var(--xy-shadow-floating-lg);
   --xy-dialog-header-padding: 16px 24px;

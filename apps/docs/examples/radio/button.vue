@@ -38,7 +38,7 @@ const activeSummary = computed(() => {
       <xy-radio-group
         v-model="range"
         type="button"
-        fill="var(--xy-color-primary)"
+        fill="var(--xy-brand)"
         text-color="var(--xy-color-white)"
         :options="options"
       />
@@ -75,15 +75,15 @@ const activeSummary = computed(() => {
   flex-direction: column;
   gap: 16px;
   padding: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 88%, white);
   border-radius: 22px;
   background:
     radial-gradient(
       circle at top right,
-      color-mix(in srgb, var(--xy-color-primary) 8%, white),
+      color-mix(in srgb, var(--xy-brand) 8%, white),
       transparent 34%
     ),
-    var(--xy-bg-color);
+    var(--xy-bg-container);
 }
 
 .demo-radio-button__header {
@@ -107,27 +107,27 @@ const activeSummary = computed(() => {
 
 .demo-radio-button__card--primary {
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xy-color-primary) 7%, white), transparent 48%),
-    color-mix(in srgb, var(--xy-bg-color) 88%, white);
+    linear-gradient(180deg, color-mix(in srgb, var(--xy-brand) 7%, white), transparent 48%),
+    color-mix(in srgb, var(--xy-bg-container) 88%, white);
 }
 
 .demo-radio-button__card-label {
   display: block;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
 .demo-radio-button__card-value {
   display: block;
   margin-top: 8px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 24px;
   line-height: 1.1;
 }
 
 .demo-radio-button__card-description {
   margin: 10px 0 0;
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   font-size: 12px;
   line-height: 1.5;
 }

@@ -44,7 +44,7 @@ const isFeatureEnabled = ref(true);
 
 .demo-switch-basic__description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.5;
 }
@@ -57,8 +57,8 @@ const isFeatureEnabled = ref(true);
 
 .demo-switch-basic__control {
   padding: 16px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 12px;
-  background: var(--xy-bg-color-subtle);
+  background: var(--xy-bg-subtle);
 }
 </style>

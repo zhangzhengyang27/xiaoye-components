@@ -33,7 +33,7 @@ const open = ref(true);
   flex-direction: column;
   gap: 8px;
   padding: 14px 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 88%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 88%, white);
   border-radius: 16px;
   background: color-mix(in srgb, var(--xy-primary-color) 6%, white);
 }

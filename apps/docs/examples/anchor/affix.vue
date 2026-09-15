@@ -53,9 +53,9 @@ const sections = [
   height: 320px;
   overflow: auto;
   padding: 12px;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color);
+  background: var(--xy-bg-container);
 }
 
 .demo-anchor-affix__layout {
@@ -72,7 +72,7 @@ const sections = [
 .demo-anchor-affix__section {
   min-height: 220px;
   padding: 20px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border) 82%, white);
 }
 
 .demo-anchor-affix__section.is-last {
@@ -81,12 +81,12 @@ const sections = [
 
 .demo-anchor-affix__section-title {
   margin: 0 0 10px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-anchor-affix__section-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 

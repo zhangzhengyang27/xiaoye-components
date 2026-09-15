@@ -267,14 +267,14 @@ const cascadingZIndex = computed(() => {
 
 | 变量 | 用途 |
 |------|------|
-| `--xy-color-primary` | 默认背景色（无 bgColor 时） |
+| `--xy-brand` | 默认背景色（无 bgColor 时） |
 | `--xy-color-white` | 默认文字/图标色 |
-| `--xy-text-color` | 无 bgColor 时的文字色回退 |
-| `--xy-bg-color` | 默认背景色回退 |
+| `--xy-text-primary` | 无 bgColor 时的文字色回退 |
+| `--xy-bg-container` | 默认背景色回退 |
 | `--xy-font-size-sm` | 文字字号 |
 | `--xy-radius-pill` | 圆形圆角 |
 | `--xy-radius-md` | 方形圆角 |
-| `--xy-shadow-sm` | 头像阴影 |
+| `--xy-shadow-1` | 头像阴影 |
 | `--xy-transition-duration-fast` | 过渡时长 |
 | `--xy-z-index-popover` | 溢出气泡层级 |
 
@@ -282,7 +282,7 @@ const cascadingZIndex = computed(() => {
 
 Avatar 的颜色系统分两层：
 - **有 bgColor/color**：直接使用传入值，不经过主题变量，适合品牌色头像。
-- **无 bgColor**：使用 `--xy-color-primary` 作为背景色、`--xy-color-white` 作为前景色，跟随主题色变化。
+- **无 bgColor**：使用 `--xy-brand` 作为背景色、`--xy-color-white` 作为前景色，跟随主题色变化。
 
 AvatarGroup 的堆叠间距通过 `gap` prop 控制，如果需要全局修改默认间距，可通过 ConfigProvider 注入 `gap` 的默认值。
 

@@ -420,14 +420,14 @@ if (props.destroyOnClose) {
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `--xy-drawer-bg-color` | `var(--xy-bg-color-floating)` | 面板背景色 |
+| `--xy-drawer-bg-color` | `var(--xy-bg-floating)` | 面板背景色 |
 | `--xy-drawer-padding` | `var(--xy-space-6)` | 面板内边距 |
 | `--xy-drawer-title-font-size` | `var(--xy-font-size-lg)` | 标题字号 |
-| `--xy-drawer-title-color` | `var(--xy-text-color-heading)` | 标题颜色 |
-| `--xy-drawer-header-border-bottom` | `1px solid var(--xy-border-color-subtle)` | 头部分割线 |
-| `--xy-drawer-footer-border-top` | `1px solid var(--xy-border-color-subtle)` | 底部分割线 |
+| `--xy-drawer-title-color` | `var(--xy-text-heading)` | 标题颜色 |
+| `--xy-drawer-header-border-bottom` | `1px solid var(--xy-border-subtle)` | 头部分割线 |
+| `--xy-drawer-footer-border-top` | `1px solid var(--xy-border-subtle)` | 底部分割线 |
 | `--xy-drawer-translate` | JS 动态设置 | 位移值（CSS 变量桥接） |
-| `--xy-drawer-shadow` | `var(--xy-shadow-lg)` | 面板阴影 |
+| `--xy-drawer-shadow` | `var(--xy-shadow-3)` | 面板阴影 |
 
 ### 主题定制方式
 
@@ -442,7 +442,7 @@ if (props.destroyOnClose) {
 
 Drawer 的过渡动画时长和缓动曲线引用全局变量 `--xy-transition-duration` 和 `--xy-transition-timing`，可通过 ConfigProvider 统一调整。
 
-拖拽手柄的视觉样式（颜色、粗细、hover 效果）通过 `.xy-drawer__resize-handle` 及其 `::before` 伪元素控制，CSS 变量引用 `--xy-border-color` 系列。
+拖拽手柄的视觉样式（颜色、粗细、hover 效果）通过 `.xy-drawer__resize-handle` 及其 `::before` 伪元素控制，CSS 变量引用 `--xy-border` 系列。
 
 ## 小结
 

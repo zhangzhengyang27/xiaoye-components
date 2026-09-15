@@ -5,12 +5,12 @@ const slides = [
   {
     title: "双项循环 A",
     desc: "两项内容开启 loop 后会自动补位，避免来回翻面的生硬感。",
-    accent: "var(--xy-color-primary)"
+    accent: "var(--xy-brand)"
   },
   {
     title: "双项循环 B",
     desc: "对外 activeIndex 和 change 事件仍然保持 0 / 1 这组逻辑索引。",
-    accent: "var(--xy-color-danger)"
+    accent: "var(--xy-danger)"
   }
 ] as const;
 
@@ -66,11 +66,11 @@ const activeLabel = computed(
   justify-content: flex-end;
   gap: 10px;
   padding: 24px;
-  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 16%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 16%, var(--xy-border));
   background:
     radial-gradient(circle at top right, color-mix(in srgb, var(--demo-carousel-accent) 18%, white), transparent 38%),
-    linear-gradient(160deg, color-mix(in srgb, var(--xy-bg-color-overlay) 92%, white), white);
-  color: var(--xy-text-color);
+    linear-gradient(160deg, color-mix(in srgb, var(--xy-bg-container-overlay) 92%, white), white);
+  color: var(--xy-text-primary);
 }
 
 .demo-carousel-two__eyebrow {
@@ -80,7 +80,7 @@ const activeLabel = computed(
   padding: 4px 10px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--demo-carousel-accent) 14%, white);
-  color: color-mix(in srgb, var(--demo-carousel-accent) 76%, var(--xy-text-color));
+  color: color-mix(in srgb, var(--demo-carousel-accent) 76%, var(--xy-text-primary));
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -90,6 +90,6 @@ const activeLabel = computed(
 .demo-carousel-two__description {
   margin: 0;
   max-width: 360px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

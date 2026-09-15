@@ -65,16 +65,16 @@
   z-index: var(--xy-z-dropdown);
   width: 36px;
   height: 36px;
-  border: 1px solid color-mix(in srgb, var(--xy-bg-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--xy-bg-container) 12%, transparent);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 16%, transparent);
-  color: color-mix(in srgb, var(--xy-bg-color) 92%, var(--xy-text-color-heading));
+  background: color-mix(in srgb, var(--xy-bg-floating) 16%, transparent);
+  color: color-mix(in srgb, var(--xy-bg-container) 92%, var(--xy-text-heading));
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transform: translateY(-50%);
   cursor: pointer;
-  box-shadow: var(--xy-shadow-sm);
+  box-shadow: var(--xy-shadow-1);
   transition:
     opacity var(--xy-transition-duration-fast) var(--xy-transition-timing),
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -84,14 +84,14 @@
 }
 
 .xy-carousel__arrow:hover {
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 22%, transparent);
-  border-color: color-mix(in srgb, var(--xy-bg-color) 18%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-floating) 22%, transparent);
+  border-color: color-mix(in srgb, var(--xy-bg-container) 18%, transparent);
 }
 
 .xy-carousel__arrow:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-bg-color) 88%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-bg-container) 88%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-carousel__arrow--left {
@@ -143,7 +143,7 @@
   font-size: var(--xy-font-size-sm);
   line-height: 1.4;
   white-space: nowrap;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-carousel .xy-carousel__indicators > .xy-carousel__indicator {
@@ -191,7 +191,7 @@
   padding: 0;
   border: 0;
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-bg-color) 84%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-container) 84%, transparent);
   opacity: 0.48;
   cursor: pointer;
   transition:
@@ -264,7 +264,7 @@
 }
 
 .xy-carousel__indicators--outside .xy-carousel__button {
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 72%, var(--xy-bg-color-subtle));
+  background: color-mix(in srgb, var(--xy-text-secondary) 72%, var(--xy-bg-subtle));
   opacity: 0.24;
 }
 
@@ -302,8 +302,8 @@
   height: 100%;
   background: color-mix(
     in srgb,
-    var(--xy-carousel-progress-color, var(--xy-color-primary)) 88%,
-    var(--xy-surface-raised)
+    var(--xy-carousel-progress-color, var(--xy-brand)) 88%,
+    var(--xy-bg-raised)
   );
   transition: width var(--xy-transition-duration-fast) linear;
 }
@@ -412,42 +412,42 @@
   background: transparent;
   padding: 0;
   cursor: pointer;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   min-width: 0;
 }
 
 .xy-carousel__thumb:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-carousel__thumb--line {
   width: 32px;
   height: 4px;
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-text-secondary) 88%, var(--xy-mix-light));
   opacity: 0.32;
 }
 
 .xy-carousel__thumb.is-active .xy-carousel__thumb--line,
 .xy-carousel__thumb--line.is-active {
   opacity: 1;
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
 }
 
 .xy-carousel__thumb--dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 88%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-text-secondary) 88%, var(--xy-mix-light));
   opacity: 0.36;
 }
 
 .xy-carousel__thumb.is-active .xy-carousel__thumb--dot,
 .xy-carousel__thumb--dot.is-active {
   opacity: 1;
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
 }
 
 .xy-carousel__thumb--thumbnail {
@@ -457,7 +457,7 @@
   min-height: 56px;
   padding: 10px 12px;
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-bg-color-subtle);
+  background: var(--xy-bg-subtle);
   white-space: nowrap;
   transition:
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -466,8 +466,8 @@
 
 .xy-carousel__thumb.is-active .xy-carousel__thumb--thumbnail,
 .xy-carousel__thumb--thumbnail.is-active {
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
 }
 
 .xy-carousel__item {

@@ -170,10 +170,10 @@ onBeforeUnmount(() => {
   display: grid;
   min-width: 196px;
   padding: 10px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-md);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-2);
   gap: 6px;
 }
 
@@ -181,11 +181,11 @@ onBeforeUnmount(() => {
   display: grid;
   gap: 2px;
   padding: 4px 6px 8px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
+  border-bottom: 1px solid var(--xy-border-subtle);
 }
 
 .demo-tree-contextmenu__header-title {
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
@@ -200,7 +200,7 @@ onBeforeUnmount(() => {
   border: 0;
   border-radius: 10px;
   background: transparent;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 14px;
   text-align: left;
   cursor: pointer;
@@ -210,12 +210,12 @@ onBeforeUnmount(() => {
 }
 
 .demo-tree-contextmenu__item:hover {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 70%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 70%, white);
+  color: var(--xy-brand);
 }
 
 .demo-tree-contextmenu__item.is-danger:hover {
-  background: color-mix(in srgb, var(--xy-color-danger-soft) 70%, white);
-  color: var(--xy-color-danger);
+  background: color-mix(in srgb, var(--xy-danger-soft) 70%, white);
+  color: var(--xy-danger);
 }
 </style>

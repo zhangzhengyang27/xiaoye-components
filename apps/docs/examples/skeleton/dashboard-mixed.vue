@@ -261,7 +261,7 @@ const checklist = [
 
 .demo-skeleton-dashboard__toolbar-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 
@@ -302,12 +302,12 @@ const checklist = [
   font-size: 30px;
   font-weight: 700;
   line-height: 1;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-skeleton-dashboard__metric-hint,
 .demo-skeleton-dashboard__row-meta-note {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
@@ -315,7 +315,7 @@ const checklist = [
 .demo-skeleton-dashboard__table-description,
 .demo-skeleton-dashboard__aside-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 
@@ -332,7 +332,7 @@ const checklist = [
 .demo-skeleton-dashboard__checklist {
   margin: 0;
   padding-left: 18px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   display: grid;
   gap: 8px;
 }
@@ -354,7 +354,7 @@ const checklist = [
   gap: 14px;
   align-items: center;
   padding-bottom: 14px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 80%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border) 80%, white);
 }
 
 .demo-skeleton-dashboard__table-row.is-last,

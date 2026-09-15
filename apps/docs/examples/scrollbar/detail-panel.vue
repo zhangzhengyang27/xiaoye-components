@@ -113,14 +113,14 @@ const activities = [
   flex-direction: column;
   gap: 16px;
   padding: 18px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-lg);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
-    var(--xy-surface-raised)
+    color-mix(in srgb, var(--xy-bg-subtle) 92%, white),
+    var(--xy-bg-raised)
   );
-  box-shadow: var(--xy-shadow-xs);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .demo-scroll-detail__header {
@@ -147,9 +147,9 @@ const activities = [
   flex-direction: column;
   gap: 10px;
   padding: 14px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color-subtle);
+  background: var(--xy-bg-subtle);
 }
 
 .demo-scroll-detail__paragraph {
@@ -167,18 +167,18 @@ const activities = [
   flex-direction: column;
   gap: 6px;
   padding: 12px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-sm);
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
 }
 
 .demo-scroll-detail__metric-label {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
 .demo-scroll-detail__metric-value {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 18px;
 }
 
@@ -190,6 +190,6 @@ const activities = [
 
 .demo-scroll-detail__timeline-item {
   padding-left: 12px;
-  border-left: 1px dashed color-mix(in srgb, var(--xy-color-primary) 16%, var(--xy-border-color));
+  border-left: 1px dashed color-mix(in srgb, var(--xy-brand) 16%, var(--xy-border));
 }
 </style>

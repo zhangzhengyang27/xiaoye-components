@@ -158,7 +158,7 @@ defineEmits<{
 
 关键设计要点：
 
-- 分隔条使用 `background: color-mix(in srgb, var(--xy-border-color) 60%, transparent)` 实现柔和分割线
+- 分隔条使用 `background: color-mix(in srgb, var(--xy-border) 60%, transparent)` 实现柔和分割线
 - hover / active 时把手背景加深，提供操作反馈
 - 拖拽期间全局设置 `user-select: none` 防止文字选中
 - 折叠按钮使用圆形设计，hover 时出现背景色

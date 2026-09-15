@@ -371,16 +371,16 @@ function addVirtualListeners(element: HTMLElement | null) {
 
 /* Dark 主题覆盖 */
 .xy-tooltip__content--dark {
-  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-color-floating) 78%, var(--xy-text-color-heading));
-  --xy-tooltip-text: color-mix(in srgb, var(--xy-bg-color-floating) 82%, var(--xy-mix-light));
-  --xy-tooltip-border: color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-floating) 78%, var(--xy-text-heading));
+  --xy-tooltip-text: color-mix(in srgb, var(--xy-bg-floating) 82%, var(--xy-mix-light));
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-bg-floating) 12%, transparent);
 }
 
 /* Light 主题覆盖 */
 .xy-tooltip__content--light {
-  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
-  --xy-tooltip-text: var(--xy-text-color-secondary);
-  --xy-tooltip-border: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
+  --xy-tooltip-bg: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle));
+  --xy-tooltip-text: var(--xy-text-secondary);
+  --xy-tooltip-border: color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border));
 }
 
 /* 过渡动画 */

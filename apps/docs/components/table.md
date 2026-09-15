@@ -196,7 +196,7 @@ table/multi-state
 ### 优先调实例级 table token，而不是 deep 覆盖内部类名
 
 - 如果页面只是想微调概览表格的密度、append 区节奏、展开区背景或筛选面板表面色，优先在 `xy-table` 根节点或业务 wrapper 上设置 table 变量。
-- `overview` 适合 dashboard / 首屏摘要；列表页若仅需主题接轨，也优先设置 `--xy-table-background / --xy-table-surface-background / --xy-table-subtle-background`，不要直接把通用 `--xy-bg-color` 压进 `.xy-table` 作用域。
+- `overview` 适合 dashboard / 首屏摘要；列表页若仅需主题接轨，也优先设置 `--xy-table-background / --xy-table-surface-background / --xy-table-subtle-background`，不要直接把通用 `--xy-bg-container` 压进 `.xy-table` 作用域。
 - 只有当业务需要真正改写单元格内容结构时，才考虑 `cell-class-name / cell-style` 或页面层插槽；纯视觉节奏问题不建议继续 deep 到 `__cell`。
 
 后台项目迁移时，可优先按下面的映射关系删除旧覆盖：
@@ -214,7 +214,7 @@ table/multi-state
 | `.xy-table__row.is-current > .xy-table__cell { background: ... }` | `--xy-table-row-current-background` | 当前行高亮 |
 | `.xy-table.is-striped ... { background: ... }` | `--xy-table-row-striped-background` | 斑马纹 |
 | `.xy-table__expanded-cell / __append-wrapper / __empty-block` 的 padding 覆盖 | `overview` 或对应 overview token | dashboard / 摘要表格 |
-| `[data-theme] .xy-table { --xy-bg-color / --xy-surface-raised: ... }` | `--xy-table-background / --xy-table-surface-background / --xy-table-subtle-background` | 表格自身表面色，不再污染通用背景 token |
+| `[data-theme] .xy-table { --xy-bg-container / --xy-bg-raised: ... }` | `--xy-table-background / --xy-table-surface-background / --xy-table-subtle-background` | 表格自身表面色，不再污染通用背景 token |
 
 可迁移的普通列表页写法示例：
 

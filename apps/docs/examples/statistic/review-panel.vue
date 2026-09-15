@@ -75,7 +75,7 @@ const reviewMetrics = [
 .statistic-review-panel__header-description,
 .statistic-review-panel__item-note {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -88,12 +88,12 @@ const reviewMetrics = [
 .statistic-review-panel__item {
   padding: 14px 16px;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-bg-color) 94%, var(--xy-bg-color-muted));
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
+  background: color-mix(in srgb, var(--xy-bg-container) 94%, var(--xy-bg-muted));
+  border: 1px solid color-mix(in srgb, var(--xy-border) 84%, white);
 }
 
 .statistic-review-panel__prefix {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;

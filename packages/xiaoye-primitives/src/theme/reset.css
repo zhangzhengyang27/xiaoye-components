@@ -5,9 +5,9 @@
 }
 
 html {
-  font-family: "IBM Plex Sans", "PingFang SC", "Helvetica Neue", sans-serif;
-  color: var(--xy-text-color);
-  background: var(--xy-bg-color);
+  font-family: var(--xy-font-family-base);
+  color: var(--xy-text-primary);
+  background: var(--xy-bg-container);
 }
 
 body {

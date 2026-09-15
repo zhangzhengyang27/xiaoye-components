@@ -63,16 +63,16 @@ function handleSelect(index: string) {
 
 .demo-menu-overflow__description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.5;
 }
 
 .demo-menu-overflow__frame {
   padding: 8px 12px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 12px;
-  background: var(--xy-bg-color-subtle);
+  background: var(--xy-bg-subtle);
 }
 
 /* 横向菜单样式 */
@@ -82,18 +82,18 @@ function handleSelect(index: string) {
   --xy-menu-horizontal-item-padding-inline: 14px;
   --xy-menu-item-radius: 8px;
   --xy-menu-item-font-weight: 500;
-  --xy-menu-text-color: var(--xy-text-color-secondary);
-  --xy-menu-hover-bg: var(--xy-bg-color-overlay);
-  --xy-menu-hover-color: var(--xy-text-color-heading);
-  --xy-menu-active-bg: var(--xy-color-primary-soft);
-  --xy-menu-active-color: var(--xy-color-primary);
+  --xy-menu-text-color: var(--xy-text-secondary);
+  --xy-menu-hover-bg: var(--xy-bg-container-overlay);
+  --xy-menu-hover-color: var(--xy-text-heading);
+  --xy-menu-active-bg: var(--xy-brand-soft);
+  --xy-menu-active-color: var(--xy-brand);
   border: none;
   background: transparent;
 }
 
 .demo-menu-overflow__frame :deep(.xy-menu__item-surface) {
   font-size: 14px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   transition: all 0.15s ease;
 }
 </style>
@@ -104,25 +104,25 @@ function handleSelect(index: string) {
   --xy-menu-popup-min-width: 180px;
   --xy-menu-popup-padding: 8px;
   --xy-menu-popup-radius: 14px;
-  --xy-menu-popup-bg: var(--xy-bg-color-floating) !important;
+  --xy-menu-popup-bg: var(--xy-bg-floating) !important;
   --xy-menu-popup-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
   --xy-menu-item-min-height: 40px;
   --xy-menu-item-padding-inline: 14px;
   --xy-menu-item-radius: 10px;
   --xy-menu-item-gap: 10px;
   --xy-menu-item-font-weight: 500;
-  --xy-menu-text-color: var(--xy-text-color);
-  --xy-menu-hover-bg: var(--xy-bg-color-overlay) !important;
-  --xy-menu-hover-color: var(--xy-color-primary) !important;
-  --xy-menu-active-bg: var(--xy-color-primary-soft) !important;
-  --xy-menu-active-color: var(--xy-color-primary) !important;
+  --xy-menu-text-color: var(--xy-text-primary);
+  --xy-menu-hover-bg: var(--xy-bg-container-overlay) !important;
+  --xy-menu-hover-color: var(--xy-brand) !important;
+  --xy-menu-active-bg: var(--xy-brand-soft) !important;
+  --xy-menu-active-color: var(--xy-brand) !important;
   --xy-menu-active-shadow: none !important;
 }
 
 .demo-menu-overflow__popup .xy-menu__item-surface {
   font-size: 14px;
   font-weight: 500;
-  color: var(--xy-text-color) !important;
+  color: var(--xy-text-primary) !important;
   transition: all 0.15s ease;
 }
 
@@ -132,12 +132,12 @@ function handleSelect(index: string) {
 
 .demo-menu-overflow__popup .xy-menu__item:hover .xy-menu__item-surface,
 .demo-menu-overflow__popup .xy-menu__item:hover .xy-menu__item-content {
-  color: var(--xy-color-primary) !important;
+  color: var(--xy-brand) !important;
 }
 
 .demo-menu-overflow__popup .xy-menu__item.is-active .xy-menu__item-surface,
 .demo-menu-overflow__popup .xy-menu__item.is-active .xy-menu__item-content {
-  color: var(--xy-color-primary) !important;
+  color: var(--xy-brand) !important;
   font-weight: 600;
 }
 </style>

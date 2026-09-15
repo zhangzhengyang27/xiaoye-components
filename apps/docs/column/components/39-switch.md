@@ -368,7 +368,7 @@ async function validateChange() {
 | `--xy-switch-height` | `20px` / 尺寸相关 | 轨道高度 |
 | `--xy-switch-action-size` | `16px` / 尺寸相关 | 滑块按钮尺寸 |
 | `--xy-switch-padding` | `4px` / 尺寸相关 | 轨道内边距 |
-| `--xy-switch-on-color` | `var(--xy-color-primary)` | 开启态轨道颜色 |
+| `--xy-switch-on-color` | `var(--xy-brand)` | 开启态轨道颜色 |
 | `--xy-switch-off-color` | `color-mix(...)` | 关闭态轨道颜色 |
 
 ### 主题定制方式
@@ -377,7 +377,7 @@ async function validateChange() {
 
 ```css
 :root {
-  --xy-switch-on-color: var(--xy-color-primary);
+  --xy-switch-on-color: var(--xy-brand);
   --xy-switch-off-color: #dcdfe6;
 }
 ```

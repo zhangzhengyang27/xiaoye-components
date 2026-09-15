@@ -74,18 +74,18 @@ function handleChange(index: number, remainingMs: number) {
 function getValueStyle(tone: WaveTone) {
   if (tone === "danger") {
     return {
-      color: "var(--xy-color-danger)"
+      color: "var(--xy-danger)"
     };
   }
 
   if (tone === "warning") {
     return {
-      color: "var(--xy-color-warning)"
+      color: "var(--xy-warning)"
     };
   }
 
   return {
-    color: "var(--xy-color-primary)"
+    color: "var(--xy-brand)"
   };
 }
 </script>
@@ -155,7 +155,7 @@ function getValueStyle(tone: WaveTone) {
 .countdown-campaign-grid__header-description,
 .countdown-campaign-grid__note {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -169,7 +169,7 @@ function getValueStyle(tone: WaveTone) {
 .countdown-campaign-grid__title span,
 .countdown-campaign-grid__prefix,
 .countdown-campaign-grid__suffix {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 600;
 }

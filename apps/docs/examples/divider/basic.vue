@@ -44,7 +44,7 @@
 
 .demo-divider-basic__description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.5;
 }
@@ -58,12 +58,12 @@
   margin: 0;
   font-size: 15px;
   font-weight: 600;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-divider-basic__description-text {
   margin: 8px 0 0;
   line-height: 1.7;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

@@ -241,9 +241,9 @@ const mergedSize = computed(() => props.size || config.size)
 --xy-card-border-radius: var(--xy-border-radius-base);
 
 /* 颜色 */
---xy-card-border-color: var(--xy-border-color-lighter);
---xy-card-bg-color: var(--xy-bg-color);
---xy-card-text-color: var(--xy-text-color-primary);
+--xy-card-border-color: var(--xy-border-lighter);
+--xy-card-bg-color: var(--xy-bg-container);
+--xy-card-text-color: var(--xy-text-primary-primary);
 
 /* 阴影 */
 --xy-card-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);

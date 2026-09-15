@@ -63,18 +63,18 @@ const sections = [
 .demo-anchor-horizontal__section {
   min-height: 180px;
   padding: 18px 8px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border) 82%, white);
 }
 
 .demo-anchor-horizontal__section-title {
   margin: 0 0 10px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 20px;
 }
 
 .demo-anchor-horizontal__section-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

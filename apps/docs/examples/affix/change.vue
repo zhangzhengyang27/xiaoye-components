@@ -61,8 +61,8 @@ function handleScroll(payload: { scrollTop: number }) {
   gap: 10px;
   padding: 12px 14px;
   border-radius: 18px;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, white);
+  border: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 82%, white);
 }
 
 .demo-affix-change__bar {
@@ -72,9 +72,9 @@ function handleScroll(payload: { scrollTop: number }) {
   gap: 16px;
   padding: 16px 18px;
   border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 10%, var(--xy-border-subtle));
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-0);
   transition:
     box-shadow 0.2s ease,
     border-color 0.2s ease,
@@ -82,20 +82,20 @@ function handleScroll(payload: { scrollTop: number }) {
 }
 
 .demo-affix-change__bar.is-fixed {
-  border-color: color-mix(in srgb, var(--xy-color-success) 12%, var(--xy-border-color-subtle));
-  box-shadow: var(--xy-shadow-sm);
+  border-color: color-mix(in srgb, var(--xy-success) 12%, var(--xy-border-subtle));
+  box-shadow: var(--xy-shadow-1);
   transform: translateY(-1px);
 }
 
 .demo-affix-change__bar-title {
   display: block;
   margin-bottom: 6px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .demo-affix-change__bar-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -111,7 +111,7 @@ function handleScroll(payload: { scrollTop: number }) {
 
 .demo-affix-change__card-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

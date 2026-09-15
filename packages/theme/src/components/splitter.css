@@ -51,7 +51,7 @@
   content: "";
   position: absolute;
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-border-color-subtle) 82%, transparent);
+  background: color-mix(in srgb, var(--xy-border-subtle) 82%, transparent);
   opacity: 0.32;
   transition:
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -85,7 +85,7 @@
 
 .xy-splitter-bar:hover::before,
 .xy-splitter-bar.is-active::before {
-  background: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-strong));
+  background: color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border-strong));
   opacity: 0.44;
 }
 
@@ -122,15 +122,15 @@
 
 .xy-splitter-bar__dragger::before {
   opacity: 0;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 78%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
-  box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 78%, var(--xy-border));
+  background: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle));
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-heading) 5%, transparent);
   transform: translate(-50%, -50%) scale(0.72);
 }
 
 .xy-splitter-bar__dragger::after {
   opacity: 0;
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
 }
 
 .xy-splitter-bar__dragger--horizontal::before {
@@ -168,34 +168,34 @@
 .xy-splitter-bar__grip::before {
   width: 2px;
   height: 2px;
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 54%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-text-secondary) 54%, var(--xy-mix-light));
   box-shadow:
-    0 -5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, var(--xy-mix-light)),
-    0 5px 0 color-mix(in srgb, var(--xy-text-color-secondary) 54%, var(--xy-mix-light));
+    0 -5px 0 color-mix(in srgb, var(--xy-text-secondary) 54%, var(--xy-mix-light)),
+    0 5px 0 color-mix(in srgb, var(--xy-text-secondary) 54%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger--vertical .xy-splitter-bar__grip::before {
   box-shadow:
-    -5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 82%, var(--xy-mix-light)),
-    5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 82%, var(--xy-mix-light));
+    -5px 0 0 color-mix(in srgb, var(--xy-text-muted) 82%, var(--xy-mix-light)),
+    5px 0 0 color-mix(in srgb, var(--xy-text-muted) 82%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger:hover::before,
 .xy-splitter-bar__dragger:focus-visible::before,
 .xy-splitter-bar__dragger.is-active::before {
   opacity: 1;
-  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 54%, var(--xy-bg-color-floating));
+  border-color: color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border-subtle));
+  background: color-mix(in srgb, var(--xy-brand-soft) 54%, var(--xy-bg-floating));
   transform: translate(-50%, -50%) scale(0.94);
 }
 
 .xy-splitter-bar__dragger:hover .xy-splitter-bar__grip::before,
 .xy-splitter-bar__dragger:focus-visible .xy-splitter-bar__grip::before,
 .xy-splitter-bar__dragger.is-active .xy-splitter-bar__grip::before {
-  background: color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-brand) 70%, var(--xy-mix-light));
   box-shadow:
-    0 -5px 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light)),
-    0 5px 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light));
+    0 -5px 0 color-mix(in srgb, var(--xy-brand) 70%, var(--xy-mix-light)),
+    0 5px 0 color-mix(in srgb, var(--xy-brand) 70%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger:hover .xy-splitter-bar__grip,
@@ -209,8 +209,8 @@
 .xy-splitter-bar__dragger--vertical:focus-visible .xy-splitter-bar__grip::before,
 .xy-splitter-bar__dragger--vertical.is-active .xy-splitter-bar__grip::before {
   box-shadow:
-    -5px 0 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light)),
-    5px 0 0 color-mix(in srgb, var(--xy-color-primary) 70%, var(--xy-mix-light));
+    -5px 0 0 color-mix(in srgb, var(--xy-brand) 70%, var(--xy-mix-light)),
+    5px 0 0 color-mix(in srgb, var(--xy-brand) 70%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar.is-lazy .xy-splitter-bar__dragger.is-active::after {
@@ -223,16 +223,16 @@
 
 .xy-splitter-bar__dragger.is-disabled::before,
 .xy-splitter-bar__dragger.is-disabled::after {
-  background: color-mix(in srgb, var(--xy-border-color) 88%, var(--xy-mix-light));
-  border-color: color-mix(in srgb, var(--xy-border-color) 88%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-border) 88%, var(--xy-mix-light));
+  border-color: color-mix(in srgb, var(--xy-border) 88%, var(--xy-mix-light));
   box-shadow: none;
 }
 
 .xy-splitter-bar__dragger.is-disabled .xy-splitter-bar__grip::before {
-  background: color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-text-muted) 42%, var(--xy-mix-light));
   box-shadow:
-    0 -5px 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light)),
-    0 5px 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light));
+    0 -5px 0 color-mix(in srgb, var(--xy-text-muted) 42%, var(--xy-mix-light)),
+    0 5px 0 color-mix(in srgb, var(--xy-text-muted) 42%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger.is-disabled .xy-splitter-bar__grip {
@@ -242,14 +242,14 @@
 
 .xy-splitter-bar__dragger--vertical.is-disabled .xy-splitter-bar__grip::before {
   box-shadow:
-    -5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light)),
-    5px 0 0 color-mix(in srgb, var(--xy-text-color-muted) 42%, var(--xy-mix-light));
+    -5px 0 0 color-mix(in srgb, var(--xy-text-muted) 42%, var(--xy-mix-light)),
+    5px 0 0 color-mix(in srgb, var(--xy-text-muted) 42%, var(--xy-mix-light));
 }
 
 .xy-splitter-bar__dragger:focus-visible::before {
   box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent),
-    0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
+    0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent),
+    0 1px 4px color-mix(in srgb, var(--xy-text-heading) 5%, transparent);
 }
 
 .xy-splitter-bar__collapse {
@@ -261,11 +261,11 @@
   width: 18px;
   height: 24px;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 78%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 78%, var(--xy-border));
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
-  color: var(--xy-text-color-secondary);
-  box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-color-heading) 5%, transparent);
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
+  color: var(--xy-text-secondary);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--xy-text-heading) 5%, transparent);
   cursor: pointer;
   opacity: 0;
   transition:
@@ -281,9 +281,9 @@
 }
 
 .xy-splitter-bar__collapse:hover {
-  color: var(--xy-color-primary);
-  border-color: color-mix(in srgb, var(--xy-color-primary) 18%, var(--xy-border-color-subtle));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 48%, var(--xy-bg-color-floating));
+  color: var(--xy-brand);
+  border-color: color-mix(in srgb, var(--xy-brand) 18%, var(--xy-border-subtle));
+  background: color-mix(in srgb, var(--xy-brand-soft) 48%, var(--xy-bg-floating));
 }
 
 .xy-splitter-bar__collapse--horizontal.xy-splitter-bar__collapse--start {

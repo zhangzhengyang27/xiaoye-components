@@ -298,8 +298,8 @@ flowchart TD
 
 ```css
 :root {
-  --xy-skeleton-color: color-mix(in srgb, var(--xy-bg-color-subtle) 84%, var(--xy-surface-raised));
-  --xy-skeleton-to-color: color-mix(in srgb, var(--xy-bg-color-floating) 88%, var(--xy-bg-color-subtle));
+  --xy-skeleton-color: color-mix(in srgb, var(--xy-bg-subtle) 84%, var(--xy-bg-raised));
+  --xy-skeleton-to-color: color-mix(in srgb, var(--xy-bg-floating) 88%, var(--xy-bg-subtle));
 }
 ```
 

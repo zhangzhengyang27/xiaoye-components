@@ -55,8 +55,8 @@ empty/custom-media
 | `--xy-empty-padding` | 空态容器内边距 | `32px 16px` |
 | `--xy-empty-gap` | 插画、文案之间的垂直间距 | `var(--xy-space-2)` |
 | `--xy-empty-image-width` | 默认图片区域宽度 | `160px` |
-| `--xy-empty-title-color` | 标题颜色 | `var(--xy-text-color)` |
-| `--xy-empty-description-color` | 描述颜色 | `var(--xy-text-color-secondary)` |
+| `--xy-empty-title-color` | 标题颜色 | `var(--xy-text-primary)` |
+| `--xy-empty-description-color` | 描述颜色 | `var(--xy-text-secondary)` |
 | `--xy-empty-footer-margin-top` | 底部操作区上边距 | `var(--xy-space-2)` |
 
 ### Empty Slots

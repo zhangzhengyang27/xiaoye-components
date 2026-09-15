@@ -234,7 +234,7 @@ FilterPanel 不定义 Exposes——它是一个纯容器组件，没有需要命
 
 | 变量 | 用途 |
 | --- | --- |
-| `--xy-text-color-secondary` | 描述文字色 |
+| `--xy-text-secondary` | 描述文字色 |
 
 FilterPanel 的样式极简，大部分视觉效果由 `xy-card` 提供。
 

@@ -138,12 +138,12 @@ watch(mode, (value) => {
 }
 
 .demo-backtop-modes__title-text {
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .demo-backtop-modes__title-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 
@@ -160,7 +160,7 @@ watch(mode, (value) => {
 .demo-backtop-modes__target-head-description,
 .demo-backtop-modes__target-block-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 
@@ -186,15 +186,15 @@ watch(mode, (value) => {
   overflow: auto;
   padding-right: 8px;
   border-radius: 18px;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 78%, white);
+  border: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 78%, white);
 }
 
 .demo-backtop-modes__target-block {
   padding: 14px 16px;
   border-radius: 16px;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  border: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
 }
 
 .demo-backtop-modes__slot {

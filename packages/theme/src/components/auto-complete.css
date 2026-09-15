@@ -7,22 +7,22 @@
     --xy-auto-complete-dropdown-bg,
     var(
       --xy-popper-bg,
-      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle)))
+      var(--xy-dialog-bg, color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle)))
     )
   );
   --xy-auto-complete-dropdown-border-resolved: var(
     --xy-auto-complete-dropdown-border,
     var(
       --xy-popper-border-color,
-      color-mix(in srgb, var(--xy-border-color-subtle) 72%, var(--xy-border-color))
+      color-mix(in srgb, var(--xy-border-subtle) 72%, var(--xy-border))
     )
   );
   --xy-auto-complete-dropdown-shadow-resolved: var(
     --xy-auto-complete-dropdown-shadow,
     var(
       --xy-popper-shadow,
-      0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-      0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent)
+      0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+      0 2px 8px color-mix(in srgb, var(--xy-text-heading) 7%, transparent)
     )
   );
   min-width: 220px;
@@ -50,7 +50,7 @@
   background: transparent;
   padding: 8px 10px;
   text-align: left;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   cursor: pointer;
   transition:
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -62,29 +62,29 @@
 .xy-auto-complete__option.is-active {
   background: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 72%,
+    var(--xy-bg-subtle) 72%,
     var(--xy-auto-complete-dropdown-bg-resolved)
   );
 }
 
 .xy-auto-complete__option.is-active {
-  color: var(--xy-text-color-heading);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  color: var(--xy-text-heading);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-auto-complete__option.is-selected {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 84%, var(--xy-auto-complete-dropdown-bg-resolved));
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 84%, var(--xy-auto-complete-dropdown-bg-resolved));
+  color: var(--xy-brand);
 }
 
 .xy-auto-complete__option:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 42%, var(--xy-bg-container));
   outline-offset: 2px;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-auto-complete__option.is-disabled {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   cursor: not-allowed;
 }
 
@@ -99,7 +99,7 @@
   align-items: center;
   justify-content: center;
   min-height: 52px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-auto-complete__loading {

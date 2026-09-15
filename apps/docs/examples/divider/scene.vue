@@ -106,7 +106,7 @@
 .divider-scene-card__header-title {
   font-size: 16px;
   font-weight: 700;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .divider-scene-card__header-description,
@@ -114,7 +114,7 @@
 .divider-scene-card__list-description,
 .divider-scene-card__notice-description,
 .divider-scene-card__risk {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .divider-scene-card__header-description {
@@ -135,23 +135,23 @@
 
 .divider-scene-card__notice {
   padding: 14px 16px;
-  border: 1px dashed color-mix(in srgb, var(--xy-color-warning) 24%, white);
+  border: 1px dashed color-mix(in srgb, var(--xy-warning) 24%, white);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-color-warning) 8%, white);
+  background: color-mix(in srgb, var(--xy-warning) 8%, white);
 }
 
 .divider-scene-card__notice-title {
   display: inline-block;
   margin-bottom: 4px;
   font-size: 14px;
-  color: var(--xy-color-warning);
+  color: var(--xy-warning);
 }
 
 .divider-scene-card__list-title {
   display: inline-block;
   margin-bottom: 4px;
   font-size: 14px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .divider-scene-card__checklist {
@@ -163,7 +163,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 

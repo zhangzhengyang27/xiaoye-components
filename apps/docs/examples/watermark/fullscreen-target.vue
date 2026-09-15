@@ -67,22 +67,22 @@ const fullscreen = ref(false);
 .xy-doc-watermark-fullscreen-demo__surface {
   min-height: 220px;
   padding: 26px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-xl);
   background: linear-gradient(
     160deg,
-    var(--xy-surface-raised),
-    color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white)
+    var(--xy-bg-raised),
+    color-mix(in srgb, var(--xy-bg-subtle) 88%, white)
   );
-  box-shadow: var(--xy-shadow-card);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .xy-doc-watermark-host-grid__badge {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -91,7 +91,7 @@ const fullscreen = ref(false);
 .xy-doc-watermark-helper__title,
 .xy-doc-watermark-target-host__title {
   margin: 0 0 12px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 24px;
 }
 
@@ -99,7 +99,7 @@ const fullscreen = ref(false);
 .xy-doc-watermark-target-host__description,
 .xy-doc-watermark-fullscreen-demo__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 

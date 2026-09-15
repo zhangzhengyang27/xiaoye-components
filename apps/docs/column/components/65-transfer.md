@@ -315,19 +315,19 @@ watch(
 /* 面板 */
 .xy-transfer__panel {
   min-height: 280px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-lg);
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-0);
 }
 
 /* 项 */
 .xy-transfer__item.is-disabled {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
 }
 
 .xy-transfer__item-description {
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
 }
 
 /* 操作按钮 */

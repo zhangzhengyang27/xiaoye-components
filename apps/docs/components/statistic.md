@@ -81,10 +81,10 @@ statistic/review-panel
 | --- | --- | --- |
 | `--xy-statistic-gap` | 标题和数值之间的间距 | `10px` |
 | `--xy-statistic-head-font-size` | 标题字号 | `13px` |
-| `--xy-statistic-head-color` | 标题颜色 | `var(--xy-text-color-secondary)` |
+| `--xy-statistic-head-color` | 标题颜色 | `var(--xy-text-secondary)` |
 | `--xy-statistic-number-font-size` | 数值字号 | `30px` |
 | `--xy-statistic-number-font-weight` | 数值字重 | `700` |
-| `--xy-statistic-number-color` | 数值颜色 | `var(--xy-text-color)` |
+| `--xy-statistic-number-color` | 数值颜色 | `var(--xy-text-primary)` |
 | `--xy-statistic-affix-font-size` | 前后缀字号 | `15px` |
-| `--xy-statistic-affix-color` | 前后缀颜色 | `color-mix(in srgb, var(--xy-text-color-secondary) 86%, white)` |
+| `--xy-statistic-affix-color` | 前后缀颜色 | `color-mix(in srgb, var(--xy-text-secondary) 86%, white)` |
 | `--xy-statistic-affix-gap` | 前后缀和数值之间的间距 | `8px` |

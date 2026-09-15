@@ -29,26 +29,26 @@ const imageUrl = `data:image/svg+xml;utf8,${encodeURIComponent(`
 .xy-doc-watermark-image-demo {
   min-height: 220px;
   padding: 28px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-xl);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white),
-    color-mix(in srgb, var(--xy-surface-sunken) 88%, white)
+    color-mix(in srgb, var(--xy-bg-subtle) 92%, white),
+    color-mix(in srgb, var(--xy-bg-sunken) 88%, white)
   );
-  box-shadow: var(--xy-shadow-card);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .xy-doc-watermark-image-demo__title {
   margin: 0 0 12px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 24px;
 }
 
 .xy-doc-watermark-image-demo__description {
   max-width: 520px;
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

@@ -77,7 +77,7 @@ const open = ref(false);
 
 .demo-drawer-header__description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.5;
 }
@@ -96,7 +96,7 @@ const open = ref(false);
 }
 
 .demo-drawer-header__caption {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .demo-drawer-header__form {
@@ -107,7 +107,7 @@ const open = ref(false);
 
 .demo-drawer-header__form p {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 </style>

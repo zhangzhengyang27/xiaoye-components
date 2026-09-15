@@ -17,9 +17,9 @@
 }
 
 .xy-avatar-menu__name {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-avatar-menu__description {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }

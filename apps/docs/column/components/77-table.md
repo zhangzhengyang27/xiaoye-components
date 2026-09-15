@@ -379,11 +379,11 @@ const indentStyle = computed(() => ({
 
 | 变量 | 说明 | 默认值 |
 |------|------|--------|
-| `--xy-table-border-color` | 边框颜色 | `var(--xy-border-color-lighter)` |
-| `--xy-table-header-background` | 表头背景 | `var(--xy-fill-color-lighter)` |
-| `--xy-table-header-text-color` | 表头文字色 | `var(--xy-text-color-secondary)` |
-| `--xy-table-row-hover-background` | 行 hover 背景 | `var(--xy-fill-color-light)` |
-| `--xy-table-current-row-background` | 当前行背景 | `var(--xy-color-primary-light-9)` |
+| `--xy-table-border-color` | 边框颜色 | `var(--xy-border-lighter)` |
+| `--xy-table-header-background` | 表头背景 | `var(--xy-fill-lighter)` |
+| `--xy-table-header-text-color` | 表头文字色 | `var(--xy-text-secondary)` |
+| `--xy-table-row-hover-background` | 行 hover 背景 | `var(--xy-fill-light)` |
+| `--xy-table-current-row-background` | 当前行背景 | `var(--xy-brand-light-9)` |
 | `--xy-table-cell-padding` | 单元格内边距 | `8px 12px` |
 | `--xy-table-font-size` | 表格字号 | `14px` |
 

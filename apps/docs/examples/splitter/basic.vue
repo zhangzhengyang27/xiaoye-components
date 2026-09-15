@@ -84,9 +84,9 @@ const codeLines = [
   margin: -24px;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, white);
-  box-shadow: var(--xy-shadow-xs);
+  border: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 82%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .split-demo__sidebar {
@@ -95,7 +95,7 @@ const codeLines = [
   flex-direction: column;
   gap: 20px;
   padding: 20px 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 88%, white);
 }
 
 .split-demo__section {
@@ -108,7 +108,7 @@ const codeLines = [
 
 .split-demo__label {
   margin-bottom: 10px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -130,7 +130,7 @@ const codeLines = [
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   text-align: left;
   cursor: pointer;
@@ -138,13 +138,13 @@ const codeLines = [
 }
 
 .split-demo__file:hover {
-  background: var(--xy-bg-color-subtle);
-  color: var(--xy-text-color-heading);
+  background: var(--xy-bg-subtle);
+  color: var(--xy-text-heading);
 }
 
 .split-demo__file.is-active {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 68%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 68%, white);
+  color: var(--xy-brand);
 }
 
 .split-demo__icon {
@@ -154,16 +154,16 @@ const codeLines = [
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 92%, white);
-  color: var(--xy-text-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-raised) 92%, white);
+  color: var(--xy-text-muted);
   font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .split-demo__file.is-active .split-demo__icon {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 78%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 78%, white);
+  color: var(--xy-brand);
 }
 
 .split-demo__outline {
@@ -175,7 +175,7 @@ const codeLines = [
 .split-demo__outline-item {
   padding: 6px 10px;
   border-radius: 6px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
@@ -183,15 +183,15 @@ const codeLines = [
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
 }
 
 .split-demo__tabs {
   display: flex;
   gap: 2px;
   padding: 8px 12px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  border-bottom: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 92%, white);
 }
 
 .split-demo__tab {
@@ -199,15 +199,15 @@ const codeLines = [
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   cursor: pointer;
 }
 
 .split-demo__tab.is-active {
-  background: var(--xy-surface-raised);
-  color: var(--xy-text-color-heading);
-  box-shadow: var(--xy-shadow-xs);
+  background: var(--xy-bg-raised);
+  color: var(--xy-text-heading);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .split-demo__editor {
@@ -225,16 +225,16 @@ const codeLines = [
   font-family: "SF Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
   font-size: 13px;
   line-height: 1.6;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .split-demo__line.is-highlight {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 52%, white);
-  color: var(--xy-text-color-heading);
+  background: color-mix(in srgb, var(--xy-brand-soft) 52%, white);
+  color: var(--xy-text-heading);
 }
 
 .split-demo__num {
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
   text-align: right;
 }
 

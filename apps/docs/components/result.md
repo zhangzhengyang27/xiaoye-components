@@ -90,9 +90,9 @@ result/custom
 | `--xy-result-icon-shell-size` | 图标外层圆壳尺寸 | `112px` |
 | `--xy-result-title-font-size` | 标题字号 | `24px` |
 | `--xy-result-description-font-size` | 描述字号 | `14px` |
-| `--xy-result-title-color` | 标题颜色 | `var(--xy-text-color)` |
-| `--xy-result-description-color` | 描述颜色 | `var(--xy-text-color-secondary)` |
+| `--xy-result-title-color` | 标题颜色 | `var(--xy-text-primary)` |
+| `--xy-result-description-color` | 描述颜色 | `var(--xy-text-secondary)` |
 | `--xy-result-content-max-width` | 内容区最大宽度 | `560px` |
 | `--xy-result-extra-margin-top` | 操作区上边距 | `10px` |
-| `--xy-result-card-border-color` | 卡片态边框色 | `color-mix(in srgb, var(--xy-border-color) 92%, white)` |
-| `--xy-result-card-background` | 卡片态背景色 | `color-mix(in srgb, var(--xy-bg-color) 95%, var(--xy-bg-color-muted))` |
+| `--xy-result-card-border-color` | 卡片态边框色 | `color-mix(in srgb, var(--xy-border) 92%, white)` |
+| `--xy-result-card-background` | 卡片态背景色 | `color-mix(in srgb, var(--xy-bg-container) 95%, var(--xy-bg-muted))` |

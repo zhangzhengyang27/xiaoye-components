@@ -24,11 +24,11 @@ const src = "http://localhost:5175/?scene=scheduler";
 <style scoped>
 .scheduler-frame {
   margin-top: 18px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-xl);
   overflow: hidden;
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-card);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .scheduler-frame__bar {
@@ -37,19 +37,19 @@ const src = "http://localhost:5175/?scene=scheduler";
   justify-content: space-between;
   gap: 16px;
   padding: 16px 18px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 34%, white);
+  border-bottom: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-brand-soft) 34%, white);
 }
 
 .scheduler-frame__bar strong {
   display: block;
   margin-bottom: 4px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .scheduler-frame__bar p {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 14px;
 }
 
@@ -60,18 +60,18 @@ const src = "http://localhost:5175/?scene=scheduler";
   min-height: 38px;
   padding: 0 14px;
   border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 56%, white);
-  color: var(--xy-color-primary);
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 14%, var(--xy-border-subtle));
+  background: color-mix(in srgb, var(--xy-brand-soft) 56%, white);
+  color: var(--xy-brand);
   font-weight: 600;
   text-decoration: none;
 }
 
 .scheduler-frame__hint {
   padding: 12px 18px;
-  border-bottom: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
-  color: var(--xy-text-color-secondary);
+  border-bottom: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 92%, white);
+  color: var(--xy-text-secondary);
   font-size: 14px;
 }
 
@@ -79,7 +79,7 @@ const src = "http://localhost:5175/?scene=scheduler";
   width: 100%;
   min-height: 920px;
   border: 0;
-  background: var(--xy-bg-color);
+  background: var(--xy-bg-container);
 }
 
 @media (max-width: 960px) {

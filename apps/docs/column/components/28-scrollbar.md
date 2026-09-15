@@ -180,7 +180,7 @@ nextScroll      = (nextThumbOffset / thumbTravel) * scrollTravel
 关键设计要点：
 
 - 轨道默认透明（`scrollbar-color: transparent transparent`），hover / focus-within 时显示半透明底色
-- thumb 使用 `color-mix(in srgb, var(--xy-text-color-muted) 30%, transparent)` 实现与主题联动
+- thumb 使用 `color-mix(in srgb, var(--xy-text-muted) 30%, transparent)` 实现与主题联动
 - hover / active 状态通过提高颜色浓度实现视觉反馈
 - 滚动条仅在 `always=true` 或容器 hover / 拖拽时可见
 
@@ -196,7 +196,7 @@ nextScroll      = (nextThumbOffset / thumbTravel) * scrollTravel
 
 ## 扩展与定制
 
-- **自定义滚动条颜色**：覆盖 `.xy-scrollbar__thumb` 的 `background` 即可，主题变量 `--xy-text-color-muted` 影响默认色
+- **自定义滚动条颜色**：覆盖 `.xy-scrollbar__thumb` 的 `background` 即可，主题变量 `--xy-text-muted` 影响默认色
 - **轨道宽度**：修改 `.xy-scrollbar__bar.is-vertical` 的 `width` 和 `.xy-scrollbar__bar.is-horizontal` 的 `height`
 - **最小 thumb 尺寸**：通过 `minSize` prop 控制，避免内容极多时 thumb 缩为不可点击的细线
 - **跳过尺寸监听**：当内容尺寸完全由外部控制（如虚拟列表自行管理）时，设置 `noresize` 避免冗余观测

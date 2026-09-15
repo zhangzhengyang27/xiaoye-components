@@ -289,7 +289,7 @@ useDismissibleLayer({
 
 ```css
 .xy-auto-complete__dropdown {
-  --xy-auto-complete-dropdown-bg: var(--xy-bg-color);
+  --xy-auto-complete-dropdown-bg: var(--xy-bg-container);
 }
 ```
 

@@ -286,7 +286,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 ```css
 :root {
-  --xy-collapse-header-bg: var(--xy-surface-raised);
+  --xy-collapse-header-bg: var(--xy-bg-raised);
   --xy-collapse-content-padding: 0 16px 18px;
 }
 ```

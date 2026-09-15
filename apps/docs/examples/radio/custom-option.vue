@@ -59,19 +59,19 @@ const options = [
 
 .demo-radio-custom__option-title {
   display: block;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   line-height: 1.4;
 }
 
 .demo-radio-custom__option-description {
   margin: 4px 0 0;
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
   font-size: 12px;
   line-height: 1.5;
 }
 
 .demo-radio-custom__option.is-disabled .demo-radio-custom__option-title,
 .demo-radio-custom__option.is-disabled .demo-radio-custom__option-description {
-  color: var(--xy-text-color-muted);
+  color: var(--xy-text-muted);
 }
 </style>

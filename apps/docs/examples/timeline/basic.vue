@@ -59,16 +59,16 @@ const records = [
 
 .demo-timeline-basic__tip {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
 
 .demo-timeline-basic__content {
   padding: 12px 14px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 </style>

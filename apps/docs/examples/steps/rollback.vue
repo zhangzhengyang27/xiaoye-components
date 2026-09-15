@@ -114,7 +114,7 @@ const riskStatus = computed(() => (scene.value === "rejected" ? "error" : ""));
 
 .demo-steps-rollback__header-description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.7;
 }

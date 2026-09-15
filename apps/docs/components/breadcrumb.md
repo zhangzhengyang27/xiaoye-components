@@ -83,8 +83,8 @@ breadcrumb/navigation
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
 | `--xy-breadcrumb-font-size` | 组件字号 | `14px` |
-| `--xy-breadcrumb-color` | 普通项颜色 | `var(--xy-text-color-secondary)` |
-| `--xy-breadcrumb-link-color` | 可点击项颜色 | `color-mix(in srgb, var(--xy-color-primary) 92%, black)` |
-| `--xy-breadcrumb-current-color` | 当前页颜色 | `var(--xy-text-color)` |
+| `--xy-breadcrumb-color` | 普通项颜色 | `var(--xy-text-secondary)` |
+| `--xy-breadcrumb-link-color` | 可点击项颜色 | `color-mix(in srgb, var(--xy-brand) 92%, black)` |
+| `--xy-breadcrumb-current-color` | 当前页颜色 | `var(--xy-text-primary)` |
 | `--xy-breadcrumb-separator-gap` | 分隔符左右间距 | `10px` |
-| `--xy-breadcrumb-separator-color` | 分隔符颜色 | `color-mix(in srgb, var(--xy-text-color-secondary) 68%, white)` |
+| `--xy-breadcrumb-separator-color` | 分隔符颜色 | `color-mix(in srgb, var(--xy-text-secondary) 68%, white)` |

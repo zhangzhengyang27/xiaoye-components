@@ -22,16 +22,16 @@
 
 <style scoped>
 :global(.popover-admin-surface) {
-  --xy-popover-bg: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle));
+  --xy-popover-bg: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle));
   --xy-popover-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 82%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 82%,
+    var(--xy-border)
   );
   --xy-popover-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 8%, transparent),
-    0 14px 30px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
-  --xy-popover-title: var(--xy-text-color-primary);
-  --xy-popover-text: var(--xy-text-color-secondary);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent),
+    0 14px 30px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
+  --xy-popover-title: var(--xy-text-primary-primary);
+  --xy-popover-text: var(--xy-text-secondary);
 }
 </style>

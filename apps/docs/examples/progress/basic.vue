@@ -81,7 +81,7 @@ const pipelineItems = [
 .progress-release-board__header-description,
 .progress-release-board__copy-description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -96,10 +96,10 @@ const pipelineItems = [
   flex-direction: column;
   gap: 10px;
   padding: 14px 16px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .progress-release-board__head {
@@ -114,7 +114,7 @@ const pipelineItems = [
 }
 
 .progress-release-board__footer {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 

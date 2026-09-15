@@ -83,7 +83,7 @@ const uploadItems = [
 .progress-sync-board__header-description,
 .progress-sync-board__meta-description {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -98,9 +98,9 @@ const uploadItems = [
   flex-direction: column;
   gap: 10px;
   padding: 14px 16px;
-  border: 1px dashed color-mix(in srgb, var(--xy-border-color) 92%, white);
+  border: 1px dashed color-mix(in srgb, var(--xy-border) 92%, white);
   border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
 }
 
 .progress-sync-board__meta {

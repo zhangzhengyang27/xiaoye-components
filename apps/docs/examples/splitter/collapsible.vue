@@ -76,9 +76,9 @@ const items = [
   margin: -24px;
   border-radius: 20px;
   overflow: hidden;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 78%, white);
-  border: 1px solid var(--xy-border-color-subtle);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 78%, white);
+  border: 1px solid var(--xy-border-subtle);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .split-demo__status {
@@ -86,15 +86,15 @@ const items = [
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  background: var(--xy-surface-raised);
-  border-bottom: 1px solid var(--xy-border-color-subtle);
+  background: var(--xy-bg-raised);
+  border-bottom: 1px solid var(--xy-border-subtle);
   font-size: 12px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .split-demo__size {
   font-family: "SF Mono", monospace;
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
 }
 
 .split-demo__splitter {
@@ -104,7 +104,7 @@ const items = [
 .split-demo__sidebar {
   height: 100%;
   padding: 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 86%, white);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -121,7 +121,7 @@ const items = [
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .split-demo__btn {
@@ -129,14 +129,14 @@ const items = [
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   cursor: pointer;
 }
 
 .split-demo__btn:hover {
-  background: var(--xy-bg-color-subtle);
-  color: var(--xy-text-color-heading);
+  background: var(--xy-bg-subtle);
+  color: var(--xy-text-heading);
 }
 
 .split-demo__filters {
@@ -150,18 +150,18 @@ const items = [
   justify-content: space-between;
   align-items: center;
   padding: 10px 12px;
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
   border-radius: 8px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
 }
 
 .split-demo__filter-label {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
 }
 
 .split-demo__filter-value {
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 12px;
   font-weight: 500;
 }
@@ -169,10 +169,10 @@ const items = [
 .split-demo__hint {
   margin-top: auto;
   padding: 12px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
   border-radius: 8px;
-  border: 1px dashed var(--xy-border-color);
-  color: var(--xy-text-color-subtle);
+  border: 1px dashed var(--xy-border);
+  color: var(--xy-text-muted);
   font-size: 12px;
   text-align: center;
 }
@@ -180,7 +180,7 @@ const items = [
 .split-demo__content {
   height: 100%;
   padding: 16px;
-  background: var(--xy-surface-raised);
+  background: var(--xy-bg-raised);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -197,7 +197,7 @@ const items = [
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .split-demo__list {
@@ -214,15 +214,15 @@ const items = [
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
   border-radius: 10px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   transition: all 0.15s ease;
 }
 
 .split-demo__item:hover {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
-  border-color: var(--xy-border-color);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 86%, white);
+  border-color: var(--xy-border);
 }
 
 .split-demo__item-main {
@@ -231,7 +231,7 @@ const items = [
 
 .split-demo__item-id {
   display: block;
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
   font-family: "SF Mono", monospace;
   font-size: 11px;
   margin-bottom: 4px;
@@ -239,7 +239,7 @@ const items = [
 
 .split-demo__item-title {
   display: block;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 13px;
   font-weight: 500;
 }
@@ -250,23 +250,23 @@ const items = [
   border-radius: 6px;
   font-size: 11px;
   font-weight: 500;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 88%, white);
+  color: var(--xy-text-secondary);
 }
 
 .split-demo__item-status.is-progress {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 68%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 68%, white);
+  color: var(--xy-brand);
 }
 
 .split-demo__item-status.is-review {
-  background: color-mix(in srgb, var(--xy-color-warning-soft) 68%, white);
-  color: var(--xy-color-warning);
+  background: color-mix(in srgb, var(--xy-warning-soft) 68%, white);
+  color: var(--xy-warning);
 }
 
 .split-demo__item-status.is-done {
-  background: color-mix(in srgb, var(--xy-color-success-soft) 68%, white);
-  color: var(--xy-color-success);
+  background: color-mix(in srgb, var(--xy-success-soft) 68%, white);
+  color: var(--xy-success);
 }
 
 @media (max-width: 640px) {

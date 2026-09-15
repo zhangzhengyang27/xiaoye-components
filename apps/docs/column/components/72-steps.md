@@ -206,11 +206,11 @@ const isLast = computed(() => {
 
 | 变量 | 说明 | 默认值 |
 |------|------|--------|
-| `--xy-step-active-color` | 激活步骤颜色 | `var(--xy-color-primary)` |
-| `--xy-step-wait-color` | 等待步骤颜色 | `var(--xy-text-color-placeholder)` |
-| `--xy-step-finish-color` | 完成步骤颜色 | `var(--xy-color-primary)` |
-| `--xy-step-error-color` | 错误步骤颜色 | `var(--xy-color-danger)` |
-| `--xy-step-line-color` | 连接线颜色 | `var(--xy-border-color)` |
+| `--xy-step-active-color` | 激活步骤颜色 | `var(--xy-brand)` |
+| `--xy-step-wait-color` | 等待步骤颜色 | `var(--xy-text-primary-placeholder)` |
+| `--xy-step-finish-color` | 完成步骤颜色 | `var(--xy-brand)` |
+| `--xy-step-error-color` | 错误步骤颜色 | `var(--xy-danger)` |
+| `--xy-step-line-color` | 连接线颜色 | `var(--xy-border)` |
 | `--xy-step-icon-size` | 图标尺寸 | `24px` |
 | `--xy-step-title-font-size` | 标题字号 | `14px` |
 | `--xy-step-description-font-size` | 描述字号 | `12px` |

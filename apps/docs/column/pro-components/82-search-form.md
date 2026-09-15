@@ -254,12 +254,12 @@ SearchForm 不内置 `request`，而是通过 `search` 事件将筛选快照派�
 
 | 变量 | 用途 |
 | --- | --- |
-| `--xy-border-color` | 边框色 |
-| `--xy-bg-color` / `--xy-bg-color-muted` | 背景色 |
+| `--xy-border` | 边框色 |
+| `--xy-bg-container` / `--xy-bg-muted` | 背景色 |
 | `--xy-mix-light` | 边框/背景混色调节 |
 | `--xy-radius-lg` | 圆角 |
-| `--xy-text-color-secondary` | 次要文字色 |
-| `--xy-color-primary` | 主色（展开按钮） |
+| `--xy-text-secondary` | 次要文字色 |
+| `--xy-brand` | 主色（展开按钮） |
 | `--xy-font-size-sm` | 小号字号 |
 
 ## 小结

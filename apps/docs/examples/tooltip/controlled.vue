@@ -37,10 +37,10 @@ const visible = ref(false);
 
 .demo-tooltip-controlled__status {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .demo-tooltip-controlled__status-value {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 </style>

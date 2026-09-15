@@ -51,7 +51,7 @@ function compactFormatter(value: number | string) {
 
 .statistic-scene__note {
   margin: 12px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -65,7 +65,7 @@ function compactFormatter(value: number | string) {
 .statistic-scene__title span,
 .statistic-scene__prefix,
 .statistic-scene__suffix {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 600;
 }

@@ -93,7 +93,7 @@ const metrics: SettlementMetric[] = [
 .statistic-settlement-board__header-description,
 .statistic-settlement-board__item-note {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -106,10 +106,10 @@ const metrics: SettlementMetric[] = [
 
 .statistic-settlement-board__item {
   padding: 16px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .statistic-settlement-board__item-head {

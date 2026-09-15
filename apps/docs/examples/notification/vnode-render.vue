@@ -38,15 +38,15 @@ function openRenderNotification() {
 }
 
 :global(.demo-notification-vnode-render__body strong) {
-  color: var(--xy-text-color-primary);
+  color: var(--xy-text-primary-primary);
 }
 
 :global(.demo-notification-vnode-render__body span) {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 :global(.demo-notification-vnode-render__body a) {
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
   text-decoration: none;
 }
 </style>

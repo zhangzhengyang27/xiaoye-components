@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<PopconfirmProps>(), {
   transition: "xy-fade",
   popperOptions: undefined,
   icon: "mdi:help-circle-outline",
-  iconColor: "var(--xy-color-warning)",
+  iconColor: "var(--xy-warning)",
   hideIcon: false,
   confirmButtonText: undefined,
   cancelButtonText: undefined,

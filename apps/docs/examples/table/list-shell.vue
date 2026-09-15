@@ -83,27 +83,27 @@ const rows: ListRow[] = [
 
 <style scoped>
 .table-shell-demo {
-  --xy-table-background: color-mix(in srgb, var(--xy-bg-color) 96%, var(--xy-bg-color-floating));
+  --xy-table-background: color-mix(in srgb, var(--xy-bg-container) 96%, var(--xy-bg-floating));
   --xy-table-surface-background: color-mix(
     in srgb,
-    var(--xy-bg-color-floating) 90%,
-    var(--xy-bg-color-subtle)
+    var(--xy-bg-floating) 90%,
+    var(--xy-bg-subtle)
   );
   --xy-table-subtle-background: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 78%,
+    var(--xy-bg-subtle) 78%,
     var(--xy-table-surface-background)
   );
   --xy-table-radius: 10px;
   --xy-table-header-background: var(--xy-table-subtle-background);
-  --xy-table-header-color: var(--xy-text-color-secondary);
+  --xy-table-header-color: var(--xy-text-secondary);
   --xy-table-header-font-size: 12.5px;
   --xy-table-header-text-transform: uppercase;
   --xy-table-header-letter-spacing: 0.04em;
   --xy-table-border-color: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 72%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 72%,
+    var(--xy-border)
   );
   --xy-table-header-cell-padding-y: 12px;
   --xy-table-header-cell-padding-x: 14px;

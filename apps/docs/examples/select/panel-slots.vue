@@ -70,6 +70,6 @@ async function refresh() {
 }
 
 .demo-select-option__caption {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

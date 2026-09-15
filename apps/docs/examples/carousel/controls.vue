@@ -48,15 +48,15 @@
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 24%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 24%, var(--xy-border));
   background:
     linear-gradient(
       155deg,
-      color-mix(in srgb, var(--xy-color-primary) 22%, white),
+      color-mix(in srgb, var(--xy-brand) 22%, white),
       transparent 44%
     ),
-    color-mix(in srgb, var(--xy-bg-color-muted) 84%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-muted) 84%, white);
+  color: var(--xy-text-primary);
   font-size: 18px;
   font-weight: 700;
   overflow: hidden;
@@ -64,13 +64,13 @@
 }
 
 .demo-carousel-panel--muted {
-  border-color: color-mix(in srgb, var(--xy-color-success) 22%, var(--xy-border-color));
+  border-color: color-mix(in srgb, var(--xy-success) 22%, var(--xy-border));
   background:
     linear-gradient(
       155deg,
-      color-mix(in srgb, var(--xy-color-success) 18%, white),
+      color-mix(in srgb, var(--xy-success) 18%, white),
       transparent 46%
     ),
-    color-mix(in srgb, var(--xy-bg-color-muted) 80%, white);
+    color-mix(in srgb, var(--xy-bg-muted) 80%, white);
 }
 </style>

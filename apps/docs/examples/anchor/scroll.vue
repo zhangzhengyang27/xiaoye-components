@@ -62,9 +62,9 @@ const sections = [
 .demo-anchor-scroll__viewport {
   height: 300px;
   overflow: auto;
-  border: 1px solid var(--xy-border-color);
+  border: 1px solid var(--xy-border);
   border-radius: var(--xy-radius-md);
-  background: var(--xy-bg-color);
+  background: var(--xy-bg-container);
 }
 
 .demo-anchor-scroll__toolbar {
@@ -72,16 +72,16 @@ const sections = [
   top: 0;
   z-index: 1;
   padding: 14px 16px;
-  background: color-mix(in srgb, var(--xy-color-primary) 8%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand) 8%, white);
+  color: var(--xy-brand);
   font-size: 13px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border) 82%, white);
 }
 
 .demo-anchor-scroll__section {
   min-height: 180px;
   padding: 20px 16px;
-  border-bottom: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--xy-border) 82%, white);
 }
 
 .demo-anchor-scroll__section.is-last {
@@ -90,13 +90,13 @@ const sections = [
 
 .demo-anchor-scroll__section-title {
   margin: 0 0 10px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 20px;
 }
 
 .demo-anchor-scroll__section-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 

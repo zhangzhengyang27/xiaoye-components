@@ -69,20 +69,20 @@ graph TB
 
 ## 各层职责详解
 
-### Tokens 层：Primitive → Semantic 双层令牌
+### Tokens 层：CSS 优先的三层令牌
 
 ```mermaid
 graph LR
-    subgraph "Primitive Tokens（原始令牌）"
-        P_Color["color.brand.500<br/>#5b76fe"]
-        P_Radius["radius.md<br/>2px"]
-        P_Shadow["shadow.md<br/>0 12px 30px..."]
+    subgraph "tokens.css（唯一事实源）"
+        P_Color["--xy-purple-600<br/>#533afd"]
+        P_Radius["--xy-radius-sm<br/>4px"]
+        P_Shadow["--xy-shadow-3<br/>双层蓝调阴影"]
     end
 
-    subgraph "Semantic Tokens（语义令牌）"
-        S_Primary["colorPrimary<br/>← color.brand.500"]
-        S_Radius["radius<br/>← radius.md"]
-        S_Shadow["shadow<br/>← radius.md"]
+    subgraph "生成的 TS 常量层"
+        S_Primary["colorPrimitives<br/>purple600: #533afd"]
+        S_Radius["scaleTokens<br/>radiusSm: 4px"]
+        S_Shadow["semanticTokens<br/>shadow3: var(--xy-shadow-3)"]
     end
 
     P_Color --> S_Primary
@@ -90,12 +90,9 @@ graph LR
     P_Shadow --> S_Shadow
 ```
 
-Tokens 包定义了两层令牌：
+令牌以 Stripe 设计语言为蓝本，`tokens.css` 是唯一手工维护的事实源，分基元 / 语义 / 刻度三层；`packages/tokens` 的 TS 常量层由 `node scripts/generate-tokens.mjs` 从它生成，供 JS 运行时按需读取。
 
-- **Primitive Tokens**：原始设计值，直接描述色板、间距、圆角、阴影等。如 `color.brand.500 = #5b76fe`、`radius.md = 2px`
-- **Semantic Tokens**：语义化别名，引用 Primitive 值。如 `colorPrimary ← color.brand.500`、`radiusControl ← radius.md`
-
-这种双层设计的好处在于：**换肤只需修改 Semantic 映射，不需要触及 Primitive 色板**。例如，将品牌色从蓝系切换到紫系，只需修改 `colorPrimary` 的指向从 `color.brand.500` 到 `color.lilac.500`，所有消费 `colorPrimary` 的组件样式自动跟随。
+这种 CSS 优先设计的好处在于：**运行时消费只有一个载体（CSS 变量），令牌清单只有一个写入方（tokens.css）**。换肤只需在运行时覆盖语义令牌（如 `--xy-brand`），或编辑 tokens.css 后重新生成，不存在双份维护导致的命名漂移。
 
 ### Primitives 层：跨包共享基础设施
 

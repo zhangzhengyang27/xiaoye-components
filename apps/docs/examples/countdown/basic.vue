@@ -39,7 +39,7 @@ onMounted(() => {
 
 .countdown-basic-card__header span,
 .countdown-basic-card__loading {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 

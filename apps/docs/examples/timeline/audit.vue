@@ -97,13 +97,13 @@ const auditGroups = [
 
 .demo-timeline-scene__intro-title {
   margin: 0 0 6px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 18px;
 }
 
 .demo-timeline-scene__intro-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.65;
 }
 
@@ -123,8 +123,8 @@ const auditGroups = [
   align-items: center;
   padding: 4px 8px;
   border-radius: var(--xy-radius-pill);
-  background: color-mix(in srgb, var(--xy-color-primary) 10%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand) 10%, white);
+  color: var(--xy-brand);
   font-size: 12px;
 }
 </style>

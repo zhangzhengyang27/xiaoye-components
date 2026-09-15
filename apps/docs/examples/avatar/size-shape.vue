@@ -37,7 +37,7 @@
 
 .demo-avatar-row__label {
   width: 44px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 </style>

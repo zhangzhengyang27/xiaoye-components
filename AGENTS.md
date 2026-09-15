@@ -63,6 +63,13 @@ alwaysApply: true
   - 数据展示（data，13 个）：`statistic`、`countdown`、`progress`、`steps`、`timeline`、`scheduler`、`descriptions`、`tree`、`table`、`pagination`、`charts`、`audio-player`、`video-player`
 - 更新 `AGENTS.md`、文档导航或任务说明时，组件清单应以 `component-manifest.json` 为准，不要沿用旧列表。
 
+## 设计令牌约定
+
+- 令牌唯一事实源是 `packages/xiaoye-primitives/src/theme/tokens.css`，采用基元（`--xy-{色板}-{阶}`）/ 语义（`--xy-{角色}[-{状态}]`）/ 刻度（`--xy-{刻度}-{档}`）三层架构，蓝本为 Stripe 设计语言（亮暗双主题锚点值取自 design.hagicode.com 收录的 Stripe 官方 token 目录）。
+- `packages/tokens` 的 TS 常量层由 `pnpm generate:tokens` 从 tokens.css 生成，不要手工编辑生成物；调整令牌后先改 tokens.css 再重新生成。
+- 组件样式只消费语义层与刻度层；新代码禁止使用 tokens.css 末尾 `@deprecated` 兼容层里的旧命名（`--xy-color-primary`、`--xy-text-color-*`、`--xy-bg-color-*`、`--xy-shadow-xs/sm/md/lg` 等）。
+- 改动令牌值或新增令牌后，同步更新 `apps/docs/design-tokens.md` 与 `apps/docs/guide/theming.md` 的变量表，并重新生成 llms 文档。
+
 ## 发布流程
 
 - 版本与变更日志统一走 Changesets：完成一批需要发版的改动后，用 `pnpm changeset` 写一条变更记录（选对 bump 级别：破坏性 major、新增能力 minor、修复 patch）。

@@ -280,14 +280,14 @@ Link 组件不定义组件级 CSS 变量，全部引用全局设计令牌：
 
 | 变量 | 用途 | 出现位置 |
 |------|------|----------|
-| `--xy-text-color-secondary` | default 类型默认色 | 根元素、`xy-link--default` |
-| `--xy-text-color-heading` | default 类型 hover 色 | `xy-link--default:hover` |
-| `--xy-text-color-muted` | 禁用态文字色 | `is-disabled` |
-| `--xy-color-primary` / `--xy-color-primary-hover` | primary 语义色 | `xy-link--primary` |
-| `--xy-color-success` / `--xy-color-success-hover` | success 语义色 | `xy-link--success` |
-| `--xy-color-warning` / `--xy-color-warning-hover` | warning 语义色 | `xy-link--warning` |
-| `--xy-color-info` / `--xy-color-info-hover` | info 语义色 | `xy-link--info` |
-| `--xy-color-danger` / `--xy-color-danger-hover` | danger 语义色 | `xy-link--danger` |
+| `--xy-text-secondary` | default 类型默认色 | 根元素、`xy-link--default` |
+| `--xy-text-heading` | default 类型 hover 色 | `xy-link--default:hover` |
+| `--xy-text-muted` | 禁用态文字色 | `is-disabled` |
+| `--xy-brand` / `--xy-brand-hover` | primary 语义色 | `xy-link--primary` |
+| `--xy-success` / `--xy-success-hover` | success 语义色 | `xy-link--success` |
+| `--xy-warning` / `--xy-warning-hover` | warning 语义色 | `xy-link--warning` |
+| `--xy-info` / `--xy-info-hover` | info 语义色 | `xy-link--info` |
+| `--xy-danger` / `--xy-danger-hover` | danger 语义色 | `xy-link--danger` |
 | `--xy-font-size-md` | 字号 | 根元素 |
 | `--xy-line-height` | 行高 | 根元素 |
 | `--xy-transition-duration-fast` / `--xy-transition-timing` | 过渡动画 | 根元素 transition |
@@ -346,17 +346,17 @@ Link 的下划线颜色基于 `currentColor` 的 `color-mix` 计算，修改文�
 
 ```css
 .xy-link--primary {
-  text-decoration-color: var(--xy-color-primary);
+  text-decoration-color: var(--xy-brand);
 }
 ```
 
 ### 自定义焦点环
 
-焦点环的 `outline` 和 `box-shadow` 均基于 `--xy-color-primary` 计算。如需调整焦点环颜色或大小：
+焦点环的 `outline` 和 `box-shadow` 均基于 `--xy-brand` 计算。如需调整焦点环颜色或大小：
 
 ```css
 .xy-link:focus-visible {
-  outline-color: var(--xy-color-success);
+  outline-color: var(--xy-success);
   outline-offset: 3px;
 }
 ```

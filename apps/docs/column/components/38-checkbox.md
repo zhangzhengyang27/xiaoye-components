@@ -322,8 +322,8 @@ Checkbox 隐藏了原生 input，但保留了键盘焦点：
 
 ```css
 :root {
-  --xy-checkbox-input-border-color-hover: var(--xy-color-primary);
-  --xy-checkbox-button-active-bg-color: var(--xy-color-primary);
+  --xy-checkbox-input-border-color-hover: var(--xy-brand);
+  --xy-checkbox-button-active-bg-color: var(--xy-brand);
 }
 ```
 

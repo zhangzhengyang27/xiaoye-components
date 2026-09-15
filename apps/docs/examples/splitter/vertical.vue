@@ -68,9 +68,9 @@ const logs = [
   margin: -24px;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  border: 1px solid var(--xy-border-subtle);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .split-demo__header {
@@ -78,8 +78,8 @@ const logs = [
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
-  border-bottom: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 92%, white);
+  border-bottom: 1px solid var(--xy-border-subtle);
 }
 
 .split-demo__dots {
@@ -91,23 +91,23 @@ const logs = [
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--xy-border-color);
+  background: var(--xy-border);
 }
 
 .split-demo__dot--danger {
-  background: var(--xy-color-danger);
+  background: var(--xy-danger);
 }
 
 .split-demo__dot--warning {
-  background: var(--xy-color-warning);
+  background: var(--xy-warning);
 }
 
 .split-demo__dot--success {
-  background: var(--xy-color-success);
+  background: var(--xy-success);
 }
 
 .split-demo__title {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 500;
 }
@@ -118,7 +118,7 @@ const logs = [
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 88%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 88%, white);
 }
 
 .split-demo__task {
@@ -127,12 +127,12 @@ const logs = [
   gap: 12px;
   padding: 12px 16px;
   border-radius: 10px;
-  background: var(--xy-surface-raised);
-  border: 1px solid var(--xy-border-color-subtle);
+  background: var(--xy-bg-raised);
+  border: 1px solid var(--xy-border-subtle);
 }
 
 .split-demo__task.is-running {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 48%, white);
+  background: color-mix(in srgb, var(--xy-brand-soft) 48%, white);
 }
 
 .split-demo__check {
@@ -143,17 +143,17 @@ const logs = [
   justify-content: center;
   border-radius: 50%;
   font-size: 12px;
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
 }
 
 .split-demo__task.is-done .split-demo__check {
-  background: color-mix(in srgb, var(--xy-color-success-soft) 68%, white);
-  color: var(--xy-color-success);
+  background: color-mix(in srgb, var(--xy-success-soft) 68%, white);
+  color: var(--xy-success);
 }
 
 .split-demo__task.is-running .split-demo__check {
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 76%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand-soft) 76%, white);
+  color: var(--xy-brand);
   animation: spin 1s linear infinite;
 }
 
@@ -174,12 +174,12 @@ const logs = [
 }
 
 .split-demo__task-name {
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 13px;
 }
 
 .split-demo__task-time {
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
   font-family: "SF Mono", monospace;
   font-size: 11px;
 }
@@ -191,25 +191,25 @@ const logs = [
   flex-direction: column;
   gap: 6px;
   overflow: auto;
-  background: var(--xy-surface-raised);
-  border-top: 1px solid var(--xy-border-color-subtle);
+  background: var(--xy-bg-raised);
+  border-top: 1px solid var(--xy-border-subtle);
 }
 
 .split-demo__log {
   font-family: "SF Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 
 .split-demo__log.is-success {
-  color: var(--xy-color-success);
+  color: var(--xy-success);
 }
 .split-demo__log.is-warn {
-  color: var(--xy-color-warning);
+  color: var(--xy-warning);
 }
 .split-demo__log.is-error {
-  color: var(--xy-color-danger);
+  color: var(--xy-danger);
 }
 
 @media (max-width: 640px) {

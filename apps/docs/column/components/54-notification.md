@@ -317,8 +317,8 @@ types.forEach(type => {
 
 ```css
 .xy-notification--success {
-  --xy-notification-accent-color: var(--xy-color-success);
-  --xy-notification-title-color: var(--xy-color-success-dark-2);
+  --xy-notification-accent-color: var(--xy-success);
+  --xy-notification-title-color: var(--xy-success-dark-2);
 }
 ```
 
@@ -326,8 +326,8 @@ types.forEach(type => {
 
 ```css
 .xy-notification {
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-mix-light));
-  border-color: color-mix(in srgb, var(--xy-border-color-subtle) 84%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-mix-light));
+  border-color: color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border));
 }
 ```
 

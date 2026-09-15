@@ -68,7 +68,7 @@
 
 .demo-timeline-state__tip {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -83,28 +83,28 @@
 }
 
 .demo-timeline-state__pill--success {
-  background: color-mix(in srgb, var(--xy-color-success) 12%, white);
-  color: var(--xy-color-success);
+  background: color-mix(in srgb, var(--xy-success) 12%, white);
+  color: var(--xy-success);
 }
 
 .demo-timeline-state__pill--primary {
-  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand) 12%, white);
+  color: var(--xy-brand);
 }
 
 .demo-timeline-state__pill--neutral {
-  background: color-mix(in srgb, var(--xy-text-color-secondary) 10%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-text-secondary) 10%, white);
+  color: var(--xy-text-secondary);
 }
 
 .demo-timeline-state__pill--warning {
-  background: color-mix(in srgb, var(--xy-color-warning) 14%, white);
-  color: var(--xy-color-warning);
+  background: color-mix(in srgb, var(--xy-warning) 14%, white);
+  color: var(--xy-warning);
 }
 
 .demo-timeline-state__note {
   padding: 8px 10px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 88%, white);
+  background: color-mix(in srgb, var(--xy-bg-muted) 88%, white);
 }
 </style>

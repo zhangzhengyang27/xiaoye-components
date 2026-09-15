@@ -52,7 +52,7 @@ app.use(XyComponents)
 
 ```css
 :root {
-  --xy-color-primary: #409eff;
+  --xy-brand: #409eff;
   --xy-border-radius-base: 4px;
 }
 ```
@@ -151,7 +151,7 @@ pnpm add xiaoye-pro-components
 
 所有设计令牌使用 `--xy-` 前缀，例如：
 
-- `--xy-color-primary` — 主色调
+- `--xy-brand` — 主色调
 - `--xy-font-size-md` — 中号字体
 - `--xy-radius-base` — 基础圆角
 
@@ -161,7 +161,7 @@ pnpm add xiaoye-pro-components
 
 1. **确认引入了组件样式**：ESM 导入会自动包含样式，但如果使用了按需加载插件，需确认插件配置正确。
 2. **检查 CSS 变量作用域**：确保变量覆盖写在全局作用域（`:root`），而非组件 scoped 内。
-3. **确认 namespace 一致**：如修改了 `namespace`，CSS 变量名会随之变化（如 `--xy-color-primary` → `--custom-color-primary`）。
+3. **确认 namespace 一致**：如修改了 `namespace`，CSS 变量名会随之变化（如 `--xy-brand` → `--custom-color-primary`）。
 4. **浏览器缓存**：清除缓存后重试。
 
 ### VitePress 文档站如何构建？

@@ -66,6 +66,6 @@
 
 .demo-card-panel-copy__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

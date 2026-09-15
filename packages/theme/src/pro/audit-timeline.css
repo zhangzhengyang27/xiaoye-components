@@ -6,7 +6,7 @@
 
 .xy-audit-timeline__title {
   font-weight: 600;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-audit-timeline__meta {
@@ -30,7 +30,7 @@
 .xy-audit-timeline__remark p {
   margin: 0;
   line-height: 1.7;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-audit-timeline__remark {
@@ -39,14 +39,14 @@
   gap: 6px;
   padding: 12px 14px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 82%, var(--xy-mix-light));
+  background: color-mix(in srgb, var(--xy-bg-muted) 82%, var(--xy-mix-light));
 }
 
 .xy-audit-timeline__remark-label,
 .xy-audit-timeline__attachments-label {
   font-size: var(--xy-font-size-sm);
   font-weight: 600;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-audit-timeline__extra,
@@ -64,5 +64,5 @@
 }
 
 .xy-audit-timeline__attachment-text {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }

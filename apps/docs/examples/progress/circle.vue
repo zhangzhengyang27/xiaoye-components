@@ -95,7 +95,7 @@ const kpiCards = [
 
 .progress-kpi-grid__subtitle {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   line-height: 1.5;
 }

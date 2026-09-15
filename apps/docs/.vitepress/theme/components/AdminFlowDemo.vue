@@ -1014,12 +1014,12 @@ function editFromDetail(close: () => void) {
 .admin-pro-demo__hero-main p,
 .admin-pro-demo__hero-side p {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 
 .admin-pro-demo__eyebrow {
-  color: var(--xy-color-primary);
+  color: var(--xy-brand);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -1028,10 +1028,10 @@ function editFromDetail(close: () => void) {
 
 .admin-pro-demo__hero-side {
   padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 14%, var(--xy-border-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 14%, var(--xy-border-subtle));
   border-radius: 18px;
-  background: color-mix(in srgb, var(--xy-color-primary-soft) 40%, white);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-brand-soft) 40%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .admin-pro-demo__stack {
@@ -1058,7 +1058,7 @@ function editFromDetail(close: () => void) {
 .admin-pro-demo__summary-value {
   display: block;
   margin-top: 12px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
   font-size: 28px;
   font-weight: 680;
   line-height: 1;
@@ -1067,7 +1067,7 @@ function editFromDetail(close: () => void) {
 
 .admin-pro-demo__summary-description {
   margin: 10px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -1078,14 +1078,14 @@ function editFromDetail(close: () => void) {
   justify-content: space-between;
   gap: 16px;
   padding: 14px 16px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-warning) 16%, var(--xy-border-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-warning) 16%, var(--xy-border-subtle));
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-color-warning-soft) 62%, white);
-  box-shadow: var(--xy-shadow-xs);
+  background: color-mix(in srgb, var(--xy-warning-soft) 62%, white);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .admin-pro-demo__batch-copy {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -1106,7 +1106,7 @@ function editFromDetail(close: () => void) {
 
 .admin-pro-demo__timeline-note {
   margin: 0 0 12px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 

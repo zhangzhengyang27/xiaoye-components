@@ -255,7 +255,7 @@ Empty 组件使用 `margin: 0 auto` 居中，且限制 `max-width: 440px`：
 
 ```css
 .xy-empty__default-art rect {
-  fill: var(--xy-surface-raised);
+  fill: var(--xy-bg-raised);
 }
 ```
 

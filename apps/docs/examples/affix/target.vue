@@ -33,16 +33,16 @@
 .demo-affix-target__container {
   padding: 18px;
   border-radius: 18px;
-  border: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, white);
+  border: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 82%, white);
 }
 
 .demo-affix-target__edge {
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color-subtle) 88%, white);
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
-  color: var(--xy-text-color-secondary);
+  border: 1px solid color-mix(in srgb, var(--xy-border-subtle) 88%, white);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -59,20 +59,20 @@
   margin-top: 16px;
   padding: 16px 18px;
   border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-primary) 10%, var(--xy-border-color-subtle));
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-xs);
+  border: 1px solid color-mix(in srgb, var(--xy-brand) 10%, var(--xy-border-subtle));
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-0);
 }
 
 .demo-affix-target__toolbar-title {
   display: block;
   margin-bottom: 6px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .demo-affix-target__toolbar-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -86,19 +86,19 @@
 .demo-affix-target__block {
   padding: 16px 18px;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--xy-surface-raised) 94%, white);
-  border: 1px solid var(--xy-border-color-subtle);
+  background: color-mix(in srgb, var(--xy-bg-raised) 94%, white);
+  border: 1px solid var(--xy-border-subtle);
 }
 
 .demo-affix-target__block-title {
   display: block;
   margin-bottom: 8px;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .demo-affix-target__block-description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

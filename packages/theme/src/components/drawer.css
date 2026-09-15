@@ -37,21 +37,21 @@
     var(
       --xy-dialog-bg,
       var(
-        --xy-surface-raised,
-        color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-bg-color-subtle))
+        --xy-bg-raised,
+        color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-bg-subtle))
       )
     )
   );
   --xy-drawer-panel-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 84%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 84%,
+    var(--xy-border)
   );
   --xy-drawer-section-bg: var(
     --xy-drawer-section-background,
-    color-mix(in srgb, var(--xy-drawer-panel-bg) 98%, var(--xy-bg-color-subtle))
+    color-mix(in srgb, var(--xy-drawer-panel-bg) 98%, var(--xy-bg-subtle))
   );
-  --xy-drawer-body-color: var(--xy-drawer-text-color, var(--xy-text-color-secondary));
+  --xy-drawer-body-color: var(--xy-drawer-text-color, var(--xy-text-secondary));
   --xy-drawer-header-padding-y: 10px;
   --xy-drawer-header-padding-x: 16px;
   --xy-drawer-body-padding-y: 10px;
@@ -59,8 +59,8 @@
   --xy-drawer-footer-padding-y: 10px;
   --xy-drawer-footer-padding-x: 16px;
   --xy-drawer-panel-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 6%, transparent),
-    0 12px 32px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 6%, transparent),
+    0 12px 32px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
   --xy-drawer-header-bg: var(--xy-drawer-section-bg);
   --xy-drawer-body-bg: var(--xy-drawer-panel-bg);
   --xy-drawer-footer-bg: var(--xy-drawer-section-bg);
@@ -149,7 +149,7 @@
   line-height: 1.4;
   font-size: calc(var(--xy-font-size-lg) + 1px);
   font-weight: 600;
-  color: var(--xy-drawer-title-color, var(--xy-dialog-title-color, var(--xy-text-color-heading)));
+  color: var(--xy-drawer-title-color, var(--xy-dialog-title-color, var(--xy-text-heading)));
 }
 
 .xy-drawer__close {
@@ -162,22 +162,22 @@
   block-size: 32px;
   border-radius: var(--xy-radius-pill);
   cursor: pointer;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   transition:
     background-color var(--xy-transition-duration-fast) var(--xy-transition-timing),
     color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 
 .xy-drawer__close:hover {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 72%, var(--xy-drawer-panel-bg));
-  color: var(--xy-text-color);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 72%, var(--xy-drawer-panel-bg));
+  color: var(--xy-text-primary);
 }
 
 .xy-drawer__panel:focus-visible,
 .xy-drawer__close:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-drawer__dragger {
@@ -197,7 +197,7 @@
 }
 
 .xy-drawer__dragger:hover::before {
-  background: color-mix(in srgb, var(--xy-color-primary) 28%, var(--xy-border-color-subtle));
+  background: color-mix(in srgb, var(--xy-brand) 28%, var(--xy-border-subtle));
   opacity: 1;
 }
 

@@ -71,6 +71,6 @@ function resolveType(state: string) {
 }
 
 .demo-tree-node__owner {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 </style>

@@ -3,21 +3,21 @@
   --xy-message-gap: 12px;
   --xy-message-border-radius: var(--xy-radius-md);
   --xy-message-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
   --xy-message-border-color: color-mix(
     in srgb,
-    var(--xy-color-info) 10%,
-    var(--xy-border-color-subtle)
+    var(--xy-info) 10%,
+    var(--xy-border-subtle)
   );
-  --xy-message-bg-color: color-mix(in srgb, var(--xy-color-info) 4%, var(--xy-bg-color-floating));
-  --xy-message-text-color: var(--xy-text-color-heading);
-  --xy-message-content-color: var(--xy-text-color-secondary);
-  --xy-message-accent-color: var(--xy-color-info);
-  --xy-message-close-color: var(--xy-text-color-secondary);
+  --xy-message-bg-color: color-mix(in srgb, var(--xy-info) 4%, var(--xy-bg-floating));
+  --xy-message-text-color: var(--xy-text-heading);
+  --xy-message-content-color: var(--xy-text-secondary);
+  --xy-message-accent-color: var(--xy-info);
+  --xy-message-close-color: var(--xy-text-secondary);
   --xy-message-hover-shadow:
     0 0 0 1px color-mix(in srgb, var(--xy-message-accent-color) 12%, transparent),
-    0 4px 12px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+    0 4px 12px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
 
   position: fixed;
   display: flex;
@@ -30,7 +30,7 @@
   padding: var(--xy-message-padding);
   border: 1px solid var(--xy-message-border-color);
   border-radius: var(--xy-message-border-radius);
-  background: color-mix(in srgb, var(--xy-message-bg-color) 98%, var(--xy-bg-color-floating));
+  background: color-mix(in srgb, var(--xy-message-bg-color) 98%, var(--xy-bg-floating));
   box-shadow: var(--xy-message-shadow);
   color: var(--xy-message-text-color);
   transition:
@@ -56,11 +56,11 @@
 }
 
 .xy-message.is-plain {
-  background: color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle));
-  border-color: color-mix(in srgb, var(--xy-border-color-subtle) 88%, var(--xy-border-color));
+  background: color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle));
+  border-color: color-mix(in srgb, var(--xy-border-subtle) 88%, var(--xy-border));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 2px 8px color-mix(in srgb, var(--xy-text-color-heading) 6%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 2px 8px color-mix(in srgb, var(--xy-text-heading) 6%, transparent);
 }
 
 .xy-message.is-clickable {
@@ -68,7 +68,7 @@
 }
 
 .xy-message.is-clickable:hover {
-  border-color: color-mix(in srgb, var(--xy-message-accent-color) 16%, var(--xy-border-color));
+  border-color: color-mix(in srgb, var(--xy-message-accent-color) 16%, var(--xy-border));
   box-shadow: var(--xy-message-hover-shadow);
 }
 
@@ -145,64 +145,64 @@
 }
 
 .xy-message__close:hover {
-  color: var(--xy-text-color-heading);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-bg-color-floating));
+  color: var(--xy-text-heading);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 82%, var(--xy-bg-floating));
 }
 
 .xy-message__close:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-message--primary {
   --xy-message-border-color: color-mix(
     in srgb,
-    var(--xy-color-primary) 12%,
-    var(--xy-border-color-subtle)
+    var(--xy-brand) 12%,
+    var(--xy-border-subtle)
   );
-  --xy-message-bg-color: color-mix(in srgb, var(--xy-color-primary-soft) 24%, var(--xy-bg-color-floating));
-  --xy-message-accent-color: var(--xy-color-primary);
+  --xy-message-bg-color: color-mix(in srgb, var(--xy-brand-soft) 24%, var(--xy-bg-floating));
+  --xy-message-accent-color: var(--xy-brand);
 }
 
 .xy-message--success {
   --xy-message-border-color: color-mix(
     in srgb,
-    var(--xy-color-success) 12%,
-    var(--xy-border-color-subtle)
+    var(--xy-success) 12%,
+    var(--xy-border-subtle)
   );
-  --xy-message-bg-color: color-mix(in srgb, var(--xy-color-success-soft) 24%, var(--xy-bg-color-floating));
-  --xy-message-accent-color: var(--xy-color-success);
+  --xy-message-bg-color: color-mix(in srgb, var(--xy-success-soft) 24%, var(--xy-bg-floating));
+  --xy-message-accent-color: var(--xy-success);
 }
 
 .xy-message--info {
   --xy-message-border-color: color-mix(
     in srgb,
-    var(--xy-color-info) 10%,
-    var(--xy-border-color-subtle)
+    var(--xy-info) 10%,
+    var(--xy-border-subtle)
   );
-  --xy-message-bg-color: color-mix(in srgb, var(--xy-color-info) 4%, var(--xy-bg-color-floating));
-  --xy-message-accent-color: var(--xy-color-info);
+  --xy-message-bg-color: color-mix(in srgb, var(--xy-info) 4%, var(--xy-bg-floating));
+  --xy-message-accent-color: var(--xy-info);
 }
 
 .xy-message--warning {
   --xy-message-border-color: color-mix(
     in srgb,
-    var(--xy-color-warning) 14%,
-    var(--xy-border-color-subtle)
+    var(--xy-warning) 14%,
+    var(--xy-border-subtle)
   );
-  --xy-message-bg-color: color-mix(in srgb, var(--xy-color-warning-soft) 24%, var(--xy-bg-color-floating));
-  --xy-message-accent-color: var(--xy-color-warning);
+  --xy-message-bg-color: color-mix(in srgb, var(--xy-warning-soft) 24%, var(--xy-bg-floating));
+  --xy-message-accent-color: var(--xy-warning);
 }
 
 .xy-message--error {
   --xy-message-border-color: color-mix(
     in srgb,
-    var(--xy-color-danger) 12%,
-    var(--xy-border-color-subtle)
+    var(--xy-danger) 12%,
+    var(--xy-border-subtle)
   );
-  --xy-message-bg-color: color-mix(in srgb, var(--xy-color-danger-soft) 24%, var(--xy-bg-color-floating));
-  --xy-message-accent-color: var(--xy-color-danger);
+  --xy-message-bg-color: color-mix(in srgb, var(--xy-danger-soft) 24%, var(--xy-bg-floating));
+  --xy-message-accent-color: var(--xy-danger);
 }
 
 .xy-message-fade-enter-from,

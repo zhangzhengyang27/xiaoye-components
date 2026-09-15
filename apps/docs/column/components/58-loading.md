@@ -454,7 +454,7 @@ function openLoading(options, context, trackAsService) {
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
 | `--xy-loading-text-font-size` | `14px` | 加载文案字号 |
-| `--xy-loading-text-color` | `var(--xy-text-color-subtle)` | 加载文案颜色 |
+| `--xy-loading-text-color` | `var(--xy-text-muted)` | 加载文案颜色 |
 | `--xy-loading-mask-background` | `color-mix(...)` | 遮罩背景色 |
 | `--xy-loading-indicator-size` | `20px` | 指示器图标尺寸 |
 | `--xy-loading-indicator-text-size` | 继承 text-font-size | 指示器文案字号 |
@@ -479,7 +479,7 @@ function openLoading(options, context, trackAsService) {
 通过 CSS 变量覆盖即可定制 Loading 主题：
 - 遮罩背景色：覆盖 `--xy-loading-mask-background`
 - 文案颜色/字号：覆盖 `--xy-loading-text-color` / `--xy-loading-text-font-size`
-- SVG 路径颜色：SVG 的 stroke 直接引用 `--xy-color-primary`，可通过全局主色变量联动修改
+- SVG 路径颜色：SVG 的 stroke 直接引用 `--xy-brand`，可通过全局主色变量联动修改
 - 指示器面板样式：`.xy-loading__indicator.is-surface` 的边框/阴影/圆角均引用全局变量
 
 ## 小结

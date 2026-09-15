@@ -290,13 +290,13 @@ function saveAssignment() {
   gap: 8px;
   min-height: 100%;
   padding: 16px 18px;
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 84%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 84%, white);
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color) 94%, white);
+  background: color-mix(in srgb, var(--xy-bg-container) 94%, white);
 }
 
 .demo-tree-org-panel__title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 15px;
   line-height: 1.6;
 }

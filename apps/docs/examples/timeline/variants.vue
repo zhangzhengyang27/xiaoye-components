@@ -30,7 +30,7 @@
 
     <xy-timeline-item
       timestamp="自定义"
-      color="color-mix(in srgb, var(--xy-color-primary) 72%, var(--xy-color-info))"
+      color="color-mix(in srgb, var(--xy-brand) 72%, var(--xy-info))"
       hollow
       icon="mdi:star-four-points-outline"
     >
@@ -49,16 +49,16 @@
   gap: 6px;
   padding: 12px 14px;
   border-radius: var(--xy-radius-md);
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 86%, white);
-  border: 1px solid color-mix(in srgb, var(--xy-border-color) 82%, white);
+  background: color-mix(in srgb, var(--xy-bg-muted) 86%, white);
+  border: 1px solid color-mix(in srgb, var(--xy-border) 82%, white);
 }
 
 .demo-timeline-line__title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-timeline-line__description {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.6;
 }
 </style>

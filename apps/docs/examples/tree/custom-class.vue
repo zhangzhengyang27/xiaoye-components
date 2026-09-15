@@ -46,8 +46,8 @@ function resolveNodeClass(item: { id: number }) {
 
 <style scoped>
 :global(.demo-tree-custom-class__key-node) {
-  border-color: color-mix(in srgb, var(--xy-color-warning) 34%, var(--xy-border-color));
-  background: color-mix(in srgb, var(--xy-color-warning) 8%, var(--xy-bg-color));
+  border-color: color-mix(in srgb, var(--xy-warning) 34%, var(--xy-border));
+  background: color-mix(in srgb, var(--xy-warning) 8%, var(--xy-bg-container));
 }
 
 :global(.demo-tree-custom-class__branch-node) {

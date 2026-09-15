@@ -255,8 +255,8 @@ graph LR
 
 ```css
 .xy-button {
-  background: var(--xy-color-primary);
-  color: var(--xy-text-color-inverse);
+  background: var(--xy-brand);
+  color: var(--xy-text-primary-inverse);
   border-radius: var(--xy-radius-md);
   padding: var(--xy-space-xs) var(--xy-space-lg);
   transition: background var(--xy-transition-duration-fast);

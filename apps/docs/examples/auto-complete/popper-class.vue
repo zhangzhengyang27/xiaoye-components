@@ -31,16 +31,16 @@ const options = [
 :global(.auto-complete-admin-surface) {
   --xy-auto-complete-dropdown-bg: color-mix(
     in srgb,
-    var(--xy-bg-color-floating) 96%,
-    var(--xy-bg-color-subtle)
+    var(--xy-bg-floating) 96%,
+    var(--xy-bg-subtle)
   );
   --xy-auto-complete-dropdown-border: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 80%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 80%,
+    var(--xy-border)
   );
   --xy-auto-complete-dropdown-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 10%, transparent),
-    0 14px 30px color-mix(in srgb, var(--xy-text-color-heading) 7%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent),
+    0 14px 30px color-mix(in srgb, var(--xy-text-heading) 7%, transparent);
 }
 </style>

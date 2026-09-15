@@ -1,6 +1,6 @@
 ---
 title: 主题定制
-description: 通过 CSS 变量定制 xiaoye-components 的视觉表现，包括颜色、间距、字体、圆角等设计令牌。
+description: 通过 CSS 变量定制 xiaoye-components 的视觉表现：三层令牌架构、亮暗双主题、品牌色替换与暗黑模式接入。
 outline: deep
 keywords:
   - theming
@@ -17,126 +17,22 @@ xiaoye-components 使用 **CSS 变量（Custom Properties）** 实现主题系�
 
 ### 技术方案
 
-- **纯 CSS 变量驱动**：所有设计令牌定义为 CSS 自定义属性
+- **纯 CSS 变量驱动**：所有设计令牌定义为 CSS 自定义属性，以 Stripe 设计语言为蓝本
 - **实时动态切换**：支持运行时修改，无需重新编译
 - **层叠覆盖优先**：支持全局默认 → 项目级覆盖 → 组件级微调的三级覆盖体系
-- **暗黑模式支持**：前台层（`xiaoye-ui`）内置完整暗黑模式；中后台层可通过扩展实现
+- **亮暗双主题**：内置完整暗黑模式，在根元素设置 `data-theme="dark"` 即可切换
 
 ### 命名规范
 
-项目采用 `--xy-` 前缀的 BEM 风格命名：
+令牌采用三层架构，命名规则唯一：
 
-```css
---xy-{category}-{property}[-variant]
+```
+基元层  --xy-{色板}-{阶}      如 --xy-purple-600、--xy-gray-500
+语义层  --xy-{角色}[-{状态}]  如 --xy-brand-hover、--xy-text-muted、--xy-shadow-3
+刻度层  --xy-{刻度}-{档}      如 --xy-radius-md、--xy-space-4、--xy-font-size-lg
 ```
 
-**示例**：
-- `--xy-color-primary` - 主色调
-- `--xy-color-primary-hover` - 主色悬停态
-- `--xy-radius-md` - 中等圆角
-- `--xy-space-4` - 4 单位间距（16px）
-
----
-
-## 设计令牌（Design Tokens）
-
-### 🎨 颜色系统
-
-#### 品牌色（Brand Colors）
-
-| 变量名 | 说明 | 默认值 |
-|--------|------|--------|
-| `--xy-color-primary` | 主色调 | `#409eff` |
-| `--xy-color-primary-hover` | 主色悬停 | `#66b1ff` |
-| `--xy-color-primary-active` | 主色激活 | `#337ecc` |
-| `--xy-color-primary-soft` | 主色浅背景 | `#ecf5ff` |
-
-#### 语义色（Semantic Colors）
-
-| 变量名 | 说明 | 默认值 |
-|--------|------|--------|
-| `--xy-color-info` | 信息色 | `#909399` |
-| `--xy-color-success` | 成功色 | `#67c23a` |
-| `--xy-color-warning` | 警告色 | `#e6a23c` |
-| `--xy-color-danger` | 危险色 | `#f56c6c` |
-
-> 每个语义色都包含 `-hover`、`-active`、`-soft` 变体。
-
-#### 文本色（Text Colors）
-
-| 变量名 | 用途 | 默认值 |
-|--------|------|--------|
-| `--xy-text-color` | 主文本 | `#303133` |
-| `--xy-text-color-heading` | 标题文本 | `#1d2129` |
-| `--xy-text-color-secondary` | 次要文本 | `#4e5969` |
-| `--xy-text-color-subtle` | 辅助文本 | `#86909c` |
-| `--xy-text-color-muted` | 弱化文本 | `#c9cdd4` |
-
-#### 背景色与边框色
-
-| 分类 | 关键变量 | 默认值 |
-|------|----------|--------|
-| 背景 | `--xy-bg-color` | `#ffffff` |
-| 背景弱化 | `--xy-bg-color-muted` | `#f2f3f5` |
-| 边框 | `--xy-border-color` | `#e5e6eb` |
-| 边框强 | `--xy-border-color-strong` | `#c9cdd4` |
-
----
-
-### 📐 间距系统
-
-基于 **4px 网格系统**，提供 7 级标准间距：
-
-| 变量名 | 值 | 使用场景 |
-|--------|-----|----------|
-| `--xy-space-1` | 4px | 紧凑元素内边距 |
-| `--xy-space-2` | 8px | 小组件间距 |
-| `--xy-space-3` | 12px | 表单字段间距 |
-| `--xy-space-4` | 16px | 卡片内边距（最常用） |
-| `--xy-space-5` | 24px | 区块间距 |
-| `--xy-space-6` | 32px | 大区块间距 |
-| `--xy-space-7` | 48px | 页面级间距 |
-
----
-
-### 🔤 字体系统
-
-| 变量名 | 默认值 | 说明 |
-|--------|--------|------|
-| `--xy-font-size-xs` | 12px | 极小字号（辅助信息） |
-| `--xy-font-size-sm` | 14px | 小字号（正文、表单） |
-| `--xy-font-size-md` | 16px | 中等字号（默认） |
-| `--xy-font-size-lg` | 18px | 大号字（标题） |
-| `--xy-font-size-xl` | 20px | 特大号（页面标题） |
-| `--xy-font-size-2xl` | 28px | 展示型大标题 |
-| `--xy-line-height` | 1.5 | 全局行高 |
-
----
-
-### ⭕ 圆角系统
-
-| 变量名 | 值 | 使用场景 |
-|--------|-----|----------|
-| `--xy-radius-xs` | 2px | 小圆角（标签、徽标） |
-| `--xy-radius-sm` | 4px | 小圆角（输入框、按钮） |
-| `--xy-radius-md` | 8px | 中等圆角（卡片） |
-| `--xy-radius-lg` | 12px | 大圆角（对话框） |
-| `--xy-radius-xl` | 16px | 超大圆角（特殊容器） |
-| `--xy-radius-pill` | 999px | 胶囊形（按钮组、标签） |
-
----
-
-### 🌫️ 阴影系统
-
-| 变量名 | 使用场景 |
-|--------|----------|
-| `--xy-shadow-xs` | 微阴影（悬浮状态） |
-| `--xy-shadow-sm` | 小阴影（下拉菜单） |
-| `--xy-shadow-md` | 中阴影（弹出层） |
-| `--xy-shadow-lg` | 大阴影（模态对话框） |
-| `--xy-shadow-card` | 卡片阴影 |
-| `--xy-shadow-popup` | 弹出层阴影 |
-| `--xy-shadow-modal` | 模态框阴影 |
+组件只消费语义层；基元层是调色原料；刻度层与主题无关。完整变量清单见 [设计令牌](/design-tokens)。
 
 ---
 
@@ -151,17 +47,18 @@ xiaoye-components 使用 **CSS 变量（Custom Properties）** 实现主题系�
 
 :root {
   /* 修改主色调为企业品牌色 */
-  --xy-color-primary: #1890ff;
-  --xy-color-primary-hover: #40a9ff;
-  --xy-color-primary-active: #096dd9;
-  --xy-color-primary-soft: #e6f7ff;
+  --xy-brand: #1890ff;
+  --xy-brand-hover: #40a9ff;
+  --xy-brand-active: #096dd9;
+  --xy-brand-soft: rgba(24, 144, 255, 0.08);
+  --xy-brand-border: #91caff;
 
   /* 修改圆角风格 */
   --xy-radius-sm: 2px;
-  --xy-radius-md: 6px;
+  --xy-radius-md: 4px;
 
   /* 修改主文本颜色 */
-  --xy-text-color: #262626;
+  --xy-text-primary: #262626;
 }
 ```
 
@@ -187,9 +84,9 @@ import './styles/theme-overrides.css'  // 在组件样式之后引入
 <style scoped>
 .custom-theme-page {
   /* 只在这个页面的根元素上覆盖 */
-  --xy-color-primary: #722ed1;
-  --xy-color-primary-hover: #9254de;
-  --xy-color-primary-active: #531dab;
+  --xy-brand: #722ed1;
+  --xy-brand-hover: #9254de;
+  --xy-brand-active: #531dab;
 }
 </style>
 ```
@@ -240,21 +137,22 @@ import { XyConfigProvider } from 'xiaoye-components'
 ```css
 :root {
   /* 品牌主色 */
-  --xy-color-primary: #0052cc;      /* IBM Blue */
-  --xy-color-primary-hover: #0066ff;
-  --xy-color-primary-active: #004399;
-  --xy-color-primary-soft: #e6f0ff;
+  --xy-brand: #0052cc;      /* IBM Blue */
+  --xy-brand-hover: #0066ff;
+  --xy-brand-active: #004399;
+  --xy-brand-soft: rgba(0, 82, 204, 0.08);
+  --xy-brand-border: #8eb8f0;
 
-  /* 功能色调整 */
-  --xy-color-success: #00a156;       /* 更鲜艳的绿色 */
-  --xy-color-warning: #ff8800;        /* 更醒目的橙色 */
-  --xy-color-danger: #dc3545;         /* 标准红色 */
+  /* 功能色调整（记得同步 -hover / -active / -text 变体） */
+  --xy-success: #00a156;
+  --xy-warning: #ff8800;
+  --xy-danger: #dc3545;
 
   /* 圆角：更锐利的设计语言 */
   --xy-radius-xs: 0px;
   --xy-radius-sm: 2px;
   --xy-radius-md: 4px;
-  --xy-radius-lg: 8px;
+  --xy-radius-lg: 6px;
 }
 ```
 
@@ -265,18 +163,19 @@ import { XyConfigProvider } from 'xiaoye-components'
 ```css
 :root {
   /* 提升色彩对比度至 WCAG AA 标准 */
-  --xy-text-color: #1a1a1a;
-  --xy-text-color-secondary: #2d2d2d;
-  --xy-border-color-strong: #666666;
+  --xy-text-primary: #1a1a1a;
+  --xy-text-secondary: #2d2d2d;
+  --xy-text-muted: #4d5768;
+  --xy-border-strong: #666666;
 
   /* 增大焦点环 */
-  --xy-focus-ring-color: #000000;
-  --xy-focus-ring-width: 3px;
+  --xy-focus-ring-color: rgba(0, 0, 0, 0.35);
+  --xy-focus-border: #000000;
 }
 
 /* 键盘焦点增强 */
 *:focus-visible {
-  outline: 3px solid var(--xy-focus-ring-color);
+  outline: 3px solid var(--xy-focus-border);
   outline-offset: 2px;
 }
 ```
@@ -290,12 +189,12 @@ import { XyConfigProvider } from 'xiaoye-components'
   /* 缩小间距 */
   --xy-space-3: 8px;   /* 原 12px */
   --xy-space-4: 12px;  /* 原 16px */
-  --xy-space-5: 16px;  /* 原 24px */
+  --xy-space-5: 16px;  /* 原 20px */
 
   /* 缩小字号 */
-  --xy-font-size-sm: 13px;
-  --xy-font-size-md: 14px;
-  --xy-font-size-lg: 16px;
+  --xy-font-size-sm: 12px;
+  --xy-font-size-md: 13px;
+  --xy-font-size-lg: 15px;
 
   /* 减小圆角 */
   --xy-radius-sm: 2px;
@@ -309,42 +208,42 @@ import { XyConfigProvider } from 'xiaoye-components'
 
 ### 当前支持情况
 
-::: warning 注意
-- ⚠️ 当前版本暂未内置暗黑模式实现，但底层使用 CSS 变量（`--xy-` 前缀），可自行扩展
+::: tip 内置支持
+组件库内置完整的暗黑主题。所有颜色类语义令牌都在 `[data-theme="dark"]` 下有官方暗色值（取自 Stripe 暗色目录：靛黑页面底 `#0e0f2e`、提亮品牌色、白色透明度边框、黑色主导阴影）。
 :::
 
-### 扩展暗黑模式
+### 接入方式
 
-如果需要为组件添加暗黑模式，可以手动定义变量覆盖：
+在根元素上切换 `data-theme` 属性即可，无需额外样式：
+
+```ts
+// Vue 3 示例
+const isDark = useDark() // 任一暗色方案源
+watchEffect(() => {
+  document.documentElement.dataset.theme = isDark.value ? 'dark' : 'light'
+})
+```
+
+### 局部暗色区域
+
+`data-theme` 可以放在任意容器上，实现页面局部暗色区块：
+
+```html
+<div data-theme="dark">
+  <!-- 这里的组件使用暗色令牌 -->
+</div>
+```
+
+### 自定义暗色值
+
+在 `[data-theme="dark"]` 下覆盖语义令牌即可，建议只覆写语义层，不要动基元层：
 
 ```css
-/* styles/dark-theme.css */
-
-[data-theme='dark'],
-[data-theme-mode='dark'] {
-  /* 文本色反转 */
-  --xy-text-color: #e5eaf3;
-  --xy-text-color-secondary: #a0a5b9;
-  --xy-text-color-subtle: #6b6f82;
-  --xy-text-color-muted: #4a4e5c;
-
-  /* 背景色转为深色 */
-  --xy-bg-color: #1d1e22;
-  --xy-bg-color-muted: #141418;
-  --xy-bg-color-subtle: #0f1012;
-  --xy-bg-color-elevated: #26282e;
-
-  /* 边框色降低对比度 */
-  --xy-border-color: #3a3d47;
-  --xy-border-color-strong: #4a4e5c;
-
-  /* 品牌色提高亮度 */
-  --xy-color-primary: #409eff;
-  --xy-color-primary-soft: #26364a;
-
-  /* 阴影减弱或去除 */
-  --xy-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --xy-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+[data-theme='dark'] {
+  --xy-bg-page: #0d1117;
+  --xy-bg-container: #161b22;
+  --xy-border: rgba(240, 246, 252, 0.1);
+  --xy-brand: #58a6ff;
 }
 ```
 
@@ -361,25 +260,13 @@ styles/
 ├── tokens.css          # 设计令牌基础定义（来自组件库）
 ├── brand.css           # 企业品牌色覆盖（全局）
 ├── accessibility.css   # 无障碍增强（按需）
-└── dark-theme.css      # 暗黑模式（按需）
+└── dark-theme.css      # 暗黑模式微调（按需）
 ```
 
-### 2. 使用 CSS 自定义属性集（@property）
+### 2. 覆盖语义层，而不是基元层
 
-如果需要更精细的控制（如动画过渡），可以使用 `@property`：
-
-```css
-@property --xy-color-primary {
-  syntax: '<color>';
-  initial-value: #409eff;
-  inherits: true;
-}
-
-/* 切换时会有平滑过渡 */
-.theme-transition {
-  transition: --xy-color-primary 0.3s ease;
-}
-```
+❌ 把 `--xy-gray-500` 改掉：所有依赖该阶的语义令牌都会被波及，效果不可控。
+✅ 覆盖 `--xy-text-muted`、`--xy-bg-sunken` 这类语义令牌：意图明确，影响面清晰。
 
 ### 3. 避免硬编码颜色值
 
@@ -388,7 +275,7 @@ styles/
 ```vue
 <template>
   <!-- 不要这样做 -->
-  <div style="color: #409eff">重要文本</div>
+  <div style="color: #533afd">重要文本</div>
 </template>
 ```
 
@@ -400,7 +287,7 @@ styles/
   <xy-text type="primary">重要文本</xy-text>
 
   <!-- 推荐方式 2：引用 CSS 变量 -->
-  <div :style="{ color: 'var(--xy-color-primary)' }">重要文本</div>
+  <div :style="{ color: 'var(--xy-brand)' }">重要文本</div>
 </template>
 ```
 
@@ -418,7 +305,7 @@ styles/
 ## 注意事项 ⚠️
 
 1. **加载顺序很重要**：确保主题覆盖文件在 `xiaoye-components/style.css` **之后**引入
-2. **浏览器兼容性**：CSS 变量需要 IE Edge 16+ / Chrome 49+ / Firefox 31+ / Safari 9.1+
+2. **旧命名兼容**：v1 旧变量名（`--xy-color-primary` 等）通过兼容层继续生效，但计划在下个 major 移除，请尽早迁移
 3. **缓存问题**：修改变量后可能需要强制刷新浏览器（Cmd/Ctrl + Shift + R）
 4. **性能影响**：CSS 变量的计算开销极小，但在大量元素同时过渡时需注意
 5. **工具支持**：推荐使用 Chrome DevTools 的"Styles"面板调试 CSS 变量
@@ -427,6 +314,6 @@ styles/
 
 ## 相关资源
 
+- [设计令牌完整参考](/design-tokens)
 - [CSS Custom Properties 规范](https://www.w3.org/TR/css-variables/)
 - [WCAG 2.1 对比度指南](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
-- [Design Systems Repository](https://designsystems.gallery/)

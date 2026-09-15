@@ -37,7 +37,7 @@ const quotaCards: QuotaCard[] = [
     suffix: "/ 天",
     hint: "剩余额度 18%，建议提前切到高峰保护策略",
     style: {
-      color: "var(--xy-color-warning)"
+      color: "var(--xy-warning)"
     }
   },
   {
@@ -47,7 +47,7 @@ const quotaCards: QuotaCard[] = [
     precision: 2,
     hint: "素材归档后预计可回收 96TB 空间",
     style: {
-      color: "var(--xy-color-primary)"
+      color: "var(--xy-brand)"
     }
   },
   {
@@ -56,7 +56,7 @@ const quotaCards: QuotaCard[] = [
     suffix: "条",
     hint: "当前 backlog 仍在收敛，夜间批任务建议限流",
     style: {
-      color: "var(--xy-color-danger)"
+      color: "var(--xy-danger)"
     }
   }
 ];
@@ -96,13 +96,13 @@ const quotaCards: QuotaCard[] = [
 
 .statistic-quota-grid__hint {
   margin: 12px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
 
 .statistic-quota-grid__prefix {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 600;
 }

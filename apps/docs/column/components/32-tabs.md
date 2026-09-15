@@ -236,12 +236,12 @@ isClosable(item) = item.disabled === false
 
 关键设计要点：
 
-- Active Bar 使用 `background: var(--xy-color-primary)` 和 `border-radius: 999px` 实现胶囊形指示条
+- Active Bar 使用 `background: var(--xy-brand)` 和 `border-radius: 999px` 实现胶囊形指示条
 - 卡片风格通过 `box-shadow: inset 0 -1px 0` 代替分割线，激活项通过 `border + background` 实现立体感
 - 边框卡片风格在外层容器加 `border + border-radius + overflow: hidden`，面板区域取消独立边框
 - 纵向模式下导航宽度固定 112px，tab 使用全宽 `justify-content: flex-start` 排列
 - 滚动按钮使用圆形设计（`border-radius: 999px`），hover 时主题色边框和背景
-- Tab hover 使用 `color-mix(in srgb, var(--xy-bg-color-subtle) 76%, var(--xy-bg-color-floating))` 实现柔和背景反馈
+- Tab hover 使用 `color-mix(in srgb, var(--xy-bg-subtle) 76%, var(--xy-bg-floating))` 实现柔和背景反馈
 
 ## 与其他组件的联动
 

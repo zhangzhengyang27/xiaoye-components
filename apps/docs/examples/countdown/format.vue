@@ -52,7 +52,7 @@ function handleChange(value: number) {
 
 .countdown-format-grid__note {
   margin: 12px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 </style>

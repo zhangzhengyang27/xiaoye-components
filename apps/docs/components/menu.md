@@ -14,7 +14,7 @@ outline: deep
 > .your-menu-shell {
 >   --xy-menu-horizontal-height: 64px;
 >   --xy-menu-item-radius: 12px;
->   --xy-menu-hover-shadow: inset 0 0 0 1px var(--xy-border-color-subtle);
+>   --xy-menu-hover-shadow: inset 0 0 0 1px var(--xy-border-subtle);
 > }
 >
 > .your-menu-popup {
@@ -87,17 +87,17 @@ menu/overflow-offset
 | `--xy-menu-item-min-height` | 菜单项最小高度 | `44px` |
 | `--xy-menu-item-padding-inline` | 菜单项横向内边距 | `14px` |
 | `--xy-menu-item-radius` | 菜单项圆角 | `14px` |
-| `--xy-menu-hover-bg` | hover 背景色 | `var(--xy-bg-color-subtle)` |
+| `--xy-menu-hover-bg` | hover 背景色 | `var(--xy-bg-subtle)` |
 | `--xy-menu-hover-shadow` | hover 阴影/描边 | `inset 0 0 0 1px color-mix(...)` |
-| `--xy-menu-active-bg` | 激活态背景色 | `var(--xy-color-primary-soft)` |
-| `--xy-menu-active-color` | 激活态文字色 | `var(--xy-color-primary)` |
+| `--xy-menu-active-bg` | 激活态背景色 | `var(--xy-brand-soft)` |
+| `--xy-menu-active-color` | 激活态文字色 | `var(--xy-brand)` |
 | `--xy-menu-popup-min-width` | 弹出菜单最小宽度 | `216px` |
 | `--xy-menu-popup-padding` | 弹出菜单内边距 | `10px` |
 | `--xy-menu-popup-radius` | 弹出菜单圆角 | `var(--xy-radius-lg)` |
 | `--xy-menu-group-title-padding` | 分组标题内边距 | `6px 14px 8px` |
 | `--xy-menu-sub-list-padding` | 纵向子菜单列表内边距 | `8px 0 8px 14px` |
-| `--xy-menu-badge-bg` | `items` 模式徽标背景色 | `var(--xy-color-primary-soft)` |
-| `--xy-menu-extra-color` | `items` 模式附加信息文字色 | `var(--xy-text-color-subtle)` |
+| `--xy-menu-badge-bg` | `items` 模式徽标背景色 | `var(--xy-brand-soft)` |
+| `--xy-menu-extra-color` | `items` 模式附加信息文字色 | `var(--xy-text-muted)` |
 
 ## Menu API
 

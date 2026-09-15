@@ -79,11 +79,11 @@ const phases = [
 }
 
 .demo-timeline-milestone__header-title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-timeline-milestone__header-description {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 </style>

@@ -1,13 +1,13 @@
 .xy-breadcrumb {
   --xy-breadcrumb-font-size: var(--xy-font-size-md);
   --xy-breadcrumb-line-height: 1.5;
-  --xy-breadcrumb-color: var(--xy-text-color-secondary);
-  --xy-breadcrumb-link-color: var(--xy-text-color-subtle);
-  --xy-breadcrumb-link-hover-color: var(--xy-text-color-heading);
-  --xy-breadcrumb-current-color: var(--xy-text-color-heading);
-  --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-color-secondary) 76%, var(--xy-mix-light));
+  --xy-breadcrumb-color: var(--xy-text-secondary);
+  --xy-breadcrumb-link-color: var(--xy-text-muted);
+  --xy-breadcrumb-link-hover-color: var(--xy-text-heading);
+  --xy-breadcrumb-current-color: var(--xy-text-heading);
+  --xy-breadcrumb-disabled-color: color-mix(in srgb, var(--xy-text-secondary) 76%, var(--xy-mix-light));
   --xy-breadcrumb-separator-gap: 10px;
-  --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-color-secondary) 68%, var(--xy-mix-light));
+  --xy-breadcrumb-separator-color: color-mix(in srgb, var(--xy-text-secondary) 68%, var(--xy-mix-light));
 
   display: inline-flex;
   max-width: 100%;
@@ -71,15 +71,15 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
 
 .xy-breadcrumb__inner.is-link:hover {
   color: var(--xy-breadcrumb-link-hover-color);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 68%, var(--xy-bg-color-floating));
-  /* border-color: color-mix(in srgb, var(--xy-color-primary) 6%, var(--xy-border-color-subtle)); */
+  background: color-mix(in srgb, var(--xy-bg-subtle) 68%, var(--xy-bg-floating));
+  /* border-color: color-mix(in srgb, var(--xy-brand) 6%, var(--xy-border-subtle)); */
 }
 
 .xy-breadcrumb__inner.is-link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 42%, var(--xy-bg-color));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 42%, var(--xy-bg-container));
   outline-offset: 2px;
   border-radius: var(--xy-radius-xs);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-color-primary) 10%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xy-brand) 10%, transparent);
 }
 
 .xy-breadcrumb__inner[role="link"]:hover,
@@ -104,7 +104,7 @@ li.xy-breadcrumb__item + li.xy-breadcrumb__item {
 .xy-breadcrumb__item.is-current .xy-breadcrumb__inner,
 .xy-breadcrumb__item.is-current .xy-breadcrumb__inner:hover {
   color: var(--xy-breadcrumb-current-color);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 58%, var(--xy-bg-color-floating));
+  background: color-mix(in srgb, var(--xy-bg-subtle) 58%, var(--xy-bg-floating));
   border-color: transparent;
   outline: none;
   outline-width: 0px;

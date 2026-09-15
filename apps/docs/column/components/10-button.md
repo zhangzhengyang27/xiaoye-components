@@ -320,19 +320,19 @@ Button 样式大量使用 `color-mix()` 混色和设计令牌：
 
 | 变量 | 用途 |
 |------|------|
-| `--xy-color-primary` / `-hover` / `-active` | primary 系列色 |
-| `--xy-color-success` / `-hover` / `-active` | success 系列色 |
-| `--xy-color-warning` / `-hover` / `-active` | warning 系列色 |
-| `--xy-color-danger` / `-hover` / `-active` | danger 系列色 |
-| `--xy-color-primary-soft` / `-soft-hover` | plain primary 柔和色 |
-| `--xy-color-on-fill` | 实心按钮文字色 |
-| `--xy-bg-color-floating` | 默认按钮背景基色 |
-| `--xy-bg-color-subtle` | hover/plain 背景 |
-| `--xy-border-color-subtle` / `-strong` | 边框色 |
-| `--xy-border-color` | 默认边框色 |
-| `--xy-text-color` | 文字色 |
+| `--xy-brand` / `-hover` / `-active` | primary 系列色 |
+| `--xy-success` / `-hover` / `-active` | success 系列色 |
+| `--xy-warning` / `-hover` / `-active` | warning 系列色 |
+| `--xy-danger` / `-hover` / `-active` | danger 系列色 |
+| `--xy-brand-soft` / `-soft-hover` | plain primary 柔和色 |
+| `--xy-text-on-fill` | 实心按钮文字色 |
+| `--xy-bg-floating` | 默认按钮背景基色 |
+| `--xy-bg-subtle` | hover/plain 背景 |
+| `--xy-border-subtle` / `-strong` | 边框色 |
+| `--xy-border` | 默认边框色 |
+| `--xy-text-primary` | 文字色 |
 | `--xy-radius-md` / `--xy-radius-pill` | 圆角 |
-| `--xy-shadow-xs` | hover 微阴影 |
+| `--xy-shadow-0` | hover 微阴影 |
 | `--xy-space-2` | icon 与文字间距 |
 | `--xy-font-size-sm/md/lg` | 字号 |
 | `--xy-transition-duration-fast` | 过渡时长 |
@@ -340,9 +340,9 @@ Button 样式大量使用 `color-mix()` 混色和设计令牌：
 
 ### 混色策略
 
-默认按钮的背景使用 `color-mix(in srgb, var(--xy-bg-color-floating) 98%, var(--xy-bg-color-subtle))` 而非纯色——这在亮色模式下呈现微妙的浮层感，在暗色模式下自动适配为更深的混合色，无需额外的主题覆盖。
+默认按钮的背景使用 `color-mix(in srgb, var(--xy-bg-floating) 98%, var(--xy-bg-subtle))` 而非纯色——这在亮色模式下呈现微妙的浮层感，在暗色模式下自动适配为更深的混合色，无需额外的主题覆盖。
 
-hover 状态的阴影使用 `color-mix(in srgb, var(--xy-text-color-heading) 4%, transparent)`——将文字色与透明混色，生成 4% 透明度的微阴影，确保任何主题下阴影都存在但极其克制。
+hover 状态的阴影使用 `color-mix(in srgb, var(--xy-text-heading) 4%, transparent)`——将文字色与透明混色，生成 4% 透明度的微阴影，确保任何主题下阴影都存在但极其克制。
 
 ## 小结
 

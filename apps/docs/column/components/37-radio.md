@@ -310,8 +310,8 @@ function handleKeydown(event: KeyboardEvent) {
 
 ```css
 :root {
-  --xy-radio-input-border-color-hover: var(--xy-color-primary);
-  --xy-radio-button-active-bg-color: var(--xy-color-primary);
+  --xy-radio-input-border-color-hover: var(--xy-brand);
+  --xy-radio-button-active-bg-color: var(--xy-brand);
 }
 ```
 

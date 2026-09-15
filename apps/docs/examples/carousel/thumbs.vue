@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const slides = [
-  { title: "Ocean", accent: "var(--xy-color-primary)" },
-  { title: "Aurora", accent: "var(--xy-color-success)" },
-  { title: "Sunset", accent: "var(--xy-color-warning)" },
-  { title: "Forest", accent: "var(--xy-color-info)" }
+  { title: "Ocean", accent: "var(--xy-brand)" },
+  { title: "Aurora", accent: "var(--xy-success)" },
+  { title: "Sunset", accent: "var(--xy-warning)" },
+  { title: "Forest", accent: "var(--xy-info)" }
 ] as const;
 </script>
 
@@ -31,13 +31,13 @@ const slides = [
 
 <style scoped>
 .demo-carousel-slide {
-  --demo-carousel-accent: var(--xy-color-primary);
+  --demo-carousel-accent: var(--xy-brand);
   width: 100%;
   height: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 18%, var(--xy-border-color));
+  border: 1px solid color-mix(in srgb, var(--demo-carousel-accent) 18%, var(--xy-border));
   border-radius: 18px;
   background:
     linear-gradient(
@@ -45,8 +45,8 @@ const slides = [
       color-mix(in srgb, var(--demo-carousel-accent) 14%, white),
       transparent 44%
     ),
-    color-mix(in srgb, var(--xy-bg-color-overlay) 88%, white);
-  color: var(--xy-text-color);
+    color-mix(in srgb, var(--xy-bg-container-overlay) 88%, white);
+  color: var(--xy-text-primary);
   font-size: 28px;
   font-weight: 800;
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
@@ -59,13 +59,13 @@ const slides = [
   min-height: 52px;
   padding: 0 14px;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--xy-bg-color-muted) 82%, white);
-  color: var(--xy-text-color-secondary);
+  background: color-mix(in srgb, var(--xy-bg-muted) 82%, white);
+  color: var(--xy-text-secondary);
   white-space: nowrap;
 }
 
 .demo-carousel-thumb.is-active {
-  background: color-mix(in srgb, var(--xy-color-primary) 12%, white);
-  color: var(--xy-color-primary);
+  background: color-mix(in srgb, var(--xy-brand) 12%, white);
+  color: var(--xy-brand);
 }
 </style>

@@ -168,23 +168,23 @@ watch(activeLang, (value) => {
 <style scoped>
 .vp-demo-block {
   margin: 16px 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 14px;
   line-height: 1.75;
 }
 
 .vp-demo {
   overflow: hidden;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 20px;
-  background: var(--xy-surface-raised);
-  box-shadow: var(--xy-shadow-card);
+  background: var(--xy-bg-raised);
+  box-shadow: var(--xy-shadow-1);
 }
 
 .vp-demo__showcase {
   padding: 24px;
   overflow: auto;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: var(--xy-font-size-md);
   line-height: 1.5;
 }
@@ -195,8 +195,8 @@ watch(activeLang, (value) => {
   align-items: center;
   justify-content: space-between;
   padding: 10px 14px;
-  border-top: 1px solid var(--xy-border-color-subtle);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 94%, white);
+  border-top: 1px solid var(--xy-border-subtle);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 94%, white);
 }
 
 .vp-demo__tabs {
@@ -212,7 +212,7 @@ watch(activeLang, (value) => {
   justify-content: center;
   border: 0;
   background: transparent;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font: inherit;
   transition:
     color 0.18s ease,
@@ -228,8 +228,8 @@ watch(activeLang, (value) => {
 }
 
 .vp-demo__tab.is-active {
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
   font-weight: 600;
 }
 
@@ -246,20 +246,20 @@ watch(activeLang, (value) => {
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
   opacity: 0.86;
 }
 
 .vp-demo__tab:hover,
 .vp-demo__icon-btn:hover {
-  background: var(--xy-bg-color-subtle);
-  color: var(--xy-text-color);
+  background: var(--xy-bg-subtle);
+  color: var(--xy-text-primary);
   opacity: 1;
 }
 
 .vp-demo__tab:focus-visible,
 .vp-demo__icon-btn:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, white);
   outline-offset: 2px;
   box-shadow: 0 0 0 4px var(--xy-focus-ring-color);
 }
@@ -270,13 +270,13 @@ watch(activeLang, (value) => {
 }
 
 .vp-demo__source {
-  border-top: 1px solid var(--xy-border-color-subtle);
+  border-top: 1px solid var(--xy-border-subtle);
   background: var(--xy-doc-code-bg);
 }
 
 .vp-demo__loading {
   padding: 18px 20px 22px;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
 }
 
@@ -289,7 +289,7 @@ watch(activeLang, (value) => {
 .vp-demo__source-inner :deep(pre) {
   margin: 0;
   padding: 18px 20px 22px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   background: transparent;
 }
 
@@ -362,20 +362,20 @@ watch(activeLang, (value) => {
 }
 
 .vp-demo--table {
-  border-color: var(--xy-border-color-subtle);
+  border-color: var(--xy-border-subtle);
   border-radius: 0;
   box-shadow: none;
 }
 
 .vp-demo--table .vp-demo__showcase {
   padding: 18px 18px 16px;
-  background: var(--xy-bg-color);
+  background: var(--xy-bg-container);
 }
 
 .vp-demo--table .vp-demo__toolbar {
   padding: 8px 12px;
-  border-top-color: var(--xy-border-color-subtle);
-  background: var(--xy-bg-color);
+  border-top-color: var(--xy-border-subtle);
+  background: var(--xy-bg-container);
 }
 
 .vp-demo--table .vp-demo__tab {
@@ -384,8 +384,8 @@ watch(activeLang, (value) => {
 }
 
 .vp-demo--table .vp-demo__tab.is-active {
-  background: var(--xy-color-primary-soft);
-  color: var(--xy-color-primary);
+  background: var(--xy-brand-soft);
+  color: var(--xy-brand);
 }
 
 .vp-demo--table .vp-demo__icon-btn {
@@ -393,17 +393,17 @@ watch(activeLang, (value) => {
 }
 
 .vp-demo--table .vp-demo__source {
-  border-top-color: var(--xy-border-color-subtle);
+  border-top-color: var(--xy-border-subtle);
 }
 
 .vp-demo__source-inner :deep(code) {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
   font-size: 13px;
   line-height: 1.75;
 }
 
 .vp-demo__source-inner :deep(.line) {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .vp-demo__source-inner :deep(.copy),

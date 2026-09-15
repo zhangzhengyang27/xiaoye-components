@@ -2,18 +2,18 @@
   --xy-empty-padding: 32px 16px;
   --xy-empty-gap: var(--xy-space-3);
   --xy-empty-image-width: 160px;
-  --xy-empty-title-color: var(--xy-text-color-heading);
-  --xy-empty-description-color: var(--xy-text-color-subtle);
+  --xy-empty-title-color: var(--xy-text-heading);
+  --xy-empty-description-color: var(--xy-text-muted);
   --xy-empty-footer-margin-top: var(--xy-space-3);
   --xy-empty-illustration-background: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 72%,
-    var(--xy-bg-color)
+    var(--xy-bg-subtle) 72%,
+    var(--xy-bg-container)
   );
   --xy-empty-illustration-border-color: color-mix(
     in srgb,
-    var(--xy-border-color-subtle) 88%,
-    var(--xy-border-color)
+    var(--xy-border-subtle) 88%,
+    var(--xy-border)
   );
 
   display: flex;
@@ -38,7 +38,7 @@
   border: 1px solid var(--xy-empty-illustration-border-color);
   border-radius: calc(var(--xy-radius-lg) + var(--xy-radius-sm));
   background: var(--xy-empty-illustration-background);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-bg-color-floating) 12%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 12%, transparent);
 }
 
 .xy-empty__default-art {

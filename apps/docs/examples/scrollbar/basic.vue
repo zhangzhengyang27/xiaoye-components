@@ -20,12 +20,12 @@
 .demo-scroll-card__title {
   display: block;
   margin-bottom: 8px;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .demo-scroll-card__description {
   margin: 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   line-height: 1.7;
 }
 </style>

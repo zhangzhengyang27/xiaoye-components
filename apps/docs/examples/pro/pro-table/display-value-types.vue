@@ -75,7 +75,7 @@ const columns = [
         "strong",
         {
           style: {
-            color: "var(--xy-color-primary)"
+            color: "var(--xy-brand)"
           }
         },
         `自定义渲染：${value ?? "-"}`

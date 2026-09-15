@@ -1,6 +1,6 @@
 # xiaoye-components 完整 API 参考
 
-> 自动生成于 2026-09-13T22:02:51.699Z
+> 自动生成于 2026-09-15T17:16:27.667Z
 > 包含 103 个组件的完整 Props / Events / Slots / Exposes 定义
 
 ## 基础组件（@xiaoye/components）
@@ -2389,7 +2389,7 @@
 | `transition` | `string` | 'xy-fade' | 过渡名称 |
 | `popper-options` | `TooltipPopperOptions` | undefined | 浮层定位兼容配置子集 |
 | `icon` | `string` | 'mdi:help-circle-outline' | 前置图标 |
-| `icon-color` | `string` | 'var(--xy-color-warning)' | 图标颜色 |
+| `icon-color` | `string` | 'var(--xy-warning)' | 图标颜色 |
 | `hide-icon` | `boolean` | false | 是否隐藏图标 |
 | `confirm-button-text` | `string` | undefined | 确认按钮文案；未传时回退到 locale.popconfirmConfirmButtonText 或 '确定' |
 | `cancel-button-text` | `string` | undefined | 取消按钮文案；未传时回退到 locale.popconfirmCancelButtonText 或 '取消' |

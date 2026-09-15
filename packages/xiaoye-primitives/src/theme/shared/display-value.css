@@ -5,7 +5,7 @@
 }
 
 .xy-display-value__empty {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
 }
 
 .xy-display-value__tag-group {
@@ -32,28 +32,28 @@
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: var(--xy-text-color-secondary);
+  background: var(--xy-text-secondary);
   flex-shrink: 0;
 }
 
 .xy-display-value__status-dot.is-primary {
-  background: var(--xy-color-primary);
+  background: var(--xy-brand);
 }
 
 .xy-display-value__status-dot.is-success {
-  background: var(--xy-color-success);
+  background: var(--xy-success);
 }
 
 .xy-display-value__status-dot.is-info {
-  background: var(--xy-color-info);
+  background: var(--xy-info);
 }
 
 .xy-display-value__status-dot.is-warning {
-  background: var(--xy-color-warning);
+  background: var(--xy-warning);
 }
 
 .xy-display-value__status-dot.is-danger {
-  background: var(--xy-color-danger);
+  background: var(--xy-danger);
 }
 
 .xy-display-value__progress {
@@ -79,8 +79,8 @@
   align-items: center;
   padding: 2px 8px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-fill-color-light, #f5f7fa) 92%, white);
-  color: var(--xy-text-color);
+  background: color-mix(in srgb, var(--xy-fill-light, #f5f7fa) 92%, white);
+  color: var(--xy-text-primary);
   font-size: var(--xy-font-size-sm);
   line-height: 1.5;
   font-family: "SFMono-Regular", "JetBrains Mono", "Fira Code", monospace;

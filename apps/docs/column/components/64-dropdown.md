@@ -414,17 +414,17 @@ const hasMenuContent = computed(() => isLegacyMode.value || Boolean(slots.dropdo
 /* 菜单项 hover 活跃 */
 .xy-dropdown__item.is-active,
 .xy-dropdown__item:hover {
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-dropdown-panel-bg-resolved));
+  background: color-mix(in srgb, var(--xy-bg-subtle) 82%, var(--xy-dropdown-panel-bg-resolved));
 }
 
 /* Focus-visible */
 .xy-dropdown__item:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, var(--xy-mix-light));
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, var(--xy-mix-light));
 }
 
 /* Danger 项 */
 .xy-dropdown__item.is-danger {
-  color: var(--xy-color-danger);
+  color: var(--xy-danger);
 }
 
 /* Split Button 圆角衔接 */

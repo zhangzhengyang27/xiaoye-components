@@ -80,22 +80,22 @@ function readCurrentDataUrl() {
 .xy-doc-watermark-events__surface {
   min-height: 220px;
   padding: 28px;
-  border: 1px solid color-mix(in srgb, var(--xy-color-info) 10%, var(--xy-border-color-subtle));
+  border: 1px solid color-mix(in srgb, var(--xy-info) 10%, var(--xy-border-subtle));
   border-radius: var(--xy-radius-xl);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--xy-color-info-soft, var(--xy-bg-color-subtle)) 58%, white),
-    color-mix(in srgb, var(--xy-bg-color-subtle) 82%, var(--xy-surface-raised))
+    color-mix(in srgb, var(--xy-info-soft, var(--xy-bg-subtle)) 58%, white),
+    color-mix(in srgb, var(--xy-bg-subtle) 82%, var(--xy-bg-raised))
   );
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-doc-watermark-events__badge {
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--xy-color-success-soft) 86%, white);
-  color: var(--xy-color-success);
+  background: color-mix(in srgb, var(--xy-success-soft) 86%, white);
+  color: var(--xy-success);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -116,8 +116,8 @@ function readCurrentDataUrl() {
   display: grid;
   gap: 14px;
   padding: 20px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: var(--xy-radius-lg);
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 92%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 92%, white);
 }
 </style>

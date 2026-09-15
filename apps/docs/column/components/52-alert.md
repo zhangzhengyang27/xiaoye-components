@@ -334,9 +334,9 @@ sequenceDiagram
 
 ```css
 .xy-alert.is-dark {
-  --xy-alert-title-color: color-mix(in srgb, var(--xy-bg-color-floating) 96%, var(--xy-mix-light));
+  --xy-alert-title-color: color-mix(in srgb, var(--xy-bg-floating) 96%, var(--xy-mix-light));
   border-color: transparent;
-  background: color-mix(in srgb, var(--xy-text-color-heading) 84%, var(--xy-alert-accent-color));
+  background: color-mix(in srgb, var(--xy-text-heading) 84%, var(--xy-alert-accent-color));
 }
 ```
 

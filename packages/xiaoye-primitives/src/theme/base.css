@@ -1,11 +1,11 @@
 .xy-provider {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .xy-focus-visible:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xy-color-primary) 58%, white);
+  outline: 2px solid color-mix(in srgb, var(--xy-brand) 58%, white);
   outline-offset: 2px;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-color-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xy-brand) 16%, transparent);
 }
 
 .xy-sr-only {
@@ -34,8 +34,8 @@
   inset: 0;
   box-sizing: border-box;
   transform: rotate(45deg);
-  background: var(--xy-bg-color-floating);
-  border: 1px solid var(--xy-border-color-subtle);
+  background: var(--xy-bg-floating);
+  border: 1px solid var(--xy-border-subtle);
 }
 
 [data-placement^="bottom"] > .xy-popper__arrow::before {

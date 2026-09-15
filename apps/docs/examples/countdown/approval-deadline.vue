@@ -95,13 +95,13 @@ onMounted(() => {
 .countdown-approval-panel__header-description,
 .countdown-approval-panel__meta-list {
   margin: 6px 0 0;
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
 
 .countdown-approval-panel__header-title {
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .countdown-approval-panel__body {
@@ -121,7 +121,7 @@ onMounted(() => {
 
 .countdown-approval-panel__title span,
 .countdown-approval-panel__suffix {
-  color: var(--xy-text-color-secondary);
+  color: var(--xy-text-secondary);
   font-size: 12px;
   font-weight: 600;
 }
@@ -132,7 +132,7 @@ onMounted(() => {
 
 .countdown-approval-panel__meta-title {
   display: block;
-  color: var(--xy-text-color);
+  color: var(--xy-text-primary);
 }
 
 .countdown-approval-panel__meta-list {

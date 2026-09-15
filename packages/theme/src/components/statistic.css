@@ -3,21 +3,21 @@
   --xy-statistic-head-gap: 6px;
   --xy-statistic-head-font-size: 13px;
   --xy-statistic-head-font-weight: 560;
-  --xy-statistic-head-color: var(--xy-text-color-subtle);
+  --xy-statistic-head-color: var(--xy-text-muted);
   --xy-statistic-number-font-size: var(--xy-font-size-2xl);
   --xy-statistic-number-font-weight: 680;
-  --xy-statistic-number-color: var(--xy-text-color-heading);
+  --xy-statistic-number-color: var(--xy-text-heading);
   --xy-statistic-number-line-height: 1.15;
   --xy-statistic-number-letter-spacing: -0.04em;
   --xy-statistic-affix-font-size: var(--xy-font-size-md);
   --xy-statistic-affix-font-weight: 560;
-  --xy-statistic-affix-color: var(--xy-text-color-secondary);
+  --xy-statistic-affix-color: var(--xy-text-secondary);
   --xy-statistic-affix-gap: 10px;
   --xy-statistic-content-padding: 14px 16px;
   --xy-statistic-content-background: color-mix(
     in srgb,
-    var(--xy-bg-color-subtle) 66%,
-    var(--xy-surface-raised)
+    var(--xy-bg-subtle) 66%,
+    var(--xy-bg-raised)
   );
 
   display: grid;

@@ -77,16 +77,16 @@
   flex-direction: column;
   gap: 2px;
   padding: 10px 12px;
-  border: 1px solid var(--xy-border-color-subtle);
+  border: 1px solid var(--xy-border-subtle);
   border-radius: 16px;
-  background: color-mix(in srgb, var(--xy-bg-color-subtle) 86%, white);
+  background: color-mix(in srgb, var(--xy-bg-subtle) 86%, white);
   text-align: center;
 }
 
 .xy-button-overview__label-title {
   font-size: 13px;
   line-height: 1.2;
-  color: var(--xy-text-color-heading);
+  color: var(--xy-text-heading);
 }
 
 .xy-button-overview__label-subtitle {
@@ -94,7 +94,7 @@
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--xy-text-color-subtle);
+  color: var(--xy-text-muted);
 }
 
 .xy-button-overview__row {

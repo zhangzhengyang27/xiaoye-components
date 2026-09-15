@@ -89,7 +89,7 @@ const tableProps: TableProps<Row> = {
   summaryMethod: ({ columns, data }) => columns.map((column, index) => (index === 0 ? "总览" : data.length)),
   rowClassName: ({ row }: TableRowClassNameContext<Row>) => row.owner,
   rowStyle: ({ row }: TableRowClassNameContext<Row>) => ({
-    color: row.status === "启用" ? "var(--xy-color-success)" : "var(--xy-text-color)"
+    color: row.status === "启用" ? "var(--xy-success)" : "var(--xy-text-primary)"
   }),
   cellClassName: ({ column }) => column.key,
   cellStyle: ({ column }) => ({
@@ -98,7 +98,7 @@ const tableProps: TableProps<Row> = {
   headerRowClassName: ({ rowIndex }: TableHeaderRowContext) => `header-row-${rowIndex}`,
   headerRowStyle: ({ row }: TableHeaderRowContext) => ({
     minWidth: `${row.length * 10}px`,
-    background: "var(--xy-bg-color-muted)"
+    background: "var(--xy-bg-muted)"
   }),
   headerCellClassName: ({ column }: TableHeaderCellContext<Row>) => column.uid,
   headerCellStyle: ({ column }: TableHeaderCellContext<Row>) => ({
