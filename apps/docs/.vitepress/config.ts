@@ -67,10 +67,8 @@ export default defineConfig({
       { text: "组件", link: "/components/overview" },
       { text: "增强", link: "/pro-components/overview" },
       { text: "示例", link: "/examples/admin" },
-      { text: "CodeGraph", link: "/guide/codegraph" },
       { text: "设计令牌", link: "/design-tokens" },
-      { text: "更新日志", link: "/changelog" },
-      { text: "专栏", link: "/column/guide/01-architecture-overview" }
+      { text: "更新日志", link: "/changelog" }
     ],
     sidebar: {
       "/guide/": [
