@@ -18,7 +18,8 @@ export default defineConfig({
     ["meta", { property: "og:title", content: "xiaoye-components" }],
     ["meta", { property: "og:description", content: "企业级 Vue 3 组件库 — 基础组件 + 中后台增强组件 + 完整 TypeScript 支持" }],
     ["meta", { property: "og:type", content: "website" }],
-    ["meta", { name: "keywords", content: "vue3, component library, typescript, xiaoye-components, 企业级组件库" }]
+    ["meta", { name: "keywords", content: "vue3, component library, typescript, xiaoye-components, 企业级组件库" }],
+    ["script", { defer: "", src: "https://analytics.zhangzhengyang.com/script.js", "data-website-id": "4bdd9d50-f117-42dc-87c1-d25c2f7fb6ed" }]
   ],
   cleanUrls: true,
   lastUpdated: true,
