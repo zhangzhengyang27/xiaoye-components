@@ -152,7 +152,8 @@ export default defineConfig({
       alias: workspaceAlias
     },
     build: {
-      cssCodeSplit: true,
+      // VitePress 1.6 依赖 cssCodeSplit:false 合并 CSS 并注入每个页面的 head；
+      // 覆盖为 true 会导致构建产物全部样式丢失（dev 不受影响，故此前未暴露）。
       chunkSizeWarningLimit: 700,
       rollupOptions: {
         output: {
