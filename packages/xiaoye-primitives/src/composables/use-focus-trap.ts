@@ -102,7 +102,8 @@ export function useFocusTrap(
     }
 
     window.setTimeout(() => {
-      if (!toValue(options.active)) {
+      // 回调可能晚于宿主环境销毁触发（vitest 环境 teardown、SSR），无 document 时无焦点可恢复
+      if (typeof document === "undefined" || !toValue(options.active)) {
         return;
       }
 
