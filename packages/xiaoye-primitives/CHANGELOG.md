@@ -1,5 +1,33 @@
 # xiaoye-primitives
 
+## 1.1.0
+
+### Minor Changes
+
+- 7645d5c: 重构设计令牌体系：以 Stripe 设计语言为蓝本（design.hagicode.com 收录的 Stripe DESIGN.md 及官方亮/暗 token 目录），建立基元/语义/刻度三层架构。
+  - tokens.css 全面重写：六族数字标度色板（gray/purple/green/amber/red/blue，锚点取 Stripe 官方值）、语义角色统一命名（text-/bg-/border-/brand-、状态色六件套）、五级蓝调海拔、单调递增 z-index 阶梯（修复 dropdown 高于 modal 的倒挂）、九档无坍缩字号、Stripe 圆角刻度（2/4/5/6/8px）、字体族/字重/行高令牌
+  - 暗色主题采用官方暗色值：靛黑页面底 #0e0f2e、提亮品牌色 #665efd、白色透明度边框、黑色主导阴影
+  - 全仓 3444 处旧变量名迁移到新命名；旧名（--xy-color-primary、--xy-text-color-\* 等）通过 tokens.css 末尾 @deprecated 兼容层继续生效，存量自定义主题不受影响，兼容层将在下个 major 移除
+  - packages/tokens TS 常量层改为由 scripts/generate-tokens.mjs 从 tokens.css 生成（新增 pnpm generate:tokens），消除双份手工维护的漂移
+  - 删除未被任何构建入口引用的前台主题死代码（packages/theme/src/front，--xyu-\* 体系）
+  - 组件视觉随新令牌整体更新：主色 #5b76fe → #533afd、标题/正文切换为深海军蓝/石板灰层级、按钮圆角 2px → 4px、浮层海拔按 Stripe 五级重新分配
+
+### Patch Changes
+
+- fd863e4: 修复类型产物根入口为空的问题（`dist/types/index.d.ts` 此前输出 `export {}`，消费端无法从包根获得类型）：构建 `entryRoot` 对齐包目录并纳入根入口文件。同时移除无引用方的 `utils/compat/rrule.js` 死代码。
+
+  ***
+
+  ## "xiaoye-components": patch
+
+  依赖与类型产物治理：运行时改为外部依赖 `xiaoye-primitives`（`dependencies` 以 `workspace:^` 声明），产物内不再内联基础设施代码；类型产物中对 primitives 的断链相对引用统一改写为 npm 包名（1.0.0 产物存在约 200 处此类断链，被消费端 skipLibCheck 默认值掩盖）；移除未使用的 `rrule`、`sortablejs` 依赖声明。
+
+  ***
+
+  ## "xiaoye-pro-components": patch
+
+  依赖与类型产物治理：运行时改为外部依赖 `xiaoye-components` 与 `xiaoye-primitives`（peer/dependencies 以 `workspace:^` 声明），产物内不再内联基础库与基础设施代码；类型产物断链引用同步修复；移除未使用的 `rrule` 依赖声明。
+
 ## 0.1.1
 
 ### Minor Changes
@@ -39,7 +67,6 @@
 首个开源稳定版本：随组件库 1.0.0 一同发布，composables 与 utils 趋于稳定。
 
 ### Minor Changes
-
 
 - 全量组件 CSS token 化，消除硬编码色值
 
