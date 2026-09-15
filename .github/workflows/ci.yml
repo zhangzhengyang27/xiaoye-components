@@ -21,7 +21,8 @@ jobs:
       - run: pnpm check:components
       - run: pnpm lint
       - run: pnpm typecheck
-      - run: pnpm test
+      # CI runner 内存有限，文件级并行曾致 OOM flaky（同一提交在 Release job 中全部通过）
+      - run: pnpm test -- --no-file-parallelism
       - run: pnpm build
 
   e2e:
