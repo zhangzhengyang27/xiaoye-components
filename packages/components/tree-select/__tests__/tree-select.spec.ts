@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
+import { defineComponent } from "vue";
 import { afterEach, describe, expect, it } from "vitest";
-import { XyTreeSelect } from "@xiaoye/components";
+import { XyForm, XyFormItem, XyTreeSelect } from "@xiaoye/components";
 
 const options = [
   {
@@ -147,5 +148,29 @@ describe("XyTreeSelect", () => {
 
     expect(wrapper.find(".inline-tree-select-dropdown").exists()).toBe(true);
     expect(document.body.querySelector(".inline-tree-select-dropdown")).not.toBeNull();
+  });
+});
+
+describe("XyTreeSelect form size 级联", () => {
+  it("xy-form size=lg 下发到未显式设置的 tree-select，显式 size 不被覆盖", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyTreeSelect },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="节点">
+              <xy-tree-select />
+            </xy-form-item>
+            <xy-form-item label="备用节点">
+              <xy-tree-select size="sm" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const treeSelects = wrapper.findAll(".xy-tree-select");
+    expect(treeSelects[0].classes()).toContain("xy-tree-select--lg");
+    expect(treeSelects[1].classes()).toContain("xy-tree-select--sm");
   });
 });

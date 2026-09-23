@@ -17,7 +17,7 @@ import {
 import type { CSSProperties, StyleValue } from "vue";
 import { useConfig, useNamespace } from "xiaoye-primitives";
 import XyIcon from "../../icon";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import {
   DEFAULT_CLEAR_ICON,
   DEFAULT_PASSWORD_HIDDEN_ICON,
@@ -75,6 +75,7 @@ const emit = defineEmits<{
 const attrs = useAttrs();
 const slots = useSlots();
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const nsInput = useNamespace("input");
 const nsTextarea = useNamespace("textarea");
 const { size: globalSize } = useConfig();
@@ -89,7 +90,7 @@ const isComposing = ref(false);
 const textareaCalcStyle = ref<CSSProperties>({});
 const displayValue = ref("");
 
-const mergedSize = computed(() => props.size ?? globalSize.value);
+const mergedSize = computed(() => props.size ?? form?.props.size ?? globalSize.value);
 const isTextarea = computed(() => props.type === "textarea");
 const inputDisabled = computed(() => props.disabled || (formItem?.disabled.value ?? false));
 const hasPrefix = computed(() => Boolean(slots.prefix) || Boolean(props.prefixIcon));

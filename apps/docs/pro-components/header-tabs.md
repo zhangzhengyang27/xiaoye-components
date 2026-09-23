@@ -22,7 +22,7 @@ pro/header-tabs/basic
 | --- | --- | --- | --- |
 | `model-value` | 当前激活页签 key，受控模式 | `string` | `undefined` |
 | `default-value` | 默认激活页签 key，非受控模式 | `string` | `undefined` |
-| `items` | 页签数据，`HeaderTabItem` 继承自 `TabItem` 并扩展 `badge?: string \| number` | `HeaderTabItem[]` | `[]` |
+| `items` | 页签数据，`HeaderTabItem` 继承自 `TabItem` 并扩展 `badge?: string \| number`（类型上预留 `badge?` 字段，当前版本暂未渲染徽标） | `HeaderTabItem[]` | `[]` |
 | `type` | 页签风格 | `TabsType`（`'' \| 'card' \| 'border-card'`） | `'card'` |
 | `tab-position` | 页签位置 | `TabsPosition`（`'top' \| 'right' \| 'bottom' \| 'left'`） | `'top'` |
 | `closable` | 是否显示页签关闭按钮 | `boolean` | `true` |

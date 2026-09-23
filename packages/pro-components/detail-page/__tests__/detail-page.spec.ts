@@ -55,4 +55,24 @@ describe("XyDetailPage", () => {
     expect(wrapper.text()).toContain("已通过");
     expect(wrapper.text()).toContain("¥128,000.50");
   });
+
+  it("error 态点击重新加载按钮会向宿主派发 retry", async () => {
+    const onRetry = vi.fn();
+    const wrapper = mount(XyDetailPage, {
+      props: {
+        title: "任务详情",
+        error: "网络异常，加载失败"
+      },
+      attrs: {
+        onRetry
+      }
+    });
+
+    expect(wrapper.text()).toContain("网络异常，加载失败");
+
+    await wrapper.get(".xy-async-state-container__state button").trigger("click");
+
+    expect(wrapper.emitted("retry")).toHaveLength(1);
+    expect(onRetry).toHaveBeenCalledTimes(1);
+  });
 });

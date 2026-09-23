@@ -43,7 +43,7 @@
   --xy-menu-item-padding-inline: 14px;
   --xy-menu-item-radius: var(--xy-radius-lg);
   --xy-menu-item-gap: 10px;
-  --xy-menu-item-font-weight: 400;
+  --xy-menu-item-font-weight: var(--xy-font-weight-regular);
   --xy-menu-item-letter-spacing: normal;
   --xy-menu-item-line-height: normal;
   --xy-menu-content-gap: 10px;
@@ -53,7 +53,7 @@
   --xy-menu-group-title-padding: 6px 14px 8px;
   --xy-menu-group-title-color: var(--xy-text-muted);
   --xy-menu-group-title-font-size: var(--xy-font-size-sm);
-  --xy-menu-group-title-font-weight: 600;
+  --xy-menu-group-title-font-weight: var(--xy-font-weight-semibold);
   --xy-menu-group-title-letter-spacing: 0.04em;
   --xy-menu-group-title-line-height: normal;
   --xy-menu-sub-list-padding: 8px 0 8px 14px;
@@ -74,7 +74,7 @@
   --xy-menu-badge-font-size: var(--xy-font-size-xs);
   --xy-menu-extra-color: var(--xy-text-muted);
   --xy-menu-extra-font-size: var(--xy-font-size-sm);
-  --xy-menu-extra-font-weight: 400;
+  --xy-menu-extra-font-weight: var(--xy-font-weight-regular);
   --xy-menu-extra-line-height: 1.2;
   --xy-menu-extra-white-space: normal;
   --xy-menu-collapsed-item-min-height: 48px;
@@ -207,7 +207,7 @@
 /* Active 状态文字加粗（仅纵向模式） */
 .xy-menu--vertical .xy-menu-item.is-active .xy-menu__item-label,
 .xy-menu--vertical .xy-sub-menu.is-active > .xy-menu__item-surface .xy-menu__item-label {
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-menu__item-surface:focus-visible {
@@ -419,7 +419,7 @@
   color: var(--xy-menu-active-color);
   background: var(--xy-menu-active-bg);
   box-shadow: var(--xy-menu-active-shadow);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 /* 弹出菜单 Active 左侧强调线 */
@@ -477,7 +477,7 @@
   background: var(--xy-menu-badge-bg);
   color: var(--xy-menu-badge-color);
   font-size: var(--xy-menu-badge-font-size);
-  font-weight: 700;
+  font-weight: var(--xy-font-weight-bold);
   line-height: 1;
 }
 

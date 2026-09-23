@@ -66,3 +66,28 @@ test("Watermark 文档页的全屏与目标容器示例同时覆盖 target 和 f
 
   await expect(demo.getByText("已覆盖 body")).toBeVisible();
 });
+
+test("Dialog 文档页的基础用法示例点击遮罩可以关闭对话框", async ({ page }) => {
+  await page.goto("/components/dialog");
+
+  const heading = page.getByRole("heading", { name: "基础用法" });
+  await expect(heading).toBeVisible();
+
+  const demo = demoByHeading(heading);
+  const trigger = demo.getByRole("button", { name: "新建成员" });
+  await expect(trigger).toBeVisible();
+  await clickInViewCenter(trigger);
+
+  const dialog = page.locator(".xy-dialog").last();
+  const panel = dialog.locator(".xy-dialog__panel");
+  await expect(panel).toBeVisible();
+  await expect(panel.getByRole("heading", { name: "新建成员" })).toBeVisible();
+
+  // 遮罩 absolute inset:0 覆盖全视口，面板从 15vh 顶部居中展开，
+  // (8, 8) 必落在遮罩上且在面板外；不加 force，验证真实 hit-testing。
+  const overlay = dialog.locator(".xy-dialog__overlay");
+  await expect(overlay).toBeVisible();
+  await overlay.click({ position: { x: 8, y: 8 } });
+
+  await expect(dialog).toBeHidden();
+});

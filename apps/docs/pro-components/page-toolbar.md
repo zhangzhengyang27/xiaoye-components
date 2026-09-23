@@ -25,7 +25,7 @@ pro/page-toolbar/basic
 | `divider` | 内容区与头部之间是否显示分隔线 | `boolean` | `false` |
 | `sticky` | 是否吸顶 | `boolean` | `false` |
 | `offset-top` | 吸顶时的顶部偏移量，仅 `sticky` 时生效 | `number` | `0` |
-| `bordered` | 是否显示底部边框 | `boolean` | `false` |
+| `bordered` | 是否启用卡片化边框预设：整圈边框、容器底色与投影 | `boolean` | `false` |
 | `style` | 自定义根节点样式 | `CSSProperties` | `undefined` |
 
 ### PageToolbar Slots

@@ -290,7 +290,7 @@
   background: color-mix(in srgb, var(--xy-brand-soft) 84%, var(--xy-date-picker-panel-bg-resolved));
   color: var(--xy-brand);
   border-color: color-mix(in srgb, var(--xy-brand) 18%, var(--xy-date-picker-panel-border-resolved));
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-date-picker__cell.is-in-range:not(.is-selected) {

@@ -12,7 +12,7 @@
 }
 
 .xy-descriptions__title {
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   color: var(--xy-text-heading);
 }
 

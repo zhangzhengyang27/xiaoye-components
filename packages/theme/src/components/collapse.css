@@ -25,7 +25,7 @@
   cursor: pointer;
   outline: none;
   font-size: var(--xy-font-size-md);
-  font-weight: 460;
+  font-weight: var(--xy-font-weight-460);
   line-height: 1.5;
   transition:
     border-bottom-color var(--xy-transition-duration-normal) cubic-bezier(0.22, 1, 0.36, 1),

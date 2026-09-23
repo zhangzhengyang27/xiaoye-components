@@ -24,7 +24,7 @@
 .xy-split-layout-page__header-title {
   margin: 0;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--xy-font-weight-bold);
 }
 
 .xy-split-layout-page__header-description {

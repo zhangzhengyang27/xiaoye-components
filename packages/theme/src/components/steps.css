@@ -101,7 +101,7 @@
   border: 2px solid currentColor;
   border-radius: var(--xy-radius-pill);
   font-size: var(--xy-font-size-md);
-  font-weight: 700;
+  font-weight: var(--xy-font-weight-bold);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--xy-bg-raised) 94%, transparent);
 }
 
@@ -161,7 +161,7 @@
 .xy-steps__title {
   color: currentColor;
   font-size: var(--xy-font-size-lg);
-  font-weight: 650;
+  font-weight: var(--xy-font-weight-650);
   line-height: 1.55;
 }
 
@@ -335,7 +335,7 @@
 }
 
 .xy-steps__item.is-process .xy-steps__title {
-  font-weight: 700;
+  font-weight: var(--xy-font-weight-bold);
 }
 
 .xy-steps__item.is-wait .xy-steps__description {

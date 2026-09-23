@@ -10,10 +10,10 @@ const data = [
 
 <template>
   <xy-transfer v-model="value" :data="data" :titles="['待选成员', '已选成员']">
-    <template #option="{ option }">
+    <template #default="{ item }">
       <div>
-        <strong>{{ option.label }}</strong>
-        <small style="display: block; color: var(--xy-text-secondary)">{{ option.description }}</small>
+        <strong>{{ item.label }}</strong>
+        <small style="display: block; color: var(--xy-text-secondary)">{{ item.description }}</small>
       </div>
     </template>
   </xy-transfer>

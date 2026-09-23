@@ -39,7 +39,7 @@
   align-items: center;
   min-width: 0;
   color: var(--xy-text-muted);
-  font-weight: 500;
+  font-weight: var(--xy-font-weight-medium);
   transition: color var(--xy-transition-duration-fast) var(--xy-transition-timing);
 }
 

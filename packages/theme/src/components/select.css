@@ -282,7 +282,7 @@
   padding: 8px 10px 2px;
   color: var(--xy-text-secondary);
   font-size: var(--xy-font-size-xs);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1.4;
 }
 
@@ -313,7 +313,7 @@
 }
 
 .xy-select__option.is-created span:first-child {
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-select__option small {

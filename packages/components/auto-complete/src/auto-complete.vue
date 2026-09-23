@@ -10,7 +10,7 @@ import {
   useOverlayStack
 } from "xiaoye-primitives";
 import XyInput from "../../input";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import { XyLoadingIndicator, resolveLoadingVisualConfig } from "../../loading/src/shared";
 import type { LoadingGlobalConfig } from "../../loading/src/types";
 import type {
@@ -66,9 +66,10 @@ defineSlots<{
 
 const instance = getCurrentInstance();
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const ns = useNamespace("auto-complete");
 const { size: globalSize, loading: globalLoading } = useConfig<unknown, LoadingGlobalConfig>();
-const mergedSize = computed(() => props.size ?? globalSize.value);
+const mergedSize = computed(() => props.size ?? form?.props.size ?? globalSize.value);
 const mergedDisabled = computed(() => props.disabled || Boolean(formItem?.disabled.value));
 const triggerRef = ref<HTMLElement | null>(null);
 const dropdownRef = ref<HTMLElement | null>(null);

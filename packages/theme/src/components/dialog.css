@@ -149,7 +149,7 @@
 .xy-dialog__title {
   margin: 0;
   font-size: calc(var(--xy-font-size-lg) + 1px);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1.4;
   color: var(--xy-dialog-title-color, var(--xy-text-heading));
 }

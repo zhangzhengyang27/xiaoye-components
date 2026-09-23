@@ -13,4 +13,9 @@ export interface StepsProps {
   simple?: boolean;
   finishStatus?: StepsStatus;
   processStatus?: StepsStatus;
+  /**
+   * 仅用于开发期捕获误用：XySteps 不支持 items prop。
+   * @deprecated 请使用默认插槽渲染 XyStep。
+   */
+  items?: unknown;
 }

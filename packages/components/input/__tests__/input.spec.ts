@@ -204,3 +204,27 @@ describe("XyInput", () => {
     expect(wrapper.text()).toContain("请输入名称");
   });
 });
+
+describe("XyInput form size 级联", () => {
+  it("xy-form size=lg 下发到未显式设置的 input，显式 size 不被覆盖", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyInput },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="名称">
+              <xy-input />
+            </xy-form-item>
+            <xy-form-item label="备注">
+              <xy-input size="sm" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const inputs = wrapper.findAll(".xy-input");
+    expect(inputs[0].classes()).toContain("xy-input--lg");
+    expect(inputs[1].classes()).toContain("xy-input--sm");
+  });
+});

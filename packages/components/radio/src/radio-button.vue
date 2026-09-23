@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, ref, useSlots } from "vue";
 import { useConfig, useNamespace } from "xiaoye-primitives";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import { radioGroupContextKey } from "./context";
 import type { RadioButtonProps } from "./radio-button";
 
@@ -22,12 +22,13 @@ const slots = useSlots();
 const ns = useNamespace("radio");
 const { size: globalSize } = useConfig();
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const radioGroup = inject(radioGroupContextKey, null);
 
 const focus = ref(false);
 
-const mergedSize = computed(() => props.size ?? radioGroup?.size.value ?? globalSize.value);
-const mergedDisabled = computed(() => Boolean(props.disabled || radioGroup?.disabled.value));
+const mergedSize = computed(() => props.size ?? radioGroup?.size.value ?? form?.props.size ?? globalSize.value);
+const mergedDisabled = computed(() => Boolean(props.disabled || radioGroup?.disabled.value || formItem?.disabled.value));
 const currentValue = computed(() => radioGroup?.modelValue.value ?? props.modelValue);
 const checked = computed(() => currentValue.value === props.value);
 const currentName = computed(() => props.name ?? radioGroup?.name.value);

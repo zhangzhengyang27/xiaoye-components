@@ -35,7 +35,6 @@ alwaysApply: true
   - `packages/pro-components/exports.ts`
   - `packages/pro-components/index.ts`
   - `packages/pro-components/style.css`
-  - `packages/xiaoye-pro-components/index.ts`
   - `tests/types/fixtures/xiaoye-pro-components.ts`
   - `tests/types/fixtures/pro-root-boundary.ts`
   - `scripts/check-pro-components.mjs`
@@ -44,7 +43,7 @@ alwaysApply: true
   - 只允许导出正式公开增强组件值。
   - 类型只允许导出每个公开增强组件的主 `Props / Instance / 主数据类型`，以及 `core.ts` 里的稳定共享协议类型。
   - 插槽入参、事件载荷、组件内部状态枚举、props 字面量联合、对共享类型的业务别名，默认不应出现在根入口。
-- 如果某个类型只适合组件子入口使用，应保留在 `packages/pro-components/<name>/index.ts` 或源码内部，不要再把它抬到 `@xiaoye/pro-components` / `xiaoye-pro-components` 根入口。
+- 如果某个类型只适合组件子入口使用，应保留在 `packages/pro-components/<name>/index.ts` 或源码内部，不要再把它抬到 `xiaoye-pro-components`（`packages/pro-components/index.ts`）根入口。
 - 旧兼容类型如果必须保留，应只保留在源码层，并显式标注 `@deprecated`；默认不要继续从组件 `index.ts` 或包根对外导出。
 - 增强层根入口边界由两层守卫共同维护：
   - `scripts/check-pro-components.mjs` 会校验组件值导出白名单和根入口类型白名单。

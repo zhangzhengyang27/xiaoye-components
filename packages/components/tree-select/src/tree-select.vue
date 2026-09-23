@@ -13,7 +13,7 @@ import XyInput from "../../input";
 import XyTree from "../../tree";
 import type { TreeInstance } from "../../tree";
 import type { FilterValue, TreeNodeData, TreeOptionProps } from "../../tree/src/tree.type";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import type { TreeSelectProps } from "./tree-select";
 
 const props = withDefaults(defineProps<TreeSelectProps>(), {
@@ -53,9 +53,10 @@ const emit = defineEmits<{
 }>();
 
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const ns = useNamespace("tree-select");
 const { size: globalSize } = useConfig();
-const mergedSize = computed(() => props.size ?? globalSize.value);
+const mergedSize = computed(() => props.size ?? form?.props.size ?? globalSize.value);
 const mergedDisabled = computed(() => props.disabled || Boolean(formItem?.disabled.value));
 const triggerRef = ref<HTMLElement | null>(null);
 const dropdownRef = ref<HTMLElement | null>(null);

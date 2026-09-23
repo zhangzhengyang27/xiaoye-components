@@ -17,7 +17,7 @@
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 8%, transparent);
   color: var(--xy-text-heading);
   font-size: var(--xy-avatar-text-size);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1;
   text-align: center;
   user-select: none;

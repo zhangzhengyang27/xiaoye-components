@@ -2,7 +2,7 @@
 import { Fragment, computed, inject, isVNode, nextTick, provide, toRef } from "vue";
 import type { VNode, VNodeArrayChildren } from "vue";
 import { useConfig, useNamespace } from "xiaoye-primitives";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import XyRadio from "./radio.vue";
 import XyRadioButton from "./radio-button.vue";
 import { radioGroupContextKey } from "./context";
@@ -43,9 +43,12 @@ const slots = defineSlots<{
 const ns = useNamespace("radio");
 const { size: globalSize } = useConfig();
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const fallbackName = `xy-radio-${Math.random().toString(36).slice(2, 10)}`;
 
-const mergedSize = computed(() => props.size ?? globalSize.value);
+// 必须在 group 层插入 form 兜底：group.size 恒回落 globalSize 非空，
+// 若只在子项链路插 form，子项经 group.size 之后永远到不了 form 层（被非空值遮蔽）。
+const mergedSize = computed(() => props.size ?? form?.props.size ?? globalSize.value);
 const groupName = computed(() => props.name ?? fallbackName);
 const optionComponent = computed(() => (props.type === "button" ? XyRadioButton : XyRadio));
 

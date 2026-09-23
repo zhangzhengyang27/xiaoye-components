@@ -71,7 +71,7 @@
 .xy-card__header-main {
   min-width: 0;
   color: var(--xy-text-heading);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-card__header-extra {

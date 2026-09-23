@@ -90,12 +90,15 @@
   height: 20px;
   padding: 0 6px;
   border-radius: var(--xy-radius-pill);
-  background: currentColor;
-  color: white;
+  /* 徽标底色取主文字色：currentColor 会解析为自身 color 导致“白底白字”，
+     而 --xy-text-heading 亮色主题近黑、暗色主题近白，可自动反转 */
+  background: var(--xy-text-heading);
+  /* 文字用浮层背景色，双主题下与徽标底色的对比度均大于 13:1 */
+  color: var(--xy-bg-floating);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1;
-  box-shadow: 0 8px 18px color-mix(in srgb, currentColor 24%, transparent);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--xy-text-heading) 24%, transparent);
 }
 
 .xy-message__icon {

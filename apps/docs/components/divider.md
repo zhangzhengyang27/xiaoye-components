@@ -115,8 +115,8 @@ divider/scene
 | `--xy-divider-border-style` | 分割线样式 | `solid` |
 | `--xy-divider-thickness` | 线条粗细 | `1px` |
 | `--xy-divider-spacing` | 横向分割的上下留白 | `24px` |
-| `--xy-divider-color` | 分割线颜色 | `color-mix(in srgb, var(--xy-border-strong) 72%, white)` |
-| `--xy-divider-text-color` | 插槽文字颜色 | `var(--xy-text-secondary)` |
+| `--xy-divider-color` | 分割线颜色 | `color-mix(in srgb, var(--xy-border-subtle) 78%, transparent)` |
+| `--xy-divider-text-color` | 插槽文字颜色 | `var(--xy-text-muted)` |
 | `--xy-divider-font-size` | 插槽文字字号 | `var(--xy-font-size-md)` |
 | `--xy-divider-text-padding` | 插槽文字两侧留白 | `18px` |
 | `--xy-divider-content-offset` | 左右定位时的边距 | `24px` |

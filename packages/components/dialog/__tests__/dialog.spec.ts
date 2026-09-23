@@ -213,7 +213,7 @@ describe("XyDialog", () => {
 
     await flushDialog();
 
-    const overlay = document.body.querySelector(".xy-dialog") as HTMLElement;
+    const overlay = document.body.querySelector(".xy-dialog__overlay") as HTMLElement;
     const panel = document.body.querySelector(".xy-dialog__panel") as HTMLElement;
 
     panel.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
@@ -222,6 +222,39 @@ describe("XyDialog", () => {
     await flushDialog();
     expect(wrapper.emitted("close")).toBeUndefined();
 
+    overlay.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    overlay.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
+    overlay.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushDialog();
+
+    expect(wrapper.emitted("close")).toHaveLength(1);
+    expect(wrapper.emitted("update:modelValue")?.[0]).toEqual([false]);
+  });
+
+  it("按下在遮罩、抬起在面板内容时不关闭（防拖拽误关）", async () => {
+    document.body.innerHTML = "";
+
+    const wrapper = mount(XyDialog, {
+      attachTo: document.body,
+      props: {
+        modelValue: true,
+        title: "拖拽误关测试"
+      }
+    });
+
+    await flushDialog();
+
+    const overlay = document.body.querySelector(".xy-dialog__overlay") as HTMLElement;
+    const panel = document.body.querySelector(".xy-dialog__panel") as HTMLElement;
+
+    // 模拟真实浏览器在遮罩按下后拖拽经过面板内容抬起：click 目标不是遮罩，不应关闭
+    overlay.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    panel.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
+    panel.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushDialog();
+    expect(wrapper.emitted("close")).toBeUndefined();
+
+    // 按下与抬起均落在遮罩上的完整点击仍正常关闭
     overlay.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
     overlay.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
     overlay.dispatchEvent(new MouseEvent("click", { bubbles: true }));

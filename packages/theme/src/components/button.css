@@ -15,7 +15,7 @@
     box-shadow var(--xy-transition-duration-fast) var(--xy-transition-timing);
   white-space: nowrap;
   position: relative;
-  font-weight: 560;
+  font-weight: var(--xy-font-weight-560);
   user-select: none;
   text-decoration: none;
 }

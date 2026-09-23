@@ -23,7 +23,7 @@ pro/avatar-menu/basic
 | `username` | 用户名，显示在头像右侧的加粗文字 | `string` | `''` |
 | `description` | 用户名下方的描述文字 | `string` | `''` |
 | `items` | 下拉菜单项数组，即 `DropdownItem` 的别名 `AvatarMenuItem` | `AvatarMenuItem[]` | `[]` |
-| `dropdown-props` | 透传给 `xy-dropdown` 的 props，触发方式固定为 `click` | `Partial<DropdownProps>` | `{}` |
+| `dropdown-props` | 透传给 `xy-dropdown` 的 props，触发方式默认为 `click`，可经此属性覆盖 | `Partial<DropdownProps>` | `{}` |
 | `avatar-props` | 透传给 `xy-avatar` 的 props | `Partial<AvatarProps>` | `{}` |
 
 ### AvatarMenu Events

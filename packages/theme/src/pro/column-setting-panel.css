@@ -7,7 +7,7 @@
 
 .xy-column-setting-panel__title {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-column-setting-panel__description {

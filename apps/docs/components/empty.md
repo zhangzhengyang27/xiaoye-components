@@ -53,11 +53,13 @@ empty/custom-media
 | 变量名 | 说明 | 默认值 |
 | ------ | ---- | ------ |
 | `--xy-empty-padding` | 空态容器内边距 | `32px 16px` |
-| `--xy-empty-gap` | 插画、文案之间的垂直间距 | `var(--xy-space-2)` |
+| `--xy-empty-gap` | 插画、文案之间的垂直间距 | `var(--xy-space-3)` |
 | `--xy-empty-image-width` | 默认图片区域宽度 | `160px` |
-| `--xy-empty-title-color` | 标题颜色 | `var(--xy-text-primary)` |
-| `--xy-empty-description-color` | 描述颜色 | `var(--xy-text-secondary)` |
-| `--xy-empty-footer-margin-top` | 底部操作区上边距 | `var(--xy-space-2)` |
+| `--xy-empty-title-color` | 标题颜色 | `var(--xy-text-heading)` |
+| `--xy-empty-description-color` | 描述颜色 | `var(--xy-text-muted)` |
+| `--xy-empty-footer-margin-top` | 底部操作区上边距 | `var(--xy-space-3)` |
+| `--xy-empty-illustration-background` | 默认插画区背景色 | `color-mix(in srgb, var(--xy-bg-subtle) 72%, var(--xy-bg-container))` |
+| `--xy-empty-illustration-border-color` | 默认插画区边框色 | `color-mix(in srgb, var(--xy-border-subtle) 88%, var(--xy-border))` |
 
 ### Empty Slots
 

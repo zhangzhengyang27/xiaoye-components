@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
+import { defineComponent } from "vue";
 import { afterEach, describe, expect, it } from "vitest";
-import { XyAutoComplete } from "@xiaoye/components";
+import { XyAutoComplete, XyForm, XyFormItem } from "@xiaoye/components";
 
 afterEach(() => {
   document.body.innerHTML = "";
@@ -93,5 +94,29 @@ describe("XyAutoComplete", () => {
 
     expect(wrapper.find(".inline-auto-complete-dropdown").exists()).toBe(true);
     expect(document.body.querySelector(".inline-auto-complete-dropdown")).not.toBeNull();
+  });
+});
+
+describe("XyAutoComplete form size 级联", () => {
+  it("xy-form size=lg 下发到未显式设置的 auto-complete，显式 size 不被覆盖", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyAutoComplete },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="关键词">
+              <xy-auto-complete />
+            </xy-form-item>
+            <xy-form-item label="备选">
+              <xy-auto-complete size="sm" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const autoCompletes = wrapper.findAll(".xy-auto-complete");
+    expect(autoCompletes[0].classes()).toContain("xy-auto-complete--lg");
+    expect(autoCompletes[1].classes()).toContain("xy-auto-complete--sm");
   });
 });

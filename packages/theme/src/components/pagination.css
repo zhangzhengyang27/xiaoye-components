@@ -36,7 +36,7 @@
   background: transparent;
   color: var(--xy-text-secondary);
   font-size: var(--xy-font-size-md);
-  font-weight: 400;
+  font-weight: var(--xy-font-weight-regular);
   line-height: 32px;
   transition:
     color var(--xy-transition-duration-fast) var(--xy-transition-timing),
@@ -109,7 +109,7 @@
 .xy-pagination__pager-item.is-active {
   color: var(--xy-brand);
   background: color-mix(in srgb, var(--xy-brand-soft) 50%, var(--xy-bg-floating));
-  font-weight: 700;
+  font-weight: var(--xy-font-weight-bold);
 }
 
 .xy-pagination__pager-item.is-more {
@@ -146,7 +146,7 @@
   align-items: center;
   gap: 8px;
   margin-left: 16px;
-  font-weight: 400;
+  font-weight: var(--xy-font-weight-regular);
   color: var(--xy-text-secondary);
 }
 
@@ -224,7 +224,7 @@
 .xy-pagination__button--prev > span,
 .xy-pagination__button--next > span {
   font-size: 22px;
-  font-weight: 300;
+  font-weight: var(--xy-font-weight-light);
   translate: 0 -1px;
 }
 

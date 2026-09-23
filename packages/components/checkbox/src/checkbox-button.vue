@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, ref, useSlots } from "vue";
 import { useConfig, useNamespace } from "xiaoye-primitives";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import { checkboxGroupContextKey } from "./context";
 import type { CheckboxValue } from "./checkbox";
 import type { CheckboxButtonProps } from "./checkbox-button";
@@ -24,6 +24,7 @@ const slots = useSlots();
 const ns = useNamespace("checkbox");
 const { size: globalSize } = useConfig();
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const checkboxGroup = inject(checkboxGroupContextKey, null);
 
 const isFocused = ref(false);
@@ -40,7 +41,7 @@ const actualValue = computed<CheckboxValue>(() => {
   return true;
 });
 
-const mergedSize = computed(() => props.size ?? checkboxGroup?.size.value ?? globalSize.value);
+const mergedSize = computed(() => props.size ?? checkboxGroup?.size.value ?? form?.props.size ?? globalSize.value);
 const currentName = computed(() => props.name ?? checkboxGroup?.name.value);
 const hasLabel = computed(() => Boolean(slots.default) || props.label !== undefined);
 const isChecked = computed(() => {
@@ -61,7 +62,7 @@ const limitDisabled = computed(() => {
 
   return checkboxGroup.max.value !== undefined && checkboxGroup.modelValue.value.length >= checkboxGroup.max.value;
 });
-const mergedDisabled = computed(() => Boolean(props.disabled || checkboxGroup?.disabled.value || limitDisabled.value));
+const mergedDisabled = computed(() => Boolean(props.disabled || checkboxGroup?.disabled.value || limitDisabled.value || formItem?.disabled.value));
 const tabIndex = computed(() => (mergedDisabled.value ? -1 : 0));
 
 const buttonClasses = computed(() => [

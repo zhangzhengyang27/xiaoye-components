@@ -13,7 +13,7 @@
 
 .xy-filter-panel__title {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-filter-panel__description {

@@ -80,12 +80,13 @@ descriptions/display-protocol
 | 属性 | 说明 | 类型 |
 | --- | --- | --- |
 | `label` | 条目标签 | `string` |
-| `value` | 条目值 | `string \| number` |
+| `value` | 条目值 | `unknown` |
 | `row` | 渲染上下文里的原始记录 | `Record<string, unknown>` |
+| `span` | 占据列数 | `number` |
 | `icon` | 标签前图标 | `string` |
 | `tag` | 标签态渲染配置 | `string \| DescriptionsDataTag` |
 | `link` | 链接态渲染配置 | `LinkProps` |
-| `value-type` | 只读显示值类型 | `'text' \| 'select' \| 'radio' \| 'checkbox' \| 'tag' \| 'progress' \| 'link' \| 'image' \| 'avatar' \| 'money' \| 'date' \| 'datetime' \| 'code'` |
+| `value-type` | 只读显示值类型 | `'text' \| 'select' \| 'radio' \| 'checkbox' \| 'tag' \| 'progress' \| 'link' \| 'image' \| 'avatar' \| 'money' \| 'date' \| 'datetime' \| 'code' \| 'copy'` |
 | `options` | 选择类值类型的选项映射 | `Array<SelectOption \| SelectOptionGroup>` |
 | `formatter` | 文本格式化函数，沿用四参签名 | `(row, column, value, rowIndex) => unknown` |
 | `render` | 自定义 VNode 渲染函数 | `(value, { row, column, rowIndex }) => VNodeChild` |
@@ -94,6 +95,8 @@ descriptions/display-protocol
 | `class-name` | 条目根类名 | `string` |
 | `label-class-name` | 标签区类名 | `string` |
 | `content-class-name` | 内容区类名 | `string` |
+| `label-slot` | 引用组件上同名插槽渲染标签区 | `string` |
+| `default-slot` | 引用组件上同名插槽渲染内容区 | `string` |
 
 ### DescriptionsItem Slots
 

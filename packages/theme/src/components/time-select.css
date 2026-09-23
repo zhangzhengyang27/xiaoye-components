@@ -235,7 +235,7 @@
     var(--xy-brand) 18%,
     var(--xy-time-select-dropdown-border-resolved)
   );
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-time-select__option.is-disabled,

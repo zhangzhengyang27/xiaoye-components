@@ -89,10 +89,15 @@ result/custom
 | `--xy-result-icon-size` | 默认图标尺寸 | `72px` |
 | `--xy-result-icon-shell-size` | 图标外层圆壳尺寸 | `112px` |
 | `--xy-result-title-font-size` | 标题字号 | `24px` |
-| `--xy-result-description-font-size` | 描述字号 | `14px` |
-| `--xy-result-title-color` | 标题颜色 | `var(--xy-text-primary)` |
-| `--xy-result-description-color` | 描述颜色 | `var(--xy-text-secondary)` |
+| `--xy-result-description-font-size` | 描述字号 | `var(--xy-font-size-md)` |
+| `--xy-result-title-color` | 标题颜色 | `var(--xy-text-heading)` |
+| `--xy-result-description-color` | 描述颜色 | `var(--xy-text-muted)` |
+| `--xy-result-content-color` | 补充内容文字颜色 | `var(--xy-text-muted)` |
 | `--xy-result-content-max-width` | 内容区最大宽度 | `560px` |
 | `--xy-result-extra-margin-top` | 操作区上边距 | `10px` |
-| `--xy-result-card-border-color` | 卡片态边框色 | `color-mix(in srgb, var(--xy-border) 92%, white)` |
-| `--xy-result-card-background` | 卡片态背景色 | `color-mix(in srgb, var(--xy-bg-container) 95%, var(--xy-bg-muted))` |
+| `--xy-result-card-border-color` | 卡片态边框色 | `color-mix(in srgb, var(--xy-border-subtle) 84%, var(--xy-border))` |
+| `--xy-result-card-background` | 卡片态背景色 | `color-mix(in srgb, var(--xy-bg-floating) 99%, var(--xy-bg-subtle))` |
+| `--xy-result-card-shadow` | 卡片态投影 | `0 0 0 1px color-mix(in srgb, var(--xy-bg-floating) 10%, transparent), 0 1px 4px color-mix(in srgb, var(--xy-text-heading) 4%, transparent)` |
+| `--xy-result-accent-color` | 图标与状态强调色 | `var(--xy-info)` |
+| `--xy-result-accent-surface` | 图标壳底色 | `color-mix(in srgb, var(--xy-info) 10%, var(--xy-bg-subtle))` |
+| `--xy-result-accent-border` | 图标壳边框色 | `color-mix(in srgb, var(--xy-info) 16%, var(--xy-border-subtle))` |

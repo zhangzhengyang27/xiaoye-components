@@ -4,7 +4,7 @@ defineOptions({
 });
 
 import { computed, nextTick, onMounted, onUpdated, provide, shallowRef, watch } from "vue";
-import { useNamespace } from "xiaoye-primitives";
+import { useNamespace, warnOnce } from "xiaoye-primitives";
 import { stepsContextKey } from "./context";
 import type { StepState } from "./context";
 import type { StepsProps } from "./steps";
@@ -22,6 +22,10 @@ const props = withDefaults(defineProps<StepsProps>(), {
 const emit = defineEmits<{
   change: [newValue: number, oldValue: number];
 }>();
+
+if (props.items !== undefined) {
+  warnOnce("XySteps", "不支持 items prop，请使用默认插槽渲染 XyStep。");
+}
 
 const ns = useNamespace("steps");
 const steps = shallowRef<StepState[]>([]);

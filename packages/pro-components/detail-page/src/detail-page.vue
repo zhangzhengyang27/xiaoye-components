@@ -32,6 +32,10 @@ const props = withDefaults(defineProps<DetailPageProps>(), {
   logs: () => []
 });
 
+const emit = defineEmits<{
+  retry: [];
+}>();
+
 const visibleChanges = computed(() =>
   props.changes.filter((item) => item.status !== "same")
 );
@@ -103,7 +107,11 @@ function resolveDiffStatus(status?: string) {
       </div>
     </div>
 
-    <xy-async-state-container :loading="props.loading" :error="props.error">
+    <xy-async-state-container
+      :loading="props.loading"
+      :error="props.error"
+      @retry="emit('retry')"
+    >
       <div class="xy-detail-page__sections">
         <section
           v-for="section in props.sections"

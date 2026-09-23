@@ -111,7 +111,7 @@
 
 .xy-result__title p {
   font-size: var(--xy-result-title-font-size);
-  font-weight: 700;
+  font-weight: var(--xy-font-weight-bold);
   line-height: 1.25;
   letter-spacing: -0.02em;
 }

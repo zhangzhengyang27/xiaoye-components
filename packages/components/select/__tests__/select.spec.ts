@@ -1,7 +1,7 @@
 import { mount, type VueWrapper } from "@vue/test-utils";
 import { defineComponent, h, nextTick } from "vue";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { XyConfigProvider, XySelect } from "@xiaoye/components";
+import { XyConfigProvider, XyForm, XyFormItem, XySelect } from "@xiaoye/components";
 
 afterEach(() => {
   mountedWrappers.forEach((wrapper) => wrapper.unmount());
@@ -509,5 +509,29 @@ describe("XySelect", () => {
 
     expect(document.body.querySelector(".xy-select__dropdown")).toBeNull();
     expect(wrapper.emitted("blur")).toBeTruthy();
+  });
+});
+
+describe("XySelect form size 级联", () => {
+  it("xy-form size=lg 下发到未显式设置的 select，显式 size 不被覆盖", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XySelect },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="来源">
+              <xy-select :options="[]" />
+            </xy-form-item>
+            <xy-form-item label="渠道">
+              <xy-select :options="[]" size="sm" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const selects = wrapper.findAll(".xy-select");
+    expect(selects[0].classes()).toContain("xy-select--lg");
+    expect(selects[1].classes()).toContain("xy-select--sm");
   });
 });

@@ -132,6 +132,28 @@ describe("XyMessage", () => {
     expect(document.body.querySelector(".xy-message--success")).not.toBeNull();
   });
 
+  it("默认不渲染 repeatNum 徽标，repeatNum > 1 时徽标显示计数", async () => {
+    const handle = XyMessage({
+      message: "带计数徽标消息",
+      duration: 0
+    });
+
+    await flushMessage();
+
+    expect(document.body.querySelector("span.xy-message__badge")).toBeNull();
+
+    handle.update({ repeatNum: 3 });
+    await flushMessage();
+
+    const badge = document.body.querySelector("span.xy-message__badge");
+
+    expect(badge).not.toBeNull();
+    expect(badge?.textContent).toBe("3");
+
+    handle.close();
+    await flushMessageClose();
+  });
+
   it("支持 pauseOnFocus 暂停自动关闭", async () => {
     vi.useFakeTimers();
 

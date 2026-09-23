@@ -207,11 +207,19 @@
   --xy-font-size-3xl: 32px;
   --xy-font-size-4xl: 48px;
 
-  /* 字重：Stripe 双轨制 —— 展示 300 / 控件 400 */
+  /* 字重：Stripe 双轨制 —— 展示 300 / 控件 400；数值档直读命名，与主题无关 */
   --xy-font-weight-light: 300;
   --xy-font-weight-regular: 400;
   --xy-font-weight-medium: 500;
   --xy-font-weight-semibold: 600;
+  --xy-font-weight-bold: 700;
+  --xy-font-weight-460: 460;
+  --xy-font-weight-520: 520;
+  --xy-font-weight-550: 550;
+  --xy-font-weight-560: 560;
+  --xy-font-weight-620: 620;
+  --xy-font-weight-650: 650;
+  --xy-font-weight-680: 680;
 
   /* 行高 */
   --xy-line-height-tight: 1.2;

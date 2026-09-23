@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
-import { nextTick } from "vue";
+import { defineComponent, nextTick } from "vue";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { XyCascader } from "@xiaoye/components";
+import { XyCascader, XyForm, XyFormItem } from "@xiaoye/components";
 
 afterEach(() => {
   document.body.innerHTML = "";
@@ -126,5 +126,29 @@ describe("XyCascader", () => {
 
     expect(load).toHaveBeenCalledTimes(1);
     expect(document.body.textContent).toContain("工作台-子项");
+  });
+});
+
+describe("XyCascader form size 级联", () => {
+  it("xy-form size=lg 下发到未显式设置的 cascader，显式 size 不被覆盖", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyCascader },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="地区">
+              <xy-cascader />
+            </xy-form-item>
+            <xy-form-item label="城市">
+              <xy-cascader size="sm" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const cascaders = wrapper.findAll(".xy-cascader");
+    expect(cascaders[0].classes()).toContain("xy-cascader--lg");
+    expect(cascaders[1].classes()).toContain("xy-cascader--sm");
   });
 });

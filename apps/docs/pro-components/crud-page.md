@@ -59,14 +59,12 @@ const detailSchema = [
 
 ### 数据流
 
-```
-用户操作 → CrudPage 事件 → 业务处理 → 刷新列表
-  │
-  ├── 新增 → onAdd → DialogForm/DrawerForm → 提交 → reload()
-  ├── 编辑 → onEdit(row) → DialogForm/DrawerForm → 提交 → reload()
-  ├── 删除 → onDelete(row) → 确认 → API → reload()
-  └── 查看 → onView(row) → DetailPanel → 展示
-```
+- **新增**：内建。工具栏自带「新建」按钮（`toolbar-actions` 可在其后注入业务按钮），点击后打开 OverlayForm；`submit` 事件交由业务提交，列表由业务更新 `data` 刷新。
+- **编辑**：内建。行操作「编辑」按钮触发 `open-edit`，行数据回填 `form-model` 后打开 OverlayForm，提交同样走 `submit`。
+- **删除**：未内建。业务经 `actions` 插槽追加行级删除按钮自行接线，或通过 `batch-actions` 声明危险批量动作（`danger: true`）并监听 `batch-action`；确认与 API 调用都由业务完成。
+- **查看**：内建。行操作「查看」按钮触发 `open-detail`，打开 DetailPanel 展示。
+
+组件不持有远程请求，也没有 `reload` 方法；增删改成功后的列表刷新由业务更新 `data` 完成。
 
 ## 基础用法
 

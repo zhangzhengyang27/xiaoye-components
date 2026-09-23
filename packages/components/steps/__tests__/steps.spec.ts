@@ -246,4 +246,30 @@ describe("XySteps", () => {
       "3"
     ]);
   });
+
+  it("传入 items prop 时开发期给出告警", () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    try {
+      mount(XySteps, {
+        props: {
+          items: []
+        },
+        slots: {
+          default: `
+            <xy-step title="一" />
+          `
+        },
+        global: {
+          components: {
+            XyStep
+          }
+        }
+      });
+
+      expect(warnSpy).toHaveBeenCalledWith("[XySteps] 不支持 items prop，请使用默认插槽渲染 XyStep。");
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
 });

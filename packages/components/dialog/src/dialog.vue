@@ -161,13 +161,13 @@ defineExpose({
           isPenetrable ? ns.is('penetrable', true) : ''
         ]"
         :style="rootStyle"
-        @click="handleOverlayClick"
-        @mousedown="handleOverlayMouseDown"
-        @mouseup="handleOverlayMouseUp"
       >
         <div
           v-if="overlay.showModal.value"
           :class="[`${ns.base.value}__overlay`, props.modalClass]"
+          @click="handleOverlayClick"
+          @mousedown="handleOverlayMouseDown"
+          @mouseup="handleOverlayMouseUp"
         />
         <DialogContent
           ref="dialogContentRef"

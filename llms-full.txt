@@ -1,6 +1,6 @@
 # xiaoye-components 完整 API 参考
 
-> 自动生成于 2026-09-15T17:16:27.667Z
+> 自动生成于 2026-09-22T22:47:21.402Z
 > 包含 103 个组件的完整 Props / Events / Slots / Exposes 定义
 
 ## 基础组件（@xiaoye/components）
@@ -2502,10 +2502,10 @@
 |------|------|--------|------|
 | `modelValue` | `TransferKey[]` | [] | 已选中项的 key 集合 |
 | `data` | `TransferItem[]` | [] | 可迁移的数据源 |
-| `titles` | `[string, string]` | ['列表 1', '列表 2'] | 左右两栏的标题 |
+| `titles` | `[string, string]` | ['源列表', '目标列表'] | 左右两栏的标题 |
 | `disabled` | `boolean` | false | 是否整体禁用 |
 | `filterable` | `boolean` | false | 是否显示本地搜索框 |
-| `filterPlaceholder` | `string` | '请输入' | 搜索框占位文案 |
+| `filterPlaceholder` | `string` | '搜索条目' | 搜索框占位文案 |
 | `size` | `'xs' / 'sm' / 'md' / 'lg' / 'xl'` | 'md' | 尺寸 |
 
 **Events**
@@ -4039,6 +4039,12 @@
 | `changes` | `ChangeDiffItem[]` | [] | 变更对比数据，status 为 'same' 的项不展示 |
 | `logs` | `AuditTimelineEntry[]` | [] | 操作日志数据 |
 
+**Events**
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `retry` | `-` | error 非空进入错误态后，点击错误区「重新加载」按钮时触发 |
+
 **Slots**
 
 | 插槽 | 说明 |
@@ -4066,7 +4072,7 @@
 | `divider` | `boolean` | false | 内容区与头部之间是否显示分隔线 |
 | `sticky` | `boolean` | false | 是否吸顶 |
 | `offset-top` | `number` | 0 | 吸顶时的顶部偏移量，仅 sticky 时生效 |
-| `bordered` | `boolean` | false | 是否显示底部边框 |
+| `bordered` | `boolean` | false | 是否启用卡片化边框预设：整圈边框、容器底色与投影 |
 | `style` | `CSSProperties` | undefined | 自定义根节点样式 |
 
 **Slots**
@@ -4151,7 +4157,7 @@
 | `username` | `string` | '' | 用户名，显示在头像右侧的加粗文字 |
 | `description` | `string` | '' | 用户名下方的描述文字 |
 | `items` | `AvatarMenuItem[]` | [] | 下拉菜单项数组，即 DropdownItem 的别名 AvatarMenuItem |
-| `dropdown-props` | `Partial<DropdownProps>` | {} | 透传给 xy-dropdown 的 props，触发方式固定为 click |
+| `dropdown-props` | `Partial<DropdownProps>` | {} | 透传给 xy-dropdown 的 props，触发方式默认为 click，可经此属性覆盖 |
 | `avatar-props` | `Partial<AvatarProps>` | {} | 透传给 xy-avatar 的 props |
 
 **Events**
@@ -4175,7 +4181,7 @@
 |------|------|--------|------|
 | `model-value` | `string` | undefined | 当前激活页签 key，受控模式 |
 | `default-value` | `string` | undefined | 默认激活页签 key，非受控模式 |
-| `items` | `HeaderTabItem[]` | [] | 页签数据，HeaderTabItem 继承自 TabItem 并扩展 badge?: string \| number |
+| `items` | `HeaderTabItem[]` | [] | 页签数据，HeaderTabItem 继承自 TabItem 并扩展 badge?: string \| number（类型上预留 badge? 字段，当前版本暂未渲染徽标） |
 | `type` | `TabsType（'' | 'card' | 'border-card'）` | 'card' | 页签风格 |
 | `tab-position` | `TabsPosition（'top' | 'right' | 'bottom' | 'left'）` | 'top' | 页签位置 |
 | `closable` | `boolean` | true | 是否显示页签关闭按钮 |

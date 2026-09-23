@@ -61,7 +61,7 @@
 .xy-timeline-group__title {
   color: var(--xy-text-heading);
   font-size: var(--xy-font-size-md);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1.35;
 }
 
@@ -389,7 +389,7 @@
 .xy-timeline-item__title {
   color: var(--xy-text-heading);
   font-size: var(--xy-font-size-md);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1.4;
 }
 

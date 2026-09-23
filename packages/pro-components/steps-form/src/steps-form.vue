@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { XyButton, XyDrawer, XySteps } from "xiaoye-components";
+import { XyButton, XyDrawer, XyStep, XySteps } from "xiaoye-components";
 import { XyProForm } from "../../pro-form";
 import type { ProFormInstance } from "../../pro-form/src/pro-form";
 import { cloneProValue } from "../../field-schema";
@@ -130,16 +130,14 @@ defineExpose({
     @closed="emit('closed')"
   >
     <div class="xy-steps-form__body">
-      <xy-steps
-        :active="activeBridge"
-        :items="
-          props.steps.map((step) => ({
-            key: step.key,
-            title: step.title,
-            description: step.description
-          }))
-        "
-      />
+      <xy-steps :active="activeBridge">
+        <xy-step
+          v-for="step in props.steps"
+          :key="step.key"
+          :title="step.title"
+          :description="step.description"
+        />
+      </xy-steps>
 
       <xy-pro-form
         ref="formRef"
@@ -182,16 +180,14 @@ defineExpose({
   </xy-drawer>
 
   <div v-else class="xy-steps-form">
-    <xy-steps
-      :active="activeBridge"
-      :items="
-        props.steps.map((step) => ({
-          key: step.key,
-          title: step.title,
-          description: step.description
-        }))
-      "
-    />
+    <xy-steps :active="activeBridge">
+      <xy-step
+        v-for="step in props.steps"
+        :key="step.key"
+        :title="step.title"
+        :description="step.description"
+      />
+    </xy-steps>
 
     <xy-pro-form
       ref="formRef"

@@ -35,7 +35,7 @@
   align-items: center;
   color: var(--xy-text-muted);
   min-height: 40px;
-  font-weight: 520;
+  font-weight: var(--xy-font-weight-520);
 }
 
 .xy-form-item__required {

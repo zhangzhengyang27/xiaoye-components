@@ -10,7 +10,7 @@ import {
 } from "xiaoye-primitives";
 import XyIcon from "../../icon";
 import XyInput from "../../input";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import type {
   CascaderFieldNames,
   CascaderKey,
@@ -67,9 +67,10 @@ const emit = defineEmits<{
 }>();
 
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const ns = useNamespace("cascader");
 const { size: globalSize } = useConfig();
-const mergedSize = computed(() => props.size ?? globalSize.value);
+const mergedSize = computed(() => props.size ?? form?.props.size ?? globalSize.value);
 const mergedDisabled = computed(() => props.disabled || Boolean(formItem?.disabled.value));
 const triggerRef = ref<HTMLElement | null>(null);
 const dropdownRef = ref<HTMLElement | null>(null);

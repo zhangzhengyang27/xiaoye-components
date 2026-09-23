@@ -285,3 +285,107 @@ describe("XyRadio", () => {
     expect(value.value).toBe("preview");
   });
 });
+
+describe("XyRadio form size 级联", () => {
+  it("xy-form size=lg 经 radio-group 透传给 radio 与 radio-button 成员", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyRadioGroup, XyRadio, XyRadioButton },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="角色">
+              <xy-radio-group>
+                <xy-radio value="owner">Owner</xy-radio>
+                <xy-radio-button value="viewer">Viewer</xy-radio-button>
+              </xy-radio-group>
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    expect(wrapper.find(".xy-radio").classes()).toContain("xy-radio--lg");
+    expect(wrapper.find(".xy-radio-button").classes()).toContain("xy-radio-button--lg");
+  });
+
+  it("分组显式 size 优先于 form size，成员显式 size 优先于分组", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyRadioGroup, XyRadio },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="角色">
+              <xy-radio-group size="sm">
+                <xy-radio value="owner">Owner</xy-radio>
+                <xy-radio value="viewer" size="xs">Viewer</xy-radio>
+              </xy-radio-group>
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const radios = wrapper.findAll(".xy-radio");
+    expect(radios[0].classes()).toContain("xy-radio--sm");
+    expect(radios[1].classes()).toContain("xy-radio--xs");
+  });
+});
+
+describe("XyRadio form disabled 级联", () => {
+  it("xy-form disabled 下单个 radio 禁用且不可点选", async () => {
+    const value = ref("manual");
+
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyRadio },
+        setup() {
+          return { value };
+        },
+        template: `
+          <xy-form :model="{}" disabled>
+            <xy-form-item label="单选">
+              <xy-radio v-model="value" value="api" label="API" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const radio = wrapper.find(".xy-radio");
+    expect(radio.classes()).toContain("is-disabled");
+    expect(radio.get('input[type="radio"]').attributes("disabled")).toBeDefined();
+
+    await radio.get('input[type="radio"]').setValue(true);
+    expect(wrapper.findComponent(XyRadio).emitted("update:modelValue")).toBeUndefined();
+  });
+
+  it("xy-form disabled 经 radio-group 级联禁用成员", async () => {
+    const value = ref("owner");
+
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyRadioGroup, XyRadio },
+        setup() {
+          return { value };
+        },
+        template: `
+          <xy-form :model="{}" disabled>
+            <xy-form-item label="角色">
+              <xy-radio-group v-model="value">
+                <xy-radio value="owner">Owner</xy-radio>
+                <xy-radio value="viewer">Viewer</xy-radio>
+              </xy-radio-group>
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const radios = wrapper.findAll(".xy-radio");
+    expect(radios[0].classes()).toContain("is-disabled");
+    expect(radios[1].classes()).toContain("is-disabled");
+
+    await radios[1].get('input[type="radio"]').setValue(true);
+    expect(wrapper.findComponent(XyRadioGroup).emitted("update:modelValue")).toBeUndefined();
+  });
+});

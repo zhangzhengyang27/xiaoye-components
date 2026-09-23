@@ -116,7 +116,7 @@
   display: inline-flex;
   align-items: center;
   margin: 0 6px;
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   letter-spacing: 0.01em;
   position: relative;
   z-index: 1;
@@ -156,7 +156,7 @@
   min-width: 48px;
   margin-left: 8px;
   color: var(--xy-progress-text-color);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1;
   letter-spacing: 0.01em;
 }

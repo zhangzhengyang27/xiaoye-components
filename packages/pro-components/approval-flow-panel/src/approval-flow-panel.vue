@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XyButton, XyCard, XySteps, XyText } from "xiaoye-components";
+import { XyButton, XyCard, XyStep, XySteps, XyText } from "xiaoye-components";
 import type { ApprovalFlowAction, ApprovalFlowPanelProps } from "./approval-flow-panel";
 
 defineOptions({
@@ -25,17 +25,15 @@ function activeIndex() {
 
 <template>
   <xy-card class="xy-approval-flow-panel" :header="props.title">
-    <xy-steps
-      :active="activeIndex()"
-      :items="
-        props.nodes.map((node) => ({
-          key: node.key,
-          title: node.title,
-          description: node.description,
-          status: node.status
-        }))
-      "
-    />
+    <xy-steps :active="activeIndex()">
+      <xy-step
+        v-for="node in props.nodes"
+        :key="node.key"
+        :title="node.title"
+        :description="node.description"
+        :status="node.status"
+      />
+    </xy-steps>
     <div class="xy-approval-flow-panel__nodes">
       <button
         v-for="node in props.nodes"

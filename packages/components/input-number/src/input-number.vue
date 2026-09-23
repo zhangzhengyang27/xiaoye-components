@@ -132,7 +132,9 @@ function getPrecision(value: number | null | undefined) {
   return dotPosition === -1 ? 0 : valueString.length - dotPosition - 1;
 }
 
-function toPrecision(value: number, precision = props.precision ?? 0) {
+// 未显式声明 precision 时按 step 的小数位数推导，
+// 避免 step=0.5 + stepStrictly 输入 1.3 被缺省 Math.round 归齐成 2（应得 1.5）
+function toPrecision(value: number, precision = props.precision ?? getPrecision(props.step)) {
   if (precision === 0) {
     return Math.round(value);
   }

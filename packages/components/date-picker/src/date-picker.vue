@@ -10,7 +10,7 @@ import {
   useOverlayStack
 } from "xiaoye-primitives";
 import XyIcon from "../../icon";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import type {
   DatePickerProps,
   DatePickerShortcut,
@@ -60,9 +60,10 @@ const emit = defineEmits<{
 const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
 const monthLabels = Array.from({ length: 12 }, (_, index) => `${index + 1} 月`);
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const ns = useNamespace("date-picker");
 const { size: globalSize } = useConfig();
-const mergedSize = computed(() => props.size ?? globalSize.value);
+const mergedSize = computed(() => props.size ?? form?.props.size ?? globalSize.value);
 const mergedDisabled = computed(() => props.disabled || Boolean(formItem?.disabled.value));
 const triggerRef = ref<HTMLElement | null>(null);
 const panelRef = ref<HTMLElement | null>(null);

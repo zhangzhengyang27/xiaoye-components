@@ -53,7 +53,7 @@
   align-items: center;
   gap: 6px;
   font-size: var(--xy-font-size-sm);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-stat-card.is-up .xy-stat-card__trend {

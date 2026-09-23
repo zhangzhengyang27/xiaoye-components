@@ -10,7 +10,9 @@ const props = withDefaults(defineProps<FormProps>(), {
   rules: () => ({}),
   labelWidth: "112px",
   labelPosition: "left",
-  size: "md",
+  // 不能给恒定默认值（如 "md"），否则会永久遮蔽 config-provider 的全局 size；
+  // 保持 undefined 让未设置时回落到全局链路。
+  size: undefined,
   inline: false,
   disabled: false,
   scrollToError: false,

@@ -36,6 +36,24 @@ describe("XyStepsForm", () => {
     expect(wrapper.emitted("next")?.[0]?.[0]).toBe(1);
   });
 
+  it("步骤条真实渲染 xy-step 节点", () => {
+    const wrapper = mount(XyStepsForm, {
+      props: {
+        model: {},
+        steps: [
+          { key: "basic", title: "基础信息" },
+          { key: "confirm", title: "确认信息" }
+        ]
+      }
+    });
+
+    expect(wrapper.findAll(".xy-steps__item")).toHaveLength(2);
+    expect(wrapper.findAll(".xy-steps__title").map((node) => node.text())).toEqual([
+      "基础信息",
+      "确认信息"
+    ]);
+  });
+
   it("readonly + schema 时使用只读展示协议并隐藏提交动作", () => {
     const wrapper = mount(XyStepsForm, {
       props: {

@@ -148,7 +148,7 @@
   flex: 1;
   line-height: 1.4;
   font-size: calc(var(--xy-font-size-lg) + 1px);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   color: var(--xy-drawer-title-color, var(--xy-dialog-title-color, var(--xy-text-heading)));
 }
 

@@ -217,7 +217,7 @@
   margin-bottom: 10px;
   color: var(--xy-text-heading);
   font-size: var(--xy-font-size-sm);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-time-picker__columns {
@@ -278,7 +278,7 @@
     var(--xy-brand) 18%,
     var(--xy-time-picker-panel-border-resolved)
   );
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-time-picker__option:disabled {
@@ -319,7 +319,7 @@
   border-color: color-mix(in srgb, var(--xy-brand) 16%, var(--xy-time-picker-panel-border-resolved));
   background: color-mix(in srgb, var(--xy-brand-soft) 84%, var(--xy-time-picker-panel-bg-resolved));
   color: var(--xy-brand);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
 }
 
 .xy-time-picker.is-error .xy-time-picker__trigger {

@@ -47,6 +47,12 @@ pro/detail-page/basic
 | `changes` | 变更对比数据，`status` 为 `'same'` 的项不展示 | `ChangeDiffItem[]` | `[]` |
 | `logs` | 操作日志数据 | `AuditTimelineEntry[]` | `[]` |
 
+### DetailPage Events
+
+| 事件名 | 说明 | 回调参数 |
+| --- | --- | --- |
+| `retry` | `error` 非空进入错误态后，点击错误区「重新加载」按钮时触发 | — |
+
 ### DetailPage Slots
 
 | 插槽 | 说明 | 接收参数 |

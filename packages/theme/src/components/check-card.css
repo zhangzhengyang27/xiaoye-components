@@ -136,7 +136,7 @@
 .xy-check-card__title {
   min-width: 0;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1.5;
   color: var(--xy-text-heading);
 }

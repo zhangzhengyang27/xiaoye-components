@@ -20,7 +20,7 @@
   background: var(--xy-badge-bg);
   color: var(--xy-badge-color);
   font-size: var(--xy-font-size-xs);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1;
   white-space: nowrap;
   box-sizing: border-box;

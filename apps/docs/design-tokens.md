@@ -169,6 +169,14 @@ L3/L4 是 Stripe 标志性的**蓝调多层阴影**（`rgba(50,50,93,…)` + `rg
 | `--xy-font-weight-regular` | `400` | 控件默认 |
 | `--xy-font-weight-medium` | `500` | 强调 |
 | `--xy-font-weight-semibold` | `600` | 标题 |
+| `--xy-font-weight-bold` | `700` | 菜单徽标数字、结果标题、当前页码 |
+| `--xy-font-weight-460` | `460` | 折叠面板标题 |
+| `--xy-font-weight-520` | `520` | 表单标签 |
+| `--xy-font-weight-550` | `550` | 纵向布局页签标签 |
+| `--xy-font-weight-560` | `560` | 按钮、页签、链接等交互文字 |
+| `--xy-font-weight-620` | `620` | 加粗文本（text strong） |
+| `--xy-font-weight-650` | `650` | 通知标题、步骤标题 |
+| `--xy-font-weight-680` | `680` | 统计数值 |
 | `--xy-line-height-tight` | `1.2` | 标题行高 |
 | `--xy-line-height` | `1.5` | 全局行高 |
 

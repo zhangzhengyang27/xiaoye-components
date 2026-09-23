@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
-import { nextTick } from "vue";
+import { defineComponent, nextTick } from "vue";
 import { describe, expect, it } from "vitest";
-import { XyDatePicker } from "@xiaoye/components";
+import { XyDatePicker, XyForm, XyFormItem } from "@xiaoye/components";
 
 describe("XyDatePicker", () => {
   it("支持打开面板并选择日期", async () => {
@@ -116,5 +116,29 @@ describe("XyDatePicker", () => {
 
     expect(wrapper.find(".xy-date-picker__panel").exists()).toBe(true);
     expect(wrapper.element.querySelector(".xy-date-picker__panel")).not.toBeNull();
+  });
+});
+
+describe("XyDatePicker form size 级联", () => {
+  it("xy-form size=lg 下发到未显式设置的 date-picker，显式 size 不被覆盖", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyDatePicker },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="开始日期">
+              <xy-date-picker />
+            </xy-form-item>
+            <xy-form-item label="结束日期">
+              <xy-date-picker size="sm" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const datePickers = wrapper.findAll(".xy-date-picker");
+    expect(datePickers[0].classes()).toContain("xy-date-picker--lg");
+    expect(datePickers[1].classes()).toContain("xy-date-picker--sm");
   });
 });

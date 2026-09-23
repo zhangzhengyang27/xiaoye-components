@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { XyButton, XyCard, XySteps } from "xiaoye-components";
+import { XyButton, XyCard, XyStep, XySteps } from "xiaoye-components";
 import type { ImportWizardProps } from "./import-wizard";
 
 defineOptions({
@@ -36,16 +36,14 @@ function updateActive(value: number) {
 
 <template>
   <xy-card class="xy-import-wizard" :header="props.title">
-    <xy-steps
-      :active="activeBridge"
-      :items="
-        props.steps.map((step) => ({
-          key: step.key,
-          title: step.title,
-          description: step.description
-        }))
-      "
-    />
+    <xy-steps :active="activeBridge">
+      <xy-step
+        v-for="step in props.steps"
+        :key="step.key"
+        :title="step.title"
+        :description="step.description"
+      />
+    </xy-steps>
     <div class="xy-import-wizard__body">
       <slot :step="currentStep" :active="activeBridge" />
     </div>
@@ -54,8 +52,9 @@ function updateActive(value: number) {
         :disabled="activeBridge === 0"
         @click="
           () => {
-            updateActive(activeBridge - 1);
-            emit('prev', activeBridge - 1);
+            const prevIndex = activeBridge - 1;
+            updateActive(prevIndex);
+            emit('prev', prevIndex);
           }
         "
       >

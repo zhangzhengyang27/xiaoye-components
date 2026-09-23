@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, nextTick, provide, toRef } from "vue";
 import { useConfig, useNamespace } from "xiaoye-primitives";
-import { formItemKey } from "../../form/src/context";
+import { formItemKey, formKey } from "../../form/src/context";
 import Checkbox from "./checkbox.vue";
 import CheckboxButton from "./checkbox-button.vue";
 import { checkboxGroupContextKey } from "./context";
@@ -32,9 +32,12 @@ const emit = defineEmits<{
 const ns = useNamespace("checkbox");
 const { size: globalSize } = useConfig();
 const formItem = inject(formItemKey, null);
+const form = inject(formKey, null);
 const fallbackName = `xy-checkbox-${Math.random().toString(36).slice(2, 10)}`;
 
-const mergedSize = computed(() => props.size ?? globalSize.value);
+// 必须在 group 层插入 form 兜底：group.size 恒回落 globalSize 非空，
+// 若只在子项链路插 form，子项经 group.size 之后永远到不了 form 层（被非空值遮蔽）。
+const mergedSize = computed(() => props.size ?? form?.props.size ?? globalSize.value);
 const groupName = computed(() => props.name ?? fallbackName);
 const optionComponent = computed(() => (props.type === "button" ? CheckboxButton : Checkbox));
 

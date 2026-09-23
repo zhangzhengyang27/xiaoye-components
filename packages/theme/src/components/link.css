@@ -9,7 +9,7 @@
   background: transparent;
   color: var(--xy-text-secondary);
   font-size: var(--xy-font-size-md);
-  font-weight: 560;
+  font-weight: var(--xy-font-weight-560);
   line-height: var(--xy-line-height);
   text-decoration: none;
   text-decoration-thickness: 1px;

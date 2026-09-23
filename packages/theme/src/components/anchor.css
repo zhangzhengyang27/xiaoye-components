@@ -125,7 +125,7 @@
   color: var(--xy-anchor-brand-color) !important;
   background: var(--xy-brand-soft);
   border-color: color-mix(in srgb, var(--xy-brand) 16%, var(--xy-border-subtle));
-  font-weight: 560;
+  font-weight: var(--xy-font-weight-560);
 }
 
 .xy-anchor__list--nested.xy-anchor__list--vertical {

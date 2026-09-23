@@ -34,7 +34,7 @@
   );
   --xy-table-header-font-weight-resolved: var(
     --xy-table-header-font-weight,
-    600
+    var(--xy-font-weight-semibold)
   );
   --xy-table-header-text-transform-resolved: var(
     --xy-table-header-text-transform,
@@ -311,7 +311,7 @@
 .xy-table .xy-table__footer-cell {
   background: var(--xy-table-footer-background-resolved);
   color: var(--xy-text-primary);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   border-bottom: 0;
   border-top: var(--xy-table-border);
 }
@@ -545,7 +545,7 @@
 .xy-table__filter-panel-title {
   margin-bottom: 8px;
   font-size: var(--xy-font-size-sm);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   color: var(--xy-text-primary);
 }
 

@@ -41,7 +41,7 @@ function handleChange(nextKey: string) {
         closable: item.closable
       }))
     "
-    editable
+    :editable="props.addable"
     @change="handleChange"
     @tab-remove="
       (key) => {

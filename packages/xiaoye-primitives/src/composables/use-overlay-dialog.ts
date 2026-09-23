@@ -1,8 +1,9 @@
-import { computed, watch } from "vue";
+import { computed, onBeforeUnmount, watch } from "vue";
 import { toValue } from "vue";
 import type { MaybeRefOrGetter, ComputedRef } from "vue";
 import { useFloatingVisibility } from "./use-floating-visibility";
 import { useOverlayStack } from "./use-overlay-stack";
+import { lockBodyScroll, unlockBodyScroll } from "../utils/dom/scroll-lock";
 
 export interface OverlayDialogOptions {
   modelValue?: MaybeRefOrGetter<boolean | undefined>;
@@ -122,6 +123,40 @@ export function useOverlayDialog(
     },
     { immediate: true }
   );
+
+  const shouldLockBodyScroll = computed(() => {
+    return Boolean(toValue(options.lockScroll)) && visible.value;
+  });
+
+  // 配对标记：只有本实例真正加过锁才允许解锁。
+  // unlockBodyScroll 是无条件递减，若 watch immediate 在初始 false 时也调 unlock，
+  // 混合配置（A lockScroll=true 开着、B lockScroll=false 挂载）会把 A 的锁减掉。
+  let bodyScrollLocked = false;
+
+  watch(
+    shouldLockBodyScroll,
+    (locked) => {
+      if (locked && !bodyScrollLocked) {
+        lockBodyScroll();
+        bodyScrollLocked = true;
+        return;
+      }
+      if (!locked && bodyScrollLocked) {
+        unlockBodyScroll();
+        bodyScrollLocked = false;
+      }
+    },
+    { immediate: true }
+  );
+
+  // 兜底：组件卸载时 watcher 停止但不再触发回调，
+  // 打开状态下直接卸载会导致计数泄漏，这里只偿还本实例的锁。
+  onBeforeUnmount(() => {
+    if (bodyScrollLocked) {
+      unlockBodyScroll();
+      bodyScrollLocked = false;
+    }
+  });
 
   return {
     visible,

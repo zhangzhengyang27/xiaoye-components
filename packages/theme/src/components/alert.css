@@ -83,7 +83,7 @@
 .xy-alert__title {
   color: var(--xy-alert-title-color);
   font-size: var(--xy-alert-title-font-size);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 24px;
 }
 

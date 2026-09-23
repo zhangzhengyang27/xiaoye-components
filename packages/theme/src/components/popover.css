@@ -76,7 +76,7 @@
   padding-bottom: 8px;
   border-bottom: 1px solid var(--xy-popover-section-border);
   color: var(--xy-popover-title-resolved);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1.45;
 }
 

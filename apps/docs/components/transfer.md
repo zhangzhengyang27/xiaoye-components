@@ -26,10 +26,10 @@ transfer/filterable
 | ----------------- | -------------------------- | ------------------------------- | -------------------- |
 | `modelValue`      | 已选中项的 key 集合        | `TransferKey[]`                 | `[]`                 |
 | `data`            | 可迁移的数据源             | `TransferItem[]`                | `[]`                 |
-| `titles`          | 左右两栏的标题             | `[string, string]`              | `['列表 1', '列表 2']` |
+| `titles`          | 左右两栏的标题             | `[string, string]`              | `['源列表', '目标列表']` |
 | `disabled`        | 是否整体禁用               | `boolean`                       | `false`              |
 | `filterable`      | 是否显示本地搜索框         | `boolean`                       | `false`              |
-| `filterPlaceholder` | 搜索框占位文案           | `string`                        | `'请输入'`           |
+| `filterPlaceholder` | 搜索框占位文案           | `string`                        | `'搜索条目'`         |
 | `size`            | 尺寸                       | `'xs' / 'sm' / 'md' / 'lg' / 'xl'` | `'md'`            |
 
 ### Transfer Events

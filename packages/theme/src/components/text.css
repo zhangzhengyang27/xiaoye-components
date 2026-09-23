@@ -73,7 +73,7 @@
 }
 
 .xy-text.is-strong {
-  font-weight: 620;
+  font-weight: var(--xy-font-weight-620);
 }
 
 .xy-text.is-underline {
@@ -99,7 +99,7 @@
   color: var(--xy-text-muted);
   cursor: pointer;
   font-size: var(--xy-font-size-sm);
-  font-weight: 560;
+  font-weight: var(--xy-font-weight-560);
   line-height: 1.4;
   transition:
     color var(--xy-transition-duration-fast) var(--xy-transition-timing),

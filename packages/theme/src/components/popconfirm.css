@@ -95,7 +95,7 @@
   margin: 0;
   color: var(--xy-popconfirm-title-resolved);
   font-size: var(--xy-font-size-sm);
-  font-weight: 600;
+  font-weight: var(--xy-font-weight-semibold);
   line-height: 1.5;
 }
 

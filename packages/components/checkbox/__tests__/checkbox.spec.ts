@@ -273,3 +273,107 @@ describe("XyCheckbox", () => {
     expect(wrapper.classes()).toContain("is-checked");
   });
 });
+
+describe("XyCheckbox form size 级联", () => {
+  it("xy-form size=lg 经 checkbox-group 透传给 checkbox 与 checkbox-button 成员", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyCheckboxGroup, XyCheckbox, XyCheckboxButton },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="角色">
+              <xy-checkbox-group>
+                <xy-checkbox value="owner">Owner</xy-checkbox>
+                <xy-checkbox-button value="viewer">Viewer</xy-checkbox-button>
+              </xy-checkbox-group>
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    expect(wrapper.find(".xy-checkbox").classes()).toContain("xy-checkbox--lg");
+    expect(wrapper.find(".xy-checkbox-button").classes()).toContain("xy-checkbox-button--lg");
+  });
+
+  it("分组显式 size 优先于 form size，成员显式 size 优先于分组", () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyCheckboxGroup, XyCheckbox },
+        template: `
+          <xy-form :model="{}" size="lg">
+            <xy-form-item label="角色">
+              <xy-checkbox-group size="sm">
+                <xy-checkbox value="owner">Owner</xy-checkbox>
+                <xy-checkbox value="viewer" size="xs">Viewer</xy-checkbox>
+              </xy-checkbox-group>
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const checkboxes = wrapper.findAll(".xy-checkbox");
+    expect(checkboxes[0].classes()).toContain("xy-checkbox--sm");
+    expect(checkboxes[1].classes()).toContain("xy-checkbox--xs");
+  });
+});
+
+describe("XyCheckbox form disabled 级联", () => {
+  it("xy-form disabled 下单个 checkbox 禁用且不可点选", async () => {
+    const checked = ref(false);
+
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyCheckbox },
+        setup() {
+          return { checked };
+        },
+        template: `
+          <xy-form :model="{}" disabled>
+            <xy-form-item label="启用">
+              <xy-checkbox v-model="checked" label="启用" />
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const checkbox = wrapper.find(".xy-checkbox");
+    expect(checkbox.classes()).toContain("is-disabled");
+    expect(checkbox.get('input[type="checkbox"]').attributes("disabled")).toBeDefined();
+
+    await checkbox.get('input[type="checkbox"]').setValue(true);
+    expect(wrapper.findComponent(XyCheckbox).emitted("update:modelValue")).toBeUndefined();
+  });
+
+  it("xy-form disabled 经 checkbox-group 级联禁用成员", async () => {
+    const values = ref<Array<string | number | boolean>>([]);
+
+    const wrapper = mount(
+      defineComponent({
+        components: { XyForm, XyFormItem, XyCheckboxGroup, XyCheckbox },
+        setup() {
+          return { values };
+        },
+        template: `
+          <xy-form :model="{}" disabled>
+            <xy-form-item label="角色">
+              <xy-checkbox-group v-model="values">
+                <xy-checkbox value="owner">Owner</xy-checkbox>
+                <xy-checkbox value="viewer">Viewer</xy-checkbox>
+              </xy-checkbox-group>
+            </xy-form-item>
+          </xy-form>
+        `
+      })
+    );
+
+    const checkboxes = wrapper.findAll(".xy-checkbox");
+    expect(checkboxes[0].classes()).toContain("is-disabled");
+    expect(checkboxes[1].classes()).toContain("is-disabled");
+
+    await checkboxes[1].get('input[type="checkbox"]').setValue(true);
+    expect(wrapper.findComponent(XyCheckboxGroup).emitted("update:modelValue")).toBeUndefined();
+  });
+});

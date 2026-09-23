@@ -67,6 +67,60 @@ describe("XyInputNumber", () => {
     expect((input.element as HTMLInputElement).value).toBe("0.30");
   });
 
+  it("未声明 precision 时增减按 step 精度保留小数", async () => {
+    const wrapper = mount(XyInputNumber, {
+      props: {
+        modelValue: 1.3,
+        step: 0.5
+      }
+    });
+
+    await wrapper.get(".xy-input-number__increase").trigger("click");
+
+    expect(wrapper.emitted("update:modelValue")?.[0]).toEqual([1.8]);
+    expect((wrapper.get("input").element as HTMLInputElement).value).toBe("1.8");
+  });
+
+  it("step 为 0.1 时连续增减十次稳定落账 1.0", async () => {
+    const wrapper = mount(XyInputNumber, {
+      props: {
+        modelValue: 0,
+        step: 0.1
+      }
+    });
+
+    const increase = wrapper.get(".xy-input-number__increase");
+
+    for (let index = 0; index < 10; index += 1) {
+      await increase.trigger("click");
+    }
+
+    const finalValue = wrapper.emitted("update:modelValue")?.at(-1)?.[0] as number;
+
+    expect(finalValue.toFixed(1)).toBe("1.0");
+    expect((wrapper.get("input").element as HTMLInputElement).value).toBe("1");
+  });
+
+  it("stepStrictly 且未声明 precision 时输入值按 step 精度归齐", async () => {
+    const wrapper = mount(XyInputNumber, {
+      props: {
+        modelValue: 0,
+        step: 0.5,
+        stepStrictly: true
+      }
+    });
+
+    const input = wrapper.get("input");
+
+    await input.setValue("1.3");
+    await input.trigger("change");
+    await nextTick();
+
+    expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([1.5]);
+    await wrapper.setProps({ modelValue: 1.5 });
+    expect((input.element as HTMLInputElement).value).toBe("1.5");
+  });
+
   it("支持 controls-position、align 和 disabledScientific", async () => {
     const wrapper = mount(XyInputNumber, {
       props: {
