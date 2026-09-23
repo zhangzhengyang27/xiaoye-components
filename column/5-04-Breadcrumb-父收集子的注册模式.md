@@ -2,17 +2,17 @@
 
 > 本篇精读（行号逐一核对于当前工作区实态）：
 > - `packages/components/breadcrumb/src/breadcrumb.vue`（provide 端，83 行）
-> - `packages/components/breadcrumb/src/breadcrumb-item.vue`（inject 消费端，155 行）
-> - `packages/components/breadcrumb/src/context.ts`（协议定义，12 行）
-> - 对照组一：`packages/components/steps/src/`（`steps.vue` 144 行 / `step.vue` 231 行）
+> - `packages/components/breadcrumb/src/breadcrumb-item.vue`（inject 消费端，154 行）
+> - `packages/components/breadcrumb/src/context.ts`（协议定义，11 行）
+> - 对照组一：`packages/components/steps/src/`（`steps.vue` 143 行 / `step.vue` 230 行）
 > - 对照组二：`packages/components/carousel/src/`（`carousel.vue` 注册段 L848-892 / `carousel-item.vue` 注册段）
-> - `packages/components/breadcrumb/__tests__/breadcrumb.spec.ts`（272 行）、`tests/types/fixtures/breadcrumb.ts`（63 行）、`packages/theme/src/components/breadcrumb.css`（122 行）
+> - `packages/components/breadcrumb/__tests__/breadcrumb.spec.ts`（271 行）、`tests/types/fixtures/breadcrumb.ts`（62 行）、`packages/theme/src/components/breadcrumb.css`（121 行）
 
 ## 引子：一个只有父组件才能回答的问题
 
 面包屑大概是组件库里长得最朴素的组件了——一行文字、几个分隔符、末一项加粗。但把它拆开看，你会撞上所有"父管子"组件都躲不开的那个问题：**子组件如何把自己"登记"进父组件？**
 
-问题的根源在于：面包屑的每一项都不是平等的。最后一项享有四处特殊待遇——它不渲染分隔符、它挂 `aria-current="page"`、它加 `is-current` 类、它必须禁点（用户不该从"当前页"跳去"当前页"）。这四件事有一个共同的前置条件：**每一项都必须知道"我是不是最后一项"**。
+问题的根源在于：面包屑的每一项都不是平等的。最后一项享有四处特殊待遇（下文第一节展开为五个判定点）——它不渲染分隔符、它挂 `aria-current="page"`、它加 `is-current` 类、它必须禁点（用户不该从"当前页"跳去"当前页"）。这四件事有一个共同的前置条件：**每一项都必须知道"我是不是最后一项"**。
 
 而"最后一项"这个知识，恰恰是任何单个 `BreadcrumbItem` 自己无法拥有的。你把 `xy-breadcrumb-item` 单独拎出来，它连兄弟是谁都不知道，更遑论自己排在第几。这个知识只可能存在于两个地方：父组件 `XyBreadcrumb`，或者 DOM 树本身。
 
@@ -119,12 +119,12 @@ const isClickable = computed(
 
 选择"组件渲染分隔符"而不是 CSS `::after` 伪元素，本身就是一个语义决定：伪元素对屏幕阅读器不可见还得手动 `speak: none`，而组件分支天然挂上了 `aria-hidden="true"` 与 `role="presentation"`；同时图标分隔符（`separatorIcon`）要渲染一个真实的图标组件，伪元素里塞不进 `XyIcon`。**结构复杂度一旦越过"纯文本"，就必须从 CSS 搬进组件树——搬进组件树之后，"渲不渲染"就从样式问题变成了状态问题，于是注册表登场了。**
 
-## 二、协议层：12 行 context.ts 定下合同
+## 二、协议层：11 行 context.ts 定下合同
 
-注册模式的图纸和 4-09 的 group 模式一样，第一块拼图都是协议文件。`context.ts` 全文只有 12 行：
+注册模式的图纸和 4-09 的 group 模式一样，第一块拼图都是协议文件。`context.ts` 全文只有 11 行：
 
 ```ts
-// packages/components/breadcrumb/src/context.ts:1-12（全文）
+// packages/components/breadcrumb/src/context.ts:1-11（全文）
 import type { ComputedRef, InjectionKey } from "vue";
 
 export interface BreadcrumbContext {
@@ -548,7 +548,7 @@ flowchart TB
 
 ## 九、测试与类型夹具：注册表被锁住了哪些面
 
-`breadcrumb.spec.ts`（272 行）里与注册模式直接相关的断言，最核心的是"最后一项语义"这条：
+`breadcrumb.spec.ts`（271 行）里与注册模式直接相关的断言，最核心的是"最后一项语义"这条：
 
 ```ts
 // packages/components/breadcrumb/__tests__/breadcrumb.spec.ts:28-44
@@ -611,4 +611,4 @@ const invalidBreadcrumbItemProps: BreadcrumbItemProps = {
 
 ---
 
-*本篇代码引用核对于当前工作区实态：`packages/components/breadcrumb/src/breadcrumb.vue`（83 行）、`breadcrumb-item.vue`（155 行）、`context.ts`（12 行）、`breadcrumb.ts`（18 行）、`breadcrumb-item.ts`（11 行）、`__tests__/breadcrumb.spec.ts`（272 行）、`packages/components/steps/src/steps.vue`（144 行）、`step.vue`（231 行）、`packages/components/carousel/src/carousel.vue`（注册段 L848-892）、`carousel-item.vue`（注册段 L222-232）、`packages/theme/src/components/breadcrumb.css`（122 行）、`tests/types/fixtures/breadcrumb.ts`（63 行）。*
+*本篇代码引用核对于当前工作区实态：`packages/components/breadcrumb/src/breadcrumb.vue`（83 行）、`breadcrumb-item.vue`（154 行）、`context.ts`（11 行）、`breadcrumb.ts`（18 行）、`breadcrumb-item.ts`（11 行）、`__tests__/breadcrumb.spec.ts`（271 行）、`packages/components/steps/src/steps.vue`（143 行）、`step.vue`（230 行）、`packages/components/carousel/src/carousel.vue`（注册段 L848-892）、`carousel-item.vue`（注册段 L222-232）、`packages/theme/src/components/breadcrumb.css`（121 行）、`tests/types/fixtures/breadcrumb.ts`（62 行）。*

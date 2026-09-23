@@ -201,7 +201,7 @@ app.use(XyComponents)
 
 ### 4.1 输入端：manifest 驱动，文档缺了不炸
 
-文件开头先定基调（`scripts/generate-llm-files.mjs:1-18`）：
+文件开头先定基调（`scripts/generate-llm-files.mjs:1-19`）：
 
 ```js
 import fs from "node:fs";
@@ -985,7 +985,7 @@ Always call list_components first to see what's available, then get_component_ap
 
 `instructions` 是 MCP 协议里 initialize 握手就返回的字段——AI 工具一连接就能看到，**不需要先调用任何工具**。它的内容结构和 `llms.txt` 高度同构：命名约定、v-model 约定、图标格式，以及一段压缩版的选型偏好。这是刻意为之的双通道冗余：同一个"判断层"知识，静态通道（llms.txt）覆盖不配置 MCP 的 AI，协议通道（instructions）覆盖配置了的 AI。差别只在粒度——instructions 是 llms.txt 决策树的浓缩版，因为握手帧不宜太大。
 
-两处细节要对账。其一，末行 "Always call list_components first..." 是给 AI 的**调用顺序教学**——先看清单再取详情，避免 AI 盲猜组件名直接打 `get_component_api` 吃一身 `isError`。其二，又是尺寸口径：`Global sizes: "sm" | "md" | "lg"`，与 4.3 节的 TYPE_EXPANSIONS 同源同错，而 llms.txt 手写的是五档。手写层反而是三个载体里最接近真相的那个。其三，顺带记录一个已知漂移：`version: "0.1.0"`（`index.ts:15`）写死于源码，而 `packages/mcp-server/package.json:3` 的包版本已是 `0.1.1`（发版走 Changesets 自动 bump，Server 标识不会跟着变）。
+三处细节要对账。其一，末行 "Always call list_components first..." 是给 AI 的**调用顺序教学**——先看清单再取详情，避免 AI 盲猜组件名直接打 `get_component_api` 吃一身 `isError`。其二，又是尺寸口径：`Global sizes: "sm" | "md" | "lg"`，与 4.3 节的 TYPE_EXPANSIONS 同源同错，而 llms.txt 手写的是五档。手写层反而是三个载体里最接近真相的那个。其三，顺带记录一个已知漂移：`version: "0.1.0"`（`index.ts:15`）写死于源码，而 `packages/mcp-server/package.json:3` 的包版本已是 `0.1.1`（发版走 Changesets 自动 bump，Server 标识不会跟着变）。
 
 ### 5.3 三工具：list / get / search
 
@@ -1205,7 +1205,7 @@ sequenceDiagram
 
 ## 六、守卫：check-generated.mjs（175 行）与它的辖区边界
 
-这条链长期缺一块：`llms-full.txt` 是提交进仓库的生成物，文档表格改了而忘了重跑生成命令，仓库里就躺着一份对 AI 撒谎的参考层——**没有任何检查会发现它**。2026-09-16 这个缺口补上了：新增 `scripts/check-generated.mjs`（175 行），并在 `package.json` 挂了两条命令（`package.json:12-13`）：
+这条链长期缺一块：`llms-full.txt` 是提交进仓库的生成物，文档表格改了而忘了重跑生成命令，仓库里就躺着一份对 AI 撒谎的参考层——**没有任何检查会发现它**。这个缺口后来补上了：新增 `scripts/check-generated.mjs`（175 行，2026-09-23 随提交 `cc6d3b0` 入库），并在 `package.json` 挂了两条命令（`package.json:12-13`）：
 
 ```json
 "check:tokens": "node scripts/check-generated.mjs --name tokens --generate \"node scripts/generate-tokens.mjs\" --path packages/tokens/src",
@@ -1218,7 +1218,7 @@ sequenceDiagram
 "lint": "pnpm check:tokens && pnpm check:llms && pnpm check:components && pnpm check:pro-components && eslint .",
 ```
 
-生成物一致性检查排在 eslint 前面——生成物漂移是"仓库在撒谎"，比代码风格问题优先级更高。同一个脚本服务两条守卫（tokens 的 TS 常量层是 3-05 篇的主角），说明它被设计成通用机制而非一次性补丁。先看它的自我说明（`scripts/check-generated.mjs:2-16`），全文：
+生成物一致性检查排在 eslint 前面——生成物漂移是"仓库在撒谎"，比代码风格问题优先级更高。同一个脚本服务两条守卫（tokens 的 TS 常量层在 3-05 篇展开），说明它被设计成通用机制而非一次性补丁。先看它的自我说明（`scripts/check-generated.mjs:2-16`），全文：
 
 ```js
 /**

@@ -18,7 +18,7 @@ $ wc -l packages/components/affix/src/* packages/components/affix/__tests__/*.sp
 
 394 行的实现换来 272 行的测试，比例接近 0.7:1——对一个"看起来没几行逻辑"的组件来说这个投入相当重，原因只有一个：Affix 的全部风险都集中在**几何状态切换**上，切换早一帧晚一帧、占位差一像素、边界退让差一次 transform，用户都能直接看见。这类"视觉上零容错"的逻辑，只能靠测试钉死。
 
-按 5-02 立下的"类型层—视图层—逻辑层"解剖框架看，Affix 的类型层薄得出奇（`packages/components/affix/src/affix.ts:1-24` 全文）：
+按 4-03 立下的"类型层—视图层—逻辑层"解剖框架看，Affix 的类型层薄得出奇（`packages/components/affix/src/affix.ts:1-24` 全文）：
 
 ```ts
 // packages/components/affix/src/affix.ts:1-24（全文）
@@ -82,10 +82,10 @@ export type AffixInstance = InstanceType<typeof Affix>;
 </template>
 ```
 
-两层 DOM：外层 `rootRef` 是占位层，永远留在文档流里；内层是内容层，`fixed` 为真时挂上 `xy-affix--fixed` 修饰类并应用 `affixStyle`。占位与固定靠两个 computed 协同（`packages/components/affix/src/affix.vue:55-78`）：
+两层 DOM：外层 `rootRef` 是占位层，永远留在文档流里；内层是内容层，`fixed` 为真时挂上 `xy-affix--fixed` 修饰类并应用 `affixStyle`。占位与固定靠两个 computed 协同（`packages/components/affix/src/affix.vue:54-78`）：
 
 ```ts
-// packages/components/affix/src/affix.vue:55-78
+// packages/components/affix/src/affix.vue:54-78
 let resizeObserver: ResizeObserver | null = null;
 let removeScrollListener: (() => void) | null = null;
 
@@ -442,9 +442,9 @@ sequenceDiagram
     U->>D: await nextTick 后 measureRoot
     D-->>U: 新的 width / height / rect
     U->>R: 恢复 fixed = true（静默，不触发 change）
+    U->>R: suppressChangeEvent = false
     U->>D: await nextTick 后 update
     D-->>D: 按新尺寸重新锁占位并重算 fixed
-    U->>R: suppressChangeEvent = false
 ```
 
 ## 五、传送分支：固定态才搬家

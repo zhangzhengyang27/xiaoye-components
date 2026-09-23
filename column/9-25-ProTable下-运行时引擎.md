@@ -4,7 +4,7 @@
 
 接到题目先复述一遍目标，防止写偏：pro-table 的运行时要解决的业务场景，是"列表页每分钟都在发生的那几十次交互"——翻页、搜索、切视图、筛选、刷新、重置、导出、打印、拖行列、进出全屏。9-24 讲的配置模型回答的是"表格渲染什么"，本篇回答的是"这些交互背后组件替业务扛了什么"。基础层 8-09 给了 `xy-table` 的列模型与固定列，8-10 给了 `xy-pagination` 的页码窗口，但把"翻页 → 带参请求 → 落数据 → 防竞态"这条动线焊起来的事，基础层一件都没做——EP 对比在 9-02 已经立过：`el-table` 加 `el-pagination` 没有任何内建远程请求协议，竞态防护完全归业务自写。pro-table 的价值就在这层"运行时 glue"：把十条触发线汇进一个请求函数，把过期响应挡在数据之外，把导出打印拖拽全屏四个高频需求从"每个项目抄一遍社区代码"变成"各传一个配置项"。
 
-先交代体量，给全文一个标尺。`pro-table/src/pro-table.vue` 全文 1779 行——脚本段 1-1501、模板段 1503-1779，是整个增强层体量第一的源文件；`src/pro-table.ts` 382 行（9-24 已拆列类型，本篇只取运行时相关的 `ProTableRequestConfig`/`ProTableExportOptions`/`ProTablePrintOptions`）；测试两份共 897 行——`__tests__/pro-table.spec.ts` 822 行十个用例、`__tests__/pro-table-drag.spec.ts` 75 行一个用例；文档示例八个，本篇主要引 `workbench-request.vue`（131 行）。脚本段里与本篇直接相关的行号地图先钉在这里，后文逐段展开：
+先交代体量，给全文一个标尺。`pro-table/src/pro-table.vue` 全文 1779 行——脚本段 1-1501、模板段 1503-1779，是整个增强层体量第一的源文件；`src/pro-table.ts` 381 行（9-24 已拆列类型，本篇只取运行时相关的 `ProTableRequestConfig`/`ProTableExportOptions`/`ProTablePrintOptions`）；测试两份共 897 行——`__tests__/pro-table.spec.ts` 822 行十个用例、`__tests__/pro-table-drag.spec.ts` 75 行一个用例；文档示例八个，本篇主要引 `workbench-request.vue`（131 行）。脚本段里与本篇直接相关的行号地图先钉在这里，后文逐段展开：
 
 - 运行时句柄声明区：`rowSortable`/`columnSortable`/`latestRequestId` 三个 `let`，225-227；
 - 竞态防护：`buildRequestParams` 862-869、`requestReload` 871-907（令牌递增在 876，三处守卫在 888/896/903）、`reload`/`refresh`/`reset` 909-934；
@@ -911,7 +911,7 @@ const resolvedWorkbench = computed(() => ({
         </xy-button>
 ```
 
-本篇四大引擎的入口全部在这十四行里：刷新（`handleRefresh` 936-939 行，先发 `workbench-action` 事件再调 `refresh()`）、导出（`handleExport()` 无参调用，类型走 `defaultType ?? "csv"`）、打印、全屏。树展开/收起两个按钮还叠了第二重条件 `tableRef?.bodyRows?.length`——没有数据时按钮自动消失，这是配置消费层的"运行时事实"参与渲染决策。
+本篇四大引擎的入口全部在这段二十四行的工具条里：刷新（`handleRefresh` 936-939 行，先发 `workbench-action` 事件再调 `refresh()`）、导出（`handleExport()` 无参调用，类型走 `defaultType ?? "csv"`）、打印、全屏。树展开/收起两个按钮还叠了第二重条件 `tableRef?.bodyRows?.length`——没有数据时按钮自动消失，这是配置消费层的"运行时事实"参与渲染决策。
 
 最后看空态代理。模板 1697-1702 行是 pro-table 对基础层 xy-table 两个插槽的转发：
 
@@ -988,7 +988,7 @@ packages/pro-components/package.json                        56（sortablejs depe
 package.json                                                83（xlsx 仅根 devDependencies）
 packages/theme/src/pro/pro-table.css                        1-6 / 8-17（is-fullscreen）/ 147
 packages/xiaoye-primitives/src/composables/use-namespace.ts 8（is() 前缀规则）
-packages/pro-components/pro-table/index.ts                  1-14（全文）
+packages/pro-components/pro-table/index.ts                  1-14（15-17 的 XyProTable 导出与 default export 从略）
 packages/pro-components/exports.ts                          14
 packages/pro-components/component-manifest.json             107-112
 【测试】

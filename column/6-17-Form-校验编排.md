@@ -712,7 +712,7 @@ xiaoye 的实现有一个真实的薄弱点：**v-if 动态增删字段的场景
 
 ## 十一、2026-09-16 修复展开：size: undefined 为什么是编排的一部分
 
-最后回到 4-08 埋的那个线头。先交代实态：这次修复目前**只存在于工作区**——`git status` 显示 form.vue 是未提交的修改（最近一次提交 dc9ca28，2026-09-14，该文件里 `size` 仍是 `"md"`），工作区实态即修复后形态。diff 只有一处实质变化：
+最后回到 4-08 埋的那个线头。先交代实态：这次修复已随提交 f7f69d2（2026-09-23「fix: 重放 2026-09-16 修复战役」）入库，当前 `git status` 中 form/ 目录是干净的。修复前版本可用 `git show dc9ca28:packages/components/form/src/form.vue` 复核——dc9ca28（2026-09-14）时该文件里 `size` 仍是 `"md"`。那次提交到本次修复的 diff 只有一处实质变化：
 
 ```diff
 --- a/packages/components/form/src/form.vue
@@ -748,4 +748,4 @@ form 的校验编排，可以收拢成三笔账。
 
 ---
 
-*本篇代码引用核对于当前工作区实态：`packages/components/form/src/form.vue`（133 行，size 修复为未提交工作区改动）、`src/form-item.vue`（214 行）、`src/context.ts`（64 行）、`src/utils.ts`（62 行）、`packages/components/form/index.ts`（14 行）、`packages/components/form/__tests__/form.spec.ts`（120 行 3 用例）、`tests/types/fixtures/form.ts`（23 行）、`apps/docs/examples/form/`（basic/inline/methods/nested 四例）、`packages/components/input/__tests__/input.spec.ts`（168-205、208-230）、`packages/components/package.json`（61 行）、`scripts/config/library-build.ts`（15-33）。EP 侧事实口径为 element-plus dev 分支源码（form.vue 301 行、form-item.vue 462 行）及 pnpm-lock 中 async-validator@4.2.5 的共享版本。*
+*本篇代码引用核对于当前工作区实态：`packages/components/form/src/form.vue`（133 行，size 修复已随 f7f69d2 入库）、`src/form-item.vue`（214 行）、`src/context.ts`（64 行）、`src/utils.ts`（62 行）、`packages/components/form/index.ts`（14 行）、`packages/components/form/__tests__/form.spec.ts`（120 行 3 用例）、`tests/types/fixtures/form.ts`（23 行）、`apps/docs/examples/form/`（basic/inline/methods/nested 四例）、`packages/components/input/__tests__/input.spec.ts`（168-205、208-230）、`packages/components/package.json`（61 行）、`scripts/config/library-build.ts`（15-33）。EP 侧事实口径为 element-plus dev 分支源码（form.vue 301 行、form-item.vue 462 行）及 pnpm-lock 中 async-validator@4.2.5 的共享版本。*

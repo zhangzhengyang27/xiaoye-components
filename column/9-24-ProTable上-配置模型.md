@@ -2,7 +2,7 @@
 
 > 本篇是 9 卷"增强层（pro-components）"的第二十四篇，也是整个专栏第一次拆两篇讲一个组件。8-09 拆过基础层的 `xy-table`——列模型与固定列；9 卷随后把表单（9-04/9-05）、筛选（9-12）、页面骨架（9-13/9-21/9-22）逐层讲完，现在终于抵达这条产品线的终点站：`XyProTable`。它的体量与复杂度都撑得起两篇的篇幅，于是按"声明面与执行面"切开：本篇讲**配置模型**——类型层与声明面，回答核心问题"一份列配置如何声明 14 种渲染与编辑器"；下一篇 9-25《ProTable（下）：运行时引擎》讲执行面——请求竞态、导出打印、行与列拖拽、全屏这些"跑起来之后"的工程。本篇全部给实码定论。
 
-接到题目先复述一遍目标，防止写偏：ProTable 要解决的业务场景，是中后台列表页的"一次声明、全家桶到位"。基础层给了 `xy-table` 的列渲染、排序、筛选、固定列（8-09），增强层给了 `xy-search-form` 的查询横条（9-04）、`xy-table-filter-drawer` 的筛选抽屉（9-12）、`xy-saved-view-tabs` 的保存视图，但这些积木拼一个标准列表页仍要业务自己接线：搜索词变了要重查、页码变了要重查、筛选应用了要重查、工具栏八个按钮要自己排布。ProTable 把这组接线收进一个组件，而它的配置面有大小两端：**大端**是 `columns`——一份列数组，一个字段声明四种渲染逃生口与一组编辑器字段；**小端**是 `toolbar`/`request`/`views`/`editable` 这些横切配置——每个都是一张小接口。本篇按"体量 → 列配置字段账 → valueType 14 词的来龙去脉 → 编辑器声明形态 → 逃生口层次 → 横切配置面 → 列树纯函数 → 类型出口与测试"这条主线走。
+接到题目先复述一遍目标，防止写偏：ProTable 要解决的业务场景，是中后台列表页的"一次声明、全家桶到位"。基础层给了 `xy-table` 的列渲染、排序、筛选、固定列（8-09），增强层给了 `xy-search-form` 的查询横条（9-04）、`xy-table-filter-drawer` 的筛选抽屉（9-28）、`xy-saved-view-tabs` 的保存视图，但这些积木拼一个标准列表页仍要业务自己接线：搜索词变了要重查、页码变了要重查、筛选应用了要重查、工具栏八个按钮要自己排布。ProTable 把这组接线收进一个组件，而它的配置面有大小两端：**大端**是 `columns`——一份列数组，一个字段声明四种渲染逃生口与一组编辑器字段；**小端**是 `toolbar`/`request`/`views`/`editable` 这些横切配置——每个都是一张小接口。本篇按"体量 → 列配置字段账 → valueType 14 词的来龙去脉 → 编辑器声明形态 → 逃生口层次 → 横切配置面 → 列树纯函数 → 类型出口与测试"这条主线走。
 
 先交代体量，给全文一个标尺：`pro-table` 组件目录三个文件——`src/pro-table.ts` 381 行（纯类型加六个列树纯函数）、`src/pro-table.vue` 1779 行（脚本段至 1501 行、模板段 1503-1779 共 277 行）、`index.ts` 装配入口；测试两份共 897 行——`__tests__/pro-table.spec.ts` 822 行（十个用例）、`__tests__/pro-table-drag.spec.ts` 75 行；文档示例八个（`apps/docs/examples/pro/pro-table/` 下的 basic、display-value-types、editable-row、toolbar-search、workbench-request、contextmenu-selection、states、virtual-list）。这是增强层最重的组件，没有之一——9-22 引过"顶层组件的价值不在渲染，在编排"，而 pro-table 正是那句判断的证据原点。
 
@@ -85,7 +85,7 @@ export interface TableColumnProps<T = Record<string, unknown>> {
       );
 ```
 
-十个 `undefined`，正是 schema 层十个增强字段（`key`、`slot`、`headerSlot`、`hidden`、`editor`、`editorProps`、`editorSlot`、`options`、`editable`、`exportable`、`printable`——`valueType`/`formatter`/`render`/`renderHTML`/`emptyValue` 不在剥离清单里，因为它们不走这条路，见下节）。这份剥离清单本身就是配置模型的自白：**哪些字段在翻译时被抹掉，哪些字段就属于"纯声明字段"，它们的生命周期只存在于 pro 层**。
+十一个 `undefined`，对应 schema 层十一个增强字段（`children`、`slot`、`headerSlot`、`editor`、`editorProps`、`editorSlot`、`options`、`hidden`、`editable`、`exportable`、`printable`——`valueType`/`formatter`/`render`/`renderHTML`/`emptyValue` 不在剥离清单里，因为它们不走这条路，见下节）。这份剥离清单本身就是配置模型的自白：**哪些字段在翻译时被抹掉，哪些字段就属于"纯声明字段"，它们的生命周期只存在于 pro 层**。
 
 ## 二、列配置的字段账：一个接口，四种身份
 
@@ -162,7 +162,7 @@ export interface ProTableColumn<T = ProTableRow> extends TableColumnProps<T> {
 这里有一处签名错位值得单独考据，它暴露了配置模型的血缘。对比三个 `formatter`：
 
 - `ProTableColumn.formatter`（`pro-table.ts:124-129`）：`(row, column, value, rowIndex) => unknown`；
-- 基础层 `TableColumnProps.formatter`（`table.ts:259`）：`(row, T, column, value, rowIndex) => unknown`——**同一个签名**；
+- 基础层 `TableColumnProps.formatter`（`table.ts:259`）：`(row, column, value, rowIndex) => unknown`——**同一个签名**；
 - 协议层 `ProFieldSchema.formatter`（`core.ts:113`，类型别名 `ProDisplayFormatter` 在 `core.ts:62-65`）：`(value, context) => unknown`——**参数序完全不同**。
 
 同一个"格式化"概念，在 table 血统的接口里是 EP 式四参（行在前、值在后），在 field-schema 血统的接口里是 context 式两参（值在前、上下文对象在后）。这不是失误，是两条类型谱系各自保持内部自洽的结果：ProTableColumn 的 formatter 会被原样传给基础层渲染管道（`display-renderer.ts:27` 的 `DisplayColumnLike.formatter` 也是四参），它必须和 EP 传统对齐；而 field-schema 服务的是表单与详情，遵循 9-03 立的 `ProDisplayRenderContext` 协议。9-02 在清单层面指出过这次复制，本篇把结论补全：**pro-table 没有把 field-schema 的 formatter 协议带进列配置，列配置的 formatter 是 EP 血统的**——一份列配置声明 14 种渲染时，写 formatter 的手要按 table 的习惯，写 render 的手却要按 context 对象的习惯（`render` 的参数是 `(value, context)`，`pro-table.ts:130-137`），两种参数哲学在同一接口里共存，这是使用这层配置时最需要留神的一处签名陷阱。
@@ -548,7 +548,7 @@ flowchart LR
 
 读这张图注意两个"声明了但由运行时兜底"的位置：`signal` 成员在 ctx 协议里存在（`core.ts:18`），但 `createProRequestContext` 的调用点从未传过它——取消靠右下角的版本号比对而非 AbortController，这个错位 9-25 拆；`action` 词表没有类型约束（`action: string`），词表纪律靠调用点自觉。返回值协议 `ProRequestResult`（`core.ts:11`）允许裸数组或 `{ data, total, extra }` 对象，`normalizeProRequestResult`（`request-utils.ts:3-17`）统一成后者并把裸数组的 total 定为长度——**分页语义由此分岔**：裸数组模式 total 恒等于当前页行数，前后端分页必须返回对象形态。这张协议表 9-04 从 SearchForm 的视角引过 862-869 的合流点、9-12 从筛选的视角引过 views 配置（`pro-table.ts:177-185`：`searchModel`/`searchFields` 流向横条 `pro-table.vue:1621-1631`，`filterModel`/`filterFields` 流向抽屉 `pro-table.vue:1769-1777`），本篇补上它的全貌：**request 配置是搜索（9-04）、筛选（9-12）、保存视图三者与远程数据源的合流枢纽，views 配置则是这三者的声明容器**。
 
-**第三张：editable 配置**。`pro-table.ts:196-202` 的 `ProTableEditableConfig` 五字段（`enabled`/`mode`/`trigger`/`autoSave`/`canEditRow`），`mode` 三态 `table`/`row`/`cell`（`pro-table.ts:25`）对应"整表编辑/行编辑/单元格编辑"三种编辑粒度，`trigger` 三态 `click`/`dblclick`/`manual` 对应触发方式。与列级 `editable` 的与门关系上一节已述；`mode` 的消费在 `pro-table.vue:501-521` 的 `shouldShowEditor`（table 态看 `tableEditing`、row 态看行键集合、cell 态看 `rowKey:columnKey` 复合键），草稿缓冲 `editDrafts`（`pro-table.vue:216` 的 shallowRef Map）与提交/取消的收口（567-712 行）归 9-25 的运行时篇。五个字段里 `autoSave` 要如实标注：全仓搜索（源码、测试、示例）它零出现——声明了"编辑后自动提交"的意图，运行时没有任何一行消费它，编辑提交统一走 `submitEdit` 显式收口。它与上一节的 `ProTableEditorSchema` 同类：**配置模型上"先声明、后落地"的第二个未接线字段**，9-25 讲提交收口时会再次遇到它。
+**第三张：editable 配置**。`pro-table.ts:196-202` 的 `ProTableEditableConfig` 五字段（`enabled`/`mode`/`trigger`/`autoSave`/`canEditRow`），`mode` 三态 `table`/`row`/`cell`（`pro-table.ts:25`）对应"整表编辑/行编辑/单元格编辑"三种编辑粒度，`trigger` 三态 `click`/`dblclick`/`manual` 对应触发方式。与列级 `editable` 的与门关系上一节已述；`mode` 的消费在 `pro-table.vue:501-521` 的 `shouldShowEditor`（table 态看 `tableEditing`、row 态看行键集合、cell 态看 `rowKey:columnKey` 复合键），草稿缓冲 `editDrafts`（`pro-table.vue:216` 的 shallowRef Map）与提交/取消的收口（567-712 行），收口实现见 `pro-table.vue` 对应段（本系列不展开）。五个字段里 `autoSave` 要如实标注：全仓搜索（源码、测试、示例）它零消费——声明了"编辑后自动提交"的意图，运行时没有任何一行消费它，编辑提交统一走 `submitEdit` 显式收口。它与上一节的 `ProTableEditorSchema` 同类：**配置模型上"先声明、后落地"的第二个未接线字段**，提交收口的实现细节本系列不展开，可直接读 `pro-table.vue:567-712`。
 
 三张小接口的共同点是**声明量与推导量的配比**：动作组纯声明零推导、workbench 半声明半推导、request/views 声明一次推导处处（合流、分页、重查时机全部自动）。这构成配置模型的第三个层次：列配置是"每列一份"，横切配置是"每表一份"，而推导规则是两者之间的传导层。request 配置的消费端写法，看文档示例 `workbench-request.vue:39-72` 的完整声明：
 
@@ -707,7 +707,7 @@ export function applyColumnFixed<T = ProTableRow>(
 
 ## 八、类型出口与测试钉：配置模型的公开面与契约
 
-最后一节交代配置模型的公开面。`ProTableColumn`/`ProTableInstance`/`ProTableProps` 三个类型经 `packages/pro-components/index.ts:59-63` 抬进包根，其余十余个类型（`ProTableToolbarAction`、`ProTableBatchAction`、`ProTableEditorSchema`、`ProTableDisplayOption` 等）全部留在子入口 `packages/pro-components/pro-table/index.ts`——9-01 的双重守卫（`scripts/check-pro-components.mjs` 的根入口白名单 + `tests/types/fixtures/pro-root-boundary.ts` 的降级断言）持续看守这条边界。对使用方的实际含义：写列配置时 `import type { ProTableColumn } from "xiaoye-pro-components"` 一步可达；写工具栏动作类型时要下探到子入口——动作接口被留在子入口与"动作由业务消费"的定位一致，但也意味着业务侧的事件处理器类型要么靠 `Parameters<typeof handler>` 反推、要么加一次子入口 import。
+最后一节交代配置模型的公开面。`ProTableColumn`/`ProTableInstance`/`ProTableProps` 三个类型经 `packages/pro-components/index.ts:59-63` 抬进包根，其余十余个类型（`ProTableToolbarAction`、`ProTableBatchAction`、`ProTableEditorSchema`、`ProTableDisplayOption` 等）留在源码层 `src/pro-table.ts` 中，未从包入口导出——子入口 `packages/pro-components/pro-table/index.ts` 仅 17 行，只导出 `ProTableColumn`/`ProTableInstance`/`ProTableProps` 三个主类型，包 `exports` 也没有该子路径——9-01 的双重守卫（`scripts/check-pro-components.mjs` 的根入口白名单 + `tests/types/fixtures/pro-root-boundary.ts` 的降级断言）持续看守这条边界。对使用方的实际含义：写列配置时 `import type { ProTableColumn } from "xiaoye-pro-components"` 一步可达；写工具栏动作类型时要下探到子入口——动作接口不进包入口与"动作由业务消费"的定位一致，但也意味着业务侧的事件处理器类型要么靠 `Parameters<typeof handler>` 反推、要么向上游提需求或就地内联。
 
 配置契约的钉子在测试里。`pro-table.spec.ts:171-268` 的显示协议用例一份 columns 声明了十种形态（valueType 的 select/tag/progress/money/datetime/copy 六词、formatter、render、renderHTML、emptyValue），断言逐条钉住渲染结果（状态点 `xy-display-value__status-dot.is-success`、金额 `¥128,000.50`、日期 `2026/04/18`、复制按钮 `xy-text__action`）——这份测试就是"14 词声明面"的活文档，摘录其列定义主干：
 
@@ -776,4 +776,4 @@ export function applyColumnFixed<T = ProTableRow>(
 
 收束本篇。回到核心问题——一份列配置如何声明 14 种渲染与编辑器？答案是三个层次的叠加：**词表层**，`valueType` 的 14 个词逐字内联成一个冻结的展示词表，由基础层 `renderDisplayValue` 的 switch 硬编码消费，pro-table 的展示通道直插基础层、绕开 field-schema 展示法域，因为列没有 component 字段、无需反推求值；**逃生口层**，`slot`/`formatter`/`render`/`renderHTML`/`emptyValue` 五级放行按"editor 态 > slot > render > renderHTML > valueType"的静默优先级链判定，`hidden` 在更上游整列退场；**编辑器层**，`editable`/`editor`/`editorProps`/`editorSlot` 四字段以"两套词表显式桥"的方案与展示词表正交分离，`editor` 引用 23 词编辑词表而 `valueType` 内联 14 词展示词表，分界线是词表的演进频率。三处权衡各记一笔账：内联复制用双事实源换零跳转提示、分离词表用声明长度换正交自由、静默逃生口用无警告换零配置成本——三笔都是灵活性的定价。
 
-而这份配置模型只是 ProTable 的上半场。`columns` 声明完，真正的重活才开始：`requestReload` 的 `latestRequestId` 竞态比对如何让过期响应作废、导出如何动态 import xlsx 生成 Excel、SortableJS 如何接管行与列的拖拽、全屏 API 的异常回退怎么写、列设置面板与内部列副本如何双向同步——这些运行时引擎的零件都在 `pro-table.vue` 的 1779 行里等下一篇。下一篇 9-25《ProTable（下）：运行时引擎》，回到本篇那张解析流的下半段，把"跑起来之后"的五个硬骨头逐一拆开。
+而这份配置模型只是 ProTable 的上半场。`columns` 声明完，真正的重活才开始：`requestReload` 的 `latestRequestId` 竞态比对如何让过期响应作废、导出如何动态 import xlsx 生成 Excel、SortableJS 如何接管行与列的拖拽、全屏 API 的异常回退怎么写——请求竞态防护、导出打印、拖拽与全屏这些运行时引擎的零件都在 `pro-table.vue` 的 1779 行里等下一篇。下一篇 9-25《ProTable（下）：运行时引擎》，回到本篇那张解析流的下半段，把"跑起来之后"的四个硬骨头逐一拆开。

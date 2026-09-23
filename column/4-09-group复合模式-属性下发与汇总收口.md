@@ -46,7 +46,7 @@
 
 还有个容易误判的 `timeline`：它的 timeline-group（`packages/components/timeline/src/timeline-group.vue:38-45`）用的是 `useSlots()` + `flattenTimelineChildren` 遍历 vnode 的"渲染函数"模式——不是注册模式，也不走 provide 协议给 item 下发模型，而是父组件直接**代渲染**子项 vnode。这就是考据里说的"timeline 非注册模式"。它恰好是本篇的反面参照：同样要父管子，timeline 选择了"父渲染子"，而 radio-group 选择了"父只立规矩，子自己渲染"。
 
-三种形态一张图看全：
+四种形态一张图看全：
 
 ```mermaid
 flowchart LR
@@ -67,12 +67,12 @@ flowchart LR
 
 注意一个关键事实：**radio-group 和 checkbox-group 的模板里也有渲染子项的代码**（`radio-group.vue:138-169` 的 options fallback）。所以"不渲染子项"这个说法要精确化：group 不维护子项实例注册表、不感知子项数量与身份，它的**协调协议**与子项的**来源方式**完全解耦——你用默认插槽手写 `<xy-radio>` 也好，用 `options` 属性让它批量渲染也罢，协议都一模一样。group 的身份是"立规矩的人"，不是"点名的人"。这是本篇第一个要点，后面第 7 节还会回到这里。
 
-## 二、协议层：一个 18 行的 context.ts 定一切
+## 二、协议层：一个 17 行的 context.ts 定一切
 
 group 模式的第一块拼图不是 .vue 文件，而是协议定义。`packages/components/radio/src/context.ts` 全文如下：
 
 ```typescript
-// packages/components/radio/src/context.ts:1-18
+// packages/components/radio/src/context.ts:1-17
 import type { ComputedRef, InjectionKey, Ref } from "vue";
 import type { ComponentSize } from "xiaoye-primitives";
 import type { RadioValue } from "./radio";
@@ -119,7 +119,7 @@ export interface CheckboxGroupContext {
 }
 ```
 
-多选场景特有的 `min`/`max`（"最少选几个、最多选几个"）作为协议成员下发，而不是让每个 checkbox 各自读 group 的 props——因为子组件通过 inject 拿到的是上下文对象，不应该反向依赖 group 的 props 类型。这就是协议层的全部：**18 行代码定义了父与子之间的一切合同**。
+多选场景特有的 `min`/`max`（"最少选几个、最多选几个"）作为协议成员下发，而不是让每个 checkbox 各自读 group 的 props——因为子组件通过 inject 拿到的是上下文对象，不应该反向依赖 group 的 props 类型。这就是协议层的全部：**17 行代码定义了父与子之间的一切合同**。
 
 ## 三、provide 端：radio-group 的三件事
 
@@ -278,7 +278,7 @@ provide(radioGroupContextKey, {
 
 ## 四、inject 消费端：radio 的自治/受管双模
 
-协议的另一端是 `radio.vue`。这个 109 行的组件同时服务两种身份：**单独使用时自治**（自己管 modelValue、自己 emit、自己触发校验），**放进 group 时受管**（值看 group 的、变更委托 group 的）。双模切换的开关只有一处——第 28 行：
+协议的另一端是 `radio.vue`。这个 108 行的组件同时服务两种身份：**单独使用时自治**（自己管 modelValue、自己 emit、自己触发校验），**放进 group 时受管**（值看 group 的、变更委托 group 的）。双模切换的开关只有一处——第 28 行：
 
 ```vue
 <!-- packages/components/radio/src/radio.vue:26-49 -->
@@ -415,7 +415,7 @@ sequenceDiagram
 
 ## 五、对照组一：checkbox-group，同一个协议的多选变奏
 
-checkbox-group（`packages/components/checkbox/src/checkbox-group.vue`，132 行）与 radio-group 的骨架几乎逐行同构——连那句"必须在 group 层插 form 兜底"的注释都在相同位置（第 38-39 行）。真正的差异全部集中在 `changeValue`：
+checkbox-group（`packages/components/checkbox/src/checkbox-group.vue`，131 行）与 radio-group 的骨架几乎逐行同构——连那句"必须在 group 层插 form 兜底"的注释都在相同位置（第 38-39 行）。真正的差异全部集中在 `changeValue`：
 
 ```vue
 <!-- packages/components/checkbox/src/checkbox-group.vue:55-95 -->
@@ -502,10 +502,10 @@ const limitDisabled = computed(() => {
 
 ## 六、对照组二：button-group，无模型的"半程 group"
 
-`button-group.vue` 全文 24 行，是三个 group 里最短的一个，值得整篇贴出：
+`button-group.vue` 全文 23 行，是三个 group 里最短的一个，值得整篇贴出：
 
 ```vue
-<!-- packages/components/button/src/button-group.vue:1-24 -->
+<!-- packages/components/button/src/button-group.vue:1-23 -->
 <script setup lang="ts">
 import { provide, toRef } from "vue";
 import { useNamespace } from "xiaoye-primitives";
@@ -596,7 +596,7 @@ const resolvedType = computed<ButtonType>(
 | 模式 | 机制 | 本仓库实例 | 代价 |
 | --- | --- | --- | --- |
 | 注册模式 | 子组件 `onMounted` 时把自己注册进父的数组 | 本仓库 group 系**不使用** | 要维护注册/注销时序；子项顺序依赖挂载顺序；`v-if`/异步组件要额外兜底 |
-| 父渲染子 | 父遍历 slot vnode，clone/代渲染 | `timeline`（`timeline-group.vue:38-45` + `render.ts:13` 的 `flattenTimelineChildren`） | 父侵入子的渲染；子 vnode 结构变化（包层 wrapper）就要适配 |
+| 父渲染子 | 父遍历 slot vnode，clone/代渲染 | `timeline`（`timeline-group.vue:38-45` + `render.ts:12` 的 `flattenTimelineChildren`） | 父侵入子的渲染；子 vnode 结构变化（包层 wrapper）就要适配 |
 | provide 协议 | 父 provide 上下文，子 inject | `radio-group` / `checkbox-group` / `button-group` | 需要子组件主动配合（写 inject 分支） |
 
 group 系选了第三条路，而且回到第 1 节的精确化表述：**radio/checkbox-group 是"provide 协议、不注册实例"的模式**——
@@ -713,10 +713,10 @@ describe("XyRadio form size 级联", () => {
 
 **多选数组语义**（`checkbox.spec.ts:96-127` 与 `165-200`）：勾选第二个后 `values` 变 `["sdk"]`、`change` 载荷是**整个新数组**；min/max 用例验证"取消到 min 以下被吞、勾到 max 以上被吞、已选值不受牵连"——数组归并的三条裁决边界。
 
-类型侧的守卫在 `tests/types/fixtures/radio.ts`，全文 53 行：
+类型侧的守卫在 `tests/types/fixtures/radio.ts`，全文 52 行：
 
 ```typescript
-// tests/types/fixtures/radio.ts:1-53
+// tests/types/fixtures/radio.ts:1-52
 import type { RadioButtonProps, RadioGroupProps, RadioProps, RadioValue } from "xiaoye-components";
 
 const modelValue: RadioValue = "prod";

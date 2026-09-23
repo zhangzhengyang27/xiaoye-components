@@ -6,7 +6,7 @@
 
 这一篇换个身份：拿着 `packages/components/message/src/method.ts` 从第一行读到第六百七十二行，逐段追问同一个问题——**这 672 行里，每一段在防什么？** 正常路径（参数合法、上限未满、关闭顺利）从来不需要防御性代码；一行防御代码背后必有一个具体的线上事故。读完你会发现，这 672 行没有一行是"正常路径的装饰"，每一段都是某次翻车的事后补墙。
 
-与 4-11 的分工先说清楚：4-11 已全文引用过的段落（normalizeOptions 的三步骨架、grouping 合并分支、max 守卫五行、createMessage 全貌、beforeClose 实现、closeAll 的浅拷贝遍历），本篇只回指不重复；本篇新增四个 4-11 没有展开的角度——**六个 close reason 的完整状态转移**、**WeakMap seed 的取号系统**、**beforeClose 的拦截协议**、**applyMessagePatch 的字段白名单**。另外本篇做两处考据订正：4-11 有两句叙述与源码实态有出入，第七、八节会点名。
+与 4-11 的分工先说清楚：4-11 已全文引用过的段落（normalizeOptions 的三步骨架、grouping 合并分支、max 守卫五行、createMessage 全貌、beforeClose 实现、closeAll 的浅拷贝遍历），本篇只回指不重复；本篇新增四个 4-11 没有展开的角度——**六个 close reason 的完整状态转移**、**WeakMap seed 的取号系统**、**beforeClose 的拦截协议**、**applyMessagePatch 的字段白名单**。另外本篇做两处考据订正：4-11 有两句叙述与源码实态有出入，第六、七节会点名。
 
 先给整份文件的布防图。method.ts 的 672 行可以切成十五段，每段有明确的防御对象：
 

@@ -41,7 +41,7 @@
 
 ```mermaid
 flowchart TB
-    subgraph Comp["组件式形态：业务模板里写 <xy-dialog v-model>"]
+    subgraph Comp["组件式形态：业务模板里写 &lt;xy-dialog v-model&gt;"]
         A["业务组件"] -->|"v-model / ref 实例方法"| B["XyDialog（dialog.vue，234 行）"]
     end
 
@@ -57,7 +57,7 @@ flowchart TB
 
 服务式的全部"渲染"最终都落回同一个 `XyDialog` 组件——容器只是给这份组件预拌了一层 props。这个共享结构是本篇第一个设计权衡的主角，放在第五节展开。先把组件式的骨架读完。
 
-## 二、类型层：44 个 prop 与四值关闭原因
+## 二、类型层：41 个 prop 与四值关闭原因
 
 类型层入口是 `dialog.ts`。全库组件的关闭原因语义里，dialog 的这组枚举是最成体系的：
 
@@ -81,7 +81,7 @@ export type DialogResizeHandler = (
 
 四值 `DialogCloseReason` 把"怎么关的"类型化了：`close` 是点关闭按钮、`backdrop` 是点遮罩、`escape` 是按 Esc、`programmatic` 是程序调用。这个四值枚举是组件层的关闭语义，后面会看到它如何经 `mapCloseReasonToServiceAction` 咬合进服务层的六值 action 体系（`dialog-service.ts:5-11`，多出 `confirm`/`cancel` 两个业务动作）。而 `DialogBeforeCloseFn` 的签名——`done` 回调加 `reason` 参数——是全篇第三个设计权衡的协议本体，第四节细读。
 
-然后是 Props 接口全文（`dialog.ts:32-74`，44 个字段）。它值得整段读，因为每一个字段名都对应一个下文会反复出现的机制：
+然后是 Props 接口全文（`dialog.ts:32-74`，41 个字段）。它值得整段读，因为每一个字段名都对应一个下文会反复出现的机制：
 
 ```ts
 // packages/components/dialog/src/dialog.ts L32-74
@@ -1074,7 +1074,7 @@ sequenceDiagram
 
 ## 七、测试全貌：1107 行铺出的安全网
 
-`dialog.spec.ts` 共 1107 行、24 个用例，按被测对象分四组：组件基础（渲染/插槽/aria/挂载点/销毁/延迟）、交互判定（遮罩/Esc/beforeClose）、增强能力（拖拽/缩放/全屏/sticky/loading/嵌套/自定义 transition）、服务层（队列/alert/confirm/prompt/closeAll/配置继承）。本篇挑与判定链直接相关的几段全文读掉。
+`dialog.spec.ts` 共 1107 行、29 个用例，按被测对象分四组：组件基础（渲染/插槽/aria/挂载点/销毁/延迟）、交互判定（遮罩/Esc/beforeClose）、增强能力（拖拽/缩放/全屏/sticky/loading/嵌套/自定义 transition）、服务层（队列/alert/confirm/prompt/closeAll/配置继承）。本篇挑与判定链直接相关的几段全文读掉。
 
 遮罩点击的两连测试（`dialog.spec.ts:203-232` 与 `234-264`，后者 4-12 引过）合起来覆盖了判定链的两端：
 
@@ -1206,7 +1206,7 @@ sequenceDiagram
 
 用例直接 import 了 `service-state` 的内部函数（`requestCloseDialogServiceEntry`/`finishDialogServiceEntry`），等于承认了"状态机是公开的测试面"——比纯黑盒更精确地钉住两段式关闭的每一拍。closeAll 的断言（`dialog.spec.ts:1028-1053`，4-12 引过）验证 current 置 null、queue 清空、两个 result 都以 `programmatic` resolve。
 
-类型夹具 `tests/types/fixtures/dialog.ts`（213 行）则把公开类型面完整过了一遍——从 `DialogProps` 的 44 个字段赋值、`DialogGlobalConfig`、三个服务 options 类型，到 handle 的 `close`/`update`/`result` 消费，再到五个 `@ts-expect-error` 反例（`width: true`、`transition: 1`、`closeIcon: 1`、`bodyMaxHeight: false`、`inputType: "number"`）。服务 options 的一段值得看：
+类型夹具 `tests/types/fixtures/dialog.ts`（213 行）则把公开类型面完整过了一遍——从 `DialogProps` 的 41 个字段赋值、`DialogGlobalConfig`、三个服务 options 类型，到 handle 的 `close`/`update`/`result` 消费，再到五个 `@ts-expect-error` 反例（`width: true`、`transition: 1`、`closeIcon: 1`、`bodyMaxHeight: false`、`inputType: "number"`）。服务 options 的一段值得看：
 
 ```ts
 // tests/types/fixtures/dialog.ts L113-136

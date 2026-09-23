@@ -137,7 +137,7 @@ theme 和 tokens 的 `package.json` 短到可以直接全文引用。
 
 tokens 同理：它的 TS 常量层（`packages/tokens/src/index.ts` 转出 `primitives.ts`、`semantic.ts`、`scales.ts` 三个模块）是从 tokens.css 生成的，根 `package.json:14` 的 `generate:tokens` 负责生成、`package.json:12` 的 `check:tokens` 负责校验"生成物没有漂移"。**private 包 + 生成物 + 校验脚本**，这构成了第四卷令牌体系的工程底座，此处按下不表。
 
-## 四、mcp-server：第六种形态
+## 四、mcp-server：第六个包，一种全新的形态
 
 第六个包 `packages/mcp-server` 是另一种极端：它面向的不是浏览器里的 Vue 应用，而是 AI 工具链。它的关键配置在 `packages/mcp-server/package.json:14-23`：
 

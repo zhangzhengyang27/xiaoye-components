@@ -19,7 +19,7 @@
 
 注意这个顺序约定：`build:primitives` 先行（L25），然后 `build:lib:base`（L26）与 `build:lib:pro`（L27）。base 和 pro 两条线的模式完全一致——**先 `vite build`，紧接着 `node scripts/prepare-package.mjs <base|pro>`**。用 `&&` 串联意味着：vite 构建一旦失败，后处理不会执行；反过来，后处理失败也会让整条 `build:lib` 挂掉。这是有意为之的"门禁式"串联，而不是"尽力而为"的收尾脚本。
 
-vite 这一步做了两件事：Rollup 打出 ES 格式的运行时产物（`dist/index.js`），同时由 `vite-plugin-dts` 把 TS 源码转成 `dist/types/**/*.d.ts`。dts 插件的配置集中在 `scripts/config/library-build.ts` 的 `createLibraryConfig` 工厂里，两个包共用（`scripts/config/library-build.ts:46-61`）：
+vite 这一步做了两件事：Rollup 打出 ES 格式的运行时产物（`dist/index.js`），同时由 `vite-plugin-dts` 把 TS 源码转成 `dist/types/**/*.d.ts`。dts 插件的配置集中在 `scripts/config/library-build.ts` 的 `createLibraryConfig` 工厂里，两个包共用（`scripts/config/library-build.ts:37-61`）：
 
 ```ts
 export function createLibraryConfig(options: {

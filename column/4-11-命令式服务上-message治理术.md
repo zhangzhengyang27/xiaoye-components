@@ -584,7 +584,7 @@ export function invokeMessageBeforeClose(
 }
 ```
 
-`done(cancel)` 加了 `finished` 幂等锁——`done` 只认第一次调用，后续调用静默忽略；如果 `beforeClose` 返回 Promise，reject 会被吞掉并把 `finished` 置位，防止一个悬空的 Promise 把消息永久锁在"待关闭"状态；同步抛异常也按"拦截失效即放行关闭"处理。测试 `message.spec.ts:91-106` 验证了 `done(true)` 取消关闭后消息仍在。为什么要把生命周期钩子做得这么重？**权衡点在"归属"**：自动关闭（duration 到期）时，"何时死"是组件的预算，业务只该旁观；而手动/程序化关闭时，业务可能有"关闭前再确认"的诉求，`beforeClose` 就是给这条路径留的否决权。两套钩子、两种归属，互不越界。
+`done(cancel)` 加了 `finished` 幂等锁——`done` 只认第一次调用，后续调用静默忽略；如果 `beforeClose` 返回 Promise，reject 会被吞掉并把 `finished` 置位，防止一个悬空的 Promise 把消息永久锁在"待关闭"状态；同步抛异常也按"拦截失效即放行关闭"处理。**（勘误：此口径有误，详见 7-02 第七节——同步抛异常实为冻结待决而非放行）**测试 `message.spec.ts:91-106` 验证了 `done(true)` 取消关闭后消息仍在。为什么要把生命周期钩子做得这么重？**权衡点在"归属"**：自动关闭（duration 到期）时，"何时死"是组件的预算，业务只该旁观；而手动/程序化关闭时，业务可能有"关闭前再确认"的诉求，`beforeClose` 就是给这条路径留的否决权。两套钩子、两种归属，互不越界。**（勘误：此口径有误，详见 7-02 第六节——auto 到期同样经过 beforeClose，close(reason) 是全部六种 reason 的唯一入口）**
 
 ---
 
