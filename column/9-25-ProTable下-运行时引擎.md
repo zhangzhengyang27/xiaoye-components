@@ -943,7 +943,6 @@ const resolvedWorkbench = computed(() => ({
 
 **缺口记账六笔**（按修补成本排序）：一是 `exportOptions.types`（`pro-table.ts:221`）声明了 `csv | excel` 数组却没有任何实现消费，配置面虚设；二是 `xlsx` 只在根 devDependencies（`package.json:83`）而未声明进 `xiaoye-pro-components` 的 dependencies，发布包外动态 import 会运行时失败且无 catch；三是打印 HTML 的单元格值只去双引号不转义 `<>&`，`title`/`subtitle` 完全裸插值，存在注入面；四是 CSV 无 BOM 头（部分 Excel 中文乱码）且无公式注入防护（`=`,`+`,`-`,`@` 前缀）；五是虚拟列表与行拖拽同开时 Sortable 的窗口内行号会错搬全量数组；六是 `params-change` 重载不复位页码、`request-success` 事件触发时 `requestLoading` 尚未清理（894 行 emit 早于 902-905 行 finally）——两条行为细节文档未明示。这份清单与 9-19 结尾的遗留缺口一样，是第二轮修整的现成起点。
 
-下一篇 9-26《ColumnSettingPanel：列设置》把镜头对准本篇两次擦肩而过的那个面板。pro-table 模板 1573-1609 行内联了一套手搓的列设置（checkbox 列表加左右固定按钮），而 `packages/pro-components/column-setting-panel/` 又另立了一个独立组件——两者共用 `applyColumnVisibility`/`applyColumnFixed`（`pro-table.ts:331-381`）这层纯函数，却一个是内联实现、一个是独立组件，分野从何而来？列显隐、固定、排序三份状态如何同步回 `internalColumns` 而不打架，拖拽排序与显隐切换的顺序冲突怎么调停（本篇 1191-1218 行的映射桥只是半个答案），下篇拆解。
 
 ## 考据附录
 
@@ -1009,3 +1008,5 @@ column/9-10-RequestForm-请求表单.md                         （request-utils
 column/9-21-ListPage-薄预设封装.md                          （插槽转发考据）
 column/9-22-CrudPage-整页CRUD.md                            （顶层组装心法与预告链）
 ```
+
+下一篇 9-26《ColumnSettingPanel：列设置》把镜头对准本篇两次擦肩而过的那个面板。pro-table 模板 1573-1609 行内联了一套手搓的列设置（checkbox 列表加左右固定按钮），而 `packages/pro-components/column-setting-panel/` 又另立了一个独立组件——两者共用 `applyColumnVisibility`/`applyColumnFixed`（`pro-table.ts:331-381`）这层纯函数，却一个是内联实现、一个是独立组件，分野从何而来？列显隐、固定、排序三份状态如何同步回 `internalColumns` 而不打架，拖拽排序与显隐切换的顺序冲突怎么调停（本篇 1191-1218 行的映射桥只是半个答案），下篇拆解。
