@@ -233,6 +233,12 @@ importers:
       xiaoye-components:
         specifier: workspace:^
         version: link:../components
+      xiaoye-primitives:
+        specifier: workspace:^
+        version: link:../xiaoye-primitives
+      xlsx:
+        specifier: ^0.18.5
+        version: 0.18.5
 
   packages/theme: {}
 
