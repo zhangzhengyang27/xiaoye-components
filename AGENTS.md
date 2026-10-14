@@ -26,6 +26,12 @@ alwaysApply: true
   - `packages/theme/index.css`
 - 组件清单、文档侧边栏、聚合安装断言和一致性校验以 `packages/components/component-manifest.ts` 为主源，避免多处手工同步。
 - 修改组件相关逻辑后，优先补齐或更新对应单测；如果组件有类型导出或安装入口变化，也要检查 `tests/types/fixtures` 中对应夹具。
+- 巨型 SFC 采用"轻量拆分"约定：修改超过约 800 行的单文件组件（如 `select.vue`、`table.vue`、`pro-table.vue`）时，顺手把本次改动涉及的职责抽成独立 composable 或子组件，不安排专项重构、不做顺手之外的搬移。
+
+## 运行时依赖约定
+
+- 会打进发布产物的第三方依赖，必须在对应包 `package.json` 的 `dependencies` / `peerDependencies` 中声明，且模块名必须加入 `scripts/config/library-build.ts` 的 `libraryExternal`；二者缺一都会导致依赖被内联进产物或消费者侧解析失败。
+- 仅个别能力使用的重型依赖（如 pro-table 的 Excel 导出用 `xlsx`），优先声明为 `peerDependenciesMeta.optional` 可选 peer，并在运行时对动态导入失败给出安装指引。
 
 ## 增强层导出规则
 

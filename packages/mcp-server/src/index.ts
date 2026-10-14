@@ -41,7 +41,7 @@ server.tool(
     layer: z
       .enum(["all", "base", "pro"])
       .default("all")
-      .describe("Filter by component layer: base (@xiaoye/components) or pro (@xiaoye/pro-components)"),
+      .describe("Filter by component layer: base (xiaoye-components) or pro (xiaoye-pro-components)"),
   },
   async ({ layer }) => {
     const list =
@@ -198,7 +198,7 @@ function renderComponentApi(comp: ComponentData): string[] {
   lines.push("");
   lines.push(`- **Tag**: \`${tag}\``);
   lines.push(`- **Exports**: ${comp.exports.map((e) => `\`${e}\``).join(", ")}`);
-  lines.push(`- **Layer**: ${comp.layer === "base" ? "@xiaoye/components" : "@xiaoye/pro-components"}`);
+  lines.push(`- **Layer**: ${comp.layer === "base" ? "xiaoye-components" : "xiaoye-pro-components"}`);
 
   if (comp.props.length > 0) {
     lines.push("");

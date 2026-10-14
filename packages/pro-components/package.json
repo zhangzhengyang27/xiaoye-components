@@ -44,10 +44,15 @@
   "peerDependencies": {
     "vue": "^3.5.0",
     "vue-router": "^4.6.0",
-    "xiaoye-components": "workspace:^"
+    "xiaoye-components": "workspace:^",
+    "xiaoye-primitives": "workspace:^",
+    "xlsx": "^0.18.5"
   },
   "peerDependenciesMeta": {
     "vue-router": {
+      "optional": true
+    },
+    "xlsx": {
       "optional": true
     }
   },

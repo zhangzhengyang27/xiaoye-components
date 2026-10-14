@@ -1,12 +1,18 @@
 # xiaoye-components
 
+[![CI](https://github.com/zhangzhengyang27/xiaoye-components/actions/workflows/ci.yml/badge.svg)](https://github.com/zhangzhengyang27/xiaoye-components/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/xiaoye-components)](https://www.npmjs.com/package/xiaoye-components)
+[![npm](https://img.shields.io/npm/v/xiaoye-pro-components)](https://www.npmjs.com/package/xiaoye-pro-components)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 `xiaoye-components` 是一个面向中后台系统的 Vue 3 组件库，主打低心智负担的 API、一致的类型体验和可直接落地的文档案例。
 
 ## 当前状态
 
-- 项目阶段：`v0` 基础建设
-- 目标：优先完成中后台高频组件的最小可用闭环
+- 已发布 npm：基础层 `xiaoye-components`（72 个组件）、增强层 `xiaoye-pro-components`（31 个组件）、基础设施 `xiaoye-primitives`、MCP Server `xiaoye-mcp-server`
+- 在线文档：<https://xiaoye-components.zhangzhengyang.com/>
 - 技术栈：`Vue 3 + TypeScript + Vite + pnpm`
+- 版本与发布走 Changesets（push main 自动开 Version Packages PR，合并后自动发布）
 
 ## 场景选型
 
@@ -95,16 +101,15 @@ pnpm build
 
 - `apps/docs`：VitePress 文档站
 - `apps/playground`：本地联调 playground
-- `packages/components`：组件源码
-- `packages/pro-components`：中后台增强组件源码
-- `packages/theme`：Token 和组件样式
-- `packages/tokens`：设计 Token 定义
-- `packages/xiaoye-components`：聚合导出与发布入口
-- `packages/xiaoye-pro-components`：增强层聚合导出与发布入口
+- `packages/components`：基础组件源码（npm 包名 `xiaoye-components`）
+- `packages/pro-components`：中后台增强组件源码（npm 包名 `xiaoye-pro-components`）
+- `packages/xiaoye-primitives`：基础设施包（composables / utils / 设计令牌事实源）
+- `packages/theme`：组件样式入口与 CSS 实现
+- `packages/tokens`：设计令牌 TS 常量层（由 tokens.css 生成）
+- `packages/mcp-server`：面向 AI 工具的 MCP Server
+- `tests/types`：类型测试夹具
 
 ## 路线
 
-- `0.1.x`：基础设施、主题系统、基础组件
-- `0.2.x`：表单链路和高频交互组件
-- `0.3.x`：表格和示例页面
-- `0.4.x`：首个可推广的公开版本
+- 近期：按需加载方案（unplugin 自动导入）、MCP Server 面向 AI 工具的推广、更多中后台场景组件
+- 长期：持续对齐中后台高频场景的最小可用闭环，保持低心智负担的 API 与完整类型体验

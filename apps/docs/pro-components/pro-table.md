@@ -163,6 +163,11 @@ pro/pro-table/states
 | `total` | 总条数 | `number` | `undefined` |
 | `page-sizes` | 可选每页条数 | `number[]` | `[10, 20, 50, 100]` |
 
+### Excel 导出的可选依赖
+
+- CSV 导出零依赖；Excel 导出（`exportOptions.defaultType: 'excel'` 或工具栏切换）依赖 `xlsx`，它是 `xiaoye-pro-components` 的**可选 peer 依赖**，不会随包自动安装。
+- 未安装时控制台会提示 `npm install xlsx`，导出动作静默中止；需要 Excel 能力的项目请自行安装该依赖。
+
 ### 列表态优先级
 
 - `loading=true` 时始终优先显示 loading，空态不会同时出现。

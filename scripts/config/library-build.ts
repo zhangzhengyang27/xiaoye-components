@@ -31,7 +31,8 @@ export const libraryExternal = [
   "howler",
   "sortablejs",
   "vditor",
-  "video.js"
+  "video.js",
+  "xlsx"
 ];
 
 export function createLibraryConfig(options: {

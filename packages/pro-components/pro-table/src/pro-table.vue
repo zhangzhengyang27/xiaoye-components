@@ -1110,7 +1110,16 @@ async function handleExport(type?: "csv" | "excel") {
   );
 
   if (exportType === "excel") {
-    const XLSX = await import("xlsx");
+    // xlsx 是可选 peer 依赖，未安装时给出明确指引而不是抛出裸模块错误
+    let XLSX: typeof import("xlsx");
+    try {
+      XLSX = await import("xlsx");
+    } catch {
+      console.warn(
+        "[XyProTable] Excel 导出依赖 xlsx（可选），请先安装：npm install xlsx 或 pnpm add xlsx"
+      );
+      return;
+    }
     const worksheet = XLSX.utils.aoa_to_sheet([headers, ...records]);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");

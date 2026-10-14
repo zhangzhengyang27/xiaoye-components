@@ -1,6 +1,6 @@
 # xiaoye-components 完整 API 参考
 
-> 自动生成于 2026-09-22T22:47:21.402Z
+> 自动生成于 2026-10-14T11:41:55.541Z
 > 包含 103 个组件的完整 Props / Events / Slots / Exposes 定义
 
 ## 基础组件（@xiaoye/components）

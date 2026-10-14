@@ -331,7 +331,29 @@ fs.writeFileSync(
   "utf8"
 );
 
-console.log(`API Schema 已生成：${allComponents.length} 个组件`);
+// mcp-server 运行时数据：以包内 TS 模块形式提交（编译进 dist 随包发布），
+// 不含 generatedAt 等易变字段，保证生成物可被 check:llms 漂移守卫校验。
+const mcpSchema = {
+  version: schema.version,
+  components: allComponents,
+};
+const mcpSchemaPath = path.join(repoRoot, "packages/mcp-server/src/api-schema.ts");
+fs.writeFileSync(
+  mcpSchemaPath,
+  `// 由 scripts/generate-llm-files.mjs 自动生成，请勿手工编辑；事实源为 component-manifest 与文档，重新生成：pnpm generate:llm
+export interface McpApiSchema {
+  version: string;
+  components: unknown[];
+}
+
+export const apiSchema: McpApiSchema = ${JSON.stringify(mcpSchema, null, 2)};
+`,
+  "utf8"
+);
+
+console.log(
+  `API Schema 已生成：${allComponents.length} 个组件（缓存 scripts/.llm-cache/api-schema.json，mcp 数据 packages/mcp-server/src/api-schema.ts）`
+);
 
 function generateLlmsFull(components) {
   const sections = [];
